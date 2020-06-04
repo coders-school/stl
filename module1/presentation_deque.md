@@ -7,7 +7,7 @@
 ### deque = double ended queue
 
 <a href="https://coders.school">
-    <img width="500" data-src="../img/coders_school_logo.png" alt="Coders School" class="plain">
+    <img width="500" data-src="../coders_school_logo.png" src="../coders_school_logo.png"  alt="Coders School" class="plain">
 </a>
 
 ___
@@ -27,7 +27,7 @@ ___
 
 ## Struktura `std::deque<T>`
 
-<img height="600" data-src="deque.png" alt="deque" class="plain">
+<img height="600" data-src="img/deque.png" src="img/deque.png" alt="deque" class="plain">
 
 ___
 
@@ -39,8 +39,8 @@ ___
 * <!-- .element: class="fragment fade-in" --> Dodanie nowego elementu jest szybkie
   * Jeżeli dany `chunk` ma jeszcze miejsce to dopisujemy go na koniec
   * Jeżeli nie, to alokowany jest nowy chunk i tam wpisywany jest nowy element
-* <!-- .element: class="fragment fade-in" --> Usuwanie elementów jest szybkie
-  * Jeżeli usuniemy pierwszy element z `chunka` to mamy do przesunięcia tylko `x - 1` elementów, gdzie `x` to rozmiar chunka.
+* <!-- .element: class="fragment fade-in" --> Usuwanie z początku i końca jest szybkie, bo powoduje jedynie przesunięcie iteratorów <code>begin()</code> lub <code>end()</code>
+* <!-- .element: class="fragment fade-in" --> Usuwanie elementów ze środka jest kosztowne
 * <!-- .element: class="fragment fade-in" --> Odczyt i modyfikacja jest szybka
   * Znamy rozmiar `chunka`, więc wiemy dokładnie, z którego pola w naszym wektorze pomocniczym powinniśmy odczytać adres `chunka`
   * Wiemy także, z którego pola odczytać daną, gdyż `chunk` jest ułożony jak tablica.
@@ -94,7 +94,7 @@ int main() {
     d.push_back(25);
 
     // Iterate and print values of the deque
-    for(int n : d) {
+    for(const auto& n : d) {
         std::cout << n << ' ';
     }
     std::cout << '\n';
@@ -107,7 +107,7 @@ Output:
 
 ___
 
-## Zadanie
+## Zadanie 6
 
 * Znajdź dokumentację `std::deque` na [cppreference.com](https://en.cppreference.com)
 * Stwórz nowy plik cpp i napisz funkcję `main()`
