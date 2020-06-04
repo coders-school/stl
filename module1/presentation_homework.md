@@ -17,13 +17,13 @@ ___
 ### Napisz na czacie jak najwięcej haseł
 <!-- .element: class="fragment fade-in" -->
 
-1. <!-- .element: class="fragment fade-in" --> Jak czytać dokumentację
 1. <!-- .element: class="fragment fade-in" --> Przypomnienie STLa
-1. <!-- .element: class="fragment fade-in" --> <code>std::vector&lt;T&gt;</code>
-1. <!-- .element: class="fragment fade-in" --> <code>std::list&lt;T&gt;</code>
-1. <!-- .element: class="fragment fade-in" --> <code>std::forward_list&lt;T&gt;</code>
-1. <!-- .element: class="fragment fade-in" --> <code>std::array&lt;T, N&gt;</code>
-1. <!-- .element: class="fragment fade-in" --> <code>std::deque&lt;T&gt;</code>
+2. <!-- .element: class="fragment fade-in" --> Jak czytać dokumentację
+3. <!-- .element: class="fragment fade-in" --> <code>std::vector&lt;T&gt;</code>
+4. <!-- .element: class="fragment fade-in" --> <code>std::list&lt;T&gt;</code>
+5. <!-- .element: class="fragment fade-in" --> <code>std::forward_list&lt;T&gt;</code>
+6. <!-- .element: class="fragment fade-in" --> <code>std::array&lt;T, N&gt;</code>
+7. <!-- .element: class="fragment fade-in" --> <code>std::deque&lt;T&gt;</code>
 
 ___
 
