@@ -1,11 +1,12 @@
 <!-- .slide: data-background="#111111" -->
 
 # `std::forward_list<T>`
+<!-- .element: style="font-size: 2.3em" -->
 
 ## Lista jednokierunkowa
 
 <a href="https://coders.school">
-    <img width="500" data-src="../img/coders_school_logo.png" alt="Coders School" class="plain">
+    <img width="500" data-src="../coders_school_logo.png" alt="Coders School" class="plain">
 </a>
 
 ___
@@ -18,7 +19,7 @@ ___
 * <!-- .element: class="fragment fade-in" --> Nie jest cache-friendly
 * <!-- .element: class="fragment fade-in" --> Dodawanie nowego elementu jest proste. Program zaalokuje potrzebną pamięć dla węzła i przekaże poprzedniemu węzłowi (o ile istnieje) informacje o swoim położeniu.
 * <!-- .element: class="fragment fade-in" --> Usuwanie elementu jest szybkie, program zwalnia pamięć zaalokowaną dla danego węzła oraz informuje o tym poprzedni węzeł, aby mógł zmienić swój wskaźnik.
-* <!-- .element: class="fragment fade-in" --> Wyszukiwanie węzła jest już kosztowne, gdyż musimy się przeiterować kolejno przez wszystkie węzły, aż odnajdziemy poszukiwany (nawet, jeżeli dokładnie wiemy, że jest on np. 40-tym elementem listy)
+* <!-- .element: class="fragment fade-in" --> Wyszukiwanie węzła (np. do usunięcia lub wstawienia za nim nowego elementu) jest już kosztowne, gdyż musimy się przeiterować kolejno przez wszystkie węzły, aż odnajdziemy poszukiwany (nawet, jeżeli dokładnie wiemy, że jest on np. 40-tym elementem listy)
 
 ___
 <!-- .slide: style="font-size: 0.9em" -->
@@ -36,7 +37,7 @@ ___
 * <!-- .element: class="fragment fade-in" --> posortowanie listy: <code>sort()</code>
 * <!-- .element: class="fragment fade-in" --> odwrócenie listy: <code>reverse()</code>
 * <!-- .element: class="fragment fade-in" --> usunięcie duplikatów: <code>unique()</code>
-* <!-- .element: class="fragment fade-in" --> przygotowanie elementu do usunięcia: <code>remove()</code>
+* <!-- .element: class="fragment fade-in" --> usunięcie elementów z listy: <code>remove()</code>
 * <!-- .element: class="fragment fade-in" --> wymazanie elementów z pamięci: <code>erase_after()</code>
 * <!-- .element: class="fragment fade-in" --> wymazanie elementów z pamięci używając <code>&lt;algorithm&gt;</code>: <code>erase()</code>
 * <!-- .element: class="fragment fade-in" --> podmiana całego kontenera: <code>swap()</code>

@@ -5,7 +5,7 @@
 ## Tablica o dynamicznym rozmiarze
 
 <a href="https://coders.school">
-    <img width="500" data-src="../img/coders_school_logo.png" alt="Coders School" class="plain">
+    <img width="500" data-src="../coders_school_logo.png" alt="Coders School" class="plain">
 </a>
 
 ___
@@ -113,6 +113,7 @@ ___
 ```cpp
 std::vector<int> vec {1, 2, 3, 4, 5, 6, 7, 8, 9};
 for (auto it = vec.crbegin() ; it != vec.crend() ; ++it) {
+    // cr = (r)everse iterator to (c)onst value
     std::cout << *it << ' ';
 }
 ```

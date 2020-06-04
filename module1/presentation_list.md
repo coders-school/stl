@@ -5,7 +5,7 @@
 ## Lista dwukierunkowa
 
 <a href="https://coders.school">
-    <img width="500" data-src="../img/coders_school_logo.png" alt="Coders School" class="plain">
+    <img width="500" data-src="../coders_school_logo.png" alt="Coders School" class="plain">
 </a>
 
 ___
@@ -18,7 +18,7 @@ ___
 * <!-- .element: class="fragment fade-in" --> Nie jest cache-friendly
 * <!-- .element: class="fragment fade-in" --> Dodawanie nowego elementu jest proste. Program zaalokuje potrzebną pamięć dla węzła i przekaże sąsiednim węzłom (o ile istnieją) informacje o swoim położeniu
 * <!-- .element: class="fragment fade-in" --> Usuwanie elementu jest szybkie, program zwalnia pamięć zaalokowaną dla danego węzła oraz informuje o tym sąsiednie węzły, aby mogły zmienić swoje wskaźniki
-* <!-- .element: class="fragment fade-in" --> Wyszukiwanie węzła jest już kosztowne, gdyż musimy się przeiterować kolejno przez wszystkie węzły, aż odnajdziemy poszukiwany (nawet, jeżeli dokładnie wiemy, że jest on np. 40-tym elementem listy)
+* <!-- .element: class="fragment fade-in" --> Wyszukiwanie węzła (np. do usunięcia lub wstawienia za nim nowego elementu) jest już kosztowne, gdyż musimy się przeiterować kolejno przez wszystkie węzły, aż odnajdziemy poszukiwany (nawet, jeżeli dokładnie wiemy, że jest on np. 40-tym elementem listy)
 
 ___
 <!-- .element: style="font-size: 0.9em" -->
@@ -36,7 +36,7 @@ ___
 * <!-- .element: class="fragment fade-in" --> posortowanie listy: <code>sort()</code>
 * <!-- .element: class="fragment fade-in" --> odwrócenie listy: <code>reverse()</code>
 * <!-- .element: class="fragment fade-in" --> usunięcie duplikatów: <code>unique()</code>
-* <!-- .element: class="fragment fade-in" --> przygotowanie elementu do usunięcia: <code>remove()</code>
+* <!-- .element: class="fragment fade-in" --> usunięcie elementów z listy: <code>remove()</code>
 * <!-- .element: class="fragment fade-in" --> wymazanie elementów z pamięci: <code>erase()</code>
 * <!-- .element: class="fragment fade-in" --> podmiana całego kontenera: <code>swap()</code>
 
