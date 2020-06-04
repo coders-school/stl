@@ -34,11 +34,13 @@ ___
 
 ### Post-work
 
+Ta praca domowa może już stanowić pewne wyzwanie. Działaj dużo z dokumentacją cppreference.
+
 * Poczytaj o formacie grafiki PGM - [Wiki ENG](https://en.wikipedia.org/wiki/Netpbm#File_formats). Ta wiedza może się przydać w zadaniu 3 i 4.
-* Zadanie 1 - `removeVowel()`
-* Zadanie 2 - `lengthSort()`
-* Zadanie 3 - `compressGrayscale()`
-* Zadanie 4 - `decompressGrayscale()`
+* Zadanie 1 - `removeVowels()` (5 punktów)
+* Zadanie 2 - `lengthSort()` (6 punktów)
+* Zadanie 3a - `compressGrayscale()` (7 punktów)
+* Zadanie 3b - `decompressGrayscale()` (7 punktów)
 
 #### Bonusy
 
@@ -57,9 +59,9 @@ ___
 
 ___
 
-## Zadanie 1 - `removeVowel()`
+## Zadanie 1 - `removeVowels()`
 
-Napisz funkcję `removeVowel()`, która przyjmie `std::vector<std::string>>` oraz usunie wszystkie samogłoski z tych wyrażeń.
+Napisz funkcję `removeVowels()`, która przyjmie `std::vector<std::string>>` oraz usunie wszystkie samogłoski z tych wyrażeń.
 
 * Input: `{"abcde", "aabbbccabc", "qwerty"}`
 * Output: `{"bcd", "bbccbc", "qwrt"}`
@@ -80,7 +82,7 @@ posortuj je leksykograficznie.
 ___
 <!-- .slide: style="font-size: 0.9em" -->
 
-## Zadanie 3 - `compressGrayscale()`
+## Zadanie 3a - `compressGrayscale()`
 
 Zadaniem będzie kompresja obrazka w odcieniach szarości o wymiarach 240x160 pikseli. Każdy piksel może mieć wartość od 0 (kolor czarny) do 255 (kolor biały). Im większa wartość tym jaśniejszy odcień piksel reprezentuje. Przykład małego obrazka o rozmiarach 6x4 piksele:
 
@@ -98,7 +100,7 @@ Aby otrzymać z tego plik w formacie PGM wystarczy tylko dodać mu odpowiedni na
 ___
 <!-- .slide: style="font-size: 0.9em" -->
 
-## Zadanie 3 - `compressGrayscale()` - opis
+## Zadanie 3a - `compressGrayscale()` - opis
 
 Napisz funkcję `compressGrayscale()`.
 Powinna ona przyjąć jeden argument typu `std::array<std::array<uint8_t, 240>, 160>` określający rozkład odcieni szarości na obrazku 2D (który w dalszej części nazywać będziemy bitmapą) i zwróci `std::vector<std::pair<uint8_t, uint8_t>>` zawierający skompresowaną bitmapę.
@@ -112,7 +114,7 @@ Kompresja powinna przebiegać w następujący sposób:
 ___
 <!-- .slide: style="font-size: 0.9em" -->
 
-## Zadanie 3 - `compressGrayscale()` - przykład
+## Zadanie 3a - `compressGrayscale()` - przykład
 
 ```cpp
 input: {{0 0 0 1 1 2 3 0 0 0},
@@ -133,7 +135,7 @@ ___
 
 ___
 
-## Zadanie 4 - `decompressGrayscale()`
+## Zadanie 3b - `decompressGrayscale()`
 
 Napisz funkcję `decompressGrayscale()`, która zdekompresuje obrazek skompresowany w zadaniu 3 za pomocą funkcji `compressGrayscale()`.
 
