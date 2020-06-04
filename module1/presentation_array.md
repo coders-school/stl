@@ -5,7 +5,7 @@
 ## Tablica o stałym rozmiarze
 
 <a href="https://coders.school">
-    <img width="500" data-src="../img/coders_school_logo.png" alt="Coders School" class="plain">
+    <img width="500" data-src="../coders_school_logo.png" src="../coders_school_logo.png" alt="Coders School" class="plain">
 </a>
 
 ___
@@ -46,14 +46,14 @@ Ponieważ `std::array<T, N>` ma 2 parametry szablonu, niektórzy mogą mieć pro
 
 ```cpp
 void print(const std::array<int, 10>& arr) {
-    for (auto el : arr) {
+    for (const auto& el : arr) {
         std::cout << el << ' ';
     }
-    std::cout << "\n";
+    std::cout << '\n';
 }
 
 int main() {
-    std::array<int, 10> arr{1, 2, 3, 4, 5, 6, 7, 8, 9 , 10};
+    std::array<int, 10> arr{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     print(arr);
 
     return 0;
