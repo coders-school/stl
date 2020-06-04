@@ -7,7 +7,7 @@
 ### Podsumowanie
 
 <a href="https://coders.school">
-    <img width="500px" data-src="../coders_school_logo.png" alt="Coders School" class="plain">
+    <img width="500px" data-src="../coders_school_logo.png" src="../coders_school_logo.png" alt="Coders School" class="plain">
 </a>
 
 ___
@@ -27,7 +27,7 @@ ___
 
 ___
 
-<img width="500" data-src="img/sequence_containers.png" alt="Kontenery sekwencyjne" class="plain">
+<img width="500" data-src="img/sequence_containers.png" src="img/sequence_containers.png" alt="Kontenery sekwencyjne" class="plain">
 ___
 
 ## Praca domowa
@@ -84,7 +84,7 @@ ___
 
 Zadaniem będzie kompresja obrazka w odcieniach szarości o wymiarach 240x160 pikseli. Każdy piksel może mieć wartość od 0 (kolor czarny) do 255 (kolor biały). Im większa wartość tym jaśniejszy odcień piksel reprezentuje. Przykład małego obrazka o rozmiarach 6x4 piksele:
 
-<img width="300px" data-src="img/example.png" alt="Przykład pikseli" class="plain">
+<img width="300px" data-src="img/example.png" src="img/example.png" alt="Przykład pikseli" class="plain">
 
 ```cpp
 255 255 0   255 0   255   // 0xFF 0xFF 0x00 0xFF 0x00 0xFF
@@ -146,7 +146,7 @@ ___
 Dla chętnych (bez punktów) polecamy także napisać sobie funkcję `printMap()`, która wyświetli mapę.
 Domyślnie `std::cout` potraktuje `uint8_t` jako `unsigned char`, dlatego też możecie sobie wypisać mapę z kodów ASCII.
 
-<img width="450px" data-src="img/ascii_art_mug.jpg" alt="ASCII art z kubkiem" class="plain">
+<img width="450px" data-src="img/ascii_art_mug.jpg" src="img/ascii_art_mug.jpg" alt="ASCII art z kubkiem" class="plain">
 
 ___
 
