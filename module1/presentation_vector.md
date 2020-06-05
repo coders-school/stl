@@ -23,7 +23,7 @@ ___
 
 ## Operacje na `std::vector<T>`
 
-* <!-- .element: class="fragment fade-in" --> dodawanie elementu: <code>push_back</code>, <code>emplace_back()</code>, <code>insert()</code>
+* <!-- .element: class="fragment fade-in" --> dodawanie elementu: <code>push_back()</code>, <code>emplace_back()</code>, <code>insert()</code>
 * <!-- .element: class="fragment fade-in" --> modyfikowanie/dostęp do elementu: <code>at()</code>, <code>operator []</code>
 * <!-- .element: class="fragment fade-in" --> pierwszy/ostatni element: <code>back()</code>, <code>front()</code>
 * <!-- .element: class="fragment fade-in" --> rozmiar/czy kontener jest pusty: <code>size()</code>, <code>empty()</code>
@@ -99,7 +99,7 @@ Istnieje też możliwość wstawienia elementów z jednego kontenera do drugiego
 std::vector<int> vec{1, 2, 3, 4};
 std::list<int> list{10, 20, 30, 40};
 vec.insert(vec.begin(), list.begin(), list.end());
-// vec = {10 20 30 40 1 2 3 4}
+// vec = {10, 20, 30, 40, 1, 2, 3, 4}
 ```
 <!-- .element: class="fragment fade-in" -->
 
@@ -157,7 +157,7 @@ Dlatego na końcu wektora pozostają "śmieci", które należy wymazać (ang. er
 ```cpp
 std::vector<int> vec{1, 4, 2, 4, 3, 4, 5};
 std::remove(vec.begin(), vec.end(), 4);
-// for example: vec {1 2 3 5 3 4 5}
+// for example: vec {1, 2, 3, 5, 3, 4, 5}
 ```
 <!-- .element: class="fragment fade-in" -->
 
@@ -173,7 +173,7 @@ ___
 ```cpp
 template< class T, class Alloc, class U >
 constexpr typename std::vector<T,Alloc>::size_type
-    erase(std::vector<T,Alloc>& c, const U& value);
+    erase(std::vector<T, Alloc>& c, const U& value);
 ```
 <!-- .element: class="fragment fade-in" -->
 
