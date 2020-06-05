@@ -63,7 +63,7 @@ int main() {
 
 ___
 
-## Zadanie 3
+## Zadanie
 
 * Znajdź dokumentację `std::array` na [cppreference.com](https://en.cppreference.com)
 * Stwórz nowy plik cpp i napisz funkcję `main()`
