@@ -18,13 +18,14 @@ bool isVowel(char ch) {
         break;
     }
 }
-//segmentation fault here 
+
 void removeVowels(std::vector<std::string>& vec) {
     for (auto& element : vec) {
-        for (auto it = element.begin(); it != element.end(); ++it) {
-            if (isVowel(*it)) {
-                element.erase(it);
+        for (int i = 0; i < element.size(); ++i) {
+            if (isVowel(element[i])) {
+                element.erase(element.begin() + i--);
             }
         }
     }
 }
+
