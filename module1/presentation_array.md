@@ -46,14 +46,14 @@ Ponieważ `std::array<T, N>` ma 2 parametry szablonu, niektórzy mogą mieć pro
 
 ```cpp
 void print(const std::array<int, 10>& arr) {
-    for (auto el : arr) {
+    for (const auto& el : arr) {
         std::cout << el << ' ';
     }
     std::cout << "\n";
 }
 
 int main() {
-    std::array<int, 10> arr{1, 2, 3, 4, 5, 6, 7, 8, 9 , 10};
+    std::array<int, 10> arr{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     print(arr);
 
     return 0;
@@ -63,7 +63,7 @@ int main() {
 
 ___
 
-## Zadanie
+## Zadanie 3
 
 * Znajdź dokumentację `std::array` na [cppreference.com](https://en.cppreference.com)
 * Stwórz nowy plik cpp i napisz funkcję `main()`
