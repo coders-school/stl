@@ -1,5 +1,6 @@
+#include <string>
 #include <vector>
 
-void removeVovels(std::vector<std::string>& vec){
-    
-}
+bool isVowel(char ch);
+
+void removeVowels(std::vector<std::string>& vec);
