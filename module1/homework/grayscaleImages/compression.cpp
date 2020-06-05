@@ -1,5 +1,7 @@
 #include "compression.hpp"
 
+#include <iostream>
+
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array<uint8_t, width>, height>) {
     return {std::make_pair<uint8_t, uint8_t>(0, 0)};
 }
@@ -23,4 +25,13 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::ve
     }
 
     return decompressed;
+}
+
+void printMap(const std::array<std::array<uint8_t, width>, height>& mapToPrint) {
+    for (const auto& row : mapToPrint) {
+        for (const auto& el : row) {
+            std::cout << el;
+        }
+        std::cout << '\n';
+    }
 }
