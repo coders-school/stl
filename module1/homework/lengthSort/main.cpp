@@ -16,7 +16,7 @@ int main() {
     std::forward_list<std::string> words = {
         "Somebody", "once", "told", "me", "the", "world", "is", "gonna", "roll", "me"};
     printCollection(words);
-    auto sorted = sort(words);
+    auto sorted = lengthSort(words);
     printCollection(sorted);
 
     return 0;

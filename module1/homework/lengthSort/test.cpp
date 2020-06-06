@@ -22,7 +22,7 @@ TEST(lengthSortTests, ShouldSortLexicographicallyWhenLengthIsEqual) {
         {"SWORDS"},
         {"TOMASZ"},
         {"WORDSS"}};
-    auto result = sort(list);
+    auto result = lengthSort(list);
     ASSERT_TRUE(result.size() == expected_result.size());
     EXPECT_EQ(result, expected_result);
 }
@@ -48,7 +48,7 @@ TEST(lengthSortTests, ShouldSortByLength) {
         {"alamako"},
         {"alamakot"},
         {"alamakota"}};
-    auto result = sort(list);
+    auto result = lengthSort(list);
     ASSERT_TRUE(result.size() == expected_result.size());
     EXPECT_EQ(result, expected_result);
 }
