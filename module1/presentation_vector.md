@@ -76,7 +76,7 @@ Możemy także określić ile elementów chcemy dodać:
 ```cpp
 std::vector<int> vec{1, 2, 3, 4};
 auto it = vec.begin();
-vec.insert(it, 5, 20); // {20, 20, 20, 20, 20 1, 2, 3, 4};
+vec.insert(it, 5, 20); // {20, 20, 20, 20, 20, 1, 2, 3, 4};
 ```
 <!-- .element: class="fragment fade-in" -->
 

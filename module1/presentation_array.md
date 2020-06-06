@@ -49,7 +49,7 @@ void print(const std::array<int, 10>& arr) {
     for (const auto& el : arr) {
         std::cout << el << ' ';
     }
-    std::cout << "\n";
+    std::cout << '\n';
 }
 
 int main() {
