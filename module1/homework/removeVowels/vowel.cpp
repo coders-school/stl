@@ -23,9 +23,8 @@ void removeVowels(std::vector<std::string>& vec) {
     for (auto& element : vec) {
         for (int i = 0; i < element.size(); ++i) {
             if (isVowel(element[i])) {
-                element.erase(element.begin() + i--);
+                element.erase(std::next(element.begin(), i--));
             }
         }
     }
 }
-
