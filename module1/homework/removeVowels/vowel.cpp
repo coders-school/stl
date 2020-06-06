@@ -7,9 +7,7 @@ std::vector<std::string>& removeVowels(std::vector<std::string>& vec) {
 
     for(auto& string : vec) {
         for(auto& letter : vow) {
-            if(std::find(string.begin(), string.end(), letter) != string.end()) {
-                string.erase(std::remove(string.begin(), string.end(), letter), string.end());
-            }
+            string.erase(std::remove(string.begin(), string.end(), letter), string.end());
         }
     }
 
