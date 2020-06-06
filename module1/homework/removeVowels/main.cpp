@@ -1,5 +1,5 @@
 #include <iostream>
-#include <string>
+
 #include "vowel.hpp"
 
 template <typename T>
