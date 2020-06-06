@@ -1117,7 +1117,7 @@ Error code:
 - ModuleOfNonIntegerValue -> Póba obliczenia % na liczbie niecałkowitej. 
 ___
 
-### Zadanie 4 #3
+### Zadanie 4 #4
 
 Funkcja, która będzie testowana:
 * ErrorCode process(std::string input, double* out)
