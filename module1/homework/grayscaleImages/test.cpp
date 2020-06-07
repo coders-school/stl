@@ -4,6 +4,7 @@
 #include <vector>
 
 // TODO: include
+#include "grayscale.hpp"
 #include "gtest/gtest.h"
 
 void expectBitmap(const std::vector<std::pair<uint8_t, uint8_t>>& bitmap, size_t fraction) {
