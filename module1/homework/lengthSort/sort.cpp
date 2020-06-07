@@ -8,7 +8,7 @@ std::deque<std::string> lengthSort(std::forward_list<std::string> listToSort) {
             return lhs <= rhs;
         }
 
-        return lhs.size() < rhs.size();
+        return lhs.size() <= rhs.size();
     };
 
     listToSort.sort(sortPred);
