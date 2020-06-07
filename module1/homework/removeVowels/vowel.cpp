@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 #include <algorithm>
+
 #include "vowel.hpp"
+#include <algorithm>
 
 void removeVowelsfromWord(std::string& word)
 {
