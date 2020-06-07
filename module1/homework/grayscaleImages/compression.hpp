@@ -2,6 +2,7 @@
 
 #include <array>
 #include <cstdint>
+#include <utility>
 #include <vector>
 
 constexpr size_t width = 32;
