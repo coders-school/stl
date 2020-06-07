@@ -11,18 +11,18 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std:
     uint8_t color = 0;
 
     for (const auto& row : compress) {
-        color = row.front();
+        color = row[0];
         repetitionCounter = 0;
-        for (auto column : row) {
+        for (const auto& column : row) {
             if (column == color) {
                 ++repetitionCounter;
             } else {
-                compressedBitmap.emplace_back(color, repetitionCounter);
+                compressedBitmap.push_back({color, repetitionCounter});
                 color = column;
                 repetitionCounter = 1;
             }
         }
-        compressedBitmap.emplace_back(color, repetitionCounter);
+        compressedBitmap.push_back({color, repetitionCounter});
     }
 
     return compressedBitmap;
@@ -54,8 +54,12 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::ve
 
 void printMap(const std::array<std::array<uint8_t, width>, height>& mapToPrint) {
     for (const auto& row : mapToPrint) {
-        for (const auto& el : row) {
-            std::cout << el;
+        for (const auto el : row) {
+            if (el <= ' ') {
+                std::cout << ' ';
+            } else {
+                std::cout << el;
+            }
         }
         std::cout << '\n';
     }
