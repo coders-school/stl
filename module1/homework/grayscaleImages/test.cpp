@@ -188,3 +188,9 @@ TEST(compressionTests, ShouldCompressAndDecompress) {
     ASSERT_TRUE(bitmap.size() == input.size());
     EXPECT_EQ(bitmap, input);
 }
+
+TEST(compressionTests, ShouldPrintMapFromVector) {
+  const std::vector<std::pair<uint8_t, uint8_t>> testVector = {{3, 4}};
+  std::string testString = printMap(testVector);
+  EXPECT_EQ("3333", testString);
+}
