@@ -41,21 +41,14 @@ std::array<std::array<uint8_t, 32>, 32> generateNinja() {
     };
 }
 
-void printMap(const std::array<std::array<uint8_t, width>, height>& bitmap) {
-    for(const auto& row : bitmap) {
-        for(const auto& column : row) {
-            std::cout << column;
-        }
-        std::cout << '\n';
-    }
-}
 
 int main() {
     auto ninja = generateNinja();
-    //printMap(ninja);
-    //auto compressed = compressGrayscale(ninja);
-    //auto decompressed = decompressGrayscale(compressed);
-    //printMap(decompressed);
+    printMap(ninja);
+    auto compressed = compressGrayscale(ninja);
+    auto decompressed = decompressGrayscale(compressed);
+    std::cout << '\n';
+    printMap(decompressed);
 
     return 0;
 }
