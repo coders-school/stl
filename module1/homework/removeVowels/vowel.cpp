@@ -1,21 +1,19 @@
 
-#include <algorithm>
-#include <iostream>
 #include "vowel.hpp"
+#include <algorithm>
 
-void removeVowelsfromStr(std::string& str)
+void removeVowelsfromWord(std::string& word)
 {
-    for(char i : "aAeEyYuUiIiOo")
+    for (char i : "aAeEyYuUiIiOo")
     {
-        str.erase(std::remove(std::begin(str), std::end(str), i), std::end(str));
+        word.erase(std::remove(std::begin(word), std::end(word), i), std::end(word));
     }
 }
 
-void removeVowels(std::vector<std::string>& vec)
+void removeVowels(std::vector<std::string>& words)
 {
-    for(auto & s : vec) 
+    for (auto& s : words)
     {
-        removeVowelsfromStr(s);
+        removeVowelsfromWord(s);
     }
 }
- 
