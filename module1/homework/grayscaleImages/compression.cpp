@@ -31,7 +31,7 @@ PGMBitMap decompressGrayscale(const CompressedPGMBitMap& compressedImg) {
 
     size_t pairCounter = 0;
     HeightType currentRow = 0;
-    WidthType idxWithinRow = 0;
+    size_t idxWithinRow = 0;
     auto currentEmptySlot = decompressed[currentRow].begin();
 
     for (const auto& pair : compressedImg) {
