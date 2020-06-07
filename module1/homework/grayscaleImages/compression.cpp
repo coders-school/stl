@@ -68,12 +68,3 @@ void printMap(const PGMBitMap& img) {
     }
     std::cout << ss.str();
 }
-
-void printCompressedMap(const CompressedPGMBitMap& compressedImg) {
-    std::stringstream ss;
-    ss << '{';
-    for (const auto& pair : compressedImg) {
-        ss << "\n\t{" << pair.first << ", " << std::to_string(pair.second) << '}';
-    }
-    std::cout << ss.str();
-}
