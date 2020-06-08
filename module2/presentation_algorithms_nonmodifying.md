@@ -10,9 +10,15 @@ ___
 
 ## Algorytmy niemodyfikujące kontenerów
 
-Nie modyfikują one kontenerów na których działają
+Nie modyfikują one kontenerów na których działają.
 
-Inaczej, nie zmieniają kolejności elementów w kontenerze i niczego nie dodają, nie usuwają
+Nie mogą:
+
+* zmieniać kolejności elementów w kontenerze
+* usuwać elementy
+* dodawać elementy
+
+Tutaj znajdziesz tylko popularne lub ciekawe użycia niektórych algorytmów. Pełna lista algorytmów dostępna jest na cppreferene.com
 
 [Algorytmy na cppreference.com](https://en.cppreference.com/w/cpp/algorithm)
 
