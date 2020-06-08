@@ -49,9 +49,9 @@ TEST(compressionTests, ShouldCompressLineWith2Values)
 
 TEST(compressionTests, ShouldCompressLineWith4Values)
 {
-    std::array<uint8_t, 10> arr{1, 1, 1, 3, 1, 1, 1, 2, 2, 2, 2, 5};
+    std::array<uint8_t, 10> arr{1, 1, 3, 1, 1, 2, 2, 2, 2, 5};
 
-    CompressedBitmap bitmap = {{1, 6}, {3,1}, {2, 4}, {5,1}};
+    CompressedBitmap bitmap = {{1, 2}, {3,1}, {1,2}, {2, 4}, {5,1}};
     ASSERT_EQ(bitmap, compressLine(arr));
 }
 
