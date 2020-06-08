@@ -13,9 +13,7 @@ std::deque<std::string> lengthSort(std::forward_list<std::string> listToSort) {
 
     std::deque<std::string> result;
 
-    for (const auto& el : listToSort) {
-        result.push_back(el);
-    }
+    result.insert(result.cbegin(), listToSort.cbegin(), listToSort.cend());
 
     return result;
 }
