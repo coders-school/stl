@@ -1,8 +1,6 @@
 #include "compression.hpp"
 
-#include <algorithm>
 #include <iostream>
-#include <map>
 
 
 compressedBitmap compressGrayscale(const image& img) {
@@ -44,7 +42,7 @@ image decompressGrayscale(const compressedBitmap& cBmp) {
 }
 
 void printMap(const image& img) {
-    
+
     for (const auto& row : img) {
         for (const auto col : row) {
             if (col <= ' ') {
