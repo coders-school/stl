@@ -68,11 +68,11 @@ ForwardIt1 search( ForwardIt1 first, ForwardIt1 last,
   * Jeżeli tak zwraca iterator wskazujący na początek tego podzakresu.
   * Jeżeli podzakres nie zostanie znaleziony, zwrócony iterator będzie równy `last`.
 * Istnieją także wersje `std::search`, przyjmujące `binary predicate` oraz typ `searcher`. Zachęcam Was do samodzielnej pracy w celu zdobycia wiedzy, jak wykorzystać te funkcję :).
-  
+
 ___
 
 ## `std::search` - użycie
-  
+
 ```cpp
 std::vector<int> vec {1, 2, 3, 4, 5, 6, 7, 8, 9};
 std::vector<int> vec2 {4, 5, 6};
@@ -149,7 +149,7 @@ ___
 
 ___
 
-## `std::count` oraz `std::count_if` - użycie #1
+## `std::equal` - użycie #1
 
 ```cpp
 // Missing vec1 and vec2 :D Can you think of the examples of vec1 and 2 that
@@ -174,7 +174,7 @@ EQUAL?: true
 
 ___
 
-## `std::count` oraz `std::count_if` - użycie #2
+## `std::equal` - użycie #2
 
 ```cpp
 bool is_palindrome(const std::string& s) {
