@@ -8,7 +8,7 @@ void removeVowels(std::vector<std::string>& strings) {
 
     for (auto& str : strings) {
         str.erase(std::remove_if(str.begin(), str.end(),
-                                 [&](char c) {
+                                 [&](const auto c) {
                                      return std::find(std::cbegin(vowels), std::cend(vowels), c) != std::cend(vowels);
                                  }),
                   str.end());
