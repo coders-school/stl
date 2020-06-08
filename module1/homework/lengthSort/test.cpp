@@ -52,3 +52,47 @@ TEST(lengthSortTests, ShouldSortByLength) {
     ASSERT_TRUE(result.size() == expected_result.size());
     EXPECT_EQ(result, expected_result);
 }
+
+TEST(lengthSortTests, ShouldSortByLengthLoweUpperCase) {
+    std::forward_list<std::string> list{
+        {"alamakota"},
+        {"ala"},
+        {"alam"},
+        {"alamakot"},
+        {"a"},
+        {"alama"},
+        {"alamak"},
+        {"alamako"},
+        {"al"},
+        {"AlaMaKota"},
+        {"Ala"},
+        {"AlaM"},
+        {"AlaMaKot"},
+        {"A"},
+        {"AlaMa"},
+        {"AlaMaK"},
+        {"AlaMaKo"},
+        {"Al"}};
+    std::deque<std::string> expected_result = {
+        {"A"},
+        {"a"},
+        {"Al"},
+        {"al"},
+        {"Ala"},
+        {"ala"},
+        {"AlaM"},
+        {"alam"},
+        {"AlaMa"},
+        {"alama"},
+        {"AlaMaK"},
+        {"alamak"},
+        {"AlaMaKo"},
+        {"alamako"},
+        {"AlaMaKot"},
+        {"alamakot"},
+        {"AlaMaKota"},
+        {"alamakota"}};
+    auto result = lengthSort(list);
+    ASSERT_TRUE(result.size() == expected_result.size());
+    EXPECT_EQ(result, expected_result);
+}
