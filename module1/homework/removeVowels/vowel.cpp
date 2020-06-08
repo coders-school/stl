@@ -1,5 +1,8 @@
 #include "vowel.hpp"
 
+#include <algorithm>
+#include <array>
+
 bool isVowel(const char letter) {
     constexpr int vowelsArraySize = 12;
     constexpr std::array<char, vowelsArraySize> vowels = {'A', 'E', 'I', 'O', 'U', 'Y',
