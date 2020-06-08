@@ -16,12 +16,12 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std:
             if (column == color) {
                 ++repetitionCounter;
             } else {
-                compressedBitmap.emplace_back(std::make_pair(color,repetitionCounter));
+                compressedBitmap.emplace_back(std::make_pair(color, repetitionCounter));
                 color = column;
                 repetitionCounter = 1;
             }
         }
-        compressedBitmap.emplace_back(std::make_pair(color,repetitionCounter));
+        compressedBitmap.emplace_back(std::make_pair(color, repetitionCounter));
     }
 
     return compressedBitmap;
