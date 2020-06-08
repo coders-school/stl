@@ -33,14 +33,14 @@ TEST(compressionTests, ShouldCompressLineWith1Value) {
     ASSERT_EQ(bitmap, compressLine(arr));
 }
 
-/*
+
 TEST(compressionTests, ShouldCompressLineWith2Values) {
     std::array<uint8_t, 10> arr{1,1,1,1,1,1,2,2,2,2};
 
     CompressedBitmap bitmap = {{1,6}, {2,4}} ;
     ASSERT_EQ(bitmap, compressLine(arr));
 }
-*/
+
 
 
 
