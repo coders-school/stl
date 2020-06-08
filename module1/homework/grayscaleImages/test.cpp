@@ -1,48 +1,59 @@
 #include <algorithm>
 #include <array>
-#include <utility>  // for std::pair<>
+#include <utility> // for std::pair<>
 #include <vector>
 
 #include "compression.hpp"
 #include "gtest/gtest.h"
 
-CompressedBitmap compressLine( std::array<uint8_t, 10> arr) 
+CompressedBitmap compressLine(std::array<uint8_t, 10> arr)
 {
     std::pair<uint8_t, uint8_t> p{arr[0], 0};
-    
-    for(const auto & i : arr) 
+
+    CompressedBitmap bmp;
+
+    for (const auto& i : arr)
     {
-        if( p.first  == i ) 
+        if (p.first == i)
         {
             p.second++;
         }
+        else
+        {
+            bmp.push_back(p);
+            p.first = i;
+            p.second = 1;
+        }
     }
 
-    CompressedBitmap bmp;
     bmp.push_back(p);
+    return bmp;
+}
 
-return  bmp;
-} 
+TEST(compressionTests, ShouldCompressLineWith1Value)
+{
+    std::array<uint8_t, 10> arr{1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
 
+    CompressedBitmap bitmap = {{1, 10}};
+    ASSERT_EQ(bitmap, compressLine(arr));
+}
 
+TEST(compressionTests, ShouldCompressLineWith2Values)
+{
+    std::array<uint8_t, 10> arr{1, 1, 1, 1, 1, 1, 2, 2, 2, 2};
 
-TEST(compressionTests, ShouldCompressLineWith1Value) {
-    std::array<uint8_t, 10> arr{1,1,1,1,1,1,1,1,1,1};
-
-    CompressedBitmap bitmap = {{1,10}} ;
+    CompressedBitmap bitmap = {{1, 6}, {2, 4}};
     ASSERT_EQ(bitmap, compressLine(arr));
 }
 
 
-TEST(compressionTests, ShouldCompressLineWith2Values) {
-    std::array<uint8_t, 10> arr{1,1,1,1,1,1,2,2,2,2};
+TEST(compressionTests, ShouldCompressLineWith4Values)
+{
+    std::array<uint8_t, 10> arr{1, 1, 1, 3, 1, 1, 1, 2, 2, 2, 2, 5};
 
-    CompressedBitmap bitmap = {{1,6}, {2,4}} ;
+    CompressedBitmap bitmap = {{1, 6}, {3,1}, {2, 4}, {5,1}};
     ASSERT_EQ(bitmap, compressLine(arr));
 }
-
-
-
 
 /*
 void expectBitmap(const std::vector<std::pair<uint8_t, uint8_t>>& bitmap, size_t fraction) {
