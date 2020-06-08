@@ -4,6 +4,7 @@
 #include <iostream>
 #include <map>
 
+
 compressedBitmap compressGrayscale(const image& img) {
     compressedBitmap cb{};
 
@@ -25,16 +26,16 @@ compressedBitmap compressGrayscale(const image& img) {
 image decompressGrayscale(const compressedBitmap& cBmp) {
     image reconstructedImage{};
 
-    auto bitmapPair = cBmp.begin();
+    auto currentPair = cBmp.begin();
     auto counter = 0;
 
     for (size_t row = 0; row < height; ++row) {
-        for (size_t col = 0; col < width;) {  // TODO: Maybe it can be replaced with inner while loop
-            const auto [value, count] = *bitmapPair;
+        for (size_t col = 0; col < width;) {
+            const auto [value, count] = *currentPair;
             while (counter++ < count) {
                 reconstructedImage[row][col++] = value;
             }
-            bitmapPair++;
+            currentPair++;
             counter = 0;
         }
     }
@@ -43,6 +44,7 @@ image decompressGrayscale(const compressedBitmap& cBmp) {
 }
 
 void printMap(const image& img) {
+    
     for (const auto& row : img) {
         for (const auto col : row) {
             if (col <= ' ') {
