@@ -1,30 +1,16 @@
 #include "vowel.hpp"
+#include <array>
+#include <algorithm>
 
-#include <cctype>
-#include <vector>
+void removeVowels(std::vector<std::string> &vec) {
+  std::array<char, 12>
+      a{ 'a','e','i','o','u','y','A','E','I','O','U','Y' };
+  std::sort(a.begin(), a.end());
+  const auto predicate = [&a](const char letter) -> bool {
+      return std::binary_search(a.cbegin(), a.cend(), letter);
+  };
 
-bool isVowel(char ch) {
-    switch (tolower(ch)) {
-    case 'a':
-    case 'e':
-    case 'i':
-    case 'o':
-    case 'u':
-    case 'y':
-        return true;
-        break;
-    default:
-        return false;
-        break;
-    }
-}
-
-void removeVowels(std::vector<std::string>& vec) {
-    for (auto& element : vec) {
-        for (int i = 0; i < element.size(); ++i) {
-            if (isVowel(element[i])) {
-                element.erase(std::next(element.begin(), i--));
-            }
-        }
-    }
+  for (auto& it: vec) {
+    it.erase(std::remove_if(it.begin(), it.end(), predicate), it.end());
+  }
 }
