@@ -1,35 +1,28 @@
 #include "compression.hpp"
 
-CompressedBitmap compressLine(std::array<uint8_t, 10> arr)
-{
-    std::pair<uint8_t, uint8_t> p{arr[0], 0};
-
-    CompressedBitmap bmp;
-
-    for (const auto& i : arr)
-    {
-        if (p.first == i)
-        {
-            p.second++;
-        }
-        else
-        {
-            bmp.push_back(p);
-            p.first = i;
-            p.second = 1;
-        }
-    }
-
-    bmp.push_back(p);
-    return bmp;
-}
-
-
-
-
 CompressedBitmap compressGrayscale(Bitmap bitmap)
 {
     CompressedBitmap result;
+    std::pair<uint8_t, uint8_t> buffer{bitmap[0][0], 0};
+
+    for (const auto& line : bitmap)
+    {
+        for (const auto& pixel : line)
+        {
+            if (buffer.first == pixel)
+            {
+                buffer.second++;
+                buffer.first = pixel;
+            }
+            else
+            {
+                result.push_back(buffer);
+                buffer.first = pixel;
+                buffer.second = 1;
+            }
+        }
+        result.push_back(buffer);
+    }
     return result;
 }
 
