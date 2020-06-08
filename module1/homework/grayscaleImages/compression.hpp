@@ -10,6 +10,8 @@ constexpr size_t height = 32;
 using compressedBitmap = std::vector<std::pair<uint8_t, uint8_t>>;
 using image = std::array<std::array<uint8_t, width>, height>;
 
-compressedBitmap compressGrayscale(image& img);
+compressedBitmap compressGrayscale(const image& img);
 
-image decompressGrayscale(compressedBitmap& bmp);
+image decompressGrayscale(const compressedBitmap& bmp);
+
+void printMap(const image& img);
