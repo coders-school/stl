@@ -66,6 +66,18 @@
 
                         </textarea>
                     </section>
+                    <section data-markdown>
+                        <textarea data-template>
+
+                        ## AGENDA
+
+                        * <!-- .element: class="fragment fade-in" --> Funktory
+                        * <!-- .element: class="fragment fade-in" --> Wyrażenia lambda
+                        * <!-- .element: class="fragment fade-in" --> Algorytmy niemodyfikujące kontenery
+                        * <!-- .element: class="fragment fade-in" --> Algorytmy modyfikujące kontenery
+
+                        </textarea>
+                    </section>
                 </section>
                 <!--
                     Note that Windows uses `\r\n` instead of `\n` as its linefeed character.
@@ -81,7 +93,19 @@
                     Open http://localhost:8000 to view your presentation
 
                     You can change the port by using npm start -- --port=8001.
-                -->                
+                -->   
+                <section data-markdown="presentation_functors.md"
+                         data-separator-vertical="^___"
+                         data-separator-notes="^Note:">
+                </section>
+                <section data-markdown="presentation_lambda.md"
+                         data-separator-vertical="^___"
+                         data-separator-notes="^Note:">
+                </section>
+                <section data-markdown="presentation_algorithms_nonmodifying.md"
+                         data-separator-vertical="^___"
+                         data-separator-notes="^Note:">
+                </section>
                 <section data-markdown="STL_2.md"
                          data-separator-vertical="^___"
                          data-separator-notes="^Note:">
