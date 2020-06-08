@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "remove_duplicate.hpp"
+
 // TODO: add proper includes
 
 TEST(transformContainerTests, ShouldReturnUniqueMap) {
