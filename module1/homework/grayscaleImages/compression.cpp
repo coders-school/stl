@@ -10,18 +10,18 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std:
     uint8_t color = 0;
 
     for (const auto& row : compress) {
-        color = row[0];
+        color = row.front();
         repetitionCounter = 0;
-        for (const auto& column : row) {
+        for (auto column : row) {
             if (column == color) {
                 ++repetitionCounter;
             } else {
-                compressedBitmap.emplace_back(std::make_pair(color, repetitionCounter));
+                compressedBitmap.emplace_back(color, repetitionCounter);
                 color = column;
                 repetitionCounter = 1;
             }
         }
-        compressedBitmap.emplace_back(std::make_pair(color, repetitionCounter));
+        compressedBitmap.emplace_back(color, repetitionCounter);
     }
 
     return compressedBitmap;
