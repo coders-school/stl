@@ -6,7 +6,45 @@
 #include "compression.hpp"
 #include "gtest/gtest.h"
 
+CompressedBitmap compressLine( std::array<uint8_t, 10> arr) 
+{
+    std::pair<uint8_t, uint8_t> p{arr[0], 0};
+    
+    for(const auto & i : arr) 
+    {
+        if( p.first  == i ) 
+        {
+            p.second++;
+        }
+    }
 
+    CompressedBitmap bmp;
+    bmp.push_back(p);
+
+return  bmp;
+} 
+
+
+
+TEST(compressionTests, ShouldCompressLineWith1Value) {
+    std::array<uint8_t, 10> arr{1,1,1,1,1,1,1,1,1,1};
+
+    CompressedBitmap bitmap = {{1,10}} ;
+    ASSERT_EQ(bitmap, compressLine(arr));
+}
+
+/*
+TEST(compressionTests, ShouldCompressLineWith2Values) {
+    std::array<uint8_t, 10> arr{1,1,1,1,1,1,2,2,2,2};
+
+    CompressedBitmap bitmap = {{1,6}, {2,4}} ;
+    ASSERT_EQ(bitmap, compressLine(arr));
+}
+*/
+
+
+
+/*
 void expectBitmap(const std::vector<std::pair<uint8_t, uint8_t>>& bitmap, size_t fraction) {
     for (int j = 0; j < fraction; j++) {
         for (int i = j; i < height * fraction; i += fraction) {
@@ -189,3 +227,4 @@ TEST(compressionTests, ShouldCompressAndDecompress) {
     ASSERT_TRUE(bitmap.size() == input.size());
     EXPECT_EQ(bitmap, input);
 }
+*/

@@ -12,3 +12,5 @@ using Bitmap =  std::array<std::array<uint8_t, width>, height>;
 
 CompressedBitmap compressGrayscale(Bitmap bitmap);
 Bitmap decompressGrayscale(CompressedBitmap compressedBitmap);
+
+
