@@ -6,30 +6,6 @@
 #include "compression.hpp"
 #include "gtest/gtest.h"
 
-CompressedBitmap compressLine(std::array<uint8_t, 10> arr)
-{
-    std::pair<uint8_t, uint8_t> p{arr[0], 0};
-
-    CompressedBitmap bmp;
-
-    for (const auto& i : arr)
-    {
-        if (p.first == i)
-        {
-            p.second++;
-        }
-        else
-        {
-            bmp.push_back(p);
-            p.first = i;
-            p.second = 1;
-        }
-    }
-
-    bmp.push_back(p);
-    return bmp;
-}
-
 TEST(compressionTests, ShouldCompressLineWith1Value)
 {
     std::array<uint8_t, 10> arr{1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
@@ -47,7 +23,7 @@ TEST(compressionTests, ShouldCompressLineWith2Values)
 }
 
 
-TEST(compressionTests, ShouldCompressLineWith4Values)
+TEST(compressionTests, ShouldCompressLineWith5Values)
 {
     std::array<uint8_t, 10> arr{1, 1, 3, 1, 1, 2, 2, 2, 2, 5};
 
