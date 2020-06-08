@@ -1,4 +1,6 @@
 #include "compression.hpp"
+#include <algorithm>
+#include <iostream>
 
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, width>, height>& imgToCompress) {
     std::vector<std::pair<uint8_t, uint8_t>> compressedImg;
@@ -21,4 +23,18 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std:
     }
 
     return compressedImg;
+}
+
+void printMap(const std::array<std::array<uint8_t, width>, height>& bitmap) {
+    std::for_each(bitmap.begin(), bitmap.end(), [](const auto& row){
+        std::for_each(row.begin(), row.end(), [](const auto& element){ 
+            if (element < ' ') {
+                std::cout << " ";
+            }
+            else {
+                std::cout << element; 
+            }
+            });
+        std::cout << "\n";
+    });
 }
