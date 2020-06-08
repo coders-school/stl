@@ -63,6 +63,8 @@ ___
 
 Napisz program, który będzie sprawdzał, czy podany ciąg wyrazów jest palindromem. Program powinien ignorować znaki specjalne jak `,.?()[]`, wielkość liter oraz białe znaki jak spacja czy znak nowej linii.
 
+Tutaj wywnioskuj po testach jak nazwać funkcję. Stwórz własne pliki źródłowe i nagłówkowe i dodaj je do CMakeLists.txt, aby się budowały. Szczegóły w README.md do tego zadania.
+
 ___
 
 ### Zadanie 3 - `transformContainers`
