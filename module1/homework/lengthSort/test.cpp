@@ -52,3 +52,19 @@ TEST(lengthSortTests, ShouldSortByLength) {
     ASSERT_TRUE(result.size() == expected_result.size());
     EXPECT_EQ(result, expected_result);
 }
+
+TEST(lengthSortTests, ShouldNotChangeListSortedByLength) {
+    std::forward_list<std::string> list{
+        {"zz"},
+        {"aaa"},
+        {"bbbb"}};
+    std::deque<std::string> expected_result = {
+        {"zz"},
+        {"aaa"},
+        {"bbbb"}};
+    auto result = lengthSort(list);
+    ASSERT_TRUE(result.size() == expected_result.size());
+    EXPECT_EQ(result, expected_result);
+}
+
+
