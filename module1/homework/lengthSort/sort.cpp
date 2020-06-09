@@ -1,18 +1,17 @@
 #include "sort.hpp"
+#include <algorithm>
 
 std::deque<std::string> lengthSort(const std::forward_list<std::string>& list) {
-    std::deque<std::string> words_deq;
+    std::deque<std::string> words;
 
-    auto deq_it = words_deq.begin();
-    for(const auto& word : list) {
-        deq_it = words_deq.begin();
-        while(deq_it != words_deq.end()) {
-            if(word.size() < deq_it->size() || (word.size() == deq_it->size() && word < *deq_it)) {
-                break;
+    std::copy(list.begin(), list.end(), std::back_inserter(words));
+    std::sort(words.begin(), words.end(), [](const std::string& first, const std::string& second){
+            if(first.size() == second.size()) {
+                return first < second;
+            } else {
+                return first.size() < second.size();
             }
-            ++deq_it;
-        }
-        words_deq.insert(deq_it, word);
-    }
-    return words_deq;
+    });
+
+    return words;
 }
