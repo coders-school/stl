@@ -1,5 +1,6 @@
 #include "compression.hpp"
 
+#include <cctype>
 #include <iostream>
 
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(
@@ -39,4 +40,17 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(
     }
 
     return decompressedBitmap;
+}
+
+void printMap(const std::array<std::array<uint8_t, width>, height>& bitmap) {
+    for (const auto& row : bitmap) {
+        for (const auto el : row) {
+            if (std::isprint(el)) {
+                std::cout << el;
+            } else {
+                std::cout << ' ';
+            }
+        }
+        std::cout << '\n';
+    }
 }

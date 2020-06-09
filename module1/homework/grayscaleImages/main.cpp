@@ -1,6 +1,4 @@
 #include <array>
-#include <forward_list>
-#include <iostream>
 
 #include "compression.hpp"
 
@@ -41,19 +39,12 @@ std::array<std::array<uint8_t, 32>, 32> generateNinja() {
     };
 }
 
-void printVecPair(const std::vector<std::pair<uint8_t, uint8_t>>& in) {
-    for (const auto& el : in) {
-        std::cout << static_cast<int>(el.first) << ' ' << static_cast<int>(el.second) << " - ";
-    }
-    std::cout << '\n';
-}
 int main() {
     auto ninja = generateNinja();
-    // printMap(ninja);
+    printMap(ninja);
     auto compressed = compressGrayscale(ninja);
-    printVecPair(compressed);
-    // auto decompressed = decompressGrayscale(compressed);
-    // printMap(decompressed);
+    auto decompressed = decompressGrayscale(compressed);
+    printMap(decompressed);
 
     return 0;
 }
