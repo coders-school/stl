@@ -44,8 +44,6 @@ CompressedBitmap compressGrayscale(Bitmap bitmap)
     CompressedBitmap result;
     CompressedBitmap tmp;
 
-    //printBitmap(bitmap);
-
     for (const auto& line : bitmap)
     {
         tmp = compressLine(line);
