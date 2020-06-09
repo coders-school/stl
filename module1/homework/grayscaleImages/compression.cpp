@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <iostream>
+#include <numeric>
 
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, width>, height>& compress) {
     std::vector<std::pair<uint8_t, uint8_t>> compressedBitmap;
@@ -28,6 +29,12 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std:
 }
 
 std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::vector<std::pair<uint8_t, uint8_t>>& compressedMap) {
+    if (std::accumulate(compressedMap.cbegin(), compressedMap.cend(), 0, [](auto sum, const auto& pair) {
+            return sum + pair.second;
+        }) > width * height) {
+        return {};
+    }
+
     std::array<std::array<uint8_t, width>, height> decompressed;
 
     auto row = decompressed.begin();
