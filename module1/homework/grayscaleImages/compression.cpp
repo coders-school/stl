@@ -4,15 +4,16 @@
 #include <string>
 
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(
-    std::array<std::array<uint8_t, height>, width> uncompressed) {
+    std::array<std::array<uint8_t, height>, width>& uncompressed) {
     std::vector<std::pair<uint8_t, uint8_t>> compressed;
     compressed.reserve(height * width);
 
-    for (const auto row : uncompressed) {
+    for (const auto& row : uncompressed) {
         auto rowIterator = row.cbegin();
         uint8_t value = *rowIterator;
         uint8_t currentValueCounter = 1;
         rowIterator++;
+
         while (rowIterator != row.cend()) {
             if (*rowIterator == value) {
                 currentValueCounter++;
@@ -28,16 +29,13 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(
     }
 
     compressed.shrink_to_fit();
-
-    double compressionRatio = (double)compressed.size() / (height * width);
     return compressed;
 }
 
 std::array<std::array<uint8_t, height>, width> decompressGrayscale(
-    std::vector<std::pair<uint8_t, uint8_t>> compressed) {
+    std::vector<std::pair<uint8_t, uint8_t>>& compressed) {
     std::array<std::array<uint8_t, height>, width> uncompressed;
     auto pixelGroup = compressed.begin();
-
     uint8_t howManyPixels = pixelGroup->second;
 
     for (auto& row : uncompressed) {
@@ -53,13 +51,15 @@ std::array<std::array<uint8_t, height>, width> decompressGrayscale(
     return uncompressed;
 }
 
-void printMap(std::array<std::array<uint8_t, height>, width> bitmap) {
+void printMap(std::array<std::array<uint8_t, height>, width>& bitmap) {
     const std::string palette = R"( .'`^",:;Il!i><~+_-?][}{1)(|\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$)";
-    palette;
     int level;
+    const double normalizingFactor = palette.size() / 256.0;
+    std::cout << "\n";
+
     for (auto& row : bitmap) {
         for (auto& pixel : row) {
-            level = (pixel / 256.0) * palette.size();
+            level = pixel * normalizingFactor;
             std::cout << palette[level];
         }
         std::cout << "\n";
