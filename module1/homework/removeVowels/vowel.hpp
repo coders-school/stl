@@ -1,4 +1,5 @@
-#include <array>
+#pragma once
+
 #include <string>
 #include <vector>
 
