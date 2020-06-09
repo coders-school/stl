@@ -55,6 +55,13 @@ CompressedBitmap compressGrayscale(Bitmap bitmap)
 
 Bitmap decompressGrayscale(CompressedBitmap compressedBitmap)
 {
-    Bitmap result;
+    Bitmap  result;
+/*    std::array<uint8_t, width*height>::iterator iter = std::begin(result);
+
+    for(const auto & group : compressedBitmap)
+    {
+        iter = std::fill_n(iter, group.second, group.first);
+    }i*/
     return result;
 }
+
