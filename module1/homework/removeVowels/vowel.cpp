@@ -1,9 +1,6 @@
 #include "vowel.hpp"
 
 #include <algorithm>
-#include <array>
-#include <iostream>
-#include <string>
 
 std::array<char, 12> vowels = {'A', 'E', 'I', 'O', 'U', 'Y', 'a', 'e', 'i', 'o', 'u', 'y'};
 
