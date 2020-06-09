@@ -2,18 +2,17 @@
 
 #include <sstream>
 
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, width>, height>& bitmap) {
+std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(
+    const std::array<std::array<uint8_t, width>, height>& bitmap) {
     std::vector<std::pair<uint8_t, uint8_t>> compressed_bitmap;
     for (size_t i = 0; i < height; ++i) {
-        uint8_t previous = bitmap[i][0];
-        uint8_t count = 1;
-
+        uint8_t previous = bitmap[i][0], count = 1;
         for (size_t j = 1; j < width; ++j) {
             if (bitmap[i][j] == previous) {
                 count++;
             }
             if (bitmap[i][j] != previous || j == width - 1) {
-                compressed_bitmap.push_back(std::make_pair(previous, count));
+                compressed_bitmap.push_back({previous, count});
                 previous = bitmap[i][j];
                 count = 1;
             }
