@@ -1,12 +1,12 @@
 #include "sort.hpp"
 
-std::deque<std::string> lengthSort(std::forward_list<std::string> lst) {
-    std::deque<std::string> dq;
-    for (auto it = lst.begin(); it != lst.end(); it++) {
-        dq.emplace_back(*it);
-    }
+#include <algorithm>
 
-    std::sort(dq.begin(), dq.end(), [](const auto& lhs, const auto& rhs) {
+std::deque<std::string> lengthSort(std::forward_list<std::string> list) {
+    std::deque<std::string> deque;
+    std::copy(list.begin(), list.end(), std::back_inserter(deque));
+
+    std::sort(deque.begin(), deque.end(), [](const auto& lhs, const auto& rhs) {
         if (lhs.size() < rhs.size()) {
             return true;
         } else if (lhs.size() == rhs.size()) {
@@ -19,5 +19,5 @@ std::deque<std::string> lengthSort(std::forward_list<std::string> lst) {
             return false;
         }
     });
-    return dq;
+    return deque;
 }

@@ -1,4 +1,3 @@
-#include <algorithm>
 #include <deque>
 #include <forward_list>
 #include <string>
