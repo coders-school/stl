@@ -188,3 +188,4 @@ TEST(compressionTests, ShouldCompressAndDecompress) {
     ASSERT_TRUE(bitmap.size() == input.size());
     EXPECT_EQ(bitmap, input);
 }
+
