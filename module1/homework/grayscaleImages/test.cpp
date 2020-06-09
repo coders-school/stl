@@ -49,41 +49,18 @@ Bitmap buildBitmap(unsigned int fraction)
     return bmp;
 }
 
-TEST(compressionTests, ShouldCompressWholeLines)
+class Compression : public ::testing::TestWithParam<int>
 {
-    auto bitmap = compressGrayscale(buildBitmap(1));
-    ASSERT_EQ(bitmap.size(), height);
-    expectBitmap(bitmap, 1);
+};
+
+TEST_P(Compression, ShouldCompressBitmap)
+{
+    auto bitmap = compressGrayscale(buildBitmap(GetParam()));
+    ASSERT_EQ(bitmap.size(), height * GetParam());
+    expectBitmap(bitmap, GetParam());
 }
 
-TEST(compressionTests, ShouldCompressHalfLines)
-{
-    auto bitmap = compressGrayscale(buildBitmap(2));
-    ASSERT_EQ(bitmap.size(), height * 2);
-    expectBitmap(bitmap, 2);
-}
-
-TEST(compressionTests, ShouldCompressQuaterLines)
-{
-    auto bitmap = compressGrayscale(buildBitmap(4));
-    ASSERT_EQ(bitmap.size(), height * 4);
-    expectBitmap(bitmap, 4);
-}
-
-TEST(compressionTests, ShouldCompressOneEighthLines)
-{
-    auto bitmap = compressGrayscale(buildBitmap(8));
-    ASSERT_EQ(bitmap.size(), height * 8);
-    expectBitmap(bitmap, 8);
-}
-
-TEST(compressionTests, ShouldCompressOne16Lines)
-{
-    auto bitmap = compressGrayscale(buildBitmap(16));
-    ASSERT_EQ(bitmap.size(), height * 16);
-    expectBitmap(bitmap, 16);
-}
-
+INSTANTIATE_TEST_SUITE_P(CompressionTest, Compression, ::testing::Values(1, 2, 4, 8, 16));
 
 TEST(compressionTests, ShouldDecompressWholeLines)
 {
