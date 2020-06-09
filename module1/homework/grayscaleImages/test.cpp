@@ -27,26 +27,6 @@ std::vector<std::pair<uint8_t, uint8_t>> getBitmap(size_t fraction) {
     return bitmap;
 }
 
-std::array<uint8_t, 10> decompressPair(std::vector<std::pair<uint8_t,uint8_t>>& pairs_)
-{
-    std::array<uint8_t, 10> arr;
-    std::array<uint8_t, 10>::iterator iter = std::begin(arr);
-
-    for(const auto & pair_ : pairs_)
-    {
-        iter = std::fill_n(iter, pair_.second, pair_.first);
-    }
-    return arr;
-}
-
-
-TEST(compressionTests, ShouldDecompressVectorOfPairs) {
-    std::array<uint8_t, 10> arr{1,1,1,1,1,1,1,2,2,2};
-    std::vector<std::pair<uint8_t, uint8_t>> p{ {1,7}, {2,3} };
-    ASSERT_EQ(arr, decompressPair(p));
-}
-
-
 TEST(compressionTests, ShouldCompressWholeLines) {
     std::array<std::array<uint8_t, width>, height> arr;
     for (int i = 0; i < height; ++i)
@@ -114,7 +94,7 @@ TEST(compressionTests, ShouldCompressOneEighthLines) {
     ASSERT_EQ(bitmap.size(), height * 8);
     expectBitmap(bitmap, 8);
 }
-/*
+
 TEST(compressionTests, ShouldDecompressWholeLines) {
     constexpr size_t fraction = 1;
     auto bitmap = getBitmap(fraction);
@@ -208,4 +188,4 @@ TEST(compressionTests, ShouldCompressAndDecompress) {
     ASSERT_TRUE(bitmap.size() == input.size());
     EXPECT_EQ(bitmap, input);
 }
-*/
+
