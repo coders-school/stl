@@ -1,5 +1,6 @@
 #include "compression.hpp"
 
+#include <iostream>
 #include <sstream>
 
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(
@@ -53,7 +54,7 @@ std::string printMap(const std::vector<std::pair<uint8_t, uint8_t>>& compressed_
     return ss.str();
 }
 
-std::string printMap(const std::array<std::array<uint8_t, width>, height>& deompressed_bitmap) {
+void printMap(const std::array<std::array<uint8_t, width>, height>& deompressed_bitmap) {
     auto ss = std::stringstream{};
     for (const auto& it : deompressed_bitmap) {
         for (const auto& it2 : it) {
@@ -61,5 +62,5 @@ std::string printMap(const std::array<std::array<uint8_t, width>, height>& deomp
         }
         ss << '\n';
     }
-    return ss.str();
+    std::cout << ss.str();
 }
