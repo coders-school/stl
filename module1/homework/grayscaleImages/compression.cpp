@@ -30,24 +30,17 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std:
 std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::vector<std::pair<uint8_t, uint8_t>>& compressedMap) {
     std::array<std::array<uint8_t, width>, height> decompressed;
 
-    size_t row = 0;
-    size_t col = 0;
+    auto row = decompressed.begin();
+    auto col = row->begin();
 
-    for (const auto& [color, count] : compressedMap) {
-        if (row < height) {
-            for (size_t i = 0; i < count; i++) {
-                decompressed[row][col] = color;
-                if (col < width - 1) {
-                    col++;
-                } else {
-                    col = 0;
-                    row++;
-                }
-            }
-        } else {
-            break;
+    std::for_each(compressedMap.cbegin(), compressedMap.cend(), [&](const auto& pair) {
+        if (col >= row->end()) {
+            std::advance(row, 1);
+            col = row->begin();
         }
-    }
+        std::fill_n(col, pair.second, pair.first);
+        std::advance(col, pair.second);
+    });
 
     return decompressed;
 }
