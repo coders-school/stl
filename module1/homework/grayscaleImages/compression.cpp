@@ -20,10 +20,6 @@ compressed_bitmap compressGrayscale(const bitmap& image) {
     return compressedImage;
 }
 
-/* This is awful 
- I am waiting for help, other people solutions
-*/
-
 bitmap decompressGrayscale(const compressed_bitmap& compressedImage) {
     bitmap result{};
     std::array<uint8_t, width> tempRow{};

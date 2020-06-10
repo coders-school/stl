@@ -14,9 +14,6 @@ bool stringCompare(const std::string& first, const std::string& second) {
 */
 
 std::deque<std::string> lengthSort(std::forward_list<std::string>& fwdList) {
-    std::deque<std::string> sortedDeque{};
     fwdList.sort(stringCompare);
-    sortedDeque.insert(sortedDeque.begin(), fwdList.begin(), fwdList.end());
-
-    return sortedDeque;
+    return std::deque<std::string>{fwdList.begin(), fwdList.end()};
 }
