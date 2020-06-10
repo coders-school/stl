@@ -52,3 +52,19 @@ TEST(lengthSortTests, ShouldSortByLength) {
     ASSERT_TRUE(result.size() == expected_result.size());
     EXPECT_EQ(result, expected_result);
 }
+
+TEST(lengthSortTests, ShouldSortByLengthSentence) {
+    std::forward_list<std::string> list{
+        {"Three"},
+        {"One"},
+        {"Four"},
+        {"Two"}};
+    std::deque<std::string> expected_result = {
+        {"One"},
+        {"Two"},
+        {"Four"},
+        {"Three"}};
+    auto result = lengthSort(list);
+    ASSERT_TRUE(result.size() == expected_result.size());
+    EXPECT_EQ(result, expected_result);
+}
