@@ -5,17 +5,15 @@
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(
     const std::array<std::array<uint8_t, width>, height>& bitmap) {
     std::vector<std::pair<uint8_t, uint8_t>> compressed_bitmap;
-    for (uint8_t i = 0; i < height; ++i) {
+    for (size_t i = 0; i < height; ++i) {
         uint8_t sequence_begin = 0;
-        for (uint8_t j = 0; j < width; ++j) {
-            if (j == width -1 || bitmap[i][j] != bitmap[i][j + 1]) {
-                compressed_bitmap.push_back(
-                    std::make_pair(bitmap[i][j], j + 1 - sequence_begin));
+        for (size_t j = 0; j < width; ++j) {
+            if (bitmap[i][j] != bitmap[i][j + 1] || j == width - 1) {
+                compressed_bitmap.push_back({bitmap[i][j], j + 1 - sequence_begin});
                 sequence_begin = j + 1;
             }
         }
     }
-
     return compressed_bitmap;
 }
 
@@ -45,8 +43,7 @@ void printMap(const std::array<std::array<uint8_t, width>, height>& decompressed
         for (const auto& ch : row) {
             if (ch < min_printable) {
                 std::cout << ' ';
-            }
-            else {
+            } else {
                 std::cout << ch;
             }
         }
