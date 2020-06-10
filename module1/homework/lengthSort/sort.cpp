@@ -1,4 +1,5 @@
 #include "sort.hpp"
+
 #include <algorithm>
 
 bool compareLexicographically(const std::string& first_string,
