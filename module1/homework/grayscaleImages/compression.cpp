@@ -4,6 +4,8 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(
     std::array<std::array<uint8_t, width>, height>& bitmap){
     
     std::vector<std::pair<uint8_t, uint8_t>> output;
+    int testcounter = 0;
+
     for(auto& line : bitmap){
         uint8_t counter = 1;
         uint8_t color = line.back();
@@ -16,6 +18,7 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(
                 counter = 1;
                 color = line[i];
             }
+            testcounter++;
         }
 
         output.emplace_back(std::make_pair(color, counter));
