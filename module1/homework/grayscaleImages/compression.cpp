@@ -10,22 +10,22 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(
 
     for (const auto& row : uncompressed) {
         auto rowIterator = row.cbegin();
-        uint8_t value = *rowIterator;
+        uint8_t currentValue = *rowIterator;
         uint8_t currentValueCounter = 1;
         rowIterator++;
 
         while (rowIterator != row.cend()) {
-            if (*rowIterator == value) {
+            if (*rowIterator == currentValue) {
                 currentValueCounter++;
             } else {
-                compressed.push_back(std::make_pair(value, currentValueCounter));
-                value = *rowIterator;
+                compressed.push_back(std::make_pair(currentValue, currentValueCounter));
+                currentValue = *rowIterator;
                 currentValueCounter = 1;
             }
             rowIterator++;
         }
-        // and for last value in a row:
-        compressed.push_back(std::make_pair(value, currentValueCounter));
+        // and when row reach end:
+        compressed.push_back(std::make_pair(currentValue, currentValueCounter));
     }
 
     compressed.shrink_to_fit();

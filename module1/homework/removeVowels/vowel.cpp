@@ -1,17 +1,19 @@
 #include "vowel.hpp"
 
 #include <algorithm>
-#include <array>
+#include <string>
 
-std::array<char, 12> vowels = {'A', 'E', 'I', 'O', 'U', 'Y', 'a', 'e', 'i', 'o', 'u', 'y'};
+const std::string vowels = "AEIOUYaeiouy";
 
 void removeVowels(std::vector<std::string>& vectorOfStrings) {
     for (auto& str : vectorOfStrings) {
-        auto first = str.begin();
-        auto last = str.end();
-        for (char vowel : vowels) {
-            last = std::remove(first, last, vowel);
-        }
-        str.erase(last, str.end());
+        std::remove_if(str.begin(), str.end(), [](char c) {
+            for (auto it = vowels.begin(); it != vowels.end(); it++) {
+                if (*it == c) {
+                    return true;
+                }
+            }
+            return false;
+        });
     }
 }
