@@ -26,19 +26,20 @@ compressed_bitmap compressGrayscale(const bitmap& image) {
 
 bitmap decompressGrayscale(const compressed_bitmap& compressedImage) {
     bitmap result{};
+    std::array<uint8_t, width> tempRow{};
     auto currentRow = 0;
-    auto it = compressedImage.begin();
-    for (size_t i = 0; i < height; ++i) {
-        std::array<uint8_t, width> tempRow{};
-        for (size_t j = 0; j < width;) {
-            for (size_t k = 0; k < it->second; ++k) {
-                tempRow[j + k] = it->first;
-            }
-            j += it->second;
-            std::advance(it, 1);
-        }
-        result[i] = tempRow;
-    }
+    auto currentCol = 0;
 
+    for (const auto& el : compressedImage) {
+        for (uint8_t i = currentCol; i < el.second + currentCol; i++) {
+            tempRow[i] = el.first;
+        }
+        currentCol += el.second;
+        if (currentCol == width) {
+            std::swap(result[currentRow], tempRow);
+            currentRow++;
+            currentCol = 0;
+        }
+    }
     return result;
 }
