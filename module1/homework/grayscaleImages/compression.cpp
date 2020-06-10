@@ -4,22 +4,16 @@ compressed_bitmap compressGrayscale(const bitmap& image) {
     compressed_bitmap compressedImage{};
     compressedImage.reserve(height * width);
 
-    std::pair<uint8_t, uint8_t> currentPair;
-    uint8_t greyscale;
-
     for (const auto& el : image) {
-        currentPair = std::make_pair(el.front(), 1);
-
-        for (size_t j = 1; j < width; ++j) {
-            greyscale = el[j];
-            if (greyscale == currentPair.first) {
-                ++currentPair.second;
-                if (width != j + 1) {
-                    continue;
-                }
+        uint8_t counter = 1;
+        for (auto it = el.begin(); it != el.end(); ++it) {
+            auto next_element = std::next(it);
+            if (*it != *next_element or next_element == el.end()) {
+                compressedImage.push_back({*it, counter});
+                counter = 1;
+            } else {
+                counter++;
             }
-            compressedImage.push_back(currentPair);
-            currentPair = std::make_pair(greyscale, 1);
         }
     }
     compressedImage.shrink_to_fit();
