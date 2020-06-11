@@ -1,7 +1,3 @@
-#include <deque>
-#include <forward_list>
-#include <string>
-
 #include "gtest/gtest.h"
 #include "sort.hpp"
 
