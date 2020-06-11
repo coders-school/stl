@@ -1,26 +1,24 @@
 #include "compression.hpp"
 
+#include <algorithm>
+#include <cctype>
 #include <iostream>
 
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, width>, height>& bitmap) {
     std::vector<std::pair<uint8_t, uint8_t>> compress;
 
-    int counter = 0;
-    uint8_t color = 0;
-    for(const auto& row : bitmap) {
-        color = row[0];
-        counter = 0;
-        for(const auto& column : row) {
-            if(column == color) {
-                ++counter;
-            } else {
-                compress.push_back({color, counter});
-                color = column;
-                counter = 1;
+    uint8_t color;
+    std::for_each(bitmap.begin(), bitmap.end(), [&color, &compress](const auto& row){
+            color = row.front();
+            auto it_first = row.begin();
+
+            while(it_first != row.end()) {
+                auto it_second = std::find_if(it_first, row.end(), [&color](auto pixel){ return pixel != color; });
+                compress.push_back({color, it_second - it_first});
+                it_first = it_second;
+                color = *it_second;
             }
-        }
-        compress.push_back({color, counter});
-    }
+    });
 
     return compress;
 }
@@ -29,14 +27,13 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::ve
     std::array<std::array<uint8_t, width>, height> decompress;
 
     auto it = bitmap.begin();
-    int counter = 0;
     for(size_t row = 0; row < height; ++row) {
-        for(size_t column = 0; column < width;) {
-            while(counter++ < it->second) {
-                decompress[row][column++] = it->first;
-            }
+        auto decomp_it = decompress[row].begin();
+
+        while(decomp_it != decompress[row].end()) {
+            std::fill_n(decomp_it, it->second, it->first);
+            decomp_it += it->second;
             ++it;
-            counter = 0;
         }
     }
 
@@ -46,10 +43,10 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::ve
 void printMap(const std::array<std::array<uint8_t, width>, height>& bitmap) {
     for(const auto& row : bitmap) {
         for(const auto& column : row) {
-            if(column <= ' ') {
-                std::cout << ' ';
-            } else {
+            if(std::isprint(column)) {
                 std::cout << column;
+            } else {
+                std::cout << ' ';
             }
         }
         std::cout << '\n';

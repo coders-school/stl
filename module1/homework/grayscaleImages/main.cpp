@@ -1,5 +1,4 @@
 #include <array>
-#include <forward_list>
 #include <iostream>
 
 #include "compression.hpp"
