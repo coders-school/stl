@@ -4,7 +4,7 @@
 #include <string>
 
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(
-    std::array<std::array<uint8_t, height>, width>& uncompressed) {
+    const std::array<std::array<uint8_t, height>, width>& uncompressed) {
     std::vector<std::pair<uint8_t, uint8_t>> compressed;
     compressed.reserve(height * width);
 
@@ -33,7 +33,7 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(
 }
 
 std::array<std::array<uint8_t, height>, width> decompressGrayscale(
-    std::vector<std::pair<uint8_t, uint8_t>>& compressed) {
+    const std::vector<std::pair<uint8_t, uint8_t>>& compressed) {
     std::array<std::array<uint8_t, height>, width> uncompressed;
     auto pixelGroup = compressed.begin();
     uint8_t howManyPixels = pixelGroup->second;
