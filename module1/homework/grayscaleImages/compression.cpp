@@ -25,6 +25,24 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std:
     return compressedImg;
 }
 
+std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>> imgToDecompress) {
+    std::array<std::array<uint8_t, width>, height> decompressedImg;
+
+    auto it_imgToDecompress = imgToDecompress.begin();
+    auto cnt = 0;
+    std::for_each(decompressedImg.begin(), decompressedImg.end(), [&](auto& row){
+        std::for_each(row.begin(), row.end(), [&](auto& el){
+            el = (*it_imgToDecompress).first;
+            if (++cnt == (*it_imgToDecompress).second) {
+                cnt = 0;
+                ++it_imgToDecompress;
+            }
+        });
+    });
+
+    return decompressedImg;
+}
+
 void printMap(const std::array<std::array<uint8_t, width>, height>& bitmap) {
     std::for_each(bitmap.begin(), bitmap.end(), [](const auto& row){
         std::for_each(row.begin(), row.end(), [](const auto& element){ 
