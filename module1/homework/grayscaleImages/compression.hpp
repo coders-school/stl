@@ -3,6 +3,7 @@
 #include <array>
 #include <vector>
 
+constexpr char ASCIIno32 = ' ';
 constexpr size_t width = 32;
 constexpr size_t height = 32;
 

@@ -5,8 +5,8 @@
 void printMap(const std::array<std::array<uint8_t, width>, height>& bitmap) {
 
     for (const auto& arr : bitmap) {
-        for (const auto& el : arr) {
-            if (el <= ' ')
+        for (auto& el : arr) {
+            if (el <= ASCIIno32)
                 std::cout << " ";
             else
                 std::cout << el;
@@ -17,23 +17,27 @@ void printMap(const std::array<std::array<uint8_t, width>, height>& bitmap) {
 
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, width>, height>& grayScale) {
     std::vector<std::pair<uint8_t, uint8_t>> compressed;
-    compressed.reserve(width);
-    int count = 1, tmp;
+    compressed.reserve(width * height);
+    int count = 0;
+    int tmp = 0;
 
-    for (auto row = grayScale.begin(); row != grayScale.end(); row++) {
-        for (auto column = row->begin(); column != std::prev(row->end()); column++) {
-            if (*(std::next(column)) != *column) {
-                compressed.push_back(std::make_pair(*column, count));
-                tmp = *(std::next(column));
-                count = 1;
+    for(const auto& row : grayScale){
+        auto _prev = row.at(0);
+        for(const auto& column : row){
+            if(_prev == column) {
+                count++;
+                _prev = column;
                 continue;
             }
-            count++;
-            tmp = *column;
+            compressed.push_back(std::make_pair(_prev, count));
+            _prev = column;
+            count = 1;
         }
-        compressed.push_back(std::make_pair(tmp, count));
-        count = 1;
+        compressed.push_back(std::make_pair(_prev, count));
+        count = 0;
     }
+
+    compressed.shrink_to_fit();
 
     return compressed;
 }
@@ -44,13 +48,13 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::ve
     int i = 0, j = 0;
 
     for(const auto& pair : compressed){
-            for(int count = 0; count < pair.second; count++){
-                tmpArray[i++] = pair.first;
-            }
-            if(i == 32){
-                decompressed[j++] = tmpArray;
-                i = 0;
-            }
+        for(int count = 0; count < pair.second; count++){
+            tmpArray[i++] = pair.first;
+        }
+        if(i == width){
+            decompressed[j++] = tmpArray;
+            i = 0;
+        }
     }
 
     return decompressed;
