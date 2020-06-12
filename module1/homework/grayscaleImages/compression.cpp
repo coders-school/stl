@@ -44,8 +44,8 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(
 }
 
 void printMap(const std::array<std::array<uint8_t, width>, height>& bitmap) {
-    for (const auto& row : bitmap) {
-        for (const auto& column : row) {
+    for (auto row : bitmap) {
+        for (auto column : row) {
             if (column <= ' ') {
                 std::cout << ' ';
             } else {
