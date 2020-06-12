@@ -12,7 +12,7 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(
     for (const auto& row : bitmap) {
         color_code = *row.begin();
         occurrences = 0;
-        for (const auto& element : row) {
+        for (auto element : row) {
             if (element == color_code) {
                 ++occurrences;
             } else {
@@ -44,7 +44,7 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(
 }
 
 void printMap(const std::array<std::array<uint8_t, width>, height>& bitmap) {
-    for (auto row : bitmap) {
+    for (const auto& row : bitmap) {
         for (auto column : row) {
             if (column <= ' ') {
                 std::cout << ' ';
