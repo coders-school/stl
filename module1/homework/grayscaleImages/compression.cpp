@@ -7,6 +7,7 @@
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(
     const std::array<std::array<uint8_t, width>, height>& bitmap) {
     std::vector<std::pair<uint8_t, uint8_t>> compressed{};
+    compressed.reserve(height * width);
     int occurrences = 0;
     uint8_t color_code = 0;
     for (const auto& row : bitmap) {
@@ -23,6 +24,7 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(
         }
         compressed.emplace_back(std::make_pair(color_code, occurrences));
     }
+    compressed.shrink_to_fit();
     return compressed;
 }
 
