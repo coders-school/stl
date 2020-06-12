@@ -1,4 +1,5 @@
 #include "vowel.hpp"
+
 #include <algorithm>
 #include <array>
 
@@ -9,7 +10,7 @@ constexpr std::array<char, 12> vowels{'a', 'e', 'i', 'o', 'u', 'y', 'A', 'E', 'I
 void removeVowels(std::vector<std::string>& text) {
     for (auto& el : text) {
         el.erase(std::remove_if(std::begin(el), std::end(el), [](unsigned char c) {
-                     return std::find(std::begin(vowels), std::end(vowels), c) != std::end(vowels);
+                     return std::find(std::cbegin(vowels), std::cend(vowels), c) != std::cend(vowels);
                  }),
                  std::end(el));
     }
