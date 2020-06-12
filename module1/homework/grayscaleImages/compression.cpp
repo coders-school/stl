@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <array>
+#include <iostream>
 #include <utility>
 #include <vector>
 
@@ -23,10 +24,7 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array
             }
             prevElem = elem;
         }
-
-        if (cnt > 0) {
-            compressedData.emplace_back(std::make_pair(prevElem, cnt));
-        }
+        compressedData.emplace_back(std::make_pair(prevElem, cnt));
     }
     return compressedData;
 }
@@ -34,9 +32,9 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array
 std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>>& compressedData) {
     std::array<std::array<uint8_t, width>, height> bitmap;
     auto rowNum = 0;
-
     int pos = 0;
     std::array<uint8_t, width> row;
+
     for (const auto& elem : compressedData) {
         std::fill_n(std::next(row.begin(), pos), elem.second, elem.first);
         pos += elem.second;
@@ -47,4 +45,16 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<s
         }
     }
     return bitmap;
+}
+
+void printMap(std::array<std::array<uint8_t, ninjaWidth>, ninjaHeight>& bitmap) {
+    for (const auto& row : bitmap) {
+        for (const auto& c : row) {
+            if (c < 32)
+                std::cout << " ";
+            else
+                std::cout << c;
+        }
+        std::cout << '\n';
+    }
 }
