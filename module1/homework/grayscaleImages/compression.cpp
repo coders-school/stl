@@ -8,12 +8,12 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(
     std::vector<std::pair<uint8_t, uint8_t>> compressedBitmap{};
 
     for (const auto& el : bitmap) {
-        compressedBitmap.push_back(std::make_pair(*begin(el), 1));
+        compressedBitmap.push_back({*begin(el), 1});
         for (auto iter = std::next(begin(el)); iter != end(el); ++iter) {
             if (*iter == compressedBitmap.back().first) {
                 compressedBitmap.back().second++;
             } else {
-                compressedBitmap.push_back(std::make_pair(*iter, 1));
+                compressedBitmap.push_back({*iter, 1});
             }
         }
     }
