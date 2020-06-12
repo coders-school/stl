@@ -30,23 +30,21 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std:
 
 std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::vector<std::pair<uint8_t, uint8_t>>& inputVec){
     std::array<std::array<uint8_t, width>, height> outputArr;
-    auto vecIt = inputVec.begin();
-    size_t repeatingValue = 1;
-    
-    for(size_t rowCounter = 0; rowCounter < height; rowCounter++){
-        repeatingValue = 1;
-        for(size_t columnElement = 0; columnElement < width; columnElement++){
-            if(repeatingValue <= (vecIt->second)){
-                outputArr[rowCounter][columnElement] = (vecIt->first);
-                repeatingValue++;
+    size_t rowCounter = 0;
+    size_t columnCounter = 0;
+
+    for(const auto& pair : inputVec){
+        if (rowCounter < height){
+            for(size_t pairValue = 0; pairValue<pair.second; ++pairValue){
+                outputArr[rowCounter][columnCounter] = pair.first;
+                if(columnCounter < width-1)
+                    columnCounter++;
+                else{
+                    columnCounter = 0;
+                    rowCounter++;
+                } 
             }
-            else{
-                vecIt++;
-                outputArr[rowCounter][columnElement] = (vecIt->first);
-                repeatingValue = 2;
-            }
-        }
-        vecIt++;
+        } 
     }
     return outputArr;
 }
