@@ -12,8 +12,8 @@ void printMap (std::array<std::array<uint8_t, width>, height> bitmap)
             std::cout<<std::setw(3)<<(int)c<<' ';
 
         }
-        std::cout<<'\n';        
-    }    
+        std::cout<<'\n';
+    }
 }
 
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale (std::array<std::array<uint8_t, width>, height> bitmap)
@@ -25,19 +25,16 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale (std::array<std::arra
         auto firstElemIter = line.cbegin();
         auto lastElemIter = firstElemIter;
 
-        do{        
-            lastElemIter = std::find_if( firstElemIter, line.cend(), [firstElemIter](uint8_t i){ return i != *firstElemIter;});
-            //std::cout<<"{"<<(int) *firstElemIter<<", ";
-            //std::cout<<std::distance(firstElemIter, lastElemIter)<<"},";
-            
+        do
+        {
+            lastElemIter = std::find_if( firstElemIter, line.cend(), [firstElemIter](uint8_t i) {
+                return i != *firstElemIter;
+            });
             compressed.push_back({*firstElemIter, std::distance(firstElemIter, lastElemIter)});
             firstElemIter = lastElemIter;
-            
-        }while(firstElemIter != line.cend());
-        //std::cout<<'\n';
-        
-    }
 
+        } while(firstElemIter != line.cend());
+    }
     return compressed;
 }
 
@@ -47,5 +44,5 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<s
 {
     std::array<std::array<uint8_t, width>, height> decompressed;
 
-    return decompressed; 
+    return decompressed;
 }
