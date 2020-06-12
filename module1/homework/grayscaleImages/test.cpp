@@ -46,21 +46,22 @@ Bitmap buildBitmap(unsigned int fraction)
     }
 
     bitmapIter = std::fill_n(std::begin(bmp), height, line);
-    return bmp;
+    return  bmp;
 }
 
 class Compression : public ::testing::TestWithParam<int> { };
 
 TEST_P(Compression, ShouldCompressBitmap)
 {
-    auto bitmap = compressGrayscale(buildBitmap(GetParam()));
+    const Bitmap bmp = buildBitmap(GetParam());
+    auto bitmap = compressGrayscale(bmp);
     ASSERT_EQ(bitmap.size(), height * GetParam());
     expectBitmap(bitmap, GetParam());
 }
 
 TEST_P(Compression, ShouldDecompressBitmap)
 {
-    auto bitmap = getBitmap(GetParam());
+    const auto bitmap = getBitmap(GetParam());
     auto map = decompressGrayscale(bitmap);
     ASSERT_EQ(map.size(), height);
     auto generatedMap = buildBitmap(GetParam());
