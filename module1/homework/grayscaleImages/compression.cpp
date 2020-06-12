@@ -19,17 +19,16 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std:
         compressedData.emplace_back(bitmap[i][j], counter);
         counter = 1;
     }
-
     compressedData.shrink_to_fit();
 
     return compressedData;
 }
 
-std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::vector<std::pair<uint8_t, uint8_t>>& vec) {
+std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::vector<std::pair<uint8_t, uint8_t>>& compressedBitmap) {
     uint8_t currWidth = 0, row = 0;
     std::array<std::array<uint8_t, width>, height> decompressedData;
 
-    for (const auto& el : vec) {
+    for (const auto& el : compressedBitmap) {
         for (size_t i = currWidth; i < currWidth + el.second; i++) {
             decompressedData[row][i] = el.first;
         }
