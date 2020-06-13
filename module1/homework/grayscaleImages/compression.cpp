@@ -24,10 +24,6 @@ vector_of_pairs compressGrayscale(const array_of_arrays& bitmap) {
                 ++occurrences;
             }
         }
-        // for (auto element : row) {
-
-        // }
-        // compressed.emplace_back(std::make_pair(color_code, occurrences));
     }
     compressed.shrink_to_fit();
     return compressed;
