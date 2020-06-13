@@ -7,7 +7,7 @@
 using vector_of_pairs = std::vector<std::pair<uint8_t, uint8_t>>;
 using array_of_arrays = std::array<std::array<uint8_t, width>, height>;
 
-vector_of_pairs compressGrayscale(const std::array<std::array<uint8_t, width>, height>& bitmap) {
+vector_of_pairs compressGrayscale(const array_of_arrays& bitmap) {
     vector_of_pairs compressed{};
     uint8_t occurrences = 0;
     uint8_t color_code = 0;
@@ -29,7 +29,7 @@ vector_of_pairs compressGrayscale(const std::array<std::array<uint8_t, width>, h
     return compressed;
 }
 
-array_of_arrays decompressGrayscale(const std::vector<std::pair<uint8_t, uint8_t>>& bitmap) {
+array_of_arrays decompressGrayscale(const vector_of_pairs& bitmap) {
     array_of_arrays decompressed{};
     auto it = bitmap.begin();
     int counter = 0;
