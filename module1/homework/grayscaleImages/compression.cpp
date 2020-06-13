@@ -25,16 +25,11 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std:
 
 std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::vector<std::pair<uint8_t, uint8_t>>& dataTodecompress) {
     std::array<std::array<uint8_t, width>, height> arrayDecompressed;
-    auto itArrCol = arrayDecompressed.begin();
-    auto itArrRow = arrayDecompressed[std::distance(arrayDecompressed.begin(), itArrCol)].begin();
+    auto it = arrayDecompressed.front().begin();
     for (auto& el : dataTodecompress) {
         for (size_t i = 0; i < el.second; ++i) {
-            *itArrRow = el.first;
-            *itArrRow++;
-        }
-        if (std::next(itArrRow) == arrayDecompressed[std::distance(arrayDecompressed.begin(), itArrCol)].end()) {
-            itArrCol++;
-            itArrRow = arrayDecompressed[std::distance(arrayDecompressed.begin(), itArrCol)].end();
+            *it = el.first;
+            *it++;
         }
     }
 
