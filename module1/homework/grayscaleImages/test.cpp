@@ -39,72 +39,51 @@ std::vector<std::pair<uint8_t, uint8_t>> getBitmap(size_t fraction) {
     return bitmap;
 }
 
-TEST(compressionTests, ShouldCompressWholeLines) {
-    std::array<std::array<uint8_t, width>, height> arr;
-    for (int i = 0; i < height; ++i)
-        for (int j = 0; j < width; ++j)
-            arr[i][j] = 0;
+std::array<std::array<uint8_t, width>, height> getMap(size_t fraction) {
+    std::array<std::array<uint8_t, width>, height> map;
+    for (size_t k = 0; k < fraction; ++k) {
+        for (size_t i = 0; i < height; ++i) {
+            for (size_t j = k * width / fraction; j < (k + 1) * width / fraction; ++j) {
+                map[i][j] = k;
+            }
+        }
+    }
+    return map;
+}
 
+TEST(compressionTests, ShouldCompressWholeLines) {
+    constexpr size_t fraction = 1;
+    std::array<std::array<uint8_t, width>, height> arr = getMap(fraction);
     auto bitmap = compressGrayscale(arr);
-    ASSERT_EQ(bitmap.size(), height);
-    expectBitmap(bitmap, 1);
+    ASSERT_EQ(bitmap.size(), height * fraction);
+    expectBitmap(bitmap, fraction);
 }
 
 TEST(compressionTests, ShouldCompressHalfLines) {
-    std::array<std::array<uint8_t, width>, height> arr;
-    for (int i = 0; i < height; ++i) {
-        for (int j = 0; j < width / 2; ++j)
-            arr[i][j] = 0;
-        for (int j = width / 2; j < width; ++j)
-            arr[i][j] = 1;
-    }
+    constexpr size_t fraction = 2;
+    std::array<std::array<uint8_t, width>, height> arr = getMap(fraction);
 
     auto bitmap = compressGrayscale(arr);
-    expectBitmap(bitmap, 2);
+    ASSERT_EQ(bitmap.size(), height * fraction);
+    expectBitmap(bitmap, fraction);
 }
 
 TEST(compressionTests, ShouldCompressQuaterLines) {
-    std::array<std::array<uint8_t, width>, height> arr;
-    for (int i = 0; i < height; ++i) {
-        for (int j = 0; j < width / 4; ++j)
-            arr[i][j] = 0;
-        for (int j = width / 4; j < width / 2; ++j)
-            arr[i][j] = 1;
-        for (int j = width / 2; j < width / (4.0 / 3.0); ++j)
-            arr[i][j] = 2;
-        for (int j = width / (4.0 / 3.0); j < width; ++j)
-            arr[i][j] = 3;
-    }
+    constexpr size_t fraction = 4;
+    std::array<std::array<uint8_t, width>, height> arr = getMap(fraction);
 
     auto bitmap = compressGrayscale(arr);
-    ASSERT_EQ(bitmap.size(), height * 4);
-    expectBitmap(bitmap, 4);
+    ASSERT_EQ(bitmap.size(), height * fraction);
+    expectBitmap(bitmap, fraction);
 }
 
 TEST(compressionTests, ShouldCompressOneEighthLines) {
-    std::array<std::array<uint8_t, width>, height> arr;
-    for (int i = 0; i < height; ++i) {
-        for (int j = 0; j < width / 8; ++j)
-            arr[i][j] = 0;
-        for (int j = width / 8; j < width / 4; ++j)
-            arr[i][j] = 1;
-        for (int j = width / 4; j < width / (8.0 / 3.0); ++j)
-            arr[i][j] = 2;
-        for (int j = width / (8.0 / 3.0); j < width / 2; ++j)
-            arr[i][j] = 3;
-        for (int j = width / 2; j < width / (8.0 / 5.0); ++j)
-            arr[i][j] = 4;
-        for (int j = width / (8.0 / 5.0); j < width / (4.0 / 3.0); ++j)
-            arr[i][j] = 5;
-        for (int j = width / (4.0 / 3.0); j < width / (8.0 / 7.0); ++j)
-            arr[i][j] = 6;
-        for (int j = width / (8.0 / 7.0); j < width; ++j)
-            arr[i][j] = 7;
-    }
+    constexpr size_t fraction = 8;
+    std::array<std::array<uint8_t, width>, height> arr = getMap(fraction);
 
     auto bitmap = compressGrayscale(arr);
-    ASSERT_EQ(bitmap.size(), height * 8);
-    expectBitmap(bitmap, 8);
+    ASSERT_EQ(bitmap.size(), height * fraction);
+    expectBitmap(bitmap, fraction);
 }
 
 TEST(compressionTests, ShouldDecompressWholeLines) {
