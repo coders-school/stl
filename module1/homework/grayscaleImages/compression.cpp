@@ -5,7 +5,7 @@
 
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array<uint8_t, width>, height>& bitmap) {
     std::vector<std::pair<uint8_t, uint8_t>> output;
-    int testcounter = 0;
+    std::vector<uint8_t> v(width * height);
 
     for (auto& line : bitmap) {
         uint8_t counter = 1;
@@ -19,7 +19,6 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array
                 counter = 1;
                 color = line[i];
             }
-            testcounter++;
         }
 
         output.emplace_back(std::make_pair(color, counter));
@@ -30,9 +29,7 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array
 
 std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>>& data) {
     std::array<std::array<uint8_t, width>, height> bitmap;
-
-    uint8_t lineNumber = 0;
-    auto it = bitmap[lineNumber].begin();
+    auto it = bitmap[0].begin();
 
     for (auto [color, count] : data) {
         std::fill_n(it, count, color);
@@ -44,9 +41,9 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<s
 
 void printMap(std::array<std::array<uint8_t, width>, height>& bitmap) {
     std::string colors = " .:-=+*#%@";
-    for(auto& line : bitmap){
-        for(auto color : line){
-            std::cout << colors[char(color * colors.size() / UINT8_MAX)];
+    for (auto& line : bitmap) {
+        for (auto color : line) {
+            std::cout << colors[char(color * colors.size() / UINT8_MAX)] << " ";
         }
         std::cout << '\n';
     }
