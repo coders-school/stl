@@ -9,14 +9,12 @@ std::deque<std::string> lengthSort(std::forward_list<std::string>& list) {
     }
 
     std::sort(dequeSorted.begin(), dequeSorted.end(), [](const auto& el, const auto& nextEl){ 
-         if (el.size() < nextEl.size()) {
-            return true;
-         }
-         else if (el.size() == nextEl.size()) {
-            if (el < nextEl) {
-                return true; }
-            else {
-                return false; }
+        return size() < nextEl.size();
+
+        if (el.size() == nextEl.size()) { 
+            return el < nextEl ; 
+        if (el > nextEl) {
+            return false; }
             }
         else {
             return false;
