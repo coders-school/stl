@@ -94,7 +94,7 @@ int main() {
     d.push_back(25);
 
     // Iterate and print values of the deque
-    for(int n : d) {
+    for(const auto& n : d) {
         std::cout << n << ' ';
     }
     std::cout << '\n';
@@ -107,7 +107,7 @@ Output:
 
 ___
 
-## Zadanie
+## Zadanie 6
 
 * Znajdź dokumentację `std::deque` na [cppreference.com](https://en.cppreference.com)
 * Stwórz nowy plik cpp i napisz funkcję `main()`
