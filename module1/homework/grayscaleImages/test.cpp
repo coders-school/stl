@@ -86,6 +86,33 @@ TEST(compressionTests, ShouldCompressOneEighthLines) {
     expectBitmap(bitmap, fraction);
 }
 
+TEST(compressionTests, ShouldCompressOneSixteenLines) {
+    constexpr size_t fraction = 16;
+    std::array<std::array<uint8_t, width>, height> arr = getMap(fraction);
+
+    auto bitmap = compressGrayscale(arr);
+    ASSERT_EQ(bitmap.size(), height * fraction);
+    expectBitmap(bitmap, fraction);
+}
+
+TEST(compressionTests, ShouldCompressOneThirtyTwoLines) {
+    constexpr size_t fraction = 32;
+    std::array<std::array<uint8_t, width>, height> arr = getMap(fraction);
+
+    auto bitmap = compressGrayscale(arr);
+    ASSERT_EQ(bitmap.size(), height * fraction);
+    expectBitmap(bitmap, fraction);
+}
+
+// TEST(compressionTests, ShouldCompressOneSixtyFourLines) {
+//     constexpr size_t fraction = 64;
+//     std::array<std::array<uint8_t, width>, height> arr = getMap(fraction);
+
+//     auto bitmap = compressGrayscale(arr);
+//     ASSERT_EQ(bitmap.size(), height * fraction);
+//     expectBitmap(bitmap, fraction);
+// }
+
 TEST(compressionTests, ShouldDecompressWholeLines) {
     constexpr size_t fraction = 1;
     auto bitmap = getBitmap(fraction);
