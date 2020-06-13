@@ -1,4 +1,5 @@
 #include "sort.hpp"
+#include <algorithm>
 
 std::deque<std::string> lengthSort(std::forward_list<std::string>& list) {
     list.sort();
