@@ -11,7 +11,7 @@ std::deque<std::string> lengthSort(std::forward_list<std::string> lst) {
         length_cont.push_back(el.length());
         word_cont.push_back(el);
     }
-    std::sort(length_cont.rbegin(), length_cont.rend());
+    std::sort(length_cont.begin(), length_cont.end());
     std::deque<std::string> dq;
 
     for (size_t i = 0; i < length_cont.size(); ++i) {
@@ -23,5 +23,17 @@ std::deque<std::string> lengthSort(std::forward_list<std::string> lst) {
             }
         }
     }
+    int count = 0;
+    while (count != dq.size()) {
+        for (size_t i = 0; i < dq.size(); ++i) {
+            if (i > 0 && dq[i].length() == dq[i - 1].length()) {
+                if (std::lexicographical_compare(dq[i].begin(), dq[i].end(), dq[i - 1].begin(), dq[i - 1].end())) {
+                    dq[i].swap(dq[i - 1]);
+                }
+            }
+        }
+        count++;
+    }
 
+    return dq;
 }
