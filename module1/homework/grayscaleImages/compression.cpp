@@ -1,4 +1,5 @@
 #include "compression.hpp"
+#include <iostream>
 
 compressed_bitmap compressGrayscale(const bitmap& image) {
     compressed_bitmap compressedImage{};
@@ -38,4 +39,14 @@ bitmap decompressGrayscale(const compressed_bitmap& compressedImage) {
         }
     }
     return result;
+}
+
+void printMap(const bitmap& image) {
+    for (const auto& row : image) {
+        for (const auto& col : row) {
+            !iscntrl(col) ? std::cout << col : std::cout << " ";
+        }
+        std::cout << "\n";
+    }
+    std::cout << "\n\n";
 }
