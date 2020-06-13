@@ -1,4 +1,4 @@
 #pragma once
 #include <string>
 
-bool is_palindrom(std::string str);
+bool is_palindrome(std::string str);
