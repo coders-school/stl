@@ -17,7 +17,7 @@ vector_of_pairs compressGrayscale(const array_of_arrays& bitmap) {
         for (auto element = row.begin(); element != row.end(); ++element) {
             auto next = std::next(element);
             if (color_code != *next || next == row.end()) {
-                compressed.emplace_back(std::make_pair(color_code, occurrences));
+                compressed.push_back({color_code, occurrences});
                 color_code = *next;
                 occurrences = 1;
             } else {
