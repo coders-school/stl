@@ -14,7 +14,7 @@ vector_of_pairs compressGrayscale(const std::array<std::array<uint8_t, width>, h
     for (const auto& row : bitmap) {
         color_code = row.front();
         occurrences = 0;
-        for (const auto& element : row) {
+        for (auto element : row) {
             if (element == color_code) {
                 ++occurrences;
             } else {
@@ -25,6 +25,7 @@ vector_of_pairs compressGrayscale(const std::array<std::array<uint8_t, width>, h
         }
         compressed.emplace_back(std::make_pair(color_code, occurrences));
     }
+    compressed.shrink_to_fit();
     return compressed;
 }
 
@@ -50,6 +51,7 @@ void printMap(const array_of_arrays& bitmap) {
         for (const auto& column : row) {
             if (column == empty_char) {
                 std::cout << empty_char;
+
             } else {
                 std::cout << column;
             }
