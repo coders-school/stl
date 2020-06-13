@@ -9,15 +9,17 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std:
 
     uint8_t color;
     std::for_each(bitmap.begin(), bitmap.end(), [&color, &compress](const auto& row){
-            color = row.front();
-            auto it_first = row.begin();
+        color = row.front();
+        auto it_first = row.begin();
 
-            while(it_first != row.end()) {
-                auto it_second = std::find_if(it_first, row.end(), [&color](auto pixel){ return pixel != color; });
-                compress.push_back({color, it_second - it_first});
-                it_first = it_second;
+        while(it_first != row.end()) {
+            auto it_second = std::find_if(it_first, row.end(), [&color](auto pixel){ return pixel != color; });
+            compress.push_back({color, it_second - it_first});
+            it_first = it_second;
+            if(it_second != row.end()) {
                 color = *it_second;
             }
+        }
     });
 
     return compress;
@@ -27,15 +29,15 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::ve
     std::array<std::array<uint8_t, width>, height> decompress;
 
     auto it = bitmap.begin();
-    for(size_t row = 0; row < height; ++row) {
-        auto decomp_it = decompress[row].begin();
+    std::for_each(decompress.begin(), decompress.end(), [&it](auto& line){
+        auto decomp_it = line.begin();
 
-        while(decomp_it != decompress[row].end()) {
+        while(decomp_it != line.end()) {
             std::fill_n(decomp_it, it->second, it->first);
             decomp_it += it->second;
             ++it;
         }
-    }
+    });
 
     return decompress;
 }
