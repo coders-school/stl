@@ -7,11 +7,12 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std:
     uint8_t count;
 
     for (size_t i = 0; i < height; i++) {
-        for (size_t j = 0; j < width; j++) {
-            if (j == 0) {
-                color = bitmap[i][j];
-                count = 1;
-            } else if (color == bitmap[i][j]) {
+
+        color = bitmap[i][0];
+        count = 1;
+
+        for (size_t j = 1; j < width; j++) {
+            if (color == bitmap[i][j]) {
                 count++;
             } else {
                 vec.push_back(std::make_pair(color, count));
