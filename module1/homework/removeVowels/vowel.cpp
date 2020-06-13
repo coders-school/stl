@@ -10,7 +10,7 @@ static bool isVowel(char c) {
 }
 
 void removeVowels(std::vector<std::string>& vec) {
-    for (auto & s : vec) {
+    for (auto& s : vec) {
         s.erase(std::remove_if(s.begin(), s.end(), isVowel), s.end());
     }
 }
