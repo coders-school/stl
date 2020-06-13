@@ -51,7 +51,6 @@ void printMap(const array_of_arrays& bitmap) {
         for (const auto& column : row) {
             if (column == empty_char) {
                 std::cout << empty_char;
-
             } else {
                 std::cout << column;
             }
