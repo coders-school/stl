@@ -4,7 +4,8 @@
 #include <iostream>
 
 pairVector compressGrayscale(const std::array<std::array<uint8_t, width>, height>& inputMap) {
-    pairVector outputVec{};
+    pairVector outputVec;
+    outputVec.reserve(width * height);
     uint8_t color = 0;
     int value = 0;
     int column = 0;
@@ -14,7 +15,7 @@ pairVector compressGrayscale(const std::array<std::array<uint8_t, width>, height
         value = 0;
         column = 0;
 
-        for (const auto rowElement : mapRow) {
+        for (const auto& rowElement : mapRow) {
             if (rowElement != color || column == width - 1) {
                 if (column == width - 1)
                     value++;
@@ -27,6 +28,7 @@ pairVector compressGrayscale(const std::array<std::array<uint8_t, width>, height
             column++;
         }
     }
+    outputVec.shrink_to_fit();
     return outputVec;
 }
 
