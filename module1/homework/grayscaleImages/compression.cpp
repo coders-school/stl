@@ -44,12 +44,17 @@ for(auto& row : result){
 return result;
 }
 
-void printMap (const std::array<std::array<uint8_t, width>, height>& getMap){
+void printMap(const std::array<std::array<uint8_t, width>, height>& getMap) {
 
-    for(const auto& everyRow : getMap){
+    for(auto everyRow : getMap) {
 
-        for(const auto& element : everyRow){
-            std::cout << element;
+        for(auto element : everyRow) {
+
+            if(element <= ' ') {
+                std::cout << " ";
+            } else {
+                std::cout << element;
+            }
         }
         std::cout << "\n";
     }
