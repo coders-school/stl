@@ -1,6 +1,8 @@
 #pragma once
 
 #include <deque>
+#include <list>
+#include <map>
 #include <string>
 
-void removeDuplicateAndTranformToMap(std::list<std::string> strList, std::deque<int> deq);
+std::map<int, std::string> removeDuplicateAndTranformToMap(std::list<std::string> strList, std::deque<int> deq);
