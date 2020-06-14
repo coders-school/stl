@@ -53,7 +53,7 @@ TEST(lengthSortTests, ShouldSortByLength) {
     EXPECT_EQ(result, expected_result);
 }
 
-TEST(lengthSortTests, ShouldSortByLengthLoweUpperCase) {
+TEST(lengthSortTests, ShouldSortByLengthLowerUpperCase) {
     std::forward_list<std::string> list{
         {"alamakota"},
         {"ala"},
