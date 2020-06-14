@@ -39,10 +39,21 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale (std::array<std::arra
 }
 
 
-//TODO
 std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>> compressed)
 {
     std::array<std::array<uint8_t, width>, height> decompressed;
+    auto row = 0;
+    auto column = 0;
 
+    for (auto chunk : compressed)
+    {
+        std::fill(&decompressed[row][column], &decompressed[row][column + chunk.second], chunk.first);
+        column += chunk.second;
+        if(column >= width )
+        {
+            row++;
+            column = 0;
+        }
+    }
     return decompressed;
 }
