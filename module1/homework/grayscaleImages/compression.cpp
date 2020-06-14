@@ -30,30 +30,13 @@ CompressedPGMBitMap compressGrayscale(const PGMBitMap& img) {
 PGMBitMap decompressGrayscale(const CompressedPGMBitMap& compressedImg) {
     PGMBitMap decompressed;
 
-    size_t pairCounter = 0;
-    HeightType currentRow = 0;
-    size_t idxWithinRow = 0;
-    auto currentEmptySlot = decompressed[currentRow].begin();
+    auto currentEmptySlot = decompressed[0].begin();
 
     for (const auto& pair : compressedImg) {
-        pairCounter++;
-
-        if (pair.second > (width - idxWithinRow)) {
-            throw std::invalid_argument("Pair #" + std::to_string(pairCounter) + " overflows a single row, which is not allowed in compression algorithm");
-        }
-        if (currentRow >= height) {
-            throw std::invalid_argument("Pair #" + std::to_string(pairCounter) + " tries to fill a row exceeding image height, which is not allowed");
-        }
         auto placeToFillTo = std::next(currentEmptySlot, pair.second);
         std::fill(currentEmptySlot, placeToFillTo, pair.first);
-        idxWithinRow += pair.second;
-        if (idxWithinRow < width) {
-            currentEmptySlot = placeToFillTo;
-        } else {
-            idxWithinRow = 0;
-            currentRow++;
-            currentEmptySlot = decompressed[currentRow].begin();
-        }
+        currentEmptySlot = placeToFillTo;
+
     }
 
     return decompressed;
