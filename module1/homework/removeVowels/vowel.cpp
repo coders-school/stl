@@ -12,6 +12,3 @@ void removeVowels (std::vector<std::string>& word){
         removeVowelsFromString(elem);
     }
 }
-
-
-
