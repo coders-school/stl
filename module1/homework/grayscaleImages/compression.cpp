@@ -3,28 +3,26 @@
 #include <algorithm>
 #include <iostream>
 
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, width>, height>& compress) {
+std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(Image compress) {
     std::vector<std::pair<uint8_t, uint8_t>> compressedBitmap;
 
-    int repetitionCounter = 0;
-    uint8_t color = 0;
+    uint8_t repetitionCounter = 0;
 
-    for (const auto& row : compress) {
-        color = row.front();
-        repetitionCounter = 0;
-        for (auto column : row) {
-            if (column == color) {
-                ++repetitionCounter;
-            } else {
-                compressedBitmap.emplace_back(color, repetitionCounter);
-                color = column;
+    for(const auto row : compress){
+        repetitionCounter = 1;
+        for(auto color = row.begin(); color != row.end(); ++color){
+            auto nextColor = std::next(color);
+            if(*color != *nextColor || nextColor == row.end()){
+                compressedBitmap.emplace_back(std::make_pair(*color,repetitionCounter));
                 repetitionCounter = 1;
             }
-        }
-        compressedBitmap.emplace_back(color, repetitionCounter);
+            else{
+                repetitionCounter++;
+            }
+        }     
     }
-
-    return compressedBitmap;
+    compressedBitmap.shrink_to_fit();
+    return compressedBitmap; 
 }
 
 std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::vector<std::pair<uint8_t, uint8_t>>& compressedMap) {
