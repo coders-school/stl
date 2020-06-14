@@ -1,8 +1,5 @@
 #include "transformContainers.hpp"
 #include <algorithm>
-#include <iostream>
-#include <iterator>
-#include <utility>
 
 std::map<int, std::string> removeDuplicateAndTranformToMap(std::list<std::string> myList, std::deque<int> myDeque) {
     std::map<int, std::string> myMap;

@@ -35,13 +35,13 @@ if (CMAKE_VERSION VERSION_LESS 2.8.11)
   include_directories("${gtest_SOURCE_DIR}/include")
 endif()
 
-project(transformContainers)
+project(grayscaleImages)
 enable_testing()
 
-add_executable(${PROJECT_NAME} main.cpp transform.cpp)
-add_executable(${PROJECT_NAME}-ut test.cpp transform.cpp)
+add_executable(${PROJECT_NAME} main.cpp compression.cpp)
+add_executable(${PROJECT_NAME}-ut test.cpp compression.cpp)
 
-add_compile_options(${PROJECT_NAME}-ut -Wall -Wextra -Wconversion -pedantic -Werror)
+add_compile_options(${PROJECT_NAME} -Wall -Wextra -Wconversion -pedantic -Werror)
 
 target_link_libraries(${PROJECT_NAME}-ut gtest_main)
 add_test(NAME ${PROJECT_NAME}_test COMMAND ${PROJECT_NAME}-ut)
