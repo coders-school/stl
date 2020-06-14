@@ -1,5 +1,8 @@
 #include "vowel.hpp"
 
+#include <algorithm>
+#include <array>
+
 bool isVowel(const char letter) {
     constexpr int vowelsArraySize = 12;
     constexpr std::array<char, vowelsArraySize> vowels = {'A', 'E', 'I', 'O', 'U', 'Y',
@@ -10,7 +13,6 @@ bool isVowel(const char letter) {
 
 void removeVowels(std::vector<std::string>& strings) {
     for (auto& elem : strings) {
-        auto vowelsToRemove = std::remove_if(elem.begin(), elem.end(), isVowel);
-        elem.erase(vowelsToRemove, elem.end());
+        elem.erase(std::remove_if(elem.begin(), elem.end(), isVowel), elem.end());
     }
 }

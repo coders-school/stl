@@ -1,8 +1,7 @@
 #include "compression.hpp"
 
+#include <algorithm>
 #include <iostream>
-
-
 
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(Image compress) {
     std::vector<std::pair<uint8_t, uint8_t>> compressedBitmap;
@@ -33,14 +32,18 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::ve
     size_t col = 0;
 
     for (const auto& [color, count] : compressedMap) {
-        for (size_t i = 0; i < count; i++) {
-            decompressed[row][col] = color;
-            if (col < width - 1) {
-                col++;
-            } else {
-                col = 0;
-                row++;
+        if (row < height) {
+            for (size_t i = 0; i < count; i++) {
+                decompressed[row][col] = color;
+                if (col < width - 1) {
+                    col++;
+                } else {
+                    col = 0;
+                    row++;
+                }
             }
+        } else {
+            break;
         }
     }
 
