@@ -19,8 +19,8 @@ std::map<int, std::string> removeDuplicateAndTranformToMap(std::list<std::string
                    inputList.begin(),
                    std::inserter(outputMap, outputMap.end()),
                    [](const auto& deqElement, const auto& lisElement) {
-    return std::make_pair(deqElement, lisElement);
-    });
+                       return std::make_pair(deqElement, lisElement);
+                    });
 
 return outputMap;
 }
