@@ -47,36 +47,40 @@ void checkMap(std::array<std::array<uint8_t, width>, height> arr, size_t fractio
 }
 
 TEST(compressionTests, ShouldCompressWholeLines) {
-    auto arr = createArray(1);
+    constexpr size_t fraction = 1;
+    auto arr = createArray(fraction);
     auto bitmap = compressGrayscale(arr);
-    ASSERT_EQ(bitmap.size(), height);
-    expectBitmap(bitmap, 1);
+    ASSERT_EQ(bitmap.size(), height * fraction);
+    expectBitmap(bitmap, fraction);
 }
 
 TEST(compressionTests, ShouldCompressHalfLines) {
-    auto arr = createArray(2);
+    constexpr size_t fraction = 2;
+    auto arr = createArray(fraction);
     auto bitmap = compressGrayscale(arr);
-    expectBitmap(bitmap, 2);
+    ASSERT_EQ(bitmap.size(), height * fraction);
+    expectBitmap(bitmap, fraction);
 }
 
 TEST(compressionTests, ShouldCompressQuaterLines) {
-    auto arr = createArray(4);
+    constexpr size_t fraction = 4;
+    auto arr = createArray(fraction);
     auto bitmap = compressGrayscale(arr);
-    ASSERT_EQ(bitmap.size(), height * 4);
-    expectBitmap(bitmap, 4);
+    ASSERT_EQ(bitmap.size(), height * fraction);
+    expectBitmap(bitmap, fraction);
 }
 
 TEST(compressionTests, ShouldCompressOneEighthLines) {
-    auto arr = createArray(8);
+    constexpr size_t fraction = 8;
+    auto arr = createArray(fraction);
     auto bitmap = compressGrayscale(arr);
-    ASSERT_EQ(bitmap.size(), height * 8);
-    expectBitmap(bitmap, 8);
+    ASSERT_EQ(bitmap.size(), height * fraction);
+    expectBitmap(bitmap, fraction);
 }
 
 TEST(compressionTests, ShouldDecompressWholeLines) {
     constexpr size_t fraction = 1;
     auto bitmap = getBitmap(fraction);
-
     auto map = decompressGrayscale(bitmap);
     ASSERT_EQ(bitmap.size(), height);
     checkMap(map, fraction);
@@ -85,7 +89,6 @@ TEST(compressionTests, ShouldDecompressWholeLines) {
 TEST(compressionTests, ShouldDecompressHalfLines) {
     constexpr size_t fraction = 2;
     auto bitmap = getBitmap(fraction);
-
     auto map = decompressGrayscale(bitmap);
     ASSERT_EQ(map.size(), height);
     checkMap(map, fraction);
@@ -94,7 +97,6 @@ TEST(compressionTests, ShouldDecompressHalfLines) {
 TEST(compressionTests, ShouldDecompressQuaterLines) {
     constexpr size_t fraction = 4;
     auto bitmap = getBitmap(fraction);
-
     auto map = decompressGrayscale(bitmap);
     ASSERT_EQ(map.size(), height);
     checkMap(map, fraction);
@@ -103,7 +105,6 @@ TEST(compressionTests, ShouldDecompressQuaterLines) {
 TEST(compressionTests, ShouldDecompressOneEighthLines) {
     constexpr size_t fraction = 8;
     auto bitmap = getBitmap(fraction);
-
     auto map = decompressGrayscale(bitmap);
     ASSERT_EQ(map.size(), height);
     checkMap(map, fraction);
