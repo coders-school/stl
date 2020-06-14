@@ -1,14 +1,16 @@
 #include "vowel.hpp"
-#include <algorithm>
 
-bool isVowel(char c){
-     c = tolower(c);
-     return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' || c == 'y';
-}
-  
-void removeVowels(std::vector<std::string>& words){
-      for(auto& str : words){
-         auto iter = std::remove_if(str.begin(), str.end(), isVowel);
-         str.erase(iter, str.end());
-     }
+#include <algorithm>
+#include <array>
+#include <iostream>
+
+void removeVowels (std::vector<std::string>& fullText) {
+
+const std::array<char,12> vowelArr {'a', 'A', 'e', 'E', 'i', 'I', 'o', 'O', 'u', 'U', 'y', 'Y'};
+
+    for (auto& element : fullText) {
+        for (const auto& vowel : vowelArr) {
+            element.erase(std::remove(element.begin(), element.end(), vowel), element.end());
+        }
+    }
 }
