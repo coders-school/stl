@@ -1,32 +1,15 @@
 #include "sort.hpp"
 
-std::deque<std::string> lengthSort(const std::forward_list<std::string>& list) {
+#include <algorithm>
 
-    std::deque<std::string> deq{};
-    auto listIt = list.begin();
+bool comparator(const std::string& firstString, const std::string& secondString) {
+    return firstString.length() < secondString.length();
+}
 
-    if (!list.empty()) {
-        deq.insert(deq.begin(), *listIt);
-        listIt++;
-    }
-
-    for (; listIt != list.end(); listIt++) {
-        auto deqIt = deq.begin();
-        for (; deqIt != deq.end(); deqIt++) {
-            if ((*listIt).length() < (*deqIt).length()) {
-                deq.insert(deqIt, *listIt);
-                break;
-            } else if ((*listIt).length() == (*deqIt).length()) {
-                if (*listIt < *deqIt) {
-                    deq.insert(deqIt, *listIt);
-                    break;
-                }
-            }
-        }
-        if (deqIt == deq.end()) {
-            deq.insert(deqIt, *listIt);
-        }
-    }
+std::deque<std::string> lengthSort(std::forward_list<std::string> list) {
+    list.sort();
+    std::deque<std::string> deq{list.begin(), list.end()};
+    std::sort(deq.begin(), deq.end(), comparator);
 
     return deq;
 }
