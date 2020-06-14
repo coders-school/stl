@@ -7,11 +7,10 @@ std::deque<std::string> lengthSort(std::forward_list<std::string> list) {
     std::copy(list.begin(), list.end(), std::back_inserter(deque));
 
     std::sort(deque.begin(), deque.end(), [](const auto& lhs, const auto& rhs) {
-        if (lhs.size() < rhs.size() || lhs < rhs) {
-            return true;
-        } else {
-            return false;
+        if (lhs.size() == rhs.size()) {
+            return lhs < rhs;
         }
+        return lhs < rhs;
     });
     return deque;
 }
