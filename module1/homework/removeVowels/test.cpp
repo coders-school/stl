@@ -51,3 +51,19 @@ TEST(removeVowelsTest, ShouldNotModify) {
     ASSERT_EQ(vec.size(), 4);
     EXPECT_EQ(copy, vec);
 }
+
+TEST(removeVowelsTest, ShouldRemoveOnlyLetters) {
+	std::vector<std::string> vec{
+		{" "},
+		{" aa "},
+		{"  ee "},
+		{"  bbe  "} };
+	auto copy = vec;
+	removeVowels(vec);
+
+	ASSERT_EQ(vec.size(), 4);
+	EXPECT_EQ(vec[0], " ");
+	EXPECT_EQ(vec[1], "  ");
+	EXPECT_EQ(vec[2], "   ");
+	EXPECT_EQ(vec[3], "  bb  ");
+}
