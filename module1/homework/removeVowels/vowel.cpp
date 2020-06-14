@@ -3,17 +3,14 @@
 #include <algorithm>
 #include <string>
 
-std::string vowels = "AEIOUYaeiouy";
+std::string vowels = "aeiouyAEIOUY";
 
 void removeVowels(std::vector<std::string>& vectorOfStrings) {
     for (auto& str : vectorOfStrings) {
-        str.erase(std::remove_if(str.begin(), str.end(), [](char c) {
-                      for (auto it = vowels.begin(); it != vowels.end(); it++) {
-                          if (*it == c) {
-                              return true;
-                          }
-                      }
-                      return false;
+        str.erase(std::remove_if(str.begin(), str.end(), [](const char charChecked) {
+                      return std::any_of(vowels.begin(), vowels.end(), [=](const char vowel) {
+                          return charChecked == vowel;
+                      });
                   }),
                   str.end());
     }
