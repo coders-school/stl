@@ -9,6 +9,7 @@ using array_of_arrays = std::array<std::array<uint8_t, width>, height>;
 
 vector_of_pairs compressGrayscale(const array_of_arrays& bitmap) {
     vector_of_pairs compressed{};
+    compressed.reserve(width * height);
     uint8_t occurrences = 0;
     uint8_t color_code = 0;
     for (const auto& row : bitmap) {

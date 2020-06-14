@@ -7,11 +7,8 @@ bool compare(const std::string& first_string, const std::string& second_string) 
 }
 
 std::deque<std::string> lengthSort(std::forward_list<std::string> input_list) {
-    std::deque<std::string> result_deque;
     input_list.sort();
-    for (std::string element : input_list) {
-        result_deque.emplace_back(element);
-    }
+    std::deque<std::string> result_deque{input_list.begin(), input_list.end()};
     std::sort(result_deque.begin(), result_deque.end(), compare);
     return result_deque;
 }
