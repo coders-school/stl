@@ -8,6 +8,3 @@ void removeVowels(std::vector<std::string>& words) {
     for (auto& element : words) {
         for (auto vowel : vowels) {
             element.erase(std::remove(element.begin(), element.end(), vowel), element.end());
-        }
-    }
-}

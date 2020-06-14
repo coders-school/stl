@@ -3,9 +3,19 @@
 #include <array>
 #include <vector>
 
-constexpr size_t width = 32;
-constexpr size_t height = 32;
+namespace
+{
+constexpr size_t width = 32; // 240;
 
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, height>, width>&);
-std::array<std::array<uint8_t, height>, width> decompressGrayscale(const std::vector<std::pair<uint8_t, uint8_t>>&);
-void printMap(const std::array<std::array<uint8_t, height>, width>&);
+constexpr size_t height = 32; // 160;
+
+using VectorPair = std::vector<std::pair<uint8_t, uint8_t> >;
+
+using ArrayArray = std::array<std::array<uint8_t, height>, width>;
+}
+
+VectorPair compressGrayscale(const ArrayArray&);
+
+ArrayArray decompressGrayscale(const VectorPair&);
+
+void printMap(const ArrayArray&);

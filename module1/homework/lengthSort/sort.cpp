@@ -2,16 +2,13 @@
 
 #include <algorithm>
 
-std::deque<std::string> lengthSort(const std::forward_list<std::string>& listToSort) {
-    std::deque<std::string> deq;
-
-    std::copy(listToSort.begin(), listToSort.end(), std::back_inserter(deq));
-
-    std::sort(deq.begin(), deq.end(), [](const auto& leftString, const auto& rightString) {
-        if (leftString.size() == rightString.size()) {
-            return leftString < rightString;
-        }
-        return leftString.size() < rightString.size();
+std::deque<std::string> lengthSort(std::forward_list<std::string> data) {
+    data.sort([](const std::string& lhs, const std::string& rhs) {
+        return (lhs.size() == rhs.size()) ? (lhs < rhs) : (lhs.size() < rhs.size());
     });
-    return deq;
+
+    std::deque<std::string> result;
+    std::copy(data.begin(), data.end(), std::back_inserter(result));
+
+    return result;
 }
