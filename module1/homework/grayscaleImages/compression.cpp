@@ -5,20 +5,22 @@
 CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
     CompressedBitmap compressed;
     for (const auto& line : bitmap) {
-        uint8_t count{};
+        uint8_t count{1};
         uint8_t pixel = line.front();
-        for (auto el : line) {
-            if (pixel == el) {
-                ++count;
-            } else {
+        
+        for (auto el = line.begin(); el != line.end(); ++el) {
+            auto next = std::next(el);
+            if (pixel != *next || next == line.end()) {
                 compressed.push_back({pixel, count});
+                pixel = *next;
                 count = 1;
-                pixel = el;
+            } else {
+                ++count;
             }
         }
-        compressed.push_back({pixel, count});
     }
-
+    compressed.shrink_to_fit();
+    
     return compressed;
 }
 
