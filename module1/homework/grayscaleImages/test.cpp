@@ -1,6 +1,6 @@
 #include <algorithm>
 #include <array>
-#include <utility>  // for std::pair<>
+#include <utility>
 #include <vector>
 
 #include "compression.hpp"

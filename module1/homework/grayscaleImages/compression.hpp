@@ -5,9 +5,9 @@
 
 namespace
 {
-constexpr size_t width = 240;
+constexpr size_t width = 32; // 240;
 
-constexpr size_t height = 160;
+constexpr size_t height = 32; // 160;
 
 using VectorPair = std::vector<std::pair<uint8_t, uint8_t> >;
 
