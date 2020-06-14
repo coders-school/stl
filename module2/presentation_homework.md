@@ -39,6 +39,7 @@ PR zgłaszajcie również na gałąź `master` w repo `coders-school/stl`, ale d
 
 #### [Zadania w repo](https://github.com/coders-school/stl/tree/master/module2/homework)
 
+
 ___
 
 ### Pre-work
@@ -55,8 +56,6 @@ ___
 ### Zadanie 1 - `grayscaleImages` cd.
 
 Ulepsz program `grayscaleImages` z poprzednich zajęć STL#1 (kompresja, dekompresja) obrazków, tak, aby zamiast pętli wykorzystać algorytmy. Działaj na swojej/waszej wersji implementacji tego zadania.
-
-Nie znajdziesz w repo w module2/homework/grayscaleImages żadnego kodu. Pracuj na module1/homework/grayscaleImages. Jeśli nie chcesz nadpisać PR z tamtą pracą domową to po prostu utwórz nowego brancha od tego stanu (ale nie zapomnij żeby zmergować do niego `coders/master`, aby mieć te obecne zadania). Jeśli to skomplikowane - po prostu skopiuj swój program `grayscaleImages` do katalogu module2 ;)
 
 ___
 
@@ -75,18 +74,3 @@ ___
 3. Na koniec skonwertuje to na `std::map<int, std::string>` i ją zwróci. Użyj `std::transform`.
 
 Tutaj wywnioskuj po testach jak nazwać funkcję. Stwórz własne pliki źródłowe i nagłówkowe i dodaj je do CMakeLists.txt, aby się budowały. Szczegóły w README.md do tego zadania.
-
-___
-
-### Współpraca
-
-Sugestia jak zrobić brancha pod tę pracę domową:
-
-```git
-git checkout homework1      # homework1 to nazwa twojego brancha z pracą domową z STL#1
-git checkout -b homework2   # utwórz branch homework2 z obecnego stanu
-git pull coders master      # ściągnij i zintegruj zmiany z coders-school/master, aby mieć module2. Nie powinno być konfliktów
-git push origin homework2   # wyślij nowego brancha na swojego forka
-```
-
-Teraz możesz zacząć pracę (najlepiej w grupie) na branchu homework2
