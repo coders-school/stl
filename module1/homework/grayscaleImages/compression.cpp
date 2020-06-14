@@ -6,7 +6,7 @@
 
 CompressedPGMBitMap compressGrayscale(const PGMBitMap& img) {
     CompressedPGMBitMap bitMap;
-    bitMap.reserve(height);
+    bitMap.reserve(height * width);
 
     for (const auto& row : img) {
         Pixel lastValue = row[0];
@@ -23,6 +23,7 @@ CompressedPGMBitMap compressGrayscale(const PGMBitMap& img) {
         }
         bitMap.emplace_back(std::make_pair(lastValue, consecutiveCount));
     }
+    bitMap.shrink_to_fit();
     return bitMap;
 }
 
