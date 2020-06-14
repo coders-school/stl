@@ -9,19 +9,15 @@ CompressedPGMBitMap compressGrayscale(const PGMBitMap& img) {
     bitMap.reserve(height * width);
 
     for (const auto& row : img) {
-        Pixel lastValue = row[0];
-        WidthType consecutiveCount = 1;
+        WidthType consecutiveCount = 0;
 
-        for (uint8_t i = 1; i < width; i++) {
-            if (row[i] != lastValue) {
-                bitMap.emplace_back(std::make_pair(lastValue, consecutiveCount));
-                lastValue = row[i];
-                consecutiveCount = 1;
-            } else {
-                consecutiveCount++;
+        for (uint8_t i = 0; i < width; i++) {
+            consecutiveCount++;
+            if (i == width -1 or row[i+1] != row[i]){
+                bitMap.emplace_back(std::make_pair(row[i], consecutiveCount));
+                consecutiveCount = 0;
             }
         }
-        bitMap.emplace_back(std::make_pair(lastValue, consecutiveCount));
     }
     bitMap.shrink_to_fit();
     return bitMap;
@@ -36,7 +32,6 @@ PGMBitMap decompressGrayscale(const CompressedPGMBitMap& compressedImg) {
         auto placeToFillTo = std::next(currentEmptySlot, pair.second);
         std::fill(currentEmptySlot, placeToFillTo, pair.first);
         currentEmptySlot = placeToFillTo;
-
     }
 
     return decompressed;
