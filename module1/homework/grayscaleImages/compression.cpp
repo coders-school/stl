@@ -7,21 +7,25 @@ pairVector compressGrayscale(const std::array<std::array<uint8_t, width>, height
     pairVector outputVec{};
     uint8_t color = 0;
     int value = 0;
+    int column = 0;
 
     for (const auto& mapRow : inputMap) {
-        color = mapRow[0];
+        color = mapRow.front();
         value = 0;
+        column = 0;
 
         for (const auto rowElement : mapRow) {
-            if (rowElement == color) {
-                ++value;
-            } else {
-                outputVec.emplace_back(std::make_pair(color, value));
-                color = rowElement;
+            if (rowElement != color || column == width - 1) {
+                if (column == width - 1)
+                    value++;
+                outputVec.emplace_back(std::make_pair(color, (value)));
                 value = 1;
+                color = rowElement;
+            } else {
+                value++;
             }
+            column++;
         }
-        outputVec.emplace_back(std::make_pair(color, value));
     }
     return outputVec;
 }
