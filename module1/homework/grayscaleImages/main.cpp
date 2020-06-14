@@ -43,10 +43,6 @@ std::array<std::array<uint8_t, 32>, 32> generateNinja() {
 int main() {
     auto ninja = generateNinja();
     printMap(ninja);
-    //auto compressed = compressGrayscale(ninja);
-    //auto decompressed = decompressGrayscale(compressed);
-
-    // printMap(decompressed);
 
     return 0;
 }
