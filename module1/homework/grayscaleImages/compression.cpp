@@ -8,24 +8,29 @@
 
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array<uint8_t, width>, height>& bitmap) {
     std::vector<std::pair<uint8_t, uint8_t>> compressedData;
+    compressedData.reserve(width * height);
 
     for (const auto& row : bitmap) {
         if (row.empty())
             continue;
 
-        uint8_t prevElem = row[0];
-        int cnt = 0;
-        for (const auto& elem : row) {
-            if (elem == prevElem) {
+        uint8_t prevElem = row.front();
+        uint8_t cnt = 1;
+
+        for (auto it = row.begin(); it != row.end(); it++) {
+            if (*it == prevElem && it != row.begin()) {
                 cnt++;
-            } else {
+            }
+            if (*it != prevElem || it == std::prev(row.end())) {
                 compressedData.emplace_back(std::make_pair(prevElem, cnt));
                 cnt = 1;
             }
-            prevElem = elem;
+            prevElem = *it;
         }
-        compressedData.emplace_back(std::make_pair(prevElem, cnt));
     }
+
+    compressedData.shrink_to_fit();
+
     return compressedData;
 }
 
@@ -50,7 +55,7 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<s
 void printMap(std::array<std::array<uint8_t, ninjaWidth>, ninjaHeight>& bitmap) {
     for (const auto& row : bitmap) {
         for (const auto& c : row) {
-            if (c < 32)
+            if (std::iscntrl(c))
                 std::cout << " ";
             else
                 std::cout << c;
