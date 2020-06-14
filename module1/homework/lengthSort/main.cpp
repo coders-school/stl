@@ -1,8 +1,6 @@
-#include <forward_list>
-#include <iostream>
-#include <string>
-
 #include "sort.hpp"
+
+#include <iostream>
 
 template <typename Container>
 void printCollection(const Container& collection) {
