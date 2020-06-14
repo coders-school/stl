@@ -12,16 +12,17 @@ VectorPair compressGrayscale(const ArrayArray& data) {
         uint8_t currValue = entry.front();
         uint8_t currCount = 1;
 
-        for (uint8_t value : entry) {
-            if (value == currValue) {
-               currCount++;
-            } else { 
-                result.emplace_back({currValue, currCount});
-                currValue = value;
+        for (uint8_t id = 1; id < width; id++) {
+            if (entry[id] == currValue) {
+                currCount++;
+            }
+            else {
+                result.emplace_back(std::make_pair(currValue, currCount));
+                currValue = entry[id];
                 currCount = 1;
             }
         }
-        result.emplace_back({currValue, currCount});
+        result.emplace_back(std::make_pair(currValue, currCount));
     }
     result.shrink_to_fit();
 
