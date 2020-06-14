@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "sort.hpp"
 
 template <typename Container>
