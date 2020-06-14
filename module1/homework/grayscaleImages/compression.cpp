@@ -36,29 +36,29 @@ std::array<std::array<uint8_t, height>, width> decompressGrayscale(
     const std::vector<std::pair<uint8_t, uint8_t>>& compressed) {
     std::array<std::array<uint8_t, height>, width> uncompressed;
     auto pixelGroup = compressed.begin();
-    uint8_t howManyPixels = pixelGroup->second;
+    uint8_t pixelsToUnpack = pixelGroup->second;
 
     for (auto& row : uncompressed) {
         for (auto& pixel : row) {
-            if (howManyPixels == 0) {
+            if (pixelsToUnpack == 0) {
                 pixelGroup++;
-                howManyPixels = pixelGroup->second;
+                pixelsToUnpack = pixelGroup->second;
             }
             pixel = pixelGroup->first;
-            howManyPixels--;
+            pixelsToUnpack--;
         }
     }
     return uncompressed;
 }
 
-void printMap(std::array<std::array<uint8_t, height>, width>& bitmap) {
+void printMap(const std::array<std::array<uint8_t, height>, width>& bitmap) {
     const std::string palette = R"( .'`^",:;Il!i><~+_-?][}{1)(|\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$)";
     int level;
     const double normalizingFactor = palette.size() / 256.0;
     std::cout << "\n";
 
-    for (auto& row : bitmap) {
-        for (auto& pixel : row) {
+    for (const auto& row : bitmap) {
+        for (const auto& pixel : row) {
             level = pixel * normalizingFactor;
             std::cout << palette[level];
         }

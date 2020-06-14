@@ -12,4 +12,4 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(
 std::array<std::array<uint8_t, height>, width> decompressGrayscale(
     const std::vector<std::pair<uint8_t, uint8_t>>& compressed);
 
-void printMap(std::array<std::array<uint8_t, height>, width>& bitmap);
+void printMap(const std::array<std::array<uint8_t, height>, width>& bitmap);
