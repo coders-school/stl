@@ -9,21 +9,17 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array
 
     for (auto& line : bitmap) {
         uint8_t counter = 1;
-        uint8_t color = line.front();
 
-        for (size_t i = 1; i < line.size(); i++) {
-            if (color == line[i]) {
-                counter++;
-            } else {
-                output.emplace_back(color, counter);
+        for (auto color = line.begin(); color != line.end(); color++) {
+            auto nextColor = std::next(color);
+            if (*nextColor != *color || nextColor == line.end()) {
+                output.emplace_back(*color, counter);
                 counter = 1;
-                color = line[i];
+            } else {
+                counter++;
             }
         }
-
-        output.emplace_back(color, counter);
     }
-
     return output;
 }
 
