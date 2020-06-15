@@ -3,7 +3,7 @@
 bool isFirstLess(const std::string &first, const std::string &second) {
     if (first.length() < second.size())
         return true;
-    else if (first.length() == second.size()){
+    else if (first.length() == second.length()){
         for (auto i = 0; i< first.length(); ++i)
             if (first[i] < second[i])
                 return true;
@@ -15,5 +15,5 @@ bool isFirstLess(const std::string &first, const std::string &second) {
 
 std::deque<std::string> lengthSort(std::forward_list<std::string> list) {
     list.sort(isFirstLess);
-    return std::deque(begin(list), end(list));
+    return std::deque<std::string>(begin(list), end(list));
 }
