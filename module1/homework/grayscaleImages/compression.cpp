@@ -2,8 +2,8 @@
 #include <algorithm>
 #include <iostream>
 
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, width>, height>& imgToCompress) {
-    std::vector<std::pair<uint8_t, uint8_t>> compressedImg;
+compressedImage compressGrayscale(const Image& imgToCompress) {
+    compressedImage compressedImg;
  
     std::for_each(imgToCompress.begin(), imgToCompress.end(), [&compressedImg](const auto& row) {
         uint8_t pixCount = 0;
@@ -25,8 +25,8 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std:
     return compressedImg;
 }
 
-std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::vector<std::pair<uint8_t, uint8_t>>& imgToDecompress) {
-    std::array<std::array<uint8_t, width>, height> decompressedImg;
+Image decompressGrayscale(const compressedImage& imgToDecompress) {
+    Image decompressedImg;
     auto it_imgToDecompress = imgToDecompress.begin();
     size_t cnt = 0;
 
@@ -48,7 +48,7 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::ve
     return decompressedImg;
 }
 
-void printMap(const std::array<std::array<uint8_t, width>, height>& bitmap) {
+void printMap(const Image& bitmap) {
     std::for_each(bitmap.begin(), bitmap.end(), [](const auto& row) {
         std::for_each(row.begin(), row.end(), [](const auto& element) {
             if (element < ' ') {
