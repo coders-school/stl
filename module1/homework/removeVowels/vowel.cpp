@@ -6,16 +6,16 @@
 #include <string>
 #include <vector>
 
-void removeVowels(std::vector<std::string>& v) {
+void removeVowels(std::vector<std::string>& words) {
 
-    for (auto &i : v) {
+    for (auto &word : words) {
         std::string temp;
-        for (auto it = begin(i); it != end(i); it++) {
+        for (auto it = begin(word); it != end(word); it++) {
             if (!isVowel(*it)) {
                 temp.push_back(*it);
             }
         }
-        i.swap(temp);
+        word.swap(temp);
     }
 }
 

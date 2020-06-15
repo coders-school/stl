@@ -5,14 +5,14 @@
 #include <forward_list>
 #include <string>
 
-std::deque<std::string> lengthSort(std::forward_list<std::string>& f) {
-    std::deque<std::string> d;
+std::deque<std::string> lengthSort(std::forward_list<std::string>& list) {
+    std::deque<std::string> sorted;
 
-    for (const auto &i : f) {
-        auto it = std::lower_bound(begin(d), end(d), i, pred);
-        d.insert(it, i);
+    for (const auto &i : list) {
+        auto it = std::lower_bound(begin(sorted), end(sorted), i, pred);
+        sorted.insert(it, i);
     }
-    return  d;
+    return sorted;
 }
 
 bool pred(const std::string& a, const std::string& b) {
