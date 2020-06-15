@@ -20,7 +20,7 @@ void removeVowels(std::vector<std::string> &texts)
     {
         std::string textWithoutVowels = "";
 
-        for (auto &character : text)
+        for (auto character : text)
         {
             if (!isVowel(character))
             {
