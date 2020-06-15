@@ -6,11 +6,47 @@
 pairVector compressGrayscale(const std::array<std::array<uint8_t, width>, height>& inputMap) {
     pairVector outputVec;
     outputVec.reserve(width * height);
-    uint8_t color = 0;
-    int value = 0;
-    int column = 0;
 
-    for (const auto& mapRow : inputMap) {
+    // uint8_t color = 0;
+    // int value = 0;
+    // int column = 0;
+
+    for (auto mapRow : inputMap) {
+        uint8_t color = mapRow.front();
+        int value = 0;
+        int column = 0;
+
+        std::transform(mapRow.begin(), mapRow.end(), mapRow.begin(),
+                       [&color, &value, &column, &outputVec](auto rowElement) {
+                           if (rowElement != color || column == width - 1) {
+                               if (column == width - 1)
+                                   value++;
+                               outputVec.emplace_back(std::make_pair(color, (value)));
+                               value = 1;
+                               color = rowElement;
+                           } else {
+                               value++;
+                           }
+                           column++;
+                           return rowElement;
+                       });
+    }
+    /*
+            for (const auto& rowElement : mapRow) {
+            if (rowElement != color || column == width - 1) {
+                if (column == width - 1)
+                    value++;
+                outputVec.emplace_back(std::make_pair(color, (value)));
+                value = 1;
+                color = rowElement;
+            } else {
+                value++;
+            }
+            column++;
+        }
+    }*/
+
+    /*for (const auto& mapRow : inputMap) {
         color = mapRow.front();
         value = 0;
         column = 0;
@@ -27,7 +63,8 @@ pairVector compressGrayscale(const std::array<std::array<uint8_t, width>, height
             }
             column++;
         }
-    }
+    }*/
+
     outputVec.shrink_to_fit();
     return outputVec;
 }
