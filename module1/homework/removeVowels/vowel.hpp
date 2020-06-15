@@ -2,4 +2,4 @@
 #include <string>
 #include <vector>
 
-void removeVowels(std::vector<std::string> &texts);
+void removeVowels(std::vector<std::string>& texts);
