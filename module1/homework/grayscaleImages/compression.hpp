@@ -9,10 +9,12 @@ constexpr size_t height = 32;
 constexpr size_t width = 32;
 
 
-using Image = const std::array<std::array<uint8_t, width>, height>&;
+using Image = std::array<std::array<uint8_t, width>, height>;
 
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(Image compress);
+using Compressed = std::vector<std::pair<uint8_t, uint8_t>>;
 
-std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::vector<std::pair<uint8_t, uint8_t>>& compressedMap);
+Compressed compressGrayscale(const Image& compress);
 
-void printMap(const std::array<std::array<uint8_t, width>, height>& mapToPrint);
+Image decompressGrayscale(const Compressed& compressedMap);
+
+void printMap(const Image& mapToPrint);
