@@ -4,6 +4,7 @@
 
 CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
     CompressedBitmap compressed;
+    compressed.reserve(width * height);
     for (const auto& line : bitmap) {
         uint8_t count{1};
         uint8_t pixel = line.front();
@@ -46,11 +47,11 @@ Bitmap decompressGrayscale(const CompressedBitmap& compressed) {
 
 void printMap(const Bitmap& bitmap) {
     for (const auto& line : bitmap) {
-        for (auto el : line) {
-            if(el < ' ') {
+        for (auto ch : line) {
+            if(ch < min_print) {
                 std::cout << ' ';
             } else {
-                std::cout << el;
+                std::cout << ch;
             }
         }
         std::cout << '\n';

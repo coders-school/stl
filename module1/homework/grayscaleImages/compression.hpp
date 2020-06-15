@@ -5,6 +5,7 @@
 
 constexpr size_t width = 32;
 constexpr size_t height = 32;
+constexpr uint8_t min_print = 33;
 
 using CompressedBitmap = std::vector<std::pair<uint8_t, uint8_t>>;
 using Bitmap = std::array<std::array<uint8_t, width>, height>;
