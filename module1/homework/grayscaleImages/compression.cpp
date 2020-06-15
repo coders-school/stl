@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <iostream>
 
-pairVector compressGrayscale(const std::array<std::array<uint8_t, width>, height>& inputMap) {
+pairVector compressGrayscale(const twoDimensionalArray& inputMap) {
     pairVector outputVec;
     outputVec.reserve(width * height);
     std::pair<uint8_t, uint8_t> pairToRemove = std::make_pair(0, 0);
@@ -33,8 +33,8 @@ pairVector compressGrayscale(const std::array<std::array<uint8_t, width>, height
     return outputVec;
 }
 
-std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::vector<std::pair<uint8_t, uint8_t>>& inputVec) {
-    std::array<std::array<uint8_t, width>, height> outputArr;
+twoDimensionalArray decompressGrayscale(const pairVector& inputVec) {
+    twoDimensionalArray outputArr;
     size_t rowCounter = 0;
     size_t columnCounter = 0;
 
@@ -54,7 +54,7 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::ve
     return outputArr;
 }
 
-void printMap(const std::array<std::array<uint8_t, width>, height>& inputMap) {
+void printMap(const twoDimensionalArray& inputMap) {
     for (const auto& mapRow : inputMap) {
         for (const auto& rowElement : mapRow) {
             std::cout << rowElement;
