@@ -11,4 +11,4 @@ using compressedImage =  std::vector<std::pair<uint8_t, uint8_t>>;
 
 compressedImage compressGrayscale(const Image& imgToCompress);
 Image decompressGrayscale(const compressedImage& imgToDecompress);
-void printMap(const Image& bitmap);
+void printMap(const std::array<std::array<uint8_t, width>, height>& bitmap);

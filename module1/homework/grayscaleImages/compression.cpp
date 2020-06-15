@@ -16,7 +16,7 @@ compressedImage compressGrayscale(const Image& imgToCompress) {
                 pixCount = 1;
             }
 
-            if (it == row.end() - 1) {
+            if (it == std::prev(row.end())) {
                 compressedImg.push_back(std::make_pair(*it, pixCount));
             }
         }
@@ -30,15 +30,13 @@ Image decompressGrayscale(const compressedImage& imgToDecompress) {
     auto it_imgToDecompress = imgToDecompress.begin();
     size_t cnt = 0;
 
-    std::generate(decompressedImg.begin(), decompressedImg.end(), [&]{
+    std::generate(decompressedImg.begin(), decompressedImg.end(), [&] {
         std::array<uint8_t, width> row;
-        std::generate(row.begin(), row.end(), [&]{
+        std::generate(row.begin(), row.end(), [&] {
             auto el = (*it_imgToDecompress).first;
             if (++cnt == (*it_imgToDecompress).second) {
                 cnt = 0;
-                //std::next(it_imgToDecompress);
                 std::advance(it_imgToDecompress, 1);
-                //++it_imgToDecompress;
             }
             return el;
         });
@@ -48,10 +46,10 @@ Image decompressGrayscale(const compressedImage& imgToDecompress) {
     return decompressedImg;
 }
 
-void printMap(const Image& bitmap) {
+void printMap(const std::array<std::array<uint8_t, width>, height>& bitmap) {
     std::for_each(bitmap.begin(), bitmap.end(), [](const auto& row) {
         std::for_each(row.begin(), row.end(), [](const auto& element) {
-            if (element < ' ') {
+            if (std::iscntrl(element)) {
                 std::cout << " ";
             } 
             else {
