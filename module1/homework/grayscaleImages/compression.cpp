@@ -6,65 +6,29 @@
 pairVector compressGrayscale(const std::array<std::array<uint8_t, width>, height>& inputMap) {
     pairVector outputVec;
     outputVec.reserve(width * height);
+    std::pair<uint8_t, uint8_t> pairToRemove = std::make_pair(0, 0);
 
-    // uint8_t color = 0;
-    // int value = 0;
-    // int column = 0;
+    std::transform(inputMap.begin(), inputMap.end(), std::back_inserter(outputVec),
+                   [&outputVec, &pairToRemove](auto mapRow, int value = 0, int column = 0) {
+                       uint8_t color = mapRow.front();
 
-    for (auto mapRow : inputMap) {
-        uint8_t color = mapRow.front();
-        int value = 0;
-        int column = 0;
-
-        std::transform(mapRow.begin(), mapRow.end(), mapRow.begin(),
-                       [&color, &value, &column, &outputVec](auto rowElement) {
-                           if (rowElement != color || column == width - 1) {
-                               if (column == width - 1)
-                                   value++;
-                               outputVec.emplace_back(std::make_pair(color, (value)));
-                               value = 1;
-                               color = rowElement;
-                           } else {
-                               value++;
-                           }
-                           column++;
-                           return rowElement;
-                       });
-    }
-    /*
-            for (const auto& rowElement : mapRow) {
-            if (rowElement != color || column == width - 1) {
-                if (column == width - 1)
-                    value++;
-                outputVec.emplace_back(std::make_pair(color, (value)));
-                value = 1;
-                color = rowElement;
-            } else {
-                value++;
-            }
-            column++;
-        }
-    }*/
-
-    /*for (const auto& mapRow : inputMap) {
-        color = mapRow.front();
-        value = 0;
-        column = 0;
-
-        for (const auto& rowElement : mapRow) {
-            if (rowElement != color || column == width - 1) {
-                if (column == width - 1)
-                    value++;
-                outputVec.emplace_back(std::make_pair(color, (value)));
-                value = 1;
-                color = rowElement;
-            } else {
-                value++;
-            }
-            column++;
-        }
-    }*/
-
+                       std::transform(mapRow.begin(), mapRow.end(), std::back_inserter(outputVec),
+                                      [&color, &value, &column, &outputVec, &pairToRemove](auto rowElement) {
+                                          if (rowElement != color || column == width - 1) {
+                                              if (column == width - 1)
+                                                  value++;
+                                              outputVec.emplace_back(std::make_pair(color, (value)));
+                                              value = 1;
+                                              color = rowElement;
+                                          } else {
+                                              value++;
+                                          }
+                                          column++;
+                                          return pairToRemove;
+                                      });
+                       return pairToRemove;
+                   });
+    outputVec.erase(std::remove(outputVec.begin(), outputVec.end(), pairToRemove), outputVec.end());
     outputVec.shrink_to_fit();
     return outputVec;
 }
