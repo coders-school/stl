@@ -38,19 +38,21 @@ twoDimensionalArray decompressGrayscale(const pairVector& inputVec) {
     size_t rowCounter = 0;
     size_t columnCounter = 0;
 
-    for (const auto& pair : inputVec) {
-        if (rowCounter < height) {
-            for (size_t pairValue = 0; pairValue < pair.second; ++pairValue) {
-                outputArr[rowCounter][columnCounter] = pair.first;
-                if (columnCounter < width - 1)
-                    columnCounter++;
-                else {
-                    columnCounter = 0;
-                    rowCounter++;
-                }
-            }
-        }
-    }
+    std::all_of(inputVec.begin(), inputVec.end(),
+                [&rowCounter, &columnCounter, &outputArr](auto pair) {
+                    if (rowCounter < height) {
+                        for (size_t pairValue = 0; pairValue < pair.second; ++pairValue) {
+                            outputArr[rowCounter][columnCounter] = pair.first;
+                            if (columnCounter < width - 1)
+                                columnCounter++;
+                            else {
+                                columnCounter = 0;
+                                rowCounter++;
+                            }
+                        }
+                    }
+                    return true;
+                });
     return outputArr;
 }
 
