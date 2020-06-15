@@ -28,16 +28,21 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std:
 std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::vector<std::pair<uint8_t, uint8_t>>& imgToDecompress) {
     std::array<std::array<uint8_t, width>, height> decompressedImg;
     auto it_imgToDecompress = imgToDecompress.begin();
-    auto cnt = 0;
+    size_t cnt = 0;
 
-    std::for_each(decompressedImg.begin(), decompressedImg.end(), [&](auto& row) {
-        std::for_each(row.begin(), row.end(), [&](auto& el) {
-            el = (*it_imgToDecompress).first;
+    std::generate(decompressedImg.begin(), decompressedImg.end(), [&]{
+        std::array<uint8_t, width> row;
+        std::generate(row.begin(), row.end(), [&]{
+            auto el = (*it_imgToDecompress).first;
             if (++cnt == (*it_imgToDecompress).second) {
                 cnt = 0;
-                ++it_imgToDecompress;
+                //std::next(it_imgToDecompress);
+                std::advance(it_imgToDecompress, 1);
+                //++it_imgToDecompress;
             }
+            return el;
         });
+        return row;
     });
 
     return decompressedImg;
