@@ -2,8 +2,9 @@
 
 #include <iostream>
 
-void printMap(const std::array<std::array<uint8_t, width>, height>& bitmap) {
-    for (auto arr : bitmap) {
+void printMap(const bitmapArr& bitmap) {
+
+    for (const auto& arr : bitmap) {
         for (auto el : arr) {
             if (iscntrl(el))
                 std::cout << " ";
@@ -14,12 +15,13 @@ void printMap(const std::array<std::array<uint8_t, width>, height>& bitmap) {
     }
 }
 
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, width>, height>& grayScale) {
+grayScaleVec compressGrayscale(const bitmapArr& grayScale) {
+
     std::vector<std::pair<uint8_t, uint8_t>> compressed;
     compressed.reserve(width * height);
     uint8_t count = 0;
 
-    for (auto row : grayScale) {
+    for (const auto& row : grayScale) {
         auto _prev = row.front();
         for (auto column : row) {
             if (_prev == column) {
@@ -40,14 +42,15 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std:
     return compressed;
 }
 
-std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::vector<std::pair<uint8_t, uint8_t>>& compressed) {
+bitmapArr decompressGrayscale(const grayScaleVec& compressed) {
+
     std::array<std::array<uint8_t, width>, height> decompressed;
     int i = 0;
     int j = 0;
 
     for (const auto& pair : compressed) {
         for (int count = 0; count < pair.second; count++, j++)
-            decompressed[i].at(j) = pair.first;
+            decompressed[i][j] = pair.first;
         if (j == width) {
             i++;
             j = 0;
