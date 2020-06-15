@@ -5,7 +5,7 @@
 const std::string vowels{"aAeEiIoOuUyY"};
 
 void removeVowels(std::vector<std::string>& vector) {
-    for (uto& el : vector) {
+    for (auto& el : vector) {
         for (const char vowel : vowels) {
             el.erase(std::remove(el.begin(), el.end(), vowel), el.end());
         }
