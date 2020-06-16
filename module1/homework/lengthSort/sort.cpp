@@ -1,16 +1,11 @@
 #include "sort.hpp"
 
 bool isFirstLess(const std::string &first, const std::string &second) {
-    if (first.length() < second.size())
-        return true;
-    else if (first.length() == second.length()){
-        for (auto i = 0; i< first.length(); ++i)
-            if (first[i] < second[i])
-                return true;
-            else if (first[i] > second[i])
-                return false;
+    if (first.length() == second.length())
+    {
+        return first < second;
     }
-    return false;
+    return first.length() < second.length();
 }
 
 std::deque<std::string> lengthSort(std::forward_list<std::string> list) {
