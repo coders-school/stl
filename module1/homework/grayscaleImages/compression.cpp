@@ -9,40 +9,25 @@ using array_of_arrays = std::array<std::array<uint8_t, width>, height>;
 
 vector_of_pairs compressGrayscale(const array_of_arrays& bitmap) {
     vector_of_pairs compressed{};
-    compressed.reserve(width * height);
-    uint8_t occurrences = 0;
-    uint8_t color_code = 0;
     for (const auto& row : bitmap) {
-        color_code = row.front();
-        occurrences = 1;
-        for (auto element = row.begin(); element != row.end(); ++element) {
-            auto next = std::next(element);
-            if (color_code != *next || next == row.end()) {
-                compressed.push_back({color_code, occurrences});
-                color_code = *next;
-                occurrences = 1;
-            } else {
-                ++occurrences;
+        for (auto it = row.begin(); it != row.end();) {
+            auto findIt = std::adjacent_find(it, row.end(), std::not_equal_to<int>{});
+            if (findIt != row.end()) {
+                findIt++;
             }
+            compressed.emplace_back(*it, std::distance(it, findIt));
+            it = findIt;
         }
     }
-    compressed.shrink_to_fit();
     return compressed;
 }
 
 array_of_arrays decompressGrayscale(const vector_of_pairs& bitmap) {
     array_of_arrays decompressed{};
-    auto it = bitmap.begin();
-    int counter = 0;
-    for (size_t row = 0; row < height; ++row) {
-        for (size_t column = 0; column < width;) {
-            while (counter++ < it->second) {
-                decompressed[row][column++] = it->first;
-            }
-            ++it;
-            counter = 0;
-        }
-    }
+    auto it = decompressed.front().begin();
+    std::for_each(bitmap.begin(), bitmap.end(), [it](const auto& pair) mutable {
+        it = std::fill_n(it, pair.second, pair.first);
+    });
     return decompressed;
 }
 
