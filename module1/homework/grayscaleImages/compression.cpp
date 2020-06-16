@@ -8,15 +8,14 @@ Compressed compressGrayscale(const Image& compress) {
 
     uint8_t repetitionCounter = 0;
 
-    for(const auto row : compress){
+    for (const auto row : compress) {
         repetitionCounter = 1;
-        for(auto color = row.begin(); color != row.end(); ++color){
+        for (auto color = row.begin(); color != row.end(); ++color) {
             auto nextColor = std::next(color);
-            if(*color != *nextColor || nextColor == row.end()){
-                compressedBitmap.emplace_back(*color,repetitionCounter);
+            if (*color != *nextColor || nextColor == row.end()) {
+                compressedBitmap.emplace_back(*color, repetitionCounter);
                 repetitionCounter = 1;
-            }
-            else{
+            } else {
                 repetitionCounter++;
             }
         }
@@ -52,8 +51,12 @@ Image decompressGrayscale(const Compressed& compressedMap) {
 
 void printMap(const std::array<std::array<uint8_t, width>, height>& mapToPrint) {
     for (const auto& row : mapToPrint) {
-        for (const auto& el : row) {
-            std::cout << el;
+        for (const auto el : row) {
+            if (el <= ' ') {
+                std::cout << ' ';
+            } else {
+                std::cout << el;
+            }
         }
         std::cout << '\n';
     }
