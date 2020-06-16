@@ -1,6 +1,11 @@
-#include "gtest/gtest.h"
+#include <algorithm>
+#include <deque>
+#include <list>
+#include <map>
+#include <string>
 
-// TODO: add proper includes
+#include "gtest/gtest.h"
+#include "uniquemap.hpp"
 
 TEST(transformContainerTests, ShouldReturnUniqueMap) {
     std::map<int, std::string> expected_result{
