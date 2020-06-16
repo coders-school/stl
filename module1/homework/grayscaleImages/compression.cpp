@@ -8,21 +8,20 @@ compressedImage compressGrayscale(const Image& bitmap) {
 
     compressedData.reserve(width * height);
 
-    size_t i, j, counter = 1;
-    for (i = 0; i < height; i++) {
-        for (j = 0; j < width - 1; j++) {
-            if (bitmap[i][j] != bitmap[i][j + 1]) {
-                compressedData.emplace_back(bitmap[i][j], counter);
-                counter = 1;
-            } else {
-                counter++;
-            }
+    for (const auto& row : bitmap) {
+        auto current = row.begin();
+        while (current != row.end()) {
+            uint8_t color = *current;
+            auto index = std::find_if(current, row.end(),
+                                      [color](uint8_t otherColor) {
+                                          return color != otherColor;
+                                      });
+            auto counter = std::distance(current, index);
+            compressedData.push_back({color, counter});
+            current = index;
         }
-        compressedData.emplace_back(bitmap[i][j], counter);
-        counter = 1;
     }
 
-    
     compressedData.shrink_to_fit();
 
     return compressedData;
