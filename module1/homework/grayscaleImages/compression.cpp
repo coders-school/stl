@@ -49,7 +49,7 @@ Image decompressGrayscale(const Compressed& compressedMap) {
     return decompressed;
 }
 
-void printMap(const std::array<std::array<uint8_t, width>, height>& mapToPrint) {
+void printMap(const Image& mapToPrint) {
     for (const auto& row : mapToPrint) {
         for (const auto el : row) {
             if (el <= ' ') {
