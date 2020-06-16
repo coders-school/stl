@@ -4,24 +4,22 @@
 
 compressedImage compressGrayscale(const Image& imgToCompress) {
     compressedImage compressedImg;
- 
+    compressedImg.reserve(width * height);
+
     std::for_each(imgToCompress.begin(), imgToCompress.end(), [&compressedImg](const auto& row) {
         uint8_t pixCount = 0;
-        for (auto it = row.begin(); it != row.end(); ++it) {
-            if (it == row.begin() || *it == *(it - 1)) {
-                ++pixCount;
-            } 
-            else {
-                compressedImg.push_back(std::make_pair(*(it - 1), pixCount));
-                pixCount = 1;
-            }
-
-            if (it == std::prev(row.end())) {
-                compressedImg.push_back(std::make_pair(*it, pixCount));
-            }
+        uint8_t storedPixVal = row.front();
+        auto it1 = row.begin();
+        while (it1 != row.end()) {
+            auto it2 = std::find_if(it1, row.end(),
+                                    [&storedPixVal](const auto currentPixVal) { return storedPixVal != currentPixVal; });
+            compressedImg.push_back(std::make_pair(storedPixVal, std::distance(it1, it2)));
+            it1 = it2;
+            storedPixVal = *it1;
         }
     });
 
+    compressedImg.shrink_to_fit();
     return compressedImg;
 }
 
