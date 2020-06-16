@@ -1,11 +1,11 @@
-#include "compression.hpp"
-
 #include <algorithm>
 #include <iostream>
 #include <utility>
 
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array<uint8_t, width>, height>& bitmap) {
-    std::vector<std::pair<uint8_t, uint8_t>> compressedData;
+#include "compression.hpp"
+
+std::vector<uint8_tPair> compressGrayscale(bitmapType& bitmap) {
+    std::vector<uint8_tPair> compressedData;
     compressedData.reserve(width * height);
 
     for (const auto& row : bitmap) {
@@ -29,8 +29,8 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array
     return compressedData;
 }
 
-std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>>& compressedData) {
-    std::array<std::array<uint8_t, width>, height> bitmap;
+compressedArray decompressGrayscale(std::vector<uint8_tPair>& compressedData) {
+    compressedArray bitmap;
     auto rowNum = 0;
     int pos = 0;
     std::array<uint8_t, width> row;
@@ -47,7 +47,7 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<s
     return bitmap;
 }
 
-void printMap(std::array<std::array<uint8_t, ninjaWidth>, ninjaHeight>& bitmap) {
+void printMap(imageBitmap& bitmap) {
     for (const auto& row : bitmap) {
         for (const auto& c : row) {
             if (std::iscntrl(c))
