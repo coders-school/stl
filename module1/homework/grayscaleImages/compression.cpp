@@ -1,27 +1,27 @@
 #include "compression.hpp"
 
+#include <algorithm>
 #include <iostream>
 
 CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
     CompressedBitmap compressed;
     compressed.reserve(width * height);
-    for (const auto& line : bitmap) {
-        uint8_t count{1};
-        uint8_t pixel = line.front();
-        
-        for (auto el = line.begin(); el != line.end(); ++el) {
-            auto next = std::next(el);
-            if (pixel != *next || next == line.end()) {
-                compressed.push_back({pixel, count});
-                pixel = *next;
-                count = 1;
-            } else {
-                ++count;
-            }
+
+    int row{};
+    do {
+        for (auto beg = bitmap[row].begin(),
+                  end = bitmap[row].end();
+             beg != end;) {
+            const auto diff = std::find_if(beg, end,
+                                           [&beg](const auto& el) {
+                                               return el != *beg;
+                                           });
+            compressed.emplace_back(*beg, std::distance(beg, diff));
+            beg = diff;
         }
-    }
+    } while (++row != height);
+
     compressed.shrink_to_fit();
-    
     return compressed;
 }
 
@@ -48,7 +48,7 @@ Bitmap decompressGrayscale(const CompressedBitmap& compressed) {
 void printMap(const Bitmap& bitmap) {
     for (const auto& line : bitmap) {
         for (auto ch : line) {
-            if(ch < min_print) {
+            if (ch < min_print) {
                 std::cout << ' ';
             } else {
                 std::cout << ch;
