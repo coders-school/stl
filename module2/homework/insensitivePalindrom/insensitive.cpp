@@ -2,7 +2,6 @@
 
 #include <algorithm>
 #include <cctype>
-#include <iostream>
 
 bool is_palindrome(const std::string& s) {
     if (s.empty()) {
@@ -27,9 +26,4 @@ bool is_palindrome(const std::string& s) {
                           str.end(),
                           str.rbegin()))
                .first == str.end();
-}
-
-void test(const std::string& s) {
-    std::cout << (is_palindrome(s) ? "Is" : "Is not")
-              << " a palindrome\n";
 }
