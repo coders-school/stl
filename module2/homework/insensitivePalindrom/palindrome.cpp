@@ -1,6 +1,15 @@
 #include "palindrome.hpp"
 
-bool is_palindrome(std::string text){
+#include <algorithm>
+#include <array>
 
-    return true;
+bool is_palindrome(std::string text) {
+    text.erase(std::remove_if(text.begin(), text.end(),
+                              [](char letter) {
+                                  return !isalpha(letter);
+                              }),
+               text.end());
+    std::transform(text.begin(), text.end(), text.begin(), tolower);
+
+    return std::equal(text.begin(), text.begin() + text.size() / 2, text.rbegin());
 }
