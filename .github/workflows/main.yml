@@ -3,36 +3,36 @@ name: C++ with CMake CI
 on: [push, pull_request]
 
 jobs:
-  removeVowels:
+  transformContainers:
     runs-on: ubuntu-latest
     steps:
     - name: Check out code
       uses: actions/checkout@master
-    - name: mkdir module1/homework/removeVowels/build
-      run: mkdir module1/homework/removeVowels/build
+    - name: mkdir module2/homework/transformContainers/build
+      run: mkdir module2/homework/transformContainers/build
     - name: Compile
-      working-directory: module1/homework/removeVowels/build
+      working-directory: module2/homework/transformContainers/build
       run: |
         cmake ..
         make
     - name: Run tests
-      working-directory: module1/homework/removeVowels/build
+      working-directory: module2/homework/transformContainers/build
       run: ctest -V
 
-  lengthSort:
+  insensitivePalindrom:
     runs-on: ubuntu-latest
     steps:
     - name: Check out code
       uses: actions/checkout@master
-    - name: mkdir module1/homework/lengthSort/build
-      run: mkdir module1/homework/lengthSort/build
+    - name: mkdir module2/homework/insensitivePalindrom/build
+      run: mkdir module2/homework/insensitivePalindrom/build
     - name: Compile
-      working-directory: module1/homework/lengthSort/build
+      working-directory: module2/homework/insensitivePalindrom/build
       run: |
         cmake ..
         make
     - name: Run tests
-      working-directory: module1/homework/lengthSort/build
+      working-directory: module2/homework/insensitivePalindrom/build
       run: ctest -V
 
   grayscaleImages:
