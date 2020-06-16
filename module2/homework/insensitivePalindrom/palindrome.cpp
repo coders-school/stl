@@ -11,5 +11,5 @@ bool is_palindrome(std::string text) {
                text.end());
     std::transform(text.begin(), text.end(), text.begin(), tolower);
 
-    return std::equal(text.begin(), text.begin() + text.size() / 2, text.rbegin());
+    return std::equal(text.cbegin(), text.cbegin() + text.size() / 2, text.crbegin());
 }
