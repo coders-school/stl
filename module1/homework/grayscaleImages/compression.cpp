@@ -38,11 +38,11 @@ CompressedBitmap compressLine(const std::array<uint8_t, width>& line)
 CompressedBitmap compressGrayscale(const Bitmap& bitmap)
 {
     CompressedBitmap result;
-    result.reserve(height*width);
+    result.reserve(width);
     CompressedBitmap tmp;
     tmp.reserve(width);
 
-    for (const auto line : bitmap)
+    for (const auto& line : bitmap)
     {
         tmp = compressLine(line);
         result.insert(std::end(result), std::begin(tmp), std::end(tmp));
