@@ -1,19 +1,14 @@
 #include "compression.hpp"
 
 #include <algorithm>
-#include <array>
 #include <iostream>
 #include <utility>
-#include <vector>
 
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array<uint8_t, width>, height>& bitmap) {
     std::vector<std::pair<uint8_t, uint8_t>> compressedData;
     compressedData.reserve(width * height);
 
     for (const auto& row : bitmap) {
-        if (row.empty())
-            continue;
-
         uint8_t prevElem = row.front();
         uint8_t cnt = 1;
 
@@ -22,7 +17,7 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array
                 cnt++;
             }
             if (*it != prevElem || it == std::prev(row.end())) {
-                compressedData.emplace_back(std::make_pair(prevElem, cnt));
+                compressedData.emplace_back(prevElem, cnt);
                 cnt = 1;
             }
             prevElem = *it;
