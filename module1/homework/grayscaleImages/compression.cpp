@@ -16,22 +16,22 @@ void printMap(const Bitmap& bitmap)
 CompressedBitmap compressLine(const std::array<uint8_t, width>& line)
 {
     CompressedBitmap result;
-    std::pair<uint8_t, uint8_t> buffer{line[0], 0};
+    result.reserve(width*height);
 
     for (const auto pixel : line)
     {
-        if (buffer.first == pixel)
+        if(!result.empty() and result.back().first == pixel)
         {
-            buffer.second++;
+            result.back().second++;
         }
         else
         {
-            result.push_back(buffer);
-            buffer.first = pixel;
-            buffer.second = 1;
+            result.push_back(std::make_pair(pixel,1));
         }
     }
-    result.push_back(buffer);
+
+
+    result.shrink_to_fit();
     return result;
 }
 
@@ -54,7 +54,7 @@ CompressedBitmap compressGrayscale(const Bitmap& bitmap)
 Bitmap decompressGrayscale(const CompressedBitmap& compressedBitmap)
 {
     Bitmap result;
-    auto iter = std::begin(result[0]);
+    auto iter = std::begin(result.front());
     for (const auto& group : compressedBitmap)
     {
         iter = std::fill_n(iter, group.second, group.first);
