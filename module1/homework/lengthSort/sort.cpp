@@ -1,8 +1,7 @@
 #include "sort.hpp"
 
-bool isFirstLess(const std::string &first, const std::string &second) {
-    if (first.length() == second.length())
-    {
+bool isFirstLess(const std::string& first, const std::string& second) {
+    if (first.length() == second.length()) {
         return first < second;
     }
     return first.length() < second.length();
