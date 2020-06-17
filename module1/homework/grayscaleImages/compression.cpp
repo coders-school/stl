@@ -6,24 +6,24 @@
 
 Compressed compressGrayscale(const Image& compress) {
     Compressed compressedBitmap;
+    compressedBitmap.reserve(width * height);
 
     int repetitionCounter = 0;
     for (const auto& row : compress) {
         uint8_t actualColor = row.front();
         auto lineBegin = row.begin();
-        auto lineEnd = row.end();
+        auto currentLine = row.end();
         while (lineBegin != row.end()) {
-            lineEnd = std::find_if(lineBegin, lineEnd,
-                                   [actualColor](uint8_t color) {
-                                       return actualColor != color;
-                                   });
-            repetitionCounter = std::distance(lineBegin, lineEnd);
+            currentLine = std::find_if(lineBegin, row.end(),
+                                       [actualColor](uint8_t color) {
+                                           return actualColor != color;
+                                       });
+            repetitionCounter = std::distance(lineBegin, currentLine);
             if (repetitionCounter == 0) {
                 repetitionCounter = 1;
             }
             compressedBitmap.push_back({actualColor, repetitionCounter});
-            lineBegin = lineEnd;
-            std::advance(lineEnd, width - repetitionCounter);
+            lineBegin = currentLine;
             actualColor = *lineBegin;
         }
     }
