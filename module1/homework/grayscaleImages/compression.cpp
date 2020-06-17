@@ -4,9 +4,6 @@
 #include <iostream>
 #include <utility>
 
-using vector_of_pairs = std::vector<std::pair<uint8_t, uint8_t>>;
-using array_of_arrays = std::array<std::array<uint8_t, width>, height>;
-
 vector_of_pairs compressGrayscale(const array_of_arrays& bitmap) {
     vector_of_pairs compressed{};
     for (const auto& row : bitmap) {
@@ -34,7 +31,7 @@ array_of_arrays decompressGrayscale(const vector_of_pairs& bitmap) {
 void printMap(const array_of_arrays& bitmap) {
     char empty_char = ' ';
     for (const auto& row : bitmap) {
-        for (const auto& column : row) {
+        for (const auto column : row) {
             if (column == empty_char) {
                 std::cout << empty_char;
             } else {
