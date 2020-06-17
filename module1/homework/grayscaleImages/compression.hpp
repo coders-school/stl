@@ -6,6 +6,8 @@
 constexpr size_t height = 32;
 constexpr size_t width = 32;
 
+constexpr uint8_t FIRST_PRINTABLE = ' ';
+
 
 using Image = std::array<std::array<uint8_t, width>, height>;
 
