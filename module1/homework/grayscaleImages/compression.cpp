@@ -29,20 +29,24 @@ CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
 }
 
 Bitmap decompressGrayscale(const CompressedBitmap& compressed) {
-    
     Bitmap bitmap;
+    auto pairIt = compressed.begin();
     size_t i{0};
-    size_t j{0};
 
-    for (const auto & pair : compressed) {
-        for (size_t k = j; k < (j + pair.second); k++) {
-            bitmap[i][k] = pair.first;
-        }
-        j += pair.second;
-        if (j == (width - 1)) {
+    for (auto& row : bitmap) {
+        for (auto pixelIt = row.begin(); pixelIt != row.end(); pixelIt++) {
+            if (pairIt != compressed.end()) {
+                *pixelIt = (*pairIt).first;
+            } else {
+                break;
+            }
             i++;
+            if (i >= (*pairIt).second) {
+                i = 0;
+                pairIt++;
+            } 
         }
     }
-    
+
     return bitmap;
 }
