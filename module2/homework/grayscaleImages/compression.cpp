@@ -8,25 +8,27 @@ std::vector<uint8_tPair> compressGrayscale(bitmapType& bitmap) {
     std::vector<uint8_tPair> compressedData;
     compressedData.reserve(width * height);
 
-
-  std::all_of(bitmap.begin(), bitmap.end(),
+    std::all_of(bitmap.begin(), bitmap.end(),
         [&compressedData](const auto& row) mutable {
                 auto current = row.begin();
-                while (current != row.end()) {
-                    uint8_t color = *current;
-                    auto index = std::find_if_not(current, end(row),
-                    [color](uint8_t other){
-                        return color == other;
+                std::all_of(row.begin(),row.end(),
+                    [&current,&row,&compressedData](const auto& el){
+                        if(current != row.end()) {
+                            uint8_t color = *current;
+                            auto index = std::find_if_not(current, row.end(),
+                            [color](uint8_t other){
+                                return color == other;
+                            });
+                            auto occurrence = std::distance(current, index);
+                            compressedData.push_back({color, occurrence});
+                            current = index;
+                        }
+                        return true;
                     });
-                    auto occurrence = std::distance(current, index);
-                    compressedData.push_back({color, occurrence});
-                    current = index;
-                }
                 return true;
     });
 
     compressedData.shrink_to_fit();
-
     return compressedData;
 }
 
