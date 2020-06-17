@@ -1,13 +1,11 @@
 #include "compression.hpp"
 
 CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
-    
     CompressedBitmap compressed;
     uint8_t color;
     uint8_t count;
 
     compressed.reserve(width * height);
-
     for (const auto& row : bitmap) {
         color = row.front();
         count = 1;
@@ -25,6 +23,7 @@ CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
         }
     }
     compressed.shrink_to_fit();
+
     return compressed;
 }
 
