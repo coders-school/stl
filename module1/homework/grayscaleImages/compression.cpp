@@ -5,6 +5,7 @@
 CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
     CompressedBitmap compressed;
     compressed.reserve(width * height);
+    
     for (const auto& line : bitmap) {
         uint8_t count{1};
         uint8_t pixel = line.front();
@@ -20,26 +21,23 @@ CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
             }
         }
     }
+
     compressed.shrink_to_fit();
-    
     return compressed;
 }
 
 Bitmap decompressGrayscale(const CompressedBitmap& compressed) {
     Bitmap bitmap;
-
-    size_t count{}, line{}, el{};
-
+    size_t line{};
+    auto col = bitmap[line].begin();
+    
     for (const auto& pair : compressed) {
-        if (count >= width) {
-            count = 0;
-            el = 0;
-            ++line;
+        if (col >= bitmap[line].end()) {
+            col = bitmap[++line].begin();
         }
         for (size_t i = 0; i < pair.second; ++i) {
-            bitmap[line][el++] = pair.first;
+            *col++ = pair.first;
         }
-        count += pair.second;
     }
 
     return bitmap;
