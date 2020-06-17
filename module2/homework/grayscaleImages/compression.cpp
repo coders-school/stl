@@ -1,17 +1,21 @@
 #include "compression.hpp"
 
+#include <algorithm>
 #include <iostream>
+#include <iterator>
 
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(
     const std::array<std::array<uint8_t, width>, height>& bitmap) {
     std::vector<std::pair<uint8_t, uint8_t>> compressed_bitmap;
-    for (size_t i = 0; i < height; ++i) {
-        uint8_t sequence_begin = 0;
-        for (size_t j = 0; j < width; ++j) {
-            if (bitmap[i][j] != bitmap[i][j + 1] || j == width - 1) {
-                compressed_bitmap.push_back({bitmap[i][j], j + 1 - sequence_begin});
-                sequence_begin = j + 1;
-            }
+    for (const auto& element : bitmap) {
+        for (auto it = element.begin(); it != element.end();) {
+            
+            auto itDifferent = std::find_if_not(it, element.end(), [it](auto recent) {
+                return *it == recent;
+            });
+
+            compressed_bitmap.push_back({*it, std::distance(it, itDifferent)});
+            it = itDifferent;
         }
     }
     return compressed_bitmap;
