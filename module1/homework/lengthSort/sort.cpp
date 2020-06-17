@@ -4,7 +4,7 @@
 
 std::deque<std::string> lengthSort(const std::forward_list<std::string>& list){
     std::deque<std::string> queue;
-    for(auto& el : list){
+    for(const auto& el : list){
         queue.push_back(el);
     }
     std::sort(queue.begin(), queue.end(), [](std::string it, std::string it2){
