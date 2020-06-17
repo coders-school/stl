@@ -16,9 +16,24 @@ void printMap(const Bitmap& bitmap)
 CompressedBitmap compressLine(const std::array<uint8_t, width>& line)
 {
     CompressedBitmap result;
-    result.reserve(width*height);
+    result.reserve(width);
+/*   some ideas....
+   std::array<int, 10> arr{1,1,1,2,2,2,3,3,1,1};
 
-    for (const auto pixel : line)
+auto p = std::equal_range(std::begin(arr), std::end(arr), arr.front());
+ 
+    for ( auto i = p.first; i != p.second; ++i )
+        std::cout << *i << "\n"; 
+//std::cout << std::distance(p.first, p.second) << "\n";
+
+auto q = std::equal_range(p.second, std::end(arr), *p.second);
+ 
+    for ( auto i = q.first; i != q.second; ++i )
+        std::cout << *i << "\n"; *
+        */
+
+    std::transform(std::begin(line), std::end(line),
+    [&](uint8_t pixel)
     {
         if(!result.empty() and result.back().first == pixel)
         {
@@ -29,6 +44,7 @@ CompressedBitmap compressLine(const std::array<uint8_t, width>& line)
             result.push_back(std::make_pair(pixel,1));
         }
     }
+    );
 
 
     result.shrink_to_fit();
