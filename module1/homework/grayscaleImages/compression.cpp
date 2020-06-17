@@ -6,6 +6,8 @@ CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
     uint8_t color;
     uint8_t count;
 
+    compressed.reserve(width * height);
+
     for (const auto& row : bitmap) {
         color = row.front();
         count = 1;
