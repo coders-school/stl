@@ -2,7 +2,6 @@
 
 #include <algorithm>
 #include <iostream>
-#include <iterator>
 
 CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
     CompressedBitmap compressed;
@@ -34,11 +33,10 @@ Bitmap decompressGrayscale(const CompressedBitmap& compressed) {
 
     for (const auto& pair : compressed) {
         if (col >= row->end()) {
-            std::advance(row, 1);
+            row++;
             col = row->begin();
         }
-        std::fill_n(col, pair.second, pair.first);
-        std::advance(col, pair.second);
+        col = std::fill_n(col, pair.second, pair.first);
     }
 
     return bitmap;
