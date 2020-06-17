@@ -2,12 +2,14 @@
 
 #include <algorithm>
 #include <iostream>
+#include <iterator>
 
 CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
     CompressedBitmap compressed;
     compressed.reserve(width * height);
 
     int row{};
+
     do {
         for (auto beg = bitmap[row].begin(),
                   end = bitmap[row].end();
@@ -27,19 +29,16 @@ CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
 
 Bitmap decompressGrayscale(const CompressedBitmap& compressed) {
     Bitmap bitmap;
-
-    size_t count{}, line{}, el{};
+    auto row = bitmap.begin();
+    auto col = row->begin();
 
     for (const auto& pair : compressed) {
-        if (count >= width) {
-            count = 0;
-            el = 0;
-            ++line;
+        if (col >= row->end()) {
+            std::advance(row, 1);
+            col = row->begin();
         }
-        for (size_t i = 0; i < pair.second; ++i) {
-            bitmap[line][el++] = pair.first;
-        }
-        count += pair.second;
+        std::fill_n(col, pair.second, pair.first);
+        std::advance(col, pair.second);
     }
 
     return bitmap;
