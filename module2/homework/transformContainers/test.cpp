@@ -1,6 +1,9 @@
 #include "gtest/gtest.h"
 
 // TODO: add proper includes
+#include <algorithm>
+
+#include "tranform.hpp"
 
 TEST(transformContainerTests, ShouldReturnUniqueMap) {
     std::map<int, std::string> expected_result{
@@ -18,9 +21,9 @@ TEST(transformContainerTests, ShouldReturnUniqueMap) {
     auto result = removeDuplicateAndTranformToMap(list, deque);
 
     ASSERT_TRUE(expected_result.size() == result.size());
-    EXPECT_TRUE(std::equal(begin(result),
-                           end(result),
-                           begin(expected_result),
+    EXPECT_TRUE(std::equal(std::begin(result),
+                           std::end(result),
+                           std::begin(expected_result),
                            [](const auto& lhs, const auto& rhs) {
                                return lhs.first == rhs.first && lhs.second == rhs.second;
                            }));
