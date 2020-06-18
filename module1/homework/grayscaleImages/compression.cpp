@@ -1,39 +1,44 @@
 #include "compression.hpp"
 
+#include <algorithm>
 #include <iomanip>
 #include <iostream>
+#include <numeric>
 #include <sstream>
 
-CompressedPGMBitMap compressGrayscale(const PGMBitMap& img) {
-    CompressedPGMBitMap bitMap;
-    bitMap.reserve(height * width);
-
-    for (const auto& row : img) {
-        WidthType consecutiveCount = 0;
-
-        for (uint8_t i = 0; i < width; i++) {
-            consecutiveCount++;
-            if (i == width -1 or row[i+1] != row[i]){
-                bitMap.emplace_back(std::make_pair(row[i], consecutiveCount));
-                consecutiveCount = 0;
-            }
-        }
+CompressedImgPixelInserter&
+CompressedImgPixelInserter::operator=(const Pixel pixel) {
+    if (columnIdx_ == 0 or (pixel != img_.back().first)) {
+        img_.emplace_back(std::make_pair(pixel, 1));
+    } else {
+        img_.back().second++;
     }
-    bitMap.shrink_to_fit();
-    return bitMap;
+
+    columnIdx_++;
+    if (columnIdx_ == width)
+        columnIdx_ = 0;
+
+    return *this;
 }
 
-PGMBitMap decompressGrayscale(const CompressedPGMBitMap& compressedImg) {
+DecompressedBitmapInserter&
+DecompressedBitmapInserter::operator=(const CompressedPixel pixel) {
+    std::fill(filler_, std::next(filler_, pixel.second), pixel.first);
+    std::advance(filler_, pixel.second);
+    return *this;
+}
+
+CompressedImg compressGrayscale(const PGMBitMap& bitMap) {
+    CompressedImg compressedImg;
+    compressedImg.reserve(height * width);
+    std::copy(bitMap[0].begin(), bitMap[width - 1].end(), CompressedImgPixelInserter(compressedImg, 0));
+    compressedImg.shrink_to_fit();
+    return compressedImg;
+}
+
+PGMBitMap decompressGrayscale(const CompressedImg& compressedImg) {
     PGMBitMap decompressed;
-
-    auto currentEmptySlot = decompressed[0].begin();
-
-    for (const auto& pair : compressedImg) {
-        auto placeToFillTo = std::next(currentEmptySlot, pair.second);
-        std::fill(currentEmptySlot, placeToFillTo, pair.first);
-        currentEmptySlot = placeToFillTo;
-    }
-
+    std::copy(compressedImg.begin(), compressedImg.end(), DecompressedBitmapInserter(decompressed[0].begin()));
     return decompressed;
 }
 
@@ -46,4 +51,9 @@ void printMap(const PGMBitMap& img) {
         ss << '\n';
     }
     std::cout << ss.str();
+}
+void printCompressed(const CompressedImg& img) {
+    std::cout << "Compressed: ";
+    std::for_each(img.begin(), img.end(), [](const auto& pair) { std::cout << "{" << pair.first << " : " << (int)pair.second << '}'; });
+    std::cout << '\n';
 }
