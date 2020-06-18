@@ -2,4 +2,4 @@
 
 #include <string>
 
-bool is_palindrome(std::string test);
+bool is_palindrome(std::string testedString);
