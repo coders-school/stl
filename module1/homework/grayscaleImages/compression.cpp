@@ -57,10 +57,12 @@ twoDimensionalArray decompressGrayscale(const pairVector& inputVec) {
 }
 
 void printMap(const twoDimensionalArray& inputMap) {
-    for (const auto& mapRow : inputMap) {
-        for (const auto& rowElement : mapRow) {
+    std::all_of(inputMap.begin(), inputMap.end(), [](auto mapRow) {
+        std::all_of(mapRow.begin(), mapRow.end(), [](auto rowElement) {
             std::cout << rowElement;
-        }
+            return true;
+        });
         std::cout << '\n';
-    }
+        return true;
+    });
 }
