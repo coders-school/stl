@@ -7,24 +7,19 @@ pairVector compressGrayscale(const twoDimensionalArray& inputMap) {
     pairVector outputVec;
     outputVec.reserve(width * height);
 
-    std::all_of(inputMap.begin(), inputMap.end(), [&outputVec](auto mapRow, int value = 0, int column = 0) {
-        uint8_t color = mapRow.front();
-        std::all_of(mapRow.begin(), mapRow.end(), [&color, &value, &column, &outputVec](auto rowElement) {
-            if (rowElement != color || column == width - 1) {
-                if (column == width - 1)
-                    value++;
-                outputVec.emplace_back(std::make_pair(color, (value)));
-                value = 1;
-                color = rowElement;
-            } else {
-                value++;
-            }
-            column++;
-            return true;
-        });
-        return true;
-    });
+    std::all_of(inputMap.begin(), inputMap.end(),
+                [&outputVec](auto mapRow) {
+                    for (auto tempIt = mapRow.begin(); tempIt != mapRow.end(); ++tempIt) {
+                        auto it = std::adjacent_find(tempIt, mapRow.end(), std::not_equal_to<int>{});
+                        if (it == mapRow.end()) {
+                            it--;
+                        }
+                        outputVec.emplace_back(std::make_pair(*it, (std::distance(tempIt, it) + 1)));
+                        tempIt = it;
+                    }
 
+                    return true;
+                });
     outputVec.shrink_to_fit();
     return outputVec;
 }
