@@ -1,0 +1,8 @@
+#pragma once
+
+#include <deque>
+#include <list>
+#include <map>
+#include <string>
+
+std::map<int, std::string> transformContainers(std::list<std::string>, std::deque<int>);
