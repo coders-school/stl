@@ -3,14 +3,22 @@
 #include <algorithm>
 #include <cctype>
 
-bool is_palindrome(std::string test) {
-    auto letterIterator = std::remove_if(test.begin(), test.end(), [](unsigned char c) {
-        if (isupper) {
-            std::tolower(c);
-        }
+bool is_palindrome(std::string testedString) {
+    auto removedChars = std::remove_if(testedString.begin(), testedString.end(), [](unsigned char c) {
         return !std::isalpha(c);
     });
-    auto terminator = test.begin() + (letterIterator - test.begin()) / 2;
-    return std::equal(test.begin(), terminator, letterIterator - 1);
-    // return std::equal()
+
+    std::transform(testedString.begin(), removedChars, testedString.begin(), [](unsigned char c) {
+        return std::tolower(c);
+    });
+
+    std::string reversedInput = "";
+    auto halfOfRemainedChars = testedString.begin() + (removedChars - testedString.begin()) / 2;
+    std::reverse_copy(testedString.begin(), halfOfRemainedChars, std::back_inserter(reversedInput));
+
+    return equal(testedString.begin(), halfOfRemainedChars, reversedInput.begin());
+}
+
+int main() {
+    return 0;
 }
