@@ -2,7 +2,7 @@
 
 #include <algorithm>
 
-bool is_palindrome(std::string word) {
+bool is_palindrome(std::string& word) {
     std::transform(word.begin(),
                    word.end(),
                    word.begin(),
