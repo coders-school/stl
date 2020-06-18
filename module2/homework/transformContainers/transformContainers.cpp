@@ -4,8 +4,8 @@
 #include <iostream>
 
 std::map<int, std::string> removeDuplicateAndTranformToMap(
-    std::list<std::string> str,
-    std::deque<int> numbers) {
+    std::list<std::string>& str,
+    std::deque<int>& numbers) {
     str.sort();
     std::sort(numbers.begin(), numbers.end());
 
