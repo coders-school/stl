@@ -29,7 +29,7 @@ std::vector<std::pair<uint8_t, uint8_t>> getBitmap(size_t fraction) {
 
 void fillArray(std::array<std::array<uint8_t, width>, height>& input_array, size_t fraction) {
     std::array<uint8_t, width> new_lines;
-    std::array<uint8_t, width>::iterator it = std::begin(new_lines);
+    auto it = std::begin(new_lines);
     for (int i = 0; i < fraction; ++i) {
         it = std::fill_n(it, width / fraction, i);
     }
