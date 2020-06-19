@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <cctype>
 #include <iostream>
+#include <iterator>
 
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(
     const std::array<std::array<uint8_t, width>, height>& bitmap) {
@@ -49,14 +50,23 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(
 }
 
 void printMap(const std::array<std::array<uint8_t, width>, height>& bitmap) {
-    for (const auto& row : bitmap) {
-        for (const auto el : row) {
-            if (std::isprint(el)) {
-                std::cout << el;
-            } else {
-                std::cout << ' ';
-            }
-        }
-        std::cout << '\n';
-    }
+    constexpr uint8_t space = ' ';
+    constexpr uint8_t newLine = '\n';
+
+    std::transform(std::begin(bitmap),
+                   std::end(bitmap),
+                   std::ostream_iterator<uint8_t>(std::cout),
+                   [](const auto& row) {
+                       std::transform(std::begin(row),
+                                      std::end(row),
+                                      std::ostream_iterator<uint8_t>(std::cout),
+                                      [](const uint8_t el) {
+                                          if (std::isprint(el)) {
+                                              return el;
+                                          } else {
+                                              return space;
+                                          }
+                                      });
+                       return newLine;
+                   });
 }
