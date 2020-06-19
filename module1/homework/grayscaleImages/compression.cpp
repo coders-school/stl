@@ -18,6 +18,7 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(
             }
         }
     }
+
     return compressedBitmap;
 }
 
@@ -25,14 +26,17 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(
     const std::vector<std::pair<uint8_t, uint8_t>>& compressedBitmap) {
     std::array<std::array<uint8_t, width>, height> decompressedBitmap{};
 
-    auto iter_row = begin(decompressedBitmap);
-    auto iter_el = begin(*iter_row);
-    for (const auto& el : compressedBitmap) {
-        iter_el = std::fill_n(iter_el, el.second, el.first);
-        if (iter_el == end(*iter_row)) {
-            iter_row++;
-        }
-    }
+    auto iterRow = begin(decompressedBitmap);
+    auto iterEl = begin(*iterRow);
+
+    std::for_each(begin(compressedBitmap),
+                  end(compressedBitmap),
+                  [&iterRow, &iterEl](const auto& el) {
+                      iterEl = std::fill_n(iterEl, el.second, el.first);
+                      if (iterEl == end(*iterRow)) {
+                          iterRow++;
+                      }
+                  });
 
     return decompressedBitmap;
 }
