@@ -1,5 +1,6 @@
 #include "compression.hpp"
 
+#include <algorithm>
 #include <cctype>
 #include <iostream>
 
@@ -24,18 +25,12 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(
     const std::vector<std::pair<uint8_t, uint8_t>>& compressedBitmap) {
     std::array<std::array<uint8_t, width>, height> decompressedBitmap{};
 
-    size_t i = 0;
-    size_t j = 0;
-
+    auto iter_row = begin(decompressedBitmap);
+    auto iter_el = begin(*iter_row);
     for (const auto& el : compressedBitmap) {
-        for (size_t k = 0; (k < el.second) && (j < width); ++k, ++j) {
-            decompressedBitmap[i][j] = el.first;
-        }
-        if (j == width) {
-            if (++i == height) {
-                break;
-            }
-            j = 0;
+        iter_el = std::fill_n(iter_el, el.second, el.first);
+        if (iter_el == end(*iter_row)) {
+            iter_row++;
         }
     }
 
