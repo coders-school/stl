@@ -13,7 +13,7 @@ CompressedPGMBitMap compressGrayscale(const PGMBitMap& img) {
 
         for (uint8_t i = 0; i < width; i++) {
             consecutiveCount++;
-            if (i == width -1 or row[i+1] != row[i]){
+            if (i == width - 1 or row[i + 1] != row[i]) {
                 bitMap.emplace_back(std::make_pair(row[i], consecutiveCount));
                 consecutiveCount = 0;
             }
@@ -41,7 +41,7 @@ void printMap(const PGMBitMap& img) {
     std::stringstream ss;
     for (const auto& row : img) {
         for (const Pixel pixel : row) {
-            ss << std::setw(4) << std::setfill(' ') << std::to_string(pixel);
+            ss << (char)(isprint(pixel) ? pixel : ' ');
         }
         ss << '\n';
     }
