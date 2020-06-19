@@ -1,6 +1,7 @@
 #pragma once
 
 #include <array>
+#include <cstdint> // uint8_t
 #include <vector>
 
 constexpr size_t width = 32;
