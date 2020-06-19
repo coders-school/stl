@@ -8,19 +8,23 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(
     const std::array<std::array<uint8_t, width>, height>& bitmap) {
     std::vector<std::pair<uint8_t, uint8_t>> compressedBitmap{};
 
-    for (const auto& row : bitmap) {
-        auto iterStart = begin(row);
-        auto iterFound = begin(row);
-        while (iterFound != end(row)) {
-            iterFound = std::find_if(iterStart,
-                                     end(row),
-                                     [&iterStart](const auto el) {
-                                         return el != *iterStart;
-                                     });
-            compressedBitmap.push_back({*iterStart, std::distance(iterStart, iterFound)});
-            iterStart = iterFound;
-        }
-    }
+    std::for_each(cbegin(bitmap),
+                  cend(bitmap),
+                  [&compressedBitmap](const auto& row) {
+                      auto iterStart = begin(row);
+                      auto iterFound = iterStart;
+                      while (iterFound != end(row)) {
+                          iterFound = std::find_if(iterStart,
+                                                   end(row),
+                                                   [&iterStart](const auto el) {
+                                                       return el != *iterStart;
+                                                   });
+                          compressedBitmap.push_back({*iterStart, std::distance(iterStart, iterFound)});
+                          iterStart = iterFound;
+                      }
+                  });
+
+    compressedBitmap.shrink_to_fit();
 
     return compressedBitmap;
 }
