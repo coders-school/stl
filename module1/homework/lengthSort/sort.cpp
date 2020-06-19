@@ -10,7 +10,7 @@ std::deque<std::string> lengthSort(std::forward_list<std::string> list) {
         if (lhs.size() == rhs.size()) {
             return lhs < rhs;
         }
-        return lhs < rhs;
+        return lhs.size() < rhs.size();        
     });
     return deque;
 }
