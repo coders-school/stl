@@ -9,8 +9,11 @@ void printMap (std::array<std::array<uint8_t, width>, height> bitmap)
     {
         for (const auto c : line)
         {
-            std::cout<<std::setw(3)<<(int)c<<' ';
-
+            if(c < ' '){
+                std::cout<<' ';  
+            }else{
+                std::cout<<c;
+            }
         }
         std::cout<<'\n';
     }
