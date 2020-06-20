@@ -28,3 +28,15 @@ TEST(transformContainerTests, ShouldReturnUniqueMap) {
                                return lhs.first == rhs.first && lhs.second == rhs.second;
                            }));
 }
+
+TEST(transformContainerTests, ShouldReturnUniqueEmptyMap) {
+    std::map<int, std::string> expected_result{};
+    std::list<std::string> list{
+        "kot", "nudzi", "mi", "sie"};
+    std::deque<int> deque{
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2};
+    auto result = removeDuplicateAndTranformToMap(list, deque);
+
+    ASSERT_TRUE(expected_result.size() == result.size());
+    EXPECT_TRUE(result.empty());
+}
