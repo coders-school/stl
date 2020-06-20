@@ -50,7 +50,7 @@ std::array<std::array<uint8_t, height>, width> decompressGrayscale(
 }
 
 void printMap(std::array<std::array<uint8_t, height>, width>& bitmap) {
-    const std::string palette = R"( .'`^",:;Il!i><~+_-?][}{1)(|\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$)";
+    const std::string palette = R"( .:-=+*#%@)";
     int level;
     const double normalizingFactor = palette.size() / 256.0;
     std::cout << "\n";
