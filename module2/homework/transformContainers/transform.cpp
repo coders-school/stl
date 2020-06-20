@@ -9,7 +9,13 @@ std::map<int, std::string> removeDuplicateAndTranformToMap(std::list<std::string
     std::sort(deque.begin(), deque.end());
     deque.erase(std::unique(deque.begin(), deque.end()), deque.end());
 
+    
+
     std::map<int, std::string> result;
+    if(deque.size() != list.size()){
+        return result;
+    }
+    
     std::transform(
         deque.begin(), deque.end(), list.begin(), deque.begin(), [&result](auto first, auto second) {
             result[first] = second;
