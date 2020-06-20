@@ -10,7 +10,6 @@ std::map<int, std::string> removeDuplicateAndTranformToMap(std::list<std::string
     deque.erase(std::unique(deque.begin(), deque.end()), deque.end());
 
     std::map<int, std::string> result;
-
     std::transform(
         deque.begin(), deque.end(), list.begin(), deque.begin(), [&result](auto first, auto second) {
             result[first] = second;
