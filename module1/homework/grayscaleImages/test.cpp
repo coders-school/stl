@@ -3,8 +3,8 @@
 #include <utility>  // for std::pair<>
 #include <vector>
 
-// TODO: include
 #include "gtest/gtest.h"
+#include "compression.hpp"
 
 void expectBitmap(const std::vector<std::pair<uint8_t, uint8_t>>& bitmap, size_t fraction) {
     for (int j = 0; j < fraction; j++) {
@@ -27,156 +27,135 @@ std::vector<std::pair<uint8_t, uint8_t>> getBitmap(size_t fraction) {
     return bitmap;
 }
 
-TEST(compressionTests, ShouldCompressWholeLines) {
+std::array<std::array<uint8_t, width>, height> getMap(size_t fraction) {
     std::array<std::array<uint8_t, width>, height> arr;
-    for (int i = 0; i < height; ++i)
-        for (int j = 0; j < width; ++j)
-            arr[i][j] = 0;
-
-    auto bitmap = compressGrayscale(arr);
-    ASSERT_EQ(bitmap.size(), height);
-    expectBitmap(bitmap, 1);
-}
-
-TEST(compressionTests, ShouldCompressHalfLines) {
-    std::array<std::array<uint8_t, width>, height> arr;
-    for (int i = 0; i < height; ++i) {
-        for (int j = 0; j < width / 2; ++j)
-            arr[i][j] = 0;
-        for (int j = width / 2; j < width; ++j)
-            arr[i][j] = 1;
-    }
-
-    auto bitmap = compressGrayscale(arr);
-    expectBitmap(bitmap, 2);
-}
-
-TEST(compressionTests, ShouldCompressQuaterLines) {
-    std::array<std::array<uint8_t, width>, height> arr;
-    for (int i = 0; i < height; ++i) {
-        for (int j = 0; j < width / 4; ++j)
-            arr[i][j] = 0;
-        for (int j = width / 4; j < width / 2; ++j)
-            arr[i][j] = 1;
-        for (int j = width / 2; j < width / (4.0 / 3.0); ++j)
-            arr[i][j] = 2;
-        for (int j = width / (4.0 / 3.0); j < width; ++j)
-            arr[i][j] = 3;
-    }
-
-    auto bitmap = compressGrayscale(arr);
-    ASSERT_EQ(bitmap.size(), height * 4);
-    expectBitmap(bitmap, 4);
-}
-
-TEST(compressionTests, ShouldCompressOneEighthLines) {
-    std::array<std::array<uint8_t, width>, height> arr;
-    for (int i = 0; i < height; ++i) {
-        for (int j = 0; j < width / 8; ++j)
-            arr[i][j] = 0;
-        for (int j = width / 8; j < width / 4; ++j)
-            arr[i][j] = 1;
-        for (int j = width / 4; j < width / (8.0 / 3.0); ++j)
-            arr[i][j] = 2;
-        for (int j = width / (8.0 / 3.0); j < width / 2; ++j)
-            arr[i][j] = 3;
-        for (int j = width / 2; j < width / (8.0 / 5.0); ++j)
-            arr[i][j] = 4;
-        for (int j = width / (8.0 / 5.0); j < width / (4.0 / 3.0); ++j)
-            arr[i][j] = 5;
-        for (int j = width / (4.0 / 3.0); j < width / (8.0 / 7.0); ++j)
-            arr[i][j] = 6;
-        for (int j = width / (8.0 / 7.0); j < width; ++j)
-            arr[i][j] = 7;
-    }
-
-    auto bitmap = compressGrayscale(arr);
-    ASSERT_EQ(bitmap.size(), height * 8);
-    expectBitmap(bitmap, 8);
-}
-
-TEST(compressionTests, ShouldDecompressWholeLines) {
-    constexpr size_t fraction = 1;
-    auto bitmap = getBitmap(fraction);
-
-    auto map = decompressGrayscale(bitmap);
-    ASSERT_EQ(bitmap.size(), height);
-    for (const auto& row : map) {
-        for (const uint8_t color : row) {
-            EXPECT_EQ(color, 0);
+    for (size_t i = 0; i < height; ++i) {
+        size_t j = 0;
+        for (size_t f = 0; f < fraction; ++f) {
+            for (size_t k = 0; k < width/fraction; ++k) {
+                arr[i][j++] = f;
+            }
         }
     }
+
+    return arr;
 }
 
-TEST(compressionTests, ShouldDecompressHalfLines) {
-    constexpr size_t fraction = 2;
+void testCompressedBitmap(size_t fraction) {
+    auto arr = getMap(fraction);
+
+    auto bitmap = compressGrayscale(arr);
+    ASSERT_EQ(bitmap.size(), height * fraction);
+    expectBitmap(bitmap, fraction);
+}
+
+void testDecompressedMap(size_t fraction) {
     auto bitmap = getBitmap(fraction);
 
     auto map = decompressGrayscale(bitmap);
     ASSERT_EQ(map.size(), height);
     for (const auto& row : map) {
-        for (size_t i = 0; i < row.size() / fraction; ++i) {
-            EXPECT_EQ(row[i], 0);
+        size_t j = 0;
+        for (size_t f = 0; f < fraction; ++f) {
+            for (size_t k = 0; k < width/fraction; ++k) {
+                EXPECT_EQ(row[j++], f);
+            }
         }
-        for (size_t i = row.size() / fraction; i < row.size(); ++i) {
-            EXPECT_EQ(row[i], 1);
-        }
+    }
+}
+
+TEST(compressionTests, ShouldCompressWholeLines) {
+    size_t fraction = 1;
+    testCompressedBitmap(fraction);
+}
+
+TEST(compressionTests, ShouldCompressHalfLines) {
+    std::array<std::array<uint8_t, width>, height> arr;
+    size_t fraction = 2;
+    if (width >= fraction) {
+        testCompressedBitmap(fraction);   
+    }
+}
+
+TEST(compressionTests, ShouldCompressQuaterLines) {
+    size_t fraction = 4;
+    if (width >= fraction) {
+        testCompressedBitmap(fraction);
+    }
+}
+
+TEST(compressionTests, ShouldCompressOneEighthLines) {
+    size_t fraction = 8;
+    if (width >= fraction) {
+        testCompressedBitmap(fraction);
+    }
+}
+
+TEST(compressionTests, ShouldCompressOneSixteenthLines) {
+    size_t fraction = 16;
+    if (width >= fraction) {
+        testCompressedBitmap(fraction);
+    }
+}
+
+TEST(compressionTests, ShouldCompressOneThirtySecondLines) {
+    size_t fraction = 32;
+    if (width >= fraction) {
+        testCompressedBitmap(fraction);
+    }
+}
+
+TEST(compressionTests, ShouldCompressOneSixtyFourthLines) {
+    size_t fraction = 64;
+    if (width >= fraction) {
+        testCompressedBitmap(fraction);
+    }
+}
+
+TEST(compressionTests, ShouldDecompressWholeLines) {
+    constexpr size_t fraction = 1;
+    testDecompressedMap(fraction);
+}
+
+TEST(compressionTests, ShouldDecompressHalfLines) {
+    constexpr size_t fraction = 2;
+    if (width >= fraction) {
+        testDecompressedMap(fraction);
     }
 }
 
 TEST(compressionTests, ShouldDecompressQuaterLines) {
     constexpr size_t fraction = 4;
-    auto bitmap = getBitmap(fraction);
-
-    auto map = decompressGrayscale(bitmap);
-    ASSERT_EQ(map.size(), height);
-    for (const auto& row : map) {
-        for (size_t i = 0; i < row.size() / fraction; ++i) {
-            EXPECT_EQ(row[i], 0);
-        }
-        for (size_t i = row.size() / fraction; i < row.size() / fraction * 2; ++i) {
-            EXPECT_EQ(row[i], 1);
-        }
-        for (size_t i = row.size() / fraction * 2; i < row.size() / (fraction / 3.0); ++i) {
-            EXPECT_EQ(row[i], 2);
-        }
-        for (size_t i = row.size() / (fraction / 3.0); i < row.size(); ++i) {
-            EXPECT_EQ(row[i], 3);
-        }
+    if (width >= fraction) {
+        testDecompressedMap(fraction);
     }
 }
 
 TEST(compressionTests, ShouldDecompressOneEighthLines) {
     constexpr size_t fraction = 8;
-    auto bitmap = getBitmap(fraction);
+    if (width >= fraction) {
+        testDecompressedMap(fraction);
+    }
+}
 
-    auto map = decompressGrayscale(bitmap);
-    ASSERT_EQ(map.size(), height);
-    for (const auto& row : map) {
-        for (size_t i = 0; i < row.size() / fraction; ++i) {
-            EXPECT_EQ(row[i], 0);
-        }
-        for (size_t i = row.size() / (fraction / 1.0); i < row.size() / (fraction / 2.0); ++i) {
-            EXPECT_EQ(row[i], 1);
-        }
-        for (size_t i = row.size() / (fraction / 2.0); i < row.size() / (fraction / 3.0); ++i) {
-            EXPECT_EQ(row[i], 2);
-        }
-        for (size_t i = row.size() / (fraction / 3.0); i < row.size() / (fraction / 4.0); ++i) {
-            EXPECT_EQ(row[i], 3);
-        }
-        for (size_t i = row.size() / (fraction / 4.0); i < row.size() / (fraction / 5.0); ++i) {
-            EXPECT_EQ(row[i], 4);
-        }
-        for (size_t i = row.size() / (fraction / 5.0); i < row.size() / (fraction / 6.0); ++i) {
-            EXPECT_EQ(row[i], 5);
-        }
-        for (size_t i = row.size() / (fraction / 6.0); i < row.size() / (fraction / 7.0); ++i) {
-            EXPECT_EQ(row[i], 6);
-        }
-        for (size_t i = row.size() / (fraction / 7.0); i < row.size(); ++i) {
-            EXPECT_EQ(row[i], 7);
-        }
+TEST(compressionTests, ShouldDecompressOneSixteenthLines) {
+    constexpr size_t fraction = 16;
+    if (width >= fraction) {
+        testDecompressedMap(fraction);
+    }
+}
+
+TEST(compressionTests, ShouldDecompressOneThirtySecondLines) {
+    constexpr size_t fraction = 32;
+    if (width >= fraction) {
+        testDecompressedMap(fraction);
+    }
+}
+
+TEST(compressionTests, ShouldDecompressOneSixtyFourthLines) {
+    constexpr size_t fraction = 64;
+    if (width >= fraction) {
+        testDecompressedMap(fraction);
     }
 }
 
