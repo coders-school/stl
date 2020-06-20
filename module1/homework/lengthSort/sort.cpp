@@ -3,14 +3,12 @@
 #include <algorithm>
 #include <iterator>
 
-bool comparator(const std::string& firstString, const std::string& secondString) {
-    return (firstString.size() == secondString.size() ? firstString < secondString
-                                                      : (firstString.size() < secondString.size()));
-}
-
 std::deque<std::string> lengthSort(std::forward_list<std::string> list) {
-    list.sort(comparator);
     std::deque<std::string> deq;
+    list.sort([](const std::string& first, const std::string& second) {
+        return (first.length() == second.length() ? first < second
+                                                  : (first.length() < second.length()));
+    });
     std::copy(list.begin(), list.end(), std::back_inserter(deq));
 
     return deq;
