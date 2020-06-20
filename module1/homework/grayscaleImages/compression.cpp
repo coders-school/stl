@@ -6,15 +6,14 @@ compressed_bitmap compressGrayscale(const bitmap& image) {
     compressedImage.reserve(height * width);
 
     for (const auto& el : image) {
-        uint8_t counter = 1;
-        for (auto it = el.begin(); it != el.end(); ++it) {
-            auto next_element = std::next(it);
-            if (*it != *next_element or next_element == el.end()) {
-                compressedImage.push_back({*it, counter});
-                counter = 1;
-            } else {
-                counter++;
+        for (auto it = el.begin(); it != el.end();) {
+            auto newIt = std::adjacent_find(it, el.end(), std::not_equal_to<uint8_t>());
+            if (newIt != el.end()) {
+                newIt++;
             }
+            uint8_t distance = std::distance(it, newIt);
+            compressedImage.push_back({*it, distance});
+            std::advance(it, distance);
         }
     }
     compressedImage.shrink_to_fit();
@@ -24,20 +23,12 @@ compressed_bitmap compressGrayscale(const bitmap& image) {
 bitmap decompressGrayscale(const compressed_bitmap& compressedImage) {
     bitmap result{};
     std::array<uint8_t, width> tempRow{};
-    auto currentRow = 0;
-    auto currentCol = 0;
+    auto col = result.begin()->begin();
+    std::for_each(compressedImage.begin(), compressedImage.end(),
+                  [col](const std::pair<uint8_t, uint8_t>& aPair) mutable {
+                      col = std::fill_n(col, aPair.second, aPair.first);
+                  });
 
-    for (const auto& el : compressedImage) {
-        for (uint8_t i = currentCol; i < el.second + currentCol; i++) {
-            tempRow[i] = el.first;
-        }
-        currentCol += el.second;
-        if (currentCol == width) {
-            std::swap(result[currentRow], tempRow);
-            currentRow++;
-            currentCol = 0;
-        }
-    }
     return result;
 }
 
