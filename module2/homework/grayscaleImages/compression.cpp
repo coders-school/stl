@@ -35,19 +35,17 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(
 std::array<std::array<uint8_t, height>, width> decompressGrayscale(
     const std::vector<std::pair<uint8_t, uint8_t>>& compressed) {
     std::array<std::array<uint8_t, height>, width> uncompressed;
-    auto pixelGroup = compressed.begin();
-    uint8_t howManyPixels = pixelGroup->second;
+    auto rowIterator = uncompressed.begin();
+    auto pixelIterator = uncompressed[0].begin();
 
-    for (auto& row : uncompressed) {
-        for (auto& pixel : row) {
-            if (howManyPixels == 0) {
-                pixelGroup++;
-                howManyPixels = pixelGroup->second;
-            }
-            pixel = pixelGroup->first;
-            howManyPixels--;
+    std::for_each(compressed.begin(), compressed.end(), [&](const auto& pixelGroup) {
+        pixelIterator = std::fill_n(pixelIterator, pixelGroup.second, pixelGroup.first);
+        if (pixelIterator == rowIterator->end()) {
+            rowIterator++;
+            pixelIterator = rowIterator->begin();
         }
-    }
+    });
+
     return uncompressed;
 }
 
