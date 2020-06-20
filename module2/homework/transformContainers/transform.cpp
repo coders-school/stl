@@ -13,6 +13,11 @@ std::map<int, std::string> removeDuplicateAndTranformToMap(
     uniqueDeque.erase(std::unique(uniqueDeque.begin(), uniqueDeque.end()), uniqueDeque.end());
 
     std::map<int, std::string> result{};
+
+    if (uniqueDeque.size() != uniqueList.size()) {
+        return result;
+    }
+
     std::transform(uniqueDeque.begin(),
                    uniqueDeque.end(),
                    uniqueList.begin(),
