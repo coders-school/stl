@@ -4,10 +4,14 @@
 #include <utility>
 #include <vector>
 
-constexpr uint8_t width = 32; //240
-constexpr uint8_t height = 32;  //160
+using Pixel = uint8_t;
+using WidthType = uint8_t;
+using HeightType = uint8_t;
+constexpr WidthType width = 32;
+constexpr HeightType height = 32;
+using PGMBitMap = std::array<std::array<Pixel, width>, height>;
+using CompressedPGMBitMap = std::vector<std::pair<Pixel, WidthType>>;
 
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, width>, height>& img);
-std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::vector<std::pair<uint8_t, uint8_t>>& compressedImg);
-
-void printMap(const std::array<std::array<uint8_t, width>, height> &);
+CompressedPGMBitMap compressGrayscale(const PGMBitMap& img);
+PGMBitMap decompressGrayscale(const CompressedPGMBitMap& compressedImg);
+void printMap(const PGMBitMap& img);
