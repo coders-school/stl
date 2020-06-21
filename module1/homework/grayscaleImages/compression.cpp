@@ -3,9 +3,8 @@
 #include <iostream>
 #include <string>
 
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(
-    const std::array<std::array<uint8_t, height>, width>& uncompressed) {
-    std::vector<std::pair<uint8_t, uint8_t>> compressed;
+CompressedImage compressGrayscale(const UncompressedImage& uncompressed) {
+    CompressedImage compressed;
     compressed.reserve(height * width);
 
     for (const auto& row : uncompressed) {
@@ -32,9 +31,8 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(
     return compressed;
 }
 
-std::array<std::array<uint8_t, height>, width> decompressGrayscale(
-    const std::vector<std::pair<uint8_t, uint8_t>>& compressed) {
-    std::array<std::array<uint8_t, height>, width> uncompressed;
+UncompressedImage decompressGrayscale(const CompressedImage& compressed) {
+    UncompressedImage uncompressed;
     auto pixelGroup = compressed.begin();
     uint8_t howManyPixels = pixelGroup->second;
 
@@ -51,7 +49,7 @@ std::array<std::array<uint8_t, height>, width> decompressGrayscale(
     return uncompressed;
 }
 
-void printMap(std::array<std::array<uint8_t, height>, width>& bitmap) {
+void printMap(const UncompressedImage& bitmap) {
     const std::string palette = R"( .'`^",:;Il!i><~+_-?][}{1)(|\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$)";
     int level;
     const double normalizingFactor = palette.size() / 256.0;

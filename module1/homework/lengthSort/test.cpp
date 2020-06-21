@@ -27,6 +27,24 @@ TEST(lengthSortTests, ShouldSortLexicographicallyWhenLengthIsEqual) {
     EXPECT_EQ(result, expected_result);
 }
 
+TEST(lengthSortTests, ShouldSortByLengthNumbers) {
+    std::forward_list<std::string> list{
+        {"One"},
+        {"Two"},
+        {"Three"},
+        {"Four"},
+        {"Five"}};
+    std::deque<std::string> expected_result = {
+        {"One"},
+        {"Two"},
+        {"Five"},
+        {"Four"},
+        {"Three"}};
+    auto result = lengthSort(list);
+    ASSERT_TRUE(result.size() == expected_result.size());
+    EXPECT_EQ(result, expected_result);
+}
+
 TEST(lengthSortTests, ShouldSortByLength) {
     std::forward_list<std::string> list{
         {"alamakota"},

@@ -4,7 +4,7 @@
 #include <iterator>
 #include <utility>
 
-std::map<int, std::string> removeDuplicateAndTranformToMap(std::list<std::string> stringList, std::deque<int> intDeque) {
+std::map<int, std::string> removeDuplicateAndTransformToMap(std::list<std::string> stringList, std::deque<int> intDeque) {
     stringList.sort();
     stringList.erase(std::unique(stringList.begin(), stringList.end()));
     std::sort(intDeque.begin(), intDeque.end());
