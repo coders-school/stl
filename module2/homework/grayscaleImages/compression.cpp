@@ -1,12 +1,13 @@
 #include "compression.hpp"
 
 #include <algorithm>
+#include <cctype>
 #include <iostream>
 
 // This code was created only to not use any loops, but algorithms.
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(
     const std::array<std::array<uint8_t, width>, height>& bitmap) {
-    // Change array<arra> to vector<vector>
+    
     std::vector<std::vector<uint8_t>> vectors;
     std::transform(bitmap.begin(),
                    bitmap.end(),
@@ -22,7 +23,6 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(
                        return single_row;
                    });
 
-    // Change vector<vector> to vector<vector<pair>>
     std::vector<std::vector<std::pair<uint8_t, uint8_t>>> vector_pairs;
     std::transform(vectors.begin(),
                    vectors.end(),
@@ -40,7 +40,6 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(
                        return pairs;
                    });
 
-    // Fill vector<vector<pair>> with values
     std::transform(vector_pairs.begin(),
                    vector_pairs.end(),
                    vectors.begin(),
@@ -62,7 +61,6 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(
                    });
 
     std::vector<std::pair<uint8_t, uint8_t>> compressed_bitmap;
-    // Change vector<vector<pair>> to vector<pair>
     std::for_each(vector_pairs.begin(),
                   vector_pairs.end(),
                   [&compressed_bitmap](const auto& row) {
@@ -90,10 +88,11 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(
 void printMap(const std::array<std::array<uint8_t, width>, height>& decompressed_bitmap) {
     for (const auto& row : decompressed_bitmap) {
         for (const auto& ch : row) {
-            if (ch < min_printable) {
-                std::cout << ' ';
-            } else {
+            if (std::isprint(ch)) {
                 std::cout << ch;
+            }
+            else {
+                std::cout << ' ';
             }
         }
         std::cout << '\n';
