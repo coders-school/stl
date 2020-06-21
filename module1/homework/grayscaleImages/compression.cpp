@@ -8,25 +8,16 @@ CompressedImage compressGrayscale(const UncompressedImage& uncompressed) {
     compressed.reserve(height * width);
 
     for (const auto& row : uncompressed) {
-        auto rowIterator = row.cbegin();
-        uint8_t currentValue = *rowIterator;
         uint8_t currentValueCounter = 1;
-        rowIterator++;
-
-        while (rowIterator != row.cend()) {
-            if (*rowIterator == currentValue) {
-                currentValueCounter++;
-            } else {
-                compressed.push_back(std::make_pair(currentValue, currentValueCounter));
-                currentValue = *rowIterator;
+        for (auto it = row.begin(); it < row.end(); it++) {
+            if (it == std::prev(row.end()) || *(it + 1) != *it) {
+                compressed.push_back(std::make_pair(*it, currentValueCounter));
                 currentValueCounter = 1;
+            } else {
+                currentValueCounter++;
             }
-            rowIterator++;
         }
-        // and when row reach end:
-        compressed.push_back(std::make_pair(currentValue, currentValueCounter));
     }
-
     compressed.shrink_to_fit();
     return compressed;
 }
