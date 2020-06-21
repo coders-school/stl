@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-// TODO: Includes
+#include "palindrome.hpp"
 
 class InsensitivePalindromFixture : public ::testing::TestWithParam<std::pair<std::string, bool>> {
 };
@@ -15,7 +15,7 @@ INSTANTIATE_TEST_SUITE_P(
     ::testing::Values(
         std::make_pair("a", true),
         std::make_pair("aba", true),
-        std::make_pair("abba", true),
+        std::make_pair("Abba@", true),
         std::make_pair("Eva, can I see bees in a cave?", true),
         std::make_pair("No lemon, no melon", true),
         std::make_pair("Was it a cat I saw?", true),
