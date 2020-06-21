@@ -4,26 +4,20 @@
 
 CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
     CompressedBitmap compressed;
-    uint8_t color;
-    uint8_t count;
 
     compressed.reserve(width * height);
-    for (const auto& row : bitmap) {
-        color = row.front();
-        count = 1;
-        for (auto pixelIt = row.begin(); pixelIt != row.end(); pixelIt++) {
-            auto nextIt = std::next(pixelIt);
-            if ((nextIt == row.end()) or (color != *nextIt)) {
-                compressed.emplace_back(std::make_pair(color, count));
-                if (nextIt != row.end()) {
-                    color = *nextIt;
-                    count = 1;
-                }
-            } else {
-                count++;
-            }
+    std::for_each(bitmap.begin(), bitmap.end(), [&compressed](const auto& row) {
+        uint8_t color = row.front();
+        auto pixelIt = row.begin();
+        while (pixelIt != row.end()) {     
+            auto count = std::count_if(pixelIt, row.end(), [&color](auto pixel){ 
+                return pixel == color;
+            });
+            compressed.push_back({color, count});
+            std::advance(pixelIt, count);            
+            color = *pixelIt;
         }
-    }
+    });
     compressed.shrink_to_fit();
 
     return compressed;
