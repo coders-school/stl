@@ -3,23 +3,45 @@
 #include <iostream>
 #include <algorithm>
 
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, width>, height>& getGray) {
+std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array<uint8_t, width>, height>& getGray) {
 
 std::vector<std::pair<uint8_t, uint8_t>> smallMap;
 
-for (const auto& everyRow : getGray) {
+std::transform(getGray.begin(), getGray.end(), getGray.begin(),
+              [&smallMap](std::array<uint8_t,width> a){
 
-    auto firstIt = everyRow.begin();
+              uint8_t currentNum = a[0];
+              int count = 0;
 
-    while (firstIt != everyRow.end()) {
+              std::transform(a.begin(), a.end(), a.begin(),
+              [&smallMap, &currentNum, &count, &a](uint8_t var) {
 
-        auto secondIt = std::find_if_not(firstIt,everyRow.end(), [firstIt](int x){return x == *firstIt;});
-        smallMap.emplace_back(std::make_pair(*firstIt,std::distance(firstIt, secondIt)));
-        firstIt = secondIt;
-    }
-}
+                  if (var == currentNum) {
+
+                    ++count;
+                    currentNum = var;
+
+                  } else {
+
+                    smallMap.emplace_back(std::make_pair(currentNum,count));
+
+                    count = 1;
+                    currentNum = var;
+
+                  }
+
+              return var;
+
+              });
+
+              smallMap.emplace_back(std::make_pair(currentNum,count));
+
+              return a;
+
+              });
 
 return smallMap;
+
 }
 
 std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>> Compressed) {
