@@ -14,5 +14,5 @@ bool is_palindrome(std::string str) {
         return std::tolower(x);
     });
 
-    return std::equal(str.cbegin(), str.cend(), str.crbegin());
+    return std::equal(str.cbegin(), str.cbegin() + str.size() / 2, str.crbegin());
 }
