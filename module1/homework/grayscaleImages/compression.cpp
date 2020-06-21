@@ -22,6 +22,7 @@ CompressedPGMBitMap compressGrayscale(const PGMBitMap& img) {
         }
     }
     bitMap.shrink_to_fit();
+    
     return bitMap;
 }
 

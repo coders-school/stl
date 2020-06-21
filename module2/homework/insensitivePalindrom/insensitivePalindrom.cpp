@@ -1,6 +1,7 @@
 #include "insensitivePalindrom.hpp"
 
 #include <algorithm>
+
 bool is_palindrome(std::string text) {
     auto removeSpecialChars = [](char& c) {
         c = std::tolower(c);

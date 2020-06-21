@@ -21,5 +21,6 @@ std::map<int, std::string> removeDuplicateAndTranformToMap(std::list<std::string
                    [](const auto& elDeq, const auto& elLst) {
                        return std::make_pair(elDeq, elLst);
                    });
+                   
     return resultMap;
 }
