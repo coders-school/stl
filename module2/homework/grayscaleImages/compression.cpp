@@ -44,26 +44,22 @@ return smallMap;
 
 }
 
-std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>> Compressed) {
+std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>> compressedMap) {
 
-std::array<std::array<uint8_t, width>, height> result {};
+    std::array<std::array<uint8_t, width>, height> result;
 
-auto it = Compressed.begin();
-auto decompress = [&](){
-    if(it->second){
-        it->second--;
-        return it->first;
-    }
-    it++;
-    it->second--;
-    return it->first;
-};
+    auto iter = result[0].begin();
 
-for(auto& row : result){
-    std::generate(row.begin(), row.end(), decompress);
-}
+    std::transform(compressedMap.begin(), compressedMap.end(), compressedMap.begin(),
+        [&iter](const auto& myPair) mutable {
 
-return result;
+            iter = std::fill_n(iter, myPair.second, myPair.first);
+            return myPair;
+
+    });
+
+    return result;
+
 }
 
 void printMap(const std::array<std::array<uint8_t, width>, height>& getMap) {
