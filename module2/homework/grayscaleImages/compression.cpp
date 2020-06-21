@@ -33,15 +33,10 @@ CompressedImage compressGrayscale(const UncompressedImage& uncompressed) {
 
 UncompressedImage decompressGrayscale(const CompressedImage& compressed) {
     UncompressedImage uncompressed;
-    auto rowIterator = uncompressed.begin();
     auto pixelIterator = uncompressed[0].begin();
 
     std::for_each(compressed.begin(), compressed.end(), [&](const auto& pixelGroup) {
         pixelIterator = std::fill_n(pixelIterator, pixelGroup.second, pixelGroup.first);
-        if (pixelIterator == rowIterator->end()) {
-            rowIterator++;
-            pixelIterator = rowIterator->begin();
-        }
     });
 
     return uncompressed;
@@ -54,7 +49,7 @@ void printMap(UncompressedImage& bitmap) {
     std::cout << "\n";
 
     for (auto& row : bitmap) {
-        for (auto& pixel : row) {
+        for (auto pixel : row) {
             level = pixel * normalizingFactor;
             std::cout << palette[level];
         }
