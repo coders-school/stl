@@ -38,8 +38,8 @@ endif()
 project(transformContainers)
 enable_testing()
 
-add_executable(${PROJECT_NAME}-ut test.cpp) # add your cpp file here after test.cpp
-# if this is problematic take a look into CMakeLists.txt files in other exercises
+add_executable(${PROJECT_NAME}-ut test.cpp)
+add_executable(${PROJECT_NAME}-ut transformContainers.cpp)
 
 add_compile_options(${PROJECT_NAME}-ut -Wall -Wextra -Wconversion -pedantic -Werror)
 
