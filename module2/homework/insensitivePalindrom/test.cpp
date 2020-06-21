@@ -1,5 +1,5 @@
-#include "gtest/gtest.h"
 #include "checkPalindrome.hpp"
+#include "gtest/gtest.h"
 
 // TODO: Includes
 
