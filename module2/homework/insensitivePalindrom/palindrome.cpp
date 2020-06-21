@@ -1,5 +1,4 @@
-#include <string>
-#include <algorithm>
+#include "palindrome.h"
 
 bool is_palindrome(std::string sentence) {
 	sentence.erase(std::remove_if(sentence.begin(), sentence.end(),
@@ -11,6 +10,3 @@ bool is_palindrome(std::string sentence) {
 	return std::equal(sentence.cbegin(), sentence.cbegin() + sentence.size() / 2, sentence.crbegin());
 }
 
-int main() {
-    return 0;
-}
