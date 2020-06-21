@@ -26,22 +26,11 @@ pairVector compressGrayscale(const twoDimensionalArray& inputMap) {
 
 twoDimensionalArray decompressGrayscale(const pairVector& inputVec) {
     twoDimensionalArray outputArr;
-    size_t rowCounter = 0;
-    size_t columnCounter = 0;
+    auto arrIt = outputArr.begin()->begin();
 
     std::all_of(inputVec.begin(), inputVec.end(),
-                [&rowCounter, &columnCounter, &outputArr](auto pair) {
-                    if (rowCounter < height) {
-                        for (size_t pairValue = 0; pairValue < pair.second; ++pairValue) {
-                            outputArr[rowCounter][columnCounter] = pair.first;
-                            if (columnCounter < width - 1)
-                                columnCounter++;
-                            else {
-                                columnCounter = 0;
-                                rowCounter++;
-                            }
-                        }
-                    }
+                [arrIt](const auto& pair) mutable {
+                    arrIt = std::fill_n(arrIt, pair.second, pair.first);
                     return true;
                 });
     return outputArr;
