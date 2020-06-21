@@ -1,5 +1,7 @@
 #include "compression.hpp"
 
+#include <algorithm>
+
 CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
     CompressedBitmap compressed;
     uint8_t color;
@@ -29,23 +31,12 @@ CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
 
 Bitmap decompressGrayscale(const CompressedBitmap& compressed) {
     Bitmap bitmap;
-    auto pairIt = compressed.begin();
-    size_t i{0};
 
-    for (auto& row : bitmap) {
-        for (auto pixelIt = row.begin(); pixelIt != row.end(); pixelIt++) {
-            if (pairIt != compressed.end()) {
-                *pixelIt = (*pairIt).first;
-            } else {
-                break;
-            }
-            i++;
-            if (i >= (*pairIt).second) {
-                i = 0;
-                pairIt++;
-            } 
-        }
-    }
+    auto pixelIt = bitmap.front().begin();
+
+    std::for_each(compressed.begin(), compressed.end(), [pixelIt](const auto& pair) mutable {
+        pixelIt = std::fill_n(pixelIt, pair.second, pair.first); 
+    });
 
     return bitmap;
 }
