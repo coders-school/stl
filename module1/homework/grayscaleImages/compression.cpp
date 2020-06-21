@@ -56,7 +56,10 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::ve
 void printMap(const std::array<std::array<uint8_t, width>, height>& inputMap) {
     for (const auto& mapRow : inputMap) {
         for (const auto& rowElement : mapRow) {
-            std::cout << rowElement;
+            if (rowElement < 33)
+                std::cout << " ";
+            else
+                std::cout << rowElement;
         }
         std::cout << '\n';
     }
