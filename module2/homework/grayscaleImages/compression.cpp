@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <iostream>
 
-compressedImage compressGrayscale(const Image& bitmap) {
+ccompressedImage compressGrayscale(const Image& bitmap) {
     compressedImage compressedData;
 
     compressedData.reserve(width * height);
@@ -12,9 +12,9 @@ compressedImage compressGrayscale(const Image& bitmap) {
         auto current = row.begin();
         while (current != row.end()) {
             uint8_t color = *current;
-            auto index = std::find_if(current, row.end(),
+            auto index = std::find_if_not(current, row.end(),
                                       [color](uint8_t otherColor) {
-                                          return color != otherColor;
+                                          return color == otherColor;
                                       });
             auto counter = std::distance(current, index);
             compressedData.push_back({color, counter});
