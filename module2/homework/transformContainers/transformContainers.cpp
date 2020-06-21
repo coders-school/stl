@@ -2,7 +2,7 @@
 
 #include <algorithm>
 
-std::map<int, std::string> removeDuplicateAndTranformToMap(std::list<std::string> stringList, std::deque<int> intDeque){
+std::map<int, std::string> removeDuplicateAndTranformToMap(std::list<std::string> stringList, std::deque<int> intDeque) {
 std::map<int, std::string> result;
 
 stringList.sort();
