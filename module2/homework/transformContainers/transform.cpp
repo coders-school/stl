@@ -1,11 +1,11 @@
+#include "transform.hpp"
+
 #include <algorithm>
 #include <iostream>
 
-#include "tranform.hpp"
-
 std::map<int, std::string> removeDuplicateAndTranformToMap(
-    std::list<std::string>& uniqueList,
-    std::deque<int>& uniqueDeque) {
+    std::list<std::string> uniqueList,
+    std::deque<int> uniqueDeque) {
     uniqueList.sort();
     uniqueList.erase(std::unique(uniqueList.begin(), uniqueList.end()), uniqueList.end());
 
