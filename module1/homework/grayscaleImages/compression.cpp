@@ -3,19 +3,18 @@
 #include <iostream>
 #include <algorithm>
 
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array<uint8_t, width>, height> getGray) {
+std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, width>, height>& getGray) {
 
 std::vector<std::pair<uint8_t, uint8_t>> smallMap;
 
-for (auto everyRow : getGray) {
+for (const auto& everyRow : getGray) {
 
-    std::array<uint8_t, width>::iterator firstIt = everyRow.begin();
+    auto firstIt = everyRow.begin();
 
     while (firstIt != everyRow.end()) {
 
         auto secondIt = std::find_if_not(firstIt,everyRow.end(), [firstIt](int x){return x == *firstIt;});
-        auto dist = std::distance(firstIt, secondIt);
-        smallMap.emplace_back(std::make_pair(*firstIt,dist));
+        smallMap.emplace_back(std::make_pair(*firstIt,std::distance(firstIt, secondIt)));
         firstIt = secondIt;
     }
 }
@@ -45,12 +44,17 @@ for(auto& row : result){
 return result;
 }
 
-void printMap (const std::array<std::array<uint8_t, width>, height>& getMap){
+void printMap(const std::array<std::array<uint8_t, width>, height>& getMap) {
 
-    for(const auto& everyRow : getMap){
+    for(auto everyRow : getMap) {
 
-        for(const auto& element : everyRow){
-            std::cout << (uint16_t)element;
+        for(auto element : everyRow) {
+
+            if(element <= ' ') {
+                std::cout << " ";
+            } else {
+                std::cout << element;
+            }
         }
         std::cout << "\n";
     }
