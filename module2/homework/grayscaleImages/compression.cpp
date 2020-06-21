@@ -11,21 +11,21 @@ std::transform(getGray.begin(), getGray.end(), getGray.begin(),
               [&smallMap](std::array<uint8_t,width> a){
 
               uint8_t currentNum = a[0];
-              int count = 0;
+              int counter = 0;
 
               std::transform(a.begin(), a.end(), a.begin(),
-              [&smallMap, &currentNum, &count, &a](uint8_t var) {
+              [&smallMap, &currentNum, &counter](uint8_t var) {
 
                   if (var == currentNum) {
 
-                    ++count;
+                    ++counter;
                     currentNum = var;
 
                   } else {
 
-                    smallMap.emplace_back(std::make_pair(currentNum,count));
+                    smallMap.emplace_back(std::make_pair(currentNum,counter));
 
-                    count = 1;
+                    counter = 1;
                     currentNum = var;
 
                   }
@@ -34,7 +34,7 @@ std::transform(getGray.begin(), getGray.end(), getGray.begin(),
 
               });
 
-              smallMap.emplace_back(std::make_pair(currentNum,count));
+              smallMap.emplace_back(std::make_pair(currentNum,counter));
 
               return a;
 
