@@ -1,10 +1,10 @@
 #include "checkPalindrome.hpp"
-#include <string>
+
 #include <algorithm>
 #include <iostream>
+#include <string>
 
-bool is_palindrome(std::string str)
-{
+bool is_palindrome(std::string str) {
     str.erase(std::remove_if(str.begin(), str.end(), [](unsigned char x) {
                   return !std::isalpha(x) || std::isspace(x);
               }),
