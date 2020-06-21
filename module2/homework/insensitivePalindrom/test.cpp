@@ -10,6 +10,7 @@ TEST_P(InsensitivePalindromFixture, CheckPalindrome) {
     EXPECT_EQ(is_palindrome(GetParam().first), GetParam().second);
 }
 
+
 INSTANTIATE_TEST_SUITE_P(
     InsensitivePalindromTests,
     InsensitivePalindromFixture,
