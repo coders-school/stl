@@ -1,23 +1,19 @@
 #include "compression.hpp"
 
+#include <algorithm>
+
 CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
     CompressedBitmap compressed;
     compressed.reserve(width * height);
-    uint8_t count;
-    uint8_t color_code;
 
     for (const auto& row : bitmap) {
-        color_code = row.front();
-        count = 1;
-        for (auto element = row.begin(); element != row.end(); ++element) {
-            auto next = std::next(element);
-            if (color_code != *next || next == row.end()) {
-                compressed.emplace_back(std::make_pair(color_code, count));
-                color_code = *next;
-                count = 1;
-            } else {
-                ++count;
+        for (auto element = row.begin(); element != row.end();) {
+            auto it = std::adjacent_find(element, row.end(), [](uint8_t lhs, uint8_t rhs) { return lhs != rhs; });
+            if (it != row.end()) {
+                it++;
             }
+            compressed.emplace_back(*element, std::distance(element, it));
+            element = it;
         }
     }
     compressed.shrink_to_fit();
@@ -25,18 +21,10 @@ CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
 }
 
 Bitmap decompressGrayscale(const CompressedBitmap& compressed) {
-    Bitmap decompressed;
-    auto it = compressed.begin();
-    size_t i = 0;
-    for (size_t row = 0; row < height; ++row) {
-        for (size_t column = 0; column < width;) {
-            while (i++ < it->second) {
-                decompressed[row][column] = it->first;
-                column++;
-            }
-            i = 0;
-            ++it;
-        }
-    }
+    Bitmap decompressed{};
+    auto it = decompressed.front().begin();
+    std::for_each(compressed.begin(), compressed.end(), [it](const auto& pair) mutable {
+        it = std::fill_n(it, pair.second, pair.first);
+    });
     return decompressed;
 }
