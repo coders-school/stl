@@ -28,20 +28,11 @@ compressedImage compressGrayscale(const Image& bitmap) {
 }
 
 Image decompressGrayscale(const compressedImage& compressedBitmap) {
-    uint8_t currWidth = 0, row = 0;
     Image decompressedData;
-
-    for (const auto& el : compressedBitmap) {
-        for (size_t i = currWidth; i < currWidth + el.second; i++) {
-            decompressedData[row][i] = el.first;
-        }
-        currWidth += el.second;
-        if (currWidth == width) {
-            currWidth = 0;
-            row++;
-        }
-    }
-
+    auto it = decompressedData.front().begin();
+    std::for_each(compressedBitmap.begin(), compressedBitmap.end(), [it](const auto& pair) mutable {
+        it = std::fill_n(it, pair.second, pair.first);
+    });
     return decompressedData;
 }
 
