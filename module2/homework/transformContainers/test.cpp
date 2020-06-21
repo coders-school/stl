@@ -3,7 +3,7 @@
 // TODO: add proper includes
 #include <algorithm>
 
-#include "tranform.hpp"
+#include "transform.hpp"
 
 TEST(transformContainerTests, ShouldReturnUniqueMap) {
     std::map<int, std::string> expected_result{
