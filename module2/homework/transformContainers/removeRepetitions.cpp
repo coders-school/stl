@@ -4,7 +4,7 @@
 #include <iterator>
 
 std::map<int, std::string> removeDuplicateAndTranformToMap(std::list<std::string>& lst,
-                                               std::deque<int>& deq) {
+                                                           std::deque<int>& deq) {
     lst.sort();
     auto listIt = std::unique(lst.begin(), lst.end());
     lst.erase(listIt, lst.end());
