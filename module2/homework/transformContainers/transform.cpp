@@ -19,3 +19,4 @@ std::map<int, std::string> removeDuplicateAndTranformToMap(std::list<std::string
 
     return resultMap;
 }
+
