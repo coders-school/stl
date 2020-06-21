@@ -1,44 +1,35 @@
 #include "compression.hpp"
 
+#include <algorithm>
 #include <forward_list>
 #include <iostream>
+#include <iterator>
 
 compressedImage compressGrayscale(const image& bitmap) {
     compressedImage compression;
+    compression.reserve(width * height);
 
-    for (auto& it : bitmap) {
-        compression.emplace_back(std::make_pair(it.front(), 0));
-        for (auto it2 : it) {
-            std::pair<uint8_t, uint8_t>& pair = compression.back();
-            if (it2 == pair.first) {
-                pair.second++;
-            } else {
-                compression.emplace_back(std::make_pair(it2, 1));
+    for (const auto& row : bitmap) {
+        for (auto it = row.begin(); it != row.end();) {
+            auto newIt = std::adjacent_find(it, row.end(), [](auto a, auto b) { return a != b; });
+            if (newIt != row.end()) {
+                std::advance(newIt, 1);
             }
+            compression.emplace_back(*it, std::distance(it, newIt));
+            it = newIt;
         }
-    }
+    };
 
+    compression.shrink_to_fit();
     return compression;
 }
 
 image decompressGrayscale(const compressedImage& compression) {
     image bitmap;
-    int row = 0;
-    int column = 0;
-
-    for (auto it : compression) {
-        for (auto i = 0; i < it.second; i++) {
-            bitmap[row][column] = it.first;
-            auto t = bitmap[row][column];
-            column++;
-
-            if (row == width) {
-                column = 0;
-                row++;
-            }
-        }
-    }
-
+    auto it = bitmap.front().begin();
+    std::for_each(compression.begin(), compression.end(), [it](const auto& pair) mutable {
+        it = std::fill_n(it, pair.second, pair.first);
+    });
     return bitmap;
 }
 
