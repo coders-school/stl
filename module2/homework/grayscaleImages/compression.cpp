@@ -62,18 +62,25 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<s
 
 }
 
-void printMap(const std::array<std::array<uint8_t, width>, height>& getMap) {
+void printMap(std::array<std::array<uint8_t, width>, height>& getMap) {
 
-    for(auto everyRow : getMap) {
+    std::transform(getMap.begin(), getMap.end(),getMap.begin(), [](auto& a){
 
-        for(auto element : everyRow) {
+        std::transform(a.begin(), a.end(), a.begin(), [](auto& el){
 
-            if(element <= ' ') {
+            if(el <= ' ') {
                 std::cout << " ";
             } else {
-                std::cout << element;
+                std::cout << el;
             }
-        }
+
+            return el;
+
+        });
         std::cout << "\n";
-    }
+
+        return a;
+
+    });
+
 }
