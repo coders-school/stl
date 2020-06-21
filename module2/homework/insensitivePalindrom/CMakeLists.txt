@@ -38,8 +38,7 @@ endif()
 project(insensitivePalindrom)
 enable_testing()
 
-add_executable(${PROJECT_NAME}-ut test.cpp)
-add_executable(${PROJECT_NAME} palindrome.cpp)
+add_executable(${PROJECT_NAME}-ut test.cpp palindrome.cpp)
 
 # if this is problematic take a look into CMakeLists.txt files in other exercises
 

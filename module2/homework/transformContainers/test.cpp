@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "transformContainers.h"
+#include "transformContainers.hpp"
 
 TEST(transformContainerTests, ShouldReturnUniqueMap) {
     std::map<int, std::string> expected_result{

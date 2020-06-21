@@ -38,8 +38,7 @@ endif()
 project(transformContainers)
 enable_testing()
 
-add_executable(${PROJECT_NAME}-ut test.cpp)
-add_executable(${PROJECT_NAME}-ut transformContainers.cpp)
+add_executable(${PROJECT_NAME}-ut test.cpp transformContainers.cpp)
 
 add_compile_options(${PROJECT_NAME}-ut -Wall -Wextra -Wconversion -pedantic -Werror)
 
