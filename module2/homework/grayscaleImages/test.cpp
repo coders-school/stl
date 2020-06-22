@@ -1,7 +1,5 @@
 #include <algorithm>
-#include <array>
 #include <utility>  // for std::pair<>
-#include <vector>
 
 #include "compression.hpp"
 #include "gtest/gtest.h"
