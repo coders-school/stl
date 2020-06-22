@@ -67,7 +67,7 @@ Bitmap decompressGrayscale(const CompressedBitmap &compresed)
 {
 
    Bitmap result;
-   auto it = result.front()).begin();
+   auto it = (result.front()).begin();
 
    for (const auto &grup : compresed)
    {

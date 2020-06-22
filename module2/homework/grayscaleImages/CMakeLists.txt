@@ -38,10 +38,10 @@ endif()
 project(grayscaleImages)
 enable_testing()
 
-add_executable(${PROJECT_NAME} main.cpp compression.cpp)
-add_executable(${PROJECT_NAME}-ut test.cpp compression.cpp)
+add_executable(${PROJECT_NAME}-ut test.cpp compression.cpp) # add your cpp file here after test.cpp
+# if this is problematic take a look into CMakeLists.txt files in other exercises
 
-add_compile_options(${PROJECT_NAME} -Wall -Wextra -Wconversion -pedantic -Werror)
+add_compile_options(${PROJECT_NAME}-ut -Wall -Wextra -Wconversion -pedantic -Werror)
 
 target_link_libraries(${PROJECT_NAME}-ut gtest_main)
 add_test(NAME ${PROJECT_NAME}_test COMMAND ${PROJECT_NAME}-ut)
