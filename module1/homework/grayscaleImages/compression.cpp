@@ -3,9 +3,8 @@
 #include <algorithm>
 #include <iostream>
 
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array<uint8_t, width>, height>& bitmap) {
-    std::vector<std::pair<uint8_t, uint8_t>> output;
-    std::vector<uint8_t> v(width * height);
+CompressedPGM compressGrayscale(BitmapPGM& bitmap) {
+    CompressedPGM output;
 
     for (const auto& line : bitmap) {
         for (auto color = line.begin(); color != line.end();) {
@@ -20,11 +19,11 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array
     return output;
 }
 
-std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>>& data) {
-    std::array<std::array<uint8_t, width>, height> bitmap;
-    auto it = bitmap[0].begin();
+BitmapPGM decompressGrayscale(CompressedPGM& compressedBitmap) {
+    BitmapPGM bitmap;
+    auto it = bitmap.front().begin();
 
-    for (auto [color, count] : data) {
+    for (auto [color, count] : compressedBitmap) {
         std::fill_n(it, count, color);
         std::advance(it, count);
     }
@@ -32,7 +31,7 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<s
     return bitmap;
 }
 
-void printMap(std::array<std::array<uint8_t, width>, height>& bitmap) {
+void printMap(BitmapPGM& bitmap) {
     std::string colors = " .:-=+*#%@";
     for (auto& line : bitmap) {
         for (auto color : line) {

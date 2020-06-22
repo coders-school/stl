@@ -1,11 +1,14 @@
-#include <vector>
 #include <array>
+#include <vector>
 
-namespace{
-    constexpr uint8_t width = 32;
-    constexpr uint8_t height = 32;
-}
+namespace {
+constexpr uint8_t width = 32;
+constexpr uint8_t height = 32;
+}  
 
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array<uint8_t, width>, height>&);
-std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>>&);
-void printMap(std::array<std::array<uint8_t, width>, height>&);
+using BitmapPGM = std::array<std::array<uint8_t, width>, height>;
+using CompressedPGM = std::vector<std::pair<uint8_t, uint8_t>>;
+
+CompressedPGM compressGrayscale(BitmapPGM&);
+BitmapPGM decompressGrayscale(CompressedPGM&);
+void printMap(BitmapPGM&);
