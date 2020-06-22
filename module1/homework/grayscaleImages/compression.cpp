@@ -7,6 +7,7 @@
 
 CompressedImage compressGrayscale(const Image& bitmap) {
     CompressedImage compressedBitmap{};
+    compressedBitmap.reserve(height * width);
 
     std::for_each(cbegin(bitmap),
                   cend(bitmap),
@@ -30,7 +31,7 @@ CompressedImage compressGrayscale(const Image& bitmap) {
 }
 
 Image decompressGrayscale(const CompressedImage& compressedBitmap) {
-    Image decompressedBitmap{};
+    Image decompressedBitmap;
 
     auto iterRow = begin(decompressedBitmap);
     auto iterEl = begin(*iterRow);
@@ -61,9 +62,8 @@ void printMap(const Image& bitmap) {
                                       [](const uint8_t el) {
                                           if (std::isprint(el)) {
                                               return el;
-                                          } else {
-                                              return space;
                                           }
+                                          return space;
                                       });
                        return newLine;
                    });

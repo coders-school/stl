@@ -1,8 +1,5 @@
 #include "gtest/gtest.h"
 
-// TODO: add proper includes
-#include <algorithm>
-
 #include "transform.hpp"
 
 TEST(transformContainerTests, ShouldReturnUniqueMap) {
