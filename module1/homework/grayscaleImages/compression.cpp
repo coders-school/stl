@@ -5,9 +5,8 @@
 #include <iostream>
 #include <iterator>
 
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(
-    const std::array<std::array<uint8_t, width>, height>& bitmap) {
-    std::vector<std::pair<uint8_t, uint8_t>> compressedBitmap{};
+CompressedImage compressGrayscale(const Image& bitmap) {
+    CompressedImage compressedBitmap{};
 
     std::for_each(cbegin(bitmap),
                   cend(bitmap),
@@ -30,9 +29,8 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(
     return compressedBitmap;
 }
 
-std::array<std::array<uint8_t, width>, height> decompressGrayscale(
-    const std::vector<std::pair<uint8_t, uint8_t>>& compressedBitmap) {
-    std::array<std::array<uint8_t, width>, height> decompressedBitmap{};
+Image decompressGrayscale(const CompressedImage& compressedBitmap) {
+    Image decompressedBitmap{};
 
     auto iterRow = begin(decompressedBitmap);
     auto iterEl = begin(*iterRow);
@@ -49,7 +47,7 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(
     return decompressedBitmap;
 }
 
-void printMap(const std::array<std::array<uint8_t, width>, height>& bitmap) {
+void printMap(const Image& bitmap) {
     constexpr uint8_t space = ' ';
     constexpr uint8_t newLine = '\n';
 

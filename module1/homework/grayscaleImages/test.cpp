@@ -5,7 +5,7 @@
 #include "compression.hpp"
 #include "gtest/gtest.h"
 
-void expectBitmap(const std::vector<std::pair<uint8_t, uint8_t>>& bitmap, size_t fraction) {
+void expectBitmap(const CompressedImage& bitmap, size_t fraction) {
     for (int j = 0; j < fraction; j++) {
         for (int i = j; i < height * fraction; i += fraction) {
             EXPECT_EQ(bitmap[i].first, j);
@@ -14,8 +14,7 @@ void expectBitmap(const std::vector<std::pair<uint8_t, uint8_t>>& bitmap, size_t
     }
 }
 
-void expectMap(const std::array<std::array<uint8_t, width>, height>& map,
-               size_t fraction) {
+void expectMap(const Image& map, size_t fraction) {
     for (size_t k = 0; k < fraction; ++k) {
         for (int i = 0; i < height; ++i) {
             for (int j = k * width / fraction; j < (k + 1) * width / fraction; ++j) {
@@ -25,8 +24,8 @@ void expectMap(const std::array<std::array<uint8_t, width>, height>& map,
     }
 }
 
-std::vector<std::pair<uint8_t, uint8_t>> getBitmap(size_t fraction) {
-    std::vector<std::pair<uint8_t, uint8_t>> bitmap;
+CompressedImage getBitmap(size_t fraction) {
+    CompressedImage bitmap;
     bitmap.reserve(height * fraction);
     for (size_t i = 0; i < height; ++i) {
         for (size_t j = 0; j < fraction; ++j) {
@@ -37,8 +36,8 @@ std::vector<std::pair<uint8_t, uint8_t>> getBitmap(size_t fraction) {
     return bitmap;
 }
 
-std::array<std::array<uint8_t, width>, height> getMap(size_t fraction) {
-    std::array<std::array<uint8_t, width>, height> map;
+Image getMap(size_t fraction) {
+    Image map;
     for (size_t k = 0; k < fraction; ++k) {
         for (size_t i = 0; i < height; ++i) {
             for (size_t j = k * width / fraction; j < (k + 1) * width / fraction; ++j) {
@@ -62,7 +61,7 @@ TEST_P(compression, ShouldCompressLines) {
     size_t fraction = GetParam();
 
     adjustFraction(fraction);
-    std::array<std::array<uint8_t, width>, height> arr = getMap(fraction);
+    Image arr = getMap(fraction);
 
     auto bitmap = compressGrayscale(arr);
     ASSERT_EQ(bitmap.size(), height * fraction);
