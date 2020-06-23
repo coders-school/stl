@@ -23,4 +23,21 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std:
     return compressed_bitmap;
 }
 
-std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>>&){};
+std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>>& comp_b) {
+    std::array<std::array<uint8_t, width>, height> decompressed_bitmap;
+    int shade_counter = 0;
+    int row = 0;
+
+    for (auto el : comp_b) {
+        for (size_t i = shade_counter; i < shade_counter + el.second; ++i) {
+            decompressed_bitmap[row][i] = el.first;
+        }
+        shade_counter += el.second;
+        if (shade_counter == width) {
+            shade_counter = 0;
+            ++row;
+        }
+    }
+
+    return decompressed_bitmap;
+};
