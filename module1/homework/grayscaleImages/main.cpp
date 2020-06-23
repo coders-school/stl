@@ -40,20 +40,12 @@ std::array<std::array<uint8_t, 32>, 32> generateNinja() {
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 41, 41, 41, 28, 0, 0, 29, 41, 41, 41, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     };
 }
-
-void printCompressed(const std::vector<std::pair<uint8_t, uint8_t>>& map) {
-    for (auto [color, count] : map) {
-        std::cout << "{" << static_cast<int>(color) << ", " << static_cast<int>(count) << "}, ";
-    }
-    std::cout << "\n";
-}
-
 int main() {
     auto ninja = generateNinja();
     // printMap(ninja);
     auto compressed = compressGrayscale(ninja);
     
-    // auto decompressed = decompressGrayscale(compressed);
+    auto decompressed = decompressGrayscale(compressed);
     // printMap(decompressed);
 
     return 0;

@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <cstdint>
 
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, width>, height>& bitmap) {
+compressedImage compressGrayscale(const Image& bitmap) {
     std::vector<std::pair<uint8_t, uint8_t>> compressed_bitmap;
     compressed_bitmap.reserve(width * height);
     uint8_t counter = 1;
@@ -23,7 +23,7 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std:
     return compressed_bitmap;
 }
 
-std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>>& comp_b) {
+Image decompressGrayscale(compressedImage& comp_b) {
     std::array<std::array<uint8_t, width>, height> decompressed_bitmap;
     int shade_counter = 0;
     int row = 0;
