@@ -1,28 +1,30 @@
 #pragma once
-#include <list>
-#include <deque>
-#include <string>
-#include <map>
 #include <algorithm>
+#include <deque>
+#include <list>
+#include <map>
+#include <string>
 
-std::map<int,std::string> zip(std::list<std::string> values, std::deque<int> keys)
+std::map<int, std::string> zip(std::deque<int>& keys, std::list<std::string>& values)
 {
-    std::map<int,std::string> result; 
-    auto keysIter = std::begin(keys);
-    auto valuesIter = std::begin(values);
+    std::map<int, std::string> result{};
 
-     //for ( ; keysIter != std::end(keys), valuesIter != std::end(values); keysIter++, valuesIter++ )
-     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!danger!
-     for ( ; keysIter != std::end(keys); keysIter++, valuesIter++ )
-     {
-        result.insert(std::make_pair(*keysIter, *valuesIter));
-     }
-    return result; 
+    std::transform(std::begin(keys),
+                   std::end(keys),
+                   std::begin(values),
+                   std::inserter(result, result.end()),
+                   [&keys, &values](int i, std::string& str) { return std::make_pair(i, str); });
+
+    return result;
 }
 
-std::map<int, std::string> removeDuplicateAndTranformToMap(std::list<std::string>& list, std::deque<int>& deque)
+std::map<int, std::string> removeDuplicateAndTranformToMap(std::list<std::string>& list_, std::deque<int>& deque_)
 {
-    std::unique(std::begin(deque), std::end(deque));
-    std::unique(std::begin(list), std::end(list));
-    return zip(list, deque) ; 
+    list_.sort();
+    list_.erase((std::unique(list_.begin(), list_.end())), list_.end());
+
+    std::sort(deque_.begin(), deque_.end());
+    deque_.erase((std::unique(deque_.begin(), deque_.end())), deque_.end());
+
+    return zip(deque_, list_);
 }
