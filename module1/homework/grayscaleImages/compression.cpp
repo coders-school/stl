@@ -15,7 +15,7 @@ compressedImage compressGrayscale(const Image& bitmap) {
                 return *end != elem;
             });
             counter = std::distance(beginning, end);
-            compressed_bitmap.push_back(std::make_pair(*beginning, counter));
+            compressed_bitmap.emplace_back(std::make_pair(*beginning, counter));
             beginning = end;
         }
     }
