@@ -1,24 +1,31 @@
 #include "compression.hpp"
-#include <algorithm>
-#include <iostream>
-#include <iomanip>
 
-void printMap (std::array<std::array<uint8_t, width>, height> bitmap)
+#include <algorithm>
+#include <iomanip>
+#include <iostream>
+
+using Bitmap = std::array<std::array<uint8_t, width>, height>;
+using CompressedBitmap = std::vector<std::pair<uint8_t, uint8_t>>;
+
+void printMap (const Bitmap &bitmap)
 {
     for(const auto& line : bitmap)
     {
         for (const auto c : line)
         {
-            std::cout<<std::setw(3)<<(int)c<<' ';
-
+            if(c < ' '){
+                std::cout<<' ';  
+            }else{
+                std::cout<<c;
+            }
         }
         std::cout<<'\n';
     }
 }
 
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale (std::array<std::array<uint8_t, width>, height> bitmap)
+CompressedBitmap compressGrayscale (const Bitmap& bitmap)
 {
-    std::vector<std::pair<uint8_t, uint8_t>> compressed;
+    CompressedBitmap compressed;
 
     for (const auto& line : bitmap)
     {
@@ -39,15 +46,15 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale (std::array<std::arra
 }
 
 
-std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>> compressed)
+Bitmap decompressGrayscale(const CompressedBitmap& compressed)
 {
-    std::array<std::array<uint8_t, width>, height> decompressed;
+    Bitmap decompressed;
     auto row = 0;
     auto column = 0;
 
     for (auto chunk : compressed)
     {
-        std::fill(&decompressed[row][column], &decompressed[row][column + chunk.second], chunk.first);
+        std::fill_n(&decompressed[row][column], chunk.second, chunk.first);
         column += chunk.second;
         if(column >= width )
         {
