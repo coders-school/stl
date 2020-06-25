@@ -22,18 +22,18 @@ grayScaleVec compressGrayscale(const bitmapArr& grayScale) {
     uint8_t count = 0;
 
     for (const auto& row : grayScale) {
-        auto _prev = row.front();
+        auto prev = row.front();
         for (auto column : row) {
-            if (_prev == column) {
+            if (prev == column) {
                 count++;
-                _prev = column;
+                prev = column;
                 continue;
             }
-            compressed.push_back({_prev, count});
-            _prev = column;
+            compressed.push_back({prev, count});
+            prev = column;
             count = 1;
         }
-        compressed.push_back({_prev, count});
+        compressed.push_back({prev, count});
         count = 0;
     }
 
