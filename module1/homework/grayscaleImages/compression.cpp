@@ -17,7 +17,7 @@ void printMap(const bitmapArr& bitmap) {
 
 grayScaleVec compressGrayscale(const bitmapArr& grayScale) {
 
-    std::vector<std::pair<uint8_t, uint8_t>> compressed;
+    grayScaleVec compressed;
     compressed.reserve(width * height);
     uint8_t count = 0;
 
@@ -44,7 +44,7 @@ grayScaleVec compressGrayscale(const bitmapArr& grayScale) {
 
 bitmapArr decompressGrayscale(const grayScaleVec& compressed) {
 
-    std::array<std::array<uint8_t, width>, height> decompressed;
+    bitmapArr decompressed;
     int i = 0;
     int j = 0;
 
