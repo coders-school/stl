@@ -38,7 +38,7 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<s
     uint8_t carriage = 0; // max widith specified in homework <255
     uint8_t row = 0;
 
-    for (auto el : comressedImage) {
+    for (auto& el : comressedImage) {
         for (size_t column = carriage; column < carriage + std::get<1>(el); ++column) 
             original[row][column] =std::get<0>(el);
         carriage += std::get<1>(el);
