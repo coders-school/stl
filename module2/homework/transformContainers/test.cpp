@@ -1,5 +1,4 @@
 #include "gtest/gtest.h"
-
 #include "transform.hpp"
 
 TEST(transformContainerTests, ShouldReturnUniqueMap) {
