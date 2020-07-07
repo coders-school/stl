@@ -7,7 +7,7 @@ bool isInRanges(const char c);
 bool isInRange(const char c, const int upperBound1, const int upperBound2);
 bool insensitiveCapital(const int first, const int second);
 
-bool is_palindrome(std::string word)
+bool is_palindrome(const std::string& word)
 {
     bool itCouldBePalindrome;
     auto start_it = word.begin();
