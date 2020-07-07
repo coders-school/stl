@@ -1,4 +1,5 @@
 #include "palindroms.hpp"
+
 #include <iostream>
 #include <algorithm>
 
@@ -16,9 +17,7 @@ bool is_palindrome(std::string word)
 
     do
     {
-
         itCouldBePalindrome = false;
-
         iterators = std::mismatch(iterators.first, middle, iterators.second);
         if (iterators.first == middle)
             return true;
@@ -40,14 +39,14 @@ bool is_palindrome(std::string word)
             iterators.second++;
         }
 
-        if (iterators.first >= end_it || iterators.second.base()< start_it)
+        if (iterators.first >= end_it || iterators.second.base() < start_it)
             if (itCouldBePalindrome)
                 return true;
             else
                 return false;
 
     } while (itCouldBePalindrome);
-    std::cout<<std::string(iterators.first,iterators.second.base());
+    std::cout << std::string(iterators.first, iterators.second.base());
     return false;
 }
 bool isInRange(const char c, const uint8_t lowerBound, const uint8_t upperBound2)
@@ -73,7 +72,7 @@ bool isInRanges(const char c)
 bool insensitiveCapital(const int first, const int second)
 {
     int diffrence = first - second;
-    if (diffrence == 32 || diffrence == -32)
+    if (diffrence == ASCII_Capital_small_distance || diffrence == - ASCII_Capital_small_distance)
         return true;
     else
         return false;
