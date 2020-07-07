@@ -12,4 +12,6 @@ constexpr uint8_t ASCII_Capital_letters_range_start = 65;
 constexpr uint8_t ASCII_Capital_letters_range_end = 90;
 
 constexpr uint8_t ASCII_Capital_small_distance = 32;
+
 bool is_palindrome(std::string word);
+
