@@ -2,19 +2,27 @@
 
 #include <iostream>
 
+char convert2Printable(uint8_t input) {
+    return ::isgraph(input) ?  input : ' ';
+}
+
 void printMap(const RawMap& input) {   
-    for(size_t i = 0; i < height; ++i) {
-        for(size_t j = 0; j < width; j++) {
-            std::cout << input[i][j] << ' ';
+    for(const auto& row : input) {
+        for(const auto & cell : row) {
+           std::cout << convert2Printable(cell);
         }
         std::cout << '\n';
-    }
-    std::cout << '\n';
+        }
 }
 
 void printVectorOfPairs(const Compressed& input) {
+    int elementCounter = 0;
     for(const auto& element : input) {
+        elementCounter ++;
         std::cout << "{" << +element.first << ", " << +element.second << "}" << ' ';
+        if(elementCounter % 32 == 0) {
+            std::cout << "\n";
+        }
     }
     std::cout << '\n';
 }
