@@ -34,12 +34,12 @@ compressed compressGrayscale(const rawMap& input) {
                 ++count;
                 ++k;
             } else {
-                returnValue.emplace_back(std::make_pair(input[i][j], static_cast<uint8_t>(count)));
+                returnValue.emplace_back(input[i][j], static_cast<uint8_t>(count));
                 count = 0;
                 j = k;
             }
             if (k == width) {
-                returnValue.emplace_back(std::make_pair(input[i][j], static_cast<uint8_t>(count)));
+                returnValue.emplace_back(input[i][j], static_cast<uint8_t>(count));
                 count = 0;
                 breakInnerLoop = true;
             }
