@@ -1,6 +1,7 @@
 #include "compression.hpp"
 
 #include <iostream>
+#include <limits>
 
 char convert2Printable(uint8_t input) {
     return ::isgraph(input) ?  input : ' ';
@@ -31,33 +32,27 @@ void printVectorOfPairs(const Compressed& input) {
 Compressed compressGrayscale(const RawMap& input) {
     Compressed returnValue{};
     size_t maximumVectorSize = height * width;
+    static_assert(width <  std::numeric_limits<uint8_t>::max());
     returnValue.reserve(maximumVectorSize);
-    bool breakColumnLoop{};
-    size_t repetitionCount{};
+    uint8_t repetitionCount{};
     size_t repetitionIterator{};
     size_t ColumnIterator{};
     
     for(size_t rowIterator = 0; rowIterator < height; ++rowIterator) {
-        breakColumnLoop = false;
-        ColumnIterator = repetitionIterator = 0;
+        ColumnIterator = 0;
         do {
-            if(input[rowIterator][ColumnIterator] == input[rowIterator][repetitionIterator]) {
+            if(input[rowIterator][ColumnIterator] == input[rowIterator][repetitionCount + ColumnIterator]) {
                 ++repetitionCount;
-                ++repetitionIterator;
             } else {
                 returnValue.emplace_back(input[rowIterator][ColumnIterator], 
-                                         static_cast<uint8_t>(repetitionCount));
+                                         repetitionCount);
+                ColumnIterator += repetitionCount;
                 repetitionCount = 0;
-                ColumnIterator = repetitionIterator;
             }
-            if (repetitionIterator == width) {
-                
-                breakColumnLoop = true;
-            }
-        } while(!breakColumnLoop);
+        } while(! (repetitionCount + ColumnIterator == width));
         returnValue.emplace_back(input[rowIterator][ColumnIterator], 
-                                         static_cast<uint8_t>(repetitionCount));
-                repetitionCount = 0;
+                                 repetitionCount);
+        repetitionCount = 0;
     }   
     returnValue.shrink_to_fit();
     return returnValue;
