@@ -7,10 +7,10 @@
 constexpr size_t width = 32;
 constexpr size_t height = 32;
 
-using rawMap = std::array<std::array<uint8_t, height>, width>;
-using compressed = std::vector<std::pair<uint8_t, uint8_t>>;
+using RawMap = std::array<std::array<uint8_t, height>, width>;
+using Compressed = std::vector<std::pair<uint8_t, uint8_t>>;
 
-void printMap(const rawMap& input);
-void printVectorOfPairs(const compressed& input);
-compressed compressGrayscale(const rawMap& input);
-rawMap decompressGrayscale(const compressed& input);
+void printMap(const RawMap& input);
+void printVectorOfPairs(const Compressed& input);
+Compressed compressGrayscale(const RawMap& input);
+RawMap decompressGrayscale(const Compressed& input);

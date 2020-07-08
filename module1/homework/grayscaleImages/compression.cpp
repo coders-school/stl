@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-void printMap(const rawMap& input) {   
+void printMap(const RawMap& input) {   
     for(size_t i = 0; i < height; ++i) {
         for(size_t j = 0; j < width; j++) {
             std::cout << input[i][j] << ' ';
@@ -12,15 +12,15 @@ void printMap(const rawMap& input) {
     std::cout << '\n';
 }
 
-void printVectorOfPairs(const compressed& input) {
+void printVectorOfPairs(const Compressed& input) {
     for(const auto& element : input) {
         std::cout << "{" << +element.first << ", " << +element.second << "}" << ' ';
     }
     std::cout << '\n';
 }
 
-compressed compressGrayscale(const rawMap& input) {
-    compressed returnValue{};
+Compressed compressGrayscale(const RawMap& input) {
+    Compressed returnValue{};
     size_t maximumVectorSize = height * width;
     returnValue.reserve(maximumVectorSize);
     bool breakInnerLoop{};
@@ -49,8 +49,8 @@ compressed compressGrayscale(const rawMap& input) {
     return returnValue;
 }
 
-rawMap decompressGrayscale(const compressed& inVec) {
-    rawMap retArr{};
+RawMap decompressGrayscale(const Compressed& inVec) {
+    RawMap retArr{};
     size_t a1{}, a2{}, c{}, v{};
     while(a1 < height) {
         a2 = 0;
