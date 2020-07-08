@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-void printMap(const std::array<std::array<uint8_t, height>, width>& input) {   
+void printMap(const rawMap& input) {   
     for(size_t i = 0; i < height; ++i) {
         for(size_t j = 0; j < width; j++) {
             std::cout << input[i][j] << ' ';
@@ -12,15 +12,15 @@ void printMap(const std::array<std::array<uint8_t, height>, width>& input) {
     std::cout << '\n';
 }
 
-void printVectorOfPairs(const std::vector<std::pair<uint8_t, uint8_t>>& input) {
+void printVectorOfPairs(const compressed& input) {
     for(const auto& element : input) {
         std::cout << "{" << +element.first << ", " << +element.second << "}" << ' ';
     }
     std::cout << '\n';
 }
 
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, height>, width>& input) {
-    std::vector<std::pair<uint8_t, uint8_t>> returnValue{};
+compressed compressGrayscale(const rawMap& input) {
+    compressed returnValue{};
     size_t maximumVectorSize = height * width;
     returnValue.reserve(maximumVectorSize);
     bool breakInnerLoop{};
@@ -49,8 +49,8 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std:
     return returnValue;
 }
 
-std::array<std::array<uint8_t, height>, width> decompressGrayscale(const std::vector<std::pair<uint8_t, uint8_t>>& inVec) {
-    std::array<std::array<uint8_t, height>, width> retArr{};
+rawMap decompressGrayscale(const compressed& inVec) {
+    rawMap retArr{};
     size_t a1{}, a2{}, c{}, v{};
     while(a1 < height) {
         a2 = 0;
