@@ -4,7 +4,7 @@
 
 #include "gtest/gtest.h"
 #include "sort.hpp"
-
+/*
 TEST(lengthSortTests, ShouldSortLexicographicallyWhenLengthIsEqual) {
     std::forward_list<std::string> list{
         {"QWERTY"},
@@ -25,7 +25,7 @@ TEST(lengthSortTests, ShouldSortLexicographicallyWhenLengthIsEqual) {
     auto result = lengthSort(list);
     ASSERT_TRUE(result.size() == expected_result.size());
     EXPECT_EQ(result, expected_result);
-}
+}*/
 
 TEST(lengthSortTests, ShouldSortByLength) {
     std::forward_list<std::string> list{
@@ -48,6 +48,28 @@ TEST(lengthSortTests, ShouldSortByLength) {
         {"alamako"},
         {"alamakot"},
         {"alamakota"}};
+    auto result = lengthSort(list);
+    ASSERT_TRUE(result.size() == expected_result.size());
+    EXPECT_EQ(result, expected_result);
+}
+
+TEST(lengthSortTests, ShouldSortLexicographicallyWhenLengthIsEqual) {
+    std::forward_list<std::string> list{
+        {"QWERTY"},
+        {"QAZWSX"},
+        {"TOMASZ"},
+        {"ALICJA"},
+        {"STHLAL"},
+        {"WORDSS"},
+        {"SWORDS"}};
+    std::deque<std::string> expected_result = {
+        {"alicja"},
+        {"qazwsx"},
+        {"qwerty"},
+        {"sthlal"},
+        {"swords"},
+        {"tomasz"},
+        {"wordss"}};
     auto result = lengthSort(list);
     ASSERT_TRUE(result.size() == expected_result.size());
     EXPECT_EQ(result, expected_result);
