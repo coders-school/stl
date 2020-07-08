@@ -22,6 +22,7 @@ void printVectorOfPairs(const Compressed& input) {
         std::cout << "{" << +element.first << ", " << +element.second << "}" << ' ';
         if(elementCounter % 32 == 0) {
             std::cout << "\n";
+            
         }
     }
     std::cout << '\n';
@@ -39,7 +40,7 @@ Compressed compressGrayscale(const RawMap& input) {
     for(size_t rowIterator = 0; rowIterator < height; ++rowIterator) {
         breakColumnLoop = false;
         ColumnIterator = repetitionIterator = 0;
-        while(!breakColumnLoop) {
+        do {
             if(input[rowIterator][ColumnIterator] == input[rowIterator][repetitionIterator]) {
                 ++repetitionCount;
                 ++repetitionIterator;
@@ -50,12 +51,13 @@ Compressed compressGrayscale(const RawMap& input) {
                 ColumnIterator = repetitionIterator;
             }
             if (repetitionIterator == width) {
-                returnValue.emplace_back(input[rowIterator][ColumnIterator], 
-                                         static_cast<uint8_t>(repetitionCount));
-                repetitionCount = 0;
+                
                 breakColumnLoop = true;
             }
-        }
+        } while(!breakColumnLoop);
+        returnValue.emplace_back(input[rowIterator][ColumnIterator], 
+                                         static_cast<uint8_t>(repetitionCount));
+                repetitionCount = 0;
     }   
     returnValue.shrink_to_fit();
     return returnValue;
