@@ -23,25 +23,29 @@ Compressed compressGrayscale(const RawMap& input) {
     Compressed returnValue{};
     size_t maximumVectorSize = height * width;
     returnValue.reserve(maximumVectorSize);
-    bool breakInnerLoop{};
-    size_t count{}, j{}, k{};
+    bool breakColumnLoop{};
+    size_t repetitionCount{};
+    size_t repetitionIterator{};
+    size_t ColumnIterator{};
     
-    for(size_t i = 0; i < height; ++i) {
-        breakInnerLoop = false;
-        j = k = 0;
-        while(!breakInnerLoop) {
-            if(input[i][j] == input[i][k]) {
-                ++count;
-                ++k;
+    for(size_t rowIterator = 0; rowIterator < height; ++rowIterator) {
+        breakColumnLoop = false;
+        ColumnIterator = repetitionIterator = 0;
+        while(!breakColumnLoop) {
+            if(input[rowIterator][ColumnIterator] == input[rowIterator][repetitionIterator]) {
+                ++repetitionCount;
+                ++repetitionIterator;
             } else {
-                returnValue.emplace_back(input[i][j], static_cast<uint8_t>(count));
-                count = 0;
-                j = k;
+                returnValue.emplace_back(input[rowIterator][ColumnIterator], 
+                                         static_cast<uint8_t>(repetitionCount));
+                repetitionCount = 0;
+                ColumnIterator = repetitionIterator;
             }
-            if (k == width) {
-                returnValue.emplace_back(input[i][j], static_cast<uint8_t>(count));
-                count = 0;
-                breakInnerLoop = true;
+            if (repetitionIterator == width) {
+                returnValue.emplace_back(input[rowIterator][ColumnIterator], 
+                                         static_cast<uint8_t>(repetitionCount));
+                repetitionCount = 0;
+                breakColumnLoop = true;
             }
         }
     }   
@@ -51,19 +55,19 @@ Compressed compressGrayscale(const RawMap& input) {
 
 RawMap decompressGrayscale(const Compressed& inVec) {
     RawMap retArr{};
-    size_t a1{}, a2{}, c{}, v{};
-    while(a1 < height) {
-        a2 = 0;
-        while(a2 < width) {
-            c = 0;
-            while(c < static_cast<size_t>(inVec[v].second)) {
-                retArr[a1][a2] = inVec[v].first;
-                ++a2;
-                ++c;
+    size_t rowIterator{}, columnIterator{}, repetitionIterator{}, vectorIterator{};
+    while(rowIterator < height) {
+        columnIterator = 0;
+        while(columnIterator < width) {
+            repetitionIterator = 0;
+            while(repetitionIterator < static_cast<size_t>(inVec[vectorIterator].second)) {
+                retArr[rowIterator][columnIterator] = inVec[vectorIterator].first;
+                ++columnIterator;
+                ++repetitionIterator;
             }
-            ++v;
+            ++vectorIterator;
         }
-        ++a1;
+        ++rowIterator;
     }
     return retArr;
 }
