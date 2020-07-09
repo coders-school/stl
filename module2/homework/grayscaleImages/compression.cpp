@@ -23,19 +23,17 @@ compressedImage compressGrayscale(decompressedImage& input) {
 compressedImage compressSingleLine(decompressedLine& line) {
     compressedImage buffer;
     buffer.reserve(width);
-    std::pair<uint8_t, uint8_t> current = {line.front(), 0};
+    colourAndLength current = {line.front(), 0};
 
-    std::for_each(begin(line), end(line), [&buffer, &current](const uint8_t pixel){
+    std::for_each(begin(line), end(line), [&buffer, &current, &line](const uint8_t& pixel){
         if (pixel == current.first) {
             current.second++;
         }
-        else {
+        if (pixel != current.first || &pixel == &line.back()) {
             buffer.push_back(current);
             current = {pixel, 1};
         }
     });
-
-    buffer.push_back(current);
 
     buffer.shrink_to_fit();
     return buffer;
@@ -45,7 +43,7 @@ decompressedImage decompressGrayscale(compressedImage& input) {
     decompressedImage result;
 
     auto it = std::begin(result.front());
-    std::for_each(begin(input), end(input), [&it, &result](const std::pair<uint8_t, uint8_t>& pair){
+    std::for_each(begin(input), end(input), [&it, &result](const colourAndLength & pair){
         it = std::fill_n(it, pair.second, pair.first);
     });
 

@@ -10,6 +10,7 @@ constexpr const size_t height = 32;
 using compressedImage = std::vector<std::pair<uint8_t, uint8_t>>;
 using decompressedImage = std::array<std::array<uint8_t, width>, height>;
 using decompressedLine = std::array<uint8_t, width>;
+using colourAndLength = std::pair<uint8_t, uint8_t>;
 
 compressedImage compressGrayscale(decompressedImage& a);
 compressedImage compressSingleLine(decompressedLine& line);
