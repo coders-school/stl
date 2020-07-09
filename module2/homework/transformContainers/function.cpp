@@ -1,9 +1,7 @@
 #include "function.hpp"
 
-#include <deque>
-#include <list>
-#include <map>
-#include <string>
+#include <algorithm>
+#include <iterator>
 
 std::map<int, std::string> removeDuplicateAndTranformToMap(std::list<std::string> list, std::deque<int> deque) {
     std::map<int, std::string> result;
