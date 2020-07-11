@@ -2,24 +2,24 @@
 
 #include <algorithm>
 
-bool AnyContainerIsEmpty(const strList& strList, const intDeque& intDeq) {
+bool anyContainerIsEmpty(const strList& strList, const intDeque& intDeq) {
     return strList.empty() || intDeq.empty();
 }
 
-bool ContainersSizeIsNotEqual(const strList& strList, const intDeque& intDeq) {
+bool containersSizeIsNotEqual(const strList& strList, const intDeque& intDeq) {
     return strList.size() != intDeq.size();
 }
 
 intStrMap removeDuplicateAndTranformToMap(strList strList, intDeque intDeq) {
     intStrMap returnValue{};
-    if(AnyContainerIsEmpty(strList, intDeq)) { 
+    if(anyContainerIsEmpty(strList, intDeq)) { 
         return returnValue;
     }
     strList.sort();
     std::sort(begin(intDeq), end(intDeq));
     strList.erase(std::unique(begin(strList), end(strList)), end(strList));
     intDeq.erase(std::unique(begin(intDeq), end(intDeq)), end(intDeq));
-    if(ContainersSizeIsNotEqual(strList, intDeq)) { 
+    if(containersSizeIsNotEqual(strList, intDeq)) { 
         return returnValue;
     }
     std::transform(begin(intDeq), 
