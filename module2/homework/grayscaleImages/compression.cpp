@@ -1,7 +1,8 @@
 #include "compression.hpp"
 
+#include <algorithm>
 #include <iostream>
-#include <limits>
+
 
 char convert2Printable(uint8_t input) {
     return ::isgraph(input) ?  input : ' ';
@@ -31,31 +32,20 @@ void printVectorOfPairs(const Compressed& input) {
 
 Compressed compressGrayscale(const RawMap& input) {
     Compressed returnValue{};
-    size_t maximumVectorSize = height * width;
-    static_assert(width <  std::numeric_limits<uint8_t>::max());
-    returnValue.reserve(maximumVectorSize);
-    uint8_t repetitionCount{};
-    size_t repetitionIterator{};
-    size_t columnIterator{};
-    
-    for(size_t rowIterator = 0; rowIterator < height; ++rowIterator) {
-        columnIterator = 0;
-        repetitionCount = 1;
-        for(int i = 1 ; i < width ; i++)
-        {
-            bool repetitionOccurs = input[rowIterator][columnIterator] == input[rowIterator][columnIterator + repetitionCount];
-            if(repetitionOccurs){
-                ++repetitionCount;
-            } else{
-                returnValue.emplace_back(input[rowIterator][columnIterator],
-                                         repetitionCount);
-                columnIterator += repetitionCount;
-                repetitionCount = 1;
-            }
+    returnValue.reserve(height * width);
+    for(const auto& row : input) {
+        auto current = row.begin();
+        while(current != row.end()) {
+            uint8_t value = *current;
+            auto index = std::find_if(current, row.end(), 
+                                      [value](uint8_t nextValue) {
+                                        return value != nextValue;
+                                      });
+            uint8_t counter = static_cast<uint8_t>(std::distance(current, index));
+            returnValue.emplace_back(value, counter);
+            current = index;
         }
-        returnValue.emplace_back(input[rowIterator][columnIterator],
-                                 repetitionCount);
-    }   
+    }
     returnValue.shrink_to_fit();
     return returnValue;
 }
