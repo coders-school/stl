@@ -1,5 +1,8 @@
 #include "palindrome.hpp"
 
+#include <algorithm>
+#include <cctype>
+
 bool is_palindrome(const std::string& input) {
     std::string modified{};
     std::copy_if(input.begin(), input.end(), std::back_inserter(modified), ::isalnum);
