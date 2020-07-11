@@ -1,5 +1,7 @@
 #include "transform.hpp"
 
+#include <algorithm>
+
 bool AnyContainerIsEmpty(const strList& strList, const intDeque& intDeq) {
     return strList.empty() || intDeq.empty();
 }
