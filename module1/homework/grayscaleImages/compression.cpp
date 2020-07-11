@@ -36,23 +36,25 @@ Compressed compressGrayscale(const RawMap& input) {
     returnValue.reserve(maximumVectorSize);
     uint8_t repetitionCount{};
     size_t repetitionIterator{};
-    size_t ColumnIterator{};
+    size_t columnIterator{};
     
     for(size_t rowIterator = 0; rowIterator < height; ++rowIterator) {
-        ColumnIterator = 0;
-        do {
-            if(input[rowIterator][ColumnIterator] == input[rowIterator][repetitionCount + ColumnIterator]) {
+        columnIterator = 0;
+        repetitionCount = 1;
+        for(int i = 1 ; i < width ; i++)
+        {
+            bool repetitionOccurs = input[rowIterator][columnIterator] == input[rowIterator][columnIterator + repetitionCount];
+            if(repetitionOccurs){
                 ++repetitionCount;
-            } else {
-                returnValue.emplace_back(input[rowIterator][ColumnIterator], 
+            } else{
+                returnValue.emplace_back(input[rowIterator][columnIterator],
                                          repetitionCount);
-                ColumnIterator += repetitionCount;
-                repetitionCount = 0;
+                columnIterator += repetitionCount;
+                repetitionCount = 1;
             }
-        } while(! (repetitionCount + ColumnIterator == width));
-        returnValue.emplace_back(input[rowIterator][ColumnIterator], 
+        }
+        returnValue.emplace_back(input[rowIterator][columnIterator],
                                  repetitionCount);
-        repetitionCount = 0;
     }   
     returnValue.shrink_to_fit();
     return returnValue;
