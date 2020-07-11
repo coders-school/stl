@@ -51,20 +51,18 @@ Compressed compressGrayscale(const RawMap& input) {
 }
 
 RawMap decompressGrayscale(const Compressed& inVec) {
-    RawMap retArr{};
-    size_t rowIterator{}, columnIterator{}, repetitionIterator{}, vectorIterator{};
-    while(rowIterator < height) {
-        columnIterator = 0;
-        while(columnIterator < width) {
-            repetitionIterator = 0;
-            while(repetitionIterator < static_cast<size_t>(inVec[vectorIterator].second)) {
-                retArr[rowIterator][columnIterator] = inVec[vectorIterator].first;
-                ++columnIterator;
-                ++repetitionIterator;
-            }
-            ++vectorIterator;
+    RawMap returnValue{};
+    uint8_t column{0}, row{0};
+    
+    for(const auto& element : inVec) {
+        for(uint8_t i = column; i < column + element.second; ++i) {
+            returnValue[row][i] = element.first;
         }
-        ++rowIterator;
+        column += element.second;
+        if(column == width) {
+            column = 0;
+            ++row;
+        }
     }
-    return retArr;
+        return returnValue;
 }
