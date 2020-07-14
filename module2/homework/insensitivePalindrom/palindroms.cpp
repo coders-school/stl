@@ -58,7 +58,6 @@ bool isInRange(const char c, const uint8_t lowerBound, const uint8_t upperBound2
         return false;
 }
 
-///Jesli jest poza kazdym z zakresow to jest poza zakresem
 bool isInRanges(const char c)
 {
     if (isInRange(c, ASCII_digits_range_start, ASCII_digits_range_end))
