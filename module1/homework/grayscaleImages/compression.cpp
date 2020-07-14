@@ -1,33 +1,35 @@
 #include "compression.hpp"
 
-std::vector<std::pair<uint8_t, uint8_t>> compressOneLine(const std::array<uint8_t, width> &line)
+comprBitMap compressOneLine(const std::array<uint8_t, width> &line)
 {
     std::vector<std::pair<uint8_t, uint8_t>> vect;
+    vect.reserve(width);
     auto it1 = line.cbegin();
-    auto it2 = line.cend();
     while (it1 != line.cend())
     {
-        it2 = std::find_if(it1, line.cend(), [it1](auto value) { return value != *it1; });
+        auto it2 = std::find_if(it1, line.cend(), [it1](auto value) { return value != *it1; });
         vect.emplace_back(*it1, std::distance(it1, it2));
         it1 = it2;
     }
+    vect.shrink_to_fit();
     return vect;
 }
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, width>, height> &image)
+comprBitMap compressGrayscale(const bitMap&image)
 {
-    std::vector<std::pair<uint8_t, uint8_t>> compressedImage;
+    comprBitMap compressedImage;
     for (auto &line : image)
     {
         auto compressedLine = compressOneLine(line);
         compressedImage.insert(compressedImage.end(), compressedLine.begin(), compressedLine.end());
     }
+    compressedImage.shrink_to_fit();
     return compressedImage;
 }
 
-std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>> comressedImage)
+bitMap decompressGrayscale(comprBitMap comressedImage)
 {
-    std::array<std::array<uint8_t, width>, height> original;
-    uint8_t carriage = 0; // max widith specified in homework <255
+    bitMap original;
+    uint8_t carriage = 0;
     uint8_t row = 0;
 
     auto it1 = original.front().begin();
