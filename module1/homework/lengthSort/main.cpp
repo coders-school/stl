@@ -1,19 +1,9 @@
 #include <forward_list>
 #include <iostream>
 #include <string>
-#include <deque>
-#include <forward_list>
-#include <functional>
 
-using deq = std::deque<std::string>;
-using flist = std::forward_list<std::string>;
+#include "sort.hpp"
 
-auto cmp = [](const std::string str1, const std::string str2) {
-    if (str1.length() == str2.length()) {
-        return str1 < str2;
-    } else
-        return (str1.length() < str2.length());
-};
 
 template <typename Container>
 void printCollection(const Container& collection) {
@@ -21,13 +11,6 @@ void printCollection(const Container& collection) {
         std::cout << element << ' ';
     }
     std::cout << '\n';
-}
-
-deq lengthSort(const flist& flist) {
-    auto tmpList = flist;
-    tmpList.sort(cmp);
-    deq deque(tmpList.begin(), tmpList.end());
-    return deque;
 }
 
 int main() {
