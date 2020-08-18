@@ -156,7 +156,7 @@ O(n^2): 810269600 ns
 
 ___
 
-## Złożoność O(n^n)
+## Złożoność O(x^n)
 
 Jest to tzw. złożoność wykładnicza, czas wykonania rośnie wykładniczo względem ilości danych wejściowych. Wybraźmy sobie sytuację, w której nie dość, że książka zawiera błedy które wcześniej celowo wprowadziliśmy ale ktoś postanowił ją wydrukować w olbrzymim nakładzie i teraz musimy porawić wszystkie książki w kórych już czas poprawiania błeów wynosił n^2. Dla takiej kombinacji mówimy, że złożonośc jest n^n. Czyli rośnie wykładniczo wraz ze wzrostem liczby książek (próbek). Przykładem może być algorytm DFS (deep-first graph), jeżeli danymi wejściowymi będzie macierz. Ponieważ za każdym razem musimy przejść cały rząd aż znajdziemy interesujący nas element. Więc wykonamy n^n kroków. Żadko spotykane, więć jest formą ciekawostki :)
 
