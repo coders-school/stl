@@ -233,7 +233,10 @@ int main() {
     mateusz.SetName("Mateusz");
     mateusz.SetIndex(123456);
     mateusz.SetAverage(5.0);
-
+    
+    // or
+    // Pod mateusz{"Mateusz", 123456, 5.0};
+    
     std::fstream student("Student.txt", student.binary | student.out);
     if (student.is_open()) {
         student.write(reinterpret_cast<char*>(&mateusz), sizeof(Pod));
