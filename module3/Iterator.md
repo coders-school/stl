@@ -132,6 +132,12 @@ Pytanie: Jakie mamy dostępne operatory dla tego iteratora?
 
 ___
 
-Q&A
+### Ciekawostka
+
+W C++ 17 wprowadzone jescze typ: ContiguousIterator. Zawiera On wszystkie cechy Random Access iterator oraz zapewnia, że wszystkie dane są ułożone w jednym miejscu w pamięci.
+
+___
+
+## Q&A
 
 ___
