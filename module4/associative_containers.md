@@ -45,7 +45,7 @@ ___
 
 ## Cechy `std::map<K, T>` i `std::multimap<K, T>` #1
 
-* <!-- .element: class="fragment fade-in" --> Forma drzewa binarnego (red-black-tree)
+* <!-- .element: class="fragment fade-in" --> Forma drzewa binarnego (red-black tree)
 * <!-- .element: class="fragment fade-in" --> Nie jest cache friendly
 * <!-- .element: class="fragment fade-in" --> Pozwala przechowywać parę klucz-wartość (key-value)
 * <!-- .element: class="fragment fade-in" --> Multimapa może mieć wiele takich samych kluczy
@@ -57,7 +57,7 @@ ___
 
 ## Cechy `std::map<K, T>` i `std::multimap<K, T>` #2
 
-Ponieważ jest ona zaimplementowana przeważnie jako red-black-tree (GNU standard C++ library) to czas wstawiania, usuwania i dodawania elementu to `O(log(n)`).
+Ponieważ jest ona zaimplementowana przeważnie jako red-black tree (GNU standard C++ library) to czas wstawiania, usuwania i dodawania elementu to `O(log(n)`).
 
 Zalety:
 <!-- .element: class="fragment fade-in" -->
@@ -234,7 +234,7 @@ ___
 
 ## Cechy `std::set<T>` i `std::multiset<T>` #1
 
-* <!-- .element: class="fragment fade-in" --> Forma drzewa binarnego (red-black-tree)
+* <!-- .element: class="fragment fade-in" --> Forma drzewa binarnego (red-black tree)
 * <!-- .element: class="fragment fade-in" --> Nie jest cache friendly
 * <!-- .element: class="fragment fade-in" --> Pozwala przechowywać wartości w uporządkowanej kolejności
 * <!-- .element: class="fragment fade-in" --> Multiset może mieć wiele takich samych wartości
@@ -246,7 +246,7 @@ ___
 
 ## Cechy `std::set<T>` i `std::multiset<T>` #2
 
-Ponieważ jest on zaimplementowany przeważnie jako red-black-tree (GNU standard C++ library) to czas wstawiania, usuwania i dodawania elementu to `O(log(n)`).
+Ponieważ jest on zaimplementowany przeważnie jako red-black tree (GNU standard C++ library) to czas wstawiania, usuwania i dodawania elementu to `O(log(n)`).
 
 Zalety:
 <!-- .element: class="fragment fade-in" -->
