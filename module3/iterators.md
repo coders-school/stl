@@ -1,16 +1,18 @@
+<!-- .slide: data-background="#111111" -->
+
 # Iteratory
 
 ___
 
 ## Krótka powtórka #1
 
-Iterator jest to obiekt, który wskazuje na dany element w kontenerze, w zależnośći od typu możemy na nim wykonywać różne operację, np: inkrementować go `operator++` dekrementować `operator--` lub wykonywac operacje typu `it += 6`. W celu odwołania się do wskazywanego elementu przez iterator używamy `operator*` czyli dereferencji (jak na zwykłych wskaźnikach).
+Iterator jest to obiekt, który wskazuje na dany element w kontenerze, w zależności od typu możemy na nim wykonywać różne operacje, np: inkrementować go `operator++` dekrementować `operator--` lub wykonywać operacje typu `it += 6`. W celu odwołania się do wskazywanego elementu przez iterator używamy `operator*` czyli dereferencji (jak na zwykłych wskaźnikach).
 
 ___
 
 ## Krótka powtórka #2
 
-Każy kontener ma 2 końce. Na jeden z nich wskazuje `begin()` na drugi `end()`
+Każdy kontener ma 2 końce. Na jeden z nich wskazuje `begin()`, a na drugi `end()`.
 
 <image src="http://i.stack.imgur.com/oa3EQ.png">
 
@@ -39,7 +41,7 @@ ___
 
 <image src="https://tr1.cbsistatic.com/hub/i/2015/06/03/fb4d1b31-098c-11e5-940f-14feb5cc3d2a/u00220020606KXS01_02.gif">
 
-Pytanie, co powinno się znaleźć w miejscu `forward_iterator` ?
+Pytanie, co powinno się znaleźć w miejscu `forward_iterator`?
 
 `std::forward_list<T>` `std::unordered_set<T>` `std::unordered_map<T>`
 
@@ -47,7 +49,7 @@ ___
 
 ### "Najbiedniejszy" iterator czyli input i output
 
-Input iterator: pochodzi np. ze strumienia std::istream, czyli znanego nam `std::cin` raz wczytane dane znikają, nie możemy ich ponownie odczytać. Mamy możliwość tylko jednorazowego przejścia przez dane. Innym słowem jak tylko odczytamy jakąś daną nasz operator odrazu jest inkrementowany.
+Input iterator: pochodzi np. ze strumienia `std::istream`, czyli znanego nam `std::cin`. Raz wczytane dane znikają, nie możemy ich ponownie odczytać. Mamy możliwość tylko jednorazowego przejścia przez dane. Innym słowem jak tylko odczytamy jakąś daną nasz operator od razu jest inkrementowany.
 
 ```C++
 int a;
@@ -55,7 +57,7 @@ int b;
 std::cin >> a >> b;
 ```
 
-Otput iterator: pochodzi np. ze strumienia std::ostream, czyli znanego nam `std::cout` raz wypisane dane znikają, nie możemy ich ponownie wyświetlić, musimy ponownie podać dane.
+Output iterator: pochodzi np. ze strumienia `std::ostream`, czyli znanego nam `std::cout`. Raz wypisane dane znikają, nie możemy ich ponownie wyświetlić, musimy ponownie podać dane.
 
 ```C++
 int a;
@@ -71,7 +73,7 @@ ___
 
 ### Forward iterator
 
-Jest to iterator, który umożliwia nam wielokronte przejście danego zakresu w jedną stronę (w przód).
+Jest to iterator, który umożliwia nam wielokrotne przejście danego zakresu w jedną stronę (w przód).
 
 ```C++
 std::forward_list<int> list {1, 2, 3, 4, 5};
@@ -89,7 +91,7 @@ ___
 
 ### Bidirectional iterator
 
-Jest to iterator, który umożliwia nam wielokronte przejście danego zakresu w obie strony (w przód i tył).
+Jest to iterator, który umożliwia nam wielokrotne przejście danego zakresu w obie strony (w przód i tył).
 
 ```C++
 std::list<int> list{1, 2, 3, 4, 5};
@@ -111,7 +113,7 @@ ___
 
 ### Random Access iterator
 
-Jest to iterator, który umożliwia nam wielokronte przejście danego zakresu w obie strony (w przód i tył) a także dostęp do dowolnego obiektu.
+Jest to iterator, który umożliwia nam wielokronte przejście danego zakresu w obie strony (w przód i tył), a także dostęp do dowolnego obiektu.
 
 ```C++
 std::vec<int> vec{1, 2, 3, 4, 5};
@@ -134,10 +136,8 @@ ___
 
 ### Ciekawostka
 
-W C++ 17 wprowadzone jescze typ: ContiguousIterator. Zawiera On wszystkie cechy Random Access iterator oraz zapewnia, że wszystkie dane są ułożone w jednym miejscu w pamięci.
+W C++ 17 wprowadzono jeszcze typ: `ContiguousIterator`. Zawiera on wszystkie cechy Random Access iterator oraz zapewnia, że wszystkie dane są ułożone w jednym miejscu w pamięci.
 
 ___
 
 ## Q&A
-
-___

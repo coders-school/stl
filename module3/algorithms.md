@@ -1,8 +1,5 @@
-# Algorytmy
+<!-- .slide: data-background="#111111" -->
 
-___
-
-## Typy algorytmów
 # Algorytmy
 
 ___
@@ -26,17 +23,17 @@ ___
 
 ## Quiz
 
-Korzystając z cppreferece odpowiedz na pytania:
+Korzystając z `cppreferece` odpowiedz na pytania:
 * Jaką złożoność ma `std::sort()`?
-* Jaki algorytm użyjesz dla połaczenia 2 kontenerów naprzemiennie?
-* Jaki algorytm użyjesz aby zsumować wszystkie elementy w `std::vector`?
-* Jaki algorytm użyjesz aby pomnożyć 2 kontenery ze sobą?
-* Jaki algorytm użyjesz aby usunąć liczby parzyste?
-* Jaki algorytm użyjesz aby wypełnić struktóre wartościami od 0 do n?
-* Jaki algorytm użyjesz aby zawsze na 1 miejscu (0 index) znajdował się największy element?
-* Jaki algorytm użyjesz by wyszukać czy dana liczba znajduje sie w posortowanym kontenerze?
-* Jaki algorytm użyjesz aby podzielic kontener na 2 zakresy, zawierające mniejsze i większe wartości niż 10?
-* Jaki algorytm użyjesz aby zmienić kolejnośc 2 elementów w kontenerze?
+* Jaki algorytm użyjesz dla połączenia 2 kontenerów naprzemiennie?
+* Jaki algorytm użyjesz, aby zsumować wszystkie elementy w `std::vector`?
+* Jaki algorytm użyjesz, aby pomnożyć 2 kontenery ze sobą?
+* Jaki algorytm użyjesz, aby usunąć liczby parzyste?
+* Jaki algorytm użyjesz, aby wypełnić strukturę wartościami od 0 do n?
+* Jaki algorytm użyjesz, aby zawsze na 1. miejscu (0 index) znajdował się największy element?
+* Jaki algorytm użyjesz, by wyszukać czy dana liczba znajduje się w posortowanym kontenerze?
+* Jaki algorytm użyjesz, aby podzielić kontener na 2 zakresy, zawierające mniejsze i większe wartości niż 10?
+* Jaki algorytm użyjesz, aby zmienić kolejność 2 elementów w kontenerze?
 
 ___
 
@@ -46,15 +43,15 @@ https://youtu.be/W2tWOdzgXHA?t=560
 
 ___
 
-## Zadanie1
+## Zadanie 1
 
-Napisz funkcję, która przyjmie `std::vector<int>&`, zmienną `int value`, oraz zmienną `int new_pos`. Funckja powinna odnaleźć `value` w `std::vector<int>` i jeżeli ją znajdzie wstawić ją na nowe miejsce `new_pos` odpowiednio przesuwając reszte elementów by nie zaburzyć ich sekwencji. Następnie zwróć true, jeżeli proces sie udal, lub false, jeżeli nie dało się zmienić kolejności (np. nie istnieje wartość).
+Napisz funkcję, która przyjmie `std::vector<int>&`, zmienną `int value`, oraz zmienną `int new_pos`. Funkcja powinna odnaleźć `value` w `std::vector<int>` i jeżeli ją znajdzie wstawić ją na nowe miejsce `new_pos`, odpowiednio przesuwając resztę elementów by nie zaburzyć ich sekwencji. Następnie zwróć true, jeżeli proces się udał, lub false, jeżeli nie dało się zmienić kolejności (np. nie istnieje wartość).
 
 `bool ChangePos(std::vector<int>& vec, int value, int new_pos)`
 
 ___
 
-## Rozwiązanie1
+## Rozwiązanie 1
 
 ```C++
 bool ChangePos(std::vector<int>& vec, int value, int new_pos) {
@@ -86,15 +83,15 @@ https://youtu.be/W2tWOdzgXHA?t=798
 
 ___
 
-## Zadanie2
+## Zadanie 2
 
-Napisz funckje, która przyjmie 2 `std::vector<int>` oraz zmienną int. Pierwszy `std::vector<int>` zawiera kontener na którym operujemy, drugi zawiera wartości jakie chcemy przenieść, a wartośc int to numer indexu na kóry chcemy przeniśc wartośći.
+Napisz funkcję, która przyjmie dwa `std::vector<int>` oraz zmienną `int`. Pierwszy `std::vector<int>` zawiera kontener na którym operujemy, drugi zawiera wartości jakie chcemy przenieść, a wartość `int` to numer indexu, na który chcemy przenieść wartości.
 
 `void ChangePos(std::vector<int>& vec, const std::vector<int>& values, int position)`
 
 ___
 
-## Rozwiązanie2
+## Rozwiązanie 2
 
 ```C++
 void ChangePos(std::vector<int>& vec, const std::vector<int>& values, int new_pos) {
@@ -126,16 +123,16 @@ int main() {
 
 ___
 
-## Zadanie3
+## Zadanie 3
 
-Napisz funkcje Gather, która przyjmie `std::vector<char>` oraz spowoduje, żę
-wszystkie wystapienia `*` pojawią się w środku `std::vector<char>`.
+Napisz funkcję Gather, która przyjmie `std::vector<char>` oraz spowoduje, że
+wszystkie wystąpienia `*` pojawią się w środku `std::vector<char>`.
 
 Input : `std::vector<char> vec {'*', '$', '@', '*', '#', '@', '^', '*', '(', ')', '$', '*'};`
 Output: `$ @ # @ * * * * ^ ( ) $`
 ___
 
-## Rozwiązanie3
+## Rozwiązanie 3
 
 ```C++
 void Gather(std::vector<char>& vec) {
@@ -167,18 +164,18 @@ int main() {
 
 ___
 
-## Zadanie4
+## Zadanie 4
 
-Napisz funckję `GetVec(size_t count)`, która zwóci `std::vector<int>` z wartościami `od 10 do 10 + n`, inkrementując je co 1. Następnie napisz druga funkcję `int Multiply(std::vector<int> vec)`, która zwróci wartść równą iloczynowi każdego elementu `std::vector<int>`.
+Napisz funkcję `GetVec(size_t count)`, która zwróci `std::vector<int>` z wartościami `od 10 do 10 + n`, inkrementując je co 1. Następnie napisz drugą funkcję `int Multiply(std::vector<int> vec)`, która zwróci wartość równą iloczynowi każdego elementu `std::vector<int>`.
 
 Input: `GetVec(7)`
 Output: `{10, 11, 12, 13, 14, 15, 16}`
-InputL `Multiply(vec)`
+Input: `Multiply(vec)`
 Output: `57657600`
 
 ___
 
-## Rozwiązanie4
+## Rozwiązanie 4
 
 ```C++
 std::vector<int> GetVec(size_t count) {
@@ -201,5 +198,3 @@ int main() {
 ___
 
 Q&A
-
-___
