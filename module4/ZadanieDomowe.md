@@ -4,11 +4,11 @@ ___
 
 ## Zadanie 1 #1
 
-Napisz funckję, która umożliwi zapisywanie nowych przepisów w pliku recipes.txt. Zwróć false, jeżeli nie uda się zapisać przepisu.
+Napisz funkcję, która umożliwi zapisywanie nowych przepisów w pliku recipes.txt. Zwróć false, jeżeli nie uda się zapisać przepisu.
 
-* Funkjca za 1 argument przyjmuje dane w `std::vector<std::string>`, który zawiera kolejne kroki przepisu.
-* Funckja za 2 argument przyjmuje `std::list<std::string>` zawierającą nazwe składników.
-* Funkjca za 3 argument przyjmuje dane w `std::deque<std::pair<size_t, char>>` zawierające informacje o ilości składnika i jego reprezentacji `g` -> gramy `m` mililirty, `s` -> szklanki.
+* Funkcja za 1 argument przyjmuje dane w `std::vector<std::string>`, który zawiera kolejne kroki przepisu.
+* Funkcja za 2 argument przyjmuje `std::list<std::string>` zawierającą nazwę składników.
+* Funkcja za 3 argument przyjmuje dane w `std::deque<std::pair<size_t, char>>` zawierające informacje o ilości składnika i jego reprezentacji `g` -> gramy `m` mililitry, `s` -> szklanki.
   
 ```C++
 bool AppendNewRecipe(std::vector<std::string> steps,
@@ -65,7 +65,7 @@ std::vector<std::string> FormatIngredients(const std::list<std::string>& ingredi
                                           const std::deque<std::pair<size_t, char>>& amount);
 ```
 
-każdy rekord wektora powinien zawierać gotową sekcje jednego składnika np: `20 gram cukru` lub `1 szklanka(i) mąki`.
+każdy rekord wektora powinien zawierać gotową sekcję jednego składnika np: `20 gram cukru` lub `1 szklanka(i) mąki`.
 
 ```C++
 std::stringstream FormatRecipit(std::vector<std::string> steps,
@@ -73,18 +73,18 @@ std::stringstream FormatRecipit(std::vector<std::string> steps,
                                 const std::deque<std::pair<size_t, char>>& amount);
 ```
 
-Oczekujemy gotowego formatu, który można odrazu zapisać.
+Oczekujemy gotowego formatu, który można od razu zapisać.
 
 ___
 
 ## Zadanie2
 
-Poczytaj i stwórz krótką notatkę oraz przykład wykorzystania nastepujących adapetrów:
+Poczytaj i stwórz krótką notatkę oraz przykład wykorzystania następujących adapterów:
 
 * stack
 * queue
 * priority_queue
 
-Najciekawsze opracowanie nagordzę 30xp. drugie miejsce otrzyma 20xp a trzecie 10xp.
+Najciekawsze opracowanie nagrodzę 30xp. Drugie miejsce otrzyma 20xp a trzecie 10xp.
 
 ___

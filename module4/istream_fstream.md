@@ -14,27 +14,27 @@ O danych przychodzących i wychodzących będziemy mówić jak o strumieniach da
 
 * istream (`std::cin`) -> od input stream, czyli dane przychodzące (np. wpisywane z klawiatury).
 * ostream (`std::cout`, `std::cerr`, `std::clog`) -> od output stream, czyli dane wychodzące (np. wyświetlane na monitorze).
-* iostream -> od input output stream, czyli dane moga zarówno być przychodzące jak i wychodzące.
+* iostream -> od input output stream, czyli dane mogą zarówno być przychodzące jak i wychodzące.
 
 ___
 
 ## Strumień danych
 
-Strumień danych może pochodzić z wielu źródeł, możemy je wczytywać od użytknownika, może on pochodzić z jakiegoś pliku zapisanego na dysku itp. Zapewnia nam to rozbudowana Hierarchia klas. Gdzie zaczynając od klasy bazowej `ios_base` docieramy do 3 kals pochodnych `istream`, `iostream` oraz `ostream`. W zależności od tego skąd będziemy chcieć wczytywac dane użyjemy:
+Strumień danych może pochodzić z wielu źródeł, możemy je wczytywać od użytkownika, może on pochodzić z jakiegoś pliku zapisanego na dysku itp. Zapewnia nam to rozbudowana hierarchia klas, gdzie zaczynając od klasy bazowej `ios_base` docieramy do 3 klas pochodnych `istream`, `iostream` oraz `ostream`. W zależności od tego skąd będziemy chcieć wczytywać dane użyjemy:
 
 * `fstream` do obsługi plików,
 * `iostream` do obsługi poleceń wczytywanych z klawiatury,
-* `sstream` służącą do wygodnego operowania na std::string tak jakby to by były strumienie danych.
+* `sstream` służącą do wygodnego operowania na `std::string` tak jakby to by były strumienie danych.
   
-Każda z tych 3 klas dziedziczy albo po `istream` gdy chcemy odczytywac dane, `ostream` gdy chcemy je zapisywać lub `iostream` gdy chcemy robić obie czynnośći.
+Każda z tych 3 klas dziedziczy albo po `istream`, gdy chcemy odczytywać dane, `ostream` gdy chcemy je zapisywać lub `iostream` gdy chcemy robić obie czynności.
 
 ___
 
-## Czwarty jeździeć, czyli streambuf
+## Czwarty jeździec, czyli streambuf
 
-Z definicji streambuffer reprezentuje urządzenia wyjściowe i wejściowe (jak monitor, klawiatura, dysk itp) oraz umożliwia nam dostęp do interfejsu niskiego poziomu). Raczej będzie rzadko przez nas stosowany :)
+Z definicji streambuffer reprezentuje urządzenia wyjściowe i wejściowe (jak monitor, klawiatura, dysk itp.) oraz umożliwia nam dostęp do interfejsu niskiego poziomu. Raczej będzie rzadko przez nas stosowany :)
 
-Klasa tą użyjemy między innymi do tworzenia własnych strumieni. Popatrzmy na przykład jak utworzyć własny strumień wyjściowy ostream.
+Klasę tą użyjemy między innymi do tworzenia własnych strumieni. Popatrzmy na przykład jak utworzyć własny strumień wyjściowy ostream.
 
 ```C++
 std::cout << 42 << '\n';
@@ -50,13 +50,13 @@ Output:
 24
 ```
 
-Hmm Ale po co nam własny strumień?
+🤔 Ale po co nam własny strumień?
 
 ___
 
 ## Własny styl wyświetlania danych
 
-Aby nie ingerować w zwykły stumien std::cout, kóry jest używany globalnie.
+Aby nie ingerować w zwykły strumień `std::cout`, kóry jest używany globalnie.
 
 ```C++
 std::cout << M_PI << '\n';
@@ -75,25 +75,25 @@ Output:
 3.14159
 ```
 
-<b>Jako zadanie dla chętnych zachęcam do sprawdzenia co biblioteka `iomanip` nam umozliwa</b>.
+**Jako zadanie dla chętnych zachęcam do sprawdzenia co biblioteka `iomanip` nam umożliwia.**
 
 ___
 
 ## Biblioteka fstream
 
-Jest to biblioteka umozliwiająca nam zapis i odczyt danych z pliku. Jest to bardzo rozbudowana biblioteka, jednak zwykle będziemy używac tylko kilka metod. Zgadnijcie proszę co mogą one robić?
+Jest to biblioteka umożliwiająca nam zapis i odczyt danych z pliku. Jest to bardzo rozbudowana biblioteka, jednak zwykle będziemy używać tylko kilka metod. Zgadnijcie proszę co mogą one robić?
 
 * `is_open()` -> sprawdza czy plik jest otwarty (zwraca bool),
 * `put()` -> zapisuje do pliku jeden znak,
 * `get()` -> pobiera jeden znak z pliku, ale nie przesuwa iteratora do przodu.
-* `peek()` -> odczytuje znak, ale nie przesuwa ku
+* `peek()` -> odczytuje znak, ale nie przesuwa ku <!-- to samo co linijka wyżej? -->
 * `write()` -> zapisuje blok danych do pliku,
 * `read()` -> odczytuje blok danych z pliku,
 * `seekp()` -> ustawia nam pozycje wskaźnika odczytu/zapisu na danej pozycji w pliku,
 * `tellp()` -> informuje nas o pozycji wskaźnika odczytu zapisu,
-* `getline()` -> pobiera znaki z pliku tak długo aż nie natrafi na podany znak (domyślnie spację).
+* `getline()` -> pobiera znaki z pliku tak długo, aż nie natrafi na podany znak (domyślnie spację).
 
-Wkaźnik w pliku możemy traktowac tak jak migający kursor `|` w plikach tekstowych :) Czyli jak piszemy sobie jakiś tekst, zawsze patrzymy, gdzie miga nam ten znaczek i wiemy gdzie modyfikujemy aktualnie plik.
+Wskaźnik w pliku możemy traktować tak jak migający kursor `|` w plikach tekstowych :) Czyli jak piszemy sobie jakiś tekst, zawsze patrzymy, gdzie miga nam ten znaczek i wiemy gdzie modyfikujemy aktualnie plik.
 
 ___
 
@@ -105,14 +105,14 @@ Jakie możemy nadać uprawnienia danemu plikowi?
 * Write,
 * Execute,
 
-Pliki możemy otworzyć w trybie do odczytu (read only) w trybie do modyfikacji (write only) lub w trybie (read-write). Dodatkowo mamy możliwość ustawienia kursora podczas otwierania pliku, wymazanie całej jego zawartości jeżeli istnieje, lub utowrzenie pliku jeżeli nie istnieje. Zgadnijmy co oznaczają poszczególne tryby:
+Pliki możemy otworzyć w trybie do odczytu (read only), w trybie do modyfikacji (write only) lub w trybie (read-write). Dodatkowo mamy możliwość ustawienia kursora podczas otwierania pliku, wymazanie całej jego zawartości jeżeli istnieje, lub utworzenie pliku jeżeli nie istnieje. Zgadnijmy co oznaczają poszczególne tryby:
 
 * `trunc` -> wymazuje wszystko w pliku co było do tej pory,
 * `in` -> tryb do odczytu,
 * `out` -> tryb do zapisu,
 * `ate` -> ustawia `seek` na końcu pliku,
-* `app` -> ustawia `seek` na końcu pliku przed zapisaniem do niego danych. Jednym słowem "Doklejamy" nowe wartości na końcu pliku.
-* `binary` -> Zapis/ odczyt w trybie binarnym.
+* `app` -> ustawia `seek` na końcu pliku przed zapisaniem do niego danych. Jednym słowem "doklejamy" nowe wartości na końcu pliku.
+* `binary` -> Zapis/odczyt w trybie binarnym.
 
 ___
 
@@ -124,14 +124,14 @@ std::fstream diary("Day1.txt", diary.out | diary.app);
 if (diary.is_open()) {
     std::cout << "OPENED!\n";
     diary << "Today is my first day on ship, with my crew\n";
-    diary << "i'm a little scared!\n";
+    diary << "I'm a little scared!\n";
     diary << "Hope It will be marvelous adventure.\n";
     diary.close();
 }
 ```
 
 Plik do odczytu, dopisujący na końcu nowe dane.
-ponieważ wszystko traktujemy jak strumienia, możemy również pisać do pliku używając `operatora<<`.
+Ponieważ wszystko traktujemy jak strumienie, możemy również pisać do pliku używając `operatora<<`.
 
 ___
 
@@ -148,7 +148,7 @@ if (diary.is_open()) {
 }
 ```
 
-Output: `Today is my first day on ship, with my crew i'm a little scared! Hope It will be marvelous adventure.`
+Output: `Today is my first day on ship, with my crew I'm a little scared! Hope It will be marvelous adventure.`
 
 __
 
@@ -171,7 +171,7 @@ ___
 
 ## POD - Plain old data
 
-Czyli klasa/ struktura bez konstruktora, destruktora i metod wirtualnych.
+Czyli klasa/struktura bez konstruktora, destruktora i metod wirtualnych.
 
 ```C++
 class Pod {
@@ -187,7 +187,7 @@ private:
 };
 ```
 
-Ale to już nie jest POD
+Ale to już nie jest POD.
 
 ```C++
 class Pod {
@@ -222,7 +222,7 @@ public:
     size_t GetIndex() const { return index_; }
     double GetAverage() const { return average_; }
 
-public:
+private:
     char name_[15];
     size_t index_;
     double average_;
@@ -233,10 +233,10 @@ int main() {
     mateusz.SetName("Mateusz");
     mateusz.SetIndex(123456);
     mateusz.SetAverage(5.0);
-    
+
     // or
     // Pod mateusz{"Mateusz", 123456, 5.0};
-    
+
     std::fstream student("Student.txt", student.binary | student.out);
     if (student.is_open()) {
         student.write(reinterpret_cast<char*>(&mateusz), sizeof(Pod));
@@ -279,7 +279,7 @@ Average: 5
 
 ___
 
-## stringstream - jak wygodnie używać std::string jako strumień
+## stringstream - jak wygodnie używać `std::string` jako strumień
 
 Podzielenie `std::string` na pojedyncze słowa. Niestety nie możemy tego w tak prosty sposób zrobić dla innch znaków niż spacja.
 

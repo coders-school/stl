@@ -43,12 +43,12 @@ ___
 
 ## Cechy `std::map<K, T>` i `std::multimap<K, T>` #1
 
-* Forma drzewa binarnego (reed black tree)
+* Forma drzewa binarnego (red-black-tree)
 * Nie jest cache friendly
-* Pozwala przechowywać parę klucz wartość (key-value)
+* Pozwala przechowywać parę klucz-wartość (key-value)
 * Multimapa może mieć wiele takich samych kluczy
 * Mapa ma unikatowe klucze
-* Alternatywa dla multimapy jest `std::map<key, std::vector<value>>`
+* Alternatywą dla multimapy jest `std::map<key, std::vector<value>>`
 
 ___
 
@@ -58,17 +58,17 @@ Ponieważ jest ona zaimplementowana przeważnie jako red-black-tree (GNU standar
 
 Zalety:
 
-* Szybkie wyszukiwanie elementów (kontenerery sekwencyjnie `O(n)`),
-* Względnie szybki czas ich dodawania i usuwania np. `std::vector<T>` dodaje elementy w środu w czasie `O(n)` ale `std::list<T>` (jeżeli mamy podany iterator) w czasie `O(1)`. Stąd mapa jest względnie szybka zarówno w dodawaniu jak i usuwaniu.
+* Szybkie wyszukiwanie elementów (kontenery sekwencyjnie `O(n)`),
+* Względnie szybki czas ich dodawania i usuwania np. `std::vector<T>` dodaje elementy w środku w czasie `O(n)` ale `std::list<T>` (jeżeli mamy podany iterator) w czasie `O(1)`. Stąd mapa jest względnie szybka zarówno w dodawaniu jak i usuwaniu.
 * Idealna, gdy często poszukujemy danych a rzadziej je dodajemy lub usuwamy.
 
-Jeżeli będziemy jej używac jako zwykłego kontenera, to stracimy na wydajnośći. Mape należy sotsowac wtedy, kiedys faktycznie cchemy posiadać pary klucz wartośc i czesto je wyszukiwać. W innym przypadku możemy użyc std::vector<pair<K, V>> lub innego kontenera.
+Jeżeli będziemy jej używać jako zwykłego kontenera, to stracimy na wydajności. Mapę należy sortować wtedy, kiedy faktycznie chcemy posiadać pary klucz-wartość i często je wyszukiwać. W innym przypadku możemy użyć `std::vector<pair<K, V>>` lub innego kontenera.
   
 ___
 
 ## Operacje na `std::map<K, T>` i `std::multimap<K, T>`
 
-* dodawanie elementu: insert(), emplace(), emplace_hint() Dodatkowo mapa posiada : insert_or_assign(), try_emplace() oraz operator[] (dodająco modyfikujący)
+* dodawanie elementu: insert(), emplace(), emplace_hint(). Dodatkowo mapa posiada: insert_or_assign(), try_emplace() oraz operator[] (dodająco modyfikujący)
 * modyfikowanie/dostęp do elementu: at(), operator[] (Multimapa nie posiada takich opcji)
 * pierwszy/ostatni element: Brak
 * rozmiar/czy kontener jest pusty: size(), empty()
@@ -80,8 +80,8 @@ ___
 * przygotowanie elementu do usunięcia: Brak
 * wymazanie elementów z pamięci: erase()
 * podmiana całego kontenera: swap()
-* Zliczenie elementów pasujących do danego klucza: count (dla mapy to 0 albo 1, dla multimapy od 0 do n)
-* Odnalezienie elmentu o podanym kluczu: find
+* zliczenie elementów pasujących do danego klucza: count (dla mapy to 0 albo 1, dla multimapy od 0 do n)
+* odnalezienie elementu o podanym kluczu: find()
 
 ___
 
@@ -101,7 +101,7 @@ int main() {
 Output:
 `Ten`
 
-Podpowiadamy mapie miejsce, gdzie powinna wstawić elment, dzieki temu taka operacja będzie miała złożoność O(1). Jeżeli jednak źle podpowiemy, to czas wstawienia będzie O(long(n)). Raczej żadko stosowane :)
+Podpowiadamy mapie miejsce, gdzie powinna wstawić element, dzięki temu taka operacja będzie miała złożoność O(1). Jeżeli jednak źle podpowiemy, to czas wstawienia będzie O(long(n)). Raczej rzadko stosowane 🙂
 
 ___
 
@@ -180,7 +180,7 @@ ___
 
 ## Zadanie 1
 
-* Stwórz multimape i wypełnij ją podanymi wartościami
+* Stwórz multimapę i wypełnij ją podanymi wartościami
 
 ```C++
 map.insert({5, "Ala"});
@@ -193,9 +193,10 @@ map.insert({5, "Ale"});
 ```
 
 * Napisz funkcję, która wyświetli słowa w mapie o liczbie znaków równej 3.
+
 ___
 
-## Rozwiazanie
+## Rozwiązanie
 
 ```C++
 std::vector<std::pair<int, std::string>> result;
@@ -209,12 +210,12 @@ ___
 
 ## Cechy `std::set<T>` i `std::multiset<T>` #1
 
-* Forma drzewa binarnego (reed black tree)
+* Forma drzewa binarnego (red-black-tree)
 * Nie jest cache friendly
 * Pozwala przechowywać wartości w uporządkowanej kolejności
 * Multiset może mieć wiele takich samych wartości
 * Set ma unikatowe wartości
-* Alternatywa dla multiset jest posortowany `std::vector<T>`
+* Alternatywą dla multiset jest posortowany `std::vector<T>`
 
 ___
 
@@ -224,11 +225,11 @@ Ponieważ jest on zaimplementowany przeważnie jako red-black-tree (GNU standard
 
 Zalety:
 
-* Szybkie wyszukiwanie elementów (kontenerery sekwencyjnie `O(n)`),
-* Względnie szybki czas ich dodawania i usuwania np. `std::vector<T>` dodaje elementy w środu w czasie `O(n)` ale `std::list<T>` (jeżeli mamy podany iterator) w czasie `O(1)`. Stąd set jest względnie szybki zarówno w dodawaniu jak i usuwaniu.
+* Szybkie wyszukiwanie elementów (kontenery sekwencyjnie `O(n)`),
+* Względnie szybki czas ich dodawania i usuwania np. `std::vector<T>` dodaje elementy w środku w czasie `O(n)` ale `std::list<T>` (jeżeli mamy podany iterator) w czasie `O(1)`. Stąd set jest względnie szybki zarówno w dodawaniu jak i usuwaniu.
 * Idealny, gdy chcemy zawsze posiadać posortowane wartości.
 
-Jeżeli nie zależy nam aby zawsze kontener był posortowany, lecz jedynie  w specyficznych momentach, to może lepeij nam użyć `std::vector<T>` i sorotwać go gdy przyjdzie taka potrzeba. Jeżeli też zależy nam tylko czasmi na unikatowych wartościach, to możemy wtedy użyć `std::unique<>`. 
+Jeżeli nie zależy nam, aby kontener był zawsze posortowany, lecz jedynie w specyficznych momentach, to może lepiej nam użyć `std::vector<T>` i sortować go, gdy przyjdzie taka potrzeba. Jeżeli też zależy nam tylko czasami na unikatowych wartościach, to możemy wtedy użyć `std::unique<>`.
   
 ___
 
@@ -246,8 +247,8 @@ ___
 * przygotowanie elementu do usunięcia: Brak
 * wymazanie elementów z pamięci: erase()
 * podmiana całego kontenera: swap()
-* Zliczenie elementów pasujących do danego klucza: count (dla set to 0 albo 1, dla multiset od 0 do n)
-* Odnalezienie elementu o podanym kluczu: find
+* zliczenie elementów pasujących do danego klucza: count (dla set to 0 albo 1, dla multiset od 0 do n)
+* odnalezienie elementu o podanym kluczu: find()
 
 ___
 
@@ -273,6 +274,7 @@ Output:
 0 1 2 3 4 5 6 7 8
 8 7 6 5 4 3 2 1 0
 ```
+
 ___
 
 ## Przykład użycia `std::multiset<T>`
@@ -308,7 +310,7 @@ ___
 
 ## Funkcja mieszająca
 
-Jest to funkjca która z dowolnego obiektu wygeneruje nam idex w tablicy. Najważniejszą jej cechą jest to, że zawsze dla takich samych danych wejściowych musi wygenerowąc ten sam index. Kolejną ważną cechą jest takie generowanie indexu, aby tylko dla jednej kombinacji mógł on sie powtórzyć np:
+Jest to funkcja, która z dowolnego obiektu wygeneruje nam index w tablicy. Najważniejszą jej cechą jest to, że zawsze dla takich samych danych wejściowych musi wygenerować ten sam index. Kolejną ważną cechą jest takie generowanie indexu, aby tylko dla jednej kombinacji mógł on się powtórzyć np.:
 
 ```C++
 size_t hash(const std::string& str) { return str.size(); }
@@ -340,7 +342,7 @@ ___
 ## Cechy `std::unordered_set<T>` i `std::unordered_multiset<T>` #1
 
 * Forma tablicy hash.
-* Może, ale nie musi być cache friendly. Hash table, często jest tworzone w formie hybrydy `std::vector<T>` i `std::list<T>`.
+* Może, ale nie musi być cache friendly. Hash table, często są tworzone w formie hybrydy `std::vector<T>` i `std::list<T>`.
 * Wartości nie są posortowane
 * Multiset może mieć wiele takich samych wartości
 * Set ma unikatowe wartości
@@ -349,16 +351,16 @@ ___
 
 ## Cechy `std::unordered_set<T>` i `std::unordered_multiset<T>` #2
 
-Ponieważ jest on zaimplementowany jako has table to sredni czas dodawania, usuwania, dostępu oraz modyfikacji to O(1). Najgorszy dla wszystki operacji czas to O(n).
+Ponieważ jest on zaimplementowany jako hash table to średni czas dodawania, usuwania, dostępu oraz modyfikacji to `O(1)`. Najgorszy dla wszystkich operacji czas to `O(n)`.
 
 Zalety:
 
-* Błysakwiczne wyszukiwanie elementów
+* Błyskawiczne wyszukiwanie elementów
 * Błyskawicznie szybki czas ich dodawania i usuwania
-* Oczywiście przy założeniu, że mamy dobra funkcję mieszającą.
+* Oczywiście przy założeniu, że mamy dobrą funkcję mieszającą.
 
-Doskonały dla kontenerów read-only. Czas odczytu O(1).
-Doskonały dla kontenerów mających dobrą funckje mieszającą czas dodawania, dostepu i modyfikacji O(1).
+Doskonały dla kontenerów read-only. Czas odczytu `O(1)`.
+Doskonały dla kontenerów mających dobrą funkcję mieszającą. Czas dodawania, dostepu i modyfikacji `O(1)`.
   
 ___
 
@@ -376,8 +378,8 @@ ___
 * przygotowanie elementu do usunięcia: Brak
 * wymazanie elementów z pamięci: erase()
 * podmiana całego kontenera: swap()
-* Zliczenie elementów pasujących do danego klucza: count (dla set to 0 albo 1, dla multiset od 0 do n)
-* Odnalezienie elementu o podanym kluczu: find
+* zliczenie elementów pasujących do danego klucza: count (dla set to 0 albo 1, dla multiset od 0 do n)
+* odnalezienie elementu o podanym kluczu: find()
 
 ___
 
@@ -398,10 +400,10 @@ for (const auto el : set) {
 std::cout << '\n';
 ```
 
-## unordered_map<K, T> i unordered_multimap<K, T>
+## `unordered_map<K, T>` i `unordered_multimap<K, T>`
 
 * Zgadnij cechy,
-* Zgadnij implementacje,
+* Zgadnij implementację,
 * Wyślij przykład wykorzystujący te 2 kontenery
 
 ## Zadanie 2
