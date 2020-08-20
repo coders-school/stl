@@ -8,32 +8,33 @@ ___
 
 Podaj, jakie znasz algorytmy:
 
-* Niemodyfikujące sekwencji?
-* Modyfikujące sekwencje?
-* Partycjonujące?
-* Sortujące?
-* Przeszukujące binarnie?
-* Operujące na kopcu (ang. Heap)?
-* Min/max?
-* Porównujące?
-* Dokonujące permutacji?
-* Numeryczne?
+* <!-- .element: class="fragment fade-in" --> Niemodyfikujące sekwencji?
+* <!-- .element: class="fragment fade-in" --> Modyfikujące sekwencje?
+* <!-- .element: class="fragment fade-in" --> Partycjonujące?
+* <!-- .element: class="fragment fade-in" --> Sortujące?
+* <!-- .element: class="fragment fade-in" --> Przeszukujące binarnie?
+* <!-- .element: class="fragment fade-in" --> Operujące na kopcu (ang. Heap)?
+* <!-- .element: class="fragment fade-in" --> Min/max?
+* <!-- .element: class="fragment fade-in" --> Porównujące?
+* <!-- .element: class="fragment fade-in" --> Dokonujące permutacji?
+* <!-- .element: class="fragment fade-in" --> Numeryczne?
 
 ___
 
 ## Quiz
 
-Korzystając z `cppreferece` odpowiedz na pytania:
-* Jaką złożoność ma `std::sort()`?
-* Jaki algorytm użyjesz dla połączenia 2 kontenerów naprzemiennie?
-* Jaki algorytm użyjesz, aby zsumować wszystkie elementy w `std::vector`?
-* Jaki algorytm użyjesz, aby pomnożyć 2 kontenery ze sobą?
-* Jaki algorytm użyjesz, aby usunąć liczby parzyste?
-* Jaki algorytm użyjesz, aby wypełnić strukturę wartościami od 0 do n?
-* Jaki algorytm użyjesz, aby zawsze na 1. miejscu (0 index) znajdował się największy element?
-* Jaki algorytm użyjesz, by wyszukać czy dana liczba znajduje się w posortowanym kontenerze?
-* Jaki algorytm użyjesz, aby podzielić kontener na 2 zakresy, zawierające mniejsze i większe wartości niż 10?
-* Jaki algorytm użyjesz, aby zmienić kolejność 2 elementów w kontenerze?
+Korzystając z `cppreference` odpowiedz na pytania:
+
+* <!-- .element: class="fragment fade-in" --> Jaką złożoność ma <code>std::sort()</code>?
+* <!-- .element: class="fragment fade-in" --> Jaki algorytm użyjesz dla połączenia 2 kontenerów naprzemiennie?
+* <!-- .element: class="fragment fade-in" --> Jaki algorytm użyjesz, aby zsumować wszystkie elementy w <code>std::vector</code>?
+* <!-- .element: class="fragment fade-in" --> Jaki algorytm użyjesz, aby pomnożyć 2 kontenery ze sobą?
+* <!-- .element: class="fragment fade-in" --> Jaki algorytm użyjesz, aby usunąć liczby parzyste?
+* <!-- .element: class="fragment fade-in" --> Jaki algorytm użyjesz, aby wypełnić strukturę wartościami od 0 do n?
+* <!-- .element: class="fragment fade-in" --> Jaki algorytm użyjesz, aby zawsze na 1. miejscu (0 index) znajdował się największy element?
+* <!-- .element: class="fragment fade-in" --> Jaki algorytm użyjesz, by wyszukać czy dana liczba znajduje się w posortowanym kontenerze?
+* <!-- .element: class="fragment fade-in" --> Jaki algorytm użyjesz, aby podzielić kontener na 2 zakresy, zawierające mniejsze i większe wartości niż 10?
+* <!-- .element: class="fragment fade-in" --> Jaki algorytm użyjesz, aby zmienić kolejność 2 elementów w kontenerze?
 
 ___
 
@@ -45,9 +46,10 @@ ___
 
 ## Zadanie 1
 
-Napisz funkcję, która przyjmie `std::vector<int>&`, zmienną `int value`, oraz zmienną `int new_pos`. Funkcja powinna odnaleźć `value` w `std::vector<int>` i jeżeli ją znajdzie wstawić ją na nowe miejsce `new_pos`, odpowiednio przesuwając resztę elementów by nie zaburzyć ich sekwencji. Następnie zwróć true, jeżeli proces się udał, lub false, jeżeli nie dało się zmienić kolejności (np. nie istnieje wartość).
+Napisz funkcję, która przyjmie `std::vector<int>&`, zmienną `int value`, oraz zmienną `int new_pos`. Funkcja powinna odnaleźć `value` w `std::vector<int>` i jeżeli ją znajdzie wstawić ją na nowe miejsce `new_pos`, odpowiednio przesuwając resztę elementów by nie zaburzyć ich sekwencji. Następnie zwróć `true`, jeżeli proces się udał, lub `false`, jeżeli nie dało się zmienić kolejności (np. nie istnieje wartość).
 
 `bool ChangePos(std::vector<int>& vec, int value, int new_pos)`
+<!-- .element: class="fragment fade-in" -->
 
 ___
 
@@ -88,8 +90,10 @@ ___
 Napisz funkcję, która przyjmie dwa `std::vector<int>` oraz zmienną `int`. Pierwszy `std::vector<int>` zawiera kontener na którym operujemy, drugi zawiera wartości jakie chcemy przenieść, a wartość `int` to numer indexu, na który chcemy przenieść wartości.
 
 `void ChangePos(std::vector<int>& vec, const std::vector<int>& values, int position)`
+<!-- .element: class="fragment fade-in" -->
 
 ___
+<!-- .slide: style="font-size: 0.9em" -->
 
 ## Rozwiązanie 2
 
@@ -128,9 +132,13 @@ ___
 Napisz funkcję Gather, która przyjmie `std::vector<char>` oraz spowoduje, że
 wszystkie wystąpienia `*` pojawią się w środku `std::vector<char>`.
 
-Input : `std::vector<char> vec {'*', '$', '@', '*', '#', '@', '^', '*', '(', ')', '$', '*'};`
+Input: `std::vector<char> vec {'*', '$', '@', '*', '#', '@', '^', '*', '(', ')', '$', '*'};`
+<!-- .element: class="fragment fade-in" -->
+
 Output: `$ @ # @ * * * * ^ ( ) $`
+<!-- .element: class="fragment fade-in" -->
 ___
+<!-- .slide: style="font-size: 0.9em" -->
 
 ## Rozwiązanie 3
 
@@ -166,12 +174,19 @@ ___
 
 ## Zadanie 4
 
-Napisz funkcję `GetVec(size_t count)`, która zwróci `std::vector<int>` z wartościami `od 10 do 10 + n`, inkrementując je co 1. Następnie napisz drugą funkcję `int Multiply(std::vector<int> vec)`, która zwróci wartość równą iloczynowi każdego elementu `std::vector<int>`.
+Napisz funkcję `GetVec(size_t count)`, która zwróci `std::vector<int>` z wartościami od `10` do `10 + n`, inkrementując je co 1. Następnie napisz drugą funkcję `int Multiply(std::vector<int> vec)`, która zwróci wartość równą iloczynowi każdego elementu `std::vector<int>`.
 
 Input: `GetVec(7)`
+<!-- .element: class="fragment fade-in" -->
+
 Output: `{10, 11, 12, 13, 14, 15, 16}`
+<!-- .element: class="fragment fade-in" -->
+
 Input: `Multiply(vec)`
+<!-- .element: class="fragment fade-in" -->
+
 Output: `57657600`
+<!-- .element: class="fragment fade-in" -->
 
 ___
 
@@ -197,4 +212,4 @@ int main() {
 
 ___
 
-Q&A
+## Q&A

@@ -14,7 +14,7 @@ ___
 
 ## Złożoność `O(1)`
 
-Jest to tzw. złożoność stała, która jest niezależna od liczby danych wejściowych. Przy obliczeniu sumy ciągu arytmetyczneo (kod poniżej), nie iterujemy po wszystkich elementach tablicy, zatem czas wykonania jest stały i niezależny od wielkości tablicy.
+Jest to tzw. złożoność stała, która jest niezależna od liczby danych wejściowych. Przy obliczeniu sumy ciągu arytmetycznego (kod poniżej), nie iterujemy po wszystkich elementach tablicy, zatem czas wykonania jest stały i niezależny od wielkości tablicy.
 
 ```C++
 int sum(std::vector<int> vec) {
@@ -30,9 +30,12 @@ int main() {
     return 0;
 }
 ```
+<!-- .element: class="fragment fade-in" -->
 
 Output: `21`
+<!-- .element: class="fragment fade-in" -->
 ___
+<!-- .slide: style="font-size: 0.9em" -->
 
 ## Złożoność `O(logn)`
 
@@ -45,19 +48,28 @@ std::cout << std::boolalpha
 std::cout << std::boolalpha
             << std::binary_search(begin(vec), end(vec), 0) << std::endl;
 ```
+<!-- .element: class="fragment fade-in" -->
 
 Output:
+<!-- .element: class="fragment fade-in" -->
 
 ```C++
 true
 false
 ```
+<!-- .element: class="fragment fade-in" -->
 
 ___
 
 ## Złożoność `O(n)`
 
 Wyboraźmy sobie teraz sytuację, że w książce adresowej szukamy numeru Żanety. Jednak nie będziemy teraz przeszukiwać binarnie, tylko sprawdzimy ile zajmie nam to, gdy będziemy szukać osoba po osobie. Więc zaczynamy od litery A i 4 dni później znajdujemy w końcu numer Żanety 🙂. Taka złożoność, gdzie sprawdzamy po kolei każdy element jest złożonością `O(n)`.
+
+<!-- brak miejsca - dzielę na dwa -->
+___
+<!-- .slide: style="font-size: 0.85em" -->
+
+## Złożoność `O(n)` - przykład
 
 ```C++
 constexpr size_t samples = 1000000000;
@@ -81,18 +93,24 @@ std::cout << "O(n): " << std::chrono::duration_cast<std::chrono::nanoseconds>(st
 ```
 
 Example Output:
+<!-- .element: class="fragment fade-in" -->
 
 ```C++
 O(logn): 0 ns
 O(n): 6949430300 ns
 ```
+<!-- .element: class="fragment fade-in" -->
 
 ___
 
 ## Złożoność `O(nlog(n))`
 
 Jest to tzw. złożoność liniowo-logarytmiczna, której czas wykonania jest wprost proporcjonalny do iloczynu danych wejściowych i ich logarytmu.
-Wyobraźmy sobie teraz sytuację: próbujemy znaleźć numer Andrzeja w książce telefonicznej, ale nasz kolega zrobił nam psikus i pozamieniał strony. Teraz musimy ją posortować, zależy nam na czasie, więc chcemy to zrobić wydajnie. Dlatego wyrywamy kolejno strony z książki telefonicznej i wstawiamy je do nowej w zgodnej kolejnośći. Nie dość, że musimy zrobić taką operację dla `n` stron to jeszcze musimy wstawiać je alfabetycznie co zajmie nam `logn` czasu. Dlatego cały proces to `nlogn`.
+Wyobraźmy sobie teraz sytuację: próbujemy znaleźć numer Andrzeja w książce telefonicznej, ale nasz kolega zrobił nam psikus i pozamieniał strony. Teraz musimy ją posortować, zależy nam na czasie, więc chcemy to zrobić wydajnie. Dlatego wyrywamy kolejno strony z książki telefonicznej i wstawiamy je do nowej w zgodnej kolejności. Nie dość, że musimy zrobić taką operację dla `n` stron, to jeszcze musimy wstawiać je alfabetycznie, co zajmie nam `logn` czasu. Dlatego cały proces to `nlogn`.
+
+___
+
+## Złożoność `O(nlog(n))` - przykład
 
 ```C++
 constexpr size_t samples = 1000000000;
@@ -108,19 +126,23 @@ std::sort(begin(vec), end(vec));
 auto stop = std::chrono::high_resolution_clock::now();
 std::cout << "O(nlogn): " << std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count() << " ns\n";
 ```
+<!-- .element: class="fragment fade-in" -->
 
 Possible output: `O(nlogn): 499694684900 ns`
-Previous slides otput: `O(n): 6949430300 ns`
+<!-- .element: class="fragment fade-in" -->
+Previous slides output: `O(n): 6949430300 ns`
+<!-- .element: class="fragment fade-in" -->
 
 ___
 
 ## Złożoność `O(n^2)`
 
-Jest to tzw. złożoność kwadratowa, której czas wykonania jest wprost proporcjonalny do kwadratu ilości danych wejściowych. Wyobraźmy sobie teraz inną sytuację. Udało nam się znaleźć numer Andrzeja i postanawiamy również zrobić psikus naszemu koledze, ale chcemy odwdzięczyć się z nawiązką. Dlatego drukujemy nową książkę telefoniczną, ale do każdego numeru dodajemy cyferkę 8 na początku numeru. Teraz nasz kolega nie dość, że musi poprawić każdą stronę `n` to jescze sprawdzić i poprawić każdy numer na podstawie oryginalnej książki. Taka złożonośc obliczeniowa to `O(n^2)`. Przykładem złożoności `O(n^2)` jest popularne sortowanie bąbelkowe.
+Jest to tzw. złożoność kwadratowa, której czas wykonania jest wprost proporcjonalny do kwadratu ilości danych wejściowych. Wyobraźmy sobie teraz inną sytuację. Udało nam się znaleźć numer Andrzeja i postanawiamy również zrobić psikus naszemu koledze, ale chcemy odwdzięczyć się z nawiązką. Dlatego drukujemy nową książkę telefoniczną, ale do każdego numeru dodajemy cyferkę '8' na początku numeru. Teraz nasz kolega nie dość, że musi poprawić każdą stronę `n` to jeszcze sprawdzić i poprawić każdy numer na podstawie oryginalnej książki. Taka złożoność obliczeniowa to `O(n^2)`. Przykładem złożoności `O(n^2)` jest popularne sortowanie bąbelkowe.
 
 ___
+<!-- .slide: style="font-size: 0.7em" -->
 
-## Złożoność `O(n^2)` Przykład
+## Złożoność `O(n^2)` - przykład
 
 ```C++
 constexpr size_t samples = 1000000;
@@ -147,6 +169,7 @@ BubleSort(vec3);
 stop = std::chrono::high_resolution_clock::now();
 std::cout << "O(n^2): " << std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count() << " ns\n";
 ```
+<!-- .element: class="fragment fade-in" -->
 
 Possible output:
 
@@ -155,27 +178,30 @@ O(n^2): 9974800 ns
 O(n^2): 83777600 ns
 O(n^2): 810269600 ns
 ```
+<!-- .element: class="fragment fade-in" -->
 
 ___
 
 ## Złożoność `O(x^n)`
 
-Jest to tzw. złożoność wykładnicza, czas wykonania rośnie wykładniczo względem ilości danych wejściowych. Wyobraźmy sobie sytuację, w której nie dość, że książka zawiera błędy, które wcześniej celowo wprowadziliśmy, ale ktoś postanowił ją wydrukować w olbrzymim nakładzie i teraz musimy porawić wszystkie książki w kórych już czas poprawiania błędów wynosił `n^2`. Dla takiej kombinacji mówimy, że złożoność jest `n^n`. Czyli rośnie wykładniczo wraz ze wzrostem liczby książek (próbek). Przykładem może być algorytm DFS (deep-first graph), jeżeli danymi wejściowymi będzie macierz. Ponieważ za każdym razem musimy przejść cały rząd aż znajdziemy interesujący nas element, więc wykonamy `n^n` kroków. Rzadko spotykane, więc jest formą ciekawostki 🙂
+Jest to tzw. złożoność wykładnicza, czas wykonania rośnie wykładniczo względem ilości danych wejściowych. Wyobraźmy sobie sytuację, w której nie dość, że książka zawiera błędy, które wcześniej celowo wprowadziliśmy, ale ktoś postanowił ją wydrukować w olbrzymim nakładzie i teraz musimy poprawić wszystkie książki, w których już czas poprawiania błędów wynosił `n^2`. Dla takiej kombinacji mówimy, że złożoność jest `n^n`. Czyli rośnie wykładniczo wraz ze wzrostem liczby książek (próbek). Przykładem może być algorytm DFS (deep-first graph), jeżeli danymi wejściowymi będzie macierz. Ponieważ za każdym razem musimy przejść cały rząd, aż znajdziemy interesujący nas element, więc wykonamy `n^n` kroków. Rzadko spotykane, więc jest formą ciekawostki 🙂
 
 ___
 
 ## Złożoność `O(n!)`
 
-Jest to złożoność typu silnia, czas wykonania rośnie z szybkością silni względem ilości danych wejściowych. Przykładem problemu jest problem komiwojażera, należy znaleźć najkrótszą trasę rozpoczynając od miasta A przechodzącą jednokrotnie przez wszystkie pozostałe miasta i wracającą do miasta A. Od wielu lat analitycy głowią się, jak poprawić ten algorytm. Wciąż mamy pole do popisu 🙂 Nię będę tutaj wklejał kodu, ale zainteresowanych odsyłam do wyszukania sobie algorytmu komiwojażera.
+Jest to złożoność typu silnia, czas wykonania rośnie z szybkością silni względem ilości danych wejściowych. Przykładem problemu jest problem komiwojażera, należy znaleźć najkrótszą trasę rozpoczynając od miasta A przechodzącą jednokrotnie przez wszystkie pozostałe miasta i wracającą do miasta A. Od wielu lat analitycy głowią się, jak poprawić ten algorytm. Wciąż mamy pole do popisu 🙂. Nię będę tutaj wklejał kodu, ale zainteresowanych odsyłam do wyszukania sobie algorytmu komiwojażera.
 
 ___
 
 ## Złożoność `O(n * n!)`
 
-Jeden z najgorszych scenariuszy jaki możemy wykonać dla algorytmu. Wybraźmy sobię sytuację, że nasz kolega postanowił pokazać nam, że nie warto z nim zadzierać i skarży się waszemu przełożonemu, że namieszaliście w książe telefonicznej. Teraz za karę musicie napisać program do robota układającego książki na półkach waszego kolegi w kolejności alfabetycznej. Jednak Wy postanwaiacie zrobić mu kolejny (najgorszy) psikus, i piszecie robota, kóry będzie układał książki losowo, następnie sprawdzał, czy może udało się je ułożyć poprawnie a jak nie, to ponownie je sciągał i znów układał na nowo. W ten sposób robot będzie układał ksążki kilka tygodni lub miesięcy, lecz w końcu mu się to uda 🙂
-W ten spoób napisaliśmy idealnie nieoptymalny algorytm sortowania o złożoności `O(n * n)!`. Przykładem takiego sortowania jest bogosort.
+Jeden z najgorszych scenariuszy jaki możemy wykonać dla algorytmu. Wybraźmy sobie sytuację, że nasz kolega postanowił pokazać nam, że nie warto z nim zadzierać i skarży się waszemu przełożonemu, że namieszaliście w książce telefonicznej. Teraz za karę musicie napisać program do robota układającego książki na półkach waszego kolegi w kolejności alfabetycznej. Jednak Wy postanawiacie zrobić mu kolejny (najgorszy) psikus, i piszecie robota, który będzie układał książki losowo, a następnie sprawdzał, czy może udało się je ułożyć poprawnie a jak nie, to ponownie je ściągał i znów układał na nowo. W ten sposób robot będzie układał książki kilka tygodni lub miesięcy, lecz w końcu mu się to uda 🙂
+
+W ten sposób napisaliśmy idealnie nieoptymalny algorytm sortowania o złożoności `O(n * n)!`. Przykładem takiego sortowania jest bogosort.
 
 ___
+<!-- .slide: style="font-size: 0.65em" -->
 
 ## Złożoność `O(n * !n)` Przykład
 
@@ -204,8 +230,10 @@ int main() {
     return 0;
 }
 ```
+<!-- .element: class="fragment fade-in" -->
 
 Possible output:
+<!-- .element: class="fragment fade-in" -->
 
 ```C++
 O(n * n!): 35938300 ns
@@ -214,6 +242,7 @@ O(n * n!): 899885600 ns
 O(n * n!): 2603326600 ns
 O(n * n!): 145608700 ns
 ```
+<!-- .element: class="fragment fade-in" -->
 
 ___
 
