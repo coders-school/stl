@@ -1,26 +1,31 @@
+<!-- .slide: data-background="#111111" -->
+
 # Zadanie domowe
 
 ___
 
-## Zadanie 1 #1
+## Zadanie 1
 
-Napisz funkcję, która umożliwi zapisywanie nowych przepisów w pliku recipes.txt. Zwróć false, jeżeli nie uda się zapisać przepisu.
+Napisz funkcję, która umożliwi zapisywanie nowych przepisów w pliku `recipes.txt`. Zwróć false, jeżeli nie uda się zapisać przepisu.
+<!-- .element: class="fragment fade-in" -->
 
-* Funkcja za 1 argument przyjmuje dane w `std::vector<std::string>`, który zawiera kolejne kroki przepisu.
-* Funkcja za 2 argument przyjmuje `std::list<std::string>` zawierającą nazwę składników.
-* Funkcja za 3 argument przyjmuje dane w `std::deque<std::pair<size_t, char>>` zawierające informacje o ilości składnika i jego reprezentacji `g` -> gramy `m` mililitry, `s` -> szklanki.
+* <!-- .element: class="fragment fade-in" --> Funkcja za 1 argument przyjmuje dane w <code>std::vector&lt;std::string&gt;</code>, który zawiera kolejne kroki przepisu.
+* <!-- .element: class="fragment fade-in" --> Funkcja za 2 argument przyjmuje <code>std::list&lt;std::string&gt;</code> zawierającą nazwę składników.
+* <!-- .element: class="fragment fade-in" --> Funkcja za 3 argument przyjmuje dane w <code>std::deque&lt;std::pair&lt;size_t, char&gt;&gt;</code> zawierające informacje o ilości składnika i jego reprezentacji <code>g</code> -> gramy <code>m</code> -> mililitry, <code>s</code> -> szklanki.
   
 ```C++
 bool AppendNewRecipe(std::vector<std::string> steps,
                           const std::list<std::string>& ingredients,
                           const std::deque<std::pair<size_t, char>>& amount);
 ```
+<!-- .element: class="fragment fade-in" -->
 
 ___
 
 ## Zadanie1 #2
 
 Input:
+<!-- .element: class="fragment fade-in" -->
 
 ```C++
 std::vector<std::string> steps{"Wsypać do miski 20 gram cukru",
@@ -35,8 +40,15 @@ std::deque<std::pair<size_t, char>> amount{
     {1, 's'},
     {40, 'm'}};
 ```
+<!-- .element: class="fragment fade-in" -->
+
+<!-- nie mieściło się, dzielę na dwa -->
+___
+
+## Zadanie1 #3
 
 Oczekiwany format:
+<!-- .element: class="fragment fade-in" -->
 
 ```note
 Składniki:
@@ -51,40 +63,45 @@ Kroki:
 4) Nalać 40ml rumu do kieliszka.
 5) Wypić kieliszek.
 6) Wysypać zawartość miski.
-__________________________________
 ```
-
+<!-- .element: class="fragment fade-in" -->
 ___
+<!-- .slide: style="font-size: 0.9em" -->
 
-## Zadanie1 #3
+## Zadanie1 #4
 
 Pomocnicze funkcje:
+<!-- .element: class="fragment fade-in" -->
 
 ```C++
 std::vector<std::string> FormatIngredients(const std::list<std::string>& ingredients,
                                           const std::deque<std::pair<size_t, char>>& amount);
 ```
+<!-- .element: class="fragment fade-in" -->
 
 każdy rekord wektora powinien zawierać gotową sekcję jednego składnika np: `20 gram cukru` lub `1 szklanka(i) mąki`.
+<!-- .element: class="fragment fade-in" -->
 
 ```C++
 std::stringstream FormatRecipit(std::vector<std::string> steps,
                                 const std::list<std::string>& ingredients,
                                 const std::deque<std::pair<size_t, char>>& amount);
 ```
+<!-- .element: class="fragment fade-in" -->
 
 Oczekujemy gotowego formatu, który można od razu zapisać.
+<!-- .element: class="fragment fade-in" -->
 
 ___
 
-## Zadanie2
+## Zadanie 2
 
 Poczytaj i stwórz krótką notatkę oraz przykład wykorzystania następujących adapterów:
+<!-- .element: class="fragment fade-in" -->
 
-* stack
-* queue
-* priority_queue
+* <!-- .element: class="fragment fade-in" --> stack
+* <!-- .element: class="fragment fade-in" --> queue
+* <!-- .element: class="fragment fade-in" --> priority_queue
 
 Najciekawsze opracowanie nagrodzę 30xp. Drugie miejsce otrzyma 20xp a trzecie 10xp.
-
-___
+<!-- .element: class="fragment fade-in" -->
