@@ -32,7 +32,7 @@ ___
 
 ## Czwarty jeździeć, czyli streambuf
 
-Z definicji streambuffer reprezentuje urządzenia wyjściowe i wejściowe (jak monitor, klawiatura, dysk itp) oraz umożliwia nam dostęp do interfejsu niskiego poziomu). Raczej będzie żadko przez nas stosowany :)
+Z definicji streambuffer reprezentuje urządzenia wyjściowe i wejściowe (jak monitor, klawiatura, dysk itp) oraz umożliwia nam dostęp do interfejsu niskiego poziomu). Raczej będzie rzadko przez nas stosowany :)
 
 Klasa tą użyjemy między innymi do tworzenia własnych strumieni. Popatrzmy na przykład jak utworzyć własny strumień wyjściowy ostream.
 
