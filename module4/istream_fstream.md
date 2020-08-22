@@ -99,7 +99,7 @@ Jest to biblioteka umożliwiająca nam zapis i odczyt danych z pliku. Jest to ba
 
 * <!-- .element: class="fragment fade-in" --> <code>is_open()</code> -> sprawdza czy plik jest otwarty (zwraca bool),
 * <!-- .element: class="fragment fade-in" --> <code>put()</code> -> zapisuje do pliku jeden znak,
-* <!-- .element: class="fragment fade-in" --> <code>get()</code> -> pobiera jeden znak z pliku, ale nie przesuwa iteratora do przodu.
+* <!-- .element: class="fragment fade-in" --> <code>get()</code> -> pobiera jeden znak z pliku,
 * <!-- .element: class="fragment fade-in" --> <code>peek()</code> -> odczytuje znak, ale nie przesuwa iteratora do przodu.
 * <!-- .element: class="fragment fade-in" --> <code>write()</code> -> zapisuje blok danych do pliku,
 * <!-- .element: class="fragment fade-in" --> <code>read()</code> -> odczytuje blok danych z pliku,
