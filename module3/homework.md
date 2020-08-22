@@ -1,4 +1,4 @@
-<!-- .slide: data-background="#111111" -->
+﻿<!-- .slide: data-background="#111111" -->
 
 # Zadanie domowe
 
@@ -23,7 +23,7 @@ Następnie wykorzystując `std::inner_product`, napisz funkcję, która obliczy 
 Metrykę euklidesową w przestrzeni definujemy:
 <!-- .element: class="fragment fade-in" -->
 
-```math
+```tex
 {\displaystyle \mathbb {R} ^{n}}{\mathbb  R}^{n}
 
 {\displaystyle d_{e}(\mathbf {x} ,\mathbf {y} )={\sqrt {(y_{1}-x_{1})^{2}+\dots +(y_{n}-x_{n})^{2}}},}d_e(\mathbf x, \mathbf y) = \sqrt{(y_1 - x_1)^2 + \dots + (y_n - x_n)^2},
