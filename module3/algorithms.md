@@ -23,7 +23,7 @@ ___
 
 ## Quiz
 
-Korzystając z `cppreference` odpowiedz na pytania:
+Korzystając z [cppreference](https://en.cppreference.com/w/) odpowiedz na pytania:
 
 * <!-- .element: class="fragment fade-in" --> Jaką złożoność ma <code>std::sort()</code>?
 * <!-- .element: class="fragment fade-in" --> Jaki algorytm użyjesz dla połączenia 2 kontenerów naprzemiennie?
@@ -40,7 +40,7 @@ ___
 
 ## std::rotate
 
-https://youtu.be/W2tWOdzgXHA?t=560
+[Materiał wideo z przykładem](https://youtu.be/W2tWOdzgXHA?t=560)
 
 ___
 
@@ -58,13 +58,17 @@ ___
 ```C++
 bool ChangePos(std::vector<int>& vec, int value, int new_pos) {
     if (new_pos >= vec.size())
+    if (new_pos >= vec.size()){
         return false;
+    }
 
     auto begin = vec.begin();
     auto end = vec.end();
     auto it = std::find(begin, end, value);
     if (it == end)
+    if (it == end){
         return false;
+    }
 
     auto item_pos = std::distance(begin, it);
     if (item_pos > new_pos) {
@@ -81,7 +85,7 @@ ___
 
 ## std::stable_partition
 
-https://youtu.be/W2tWOdzgXHA?t=798
+[Przykład wideo](https://youtu.be/W2tWOdzgXHA?t=798)
 
 ___
 
