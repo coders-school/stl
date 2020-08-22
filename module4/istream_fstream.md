@@ -97,15 +97,16 @@ ___
 
 Jest to biblioteka umożliwiająca nam zapis i odczyt danych z pliku. Jest to bardzo rozbudowana biblioteka, jednak zwykle będziemy używać tylko kilka metod. Zgadnijcie proszę co mogą one robić?
 
-* <!-- .element: class="fragment fade-in" --> <code>is_open()</code> -> sprawdza czy plik jest otwarty (zwraca bool),
-* <!-- .element: class="fragment fade-in" --> <code>put()</code> -> zapisuje do pliku jeden znak,
-* <!-- .element: class="fragment fade-in" --> <code>get()</code> -> pobiera jeden znak z pliku,
-* <!-- .element: class="fragment fade-in" --> <code>peek()</code> -> odczytuje znak, ale nie przesuwa iteratora do przodu.
-* <!-- .element: class="fragment fade-in" --> <code>write()</code> -> zapisuje blok danych do pliku,
-* <!-- .element: class="fragment fade-in" --> <code>read()</code> -> odczytuje blok danych z pliku,
-* <!-- .element: class="fragment fade-in" --> <code>seekp()</code> -> ustawia nam pozycje wskaźnika odczytu/zapisu na danej pozycji w pliku,
-* <!-- .element: class="fragment fade-in" --> <code>tellp()</code> -> informuje nas o pozycji wskaźnika odczytu zapisu,
-* <!-- .element: class="fragment fade-in" --> <code>getline()</code> -> pobiera znaki z pliku tak długo, aż nie natrafi na podany znak (domyślnie spację).
+* `is_open()`<!-- .element: class="fragment fade-in" --><span> -> sprawdza czy plik jest otwarty (zwraca bool)</span><!-- .element: class="fragment fade-in" -->,
+<!-- .element: class="fragment fade-in" -->
+* `put()`<!-- .element: class="fragment fade-in" --><span> -> zapisuje do pliku jeden znak,</span><!-- .element: class="fragment fade-in" -->
+* `get()`<!-- .element: class="fragment fade-in" --><span> -> pobiera jeden znak z pliku,</span><!-- .element: class="fragment fade-in" -->
+* `peek()`<!-- .element: class="fragment fade-in" --><span> -> odczytuje znak, ale nie przesuwa iteratora do przodu.</span><!-- .element: class="fragment fade-in" -->
+* `write()`<!-- .element: class="fragment fade-in" --><span> -> zapisuje blok danych do pliku,</span><!-- .element: class="fragment fade-in" -->
+* `read()`<!-- .element: class="fragment fade-in" --><span> -> odczytuje blok danych z pliku,</span><!-- .element: class="fragment fade-in" -->
+* `seekp()`<!-- .element: class="fragment fade-in" --><span> -> ustawia nam pozycje wskaźnika odczytu/zapisu na danej pozycji w pliku,</span><!-- .element: class="fragment fade-in" -->
+* `tellp()`<!-- .element: class="fragment fade-in" --><span> -> informuje nas o pozycji wskaźnika odczytu zapisu,</span><!-- .element: class="fragment fade-in" -->
+* `getline()`<!-- .element: class="fragment fade-in" --><span> -> pobiera znaki z pliku tak długo, aż nie natrafi na podany znak (domyślnie spację).</span><!-- .element: class="fragment fade-in" -->
 
 Wskaźnik w pliku możemy traktować tak jak migający kursor `|` w plikach tekstowych 🙂 Czyli jak piszemy sobie jakiś tekst, zawsze patrzymy, gdzie miga nam ten znaczek i wiemy gdzie modyfikujemy aktualnie plik.
 <!-- .element: class="fragment fade-in" -->
@@ -124,12 +125,12 @@ Jakie możemy nadać uprawnienia danemu plikowi?
 Pliki możemy otworzyć w trybie do odczytu (read only), w trybie do modyfikacji (write only) lub w trybie (read-write). Dodatkowo mamy możliwość ustawienia kursora podczas otwierania pliku, wymazanie całej jego zawartości jeżeli istnieje, lub utworzenie pliku jeżeli nie istnieje. Zgadnijmy co oznaczają poszczególne tryby:
 <!-- .element: class="fragment fade-in" -->
 
-* <!-- .element: class="fragment fade-in" --> <code>trunc</code> -> wymazuje wszystko w pliku co było do tej pory,
-* <!-- .element: class="fragment fade-in" --> <code>in</code> -> tryb do odczytu,
-* <!-- .element: class="fragment fade-in" --> <code>out</code> -> tryb do zapisu,
-* <!-- .element: class="fragment fade-in" --> <code>ate</code> -> ustawia <code>seek</code> na końcu pliku,
-* <!-- .element: class="fragment fade-in" --> <code>app</code> -> ustawia <code>seek</code> na końcu pliku przed zapisaniem do niego danych. Jednym słowem "doklejamy" nowe wartości na końcu pliku.
-* <!-- .element: class="fragment fade-in" --> <code>binary</code> -> zapis/odczyt w trybie binarnym.
+* `trunc`<!-- .element: class="fragment fade-in" --><span> -> wymazuje wszystko w pliku co było do tej pory,</span><!-- .element: class="fragment fade-in" -->
+* `in`<!-- .element: class="fragment fade-in" --><span> -> tryb do odczytu,</span><!-- .element: class="fragment fade-in" -->
+* `out`<!-- .element: class="fragment fade-in" --><span> -> tryb do zapisu,</span><!-- .element: class="fragment fade-in" -->
+* `ate`<!-- .element: class="fragment fade-in" --><span> -> ustawia <code>seek</code> na końcu pliku,</span><!-- .element: class="fragment fade-in" -->
+* `app`<!-- .element: class="fragment fade-in" --><span> -> ustawia <code>seek</code> na końcu pliku przed zapisaniem do niego danych. Jednym słowem "doklejamy" nowe wartości na końcu pliku.</span><!-- .element: class="fragment fade-in" -->
+* `binary`<!-- .element: class="fragment fade-in" --><span> -> zapis/odczyt w trybie binarnym.</span><!-- .element: class="fragment fade-in" -->
 
 ___
 
