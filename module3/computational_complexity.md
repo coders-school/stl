@@ -19,7 +19,9 @@ Jest to tzw. złożoność stała, która jest niezależna od liczby danych wej�
 ```C++
 int sum(std::vector<int> vec) {
     if (vec.empty())
+    if (vec.empty()) {
         return 0;
+    }
 
     return (vec.front() + vec.back()) * vec.size() / 2;
 }
@@ -85,7 +87,9 @@ std::cout << "O(logn): " << std::chrono::duration_cast<std::chrono::nanoseconds>
 start = std::chrono::high_resolution_clock::now();
 for (const auto el : vec) {
     if (el == search_num)
+    if (el == search_num) {
         break;
+    }
 }
 stop = std::chrono::high_resolution_clock::now();
 std::cout << "O(n): " << std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count() << " ns\n";
