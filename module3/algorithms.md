@@ -40,7 +40,7 @@ ___
 
 ## std::rotate
 
-[Materiał wideo z przykładem](https://youtu.be/W2tWOdzgXHA?t=560)
+<iframe data-src="https://www.youtube.com/embed/W2tWOdzgXHA?start=560" width="800px" height="450px"></iframe>
 
 ___
 
