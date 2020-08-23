@@ -6,19 +6,19 @@ ___
 
 ## Posortowane
 
-* <!-- .element: class="fragment fade-in" --> Set
-* <!-- .element: class="fragment fade-in" --> Multiset
-* <!-- .element: class="fragment fade-in" --> Map
-* <!-- .element: class="fragment fade-in" --> Multimap
-  
+* <!-- .element: class="fragment fade-in" --> <code>set</code>
+* <!-- .element: class="fragment fade-in" --> <code>multiset</code>
+* <!-- .element: class="fragment fade-in" --> <code>map</code>
+* <!-- .element: class="fragment fade-in" --> <code>multimap</code>
+
 ___
 
 ## Nieuporządkowane
 
-* <!-- .element: class="fragment fade-in" --> Unordered_set
-* <!-- .element: class="fragment fade-in" --> Unordered_multiset
-* <!-- .element: class="fragment fade-in" --> Unordered_map
-* <!-- .element: class="fragment fade-in" --> Unordered_multimap
+* <!-- .element: class="fragment fade-in" --> <code>unordered_set</code>
+* <!-- .element: class="fragment fade-in" --> <code>unordered_multiset</code>
+* <!-- .element: class="fragment fade-in" --> <code>unordered_map</code>
+* <!-- .element: class="fragment fade-in" --> <code>unordered_multimap</code>
 
 ___
 
@@ -26,14 +26,14 @@ ___
 
 Do czego możesz użyć:
 
-* <!-- .element: class="fragment fade-in" --> Set?
-* <!-- .element: class="fragment fade-in" --> Multiset?
-* <!-- .element: class="fragment fade-in" --> Map?
-* <!-- .element: class="fragment fade-in" --> Multimap?
-* <!-- .element: class="fragment fade-in" --> Unordered_set?
-* <!-- .element: class="fragment fade-in" --> Unordered_multiset?
-* <!-- .element: class="fragment fade-in" --> Unordered_map?
-* <!-- .element: class="fragment fade-in" --> Unordered_multimap?
+* <!-- .element: class="fragment fade-in" --> <code>set</code>?
+* <!-- .element: class="fragment fade-in" --> <code>multiset</code>?
+* <!-- .element: class="fragment fade-in" --> <code>map</code>?
+* <!-- .element: class="fragment fade-in" --> <code>multimap</code>?
+* <!-- .element: class="fragment fade-in" --> <code>unordered_set</code>?
+* <!-- .element: class="fragment fade-in" --> <code>unordered_multiset</code>?
+* <!-- .element: class="fragment fade-in" --> <code>unordered_map</code>?
+* <!-- .element: class="fragment fade-in" --> <code>unordered_multimap</code>?
 
 ___
 
@@ -66,9 +66,9 @@ Zalety:
 * <!-- .element: class="fragment fade-in" --> Względnie szybki czas ich dodawania i usuwania np. <code>std::vector&lt;T&gt;</code> dodaje elementy w środku w czasie <code>O(n)</code>, ale <code>std::list&lt;T&gt;</code> (jeżeli mamy podany iterator) w czasie <code>O(1)</code>. Stąd mapa jest względnie szybka zarówno w dodawaniu jak i usuwaniu.
 * <!-- .element: class="fragment fade-in" --> Idealna, gdy często poszukujemy danych, a rzadziej je dodajemy lub usuwamy.
 
-Jeżeli będziemy jej używać jako zwykłego kontenera, to stracimy na wydajności. Mapę należy sortować wtedy, kiedy faktycznie chcemy posiadać pary klucz-wartość i często je wyszukiwać. W innym przypadku możemy użyć `std::vector<pair<K, V>>` lub innego kontenera.
+Jeżeli będziemy jej używać jako zwykłego kontenera, to stracimy na wydajności. Mapę należy stosować wtedy, kiedy faktycznie chcemy posiadać pary klucz-wartość i często je wyszukiwać. W innym przypadku możemy użyć `std::vector<pair<K, V>>` lub innego kontenera.
 <!-- .element: class="fragment fade-in" -->
-  
+
 ___
 
 ## Operacje na `std::map<K, T>` i `std::multimap<K, T>`
@@ -223,10 +223,13 @@ ___
 
 ```C++
 std::vector<std::pair<int, std::string>> result;
-std::copy_if(it, end(map), std::back_inserter(result),
-                [](const auto& pair) { return pair.second.size() == 3; });
-std::for_each(begin(result), end(result),
-            [](const auto& pair) { std::cout << pair.second << '\n'; });
+std::copy_if(it,
+             end(map),
+             std::back_inserter(result),
+             [](const auto& pair) { return pair.second.size() == 3; });
+std::for_each(begin(result),
+              end(result),
+              [](const auto& pair) { std::cout << pair.second << '\n'; });
 ```
 <!-- .element: class="fragment fade-in" -->
 
@@ -255,9 +258,9 @@ Zalety:
 * <!-- .element: class="fragment fade-in" --> Względnie szybki czas ich dodawania i usuwania np. <code>std::vector&lt;T&gt;</code> dodaje elementy w środku w czasie <code>O(n)</code>, ale <code>std::list&lt;T&gt;</code> (jeżeli mamy podany iterator) w czasie <code>O(1)</code>. Stąd <code>set</code> jest względnie szybki zarówno w dodawaniu jak i usuwaniu.
 * <!-- .element: class="fragment fade-in" --> Idealny, gdy chcemy zawsze posiadać posortowane wartości.
 
-Jeżeli nie zależy nam, aby kontener był zawsze posortowany, lecz jedynie w specyficznych momentach, to może lepiej nam użyć `std::vector<T>` i sortować go, gdy przyjdzie taka potrzeba. Jeżeli też zależy nam tylko czasami na unikatowych wartościach, to możemy wtedy użyć `std::unique<T>`.
+Jeżeli nie zależy nam, aby kontener był zawsze posortowany, lecz jedynie w specyficznych momentach, to może lepiej nam użyć `std::vector<T>` i sortować go, gdy przyjdzie taka potrzeba. Jeżeli też zależy nam tylko czasami na unikatowych wartościach, to możemy wtedy użyć `std::unique()`.
 <!-- .element: class="fragment fade-in" -->
-  
+
 ___
 
 ## Operacje na `std::set<T>` i `std::multiset<T>`
@@ -316,17 +319,17 @@ ___
 ## Przykład użycia `std::multiset<T>`
 
 ```C++
-    std::multiset<int> set {5, 4, 3, 2, 1, 0, 6, 8, 7, 1, 2, 3, 4, 5, 6};
-    for (const auto el : set) {
-        std::cout << el << ' ';
-    }
-    std::cout << '\n';
+std::multiset<int> set {5, 4, 3, 2, 1, 0, 6, 8, 7, 1, 2, 3, 4, 5, 6};
+for (const auto el : set) {
+    std::cout << el << ' ';
+}
+std::cout << '\n';
 
-    std::multiset<int, std::greater<int>> set2 {5, 4, 3, 2, 1, 0, 6, 8, 7, 1, 2, 3, 4, 5, 6};
-    for (const auto el : set2) {
-        std::cout << el << ' ';
-    }
-    std::cout << '\n';
+std::multiset<int, std::greater<int>> set2 {5, 4, 3, 2, 1, 0, 6, 8, 7, 1, 2, 3, 4, 5, 6};
+for (const auto el : set2) {
+    std::cout << el << ' ';
+}
+std::cout << '\n';
 ```
 <!-- .element: class="fragment fade-in" -->
 
@@ -407,7 +410,7 @@ Zalety:
 Doskonały dla kontenerów read-only. Czas odczytu `O(1)`.
 Doskonały dla kontenerów mających dobrą funkcję mieszającą. Czas dodawania, dostępu i modyfikacji `O(1)`.
 <!-- .element: class="fragment fade-in" -->
-  
+
 ___
 
 ## Operacje na `std::unordered_set<T>` i `std::unordered_multiset<T>`
@@ -470,7 +473,7 @@ ___
 * <!-- .element: class="fragment fade-in" --> Usuń jeden z elementów,
 * <!-- .element: class="fragment fade-in" --> dodaj dodatkowy element
 * <!-- .element: class="fragment fade-in" --> Usuń elementy, według wymyślonego przez Ciebie predykatu.
-  
+
 ___
 
 ## Q&A

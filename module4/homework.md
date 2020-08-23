@@ -12,11 +12,11 @@ Napisz funkcję, która umożliwi zapisywanie nowych przepisów w pliku `recipes
 * <!-- .element: class="fragment fade-in" --> Funkcja za 1 argument przyjmuje dane w <code>std::vector&lt;std::string&gt;</code>, który zawiera kolejne kroki przepisu.
 * <!-- .element: class="fragment fade-in" --> Funkcja za 2 argument przyjmuje <code>std::list&lt;std::string&gt;</code> zawierającą nazwę składników.
 * <!-- .element: class="fragment fade-in" --> Funkcja za 3 argument przyjmuje dane w <code>std::deque&lt;std::pair&lt;size_t, char&gt;&gt;</code> zawierające informacje o ilości składnika i jego reprezentacji <code>g</code> -> gramy <code>m</code> -> mililitry, <code>s</code> -> szklanki.
-  
+
 ```C++
 bool AppendNewRecipe(std::vector<std::string> steps,
-                          const std::list<std::string>& ingredients,
-                          const std::deque<std::pair<size_t, char>>& amount);
+                     const std::list<std::string>& ingredients,
+                     const std::deque<std::pair<size_t, char>>& amount);
 ```
 <!-- .element: class="fragment fade-in" -->
 
@@ -75,7 +75,7 @@ Pomocnicze funkcje:
 
 ```C++
 std::vector<std::string> FormatIngredients(const std::list<std::string>& ingredients,
-                                          const std::deque<std::pair<size_t, char>>& amount);
+                                           const std::deque<std::pair<size_t, char>>& amount);
 ```
 <!-- .element: class="fragment fade-in" -->
 

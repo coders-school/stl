@@ -27,7 +27,7 @@ Strumień danych może pochodzić z wielu źródeł, możemy je wczytywać od u�
 * <!-- .element: class="fragment fade-in" --> <code>fstream</code> do obsługi plików,
 * <!-- .element: class="fragment fade-in" --> <code>iostream</code> do obsługi poleceń wczytywanych z klawiatury,
 * <!-- .element: class="fragment fade-in" --> <code>sstream</code> służącą do wygodnego operowania na <code>std::string</code>, tak jakby to by były strumienie danych.
-  
+
 Każda z tych 3 klas dziedziczy albo po <code>istream</code>, gdy chcemy odczytywać dane, <code>ostream</code> gdy chcemy je zapisywać lub <code>iostream</code>, gdy chcemy robić obie czynności.
 <!-- .element: class="fragment fade-in" -->
 
@@ -97,16 +97,15 @@ ___
 
 Jest to biblioteka umożliwiająca nam zapis i odczyt danych z pliku. Jest to bardzo rozbudowana biblioteka, jednak zwykle będziemy używać tylko kilka metod. Zgadnijcie proszę co mogą one robić?
 
-* `is_open()`<!-- .element: class="fragment fade-in" --><span> -> sprawdza czy plik jest otwarty (zwraca bool)</span><!-- .element: class="fragment fade-in" -->,
-<!-- .element: class="fragment fade-in" -->
-* `put()`<!-- .element: class="fragment fade-in" --><span> -> zapisuje do pliku jeden znak,</span><!-- .element: class="fragment fade-in" -->
-* `get()`<!-- .element: class="fragment fade-in" --><span> -> pobiera jeden znak z pliku,</span><!-- .element: class="fragment fade-in" -->
-* `peek()`<!-- .element: class="fragment fade-in" --><span> -> odczytuje znak, ale nie przesuwa iteratora do przodu.</span><!-- .element: class="fragment fade-in" -->
-* `write()`<!-- .element: class="fragment fade-in" --><span> -> zapisuje blok danych do pliku,</span><!-- .element: class="fragment fade-in" -->
-* `read()`<!-- .element: class="fragment fade-in" --><span> -> odczytuje blok danych z pliku,</span><!-- .element: class="fragment fade-in" -->
-* `seekp()`<!-- .element: class="fragment fade-in" --><span> -> ustawia nam pozycje wskaźnika odczytu/zapisu na danej pozycji w pliku,</span><!-- .element: class="fragment fade-in" -->
-* `tellp()`<!-- .element: class="fragment fade-in" --><span> -> informuje nas o pozycji wskaźnika odczytu zapisu,</span><!-- .element: class="fragment fade-in" -->
-* `getline()`<!-- .element: class="fragment fade-in" --><span> -> pobiera znaki z pliku tak długo, aż nie natrafi na podany znak (domyślnie spację).</span><!-- .element: class="fragment fade-in" -->
+* <!-- .element: class="fragment fade-in" --> <code>is_open()</code><span class="fragment fade-in"> -> sprawdza czy plik jest otwarty (zwraca <code>bool</co    de>)</span>
+* <!-- .element: class="fragment fade-in" --> <code>put()</code><span class="fragment fade-in"> -> zapisuje do pliku jeden znak</span>
+* <!-- .element: class="fragment fade-in" --> <code>get()</code><span class="fragment fade-in"> -> pobiera jeden znak z pliku</span>
+* <!-- .element: class="fragment fade-in" --> <code>peek()</code><span class="fragment fade-in"> -> odczytuje znak, ale nie przesuwa wskaźnika odczytu/zapisu</span>
+* <!-- .element: class="fragment fade-in" --> <code>write()</code><span class="fragment fade-in"> -> zapisuje blok danych do pliku</span>
+* <!-- .element: class="fragment fade-in" --> <code>read()</code><span class="fragment fade-in"> -> odczytuje blok danych z pliku</span>
+* <!-- .element: class="fragment fade-in" --> <code>seekp()</code><span class="fragment fade-in"> -> ustawia nam pozycje wskaźnika odczytu/zapisu na danej pozycji w pliku</span>
+* <!-- .element: class="fragment fade-in" --> <code>tellp()</code><span class="fragment fade-in"> -> informuje nas o pozycji wskaźnika odczytu zapisu</span>
+* <!-- .element: class="fragment fade-in" --> <code>getline()</code><span class="fragment fade-in"> -> pobiera znaki z pliku tak długo, aż nie natrafi na podany znak (domyślnie znak nowej linii)</span>
 
 Wskaźnik w pliku możemy traktować tak jak migający kursor `|` w plikach tekstowych 🙂 Czyli jak piszemy sobie jakiś tekst, zawsze patrzymy, gdzie miga nam ten znaczek i wiemy gdzie modyfikujemy aktualnie plik.
 <!-- .element: class="fragment fade-in" -->
@@ -118,38 +117,38 @@ ___
 
 Jakie możemy nadać uprawnienia danemu plikowi?
 
-* <!-- .element: class="fragment fade-in" --> Read,
-* <!-- .element: class="fragment fade-in" --> Write,
-* <!-- .element: class="fragment fade-in" --> Execute,
+* <!-- .element: class="fragment fade-in" --> Read
+* <!-- .element: class="fragment fade-in" --> Write
+* <!-- .element: class="fragment fade-in" --> Execute
 
 Pliki możemy otworzyć w trybie do odczytu (read only), w trybie do modyfikacji (write only) lub w trybie (read-write). Dodatkowo mamy możliwość ustawienia kursora podczas otwierania pliku, wymazanie całej jego zawartości jeżeli istnieje, lub utworzenie pliku jeżeli nie istnieje. Zgadnijmy co oznaczają poszczególne tryby:
 <!-- .element: class="fragment fade-in" -->
 
-* `trunc`<!-- .element: class="fragment fade-in" --><span> -> wymazuje wszystko w pliku co było do tej pory,</span><!-- .element: class="fragment fade-in" -->
-* `in`<!-- .element: class="fragment fade-in" --><span> -> tryb do odczytu,</span><!-- .element: class="fragment fade-in" -->
-* `out`<!-- .element: class="fragment fade-in" --><span> -> tryb do zapisu,</span><!-- .element: class="fragment fade-in" -->
-* `ate`<!-- .element: class="fragment fade-in" --><span> -> ustawia <code>seek</code> na końcu pliku,</span><!-- .element: class="fragment fade-in" -->
-* `app`<!-- .element: class="fragment fade-in" --><span> -> ustawia <code>seek</code> na końcu pliku przed zapisaniem do niego danych. Jednym słowem "doklejamy" nowe wartości na końcu pliku.</span><!-- .element: class="fragment fade-in" -->
-* `binary`<!-- .element: class="fragment fade-in" --><span> -> zapis/odczyt w trybie binarnym.</span><!-- .element: class="fragment fade-in" -->
+* <!-- .element: class="fragment fade-in" --> <code>trunc</code> <span class="fragment fade-in"> -> wymazuje wszystko w pliku co było do tej pory,</span>
+* <!-- .element: class="fragment fade-in" --> <code>in</code> <span class="fragment fade-in"> -> tryb do odczytu,</span>
+* <!-- .element: class="fragment fade-in" --> <code>out</code> <span class="fragment fade-in"> -> tryb do zapisu,</span>
+* <!-- .element: class="fragment fade-in" --> <code>ate</code> <span class="fragment fade-in"> -> ustawia <code>seek</code> na końcu pliku,</span>
+* <!-- .element: class="fragment fade-in" --> <code>app</code> <span class="fragment fade-in"> -> ustawia <code>seek</code> na końcu pliku przed zapisaniem do niego danych. Jednym słowem "doklejamy" nowe wartości na końcu pliku.</span>
+* <!-- .element: class="fragment fade-in" --> <code>binary</code> <span class="fragment fade-in"> -> zapis/odczyt w trybie binarnym.</span>
 
 ___
 
 ## Przykład zapisu dziennika pokładowego załogi statku
 
 ```C++
-// or longer -> std::ifstream::in std::ifstream::app
 std::fstream diary("Day1.txt", diary.out | diary.app);
+// or longer -> std::ifstream::out | std::ifstream::app
 if (diary.is_open()) {
     std::cout << "OPENED!\n";
     diary << "Today is my first day on ship, with my crew\n";
     diary << "I'm a little scared!\n";
-    diary << "Hope It will be marvelous adventure.\n";
+    diary << "Hope it will be a marvelous adventure.\n";
     diary.close();
 }
 ```
 <!-- .element: class="fragment fade-in" -->
 
-Plik do odczytu, dopisujący na końcu nowe dane.
+Plik do zapisu, dopisujący na końcu nowe dane.
 Ponieważ wszystko traktujemy jak strumienie, możemy również pisać do pliku używając `operatora<<`.
 <!-- .element: class="fragment fade-in" -->
 
@@ -169,14 +168,14 @@ if (diary.is_open()) {
 ```
 <!-- .element: class="fragment fade-in" -->
 
-Output: `Today is my first day on ship, with my crew I'm a little scared! Hope It will be marvelous adventure.`
+Output: `Today is my first day on ship, with my crew I'm a little scared! Hope it will be a marvelous adventure.`
 <!-- .element: class="fragment fade-in" -->
 
 ___
 
-## Getline
+## `getline()`
 
-Jeżeli chcemy odczytywać linijka po linijce, możemy użyć getline.
+Jeżeli chcemy odczytywać dane linijka po linijce, możemy użyć funkcji `getline()`.
 
 ```C++
 diary.open("Day1.txt", diary.in);
@@ -323,10 +322,10 @@ ___
 Podzielenie `std::string` na pojedyncze słowa. Niestety nie możemy tego w tak prosty sposób zrobić dla innch znaków niż spacja.
 
 ```C++
-    std::string str {"Ala ma kota, a kot ma ale, ale to nie to samo, co Sierotka ma rysia."};
-    std::istringstream iss(str);
-    std::vector<std::string> vec {std::istream_iterator<std::string>(iss), {}};
-    std::copy(begin(vec), end(vec), std::ostream_iterator<std::string>(std::cout, "\t"));
+std::string str {"Ala ma kota, a kot ma ale, ale to nie to samo, co Sierotka ma rysia."};
+std::istringstream iss(str);
+std::vector<std::string> vec {std::istream_iterator<std::string>(iss), {}};
+std::copy(begin(vec), end(vec), std::ostream_iterator<std::string>(std::cout, "\t"));
 ```
 <!-- .element: class="fragment fade-in" -->
 
