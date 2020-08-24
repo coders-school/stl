@@ -12,7 +12,7 @@ ___
 
 ## Definicja
 
-Złożoność obliczeniowa - oszacowanie czasu wykonania algorytmu. Mierzymy liczbę operacji, następnie szukamy funkcji opisującej liczbę operacji w zależności od danych wejściowych. Notacja O jest szacowaniem z góry. Ponieważ chcemy tylko przybliżyć wartość, pomijamy wszelkiego rodzaju stałe, które nie mają znaczenie przy dużych n. Zatem `Ο(2n + 5)`, `Ο(2n)` i `Ο(n)` są uznawane za złożoność obliczeniową `O(n)`.
+Złożoność obliczeniowa - oszacowanie czasu wykonania algorytmu. Mierzymy liczbę operacji, następnie szukamy funkcji opisującej liczbę operacji w zależności od danych wejściowych. Notacja `O` (dużego O) jest szacowaniem z góry. Ponieważ chcemy tylko przybliżyć wartość, pomijamy wszelkiego rodzaju stałe, które nie mają znaczenia dla dużych zbiorów danych wejściowych oznaczanych jako `n`. Zatem `Ο(2n + 5)`, `Ο(2n)` i `Ο(n)` są uznawane za złożoność obliczeniową `O(n)`.
 
 ___
 
@@ -22,7 +22,6 @@ Jest to tzw. złożoność stała, która jest niezależna od liczby danych wej�
 
 ```C++
 int sum(std::vector<int> vec) {
-    if (vec.empty())
     if (vec.empty()) {
         return 0;
     }
@@ -40,6 +39,7 @@ int main() {
 
 Output: `21`
 <!-- .element: class="fragment fade-in" -->
+
 ___
 <!-- .slide: style="font-size: 0.9em" -->
 
@@ -50,9 +50,8 @@ Wyobraźmy sobie, że szukamy numeru telefonu naszego kolegi Andrzeja. Bierzemy 
 ```C++
 std::vector<int> vec{1, 2, 3, 4, 5, 6};
 std::cout << std::boolalpha
-            << std::binary_search(begin(vec), end(vec), 2) << std::endl;
-std::cout << std::boolalpha
-            << std::binary_search(begin(vec), end(vec), 0) << std::endl;
+          << std::binary_search(begin(vec), end(vec), 2) << std::endl
+          << std::binary_search(begin(vec), end(vec), 0) << std::endl;
 ```
 <!-- .element: class="fragment fade-in" -->
 
@@ -78,8 +77,8 @@ ___
 ## Złożoność `O(n)` - przykład
 
 ```C++
-constexpr size_t samples = 1000000000;
-constexpr size_t search_num = 987654321;
+constexpr size_t samples = 1'000'000'000;
+constexpr size_t search_num = 987'654'321;
 std::vector<int> vec(samples);
 std::iota(begin(vec), end(vec), 0);
 
@@ -90,14 +89,12 @@ std::cout << "O(logn): " << std::chrono::duration_cast<std::chrono::nanoseconds>
 
 start = std::chrono::high_resolution_clock::now();
 for (const auto el : vec) {
-    if (el == search_num)
     if (el == search_num) {
         break;
     }
 }
 stop = std::chrono::high_resolution_clock::now();
 std::cout << "O(n): " << std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count() << " ns\n";
-
 ```
 
 Example Output:
@@ -105,7 +102,7 @@ Example Output:
 
 ```C++
 O(logn): 0 ns
-O(n): 6949430300 ns
+O(n): 6'949'430'300 ns
 ```
 <!-- .element: class="fragment fade-in" -->
 
@@ -121,7 +118,7 @@ ___
 ## Złożoność `O(nlog(n))` - przykład
 
 ```C++
-constexpr size_t samples = 1000000000;
+constexpr size_t samples = 1'000'000'000;
 std::vector<int> vec(samples);
 std::iota(begin(vec), end(vec), 0);
 std::random_device rd;
@@ -136,16 +133,17 @@ std::cout << "O(nlogn): " << std::chrono::duration_cast<std::chrono::nanoseconds
 ```
 <!-- .element: class="fragment fade-in" -->
 
-Possible output: `O(nlogn): 499694684900 ns`
+Possible output: `O(nlogn): 499'694'684'900 ns`
 <!-- .element: class="fragment fade-in" -->
-Previous slides output: `O(n): 6949430300 ns`
+
+Previous slides output: `O(n): 6'949'430'300 ns`
 <!-- .element: class="fragment fade-in" -->
 
 ___
 
-## Złożoność `O(n^2)`
+## Złożoność `O(n^x)`
 
-Jest to tzw. złożoność kwadratowa, której czas wykonania jest wprost proporcjonalny do kwadratu ilości danych wejściowych. Wyobraźmy sobie teraz inną sytuację. Udało nam się znaleźć numer Andrzeja i postanawiamy również zrobić psikus naszemu koledze, ale chcemy odwdzięczyć się z nawiązką. Dlatego drukujemy nową książkę telefoniczną, ale do każdego numeru dodajemy cyferkę '8' na początku numeru. Teraz nasz kolega nie dość, że musi poprawić każdą stronę `n` to jeszcze sprawdzić i poprawić każdy numer na podstawie oryginalnej książki. Taka złożoność obliczeniowa to `O(n^2)`. Przykładem złożoności `O(n^2)` jest popularne sortowanie bąbelkowe.
+Jest to tzw. złożoność wielomianowa. Jej szczególnym i bardzo częstym przypadkiem jest złożoność kwadratowa - `O(n^2), której czas wykonania jest wprost proporcjonalny do kwadratu ilości danych wejściowych. Wyobraźmy sobie teraz inną sytuację. Udało nam się znaleźć numer Andrzeja i postanawiamy również zrobić psikus naszemu koledze, ale chcemy odwdzięczyć się z nawiązką. Dlatego drukujemy nową książkę telefoniczną, ale do każdego numeru dodajemy cyferkę '8' na początku numeru. Teraz nasz kolega nie dość, że musi poprawić każdą stronę `n` to jeszcze sprawdzić i poprawić każdy numer na podstawie oryginalnej książki. Taka złożoność obliczeniowa to `O(n^2)`. Przykładem złożoności `O(n^2)` jest popularne sortowanie bąbelkowe.
 
 ___
 <!-- .slide: style="font-size: 0.7em" -->
@@ -153,7 +151,7 @@ ___
 ## Złożoność `O(n^2)` - przykład
 
 ```C++
-constexpr size_t samples = 1000000;
+constexpr size_t samples = 1'000'000;
 std::vector<int> vec(samples);
 std::iota(begin(vec), end(vec), 0);
 auto start = std::chrono::high_resolution_clock::now();
@@ -161,7 +159,7 @@ BubleSort(vec);
 auto stop = std::chrono::high_resolution_clock::now();
 std::cout << "O(n^2): " << std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count() << " ns\n";
 
-constexpr size_t samples2 = 10000000;  // size is 10 times higher.
+constexpr size_t samples2 = 10'000'000;  // size is 10 times higher.
 std::vector<int> vec2(samples2);
 std::iota(begin(vec2), end(vec2), 0);
 start = std::chrono::high_resolution_clock::noaw();
@@ -169,7 +167,7 @@ BubleSort(vec2);
 stop = std::chrono::high_resolution_clock::now();
 std::cout << "O(n^2): " << std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count() << " ns\n";
 
-constexpr size_t samples3 = 100000000;  // size is 100 times higher.
+constexpr size_t samples3 = 100'000'000;  // size is 100 times higher.
 std::vector<int> vec3(samples3);
 std::iota(begin(vec3), end(vec3), 0);
 start = std::chrono::high_resolution_clock::now();
@@ -182,9 +180,9 @@ std::cout << "O(n^2): " << std::chrono::duration_cast<std::chrono::nanoseconds>(
 Possible output:
 
 ```C++
-O(n^2): 9974800 ns
-O(n^2): 83777600 ns
-O(n^2): 810269600 ns
+O(n^2): 9'974'800 ns
+O(n^2): 83'777'600 ns
+O(n^2): 810'269'600 ns
 ```
 <!-- .element: class="fragment fade-in" -->
 
@@ -192,13 +190,13 @@ ___
 
 ## Złożoność `O(x^n)`
 
-Jest to tzw. złożoność wykładnicza, czas wykonania rośnie wykładniczo względem ilości danych wejściowych. Wyobraźmy sobie sytuację, w której nie dość, że książka zawiera błędy, które wcześniej celowo wprowadziliśmy, ale ktoś postanowił ją wydrukować w olbrzymim nakładzie i teraz musimy poprawić wszystkie książki, w których już czas poprawiania błędów wynosił `n^2`. Dla takiej kombinacji mówimy, że złożoność jest `n^n`. Czyli rośnie wykładniczo wraz ze wzrostem liczby książek (próbek). Przykładem może być algorytm DFS (deep-first graph), jeżeli danymi wejściowymi będzie macierz. Ponieważ za każdym razem musimy przejść cały rząd, aż znajdziemy interesujący nas element, więc wykonamy `n^n` kroków. Rzadko spotykane, więc jest formą ciekawostki 🙂
+Jest to tzw. złożoność wykładnicza. Czas wykonania rośnie wykładniczo względem ilości danych wejściowych. Wyobraźmy sobie sytuację, w której nie dość, że książka zawiera błędy, które wcześniej celowo wprowadziliśmy, ale ktoś postanowił ją wydrukować w olbrzymim nakładzie i teraz musimy poprawić wszystkie książki, w których już czas poprawiania błędów wynosił `n^2`. Dla takiej kombinacji mówimy, że złożoność jest `n^n`. Czyli rośnie wykładniczo wraz ze wzrostem liczby książek (próbek). Przykładem może być algorytm przeszukiwania grafu DFS (deep-first search), jeżeli danymi wejściowymi będzie macierz. Ponieważ za każdym razem musimy przejść cały rząd, aż znajdziemy interesujący nas element, więc wykonamy `n^n` kroków. Rzadko spotykane, więc jest formą ciekawostki 🙂
 
 ___
 
 ## Złożoność `O(n!)`
 
-Jest to złożoność typu silnia, czas wykonania rośnie z szybkością silni względem ilości danych wejściowych. Przykładem problemu jest problem komiwojażera, należy znaleźć najkrótszą trasę rozpoczynając od miasta A przechodzącą jednokrotnie przez wszystkie pozostałe miasta i wracającą do miasta A. Od wielu lat analitycy głowią się, jak poprawić ten algorytm. Wciąż mamy pole do popisu 🙂. Nię będę tutaj wklejał kodu, ale zainteresowanych odsyłam do wyszukania sobie algorytmu komiwojażera.
+Jest to złożoność typu silnia, czas wykonania rośnie z szybkością silni względem ilości danych wejściowych. Przykładem problemu jest problem komiwojażera z grupy algorytmów grafowych. Należy znaleźć najkrótszą trasę rozpoczynając od miasta A przechodzącą jednokrotnie przez wszystkie pozostałe miasta i wracając do miasta A. Od wielu lat analitycy głowią się, jak poprawić ten algorytm. Wciąż mamy pole do popisu 🙂. Nię będę tutaj wklejał kodu, ale zainteresowanych odsyłam do wyszukania sobie algorytmu komiwojażera.
 
 ___
 
@@ -244,11 +242,11 @@ Possible output:
 <!-- .element: class="fragment fade-in" -->
 
 ```C++
-O(n * n!): 35938300 ns
-O(n * n!): 85772000 ns
-O(n * n!): 899885600 ns
-O(n * n!): 2603326600 ns
-O(n * n!): 145608700 ns
+O(n * n!): 35'938'300 ns
+O(n * n!): 85'772'000 ns
+O(n * n!): 899'885'600 ns
+O(n * n!): 2'603'326'600 ns
+O(n * n!): 145'608'700 ns
 ```
 <!-- .element: class="fragment fade-in" -->
 

@@ -6,7 +6,7 @@ ___
 
 ## Krótka powtórka #1
 
-Iterator jest to obiekt, który wskazuje na dany element w kontenerze, w zależności od typu możemy na nim wykonywać różne operacje, np: inkrementować go `operator++`, dekrementować `operator--` lub wykonywać operacje typu `it += 6`. W celu odwołania się do wskazywanego elementu przez iterator używamy `operator*` czyli dereferencji (jak na zwykłych wskaźnikach).
+Iterator jest to obiekt, który wskazuje na dany element w kontenerze. W zależności od typu możemy na nim wykonywać różne operacje, np: inkrementować go `operator++`, dekrementować `operator--` lub wykonywać operacje typu `it += 6`. W celu odwołania się do wskazywanego elementu przez iterator używamy `operator*` czyli dereferencji (jak na zwykłych wskaźnikach).
 
 ___
 
@@ -20,7 +20,7 @@ ___
 
 ## Krótka powtórka #3
 
-Dla każdego kontenera możemy także pobrać odwrotny iterator (ang. reverse iterator) umożliwiający nam przejście wstecz przez zakres.
+Dla niektórych kontenerów możemy także pobrać odwrotny iterator (ang. reverse iterator) umożliwiający nam przejście wstecz przez zakres.
 
 <image src="img/rev_iterator.gif">
 
@@ -50,7 +50,7 @@ Pytanie, co powinno się znaleźć w miejscu `forward_iterator`?
 
 ___
 
-### "Najbiedniejszy" iterator czyli input i output
+### "Najbiedniejsze" iteratory, czyli input i output
 
 Input iterator: pochodzi np. ze strumienia `std::istream`, czyli znanego nam `std::cin`. Raz wczytane dane znikają, nie możemy ich ponownie odczytać. Mamy możliwość tylko jednorazowego przejścia przez dane. Innym słowem jak tylko odczytamy jakąś daną nasz operator od razu jest inkrementowany.
 

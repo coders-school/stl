@@ -6,7 +6,7 @@ ___
 
 ## Zadanie 1
 
-Wykorzystując `std::inner_product`, napisz program, kóry obliczy średnią arytmetyczną dwóch `std::vector<int>`.
+Wykorzystując `std::inner_product`, napisz program, który obliczy średnią arytmetyczną dwóch `std::vector<int>`.
 
 Input: `{1, 2, 3, 4}` `{1, 2, 3, 4}`
 <!-- .element: class="fragment fade-in" -->
@@ -40,7 +40,7 @@ ___
 
 ## Zadanie 2
 
-Napisz program `advanced_calculator`. Program ten powinien posiadać pętle główną, która będzie przyjmować dane od użytkownika, np. dla `5 % 3` zwrócić wynik `2`. Wszystkie komendy kalkulatora powinny być przechowywane w mapie, która jako klucz `char` w postaci znaku odwołującego się do komendy (np. `+` -> dodaj , `%` -> modulo), a jej wartością powinna być funkcja `std::function<>` będąca wraperem na wyrażenia lambda dokonujące określonej kalkulacji. Program powinien także zwracać odpowiedni error code, jeżeli użytkownik poda złe dane np. dzielenie przez 0 lub spróbuje dodać `ala + 5`.
+Napisz program `advanced_calculator`. Program ten powinien posiadać pętle główną, która będzie przyjmować dane od użytkownika. Wszystkie komendy kalkulatora powinny być przechowywane w mapie, która ma klucz `char` w postaci znaku odwołującego się do komendy (np. `+` -> dodaj , `%` -> modulo), a jej wartością powinna być funkcja `std::function<>` będąca wraperem na wyrażenia lambda dokonujące określonej kalkulacji. Program powinien także zwracać odpowiedni error code, jeżeli użytkownik poda złe dane np. dzielenie przez 0 lub spróbuje dodać `ala + 5`.
 
 Input: `5 + 5` -> operacja dodawania dwóch liczb 5 i 5 -> output: `10`.
 <!-- .element: class="fragment fade-in" -->

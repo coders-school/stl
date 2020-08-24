@@ -42,6 +42,8 @@ ___
 
 <iframe data-src="https://www.youtube.com/embed/W2tWOdzgXHA?start=560" width="800px" height="450px"></iframe>
 
+[Link do wideo](https://youtu.be/W2tWOdzgXHA?t=560)
+
 ___
 
 ## Zadanie 1
@@ -57,16 +59,14 @@ ___
 
 ```C++
 bool ChangePos(std::vector<int>& vec, int value, int new_pos) {
-    if (new_pos >= vec.size())
-    if (new_pos >= vec.size()){
+    if (new_pos >= vec.size()) {
         return false;
     }
 
     auto begin = vec.begin();
     auto end = vec.end();
     auto it = std::find(begin, end, value);
-    if (it == end)
-    if (it == end){
+    if (it == end) {
         return false;
     }
 
@@ -84,6 +84,8 @@ bool ChangePos(std::vector<int>& vec, int value, int new_pos) {
 ___
 
 ## std::stable_partition
+
+<iframe data-src="https://www.youtube.com/embed/W2tWOdzgXHA?start=798" width="800px" height="450px"></iframe>
 
 [Przykład wideo](https://youtu.be/W2tWOdzgXHA?t=798)
 
