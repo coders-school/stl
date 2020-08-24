@@ -39,7 +39,7 @@ ___
 
 ## Notacja dużego `O`
 
-<img src="https://miro.medium.com/max/1180/1*QGb8BP4vq0KB4Ee0-p2VuA.png">
+<img src="img/bigO.png">
 
 ___
 
