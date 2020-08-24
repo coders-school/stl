@@ -20,7 +20,7 @@ ___
 
 Następnie wykorzystując `std::inner_product`, napisz funkcję, która obliczy odległość między 2 punktami dla n wymiarów.
 
-Metrykę euklidesową w przestrzeni definujemy:
+Metrykę euklidesową w przestrzeni definiujemy:
 <!-- .element: class="fragment fade-in" -->
 
 ```tex
@@ -52,11 +52,11 @@ ___
 
 ### Funkcje kalkulatora
 
-* <!-- .element: class="fragment fade-in" --> Dodawanie, mnożenie, dzielenie, odejmowanie, (+, *, /, -),
-* <!-- .element: class="fragment fade-in" --> Modulo (%),
-* <!-- .element: class="fragment fade-in" --> Obliczanie silni (!),
-* <!-- .element: class="fragment fade-in" --> Podnoszenie liczby do potęgi (^),
-* <!-- .element: class="fragment fade-in" --> Obliczanie pierwiastka ($).
+* <!-- .element: class="fragment fade-in" --> Dodawanie, mnożenie, dzielenie, odejmowanie, (<code>+</code>, <code>*</code>, <code>/</code>, <code>-</code>),
+* <!-- .element: class="fragment fade-in" --> Modulo (<code>%</code>),
+* <!-- .element: class="fragment fade-in" --> Obliczanie silni (<code>!</code>),
+* <!-- .element: class="fragment fade-in" --> Podnoszenie liczby do potęgi (<code>^</code>),
+* <!-- .element: class="fragment fade-in" --> Obliczanie pierwiastka (<code>$</code>).
   
 ___
 

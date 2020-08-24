@@ -14,7 +14,7 @@ ___
 
 Każdy kontener ma 2 końce. Na jeden z nich wskazuje `begin()`, a na drugi `end()`.
 
-<image src="http://i.stack.imgur.com/oa3EQ.png">
+<image src="img/iterator.png">
 
 ___
 
@@ -22,7 +22,7 @@ ___
 
 Dla każdego kontenera możemy także pobrać odwrotny iterator (ang. reverse iterator) umożliwiający nam przejście wstecz przez zakres.
 
-<image src="https://twimgs.com/ddj/cuj/images/cuj0106smeyers/diagram2.gif">
+<image src="img/rev_iterator.gif">
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 ## Hierarhia iteratorów
 
-<image src="https://tr1.cbsistatic.com/hub/i/2015/06/03/fb4d1b31-098c-11e5-940f-14feb5cc3d2a/u00220020606KXS01_02.gif" height="350px">
+<image src="img/iterator_categories.gif" height="350px">
 
 Pytanie, co powinno się znaleźć w miejscu `forward_iterator`?
 <!-- .element: class="fragment fade-in" -->
@@ -154,7 +154,7 @@ ___
 
 ### Random Access iterator
 
-Jest to iterator, który umożliwia nam wielokronte przejście danego zakresu w obie strony (w przód i tył), a także dostęp do dowolnego obiektu.
+Jest to iterator, który umożliwia nam wielokrotne przejście danego zakresu w obie strony (w przód i tył), a także dostęp do dowolnego obiektu.
 
 ```C++
 std::vec<int> vec{1, 2, 3, 4, 5};
