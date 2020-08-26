@@ -1,0 +1,36 @@
+name: Module 3 homework
+
+on: [push, pull_request]
+
+jobs:
+  advanced_calculator:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out code
+      uses: actions/checkout@master
+    - name: mkdir module3/homework/advanced_calculator/build
+      run: mkdir module3/homework/advanced_calculator/build
+    - name: Compile
+      working-directory: module3/homework/advanced_calculator/build
+      run: |
+        cmake ..
+        make
+    - name: Run tests
+      working-directory: module3/homework/advanced_calculator/build
+      run: ctest -V
+
+  inner_product:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out code
+      uses: actions/checkout@master
+    - name: mkdir module3/homework/inner_product/build
+      run: mkdir module3/homework/inner_product/build
+    - name: Compile
+      working-directory: module3/homework/inner_product/build
+      run: |
+        cmake ..
+        make
+    - name: Run tests
+      working-directory: module3/homework/inner_product/build
+      run: ctest -V
