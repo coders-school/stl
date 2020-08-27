@@ -35,12 +35,15 @@ int main() {
     return 0;
 }
 ```
+
 <!-- .element: class="fragment fade-in" -->
 
 Output: `21`
+
 <!-- .element: class="fragment fade-in" -->
 
 ___
+
 <!-- .slide: style="font-size: 0.9em" -->
 
 ## Złożoność `O(logn)`
@@ -53,15 +56,18 @@ std::cout << std::boolalpha
           << std::binary_search(begin(vec), end(vec), 2) << std::endl
           << std::binary_search(begin(vec), end(vec), 0) << std::endl;
 ```
+
 <!-- .element: class="fragment fade-in" -->
 
 Output:
+
 <!-- .element: class="fragment fade-in" -->
 
 ```C++
 true
 false
 ```
+
 <!-- .element: class="fragment fade-in" -->
 
 ___
@@ -71,7 +77,9 @@ ___
 Wyobraźmy sobie teraz sytuację, że w książce adresowej szukamy numeru Żanety. Jednak nie będziemy teraz przeszukiwać binarnie, tylko sprawdzimy ile zajmie nam to, gdy będziemy szukać osoba po osobie. Więc zaczynamy od litery A i 4 dni później znajdujemy w końcu numer Żanety 🙂. Taka złożoność, gdzie sprawdzamy po kolei każdy element jest złożonością `O(n)`.
 
 <!-- brak miejsca - dzielę na dwa -->
+
 ___
+
 <!-- .slide: style="font-size: 0.85em" -->
 
 ## Złożoność `O(n)` - przykład
@@ -98,12 +106,14 @@ std::cout << "O(n): " << std::chrono::duration_cast<std::chrono::nanoseconds>(st
 ```
 
 Example Output:
+
 <!-- .element: class="fragment fade-in" -->
 
 ```C++
 O(logn): 0 ns
 O(n): 6'949'430'300 ns
 ```
+
 <!-- .element: class="fragment fade-in" -->
 
 ___
@@ -131,12 +141,15 @@ std::sort(begin(vec), end(vec));
 auto stop = std::chrono::high_resolution_clock::now();
 std::cout << "O(nlogn): " << std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count() << " ns\n";
 ```
+
 <!-- .element: class="fragment fade-in" -->
 
 Possible output: `O(nlogn): 499'694'684'900 ns`
+
 <!-- .element: class="fragment fade-in" -->
 
 Previous slides output: `O(n): 6'949'430'300 ns`
+
 <!-- .element: class="fragment fade-in" -->
 
 ___
@@ -146,6 +159,7 @@ ___
 Jest to tzw. złożoność wielomianowa. Jej szczególnym i bardzo częstym przypadkiem jest złożoność kwadratowa - `O(n^2)`, której czas wykonania jest wprost proporcjonalny do kwadratu ilości danych wejściowych. Wyobraźmy sobie teraz inną sytuację. Udało nam się znaleźć numer Andrzeja i postanawiamy również zrobić psikus naszemu koledze, ale chcemy odwdzięczyć się z nawiązką. Dlatego drukujemy nową książkę telefoniczną, ale do każdego numeru dodajemy cyferkę '8' na początku numeru. Teraz nasz kolega nie dość, że musi poprawić każdą stronę `n` to jeszcze sprawdzić i poprawić każdy numer na podstawie oryginalnej książki. Taka złożoność obliczeniowa to `O(n^2)`. Przykładem złożoności `O(n^2)` jest popularne sortowanie bąbelkowe.
 
 ___
+
 <!-- .slide: style="font-size: 0.7em" -->
 
 ## Złożoność `O(n^2)` - przykład
@@ -175,6 +189,7 @@ BubleSort(vec3);
 stop = std::chrono::high_resolution_clock::now();
 std::cout << "O(n^2): " << std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count() << " ns\n";
 ```
+
 <!-- .element: class="fragment fade-in" -->
 
 Possible output:
@@ -184,6 +199,7 @@ O(n^2): 9'974'800 ns
 O(n^2): 83'777'600 ns
 O(n^2): 810'269'600 ns
 ```
+
 <!-- .element: class="fragment fade-in" -->
 
 ___
@@ -204,12 +220,13 @@ ___
 
 Jeden z najgorszych scenariuszy jaki możemy wykonać dla algorytmu. Wyobraźmy sobie sytuację, że nasz kolega postanowił pokazać nam, że nie warto z nim zadzierać i skarży się waszemu przełożonemu, że namieszaliście w książce telefonicznej. Teraz za karę musicie napisać program do robota układającego książki na półkach waszego kolegi w kolejności alfabetycznej. Jednak Wy postanawiacie zrobić mu kolejny (najgorszy) psikus, i piszecie robota, który będzie układał książki losowo, a następnie sprawdzał, czy może udało się je ułożyć poprawnie a jak nie, to ponownie je ściągał i znów układał na nowo. W ten sposób robot będzie układał książki kilka tygodni lub miesięcy, lecz w końcu mu się to uda 🙂
 
-W ten sposób napisaliśmy idealnie nieoptymalny algorytm sortowania o złożoności `O(n * n)!`. Przykładem takiego sortowania jest bogosort.
+W ten sposób napisaliśmy idealnie nieoptymalny algorytm sortowania o złożoności `O(n * n!)`. Przykładem takiego sortowania jest bogosort.
 
 ___
+
 <!-- .slide: style="font-size: 0.65em" -->
 
-## Złożoność `O(n * !n)` Przykład
+## Złożoność `O(n * n!)` Przykład
 
 ```C++
 std::random_device rd;
@@ -236,9 +253,11 @@ int main() {
     return 0;
 }
 ```
+
 <!-- .element: class="fragment fade-in" -->
 
 Possible output:
+
 <!-- .element: class="fragment fade-in" -->
 
 ```C++
@@ -248,6 +267,7 @@ O(n * n!): 899'885'600 ns
 O(n * n!): 2'603'326'600 ns
 O(n * n!): 145'608'700 ns
 ```
+
 <!-- .element: class="fragment fade-in" -->
 
 ___
