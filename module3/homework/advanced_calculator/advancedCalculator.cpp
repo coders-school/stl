@@ -31,6 +31,10 @@ bool checkCharacters(const std::string& input) {
     });
 }
 
+bool checkIfNumberIsFloat(const std::string& num) {
+    return stoi(num) != stod(num);
+}
+
 ErrorCode process(std::string input, double* out) {
     if (checkCharacters(input)) {
         return ErrorCode::BadCharacter;
@@ -45,7 +49,7 @@ ErrorCode process(std::string input, double* out) {
         } else if (match[1] == input) {
             if (match[3] == "/" && stod(match[4]) == 0.0) {
                 return ErrorCode::DivideBy0;
-            } else if (match[3] == "%" && (stoi(match[2]) != stod(match[2]) || stoi(match[4]) != stod(match[4]))) {
+            } else if (match[3] == "%" && (checkIfNumberIsFloat(match[2]) || checkIfNumberIsFloat(match[4]))) {
                 return ErrorCode::ModuleOfNonIntegerValue;
             } else if (match[3] == "$" && stod(match[2]) < 0) {
                 return ErrorCode::SqrtOfNagativeNumber;
