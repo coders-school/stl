@@ -38,7 +38,7 @@ ErrorCode process(std::string input, double* out) {
     if (std::regex_search(input, match, commandRegex)) {
         if (match[0] != input) {
             return ErrorCode::BadFormat;
-        } else if (match[1] == input && stod(match[4]) == 0.0) {
+        } else if (match[1] == input && match[3] == "/" && stod(match[4]) == 0.0) {
             return ErrorCode::DivideBy0;
         }
         return ErrorCode::OK;
