@@ -1,5 +1,7 @@
 #include "advancedCalculator.hpp"
 
+#include <algorithm>
+#include <cctype>
 #include <cmath>
 #include <functional>
 #include <map>
@@ -14,13 +16,32 @@ std::map<char, std::function<double(double, double)>> commands{{'+', std::plus<d
                                                                {'$', [](double num, double root) { return pow(num, 1.0 / root); }},
                                                                {'!', [](double num, double whatever = 0.0) { return tgamma(num + 1.0); }}};
 
-ErrorCode process(std::string input, double* out) {
-    const std::regex commandRegex(R"((([-]?\d+[.]*\d*)[ ]*([+\-*\/$^])[ ]*([-]?\d+[.]*\d*))|(([-]?\d+[.]*\d*)[ ]*([!])))");
-    std::smatch m;
+void exportKeys(std::string& operators) {
+    for (const auto& el : commands) {
+        operators.push_back(el.first);
+    }
+}
 
-    if (std::regex_match(input, m, commandRegex)) {
-        return ErrorCode::OK;
+ErrorCode process(std::string input, double* out) {
+    std::string operators{" ,."};
+    exportKeys(operators);
+
+    if (std::any_of(input.cbegin(), input.cend(), [&operators](char letter) {
+            return std::find(operators.cbegin(), operators.cend(), letter) == operators.cend() && !isdigit(letter);
+        })) {
+        return ErrorCode::BadCharacter;
     }
 
-    return ErrorCode::BadCharacter;
+    const std::regex commandRegex(R"((([-]?\d+[.]*\d*)[ ]*([+\-*\/$^])[ ]*([-]?\d+[.]*\d*))|(([-]?\d+[.]*\d*)[ ]*!))");
+    std::smatch m;
+
+    if (std::regex_search(input, m, commandRegex)) {
+        if (m[0] != input) {
+            return ErrorCode::BadFormat;
+        } else if (m[1] == input && stod(m[4]) == 0.0) {
+            return ErrorCode::DivideBy0;
+        }
+        return ErrorCode::OK;
+    }
+    return ErrorCode::BadFormat;
 }
