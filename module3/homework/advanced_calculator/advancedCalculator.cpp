@@ -36,7 +36,7 @@ ErrorCode process(std::string input, double* out) {
         return ErrorCode::BadCharacter;
     }
 
-    const std::regex commandRegex(R"((([-]?\d+[.]*\d*)[ ]*([+\-*\/$^])[ ]*([-]?\d+[.]*\d*))|(([-]?\d+[.]*\d*)[ ]*!))");
+    const std::regex commandRegex(R"((([-]?\d+[.]*\d*)[ ]*([+\-*\/$^%])[ ]*([-]?\d+[.]*\d*))|(([-]?\d+[.]*\d*)[ ]*!))");
     std::smatch match;
 
     if (std::regex_search(input, match, commandRegex)) {
@@ -45,6 +45,8 @@ ErrorCode process(std::string input, double* out) {
         } else if (match[1] == input) {
             if (match[3] == "/" && stod(match[4]) == 0.0) {
                 return ErrorCode::DivideBy0;
+            } else if (match[3] == "%" && (stoi(match[1]) != stod(match[1]) || stoi(match[4]) != stod(match[4]))) {
+                return ErrorCode::ModuleOfNonIntegerValue;
             }
         }
         return ErrorCode::OK;
