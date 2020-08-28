@@ -22,13 +22,17 @@ void exportKeys(std::string& operators) {
     }
 }
 
-ErrorCode process(std::string input, double* out) {
-    std::string operators{" ,."};
-    exportKeys(operators);
+bool checkCharacters(const std::string& input) {
+    std::string allowedSigns{" ,."};
+    exportKeys(allowedSigns);
 
-    if (std::any_of(input.cbegin(), input.cend(), [&operators](char letter) {
-            return std::find(operators.cbegin(), operators.cend(), letter) == operators.cend() && !isdigit(letter);
-        })) {
+    return std::any_of(input.cbegin(), input.cend(), [&allowedSigns](char letter) {
+        return std::find(allowedSigns.cbegin(), allowedSigns.cend(), letter) == allowedSigns.cend() && !isdigit(letter);
+    });
+}
+
+ErrorCode process(std::string input, double* out) {
+    if (checkCharacters(input)) {
         return ErrorCode::BadCharacter;
     }
 
@@ -38,8 +42,10 @@ ErrorCode process(std::string input, double* out) {
     if (std::regex_search(input, match, commandRegex)) {
         if (match[0] != input) {
             return ErrorCode::BadFormat;
-        } else if (match[1] == input && match[3] == "/" && stod(match[4]) == 0.0) {
-            return ErrorCode::DivideBy0;
+        } else if (match[1] == input) {
+            if (match[3] == "/" && stod(match[4]) == 0.0) {
+                return ErrorCode::DivideBy0;
+            }
         }
         return ErrorCode::OK;
     }
