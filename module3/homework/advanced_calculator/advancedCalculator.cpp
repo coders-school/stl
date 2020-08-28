@@ -7,18 +7,18 @@
 #include <map>
 #include <regex>
 
-std::map<char, std::function<double(double, double)>> commands{{'+', std::plus<double>()},
-                                                               {'-', std::minus<double>()},
-                                                               {'*', std::multiplies<double>()},
-                                                               {'/', std::divides<double>()},
-                                                               {'%', std::modulus<int>()},
-                                                               {'^', [](double base, double exponent) { return pow(base, exponent); }},
-                                                               {'$', [](double num, double root) { return pow(num, 1.0 / root); }},
-                                                               {'!', [](double num, double whatever = 0.0) { return tgamma(num + 1.0); }}};
+std::map<std::string, std::function<double(double, double)>> commands{{"+", std::plus<double>()},
+                                                                      {"-", std::minus<double>()},
+                                                                      {"*", std::multiplies<double>()},
+                                                                      {"/", std::divides<double>()},
+                                                                      {"%", std::modulus<int>()},
+                                                                      {"^", [](double base, double exponent) { return pow(base, exponent); }},
+                                                                      {"$", [](double num, double root) { return pow(num, 1.0 / root); }},
+                                                                      {"!", [](double num, double whatever = 0.0) { return tgamma(num + 1.0); }}};
 
 void exportKeys(std::string& operators) {
     for (const auto& el : commands) {
-        operators.push_back(el.first);
+        operators.append(el.first);
     }
 }
 
@@ -54,7 +54,12 @@ ErrorCode process(std::string input, double* out) {
             } else if (match[3] == "$" && stod(match[2]) < 0) {
                 return ErrorCode::SqrtOfNagativeNumber;
             }
+
+            *out = commands[match[3]](stod(match[2]), stod(match[4]));
+            return ErrorCode::OK;
         }
+
+        *out = commands["!"](stod(match[6]), 0.0);
         return ErrorCode::OK;
     }
     return ErrorCode::BadFormat;
