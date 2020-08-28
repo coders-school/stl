@@ -47,6 +47,8 @@ ErrorCode process(std::string input, double* out) {
                 return ErrorCode::DivideBy0;
             } else if (match[3] == "%" && (stoi(match[1]) != stod(match[1]) || stoi(match[4]) != stod(match[4]))) {
                 return ErrorCode::ModuleOfNonIntegerValue;
+            } else if (match[3] == "$" && stod(match[1]) < 0) {
+                return ErrorCode::SqrtOfNagativeNumber;
             }
         }
         return ErrorCode::OK;
