@@ -33,12 +33,12 @@ ErrorCode process(std::string input, double* out) {
     }
 
     const std::regex commandRegex(R"((([-]?\d+[.]*\d*)[ ]*([+\-*\/$^])[ ]*([-]?\d+[.]*\d*))|(([-]?\d+[.]*\d*)[ ]*!))");
-    std::smatch m;
+    std::smatch match;
 
-    if (std::regex_search(input, m, commandRegex)) {
-        if (m[0] != input) {
+    if (std::regex_search(input, match, commandRegex)) {
+        if (match[0] != input) {
             return ErrorCode::BadFormat;
-        } else if (m[1] == input && stod(m[4]) == 0.0) {
+        } else if (match[1] == input && stod(match[4]) == 0.0) {
             return ErrorCode::DivideBy0;
         }
         return ErrorCode::OK;
