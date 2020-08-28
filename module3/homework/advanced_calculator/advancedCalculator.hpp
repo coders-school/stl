@@ -9,4 +9,4 @@ enum class ErrorCode { OK,
                        SqrtOfNagativeNumber,
                        ModuleOfNonIntegerValue };
 
-ErrorCode process(const std::string& input, double* out);
+ErrorCode process(std::string input, double* out);
