@@ -14,7 +14,12 @@ std::map<std::string, std::function<double(double, double)>> commands{{"+", std:
                                                                       {"%", std::modulus<int>()},
                                                                       {"^", [](double base, double exponent) { return pow(base, exponent); }},
                                                                       {"$", [](double num, double root) { return pow(num, 1.0 / root); }},
-                                                                      {"!", [](double num, double whatever = 0.0) { return tgamma(num + 1.0); }}};
+                                                                      {"!", [](double num, double whatever = 0.0) {
+                                                                           if (num < 0.0) {
+                                                                               return 1.0;
+                                                                           }
+                                                                           return tgamma(num + 1.0);
+                                                                       }}};
 
 void exportKeys(std::string& operators) {
     for (const auto& el : commands) {
