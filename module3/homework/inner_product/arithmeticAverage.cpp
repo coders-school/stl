@@ -1,5 +1,6 @@
 #include "arithmeticAverage.hpp"
 
+#include <cmath>
 #include <functional>
 #include <numeric>
 
@@ -9,5 +10,6 @@ double ArithmeticAverage(const std::vector<int>& first, const std::vector<int>& 
 }
 
 double Distance(const std::vector<int>& first, const std::vector<int>& second) {
-    return 0.0;
+    return sqrt(std::inner_product(first.cbegin(), first.cend(), second.begin(), 0.0, std::plus<>(),
+                                   [](auto lhs, auto rhs) { return pow(lhs - rhs, 2); }));
 }
