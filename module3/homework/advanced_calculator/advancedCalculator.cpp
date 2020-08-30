@@ -13,13 +13,7 @@ std::map<std::string, std::function<double(double, double)>> commands{{"+", std:
                                                                       {"/", std::divides<double>()},
                                                                       {"%", std::modulus<int>()},
                                                                       {"^", [](double base, double exponent) { return pow(base, exponent); }},
-                                                                      {"$", [](double num, double root) { return pow(num, 1.0 / root); }},
-                                                                      {"!", [](double num, double whatever = 0.0) {
-                                                                           if (num < 0.0) {
-                                                                               return 1.0;
-                                                                           }
-                                                                           return tgamma(num + 1.0);
-                                                                       }}};
+                                                                      {"$", [](double num, double root) { return pow(num, 1.0 / root); }}};
 
 void exportKeys(std::string& operators) {
     for (const auto& el : commands) {
@@ -28,7 +22,7 @@ void exportKeys(std::string& operators) {
 }
 
 bool checkCharacters(const std::string& input) {
-    std::string allowedSigns{" ,."};
+    std::string allowedSigns{" ,.!"};
     exportKeys(allowedSigns);
 
     return std::any_of(input.cbegin(), input.cend(), [&allowedSigns](char letter) {
@@ -38,6 +32,14 @@ bool checkCharacters(const std::string& input) {
 
 bool checkIfNumberIsFloat(const std::string& num) {
     return stoi(num) != stod(num);
+}
+
+double factorial(double num) {
+    if (num <= 0.0) {
+        return 1.0;
+    }
+
+    return tgamma(num + 1.0);
 }
 
 ErrorCode process(std::string input, double* out) {
@@ -64,7 +66,7 @@ ErrorCode process(std::string input, double* out) {
             return ErrorCode::OK;
         }
 
-        *out = commands["!"](stod(match[6]), 0.0);
+        *out = factorial(stod(match[6]));
         return ErrorCode::OK;
     }
     return ErrorCode::BadFormat;
