@@ -37,7 +37,7 @@ Jeżeli nie chcemy modyfikować danych wskazywanych przez iterator zastosujemy o
 
 ___
 
-## Hierarhia iteratorów
+## Hierarchia iteratorów
 
 <image src="img/iterator_categories.gif" height="350px">
 
