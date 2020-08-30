@@ -89,7 +89,7 @@ Input iterator:
 Output iterator:
 <!-- .element: class="fragment fade-in" -->
 
-* <!-- .element: class="fragment fade-in" --> <code>operator()++</code>
+* <!-- .element: class="fragment fade-in" --> <code>operator++</code>
 * <!-- .element: class="fragment fade-in" --> <code>operator*</code>
 
 ___
