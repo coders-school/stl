@@ -1,7 +1,7 @@
 #include "arithmeticAverage.hpp"
 
 #include <algorithm>
-#include <iostream>
+#include <cmath>
 #include <numeric>
 
 double ArithmeticAverage(std::vector<int> first, std::vector<int> second) {
@@ -10,7 +10,8 @@ double ArithmeticAverage(std::vector<int> first, std::vector<int> second) {
 }
 
 double Distance(std::vector<int> first, std::vector<int> second) {
-    double distance;
-
-    return distance;
+    return sqrt(std::inner_product(first.begin(), first.end(), second.begin(), 0.0, std::plus<>(),
+                                   [](auto& el1, auto& el2) {
+                                       return pow(el1 - el2, 2);
+                                       }));
 }
