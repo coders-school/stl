@@ -188,8 +188,8 @@ TEST(advancedCalculatorTest, ShouldReturnModuleOfNonIntegerValue) {
 TEST(advancedCalculatorTest, ShouldReturnSqrtOfNagativeNumber) {
     double result = 0;
 
-    ASSERT_EQ(process("-123 $ -1", &result), ErrorCode::SqrtOfNagativeNumber);
-    ASSERT_EQ(process("-123.4 $ -1", &result), ErrorCode::SqrtOfNagativeNumber);
-    ASSERT_EQ(process("-123.2 $ 1", &result), ErrorCode::SqrtOfNagativeNumber);
-    ASSERT_EQ(process("-123 $ 1", &result), ErrorCode::SqrtOfNagativeNumber);
+    ASSERT_EQ(process("-123 $ -1", &result), ErrorCode::SqrtOfNegativeNumber);
+    ASSERT_EQ(process("-123.4 $ -1", &result), ErrorCode::SqrtOfNegativeNumber);
+    ASSERT_EQ(process("-123.2 $ 1", &result), ErrorCode::SqrtOfNegativeNumber);
+    ASSERT_EQ(process("-123 $ 1", &result), ErrorCode::SqrtOfNegativeNumber);
 }
