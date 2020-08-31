@@ -1,4 +1,4 @@
-name: Module 1 homework
+name: C++ with CMake CI
 
 on: [push, pull_request]
 

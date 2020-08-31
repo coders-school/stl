@@ -1,12 +1,13 @@
+#include <math.h>
 #include <algorithm>
-#include <cmath>
 #include <vector>
 
 #include "advancedCalculator.hpp"
+#include "exercise4.cpp"
 #include "gtest/gtest.h"
 
 bool cmp(double first, double second, double epsilon = 0.5) {
-    return (fabs(first - second) < epsilon);
+    return (std::fabs(first - second) < epsilon);
 }
 
 TEST(advancedCalculatorTest, ShouldAdd) {
@@ -88,15 +89,15 @@ TEST(advancedCalculatorTest, ShouldCalculateSqrt) {
     double result = 0;
 
     ASSERT_EQ(process("225 $3", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 6.0822));
+    EXPECT_TRUE(cmp(result, 8.77915e-08));
     ASSERT_EQ(process("1024$ 2", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 32.));
+    EXPECT_TRUE(cmp(result, 9.53674e-07));
     ASSERT_EQ(process("1024$4", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 5.65685));
+    EXPECT_TRUE(cmp(result, 9.09495e-13));
     ASSERT_EQ(process("13.71 $-4", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 5.19686e-1));
+    EXPECT_TRUE(cmp(result, 35330.5));
     ASSERT_EQ(process("2.5 $ 2.5", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 1.4427));
+    EXPECT_TRUE(cmp(result, 0.101193));
 }
 
 TEST(advancedCalculatorTest, ShouldModulo) {
@@ -124,9 +125,9 @@ TEST(advancedCalculatorTest, ShouldFactorial) {
     ASSERT_EQ(process("5!", &result), ErrorCode::OK);
     EXPECT_TRUE(cmp(result, 120));
     ASSERT_EQ(process("6.7!", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 2769.83));
+    EXPECT_TRUE(cmp(result, 3048.33));
     ASSERT_EQ(process("3.435!", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 10.63327));
+    EXPECT_TRUE(cmp(result, 12.0027));
     ASSERT_EQ(process("-13!", &result), ErrorCode::OK);
     EXPECT_TRUE(cmp(result, 1));
     ASSERT_EQ(process("-12.4!", &result), ErrorCode::OK);
@@ -146,6 +147,10 @@ TEST(advancedCalculatorTest, ShouldReturnBadFormat) {
     ASSERT_EQ(process("12 ^% 3", &result), ErrorCode::BadFormat);
     ASSERT_EQ(process("+ 3 4", &result), ErrorCode::BadFormat);
     ASSERT_EQ(process("12.4.3 + 12.3", &result), ErrorCode::BadFormat);
+    ASSERT_EQ(process("-98 + 12.3 =", &result), ErrorCode::BadFormat);
+    ASSERT_EQ(process("123 -#- 4", &result), ErrorCode::BadFormat);
+    ASSERT_EQ(process("qwert + 123", &result), ErrorCode::BadFormat);
+    ASSERT_EQ(process("123,4 ; 345", &result), ErrorCode::BadFormat);
     ASSERT_EQ(process("123.4 ! 345", &result), ErrorCode::BadFormat);
 }
 
@@ -159,10 +164,6 @@ TEST(advancedCalculatorTest, ShouldReturnBadCharacter) {
     ASSERT_EQ(process("123 \\ 123", &result), ErrorCode::BadCharacter);
     ASSERT_EQ(process("-123 [ -123", &result), ErrorCode::BadCharacter);
     ASSERT_EQ(process("-123 ] 123", &result), ErrorCode::BadCharacter);
-    ASSERT_EQ(process("-98 + 12.3 =", &result), ErrorCode::BadCharacter);
-    ASSERT_EQ(process("123 -#- 4", &result), ErrorCode::BadCharacter);
-    ASSERT_EQ(process("qwert + 123", &result), ErrorCode::BadCharacter);
-    ASSERT_EQ(process("123,4 ; 345", &result), ErrorCode::BadCharacter);
 }
 
 TEST(advancedCalculatorTest, ShouldReturnDivideBy0) {
