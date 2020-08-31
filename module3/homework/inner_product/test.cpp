@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include <vector>
 
 #include "arithmeticAverage.hpp"
@@ -11,6 +13,8 @@ TEST(arithmeticAverageTest, ShouldCalculateArithmeticAverage) {
     std::vector<int> first{-5, 4, 2, -5, 2, 4, 6, 7};
     std::vector<int> second{3, 5, -2, 6, 7, -3, 6, 9};
     EXPECT_TRUE(cmp(ArithmeticAverage(first, second), 2.875));
+    EXPECT_TRUE(cmp(ArithmeticAverage({1, 2, 3, 4}, {1, 2, 3, 4}), 2.5));
+    EXPECT_TRUE(cmp(ArithmeticAverage({1, 2, 3}, {1, 2, 3}), 2));
     // Write more test case
 }
 

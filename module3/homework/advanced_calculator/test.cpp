@@ -1,8 +1,10 @@
+#include <math.h>
+
 #include <algorithm>
 #include <vector>
 
 #include "advancedCalculator.hpp"
-#include "exercise4.cpp"
+// #include "exercise4.cpp"
 #include "gtest/gtest.h"
 
 bool cmp(double first, double second, double epsilon = 0.5) {
@@ -185,11 +187,11 @@ TEST(advancedCalculatorTest, ShouldReturnModuleOfNonIntegerValue) {
     ASSERT_EQ(process("123.1 % 0.1", &result), ErrorCode::ModuleOfNonIntegerValue);
 }
 
-TEST(advancedCalculatorTest, ShouldReturnSqrtOfNagativeNumber) {
+TEST(advancedCalculatorTest, ShouldReturnSqrtOfNegativeNumber) {
     double result = 0;
 
-    ASSERT_EQ(process("-123 $ -1", &result), ErrorCode::SqrtOfNagativeNumber);
-    ASSERT_EQ(process("-123.4 $ -1", &result), ErrorCode::SqrtOfNagativeNumber);
-    ASSERT_EQ(process("-123.2 $ 1", &result), ErrorCode::SqrtOfNagativeNumber);
-    ASSERT_EQ(process("-123 $ 1", &result), ErrorCode::SqrtOfNagativeNumber);
+    ASSERT_EQ(process("-123 $ -1", &result), ErrorCode::SqrtOfNegativeNumber);
+    ASSERT_EQ(process("-123.4 $ -1", &result), ErrorCode::SqrtOfNegativeNumber);
+    ASSERT_EQ(process("-123.2 $ 1", &result), ErrorCode::SqrtOfNegativeNumber);
+    ASSERT_EQ(process("-123 $ 1", &result), ErrorCode::SqrtOfNegativeNumber);
 }
