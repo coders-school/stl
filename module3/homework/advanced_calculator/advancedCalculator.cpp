@@ -59,7 +59,7 @@ ErrorCode process(std::string input, double* out) {
             } else if (match[3] == "%" && (isNumFloat(match[2]) || isNumFloat(match[4]))) {
                 return ErrorCode::ModuleOfNonIntegerValue;
             } else if (match[3] == "$" && stod(match[2]) < 0) {
-                return ErrorCode::SqrtOfNagativeNumber;
+                return ErrorCode::SqrtOfNegativeNumber;
             }
 
             *out = commands.at(match[3])(stod(match[2]), stod(match[4]));

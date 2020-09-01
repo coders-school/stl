@@ -19,7 +19,7 @@ void calculate(const std::string& input) {
     case ErrorCode::DivideBy0:
         std::cout << "Error!!! Divide by 0\n";
         break;
-    case ErrorCode::SqrtOfNagativeNumber:
+    case ErrorCode::SqrtOfNegativeNumber:
         std::cout << "Error!!! Square root of negative number\n";
         break;
     case ErrorCode::ModuleOfNonIntegerValue:

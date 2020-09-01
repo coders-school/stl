@@ -6,7 +6,7 @@ enum class ErrorCode { OK,
                        BadCharacter,
                        BadFormat,
                        DivideBy0,
-                       SqrtOfNagativeNumber,
+                       SqrtOfNegativeNumber,
                        ModuleOfNonIntegerValue };
 
 ErrorCode process(std::string input, double* out);
