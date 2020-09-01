@@ -8,12 +8,12 @@
 #include <regex>
 
 const std::map<std::string, std::function<double(double, double)>> commands{{"+", std::plus<double>()},
-                                                                      {"-", std::minus<double>()},
-                                                                      {"*", std::multiplies<double>()},
-                                                                      {"/", std::divides<double>()},
-                                                                      {"%", std::modulus<int>()},
-                                                                      {"^", [](double base, double exponent) { return pow(base, exponent); }},
-                                                                      {"$", [](double num, double root) { return pow(num, 1.0 / root); }}};
+                                                                            {"-", std::minus<double>()},
+                                                                            {"*", std::multiplies<double>()},
+                                                                            {"/", std::divides<double>()},
+                                                                            {"%", std::modulus<int>()},
+                                                                            {"^", [](double base, double exponent) { return pow(base, exponent); }},
+                                                                            {"$", [](double num, double root) { return pow(num, 1.0 / root); }}};
 
 void exportKeys(std::string& operators) {
     for (const auto& el : commands) {
