@@ -3,12 +3,12 @@
 #include <string>
 
 enum class ErrorCode {
-    Ok,
+    OK,
     BadCharacter,
     BadFormat,
     DivideBy0,
     SqrtOfNegativeNumber,
     ModuleOfNonIntegerValue
-}
+};
 
-process(std::string, double& result);
+ErrorCode process(std::string, double* result);
