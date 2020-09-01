@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <functional>
 #include <numeric>
 
 double ArithmeticAverage(std::vector<int> first, std::vector<int> second) {
