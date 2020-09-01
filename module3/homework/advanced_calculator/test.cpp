@@ -186,11 +186,11 @@ TEST(advancedCalculatorTest, ShouldReturnModuleOfNonIntegerValue) {
     ASSERT_EQ(process("123.1 % 0.1", &result), ErrorCode::ModuleOfNonIntegerValue);
 }
 
-TEST(advancedCalculatorTest, ShouldReturnSqrtOfNagativeNumber) {
+TEST(advancedCalculatorTest, ShouldReturnSqrtOfNegativeNumber) {
     double result = 0;
 
-    ASSERT_EQ(process("-123 $ -1", &result), ErrorCode::SqrtOfNagativeNumber);
-    ASSERT_EQ(process("-123.4 $ -1", &result), ErrorCode::SqrtOfNagativeNumber);
-    ASSERT_EQ(process("-123.2 $ 1", &result), ErrorCode::SqrtOfNagativeNumber);
-    ASSERT_EQ(process("-123 $ 1", &result), ErrorCode::SqrtOfNagativeNumber);
+    ASSERT_EQ(process("-123 $ -1", &result), ErrorCode::SqrtOfNegativeNumber);
+    ASSERT_EQ(process("-123.4 $ -1", &result), ErrorCode::SqrtOfNegativeNumber);
+    ASSERT_EQ(process("-123.2 $ 1", &result), ErrorCode::SqrtOfNegativeNumber);
+    ASSERT_EQ(process("-123 $ 1", &result), ErrorCode::SqrtOfNegativeNumber);
 }
