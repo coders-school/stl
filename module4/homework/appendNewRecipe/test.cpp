@@ -26,7 +26,7 @@ TEST(AppendNewRecipe, ShoudlFormatIngredients) {
     const std::vector<std::string> expected{
         "20 gram cukru",
         "1 szklanka(i) mąki",
-        "40ml rumu"};
+        "40 mililitrów rumu"};
 
     EXPECT_EQ(expected, result);
 }
@@ -60,7 +60,7 @@ TEST(AppendNewRecipe, ShouldWriteFile) {
         {1, 's'},
         {40, 'm'}};
 
-    AppendNewRecipeconst(steps, ingredients, amount);
+    AppendNewRecipe(steps, ingredients, amount);
 
     std::ifstream file("recipes.txt");
     ASSERT_TRUE(file.is_open());
@@ -89,8 +89,8 @@ TEST(AppendNewRecipe, ShouldAppendNewRecipit) {
         {1, 's'},
         {40, 'm'}};
 
-    AppendNewRecipeconst(steps, ingredients, amount);
-    AppendNewRecipeconst(steps, ingredients, amount);
+    AppendNewRecipe(steps, ingredients, amount);
+    AppendNewRecipe(steps, ingredients, amount);
 
     std::ifstream file("recipes.txt");
     ASSERT_TRUE(file.is_open());
