@@ -7,7 +7,7 @@
 #include <map>
 #include <regex>
 
-std::map<std::string, std::function<double(double, double)>> commands{{"+", std::plus<double>()},
+const std::map<std::string, std::function<double(double, double)>> commands{{"+", std::plus<double>()},
                                                                       {"-", std::minus<double>()},
                                                                       {"*", std::multiplies<double>()},
                                                                       {"/", std::divides<double>()},
@@ -62,7 +62,7 @@ ErrorCode process(std::string input, double* out) {
                 return ErrorCode::SqrtOfNagativeNumber;
             }
 
-            *out = commands[match[3]](stod(match[2]), stod(match[4]));
+            *out = commands.at(match[3])(stod(match[2]), stod(match[4]));
             return ErrorCode::OK;
         }
 
