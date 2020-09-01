@@ -9,5 +9,7 @@ int main(){
 
     std::cout<<ArithmeticAverage(v1, v2)<<'\n';
     
+    std::cout<<Distance(v1, v2)<<'\n';
+    
     return 0;
 }
