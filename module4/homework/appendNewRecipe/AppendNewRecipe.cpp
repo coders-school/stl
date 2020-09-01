@@ -5,7 +5,7 @@
 #include <iterator>
 #include <map>
 
-std::map<char, std::string> quantities{{'g', "gram"}, {'s', "szklanka(i)"}, {'m', "mililitrów"}};
+const std::map<char, std::string> quantities{{'g', "gram"}, {'s', "szklanka(i)"}, {'m', "mililitrów"}};
 
 bool AppendNewRecipe(std::vector<std::string> steps,
                      const std::list<std::string>& ingredients,
@@ -30,7 +30,7 @@ std::vector<std::string> FormatIngredients(const std::list<std::string>& ingredi
                    std::back_inserter(vecIngredients),
                    [&](const auto& ingredient, const auto& amount) {
                        std::stringstream sstr;
-                       sstr << amount.first << ' ' << quantities[amount.second] << ' ' << ingredient;
+                       sstr << amount.first << ' ' << quantities.at(amount.second) << ' ' << ingredient;
                        return sstr.str();
                    });
 
