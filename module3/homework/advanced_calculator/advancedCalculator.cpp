@@ -46,7 +46,10 @@ ErrorCode process(std::string operation, double* result) {
     std::copy(operandSeparator + 1, operation.end(), std::back_inserter(operandTwo));
     double operand1 = std::stod(operandOne);
     double operand2 = std::stod(operandTwo);
-    //std::cout << "+++++++++++++++++++++++" << operandTwo << '\n';
+    if (sign == '/' && operand2 == 0) {
+        return ErrorCode::DivideBy0;
+    }
+    //std::cout << "+++++++++++++++++++++++" << operand1 << '\n';
 
     return ErrorCode::OK;
 }
