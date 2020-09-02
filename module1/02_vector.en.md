@@ -2,7 +2,7 @@
 
 # `std::vector<T>`
 
-## An array with dynamic size
+## Array with dynamic size
 
 <a href="https://coders.school">
     <img width="500" data-src="../coders_school_logo.png" src="../coders_school_logo.png" alt="Coders School" class="plain">
@@ -10,37 +10,37 @@
 
 ___
 
-## Features `std::vector<T>`
+## `std::vector<T>` traits
 
-* <!-- .element: class="fragment fade-in" --> Cache-friendly, i.e. by iterating over the vector, it will all be loaded into the processor's cache, which will speed up reading the data.
-* <!-- .element: class="fragment fade-in" --> Type <code>&lt;T&gt;</code> can be any. Both the built-in type and the <code>int</code>, <code>double</code>as well as your own type defined by us.
-* <!-- .element: class="fragment fade-in" --> The items are arranged side by side in memory just like in a regular array.
-* <!-- .element: class="fragment fade-in" --> Adding a new item when a dependency occurs <code>vec.size() > vec.capacity()</code> will allocate additional memory space. In a critical situation, when there is no more space for additional data in the current area, the entire vector will be moved to another memory location.
-* <!-- .element: class="fragment fade-in" --> Removing an element from a vector is quick when removing the last element, but expensive when removing from the center or from the beginning.
+* <!-- .element: class="fragment fade-in" --> Cache-friendly, i.e. while iterating over the vector, it will all be loaded into the processor's cache, which will speed up reading the data.
+* <!-- .element: class="fragment fade-in" --> Type <code>&lt;T&gt;</code> can be any type. Both the built-in type like <code>int</code>, <code>double</code> as well as type defined by us.
+* <!-- .element: class="fragment fade-in" --> Items are arranged side by side in memory just like in a regular array.
+* <!-- .element: class="fragment fade-in" --> Adding a new item - when a dependency <code>vec.size() > vec.capacity()</code> occurs vector will allocate additional memory space. In a critical situation, when there is no more space for additional data in the current area, the entire vector will be moved to another memory location.
+* <!-- .element: class="fragment fade-in" --> Removing an element from a vector is quick when removing the last element, but expensive when removing from the middle or beginning.
 
 ___
 <!-- .element: style="font-size: 0.9em" -->
 
-## Operations on `std::vector<T>`
+## `std::vector<T>` methods
 
 * <!-- .element: class="fragment fade-in" --> adding an item: <code>push_back()</code>, <code>emplace_back()</code>, <code>insert()</code>
-* <!-- .element: class="fragment fade-in" --> modifying / accessing an item: <code>at()</code>, <code>operator []</code>
-* <!-- .element: class="fragment fade-in" --> first / last item: <code>back()</code>, <code>front()</code>
-* <!-- .element: class="fragment fade-in" --> size / is the container empty: <code>size()</code>, <code>empty()</code>
-* <!-- .element: class="fragment fade-in" --> reserved seat: <code>capacity()</code>
+* <!-- .element: class="fragment fade-in" --> modifying/accessing an item: <code>at()</code>, <code>operator[]</code>
+* <!-- .element: class="fragment fade-in" --> first/last item: <code>back()</code>, <code>front()</code>
+* <!-- .element: class="fragment fade-in" --> size/is the container empty: <code>size()</code>, <code>empty()</code>
+* <!-- .element: class="fragment fade-in" --> reserved memory space: <code>capacity()</code>
 * <!-- .element: class="fragment fade-in" --> reserve memory space: <code>reserve()</code>
 * <!-- .element: class="fragment fade-in" --> clearing unused memory from the vector: <code>shrink_to_fit()</code>
-* <!-- .element: class="fragment fade-in" --> start / end iterator: <code>begin()</code>, <code>end()</code>
+* <!-- .element: class="fragment fade-in" --> start/end iterator: <code>begin()</code>, <code>end()</code>
 * <!-- .element: class="fragment fade-in" --> reverse iterator: <code>rbegin()</code>, <code>rend()</code>
 * <!-- .element: class="fragment fade-in" --> constant iterator: <code>cbegin()</code>, <code>cend()</code>, <code>crbegin()</code>, <code>crend()</code>
-* <!-- .element: class="fragment fade-in" --> container cleaning: <code>clear()</code>
-* <!-- .element: class="fragment fade-in" --> preparing an item for removal: <code>remove()</code> (not a method <code>std::vector&lt;T&gt;</code>)
+* <!-- .element: class="fragment fade-in" --> clearing container: <code>clear()</code>
+* <!-- .element: class="fragment fade-in" --> preparing an item for removal: <code>remove()</code> (not a method of <code>std::vector&lt;T&gt;</code>)
 * <!-- .element: class="fragment fade-in" --> erasing items from memory: <code>erase()</code>
 * <!-- .element: class="fragment fade-in" --> replacement of the entire container: <code>swap()</code>
 
 ___
 
-## Inserting # 1 items
+## Inserting items #1
 
 ### `std::vector<T>::insert()`
 
@@ -61,7 +61,7 @@ vec.insert(it, 20); // {20, 1, 2, 3, 4};
 
 ___
 
-## Insert items # 2
+## Inserting items #2
 
 ### `std::vector<T>::insert()`
 
@@ -82,7 +82,7 @@ vec.insert(it, 5, 20); // {20, 20, 20, 20, 20, 1, 2, 3, 4};
 
 ___
 
-## Insert items # 3
+## Insert items #3
 
 ### `std::vector<T>::insert()`
 
@@ -139,9 +139,9 @@ Output: `18 16 14 12 10 8 6 4 2`
 ___
 <!-- .slide: style="font-size: 0.95em" -->
 
-## (Almost) delete 😉
+## (Almost) deleting items 😉
 
-### `std::remove()` from the header `<algorithm>`
+### `std::remove()` from `<algorithm>` header
 
 ```cpp
 template< class ForwardIt, class T >
@@ -149,8 +149,8 @@ ForwardIt remove( ForwardIt first, ForwardIt last, const T& value );
 ```
 <!-- .element: class="fragment fade-in" -->
 
-Since elements are removed from the end of the vector the fastest, the STL library allows us to prepare `std::vector<T>` to remove elements by moving the correct ones to the beginning of the container.
-As a result, part of the value to be removed is overwritten with values ​​at the end of the vector that should not be removed.
+Since removing items from the end of the vector is the fastest, the STL library allows us to prepare `std::vector<T>` to remove elements by moving the correct ones to the beginning of the container.
+As a result, values to be removed are overwritten with values ​​at the end of the vector that should not be removed.
 Therefore, "garbage" remains at the end of the vector, which must be erased from memory.
 <!-- .element: class="fragment fade-in" -->
 
@@ -161,12 +161,12 @@ std::remove(vec.begin(), vec.end(), 4);
 ```
 <!-- .element: class="fragment fade-in" -->
 
-`std::remove()` will return an iterator that will point to the beginning of the data to be deleted.
+`std::remove()` will return an iterator that will point to the beginning of the data to be erased.
 <!-- .element: class="fragment fade-in" -->
 
 ___
 
-## Delete
+## Erase
 
 ### `std::vector<T>::erase()`
 
@@ -177,7 +177,7 @@ constexpr typename std::vector<T,Alloc>::size_type
 ```
 <!-- .element: class="fragment fade-in" -->
 
-Thanks to the erase function, we can now remove unnecessary data from the container:
+Thanks to the `erase()` function, we can now remove unnecessary data from the container:
 <!-- .element: class="fragment fade-in" -->
 
 ```cpp
@@ -201,29 +201,29 @@ ___
 ## Task 1
 
 * [Open the vector documentation at cppreference.com](https://en.cppreference.com/w/cpp/container/vector)
-* Create new cpp file and write function `main()`
-* Create a vector with the values ​​{1, 2, 4, 5, 6}
-* Delete the first value
-* Add the value 5 to the end of the vector
-* Add the value 12 to the start of the vector with the method `emplace`
+* Create new cpp file and write `main()` function
+* Create a vector with values ​​{1, 2, 4, 5, 6}
+* Delete first value
+* Add value 5 to the end of the vector
+* Add value 12 to the start of the vector with the method `emplace`
 * List the vector size and the maximum possible size
 * List the vector content
 * Clear vector
-* List the size of the vector
+* List the vector size
 
 ___
 
-## Exercise 2
+## Task 2
 
 * [Open the vector documentation at cppreference.com](https://en.cppreference.com/w/cpp/container/vector)
-* Create new cpp file and write function `main()`
+* Create new cpp file and write `main()` function
 * Create an empty vector
 * List the size and capacity of the vector
 * Resize the vector to 10 and fill it with 5 values
 * List the size and capacity of the vector
 * Reserve memory for 20 items
 * List the size and capacity of the vector
-* Reduce vector capacitance by method `shrink_to_fit()`
+* Reduce vector capacity with `shrink_to_fit()` method
 * List the size and capacity of the vector
 
 ___

@@ -23,11 +23,10 @@ ___
   * Dane załadowane z jednego `chunka` są cache-friendly
 
 ___
-<!-- .slide: data-background="#eee" -->
 
 ## Struktura `std::deque<T>`
 
-<img height="600" data-src="img/deque.png" src="img/deque.png" alt="deque" class="plain">
+<img height="600" data-src="img/deque-white.png" src="img/deque-white.png" alt="deque" class="plain">
 
 ___
 
@@ -54,7 +53,7 @@ Matematycznie ujmując: jeżeli `chunk` ma 16 elementów a my chcemy dostać si�
 * `x = 100 / 16 -> x = 6` (ucinamy część po przecinku)
 * `y = 100 % 16 -> y = 4`
 
-Zatem wiemy, że jest to 4-ty element w 6-tym `chunku`
+Zatem wiemy, że jest to 4-ty element w 6-tym `chunku`.
 <!-- .element: class="fragment fade-in" -->
 
 Ta wiedza jest zupełnie niepotrzebna przy użytkowaniu `std::deque`. Kontener zajmuje się tym automatycznie.
