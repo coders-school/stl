@@ -23,7 +23,7 @@ const std::map<char, std::function<double(double, double)>> equation {
     {'$', [](double base, double exp) { return std::pow(base, 1/exp); } }
 };
 
-ErrorCode process(std::string operation, double* result) {
+ErrorCode process(std::string operation, double* out) {
     if (std::any_of(operation.cbegin(), operation.cend(), isalpha)) {
         return ErrorCode::BadCharacter;
     }
@@ -55,7 +55,7 @@ ErrorCode process(std::string operation, double* result) {
     if (sign == '$' && (operand1 < 0 || operand2 < 0)) {
         return ErrorCode::SqrtOfNegativeNumber;
     }
-    //std::cout << "+++++++++++++++++++++++" << operand1 << '\n';
 
+    *out = equation.at(sign)(operand1, operand2);
     return ErrorCode::OK;
 }
