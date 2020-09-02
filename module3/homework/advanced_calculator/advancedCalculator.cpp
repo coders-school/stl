@@ -23,14 +23,17 @@ const std::map<char, std::function<double(double, double)>> equation {
 };
 
 ErrorCode process(std::string operation, double* result) {
-    const std::string forbiddenChar = "=[]@#&();?\\";
     if (std::any_of(operation.cbegin(), operation.cend(), isalpha)) {
         return ErrorCode::BadCharacter;
     }
+    const std::string forbiddenChar = "=[]@#&();?\\";
     for (const auto& it : forbiddenChar) {
-        if (std::any_of(operation.cbegin(), operation.cend(), [&it](const char c){ return it == c; } )) {
+        if (std::any_of(operation.cbegin(), operation.cend(), [&it](const char& c){ return it == c; } )) {
             return ErrorCode::BadCharacter;
         }
+    }
+    if (std::any_of(operation.cbegin(), operation.cend(), [](const char& c){ return c == ','; } )) {
+        return ErrorCode::BadFormat;
     }
     
     //std::cout << "-----------------------" << operation << '\n';
