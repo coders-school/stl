@@ -36,10 +36,15 @@ INSTANTIATE_TEST_SUITE_P(
                                                                2},
         std::tuple<std::vector<int>, std::vector<int>, double>{{0}, {0}, 0}));
 
+using DistanceTests = ArithmeticAverageTests;
 
-TEST(arithmeticAverageTest, ShouldCalculateDistance) {
-    std::vector<int> first{7, 4, 3};
-    std::vector<int> second{17, 6, 2};
-    EXPECT_TRUE(cmp(Distance(first, second), 10.247));
-    // Write more test case
+TEST_P(DistanceTests, ShouldCalculateDistance) {
+    auto [first, second, expectedDistance] = GetParam();
+    EXPECT_TRUE(cmp(Distance(first, second), expectedDistance))
+        << ArithmeticAverage(first, second) << ", " << expectedDistance;
 }
+
+INSTANTIATE_TEST_SUITE_P(ShouldCalculateDistance, DistanceTests, testing::Values(
+    std::tuple<std::vector<int>, std::vector<int>, double>{{7, 4, 3}, {17, 6, 2}, 10.247}, 
+    std::tuple<std::vector<int>, std::vector<int>, double>{{1, 2, 3}, {1, 2, 3}, 0}, 
+    std::tuple<std::vector<int>, std::vector<int>, double>{{3, 4}, {0, 0}, 5}));
