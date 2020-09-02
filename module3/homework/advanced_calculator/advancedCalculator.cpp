@@ -49,6 +49,9 @@ ErrorCode process(std::string operation, double* result) {
     if (sign == '/' && operand2 == 0) {
         return ErrorCode::DivideBy0;
     }
+    if (sign == '%' && (operand2 == 0 || std::stoi(operandTwo) != std::stod(operandTwo))) {
+        return ErrorCode::ModuleOfNonIntegerValue;
+    }
     //std::cout << "+++++++++++++++++++++++" << operand1 << '\n';
 
     return ErrorCode::OK;
