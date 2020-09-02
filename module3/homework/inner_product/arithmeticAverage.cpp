@@ -1,7 +1,7 @@
 #include "arithmeticAverage.hpp"
 
-#include <numeric>
 #include <cmath>
+#include <numeric>
 
 double ArithmeticAverage(std::vector<int> lhs, std::vector<int> rhs) {
     if (lhs.size() != rhs.size()) {
