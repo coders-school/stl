@@ -18,6 +18,7 @@ const std::map<char, std::function<double(double, double)>> equation {
     {'-', std::minus<double>()},
     {'*', std::multiplies<double>()},
     {'/', std::divides<double>()},
+    {'%', std::modulus<int>()},
     //{'!',  },
     {'^', [](double base, double exp) { return std::pow(base, exp); } },
     {'$', [](double base, double exp) { return std::pow(base, 1.0/exp); } }
