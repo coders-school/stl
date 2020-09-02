@@ -12,3 +12,5 @@ enum class ErrorCode {
 };
 
 ErrorCode process(std::string input, double* out);
+
+bool checkCharacters(std::string input);
