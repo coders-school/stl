@@ -44,6 +44,8 @@ ErrorCode process(std::string operation, double* result) {
     char sign = *operandSeparator;
     std::copy(operation.begin(), operandSeparator, std::back_inserter(operandOne));
     std::copy(operandSeparator + 1, operation.end(), std::back_inserter(operandTwo));
+    double operand1 = std::stod(operandOne);
+    double operand2 = std::stod(operandTwo);
     //std::cout << "+++++++++++++++++++++++" << operandTwo << '\n';
 
     return ErrorCode::OK;
