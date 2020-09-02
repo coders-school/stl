@@ -52,6 +52,9 @@ ErrorCode process(std::string operation, double* result) {
     if (sign == '%' && (operand2 == 0 || std::stoi(operandTwo) != std::stod(operandTwo))) {
         return ErrorCode::ModuleOfNonIntegerValue;
     }
+    if (sign == '$' && (operand1 < 0 || operand2 < 0)) {
+        return ErrorCode::SqrtOfNegativeNumber;
+    }
     //std::cout << "+++++++++++++++++++++++" << operand1 << '\n';
 
     return ErrorCode::OK;
