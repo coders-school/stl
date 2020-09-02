@@ -1,5 +1,7 @@
+#pragma once
+
 enum class ErrorCode {
-Ok = 0,
+OK = 0,
 BadCharacter = 1,
 BadFormat = 2, 
 DivideBy0 = 3,

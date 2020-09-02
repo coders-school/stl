@@ -1,25 +1,19 @@
 #include "advancedCalculator.hpp"
+#include "mathOperation.hpp"
+#include <algorithm>
+#include <iostream>
 
-ErrorCode process(std::string input, double& out){
+ErrorCode process(std::string input, double &out) {
 
-
-    return ErrorCode::Ok;
-}
-
-
-class mathOperationData{
-
-    public:
-    mathOperationData();
-    double getFirstValue();
-    double getSecondValue();
-    char getSign();
-    void setString(std::string string);
-    void setResult(double result);
-
-    private:
-    double firstValue_;
-    double secondValue_;
-    char sign_;
-    double result_;
+  mathOperation dataObject;
+  dataObject.setInputString(input);
+  ErrorCode error = dataObject.ValidateInputString();
+  dataObject.setErrorCode(error);
+  std::cout << dataObject.getFirstValue() << std::endl;
+  std::cout << dataObject.getSecondValue() << std::endl;
+  dataObject.printErrorCode();
+  //calculate result
+  out = dataObject.getResult();
+  //return 
+  return ErrorCode::OK;
 }
