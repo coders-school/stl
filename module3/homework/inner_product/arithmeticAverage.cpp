@@ -12,8 +12,8 @@ double ArithmeticAverage(const std::vector<int>& firstVec, const std::vector<int
         return numberOfElements;
     }
 
-    double arithmeticAverage = std::inner_product(firstVec.begin(), firstVec.end(),
-                                                  secondVec.begin(), init, std::plus<double>(),
+    double arithmeticAverage = std::inner_product(firstVec.cbegin(), firstVec.cend(),
+                                                  secondVec.cbegin(), init, std::plus<double>(),
                                                   [numberOfElements](const int numberFromFirstVec, const int numberFromSecondVec) {
                                                       return double(numberFromFirstVec + numberFromSecondVec) / numberOfElements;
                                                   });
@@ -28,8 +28,8 @@ double Distance(const std::vector<int>& firstVec, const std::vector<int>& second
         return 0;
     }
 
-    double squareOfTheSumOfProducts = std::inner_product(firstVec.begin(), firstVec.end(),
-                                                         secondVec.begin(), init, std::plus<double>(),
+    double squareOfTheSumOfProducts = std::inner_product(firstVec.cbegin(), firstVec.cend(),
+                                                         secondVec.cbegin(), init, std::plus<double>(),
                                                          [](const int numberFromFirstVec, const int numberFromSecondVec) {
                                                              return pow(fabs(double(numberFromFirstVec - numberFromSecondVec)), exponent);
                                                          });
