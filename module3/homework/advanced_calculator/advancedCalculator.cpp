@@ -1,12 +1,16 @@
 #include "advancedCalculator.hpp"
 
+#include <algorithm>
+#include <cctype>
 #include <cmath>
 #include <functional>
 #include <map>
 
+#include <iostream>
+
 std::function<int(int)> factorial;
-factorial = [&factorial](int n)
-{ return n < 2 ? 1 : n * factorial(n - 1); };
+/*factorial = [&factorial](int n)
+{ return n < 2 ? 1 : n * factorial(n - 1); };*/
 
 const std::map<char, std::function<double(double, double)>> equation {
     {'+', std::plus<double>()},
@@ -19,5 +23,19 @@ const std::map<char, std::function<double(double, double)>> equation {
 };
 
 ErrorCode process(std::string operation, double* result) {
+    const std::string forbiddenChar = "=[]@#&();?\\";
+    if (std::any_of(operation.cbegin(), operation.cend(), isalpha)) {
+        return ErrorCode::BadCharacter;
+    }
+    for (const auto& it : forbiddenChar) {
+        if (std::any_of(operation.cbegin(), operation.cend(), [&it](const char c){ return it == c; } )) {
+            return ErrorCode::BadCharacter;
+        }
+    }
+    
+    //std::cout << "-----------------------" << operation << '\n';
+    operation.erase(remove_if(operation.begin(), operation.end(), isspace), operation.end());
+
+
     return ErrorCode::OK;
 }
