@@ -4,6 +4,7 @@
 #include <cctype>
 #include <cmath>
 #include <functional>
+#include <iterator>
 #include <map>
 
 #include <iostream>
@@ -34,11 +35,16 @@ ErrorCode process(std::string operation, double* result) {
     }
     if (std::any_of(operation.cbegin(), operation.cend(), [](const char& c){ return c == ','; } )) {
         return ErrorCode::BadFormat;
-    }
-    
-    //std::cout << "-----------------------" << operation << '\n';
+    }    
     operation.erase(remove_if(operation.begin(), operation.end(), isspace), operation.end());
-
+    auto operandSeparator = std::find_if(operation.begin() + 1, operation.end(), [](const char& c){
+        return (std::ispunct(c) && c != '.'); });
+    std::string operandOne {};
+    std::string operandTwo {};
+    char sign = *operandSeparator;
+    std::copy(operation.begin(), operandSeparator, std::back_inserter(operandOne));
+    std::copy(operandSeparator + 1, operation.end(), std::back_inserter(operandTwo));
+    //std::cout << "+++++++++++++++++++++++" << operandTwo << '\n';
 
     return ErrorCode::OK;
 }
