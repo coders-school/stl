@@ -20,7 +20,7 @@ const std::map<char, std::function<double(double, double)>> equation {
     {'/', std::divides<double>()},
     //{'!',  },
     {'^', [](double base, double exp) { return std::pow(base, exp); } },
-    {'$', [](double base, double exp) { return std::pow(base, 1/exp); } }
+    {'$', [](double base, double exp) { return std::pow(base, 1.0/exp); } }
 };
 
 ErrorCode process(std::string operation, double* out) {
