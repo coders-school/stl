@@ -1,8 +1,8 @@
 <!-- .slide: data-background="#111111" -->
 
-# STL # 1
+# STL #1
 
-## Sequential containers
+## Sequence containers
 
 ### Summary
 
@@ -14,7 +14,7 @@ ___
 
 ## What do you remember from today?
 
-### Write as many passwords as possible in the chat
+### Write as many keywords as possible in the chat
 <!-- .element: class="fragment fade-in" -->
 
 1. <!-- .element: class="fragment fade-in" --> STL reminder
@@ -29,6 +29,7 @@ ___
 
 <img width="500" data-src="img/sequence_containers.png" src="img/sequence_containers.png" alt="Kontenery sekwencyjne" class="plain">
 ___
+<!-- .slide: style="font-size: 0.9em" -->
 
 ## Homework
 
@@ -38,7 +39,7 @@ This homework may already be a bit of a challenge. Work a lot with the cpprefere
 
 * Read about PGM graphics format - [Wiki ENG](https://en.wikipedia.org/wiki/Netpbm#File_formats). This knowledge may be useful in tasks 3 and 4.
 * Task 1 - `removeVowels()` (5 points)
-* Exercise 2 - `lengthSort()` (6 points)
+* Task 2 - `lengthSort()` (6 points)
 * Task 3a - `compressGrayscale()` (7 points)
 * Task 3b - `decompressGrayscale()` (7 points)
 
@@ -47,7 +48,7 @@ This homework may already be a bit of a challenge. Work a lot with the cpprefere
 * 2 points for each task delivered before 06/14/2020 (Sunday) by 23:59
 * 3 points for group work for each person in the group. We recommend groups of 3.
 
-#### [Repo jobs](https://github.com/coders-school/stl/tree/master/module1/homework)
+#### [Repo tasks](https://github.com/coders-school/stl/tree/master/module1/homework)
 
 ___
 
@@ -55,24 +56,24 @@ ___
 
 * Find on [cppreference.com](https://en.cppreference.com/w/) descriptions of algorithms and read them. See also usage examples.
 * Read about computational complexity, e.g. on [Developer Tutorial](https://www.samouczekprogramisty.pl/podstawy-zlozonosci-obliczeniowa/)
-* Watch and remember what it is like [the complexity of operations on individual STL containers](https://github.com/gibsjose/cpp-cheat-sheet/blob/master/Data%20Structures%20and%20Algorithms.md)
+* Watch and remember what is [the complexity of operations on each STL containers](https://github.com/gibsjose/cpp-cheat-sheet/blob/master/Data%20Structures%20and%20Algorithms.md)
 
 ___
 
 ## Task 1 - `removeVowels()`
 
-Write a function `removeVowels()`which will accept `std::vector<std::string>` and it will remove all vowels from these phrases.
+Write a function `removeVowels()` which will accept `std::vector<std::string>` and it will remove all vowels from these phrases.
 
 * Input: `{"abcde", "aabbbccabc", "qwerty"}`
 * Output: `{"bcd", "bbccbc", "qwrt"}`
 
 ___
 
-## Exercise 2 - `lengthSort()`
+## Task 2 - `lengthSort()`
 
 Write a function `lengthSort()`.
 
-She is supposed to accept `std::forward_list<std::string>` and return `std::deque<std::string>`
+It is supposed to accept `std::forward_list<std::string>` and return `std::deque<std::string>`
 with the words sorted from the shortest to the longest. If two or more words have the same number of characters
 sort them lexicographically.
 
@@ -103,13 +104,13 @@ ___
 ## Task 3a - `compressGrayscale()` - description
 
 Write a function `compressGrayscale()`.
-It should take one type argument `std::array<std::array<uint8_t, 240>, 160>` specifies the distribution of shades of gray in a 2D image (which we will refer to as a bitmap hereafter) and returns `std::vector<std::pair<uint8_t, uint8_t>>` containing a compressed bitmap.
+It should take one argument with `std::array<std::array<uint8_t, 240>, 160>` type which specifies the distribution of shades of gray in a 2D image (which we will refer to as a bitmap) and returns `std::vector<std::pair<uint8_t, uint8_t>>` containing a compressed bitmap.
 
-Compression should be as follows:
+Compression should proceed as follows:
 
 * We draw the bitmap from the upper left corner going right, then a level below.
-* If the same color occurs more than 1 time next to each other, the function should drop into  `std::vector<>` the value of this color (a number between 0 and 255) as the first element of the pair and the number of its repetitions as the second element of the pair.
-* If there are different shades next to each other, the function should complete `std::vector<> ` hue value and the number of occurrences equal to 1 (in this case, we worsen the optimization, because we store 2x as much data, but most often the same colors are placed next to each other).
+* If the same color occurs more than 1 time next to each other, the function should drop into `std::vector<>` the value of this color (a number between 0 and 255) as the first element of the pair and the number of its repetitions as the second element of the pair.
+* If there are different shades next to each other, the function should fill `std::vector<> ` with hue value and the number of occurrences equal to 1 (in this case, we worsen the optimization, because we store 2x as much data, but most often the same colors are placed next to each other).
 
 ___
 <!-- .slide: style="font-size: 0.9em" -->
@@ -125,7 +126,7 @@ output: {{0, 3}, {1, 2}, {2, 1}, {3, 1}, {0, 3}, {0, 2}, {4, 3}, {1, 5}, {2, 5},
 
 In the case of the above conversion, instead of 30 bytes (dimensions 10x3) we will use 22 (11x2). So we compressed the data by 26.7%.
 
-We don't care how yet `uint_8` will be converted to color. It is important in this task to practice using containers and performing various operations on them.
+We don't care yet how `uint_8` will be converted to color. It is important in this task to practice using containers and performing various operations on them.
 
 Volunteers can also refactor (i.e. write more readily, improve) tests so that the complicated loops that fill the arrays are a universal function that can be called in current and future tests (similar to the function `getBitmap()`).
 After extracting and refactoring the generator function, try to add cases for 1/16, 1/32 and 1/64 of the map.
@@ -137,16 +138,16 @@ ___
 
 ## Task 3b - `decompressGrayscale()`
 
-Write a function `decompressGrayscale()`which will decompress the compressed image in problem 3 using the function `compressGrayscale()`.
+Write a function `decompressGrayscale()` which will decompress the compressed image in task 3 using the function `compressGrayscale()`.
 
-As an argument of the function `decompressGrayscale()` will accept `std::vector<std::pair<uint8_t, uint8_t>>` while it will return `std::array<std::array<uint8_t, 240>, 160>` and performs operations to reconstruct the original bitmap format.
+As an argument of the function `decompressGrayscale()` will accept `std::vector<std::pair<uint8_t, uint8_t>>` and it will return `std::array<std::array<uint8_t, 240>, 160>` and perform operations to reconstruct the original bitmap format.
 
 ___
 
 ## ASCII art
 
-For those willing (without points), we also recommend writing a function `printMap()`which will display the map.
-By default `std::cout` will treat `uint8_t` as `unsigned char`therefore you can write a map from ASCII codes.
+For those willing (without points), we also recommend writing a function `printMap()` which will display the map.
+By default `std::cout` will treat `uint8_t` as `unsigned char` therefore you can write a map from ASCII codes.
 
 <img width="450px" data-src="img/ascii_art_mug.jpg" src="img/ascii_art_mug.jpg" alt="ASCII art z kubkiem" class="plain">
 
