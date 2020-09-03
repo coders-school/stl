@@ -56,7 +56,7 @@ ErrorCode process(std::string input, double* out) {
 
         if (operation == "/" && val2 == 0) {
             return ErrorCode::DivideBy0;
-        } else if (operation == "$" && val1 <= 0) {
+        } else if (operation == "$" && val1 < 0 && val2 < 0) {
             return ErrorCode::SqrtOfNegativeNumber;
         } else if (operation == "%" && !isIntiger(val1) && !isIntiger(val2)) {
             return ErrorCode::ModuleOfNonIntegerValue;
