@@ -1,5 +1,8 @@
 #pragma once
 
+#include <cmath>
+#include <functional>
+#include <map>
 #include <string>
 #include <vector>
 
@@ -12,32 +15,24 @@ public:
     double getFirst();
     double getSecond();
     std::string getOperation();
+    std::string getFullEquation();
 
     void setFirst(double first);
     void setSecond(double second);
     void setOperation(std::string operation);
+    void setFullEquation(std::string operation);
 
     void readVariables();
 
-    // double add(double& first, double& second);
-    // double subtract(double& first, double& second);
-    // double multiplicate(double& first, double& second);
-    // double divide(double& first, double& second);
-    // double modulo(double& first, double& second);
-    // double factorial(double& first, double& second);
-    // double power(double& first, double& second);
-    // double sqrt(double& first, double& second);
-
 private:
     std::string inputString_{};
+    std::string fullEquation_{};
     double first_{};
     double second_{};
     std::string operation_{};
     double result_{};
 
-    // std::map<char, std::function<double(double&, double&)>> FunctionalMap = {
-    //     {'+', add},    {'-', subtract},  {'*', multiplicate}, {'/', divide},
-    //     {'%', modulo}, {'!', factorial}, {'^', power},        {'$', sqrt}};
+    std::map<std::string, std::function<double(double, double)>> operationsMap{};
 };
 
 ErrorCode process(std::string input, double* out);

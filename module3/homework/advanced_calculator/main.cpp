@@ -5,7 +5,7 @@ int main(void) {
 
     ErrorCode a;
 
-    a = process("-12.4!", &result);
+    a = process("255 $ 3", &result);
 
     return 0;
 }
