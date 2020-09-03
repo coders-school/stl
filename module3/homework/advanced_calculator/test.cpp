@@ -125,9 +125,9 @@ TEST(advancedCalculatorTest, ShouldFactorial) {
     ASSERT_EQ(process("5!", &result), ErrorCode::OK);
     EXPECT_TRUE(cmp(result, 120));
     ASSERT_EQ(process("6.7!", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 3048.33));
+    EXPECT_TRUE(cmp(result, 2769.83));
     ASSERT_EQ(process("3.435!", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 12.0027));
+    EXPECT_TRUE(cmp(result, 10.63327));
     ASSERT_EQ(process("-13!", &result), ErrorCode::OK);
     EXPECT_TRUE(cmp(result, 1));
     ASSERT_EQ(process("-12.4!", &result), ErrorCode::OK);
