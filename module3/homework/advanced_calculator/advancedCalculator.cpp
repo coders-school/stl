@@ -47,7 +47,7 @@ ErrorCode process(std::string input, double* out) {
     std::smatch matches;
 
     std::regex operationPattern(R"(([-]?\d+.\d+|[-]?\d+)\s?([+*/\-%!^$])\s?([-]?\d+.\d+|[-]?\d+))");
-    std::regex factorialPattern(R"((\d+)\s?(\!))");
+    std::regex factorialPattern(R"(([-]?\d+.\d+|[-]?\d+)\s?(\!))");
 
     if (std::regex_search(input, matches, operationPattern)) {
         double val1 = std::stod(matches[1]);
@@ -63,11 +63,11 @@ ErrorCode process(std::string input, double* out) {
         }
 
         *out = operations.at(operation)(val1, val2);
-        return ErrorCode::Ok;
+        return ErrorCode::OK;
     } else if (std::regex_search(input, matches, factorialPattern)) {
         double value = std::stod(matches[1]);
         *out = factorial(value);
-        return ErrorCode::Ok;
+        return ErrorCode::OK;
     }
 
     return ErrorCode::BadFormat;

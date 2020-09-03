@@ -2,7 +2,7 @@
 #include <string>
 
 enum class ErrorCode{
-    Ok,
+    OK,
     BadCharacter,
     BadFormat,
     DivideBy0,
