@@ -10,13 +10,13 @@
 #include <iostream>
 
 double factorial (double num) {
-    /*if (num <= 0) {
+    if (num <= 0) {
         return 1.0;
     }
-    return std::tgamma(num);*/
-    if (num <= 0) 
+    return std::tgamma(num);
+    /*if (num <= 0) 
         return 1; 
-    return num * factorial(num - 1); 
+    return num * factorial(num - 1);*/
 }
 
 const std::map<char, std::function<double(double, double)>> equation {
@@ -57,28 +57,25 @@ ErrorCode process(std::string operation, double* out) {
     }
     std::string operandOne {};
     std::string operandTwo {};
-    char sign = *operandSeparator;
     std::copy(operation.begin(), operandSeparator, std::back_inserter(operandOne));
     std::copy(operandSeparator + 1, operation.end(), std::back_inserter(operandTwo));
-    double operand1 = std::stod(operandOne);
-    double operand2 = std::stod(operandTwo);
-    if (sign == '!' && std::isalnum(operandTwo[0])) {
+    if (*operandSeparator == '!' && std::isalnum(operandTwo[0])) {
         return ErrorCode::BadFormat;
     }
-    if (sign == '/' && operand2 == 0) {
+    if (*operandSeparator == '/' && std::stod(operandTwo) == 0) {
         return ErrorCode::DivideBy0;
     }
-    if (sign == '%' && (operand2 == 0 || std::stoi(operandTwo) != std::stod(operandTwo))) {
+    if (*operandSeparator == '%' && (std::stod(operandTwo) == 0 || std::stoi(operandTwo) != std::stod(operandTwo))) {
         return ErrorCode::ModuleOfNonIntegerValue;
     }
-    if (sign == '$' && (operand1 < 0 || operand2 < 0)) {
+    if (*operandSeparator == '$' && (std::stod(operandOne) < 0 || std::stod(operandTwo) < 0)) {
         return ErrorCode::SqrtOfNegativeNumber;
     }
-    if (sign == '!') {
-        *out = factorial(operand1);
+    if (*operandSeparator == '!') {
+        *out = factorial(std::stod(operandOne));
         return ErrorCode::OK;
     }
 
-    *out = equation.at(sign)(operand1, operand2);
+    *out = equation.at(*operandSeparator)(std::stod(operandOne), std::stod(operandTwo));
     return ErrorCode::OK;
 }
