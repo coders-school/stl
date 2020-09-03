@@ -89,15 +89,15 @@ TEST(advancedCalculatorTest, ShouldCalculateRoot) {
     double result = 0;
 
     ASSERT_EQ(process("225 $3", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 8.77915e-08));
+    EXPECT_TRUE(cmp(result, 6.0822));
     ASSERT_EQ(process("1024$ 2", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 9.53674e-07));
+    EXPECT_TRUE(cmp(result, 32.));
     ASSERT_EQ(process("1024$4", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 9.09495e-13));
+    EXPECT_TRUE(cmp(result, 5.65685));
     ASSERT_EQ(process("13.71 $-4", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 35330.5));
+    EXPECT_TRUE(cmp(result, 5.19686e-1));
     ASSERT_EQ(process("2.5 $ 2.5", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 0.101193));
+    EXPECT_TRUE(cmp(result, 1.4427));
 }
 
 TEST(advancedCalculatorTest, ShouldModulo) {
