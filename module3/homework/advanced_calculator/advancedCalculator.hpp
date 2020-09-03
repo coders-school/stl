@@ -11,7 +11,7 @@ enum class ErrorCode {
     ModuleOfNonIntegerValue
 };
 
-class Calculations {
+class Calculator {
 private:
     static double add(double a, double b);
     static double substract(double a, double b);
@@ -22,16 +22,8 @@ private:
     static double power(double a, double b);
     static double root(double a, double b);
 
-    std::map<char, std::function<double(double, double)>> possibleFunctions = {
-        {'+', Calculations::add},
-        {'-', Calculations::substract},
-        {'*', Calculations::multiplicate},
-        {'/', Calculations::divide},
-        {'%', Calculations::modulo},
-        {'!', Calculations::factorial},
-        {'^', Calculations::power},
-        {'$', Calculations::root}};
+    static std::map<char, std::function<double(double, double)>> possibleFunctions;
 
 public:
-    double calculate(char operation, double a, double b = 0);
+    static double calculate(char operation, double a, double b = 0);
 };
