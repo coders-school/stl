@@ -1,8 +1,9 @@
 #include <algorithm>
 #include <vector>
+#include "math.h"
 
 #include "advancedCalculator.hpp"
-#include "exercise4.cpp"
+//#include "exercise4.cpp"
 #include "gtest/gtest.h"
 
 bool cmp(double first, double second, double epsilon = 0.5) {
