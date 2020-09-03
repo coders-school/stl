@@ -13,7 +13,7 @@
 #include "AppendNewRecipe.hpp"
 #include "gtest/gtest.h"
 
-const std::string expected "Składniki:\n20 gram cukru,\n1 szklanka(i) mąki,\n40 mililitrów rumu,\n\nKroki:\n1) Wsypać do miski 20 gram cukru.\n2) Dorzucić 1 szklanke mąki.\n3) Dokładnie wymieszać.\n4) Nalać 40ml rumu do kieliszka.\n5) Wypić kieliszek.\n6) Wysypac zawartośc miski.\n___________________________________\n";
+const std::string expected = "Składniki:\n20 gram cukru,\n1 szklanka(i) mąki,\n40 mililitrów rumu,\n\nKroki:\n1) Wsypać do miski 20 gram cukru.\n2) Dorzucić 1 szklanke mąki.\n3) Dokładnie wymieszać.\n4) Nalać 40ml rumu do kieliszka.\n5) Wypić kieliszek.\n6) Wysypac zawartośc miski.\n___________________________________\n";
 
 TEST(AppendNewRecipe, ShoudlFormatIngredients) {
     std::list<std::string> ingredients{"cukru", "mąki", "rumu"};
