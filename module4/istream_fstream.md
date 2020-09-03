@@ -4,7 +4,7 @@
 
 ___
 
-## Krótka pasta o iteratorach
+## Krótka pasta o strumieniach
 
 <img src="img/iostream.gif">
 
