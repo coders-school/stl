@@ -10,13 +10,9 @@
 #include <iostream>
 
 double factorial (double num) {
-    if (num <= 0) {
-        return 1.0;
-    }
-    return std::tgamma(num);
-    /*if (num <= 0) 
-        return 1; 
-    return num * factorial(num - 1);*/
+    if (num <= 0) 
+        return 1;
+    return std::tgamma(num + 1);
 }
 
 const std::map<char, std::function<double(double, double)>> equation {
@@ -41,7 +37,7 @@ ErrorCode process(std::string operation, double* out) {
     }
     if (std::any_of(operation.cbegin(), operation.cend(), [](const char& c){ return c == ','; } )) {
         return ErrorCode::BadFormat;
-    }    
+    }
     operation.erase(remove_if(operation.begin(), operation.end(), isspace), operation.end());
     auto operandSeparator = std::find_if(operation.begin() + 1, operation.end(), [](const char& c){
         return (std::ispunct(c) && c != '.'); });
