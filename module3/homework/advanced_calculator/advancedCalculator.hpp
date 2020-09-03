@@ -22,8 +22,7 @@ private:
     static double power(double a, double b);
     static double root(double a, double b);
 
-public:
-    std::map<char, std::function<double(double, double)>> possibleActions = {
+    std::map<char, std::function<double(double, double)>> possibleFunctions = {
         {'+', Calculations::add},
         {'-', Calculations::substract},
         {'*', Calculations::multiplicate},
@@ -32,4 +31,7 @@ public:
         {'!', Calculations::factorial},
         {'^', Calculations::power},
         {'$', Calculations::root}};
+
+public:
+    double calculate(char operation, double a, double b = 0);
 };

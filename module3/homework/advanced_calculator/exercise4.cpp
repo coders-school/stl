@@ -2,6 +2,13 @@
 #include "advancedCalculator.hpp"
 
 ErrorCode process(std::string input, double* out) {
-    return ErrorCode::OK;
-}
+    char operation{};
+    double firstNumber{}, secondNumber{};
+    ErrorCode returnCode{ErrorCode::OK};
+    Calculations calculator;
 
+
+
+    *out = calculator.calculate(operation, firstNumber, secondNumber);
+    return returnCode;
+}
