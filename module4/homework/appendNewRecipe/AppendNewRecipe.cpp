@@ -20,8 +20,6 @@ std::vector<std::string> FormatIngredients(const std::list<std::string>& ingredi
         ss << am.first << convertEnumToString(am.second) << " " << ingredient;
         return ss.str();
     });
-    /*for (const auto& it: result)
-        std::cout << "ooooooooooo" << it << '\n';*/
     return result;
 }
 
@@ -32,9 +30,15 @@ std::stringstream FormatRecipit(std::vector<std::string> steps,
     ss << "Składniki:\n";
     std::vector<std::string> ingred = FormatIngredients(ingredients, amount);
     for (const auto& it: ingred) {
-        ss << it << '\n';
+        ss << it << ",\n";
     }
-
+    ss << "\nKroki:\n";
+    short counter = 1;
+    for (const auto& it: steps) {
+        ss << counter << ") " << it << ".\n";
+        counter++;
+    }
+    ss << "___________________________________\n";
     return ss;
 }
 
@@ -45,7 +49,7 @@ std::string convertEnumToString(char c) {
         return " gram";
         break;
     case 'm':
-        return "ml";
+        return " ml";
         break;
     case 's':
         return " szklanka(i)";
