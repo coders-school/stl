@@ -85,7 +85,7 @@ TEST(advancedCalculatorTest, ShouldPower) {
     EXPECT_TRUE(cmp(result, 0.000976562));
 }
 
-TEST(advancedCalculatorTest, ShouldCalculateSqrt) {
+TEST(advancedCalculatorTest, ShouldCalculateRoot) {
     double result = 0;
 
     ASSERT_EQ(process("225 $3", &result), ErrorCode::OK);
