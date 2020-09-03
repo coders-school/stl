@@ -1,14 +1,20 @@
 #include <algorithm>
+#include <fstream>
 #include <iterator>
-
-#include <iostream>
 
 #include "AppendNewRecipe.hpp"
 
 bool AppendNewRecipeconst(std::vector<std::string> steps,
                      const std::list<std::string>& ingredients,
                      const std::deque<std::pair<size_t, char>>& amount) {
-    return true;
+    std::fstream recipes("recipes.txt", recipes.out | recipes.app);
+    if (recipes.is_open()) {
+        recipes << FormatRecipit(steps, ingredients, amount).str();
+        recipes.close();
+        return true;
+    }
+
+    return false;
 }
 
 std::vector<std::string> FormatIngredients(const std::list<std::string>& ingredients,
