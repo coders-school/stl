@@ -204,12 +204,12 @@ ___
 
 Jeden z najgorszych scenariuszy jaki możemy wykonać dla algorytmu. Wyobraźmy sobie sytuację, że nasz kolega postanowił pokazać nam, że nie warto z nim zadzierać i skarży się waszemu przełożonemu, że namieszaliście w książce telefonicznej. Teraz za karę musicie napisać program do robota układającego książki na półkach waszego kolegi w kolejności alfabetycznej. Jednak Wy postanawiacie zrobić mu kolejny (najgorszy) psikus, i piszecie robota, który będzie układał książki losowo, a następnie sprawdzał, czy może udało się je ułożyć poprawnie a jak nie, to ponownie je ściągał i znów układał na nowo. W ten sposób robot będzie układał książki kilka tygodni lub miesięcy, lecz w końcu mu się to uda 🙂
 
-W ten sposób napisaliśmy idealnie nieoptymalny algorytm sortowania o złożoności `O(n * n)!`. Przykładem takiego sortowania jest bogosort.
+W ten sposób napisaliśmy idealnie nieoptymalny algorytm sortowania o złożoności `O(n * n!)`. Przykładem takiego sortowania jest bogosort.
 
 ___
 <!-- .slide: style="font-size: 0.65em" -->
 
-## Złożoność `O(n * !n)` Przykład
+## Złożoność `O(n * n!)` Przykład
 
 ```C++
 std::random_device rd;
