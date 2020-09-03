@@ -1,3 +1,6 @@
+#include <algorithm>
+#include <iterator>
+
 #include "AppendNewRecipe.hpp"
 
 bool AppendNewRecipeconst(std::vector<std::string> steps,
@@ -6,19 +9,17 @@ bool AppendNewRecipeconst(std::vector<std::string> steps,
     return true;
 }
 
+const std::map<char, std::string> quantities{{'g', "gram"}, {'s', "szklanka(i)"}, {'m', "mililitrów"}};
+
 std::vector<std::string> FormatIngredients(const std::list<std::string>& ingredients,
                                            const std::deque<std::pair<size_t, char>>& amount) {
-    std::vector<std::string> result {};
-    for (auto it = 0; it < ingredients.size(); it++) {
-        result[it] += amount[it].first;
-        result[it] += " ";
-        result[it] += convertEnumToString(amount[it].second);
-        result[it] += " ";
-        auto itIngredients = ingredients.begin();
-        std::advance(itIngredients, it);
-        result[it] += *itIngredients;
-        result[it] += ",";
-    }
+    std::vector<std::string> result;
+    std::transform(ingredients.begin(), ingredients.end(), amount.begin(), std::back_inserter(result),
+    [&](auto& ingredient, auto am){
+        std::stringstream ss;
+        ss << am.first << " " << convertEnumToString(am.second) << " " << ingredient;
+        return ss.str();
+    });
     return result;
 }
 
@@ -39,7 +40,7 @@ std::string convertEnumToString(char c) {
         return "mililitry";
         break;
     case 's':
-        return "szklanki";
+        return "szklanka";
         break;
     default:
         break;
