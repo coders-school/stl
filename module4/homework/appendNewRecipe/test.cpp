@@ -15,6 +15,11 @@
 
 const std::string expected{"Składniki:\n20 gram cukru,\n1 szklanka(i) mąki,\n40 mililitrów rumu,\n\nKroki:\n1) Wsypać do miski 20 gram cukru.\n2) Dorzucić 1 szklanke mąki.\n3) Dokładnie wymieszać.\n4) Nalać 40ml rumu do kieliszka.\n5) Wypić kieliszek.\n6) Wysypac zawartośc miski.\n___________________________________\n"};
 
+void clearFile() {
+    std::ofstream file("recipes.txt", file.trunc);
+    file.close();
+}
+
 TEST(AppendNewRecipe, ShoudlFormatIngredients) {
     std::list<std::string> ingredients{"cukru", "mąki", "rumu"};
     std::deque<std::pair<size_t, char>> amount{
@@ -60,19 +65,23 @@ TEST(AppendNewRecipe, ShouldWriteFile) {
         {1, 's'},
         {40, 'm'}};
 
+    clearFile();
+
     AppendNewRecipe(steps, ingredients, amount);
 
     std::ifstream file("recipes.txt");
     ASSERT_TRUE(file.is_open());
 
     std::string str;
-    std::stringstream ss;
-    while (file >> str) {
-        ss << str;
+    while (!file.eof()) {
+        std::string line;
+        std::getline(file, line);
+        str += line;
+        str += '\n';
     }
     file.close();
+    str.pop_back();
 
-    str = ss.str();
     EXPECT_EQ(str, expected);
 }
 
