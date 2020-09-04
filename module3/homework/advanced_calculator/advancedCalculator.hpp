@@ -14,15 +14,15 @@ enum class ErrorCode {
 ErrorCode process(std::string input, double* out);
 
 //BadCharacters
-bool checkCharacters(std::string input);
+bool checkCharacters(const std::string& input);
 
 //BadFormat
 void removeSpaces(std::string& input);
-size_t findOperation(std::string input);
-std::pair<std::string, std::string> separateNums(std::string input, size_t distance);
-bool checkFirstChar(std::string input);
-bool checkNumber(std::string input);
+size_t findOperation(const std::string& input);
+std::pair<std::string, std::string> separateNums(std::string input, const size_t& distance);
+bool checkFirstChar(const std::string& input);
+bool checkNumber(const std::string& input);
 
-bool checkIfDividedByZero(std::string input, size_t distance, double secondNum);
-bool checkSqrtOfNegativeNumber(std::string input, size_t distance, double firstNum);
-bool checkIfModuloOfNonIntegerValue(std::string input, size_t distance, std::pair<std::string, std::string> pair);
+bool checkIfDividedByZero(const std::string& input, const size_t& distance, const double& secondNum);
+bool checkSqrtOfNegativeNumber(const std::string& input, const size_t& distance, const double& firstNum);
+bool checkIfModuloOfNonIntegerValue(const std::string& input, const size_t& distance, const std::pair<std::string, std::string>& pair);

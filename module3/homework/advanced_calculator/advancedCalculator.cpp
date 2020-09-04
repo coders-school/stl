@@ -70,7 +70,7 @@ ErrorCode process(std::string input, double* out) {
     return ErrorCode::OK;
 }
 
-bool checkCharacters(std::string input) {
+bool checkCharacters(const std::string& input) {
     std::string allowedChars{"0123456789+-/*!$^%., "};
     return std::all_of(input.begin(), input.end(),
                        [&](const auto& character) { return std::any_of(allowedChars.begin(), allowedChars.end(),
@@ -81,7 +81,7 @@ void removeSpaces(std::string& input) {
     input.erase(std::remove(input.begin(), input.end(), ' '), input.end());
 }
 
-size_t findOperation(std::string input) {
+size_t findOperation(const std::string& input) {
     size_t n = 0;
     if (input[0] == '-') {
         n = 1;
@@ -91,7 +91,7 @@ size_t findOperation(std::string input) {
     return std::distance(input.begin(), operation);
 }
 
-std::pair<std::string, std::string> separateNums(std::string input, size_t distance) {
+std::pair<std::string, std::string> separateNums(std::string input, const size_t& distance) {
     size_t trim = input.length() - distance;
     std::string buffer = input;
     std::string num1 = input.erase(distance, trim);
@@ -100,14 +100,14 @@ std::pair<std::string, std::string> separateNums(std::string input, size_t dista
     return std::make_pair(num1, num2);
 }
 
-bool checkFirstChar(std::string input) {
+bool checkFirstChar(const std::string& input) {
     if ((isdigit(input[0])) || (input[0] == '-')) {
         return true;
     }
     return false;
 }
 
-bool checkNumber(std::string input) {
+bool checkNumber(const std::string& input) {
     size_t dotsCounter = 0;
     if (input.empty())
         return false;
@@ -139,21 +139,21 @@ bool checkNumber(std::string input) {
     return true;
 }
 
-bool checkIfDividedByZero(std::string input, size_t distance, double secondNum) {
+bool checkIfDividedByZero(const std::string& input, const size_t& distance, const double& secondNum) {
     if (input[distance] == '/' && secondNum == 0) {
         return true;
     }
     return false;
 }
 
-bool checkSqrtOfNegativeNumber(std::string input, size_t distance, double firstNum) {
+bool checkSqrtOfNegativeNumber(const std::string& input, const size_t& distance, const double& firstNum) {
     if (input[distance] == '$' && firstNum < 0) {
         return true;
     }
     return false;
 }
 
-bool checkIfModuloOfNonIntegerValue(std::string input, size_t distance, std::pair<std::string, std::string> pair) {
+bool checkIfModuloOfNonIntegerValue(const std::string& input, const size_t& distance, const std::pair<std::string, std::string>& pair) {
     if (input[distance] == '%') {
         if (std::stoi(pair.first) != std::stod(pair.first, nullptr) ||
             std::stoi(pair.second) != std::stod(pair.second, nullptr)) {
