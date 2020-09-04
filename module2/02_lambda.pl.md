@@ -75,7 +75,7 @@ ___
   * poprzez referencję `[&]`
 * O ile `[=]` jest bezpieczne, to `[&]` nie zawsze jest zalecane
 
-Pytanie: kiedy [&] może byc niebezpieczne?
+Pytanie: kiedy [&] może być niebezpieczne?
 
 ___
 

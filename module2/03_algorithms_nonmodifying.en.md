@@ -12,13 +12,13 @@ ___
 
 They do not modify the containers they run on.
 
-Can not:
+They cannot:
 
 * rearrange items in a container
 * delete items
 * add items
 
-Here you will only find popular or interesting uses of some algorithms. The full list of algorithms is available on cppreferene.com
+Here you will only find popular or interesting uses of some algorithms. The full list of algorithms is available on cppreference.com
 
 [Algorithms on cppreference.com](https://en.cppreference.com/w/cpp/algorithm)
 
@@ -32,11 +32,11 @@ InputIt find_if( InputIt first, InputIt last, UnaryPredicate p );
 ```
 
 * Predicate = functor, function, lambda that returns `bool` (`true/false`)
-* Algorithm used to search for items of interest. What interests us will be decided by the transferred predicate. If we want numbers divisible by 3 we will use the predicate:
+* Algorithm used to search for items of interest. What interests us will be decided by the passed predicate. If we want numbers divisible by 3 we will use the predicate:
   * `[](const auto& el){ return (el % 3 == 0); }`
 * `std::find_if` is different from `std::find` only that instead of the searched value, we give the predicate that must be met in order to consider a given element as the value sought.
-* The type returned by `std::find_if` there is an iterator pointing to the found element.
-* If the item is not found, the return value will be equal `last`.
+* The type returned by `std::find_if` is an iterator pointing to the found element.
+* If the item is not found, the return value will be equal to `last`.
 
 ___
 
@@ -64,10 +64,10 @@ ForwardIt1 search( ForwardIt1 first, ForwardIt1 last,
                    ForwardIt2 s_first, ForwardIt2 s_last );
 ```
 
-* The simplest version `std::search`, takes 2 ranges and checks for the second range `{s_first, s_last}` is a sub-scope `{first, last}`.
-  * If so, it returns an iterator pointing to the beginning of this subrange.
-  * If no sub-range is found, the iterator returned will be equal `last`.
-* There are also versions `std::search`the host `binary predicate` and type `searcher`. I encourage you to work independently in order to learn how to use this function :).
+* The simplest version `std::search`, takes 2 ranges and checks if the second range `{s_first, s_last}` is a subsequence of `{first, last}`.
+  * If so, it returns an iterator pointing to the beginning of this subsequence.
+  * If no subsequence is found, the iterator returned will be equal to `last`.
+* There are also versions of `std::search` that take `binary predicate` and type `searcher`. I encourage you to work independently in order to learn how to use this function :).
 
 ___
 
@@ -102,7 +102,7 @@ typename iterator_traits<InputIt>::difference_type
 ```
 
 * `std::count` counts the occurrence of a specific value for a given range.
-* `std::count_if` counts the number of returned items for a given range `true` by the predicate.
+* `std::count_if` counts the number of returned `true` values for a given range by the predicate.
 
 ___
 
@@ -142,9 +142,7 @@ ___
               InputIt2 first2, InputIt2 last2 )
 ```
 
-* The algorithm takes the scope of the first container and the beginning of the second container. The function will perform
-  check until it reaches the end of range 1, even if range 2 is longer. If the 2nd range is shorter
-  the function will return false, because for sure the range 1 will not be identical because it is longer.
+* The algorithm takes the scope of the first container and the beginning of the second container. The function will perform check until it reaches the end of range 1, even if range 2 is longer. If the 2nd range is shorter the function will return false, because for sure the range 1 will not be identical since it is longer.
 * The second version of the algorithm allows you to take the full scope of container 1 and 2 and compare these ranges.
 
 ___

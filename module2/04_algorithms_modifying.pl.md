@@ -18,7 +18,7 @@ Mogą:
 * usuwać elementy
 * dodawać elementy
 
-Tutaj znajdziesz tylko popularne lub ciekawe użycia niektórych algorytmów. Pełna lista algorytmów dostępna jest na cppreferene.com
+Tutaj znajdziesz tylko popularne lub ciekawe użycia niektórych algorytmów. Pełna lista algorytmów dostępna jest na cppreference.com
 
 [Algorytmy na cppreference.com](https://en.cppreference.com/w/cpp/algorithm)
 
