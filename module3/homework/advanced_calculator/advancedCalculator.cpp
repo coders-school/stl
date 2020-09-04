@@ -19,6 +19,9 @@ double Calculator::modulo(double a, double b) {
 double Calculator::factorial(double a, double b) {
     if (0 == a || 1 == a) {
         return 1;
+    } else if (0 > a) {
+        a *= (-1);
+        return -(a * std::tgamma(a));
     }
     return a * std::tgamma(a);
 }
