@@ -8,7 +8,12 @@ int main() {
 
     while (true) {
         std::getline(std::cin, input);
+        double result{};
+
+        process(input, &result);
+
+        std::cout << result << '\n';
     }
-    double result{};
+
     return 0;
 }

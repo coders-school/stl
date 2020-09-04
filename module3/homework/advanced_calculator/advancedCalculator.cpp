@@ -36,9 +36,34 @@ ErrorCode process(std::string input, double* out) {
         firstNum = std::stod(pairOfNumbers.first, nullptr);
         secondNum = 0;
         operation += input[distance];
-        *out = command.at(operation)(firstNum, secondNum);
+        if (firstNum <= 0) {
+            *out = 1;
+            return ErrorCode::Ok;
+        }
+        *out = command.at(operation)(firstNum + 1, secondNum);
         return ErrorCode::Ok;
     }
+
+    if (!checkNumber(pairOfNumbers.first) || !checkNumber(pairOfNumbers.second)) {
+        return ErrorCode::BadFormat;
+    }
+
+    firstNum = std::stod(pairOfNumbers.first, nullptr);
+    secondNum = std::stod(pairOfNumbers.second, nullptr);
+
+    if (checkIfDividedByZero(input, distance, secondNum)) {
+        return ErrorCode::DivideBy0;
+    }
+    if (checkSqrtOfNegativeNumber(input, distance, firstNum)) {
+        return ErrorCode::SqrtOfNegativeNumber;
+    }
+    if (checkIfModuloOfNonIntegerValue(input, distance, pairOfNumbers)) {
+        return ErrorCode::ModuleOfNonIntegerValue;
+    }
+    operation += input[distance];
+    *out = command.at(operation)(firstNum, secondNum);
+
+    return ErrorCode::Ok;
 }
 
 bool checkCharacters(std::string input) {
@@ -108,4 +133,28 @@ bool checkNumber(std::string input) {
     }
 
     return true;
+}
+
+bool checkIfDividedByZero(std::string input, size_t distance, double secondNum) {
+    if (input[distance] == '/' && secondNum == 0) {
+        return true;
+    }
+    return false;
+}
+
+bool checkSqrtOfNegativeNumber(std::string input, size_t distance, double firstNum) {
+    if (input[distance] == '$' && firstNum < 0) {
+        return true;
+    }
+    return false;
+}
+
+bool checkIfModuloOfNonIntegerValue(std::string input, size_t distance, std::pair<std::string, std::string> pair) {
+    if (input[distance] == '%') {
+        if (std::stoi(pair.first) != std::stod(pair.first, nullptr) ||
+            std::stoi(pair.second) != std::stod(pair.second, nullptr)) {
+            return true;
+        }
+    }
+    return false;
 }
