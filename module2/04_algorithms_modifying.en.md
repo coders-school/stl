@@ -18,7 +18,7 @@ They can:
 * delete items
 * add items
 
-Here you will only find popular or interesting uses of some algorithms. The full list of algorithms is available on cppreferene.com
+Here you will only find popular or interesting uses of some algorithms. The full list of algorithms is available on cppreference.com
 
 [Algorithms on cppreference.com](https://en.cppreference.com/w/cpp/algorithm)
 
@@ -38,8 +38,8 @@ OutputIt copy_if( InputIt first, InputIt last,
                   UnaryPredicate pred );
 ```
 
-* Basic version `std::copy`, copies the given range to another range. For example, it copies items from a vector to a list.
-* `std::copy_if` copies only those elements that meet the predicate we have given. For example `::is_upper`, `::is::digit`.
+* Basic version of `std::copy`, copies the given range to another range. For example, it copies items from a vector to a list.
+* `std::copy_if` copies only these elements that meet the predicate we have given. For example `::is_upper`, `::is::digit`.
 
 ___
 
@@ -74,7 +74,7 @@ template< class ForwardIt, class T >
 void fill( ForwardIt first, ForwardIt last, const T& value );
 ```
 
-The function fills the given range with values `value`
+The function fills the given range with `value` values
 
 ```cpp
 int main() {
@@ -111,8 +111,8 @@ OutputIt transform( InputIt1 first1, InputIt1 last1,
                     BinaryOperation binary_op );
 ```
 
-* First version `std::transform` takes the range `[first1, last1)`, and performs an operation on each element `unary_op`and then saves the modified items in the second scope (`d_first`).
-* The second version, takes 2 ranges, takes 1 element from both ranges and performs operations on them `binary_op`, then writes the result in the 3 range (`d_first`).
+* First version of `std::transform` takes the range `[first1, last1)`, and performs `unary_op` operation on each element and then saves the modified items in the second range (`d_first`).
+* The second version, takes 2 ranges, takes 1 element from both ranges and performs `binary_op` operation on them, then writes the result in the 3 range (`d_first`).
 
 ___
 
@@ -143,7 +143,7 @@ Output: `0 1 2 3 4 5`
 
 ___
 
-## `std::transform` - example of use # 2
+## `std::transform` - example of use #2
 
 Container conversion
 
@@ -170,7 +170,7 @@ Output: `Zero : 0, One : 1, Two : 2, Three : 3, Four : 4, Five : 5`
 
 ___
 
-## `std::transform` - usage example # 3
+## `std::transform` - usage example #3
 
 Convert characters to lowercase
 
@@ -195,7 +195,7 @@ Output: `zero one two three four five`
 
 ___
 
-## `std::transform` usage example # 4
+## `std::transform` usage example #4
 
 Adding vector and list values:
 
@@ -337,7 +337,7 @@ ___
 
 1. Create `std::vector<int>`
 2. Fill it with odd numbers from 1 to 15
-3. Turn the container over without using a loop or `std::reverse`
+3. Reverse container without using a loop or `std::reverse`
 4. Rewrite `std::vector<int>` to the list using `std::copy`
 5. Create the second `std::vector<int>` and fill it with even numbers from 0 to 14.
 6. Find a way to combine both vectors into one with values ​​from 0 to 15 arranged in sequence.
@@ -348,7 +348,7 @@ ___
 
 1. Create `std::list<int>` with values ​​from 1 to 10.
 2. Create `std::vector<int>` with values ​​from 5 to 10.
-3. Pass the appropriate iterators to the function `std::equal`so that it would make both containers equal.
+3. Pass the appropriate iterators to the function `std::equal` so that it would make both containers equal.
 4. With `std::mismatch` and `erase`, remove mismatched items from the list
 5. Call the function `std::equal` for full ranges to make sure they are now identical.
 

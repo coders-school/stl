@@ -12,17 +12,17 @@ ___
 
 ## What is a lambda expression?
 
-* Introduced in C ++ 11, improved in C ++ 14, C ++ 17, C ++ 20
+* Introduced in C++11, improved in C++14, C++17, C++20
 * Lambda is a function object that can be called for specific parameters and return the result
 * Simple to build - `[](){}`
-* It is used to concisely record a function object that would normally take up several times as much space
+* It is used to shortly write a function object that would normally take up several times as much space
 * We gain better readability and greater freedom in operation
 * The lambda type is called a closure and is known only to the compiler
 * To assign a lambda expression to a variable, it must be of type auto, because only the compiler knows the type of this expression
 
 ___
 
-## Create a simple lambda expression
+## Creating a simple lambda expression
 
 ```cpp
 #include <algorithm>
@@ -68,23 +68,23 @@ ___
 
 * Square bracket `[]` determines what parameters we want to capture into our expression. For example, we may want to capture some variable with which we want to compare each element of the container
 * We can capture the values ​​by reference `[&value]`
-* We can also catch them with a copy `[value]`
+* We can also catch them by copy `[value]`
 * We can also mix both possibilities `[&by_ref, by_copy, by_copy2]`
 * Lambda expressions also allow you to capture anything we need:
   * by copy `[=]`
   * by reference `[&]`
-* As long as `[=]` it is safe it `[&]` not always recommended
+* As long as `[=]` is safe, `[&]` is not always recommended
 
-Question: when [&] can it be dangerous?
+Question: when [&] can be dangerous?
 
 ___
 
 ## Generic lambdas
 
-* From C ++ 14 we can write the so-called generic lambdas
-* These are reusable lambdas (for different types) and we use the type in them `auto` as a parameter
+* From C++14 we can write the so-called generic lambdas
+* These are reusable lambdas (for different types) and we use `auto` type in them as a parameter
   * `[](const auto first, const auto& second, auto third) {}`
-* Writing generic lambdas is cost effective because they can be easily reused over and over again
+* Writing generic lambdas is effective because they can be easily reused over and over again
 
 ```cpp
 int multiply(int first, int second) {
@@ -127,11 +127,11 @@ ___
 
 ## Task
 
-1. Create a functor to check if a given number is of type `int` is divisible by `6`
-2. Create a lambda that takes 2 type arguments `int` and will return their product
+1. Create a functor to check if a given number of type `int` is divisible by `6`
+2. Create a lambda that takes 2 `int` type arguments and will return their product
 3. Create a lambda that will append quotation marks to the given string. e.g.
-   * `krowa` -> `"krowa"`
-4. Create a lambda that outputs a string `*`. Each time the function is called, we should get a string longer by one `*`. Sequentially:
+   * `cow` -> `"cow"`
+4. Create a lambda that outputs a string `*`. Each time the function is called, we should get a string longer by one `*`, like so:
    * `*`
    * `**`
    * `***`

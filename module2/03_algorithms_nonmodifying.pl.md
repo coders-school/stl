@@ -18,7 +18,7 @@ Nie mogą:
 * usuwać elementy
 * dodawać elementy
 
-Tutaj znajdziesz tylko popularne lub ciekawe użycia niektórych algorytmów. Pełna lista algorytmów dostępna jest na cppreferene.com
+Tutaj znajdziesz tylko popularne lub ciekawe użycia niektórych algorytmów. Pełna lista algorytmów dostępna jest na cppreference.com
 
 [Algorytmy na cppreference.com](https://en.cppreference.com/w/cpp/algorithm)
 
@@ -34,7 +34,7 @@ InputIt find_if( InputIt first, InputIt last, UnaryPredicate p );
 * Predykat = funktor, funkcja, lambda, która zwraca `bool` (`true/false`)
 * Algorytm wykorzystywany do wyszukiwania interesujących nas elementów. O tym co nas interesuje będzie decydować przekazany predykat. Jeżeli chcemy liczby podzielnie przez 3 użyjemy predykatu:
   * `[](const auto& el){ return (el % 3 == 0); }`
-* `std::find_if` różni się od `std::find` tylko tym, że zamiast poszukiwanej wartości, podajemy predykat jaki musi zostać spełniony aby uznać dany element za poszukiwana wartość.
+* `std::find_if` różni się od `std::find` tylko tym, że zamiast poszukiwanej wartości, podajemy predykat jaki musi zostać spełniony, aby uznać dany element za poszukiwaną wartość.
 * Typem zwróconym przez `std::find_if` jest iterator, wskazujący na znaleziony element.
 * Jeżeli element nie został znaleziony, wartością zwróconą będzie równy `last`.
 
@@ -142,9 +142,7 @@ ___
               InputIt2 first2, InputIt2 last2 )
 ```
 
-* Algorytm przyjmuje zakres pierwszego kontenera oraz początek drugiego kontenera. Funkcja będzie dokonywać
-  sprawdzenia, aż nie dojdzie do końca 1 zakresu, nawet jeżeli 2 zakres jest dłuższy. Jeżeli 2 zakres jest krótszy
-  to funkcja zwróci false, gdyż na pewno 1 zakres nie będzie identyczny ponieważ jest dłuższy.
+* Algorytm przyjmuje zakres pierwszego kontenera oraz początek drugiego kontenera. Funkcja będzie dokonywać sprawdzenia, aż nie dojdzie do końca 1 zakresu, nawet jeżeli 2 zakres jest dłuższy. Jeżeli 2 zakres jest krótszy, to funkcja zwróci false, gdyż na pewno 1 zakres nie będzie identyczny, ponieważ jest dłuższy.
 * Wersja druga algorytmu, pozwala przyjąć pełny zakres 1 i 2 kontenera i porównać te zakresy.
 
 ___
