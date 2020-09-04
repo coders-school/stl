@@ -29,19 +29,23 @@ ErrorCode process(std::string input, double* out) {
     size_t distance = findOperation(input);
     auto pairOfNumbers = separateNums(input, distance);
 
-    if (pairOfNumbers.second.empty() && input[distance] == '!') {
-        if (!checkNumber(pairOfNumbers.first)) {
+    if (input[distance] == '!') {
+        if (!pairOfNumbers.second.empty()) {
             return ErrorCode::BadFormat;
+        } else {
+            if (!checkNumber(pairOfNumbers.first)) {
+                return ErrorCode::BadFormat;
+            }
+            firstNum = std::stod(pairOfNumbers.first, nullptr);
+            secondNum = 0;
+            operation += input[distance];
+            if (firstNum <= 0) {
+                *out = 1;
+                return ErrorCode::OK;
+            }
+            *out = command.at(operation)(firstNum + 1, secondNum);
+            return ErrorCode::OK;
         }
-        firstNum = std::stod(pairOfNumbers.first, nullptr);
-        secondNum = 0;
-        operation += input[distance];
-        if (firstNum <= 0) {
-            *out = 1;
-            return ErrorCode::Ok;
-        }
-        *out = command.at(operation)(firstNum + 1, secondNum);
-        return ErrorCode::Ok;
     }
 
     if (!checkNumber(pairOfNumbers.first) || !checkNumber(pairOfNumbers.second)) {
@@ -63,11 +67,11 @@ ErrorCode process(std::string input, double* out) {
     operation += input[distance];
     *out = command.at(operation)(firstNum, secondNum);
 
-    return ErrorCode::Ok;
+    return ErrorCode::OK;
 }
 
 bool checkCharacters(std::string input) {
-    std::string allowedChars{"0123456789+-/*!$^%. "};
+    std::string allowedChars{"0123456789+-/*!$^%., "};
     return std::all_of(input.begin(), input.end(),
                        [&](const auto& character) { return std::any_of(allowedChars.begin(), allowedChars.end(),
                                                                        [character](const auto& goodChar) { return character == goodChar; }); });
