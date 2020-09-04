@@ -38,38 +38,37 @@ top - return reference to the top element of stack
 
 ##### Example
 ---
-```\#include <iostream>
-\#include <stack>
-using namespace std; 
-  
-void showstack(stack <int> s) { 
-    while (!s.empty()) { 
-        cout << s.top() << " "; 
-        s.pop(); 
-    } 
-    cout << '\n'; 
-} 
-  
-int main () { 
-    stack <int> s; 
-    s.push(3); 
-    s.push(2); 
-    s.push(1);  
-    cout << "The stack is: "; 
+```
+#include <iostream>
+#include <stack>
+using namespace std;
+void showstack(stack s) {
+    while(!s.empty()) {
+        cout << s.top() << " ";
+        s.pop();
+    }
+    cout << '\n';
+}
+int main() {
+    stack<int> s;
+    s.push(3);
+    s.push(2);
+    s.push(1);
+    cout << "The stack is: ";
     showstack(s);
-    cout << "\ns.size() : " << s.size(); 
-    cout << "\ns.top() : " << s.top(); 
-    cout << "\ns.pop() : "; 
-    s.pop(); 
-    showstack(s); 
-    return 0; 
-}```
+    cout << "\ns.size(): " << s.size();
+    cout << "\ns.top(): " << s.top();
+    cout << "\ns.pop(): ";
+    s.pop();
+    showstack(s);
+    return 0;
+}
+```
 
 ---
-
 ##### Output:
 >The stack is : 	1	2	3
 >s.size() : 3
 >s.top() : 1
 >s.pop() : 	2	3
->
+
