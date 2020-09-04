@@ -30,7 +30,7 @@ ErrorCode process(std::string input, double* out) {
 
     operation = *cleanedInput[4].str().c_str();
 
-    //TODO cleanup
+    //TODO cleanup, possibly encapsulate
     if (!cleanedInput.size()) {
         returnCode = ErrorCode::BadFormat;
     } else if (!isAcceptableOperation(operation) || '\\' == cleanedInput[5]) {
