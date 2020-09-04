@@ -9,5 +9,6 @@ int main() {
     while (true) {
         std::getline(std::cin, input);
     }
+    double result{};
     return 0;
 }

@@ -13,9 +13,33 @@ const std::map<std::string, std::function<double(double, double)>> command = {{"
                                                                               {"-", std::minus<double>()},
                                                                               {"*", std::multiplies<double>()},
                                                                               {"/", std::divides<double>()},
-                                                                              {"%", std::modulus<double>()},
+                                                                              {"%", std::modulus<int>()},
                                                                               {"^", [](double base, double exp) { return pow(base, exp); }},
-                                                                              {"$", [](double base, double root) { return pow(base, 1.0 / root); }}};
+                                                                              {"$", [](double base, double root) { return pow(base, 1.0 / root); }},
+                                                                              {"!", [](double base, double ignored) { return tgamma(base); }}};
+
+ErrorCode process(std::string input, double* out) {
+    double firstNum, secondNum;
+    std::string operation{};
+
+    if (!checkCharacters(input)) {
+        return ErrorCode::BadCharacter;
+    }
+    removeSpaces(input);
+    size_t distance = findOperation(input);
+    auto pairOfNumbers = separateNums(input, distance);
+
+    if (pairOfNumbers.second.empty() && input[distance] == '!') {
+        if (!checkNumber(pairOfNumbers.first)) {
+            return ErrorCode::BadFormat;
+        }
+        firstNum = std::stod(pairOfNumbers.first, nullptr);
+        secondNum = 0;
+        operation += input[distance];
+        *out = command.at(operation)(firstNum, secondNum);
+        return ErrorCode::Ok;
+    }
+}
 
 bool checkCharacters(std::string input) {
     std::string allowedChars{"0123456789+-/*!$^%. "};
@@ -54,7 +78,7 @@ bool checkFirstChar(std::string input) {
     return false;
 }
 
-bool checkFirstNum(std::string input) {
+bool checkNumber(std::string input) {
     size_t dotsCounter = 0;
     if (input.empty())
         return false;
