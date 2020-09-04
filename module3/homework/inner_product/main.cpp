@@ -1,6 +1,6 @@
 #include <iostream>
 
-//#include "arithmeticAverage.hpp"
+#include "arithmeticAverage.hpp"
 
 int main(){
     return 0;

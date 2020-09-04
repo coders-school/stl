@@ -1,4 +1,5 @@
 #include "advancedCalculator.hpp"
+
 #include <array>
 #include <cmath>
 #include <functional>
@@ -17,7 +18,7 @@ double factorial(double value) {
     return std::tgamma(value + 1);
 }
 
-std::map<std::string, std::function<double(double, double)>> operations{
+const std::map<std::string, std::function<double(double, double)>> operations{
     {"+", std::plus<double>()},
     {"-", std::minus<double>()},
     {"*", std::multiplies<double>()},
