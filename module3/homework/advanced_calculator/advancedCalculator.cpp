@@ -27,15 +27,11 @@ std::map<std::string, std::function<double(double, double)>> operations{
     {"$", [](double base, double nthRoot) { return std::pow(base, 1.0 / nthRoot); }}};
 
 bool badCharacter(std::string input) {
-    const std::array<char, 8> calculationOperators{'+', '-', '*', '/', '%', '!', '^', '$'};
+    const std::array<char, 10> calculationOperators{'+', '-', '*', '/', '%', '!', '^', '$', '.', ','};
 
-    return std::none_of(input.begin(), input.end(), [calculationOperators](char ch) {
-        return std::find(calculationOperators.begin(), calculationOperators.end(), ch) != calculationOperators.end();
+    return std::any_of(input.begin(), input.end(), [calculationOperators](char ch) {
+        return std::isalpha(ch) || (std::ispunct(ch) && (std::find(calculationOperators.begin(), calculationOperators.end(), ch) == calculationOperators.end()));
     });
-
-    // return std::none_of(input.begin(), input.end(), [calculationOperators](auto ch) {
-    //     return ispunct(ch) && std::find(calculationOperators.begin(), calculationOperators.end(), ch) != calculationOperators.end();
-    // });
 }
 
 ErrorCode process(std::string input, double* out) {
@@ -43,12 +39,19 @@ ErrorCode process(std::string input, double* out) {
         return ErrorCode::BadCharacter;
     }
 
+    if (std::find(input.begin(), input.end(), ',') != input.end()) {
+        return ErrorCode::BadFormat;
+    }
+
     std::smatch matches;
 
-    std::regex operationPattern(R"(([-]?\d+.\d+|[-]?\d+)\s?([+*/\-%!^$])\s?([-]?\d+.\d+|[-]?\d+))");
-    std::regex factorialPattern(R"(([-]?\d+.\d+|[-]?\d+)\s?(\!))");
+    std::regex operationPattern(R"(([-]?\d+\.\d+|[-]?\d+)\s?([+*/\-%^$])\s?([-]?\d+\.\d+|[-]?\d+))");
+    std::regex factorialPattern(R"(([-]?\d+\.\d+|[-]?\d+)\s?(\!))");
 
     if (std::regex_search(input, matches, operationPattern)) {
+        if (matches[0] != input) {
+            return ErrorCode::BadFormat;
+        }
         double val1 = std::stod(matches[1]);
         double val2 = std::stod(matches[3]);
         std::string operation = matches[2];
@@ -64,6 +67,10 @@ ErrorCode process(std::string input, double* out) {
         *out = operations.at(operation)(val1, val2);
         return ErrorCode::OK;
     } else if (std::regex_search(input, matches, factorialPattern)) {
+        if (matches[0] != input) {
+            return ErrorCode::BadFormat;
+        }
+
         double value = std::stod(matches[1]);
         *out = factorial(value);
         return ErrorCode::OK;
