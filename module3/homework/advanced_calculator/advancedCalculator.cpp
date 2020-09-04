@@ -7,19 +7,14 @@
 #include <regex>
 
 bool isIntiger(double value) {
-    return value - static_cast<int>(value) == 0;
+    return std::abs(value) - std::abs(static_cast<int>(value)) == 0;
 }
 
 double factorial(double value) {
     if (value <= 1) {
         return 1;
     }
-
-    double result = 1;
-    for (double i = value; i > 1; --i) {
-        result *= i;
-    }
-    return result;
+    return std::tgamma(value + 1);
 }
 
 std::map<std::string, std::function<double(double, double)>> operations{
@@ -37,6 +32,10 @@ bool badCharacter(std::string input) {
     return std::none_of(input.begin(), input.end(), [calculationOperators](char ch) {
         return std::find(calculationOperators.begin(), calculationOperators.end(), ch) != calculationOperators.end();
     });
+
+    // return std::none_of(input.begin(), input.end(), [calculationOperators](auto ch) {
+    //     return ispunct(ch) && std::find(calculationOperators.begin(), calculationOperators.end(), ch) != calculationOperators.end();
+    // });
 }
 
 ErrorCode process(std::string input, double* out) {
@@ -56,9 +55,9 @@ ErrorCode process(std::string input, double* out) {
 
         if (operation == "/" && val2 == 0) {
             return ErrorCode::DivideBy0;
-        } else if (operation == "$" && val1 < 0 && val2 < 0) {
+        } else if (operation == "$" && (val1 < 0)) {
             return ErrorCode::SqrtOfNegativeNumber;
-        } else if (operation == "%" && !isIntiger(val1) && !isIntiger(val2)) {
+        } else if (operation == "%" && (!isIntiger(val1) || !isIntiger(val2))) {
             return ErrorCode::ModuleOfNonIntegerValue;
         }
 
