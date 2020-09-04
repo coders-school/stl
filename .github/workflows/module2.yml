@@ -1,52 +1,52 @@
-name: Module 2 homework
+# name: Module 2 homework
 
-on: [push, pull_request]
+# on: [push, pull_request]
 
-jobs:
-  transformContainers:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Check out code
-      uses: actions/checkout@master
-    - name: mkdir module2/homework/transformContainers/build
-      run: mkdir module2/homework/transformContainers/build
-    - name: Compile
-      working-directory: module2/homework/transformContainers/build
-      run: |
-        cmake ..
-        make
-    - name: Run tests
-      working-directory: module2/homework/transformContainers/build
-      run: ctest -V
+# jobs:
+#   transformContainers:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: Check out code
+#       uses: actions/checkout@master
+#     - name: mkdir module2/homework/transformContainers/build
+#       run: mkdir module2/homework/transformContainers/build
+#     - name: Compile
+#       working-directory: module2/homework/transformContainers/build
+#       run: |
+#         cmake ..
+#         make
+#     - name: Run tests
+#       working-directory: module2/homework/transformContainers/build
+#       run: ctest -V
 
-  insensitivePalindrom:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Check out code
-      uses: actions/checkout@master
-    - name: mkdir module2/homework/insensitivePalindrom/build
-      run: mkdir module2/homework/insensitivePalindrom/build
-    - name: Compile
-      working-directory: module2/homework/insensitivePalindrom/build
-      run: |
-        cmake ..
-        make
-    - name: Run tests
-      working-directory: module2/homework/insensitivePalindrom/build
-      run: ctest -V
+#   insensitivePalindrom:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: Check out code
+#       uses: actions/checkout@master
+#     - name: mkdir module2/homework/insensitivePalindrom/build
+#       run: mkdir module2/homework/insensitivePalindrom/build
+#     - name: Compile
+#       working-directory: module2/homework/insensitivePalindrom/build
+#       run: |
+#         cmake ..
+#         make
+#     - name: Run tests
+#       working-directory: module2/homework/insensitivePalindrom/build
+#       run: ctest -V
 
-  grayscaleImages:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Check out code
-      uses: actions/checkout@master
-    - name: mkdir module2/homework/grayscaleImages/build
-      run: mkdir module2/homework/grayscaleImages/build
-    - name: Compile
-      working-directory: module2/homework/grayscaleImages/build
-      run: |
-        cmake ..
-        make
-    - name: Run tests
-      working-directory: module2/homework/grayscaleImages/build
-      run: ctest -V
+#   grayscaleImages:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: Check out code
+#       uses: actions/checkout@master
+#     - name: mkdir module2/homework/grayscaleImages/build
+#       run: mkdir module2/homework/grayscaleImages/build
+#     - name: Compile
+#       working-directory: module2/homework/grayscaleImages/build
+#       run: |
+#         cmake ..
+#         make
+#     - name: Run tests
+#       working-directory: module2/homework/grayscaleImages/build
+#       run: ctest -V
