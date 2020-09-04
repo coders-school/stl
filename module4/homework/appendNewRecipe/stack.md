@@ -64,8 +64,10 @@ int main () {
     showstack(s); 
     return 0; 
 }```
+
 ---
-Output:
+
+##### Output:
 >The stack is : 	1	2	3
 >s.size() : 3
 >s.top() : 1
