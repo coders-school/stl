@@ -41,8 +41,7 @@ back - return reference to the last element of queue
 
 ##### Example
 ---
-```
-#include <iostream>
+```#include <iostream>
 #include <stack>
 using namespace std;
 void showQueue(queue<int> q) {
