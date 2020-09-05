@@ -48,8 +48,8 @@ char Calculator::getGroupChar(size_t index) {
     return *matchedInput_[index].str().c_str();
 }
 
-double Calculator::calculate(char operation, double a, double b) {
-    return possibleFunctions_[operation](a, b);
+double Calculator::calculate() {
+    return possibleFunctions_[operation_](firstValue_, secondValue_);
 }
 
 ErrorCode Calculator::validateBadFormat() {
@@ -93,7 +93,7 @@ ErrorCode Calculator::process(std::string& input, double* out) {
         }
     }
 
-    *out = calculate(operation_, firstValue_, secondValue_);
+    *out = calculate();
 
     return errorCode_;
 }
