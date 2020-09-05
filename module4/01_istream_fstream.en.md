@@ -1,10 +1,10 @@
 <!-- .slide: data-background="#111111" -->
 
-# File operations
+# Input/output with files
 
 ___
 
-## A short paste about streams
+## Input/output library
 
 <img src="img/iostream.gif">
 
@@ -12,7 +12,7 @@ ___
 
 ## istream, ostream, iostream
 
-We will talk about incoming and outgoing data as data streams. The stream can flow from the program to the outside world through `operator>>`, while from the outside world to the program through `operator<<`.
+We will talk about incoming and outgoing data as data streams. The stream can flow from the program to the outside world through `operator>>` and from the outside world to the program through `operator<<`.
 
 * <!-- .element: class="fragment fade-in" --> istream (<code>std::cin</code>) -> from input stream, i.e. incoming data (e.g. typed from the keyboard).
 * <!-- .element: class="fragment fade-in" --> ostream (<code>std::cout</code>, <code>std::cerr</code>, <code>std::clog</code>) -> from output stream, i.e. outgoing data (e.g. displayed on the monitor).
@@ -26,18 +26,19 @@ The data stream can come from many sources, we can load it from the user, it can
 
 * <!-- .element: class="fragment fade-in" --> <code>fstream</code> to handle files,
 * <!-- .element: class="fragment fade-in" --> <code>iostream</code> to handle commands read from the keyboard,
-* <!-- .element: class="fragment fade-in" --> <code>sstream</code> for convenient operation on <code>std::string</code>as if they were data streams.
+* <!-- .element: class="fragment fade-in" --> <code>sstream</code> for convenient operation on <code>std::string</code> as if they were data streams.
 
-Each of these 3 classes inherits from either <code>istream</code>when we want to read data, <code>ostream</code> when we want to save them or <code>iostream</code>when we want to do both.
+Each of these 3 classes inherits from either <code>istream</code> when we want to read data, <code>ostream</code> when we want to save them or <code>iostream</code> when we want to do both.
 <!-- .element: class="fragment fade-in" -->
 
 ___
 
-## The fourth rider, that is `streambuf`
+## The fourth stream, `streambuf`
+<!-- Nie mogłem znaleźć angielskiego odpowiednika od czwartego jeźdzca, jak taki jest to proszę poprawić :) -->
 
-By definition, streambuffer represents output and input devices (like monitor, keyboard, disk, etc.) and allows us to access the low-level interface. Rather, it will be rarely used by us 🙂
+By definition, streambuffer represents output and input devices (like monitor, keyboard, disk, etc.) and allows us to access the low-level interface. It will be rarely used by us 🙂
 
-We will use this class to create our own streams, for example. For example, let's look at how to create your own output stream `ostream`.
+Among other things, we will use this class to create our own streams. For example, let's look at how to create your own output stream `ostream`.
 <!-- .element: class="fragment fade-in" -->
 
 ```C++
@@ -64,7 +65,7 @@ ___
 
 ## Custom data display style
 
-In order not to interfere with the usual stream `std::cout`which is used globally.
+In order not to interfere with the usual stream `std::cout` which is used globally.
 
 ```C++
 std::cout << M_PI << '\n';
@@ -86,7 +87,7 @@ Output:
 ```
 <!-- .element: class="fragment fade-in" -->
 
-**As a task for those willing, I encourage you to check what the library is `iomanip` enables us.**
+**As a task for those willing, I encourage you to check what `iomanip` library does.**
 <!-- .element: class="fragment fade-in" -->
 
 ___
@@ -95,17 +96,17 @@ ___
 
 ## Library `fstream`
 
-It is a library that allows us to write and read data from a file. It is a very extensive library, but usually we will only use a few methods. Please guess what they can do?
+It is a library that allows us to write and read data from a file. It is a very extensive library, but usually we will only use a few methods. Can you guess what they can do?
 
 * <!-- .element: class="fragment fade-in" --> <code>is_open()</code><span class="fragment fade-in"> -> checks if the file is open (returns <code>bool</code>)</span>
 * <!-- .element: class="fragment fade-in" --> <code>put()</code><span class="fragment fade-in"> -> write one character to the file</span>
 * <!-- .element: class="fragment fade-in" --> <code>get()</code><span class="fragment fade-in"> -> gets one character from file</span>
-* <!-- .element: class="fragment fade-in" --> <code>peek()</code><span class="fragment fade-in"> -> reads a character but does not move the read / write pointer</span>
+* <!-- .element: class="fragment fade-in" --> <code>peek()</code><span class="fragment fade-in"> -> reads a character but does not move the read/write pointer</span>
 * <!-- .element: class="fragment fade-in" --> <code>write()</code><span class="fragment fade-in"> -> write data block to file</span>
 * <!-- .element: class="fragment fade-in" --> <code>read()</code><span class="fragment fade-in"> -> reads a block of data from a file</span>
-* <!-- .element: class="fragment fade-in" --> <code>seekp()</code><span class="fragment fade-in"> -> sets the position of the read / write pointer at a given position in the file</span>
-* <!-- .element: class="fragment fade-in" --> <code>tellp()</code><span class="fragment fade-in"> -> informs us about the position of the read write pointer</span>
-* <!-- .element: class="fragment fade-in" --> <code>getline()</code><span class="fragment fade-in"> -> takes characters from the file until it hits the given character (newline by default)</span>
+* <!-- .element: class="fragment fade-in" --> <code>seekp()</code><span class="fragment fade-in"> -> sets the position of the read/write pointer at a given position in the file</span>
+* <!-- .element: class="fragment fade-in" --> <code>tellp()</code><span class="fragment fade-in"> -> informs us about the position of the read/write pointer</span>
+* <!-- .element: class="fragment fade-in" --> <code>getline()</code><span class="fragment fade-in"> -> takes characters from the file until it finds the given character (newline by default)</span>
 
 You can treat a pointer in the file as a flashing cursor `|` in text files 🙂 So when we write a text, we always look where this sign is flashing and we know where we are currently modifying the file.
 <!-- .element: class="fragment fade-in" -->
@@ -124,12 +125,12 @@ What permissions can we give to a given file?
 We can open files in read only mode, in write only mode or in read-write mode. Additionally, we have the option of setting the cursor when opening the file, erasing all its content if it exists, or creating a file if it does not exist. Let's guess what the different modes mean:
 <!-- .element: class="fragment fade-in" -->
 
-* <!-- .element: class="fragment fade-in" --> <code>trunc</code> <span class="fragment fade-in"> -> erase everything in the file so far,</span>
+* <!-- .element: class="fragment fade-in" --> <code>trunc</code> <span class="fragment fade-in"> -> erase entire content of file,</span>
 * <!-- .element: class="fragment fade-in" --> <code>in</code> <span class="fragment fade-in"> -> read mode,</span>
 * <!-- .element: class="fragment fade-in" --> <code>out</code> <span class="fragment fade-in"> -> write mode,</span>
 * <!-- .element: class="fragment fade-in" --> <code>ate</code> <span class="fragment fade-in"> -> sets <code>seek</code> at the end of the file</span>
-* <!-- .element: class="fragment fade-in" --> <code>app</code> <span class="fragment fade-in"> -> sets <code>seek</code> at the end of the file before writing to it. In a word, we "stick" new values ​​to the end of the file.</span>
-* <!-- .element: class="fragment fade-in" --> <code>binary</code> <span class="fragment fade-in"> -> read / write in binary mode.</span>
+* <!-- .element: class="fragment fade-in" --> <code>app</code> <span class="fragment fade-in"> -> sets <code>seek</code> at the end of the file before writing to it. In short, we "stick" new values ​​to the end of the file.</span>
+* <!-- .element: class="fragment fade-in" --> <code>binary</code> <span class="fragment fade-in"> -> read/write in binary mode.</span>
 
 ___
 

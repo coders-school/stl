@@ -6,10 +6,10 @@ ___
 
 ## Task 1
 
-Write a function that will allow you to save new recipes in a file `recipes.txt`. Return false if you failed to save the recipe.
+Write a function that will allow you to save new recipes in a `recipes.txt` file. Return false if you failed to save the recipe.
 <!-- .element: class="fragment fade-in" -->
 
-* <!-- .element: class="fragment fade-in" --> The function for 1 argument takes data in <code>std::vector&lt;std::string&gt;</code>which contains the steps of the recipe.
+* <!-- .element: class="fragment fade-in" --> The function for 1 argument takes data in <code>std::vector&lt;std::string&gt;</code> which contains the steps of the recipe.
 * <!-- .element: class="fragment fade-in" --> The function takes 2 arguments <code>std::list&lt;std::string&gt;</code> containing the name of the ingredients.
 * <!-- .element: class="fragment fade-in" --> The function for the 3rd argument takes data in <code>std::deque&lt;std::pair&lt;size_t, char&gt;&gt;</code> containing information about the amount of the ingredient and its representation <code>g</code> -> we play <code>m</code> -> milliliters, <code>s</code> -> glasses.
 
@@ -22,7 +22,7 @@ bool AppendNewRecipe(std::vector<std::string> steps,
 
 ___
 
-## Task1 # 2
+## Task1 #2
 
 Input:
 <!-- .element: class="fragment fade-in" -->
@@ -42,7 +42,6 @@ std::deque<std::pair<size_t, char>> amount{
 ```
 <!-- .element: class="fragment fade-in" -->
 
-<!-- nie mieściło się, dzielę na dwa -->
 ___
 
 ## Task1 # 3
@@ -68,7 +67,7 @@ Kroki:
 ___
 <!-- .slide: style="font-size: 0.9em" -->
 
-## Task1 # 4
+## Task1 #4
 
 Auxiliary functions:
 <!-- .element: class="fragment fade-in" -->
@@ -94,7 +93,7 @@ We expect a ready-made format that can be saved immediately.
 
 ___
 
-## Exercise 2
+## Task 2
 
 Read and write a short note and an example of using the following adapters:
 <!-- .element: class="fragment fade-in" -->
@@ -103,5 +102,5 @@ Read and write a short note and an example of using the following adapters:
 * <!-- .element: class="fragment fade-in" --> queue
 * <!-- .element: class="fragment fade-in" --> priority_queue
 
-I will reward the most interesting study with 30xp. Second place will get 20xp and third place 10x.
+I will reward the most interesting study with 30xp. Second place will get 20xp and third place 10xp.
 <!-- .element: class="fragment fade-in" -->

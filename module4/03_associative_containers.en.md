@@ -24,7 +24,7 @@ ___
 
 ## Quiz
 
-What can you use:
+For what purpose can you use:
 
 * <!-- .element: class="fragment fade-in" --> <code>set</code>?
 * <!-- .element: class="fragment fade-in" --> <code>multiset</code>?
@@ -37,33 +37,33 @@ What can you use:
 
 ___
 
-## Big notation `O`
+## Big `O` notation
 
 <img src="img/bigO.png">
 
 ___
 
-## Features `std::map<K, T>` and `std::multimap<K, T>` # 1
+## `std::map<K, T>` and `std::multimap<K, T>` traits #1
 
 * <!-- .element: class="fragment fade-in" --> Form of binary tree (red-black tree)
 * <!-- .element: class="fragment fade-in" --> It is not cache friendly
 * <!-- .element: class="fragment fade-in" --> Allows you to store a key-value pair
 * <!-- .element: class="fragment fade-in" --> A multimap can have many of the same keys
-* <!-- .element: class="fragment fade-in" --> The map has unique keys
+* <!-- .element: class="fragment fade-in" --> Map has unique keys
 * <!-- .element: class="fragment fade-in" --> The alternative to a multimap is <code>std::map&lt;key, std::vector&lt;value&gt;&gt;</code>
 
 ___
 <!-- .slide: style="font-size: 0.95em" -->
 
-## Features `std::map<K, T>` and `std::multimap<K, T>` # 2
+## `std::map<K, T>` and `std::multimap<K, T>` traits #2
 
-Since it is implemented mostly as a red-black tree (GNU standard C ++ library), the time to insert, delete and add an element is `O(log(n)`).
+Since it is implemented mostly as a red-black tree (GNU standard C++ library), the time to insert, delete and add an element is `O(log(n)`).
 
 Advantages:
 <!-- .element: class="fragment fade-in" -->
 
-* <!-- .element: class="fragment fade-in" --> Quick search for items (containers sequentially <code>O(n)</code>),
-* <!-- .element: class="fragment fade-in" --> Relatively fast time to add and remove them, e.g. <code>std::vector&lt;T&gt;</code> adds items in the middle in time <code>O(n)</code>but <code>std::list&lt;T&gt;</code> (if an iterator is given) over time <code>O(1)</code>. Hence the map is relatively fast both to add and remove.
+* <!-- .element: class="fragment fade-in" --> Quick search for items (sequence containers <code>O(n)</code>),
+* <!-- .element: class="fragment fade-in" --> Relatively fast time to add and remove them, e.g. <code>std::vector&lt;T&gt;</code> adds items in the middle in time <code>O(n)</code> but <code>std::list&lt;T&gt;</code> (if an iterator is given) over time <code>O(1)</code>. Hence the map is relatively fast both to add and remove.
 * <!-- .element: class="fragment fade-in" --> Perfect when we frequently search for data and less frequently add or delete it.
 
 If we use it as a regular container, we will lose efficiency. The map should be used when you really want to have key-value pairs and search for them often. Otherwise, we can use `std::vector<pair<K, V>>` or another container.
@@ -71,19 +71,18 @@ If we use it as a regular container, we will lose efficiency. The map should be 
 
 ___
 
-## Operations on `std::map<K, T>` and `std::multimap<K, T>`
+## `std::map<K, T>` and `std::multimap<K, T>` methods
 
 * <!-- .element: class="fragment fade-in" --> adding an item: <code>insert()</code>, <code>emplace()</code>, <code>emplace_hint()</code>. Additionally, the map has: <code>insert_or_assign()</code>, <code>try_emplace()</code> and <code>operator[]</code> (additive modifying)
-* <!-- .element: class="fragment fade-in" --> modifying / accessing an item: <code>at()</code>, <code>operator[]</code> (Multimapa does not have such options)
-* <!-- .element: class="fragment fade-in" --> first / last item: None
-* <!-- .element: class="fragment fade-in" --> size / is the container empty: <code>size()</code>, <code>empty()</code>
+* <!-- .element: class="fragment fade-in" --> modifying/accessing an item: <code>at()</code>, <code>operator[]</code> (Multimap does not have such options)
+* <!-- .element: class="fragment fade-in" --> first/last item: None
+* <!-- .element: class="fragment fade-in" --> size/is the container empty: <code>size()</code>, <code>empty()</code>
 * <!-- .element: class="fragment fade-in" --> clear unused memory: None
-* <!-- .element: class="fragment fade-in" --> start / end iterator: <code>begin()</code>, <code>end()</code>
+* <!-- .element: class="fragment fade-in" --> start/end iterator: <code>begin()</code>, <code>end()</code>
 
-<!-- znowu dużo contentu, ciacham na pół :) -->
 ___
 
-## Operations on `std::map<K, T>` and `std::multimap<K, T>` # 2
+## `std::map<K, T>` and `std::multimap<K, T>` methods #2
 
 * <!-- .element: class="fragment fade-in" --> reverse iterator: <code>rbegin()</code>, <code>rend()</code>
 * <!-- .element: class="fragment fade-in" --> constant iterator: <code>cbegin()</code>, <code>cend()</code>, <code>crbegin()</code>, <code>crend()</code>
@@ -96,7 +95,7 @@ ___
 
 ___
 
-## Example of use `emplace_hint`
+## Example of `emplace_hint` usage
 
 ```cpp
 int main() {
@@ -114,12 +113,12 @@ Output:
 `Ten`
 <!-- .element: class="fragment fade-in" -->
 
-We suggest the place where the element should be inserted on the map, thanks to which such an operation will be complex `O(1)`. However, if we give a wrong prompt, the insertion time will be `O(log(n))`. Rather rarely used 🙂
+We suggest the place where the element should be inserted on the map, thanks to which such an operation will be `O(1)`. However, if we give a wrong prompt, the insertion time will be `O(log(n))`. Rather rarely used 🙂
 <!-- .element: class="fragment fade-in" -->
 
 ___
 
-### Example of use `insert_or_assign`
+### Example of `insert_or_assign` usage
 
 ```C++
 int main() {
@@ -148,7 +147,7 @@ Cent
 
 ___
 
-### Example of use `count`
+### Example of `count` usage
 
 ```C++
 int main() {
@@ -168,7 +167,7 @@ Output: `4`
 
 ___
 
-### Example of use `find`
+### Example of `find` usage
 
 ```C++
 int main() {
@@ -235,7 +234,7 @@ std::for_each(begin(result),
 
 ___
 
-## Features `std::set<T>` and `std::multiset<T>` # 1
+## `std::set<T>` and `std::multiset<T>` traits #1
 
 * <!-- .element: class="fragment fade-in" --> Form of binary tree (red-black tree)
 * <!-- .element: class="fragment fade-in" --> It is not cache friendly
@@ -247,15 +246,15 @@ ___
 ___
 <!-- .slide: style="font-size: 0.95em" -->
 
-## Features `std::set<T>` and `std::multiset<T>` # 2
+## `std::set<T>` and `std::multiset<T>` traits #2
 
 Since it is implemented mostly as a red-black tree (GNU standard C ++ library), the time to insert, delete and add an element is `O(log(n)`).
 
 Advantages:
 <!-- .element: class="fragment fade-in" -->
 
-* <!-- .element: class="fragment fade-in" --> Quick search for items (containers sequentially <code>O(n)</code>),
-* <!-- .element: class="fragment fade-in" --> Relatively fast time to add and remove them, e.g. <code>std::vector&lt;T&gt;</code> adds items in the middle in time <code>O(n)</code>but <code>std::list&lt;T&gt;</code> (if an iterator is given) over time <code>O(1)</code>. Hence <code>set</code> it is relatively fast in both adding and removing.
+* <!-- .element: class="fragment fade-in" --> Quick search for items (sequential containers <code>O(n)</code>),
+* <!-- .element: class="fragment fade-in" --> Relatively fast time to add and remove them, e.g. <code>std::vector&lt;T&gt;</code> adds items in the middle in time <code>O(n)</code> but <code>std::list&lt;T&gt;</code> (if an iterator is given) over time <code>O(1)</code>. Hence <code>set</code> it is relatively fast in both adding and removing.
 * <!-- .element: class="fragment fade-in" --> Perfect when you want to always have sorted values.
 
 If we do not want the container to be always sorted, but only at specific times, then maybe it's better to use it `std::vector<T>` and sort it when the need arises. If we also care only sometimes for unique values, then we can use `std::unique()`.
@@ -263,7 +262,7 @@ If we do not want the container to be always sorted, but only at specific times,
 
 ___
 
-## Operations on `std::set<T>` and `std::multiset<T>`
+## `std::set<T>` and `std::multiset<T>` methods #1
 
 * <!-- .element: class="fragment fade-in" --> adding an item: <code>insert()</code>, <code>emplace()</code>, <code>emplace_hint()</code>
 * <!-- .element: class="fragment fade-in" --> modifying / accessing an item: None
@@ -276,7 +275,7 @@ ___
 <!-- ciacham -->
 ___
 
-## Operations on `std::set<T>` and `std::multiset<T>` # 2
+## `std::set<T>` and `std::multiset<T>` methods #2
 
 * <!-- .element: class="fragment fade-in" --> constant iterator: <code>cbegin()</code>, <code>cend()</code>, <code>crbegin()</code>, <code>crend()</code>
 * <!-- .element: class="fragment fade-in" --> container cleaning: <code>clear()</code>
@@ -288,7 +287,7 @@ ___
 
 ___
 
-## Example of use `std::set<T>`
+## Example of `std::set<T>` usage
 
 ```C++
 std::set<int> set {5, 4, 3, 2, 1, 0, 6, 8, 7};
@@ -316,7 +315,7 @@ Output:
 
 ___
 
-## Example of use `std::multiset<T>`
+## Example of `std::multiset<T>` usage
 
 ```C++
 std::multiset<int> set {5, 4, 3, 2, 1, 0, 6, 8, 7, 1, 2, 3, 4, 5, 6};
@@ -353,7 +352,7 @@ ___
 
 ## Hash function
 
-It is a function that will generate an index in the array from any object. Its most important feature is that it must always generate the same index for the same input data. Another important feature is generating the index in such a way that it can be repeated for only one combination, e.g.
+It is a function that will generate an index for the array from any object. Its most important feature is that it must always generate the same index for the same input data. Another important feature is generating the index in such a way that it can be repeated for only one combination, e.g.
 
 ```C++
 size_t hash(const std::string& str) { return str.size(); }
@@ -382,11 +381,11 @@ size_t hash(const std::string& str) {
 ```
 <!-- .element: class="fragment fade-in" -->
 
-Evaluate hash functions.
+Rate hash functions.
 <!-- .element: class="fragment fade-in" -->
 ___
 
-## Features `std::unordered_set<T>` and `std::unordered_multiset<T>` # 1
+## `std::unordered_set<T>` and `std::unordered_multiset<T>` traits #1
 
 * <!-- .element: class="fragment fade-in" --> The hash array form.
 * <!-- .element: class="fragment fade-in" --> It may or may not be cache friendly. Hash tables are often created in the form of a hybrid <code>std::vector&lt;T&gt;</code> and <code>std::list&lt;T&gt;</code>.
@@ -396,7 +395,7 @@ ___
 
 ___
 
-## Features `std::unordered_set<T>` and `std::unordered_multiset<T>` # 2
+## `std::unordered_set<T>` and `std::unordered_multiset<T>` traits #2
 
 Since it is implemented as a hash table, the average time it takes to add, remove, access and modify it `O(1)`. The worst time for all operations is `O(n)`.
 
@@ -413,20 +412,19 @@ Great for containers with a good mixing function. Time to add, access and modify
 
 ___
 
-## Operations on `std::unordered_set<T>` and `std::unordered_multiset<T>`
+## `std::unordered_set<T>` and `std::unordered_multiset<T>` methods
 
 * <!-- .element: class="fragment fade-in" --> adding an item: <code>insert()</code>, <code>emplace()</code>, <code>emplace_hint()</code>
-* <!-- .element: class="fragment fade-in" --> modifying / accessing an item: None
-* <!-- .element: class="fragment fade-in" --> first / last item: None
-* <!-- .element: class="fragment fade-in" --> size / is the container empty: <code>size()</code>, <code>empty()</code>
+* <!-- .element: class="fragment fade-in" --> modifying/accessing an item: None
+* <!-- .element: class="fragment fade-in" --> first/last item: None
+* <!-- .element: class="fragment fade-in" --> size/is the container empty: <code>size()</code>, <code>empty()</code>
 * <!-- .element: class="fragment fade-in" --> clear unused memory: None
-* <!-- .element: class="fragment fade-in" --> start / end iterator: <code>begin()</code>, <code>end()</code>
+* <!-- .element: class="fragment fade-in" --> start/end iterator: <code>begin()</code>, <code>end()</code>
 * <!-- .element: class="fragment fade-in" --> reverse iterator: None
 
-<!-- ciacham -->
 ___
 
-## Operations on `std::unordered_set<T>` and `std::unordered_multiset<T>` # 2
+## `std::unordered_set<T>` and `std::unordered_multiset<T>` methods #2
 
 * <!-- .element: class="fragment fade-in" --> constant iterator: <code>cbegin()</code>, <code>cend()</code>
 * <!-- .element: class="fragment fade-in" --> container cleaning: <code>clear()</code>
@@ -438,7 +436,7 @@ ___
 
 ___
 
-## Example `std::unordered_set<T>` and `std::unordered_multiset<T>`
+## Example of `std::unordered_set<T>` and `std::unordered_multiset<T>` usage
 
 ```C++
 std::unordered_set<std::string> set{"Ala", "Ma", "Kota", "A", "Kot", "Ma", "ALE"};
@@ -466,7 +464,7 @@ ___
 
 ___
 
-## Exercise 2
+## Task 2
 
 * <!-- .element: class="fragment fade-in" --> Create <code>std::unordered_map&lt;int, std::string&gt;</code> and <code>std::multiset&lt;int&gt;</code>
 * <!-- .element: class="fragment fade-in" --> Fill them with whatever values ​​you want

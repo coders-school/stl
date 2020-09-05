@@ -23,7 +23,6 @@ private:
 ```
 <!-- .element: class="fragment fade-in" -->
 
-<!-- Podzieliłem slajd na dwa, bo trzeba było bardzo mocno zmniejszyć czcionkę żeby się zmieściło -->
 ___
 
 ## POD - Plain old data #2
