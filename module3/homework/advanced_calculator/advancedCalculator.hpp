@@ -16,14 +16,14 @@ enum class ErrorCode {
 
 class Calculator {
 private:
-    static double add(double a, double b);
-    static double substract(double a, double b);
-    static double multiplicate(double a, double b);
-    static double divide(double a, double b);
-    static double modulo(double a, double b);
-    static double factorial(double a, double b = 0);
-    static double power(double a, double b);
-    static double root(double a, double b);
+    double add(double a, double b);
+    double substract(double a, double b);
+    double multiplicate(double a, double b);
+    double divide(double a, double b);
+    double modulo(double a, double b);
+    double factorial(double a, double b = 0);
+    double power(double a, double b);
+    double root(double a, double b);
     ErrorCode validateBadFormat();
     ErrorCode checkAndAssignOperation();
     ErrorCode validateValuesForOperation();
@@ -32,7 +32,15 @@ private:
     char getGroupChar(size_t index);
     double calculate();
 
-    static std::map<char, std::function<double(double, double)>> possibleFunctions_;
+    std::map<char, std::function<double(Calculator*, double, double)>> possibleFunctions_ = {
+        {'+', &Calculator::add},
+        {'-', &Calculator::substract},
+        {'*', &Calculator::multiplicate},
+        {'/', &Calculator::divide},
+        {'%', &Calculator::modulo},
+        {'!', &Calculator::factorial},
+        {'^', &Calculator::power},
+        {'$', &Calculator::root}};
 
     const std::vector<std::function<ErrorCode(Calculator*)>> validators_{
         &Calculator::validateBadFormat,

@@ -46,7 +46,7 @@ double Calculator::root(double a, double b) {
 }
 
 double Calculator::calculate() {
-    return possibleFunctions_[operation_](firstValue_, secondValue_);
+    return possibleFunctions_[operation_](this, firstValue_, secondValue_);
 }
 
 //Validation functions
@@ -102,13 +102,3 @@ ErrorCode Calculator::process(std::string& input, double* out) {
 
     return errorCode_;
 }
-
-std::map<char, std::function<double(double, double)>> Calculator::possibleFunctions_ = {
-    {'+', Calculator::add},
-    {'-', Calculator::substract},
-    {'*', Calculator::multiplicate},
-    {'/', Calculator::divide},
-    {'%', Calculator::modulo},
-    {'!', Calculator::factorial},
-    {'^', Calculator::power},
-    {'$', Calculator::root}};
