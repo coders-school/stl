@@ -3,14 +3,14 @@
 #include <map>
 #include <regex>
 
-const std::regex badFormatRegex("^(-?[0-9]+\\.?([0-9]+)?)(?:(?=!)(!)|(?!!)([\\+\\-\\*\\/\\^\\$%!#@&?\\[\\]]?(\\\\)?)(-?[0-9]+\\.?([0-9]+)?))$");
+const std::regex formatRegex("^(-?[0-9]+\\.?([0-9]+)?)(?:(?=!)(!)|(?!!)([\\+\\-\\*\\/\\^\\$%!#@&?\\[\\]]?(\\\\)?)(-?[0-9]+\\.?([0-9]+)?))$");
 
 enum class ErrorCode {
     OK,
     BadCharacter,
     BadFormat,
     DivideBy0,
-    SqrtOfNegativeNumber,
+    RootOfNegativeNumber,
     ModuleOfNonIntegerValue
 };
 
@@ -29,13 +29,14 @@ private:
     ErrorCode validateValuesForOperation();
     void cleanInputAndExecuteRegex();
     void getValues();
+    char getGroupChar(size_t index);
 
     static std::map<char, std::function<double(double, double)>> possibleFunctions_;
 
     std::vector<std::function<ErrorCode(Calculator*)>> validators_{
-        validateBadFormat,
-        checkAndAssignOperation,
-        validateValuesForOperation};
+        &Calculator::validateBadFormat,
+        &Calculator::checkAndAssignOperation,
+        &Calculator::validateValuesForOperation};
     double firstValue_{};
     double secondValue_{};
     char operation_{};

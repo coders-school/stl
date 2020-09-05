@@ -44,6 +44,10 @@ double Calculator::root(double a, double b) {
     return pow(a, 1 / b);
 }
 
+char Calculator::getGroupChar(size_t index) {
+    return *matchedInput_[index].str().c_str();
+}
+
 double Calculator::calculate(char operation, double a, double b) {
     return possibleFunctions_[operation](a, b);
 }
@@ -53,17 +57,17 @@ ErrorCode Calculator::validateBadFormat() {
 }
 void Calculator::cleanInputAndExecuteRegex() {
     input_.erase(std::remove_if(input_.begin(), input_.end(), isspace), input_.end());
-    std::regex_search(input_, matchedInput_, badFormatRegex);
+    std::regex_search(input_, matchedInput_, formatRegex);
 }
 
 ErrorCode Calculator::checkAndAssignOperation() {
-    operation_ = std::max({*matchedInput_[4].str().c_str(), *matchedInput_[5].str().c_str(), *matchedInput_[3].str().c_str()});
+    operation_ = std::max({getGroupChar(4), getGroupChar(5), getGroupChar(3)});
     return isAcceptableOperation(operation_) ? ErrorCode::OK : ErrorCode::BadCharacter;
 }
 
 void Calculator::getValues() {
-    firstValue_ = matchedInput_[1].str().c_str() ? std::stod(matchedInput_[1].str()) : 0;
-    secondValue_ = matchedInput_[6].str().c_str() ? std::stod(matchedInput_[6].str()) : 0;
+    firstValue_ = getGroupChar(1) ? std::stod(matchedInput_[1].str()) : 0;
+    secondValue_ = getGroupChar(6) ? std::stod(matchedInput_[6].str()) : 0;
 }
 
 ErrorCode Calculator::validateValuesForOperation() {
@@ -72,7 +76,7 @@ ErrorCode Calculator::validateValuesForOperation() {
     } else if ('%' == operation_ && (!isInteger(secondValue_) || 0 == secondValue_)) {
         return ErrorCode::ModuleOfNonIntegerValue;
     } else if ('$' == operation_ && 0 > firstValue_) {
-        return ErrorCode::SqrtOfNegativeNumber;
+        return ErrorCode::RootOfNegativeNumber;
     }
     return ErrorCode::OK;
 }
@@ -88,6 +92,7 @@ ErrorCode Calculator::process(std::string& input, double* out) {
             return errorCode_;
         }
     }
+
     *out = calculate(operation_, firstValue_, secondValue_);
 
     return errorCode_;
