@@ -34,7 +34,7 @@ private:
 
     static std::map<char, std::function<double(double, double)>> possibleFunctions_;
 
-    std::vector<std::function<ErrorCode(Calculator*)>> validators_{
+    const std::vector<std::function<ErrorCode(Calculator*)>> validators_{
         &Calculator::validateBadFormat,
         &Calculator::checkAndAssignOperation,
         &Calculator::validateValuesForOperation};

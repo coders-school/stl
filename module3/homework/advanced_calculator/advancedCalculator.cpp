@@ -2,10 +2,10 @@
 #include <cmath>
 #include <regex>
 
+//Helper functions
 bool isInteger(double number) {
     return number == std::floor(number);
 }
-
 bool isAcceptableOperation(char operation) {
     const std::string acceptableOperations{"+-*/%!^$"};
     auto it = std::find_if(acceptableOperations.begin(), acceptableOperations.end(), [operation](auto el) { return el == operation; });
@@ -13,6 +13,7 @@ bool isAcceptableOperation(char operation) {
     return it != acceptableOperations.end();
 }
 
+//Operation Functions
 double Calculator::add(double a, double b) {
     return a + b;
 }
@@ -44,30 +45,18 @@ double Calculator::root(double a, double b) {
     return pow(a, 1 / b);
 }
 
-char Calculator::getGroupChar(size_t index) {
-    return *matchedInput_[index].str().c_str();
-}
-
 double Calculator::calculate() {
     return possibleFunctions_[operation_](firstValue_, secondValue_);
 }
 
+//Validation functions
 ErrorCode Calculator::validateBadFormat() {
     return matchedInput_.size() ? ErrorCode::OK : ErrorCode::BadFormat;
-}
-void Calculator::cleanInputAndExecuteRegex() {
-    input_.erase(std::remove_if(input_.begin(), input_.end(), isspace), input_.end());
-    std::regex_search(input_, matchedInput_, formatRegex);
 }
 
 ErrorCode Calculator::checkAndAssignOperation() {
     operation_ = std::max({getGroupChar(4), getGroupChar(5), getGroupChar(3)});
     return isAcceptableOperation(operation_) ? ErrorCode::OK : ErrorCode::BadCharacter;
-}
-
-void Calculator::getValues() {
-    firstValue_ = getGroupChar(1) ? std::stod(matchedInput_[1].str()) : 0;
-    secondValue_ = getGroupChar(6) ? std::stod(matchedInput_[6].str()) : 0;
 }
 
 ErrorCode Calculator::validateValuesForOperation() {
@@ -81,6 +70,22 @@ ErrorCode Calculator::validateValuesForOperation() {
     return ErrorCode::OK;
 }
 
+//Populate functions
+void Calculator::getValues() {
+    firstValue_ = getGroupChar(1) ? std::stod(matchedInput_[1].str()) : 0;
+    secondValue_ = getGroupChar(6) ? std::stod(matchedInput_[6].str()) : 0;
+}
+
+char Calculator::getGroupChar(size_t index) {
+    return *matchedInput_[index].str().c_str();
+}
+
+void Calculator::cleanInputAndExecuteRegex() {
+    input_.erase(std::remove_if(input_.begin(), input_.end(), isspace), input_.end());
+    std::regex_search(input_, matchedInput_, formatRegex);
+}
+
+//Main processing
 ErrorCode Calculator::process(std::string& input, double* out) {
     input_ = input;
     cleanInputAndExecuteRegex();
