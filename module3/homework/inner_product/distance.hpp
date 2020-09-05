@@ -1,8 +1,7 @@
 #pragma once
 #include <vector>
 
-class ArithmeticAverage {
+class Distance {
 public:
-    ArithmeticAverage();
     int operator()(std::vector<int>& a, std::vector<int>& b) const;
 };
