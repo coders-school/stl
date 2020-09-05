@@ -14,8 +14,6 @@ enum class ErrorCode {
     ModuleOfNonIntegerValue
 };
 
-typedef ErrorCode func(void);
-
 class Calculator {
 private:
     static double add(double a, double b);
