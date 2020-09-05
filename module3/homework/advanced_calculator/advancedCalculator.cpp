@@ -26,11 +26,7 @@ bool checkCharacters(std::string input) {
 bool isInteger(double number) {
     double integer = 0;
     double rest = std::modf(number, &integer);
-    if (integer == number) {
-        return true;
-    } else {
-        return false;
-    }
+    return integer == number;
 };
 
 ErrorCode process(std::string input, double* out) {

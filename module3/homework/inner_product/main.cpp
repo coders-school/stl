@@ -3,7 +3,7 @@
 
 #include "arithmeticAverage.hpp"
 
-int main(void) {
+int main() {
     std::vector<int> a = {1, 2, 3, 4};
     std::vector<int> b = {2, 3, 4, 5};
     double result;

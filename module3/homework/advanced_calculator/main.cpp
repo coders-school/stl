@@ -1,6 +1,6 @@
 #include "advancedCalculator.hpp"
 
-int main(void) {
+int main() {
     double result = 0;
 
     ErrorCode a;
