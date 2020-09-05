@@ -150,7 +150,7 @@ if (diary.is_open()) {
 <!-- .element: class="fragment fade-in" -->
 
 File for writing, adding new data at the end.
-Since we treat everything as streams, we can also write to a file using `operatora<<`.
+Since we treat everything as streams, we can also write to a file using `operator<<`.
 <!-- .element: class="fragment fade-in" -->
 
 ___

@@ -11,7 +11,7 @@ Write a function that will allow you to save new recipes in a `recipes.txt` file
 
 * <!-- .element: class="fragment fade-in" --> The function for 1 argument takes data in <code>std::vector&lt;std::string&gt;</code> which contains the steps of the recipe.
 * <!-- .element: class="fragment fade-in" --> The function takes 2 arguments <code>std::list&lt;std::string&gt;</code> containing the name of the ingredients.
-* <!-- .element: class="fragment fade-in" --> The function for the 3rd argument takes data in <code>std::deque&lt;std::pair&lt;size_t, char&gt;&gt;</code> containing information about the amount of the ingredient and its representation <code>g</code> -> we play <code>m</code> -> milliliters, <code>s</code> -> glasses.
+* <!-- .element: class="fragment fade-in" --> The function for the 3rd argument takes data in <code>std::deque&lt;std::pair&lt;size_t, char&gt;&gt;</code> containing information about the amount of the ingredient and its representation <code>g</code> -> grams <code>m</code> -> milliliters, <code>s</code> -> glasses.
 
 ```C++
 bool AppendNewRecipe(std::vector<std::string> steps,
@@ -28,13 +28,13 @@ Input:
 <!-- .element: class="fragment fade-in" -->
 
 ```C++
-std::vector<std::string> steps{"Wsypać do miski 20 gram cukru",
-                                "Dorzucić 1 szklankę mąki",
-                                "Dokładnie wymieszać",
-                                "Nalać 40ml rumu do kieliszka",
-                                "Wypić kieliszek",
-                                "Wysypać zawartość miski"};
-std::list<std::string> ingredients{"cukru", "mąki", "rumu"};
+std::vector<std::string> steps{"Pour 20 grams of sugar into a bowl",
+                                "Throw in 1 glass of flour",
+                                "Mix thoroughly",
+                                "Pour 40ml of rum into the glass",
+                                "Drink the rum",
+                                "Pour the contents of the bowl"};
+std::list<std::string> ingredients{"of sugar", "of flour", "of rum"};
 std::deque<std::pair<size_t, char>> amount{
     {20, 'g'},
     {1, 's'},
@@ -50,18 +50,18 @@ Expected format:
 <!-- .element: class="fragment fade-in" -->
 
 ```note
-Składniki:
-20 gram cukru,
-1 szklanka(i) mąki,
-40ml rumu,
+Ingredients:
+20 grams of sugar,
+1 glass(es) of flour,
+40ml of rum,
 
-Kroki:
-1) Wsypać do miski 20 gram cukru.
-2) Dorzucić 1 szklankę mąki.
-3) Dokładnie wymieszać.
-4) Nalać 40ml rumu do kieliszka.
-5) Wypić kieliszek.
-6) Wysypać zawartość miski.
+Steps:
+1) Pour 20 grams of sugar into a bowl.
+2) Throw in 1 glass of flour.
+3) Mix thoroughly.
+4) Pour 40ml of rum into the glass.
+5) Drink the rum.
+6) Pour the contents of the bowl.
 ```
 <!-- .element: class="fragment fade-in" -->
 ___
@@ -78,7 +78,7 @@ std::vector<std::string> FormatIngredients(const std::list<std::string>& ingredi
 ```
 <!-- .element: class="fragment fade-in" -->
 
-each vector record should contain a ready-made section of one component, e.g .: `20 gram cukru` or `1 szklanka(i) mąki`.
+each vector record should contain a ready-made section of one component, e.g .: `20 grams of sugar` or `1 glass(es) of flour`.
 <!-- .element: class="fragment fade-in" -->
 
 ```C++

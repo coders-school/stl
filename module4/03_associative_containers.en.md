@@ -57,7 +57,7 @@ ___
 
 ## `std::map<K, T>` and `std::multimap<K, T>` traits #2
 
-Since it is implemented mostly as a red-black tree (GNU standard C++ library), the time to insert, delete and add an element is `O(log(n)`).
+Since it is implemented mostly as a red-black tree (GNU standard C++ library), the time to insert, delete and add an element is `O(log(n))`.
 
 Advantages:
 <!-- .element: class="fragment fade-in" -->
@@ -248,7 +248,7 @@ ___
 
 ## `std::set<T>` and `std::multiset<T>` traits #2
 
-Since it is implemented mostly as a red-black tree (GNU standard C ++ library), the time to insert, delete and add an element is `O(log(n)`).
+Since it is implemented mostly as a red-black tree (GNU standard C ++ library), the time to insert, delete and add an element is `O(log(n))`.
 
 Advantages:
 <!-- .element: class="fragment fade-in" -->
