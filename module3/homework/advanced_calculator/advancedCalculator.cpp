@@ -2,7 +2,6 @@
 
 #include <cmath>
 #include <functional>
-#include <iostream>
 #include <map>
 #include <regex>
 
@@ -19,8 +18,8 @@ const std::map<std::string, std::function<double(double, double)>> operationsMap
 bool checkCharacters(std::string input) {
     std::string allowedSigns{" ,.!+/%$-+*^"};
 
-    return std::any_of(input.cbegin(), input.cend(), [&allowedSigns](char letter) {
-        return std::find(allowedSigns.cbegin(), allowedSigns.cend(), letter) == allowedSigns.cend() && !isdigit(letter);
+    return std::any_of(input.begin(), input.end(), [&allowedSigns](char letter) {
+        return std::find(allowedSigns.begin(), allowedSigns.end(), letter) == allowedSigns.end() && !isdigit(letter);
     });
 };
 
@@ -41,10 +40,10 @@ ErrorCode process(std::string input, double* out) {
 
     std::smatch regexMatch;
 
-    std::regex expression("([-]?\\s?\\d+\\.?\\d*)\\s?([-+*\\/^$%])?\\s?([-]?\\d+\\.?\\d*)?$");
-    std::regex factorialp("([-]?\\s?\\d+\\.?\\d*)\\s?([!])?");
+    std::regex expressionRegex("([-]?\\s?\\d+\\.?\\d*)\\s?([-+*\\/^$%])?\\s?([-]?\\d+\\.?\\d*)?$");
+    std::regex factorialRegex("([-]?\\s?\\d+\\.?\\d*)\\s?([!])?");
 
-    if (std::regex_search(input, regexMatch, expression)) {
+    if (std::regex_search(input, regexMatch, expressionRegex)) {
         if (regexMatch[0] != input) {
             return ErrorCode::BadFormat;
         };
@@ -61,7 +60,7 @@ ErrorCode process(std::string input, double* out) {
             *out = operationsMap.at(operationType)(firstNumber, secondNumber);
             return ErrorCode::OK;
         }
-    } else if (std::regex_search(input, regexMatch, factorialp)) {
+    } else if (std::regex_search(input, regexMatch, factorialRegex)) {
         if (regexMatch[0] != input) {
             return ErrorCode::BadFormat;
         };
