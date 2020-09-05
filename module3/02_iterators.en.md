@@ -4,29 +4,29 @@
 
 ___
 
-## Short replay # 1
+## Short revision #1
 
-An iterator is an object that points to a given item in a container. Depending on the type, we can perform various operations on it, e.g. increment it `operator++`, decrement `operator--` or perform type operations `it += 6`. In order to refer to the pointed element by the iterator, we use `operator*` that is, dereference (as in the usual pointers).
+An iterator is an object that points to a given item in a container. Depending on the type, we can perform various operations on it, e.g. increment it `operator++`, decrement `operator--` or perform operations like `it += 6`. In order to refer to the pointed element by the iterator, we use `operator*` that is, dereference (as in the pointers).
 
 ___
 
-## Short replay # 2
+## Short revision #2
 
-Each container has 2 ends. He points to one of them `begin()`and the second `end()`.
+Each container has 2 ends. `begin()` points to one of them and `end()` points to the second one.
 
 <image src="img/iterator.png">
 
 ___
 
-## Short revision # 3
+## Short revision #3
 
-For some containers, we can also get a reverse iterator that allows us to go back through the range.
+For some containers, we can also get a reverse iterator that allows us to go backwards.
 
 <image src="img/rev_iterator.gif">
 
 ___
 
-## Short revision # 4
+## Short revision #4
 
 If we do not want to modify the data indicated by the iterator, we will use the option with the prefix `c` derived from the word `constant`.
 
@@ -41,7 +41,7 @@ ___
 
 <image src="img/iterator_categories.gif" height="350px">
 
-The question is what should be in place `forward_iterator`?
+Question: what should be in place of `forward_iterator`?
 <!-- .element: class="fragment fade-in" -->
 
 * <!-- .element: class="fragment fade-in" --> <code>std::forward_list<T></code>
@@ -50,9 +50,9 @@ The question is what should be in place `forward_iterator`?
 
 ___
 
-### "The poorest" iterators, that is input and output
+### "The poorest" iterators: input and output
 
-Input iterator: eg comes from stream `std::istream`, that is known to us `std::cin`. Once loaded, the data disappears, we cannot read it again. We can only go through the data once. In other words, as soon as we read a given data, our operator is immediately incremented.
+Input iterator comes e.g. from stream `std::istream`, that is known to us as `std::cin`. Once loaded, the data disappears, we cannot read it again. We can only go through the data once. In other words, as soon as we read given data, our operator is immediately incremented.
 
 ```C++
 int a;
@@ -61,7 +61,7 @@ std::cin >> a >> b;
 ```
 <!-- .element: class="fragment fade-in" -->
 
-Output iterator: eg comes from stream `std::ostream`, that is known to us `std::cout`. Once the data is listed, it disappears, we cannot display it again, we have to enter the data again.
+Output iterator comes e.g. from stream `std::ostream`, that is known to us as `std::cout`. Once the data is printed, it disappears, we cannot display it again, we have to enter the data again.
 <!-- .element: class="fragment fade-in" -->
 
 ```C++
@@ -195,9 +195,9 @@ Question: What are the available operators for this iterator?
 
 ___
 
-### Curiosity
+### Trivia
 
-Another type was introduced in C ++ 17: `ContiguousIterator`. It includes all the features of the Random Access iterator and ensures that all data is arranged in one place in memory.
+Another type was introduced in C++17: `ContiguousIterator`. It includes all the features of the Random Access iterator and ensures that all data is arranged in one place in memory.
 
 ___
 
