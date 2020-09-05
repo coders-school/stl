@@ -3,7 +3,7 @@
 #include <regex>
 
 bool isInteger(double number) {
-    return number == floor(number);
+    return number == std::floor(number);
 }
 
 bool isAcceptableOperation(char operation) {
@@ -83,11 +83,12 @@ ErrorCode Calculator::process(std::string& input, double* out) {
     getValues();
 
     for (auto validator : validators_) {
-        errorCode_ = validator();
+        errorCode_ = validator(this);
         if (ErrorCode::OK != errorCode_) {
             return errorCode_;
         }
     }
+    *out = calculate(operation_, firstValue_, secondValue_);
 
     return errorCode_;
 }
