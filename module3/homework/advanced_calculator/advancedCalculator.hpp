@@ -30,6 +30,7 @@ private:
     void cleanInputAndExecuteRegex();
     void getValues();
     char getGroupChar(size_t index);
+    double calculate(char operation, double a, double b = 0);
 
     static std::map<char, std::function<double(double, double)>> possibleFunctions_;
 
@@ -45,6 +46,5 @@ private:
     ErrorCode errorCode_{};
 
 public:
-    double calculate(char operation, double a, double b = 0);
     ErrorCode process(std::string& input, double* out);
 };
