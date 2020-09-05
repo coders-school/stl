@@ -12,11 +12,11 @@ ___
 
 ## Definition
 
-Computational complexity - algorithm execution time estimation. We measure the number of operations, then we look for a function that describes the number of operations depending on the input data. Notation `O` (capital O) is an upfront estimate. Since we only want to approximate the value, we omit any kind of constants that are irrelevant to the large input sets labeled as `n`. Therefore `Ο(2n + 5)`, `Ο(2n)` and `Ο(n)` are considered computational complexity `O(n)`.
+Computational complexity is about estimating time of algorithm execution. We measure the number of operations, then we look for a function that describes the number of operations depending on the input data. Notation `O` (big O) is an upfront estimate. Since we only want to approximate the value, we omit any kind of constants that are irrelevant to the large input sets labeled as `n`. Therefore `Ο(2n + 5)`, `Ο(2n)` and `Ο(n)` are considered as `O(n)` complexity.
 
 ___
 
-## Complexity `O(1)`
+## `O(1)` complexity
 
 This is called Constant complexity that is independent of the number of inputs. When calculating the sum of an arithmetic sequence (code below), we do not iterate over all the elements of the array, so the execution time is constant and independent of the size of the array.
 
@@ -43,9 +43,9 @@ Output: `21`
 ___
 <!-- .slide: style="font-size: 0.9em" -->
 
-## Complexity `O(logn)`
+## `O(logn)` complexity
 
-Let's imagine that we are looking for the phone number of our friend Andrzej. We take the phone book and open it in the middle and see that we have a person named Cornelia. We know that Andrzej is in the first half of the address book, because the letter K is much further down the alphabet than the letter A. So we open again in the middle of the first half and see that the name Dominik is there. So we repeat our search, finding Bartek in the next part, and finally we come across Andrzej. Such a search, in which we drop half the range every time, is just written in notation `O(logn)`.
+Let's imagine that we are looking for the phone number of our friend Albert. We take the phone book and open it in the middle and see that we have a person named Karen. We know that Albert is in the first half of the address book, because the letter K is much further down the alphabet than the letter A. So we open again in the middle of the first half and see that the name Dylan is there. So we repeat our search, finding Bella in the next part, and finally we come across Albert. Such a search, in which we drop half the range every time, is written as `O(logn)` notation.
 
 ```C++
 std::vector<int> vec{1, 2, 3, 4, 5, 6};
@@ -66,15 +66,15 @@ false
 
 ___
 
-## Complexity `O(n)`
+## `O(n)` complexity
 
-Now imagine the situation that we are looking for Żaneta's number in the address book. However, we are not going to do a binary search now, we will just see how long it will take when we search person by person. So we start with the letter A and 4 days later we finally find Żaneta's number 🙂. Such complexity, where we check each element in turn, is complexity `O(n)`.
+Now imagine the situation that we are looking for Zowie's number in the address book. However, we are not going to do a binary search now, we will just see how long it will take when we search person by person. So we start with the letter A and 4 days later we finally find Zowie's number 🙂. Such complexity, where we check each element in turn, is `O(n)` complexity.
 
 <!-- brak miejsca - dzielę na dwa -->
 ___
 <!-- .slide: style="font-size: 0.85em" -->
 
-## Complexity `O(n)` - example
+## `O(n)` complexity  - example
 
 ```C++
 constexpr size_t samples = 1'000'000'000;
@@ -108,14 +108,14 @@ O(n): 6'949'430'300 ns
 
 ___
 
-## Complexity `O(nlog(n))`
+## `O(nlog(n))` Complexity
 
 This is called log-linear complexity, the execution time of which is directly proportional to the product of the input data and their logarithm.
-Now imagine the situation: we are trying to find Andrzej's number in the phone book, but our colleague played a trick on us and swapped the pages. Now we have to sort it, we are concerned about time, so we want to do it efficiently. Therefore, we tear pages from the phone book one by one and insert them into the new one in the same order. Not only do we have to do such an operation for `n` pages, we still have to put them alphabetically, which will take us `logn` time. Therefore, the whole process is `nlogn`.
+Now imagine this: we are trying to find Albert's number in the phone book, but our colleague played a trick on us and swapped the pages. Now we have to sort it, we are concerned about time, so we want to do it efficiently. Therefore, we tear pages from the phone book one by one and insert them into the new one in correct order. Not only do we have to do such an operation for `n` pages, we still have to put them alphabetically, which will take us `logn` time. Therefore, the whole process is `nlogn`.
 
 ___
 
-## Complexity `O(nlog(n))` - example
+## `O(nlog(n))` complexity  - example
 
 ```C++
 constexpr size_t samples = 1'000'000'000;
@@ -141,14 +141,14 @@ Previous slides output: `O(n): 6'949'430'300 ns`
 
 ___
 
-## Complexity `O(n^x)`
+## `O(n^x)` complexity
 
-This is called polynomial complexity. Its special and very common case is the square complexity - `O(n^2)`whose execution time is directly proportional to the square of the amount of input data. Now imagine a different situation. We managed to find Andrzej's number and we also decide to play a trick on our friend, but we want to repay with a vengeance. Therefore, we print a new phone book, but add the number '8' to the beginning of each number. Now our colleague not only needs to improve each side `n` it has yet to be checked and corrected each issue based on the original book. Such computational complexity is `O(n^2)`. An example of complexity `O(n^2)` is the popular bubble sort.
+This is called polynomial complexity. Its special and very common case is the square complexity - `O(n^2)` whose execution time is directly proportional to the square of the amount of input data. Now imagine a different situation. We managed to find Albert's number and we also decide to play a trick on our friend, but we want to repay with a vengeance. Therefore, we print a new phone book, but add the number '8' to the beginning of each number. Now our colleague not only needs to improve each page `n` but he also has to check and correct each number basing on the original book. Such computational complexity is `O(n^2)`. An example of `O(n^2)` complexity is the popular bubble sort.
 
 ___
 <!-- .slide: style="font-size: 0.7em" -->
 
-## Complexity `O(n^2)` - example
+## `O(n^2)` complexity - example
 
 ```C++
 constexpr size_t samples = 1'000'000;
@@ -178,6 +178,7 @@ std::cout << "O(n^2): " << std::chrono::duration_cast<std::chrono::nanoseconds>(
 <!-- .element: class="fragment fade-in" -->
 
 Possible output:
+<!-- .element: class="fragment fade-in" -->
 
 ```C++
 O(n^2): 9'974'800 ns
@@ -188,28 +189,28 @@ O(n^2): 810'269'600 ns
 
 ___
 
-## Complexity `O(x^n)`
+## `O(x^n)` complexity
 
-This is called exponential complexity. The execution time increases exponentially with the amount of input data. Imagine a situation where not only the book contains errors that we previously deliberately introduced, but someone decided to print it in a huge circulation and now we have to correct all the books where the time to correct errors was already `n^2`. For such a combination, we say complexity is `n^n`. So it grows exponentially as the number of books (samples) increases. An example would be the DFS (deep-first search) graph, if the input is a matrix. Since we have to go through the whole row every time until we find the item we are interested in, so we will do `n^n` steps. Rarely seen, so it is a form of curiosity 🙂
+This is called exponential complexity. The execution time increases exponentially with the amount of input data. Imagine a situation where not only the book contains errors that we previously deliberately introduced, but someone decided to print it in a huge circulation and now we have to correct all the books where the time to correct errors was already `n^2`. For such a combination, we say complexity is `n^n`. So it grows exponentially as the number of books (samples) increases. An example would be the DFS (deep-first search) graph, if the input is a matrix. Since we have to go through the whole row every time until we find the item we are interested in, so we will do `n^n` steps. Rarely seen, so it is more of a trivia 🙂
 
 ___
 
-## Complexity `O(n!)`
+## `O(n!)` complexity
 
 This is a factorial complexity, the execution time increases with the rate of factorial with respect to the amount of input data. An example of a problem is the traveling salesman problem from the group of graph algorithms. Find the shortest route starting from city A, passing through all other cities once and going back to city A. For many years, analysts have been puzzling over how to improve this algorithm. We still have room to show off 🙂. I will not paste the code here, but if you are interested, I refer you to search for a traveling salesman algorithm.
 
 ___
 
-## Complexity `O(n * n!)`
+## `O(n * n!)` complexity
 
-One of the worst scenarios we can do for the algorithm. Imagine a situation where our colleague decided to show us that he was not worth messing with and complains to your supervisor that you messed up the phone book. Now, as a punishment, you have to write a program for a robot arranging books on your friend's shelves in alphabetical order. However, you decide to do the next (worst) trick for him, and you write a robot that will arrange the books randomly, and then check whether it was possible to arrange them correctly, and if not, he would download them again and arrange them again. This way, the robot will compose books for weeks or months, but eventually it will succeed 🙂
+One of the worst scenarios we can do for the algorithm. Imagine a situation where our colleague decided to show us that he was not worth messing with and complains to your supervisor that you messed up the phone book. Now, as a punishment, you have to write a program for a robot arranging books on your friend's shelves in alphabetical order. However, you decide to do the next (worst) trick for him, and you write a robot that will arrange the books randomly, and then check whether they have been arranged correctly, and if not, he would take them again and arrange them again. This way, the robot will compose books for weeks or months, but eventually it will succeed 🙂
 
 Thus, we wrote a perfectly suboptimal sorting algorithm with complexity `O(n * n!)`. An example of such sorting is bogosort.
 
 ___
 <!-- .slide: style="font-size: 0.65em" -->
 
-## Complexity `O(n * n!)` Example
+## `O(n * n!)` complexity - example
 
 ```C++
 std::random_device rd;

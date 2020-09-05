@@ -6,15 +6,15 @@ ___
 
 ## Types of algorithms
 
-Enter what algorithms you know:
+What algorithms do you know?:
 
 * <!-- .element: class="fragment fade-in" --> Non-modifying sequences?
 * <!-- .element: class="fragment fade-in" --> Modifying sequences?
 * <!-- .element: class="fragment fade-in" --> Partitioning?
 * <!-- .element: class="fragment fade-in" --> Sorting?
 * <!-- .element: class="fragment fade-in" --> Binary searching?
-* <!-- .element: class="fragment fade-in" --> Operating on the mound?
-* <!-- .element: class="fragment fade-in" --> Min / max?
+* <!-- .element: class="fragment fade-in" --> Operating on the heap?
+* <!-- .element: class="fragment fade-in" --> Min/max?
 * <!-- .element: class="fragment fade-in" --> Comparing?
 * <!-- .element: class="fragment fade-in" --> Performing permutations?
 * <!-- .element: class="fragment fade-in" --> Numeric?
@@ -23,9 +23,9 @@ ___
 
 ## Quiz
 
-using [cppreference](https://en.cppreference.com/w/) answer the questions:
+Using [cppreference](https://en.cppreference.com/w/) answer the questions:
 
-* <!-- .element: class="fragment fade-in" --> What complexity does it have <code>std::sort()</code>?
+* <!-- .element: class="fragment fade-in" --> What complexity does <code>std::sort()</code> have?
 * <!-- .element: class="fragment fade-in" --> Which algorithm will you use to connect 2 containers alternately?
 * <!-- .element: class="fragment fade-in" --> What algorithm will you use to sum all the elements in <code>std::vector</code>?
 * <!-- .element: class="fragment fade-in" --> What algorithm will you use to multiply 2 containers together?
@@ -48,7 +48,7 @@ ___
 
 ## Task 1
 
-Write a function to adopt `std::vector<int>&`, a variable `int value`, and a variable `int new_pos`. The function should find `value` in `std::vector<int>` and if he finds it, put it in a new place `new_pos`by properly shifting the rest of the elements so as not to disturb their sequence. Then return `true`if the process was successful, or `false`if the order could not be changed (e.g., the value does not exist).
+Write a function that takes `std::vector<int>&`, a variable `int value`, and a variable `int new_pos`. The function should find `value` in `std::vector<int>` and if it finds it, put it in a new place `new_pos` by properly shifting the rest of the elements so as not to disturb their order. Then return `true` if the process was successful, or `false` if the order could not be changed (e.g., the value does not exist).
 
 `bool ChangePos(std::vector<int>& vec, int value, int new_pos)`
 <!-- .element: class="fragment fade-in" -->
@@ -91,7 +91,7 @@ ___
 
 ___
 
-## Exercise 2
+## Task 2
 
 Write a function that takes two `std::vector<int>` and a variable `int`. First `std::vector<int>` contains the container on which we operate, the second contains the values ​​we want to transfer, and the value `int` is the index number to which we want to transfer the values.
 
@@ -133,10 +133,9 @@ int main() {
 
 ___
 
-## Exercise 3
+## Task 3
 
-Write a Gather function that will adopt `std::vector<char>` and will cause
-all appearances `*` will appear inside `std::vector<char>`.
+Write a Gather function that will take `std::vector<char>` and will put all appearances of `*` to the middle of `std::vector<char>`.
 
 Input: `std::vector<char> vec {'*', '@', '*', '#', '@', '^', '*', '(', ')', '*'};`
 <!-- .element: class="fragment fade-in" -->
@@ -180,7 +179,7 @@ ___
 
 ## Task 4
 
-Write a function `GetVec(size_t count)`which will return `std::vector<int>` with values ​​from `10` down `10 + n`by incrementing them every 1. Then write the second function `int Multiply(std::vector<int> vec)`which will return a value equal to the product of each element `std::vector<int>`.
+Write a function `GetVec(size_t count)` which will return `std::vector<int>` with values ​​from `10` to `10 + n` by incrementing them by 1. Then write the second function `int Multiply(std::vector<int> vec)` which will return a value equal to the product of each element of `std::vector<int>`.
 
 Input: `GetVec(7)`
 <!-- .element: class="fragment fade-in" -->
