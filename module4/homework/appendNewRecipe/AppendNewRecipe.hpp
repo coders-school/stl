@@ -8,7 +8,7 @@
 
 constexpr char GLASSES[] = " szklanka(i) ";
 constexpr char GRAM[] = " gram ";
-constexpr char MILILITRES[] = "ml ";
+constexpr char MILILITRES[] = " mililitrow ";
 
 bool AppendNewRecipe(std::vector<std::string> steps,
                      const std::list<std::string>& ingredients,
