@@ -1,0 +1,20 @@
+name: Module 4 homework
+
+on: [push, pull_request]
+
+jobs:
+  appendNewRecipe:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out code
+      uses: actions/checkout@master
+    - name: mkdir module4/homework/appendNewRecipe/build
+      run: mkdir module4/homework/appendNewRecipe/build
+    - name: Compile
+      working-directory: module4/homework/appendNewRecipe/build
+      run: |
+        cmake ..
+        make
+    - name: Run tests
+      working-directory: module4/homework/appendNewRecipe/build
+      run: ctest -V
