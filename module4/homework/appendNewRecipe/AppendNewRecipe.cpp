@@ -6,7 +6,7 @@
 
 #include "AppendNewRecipe.hpp"
 
-bool AppendNewRecipeconst(std::vector<std::string> steps,
+bool AppendNewRecipe(std::vector<std::string> steps,
                      const std::list<std::string>& ingredients,
                      const std::deque<std::pair<size_t, char>>& amount) {
     std::fstream recipes("recipes.txt", recipes.out | recipes.app);
@@ -58,7 +58,7 @@ std::string convertEnumToString(char c) {
         return " gram";
         break;
     case 'm':
-        return " ml";
+        return " mililitrow";
         break;
     case 's':
         return " szklanka(i)";
