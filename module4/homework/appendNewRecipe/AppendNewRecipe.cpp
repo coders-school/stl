@@ -10,7 +10,8 @@ const std::map<char, std::string> quantities{{'g', "gram"}, {'s', "szklanka(i)"}
 bool AppendNewRecipe(std::vector<std::string> steps,
                      const std::list<std::string>& ingredients,
                      const std::deque<std::pair<size_t, char>>& amount) {
-    std::fstream recipes("recipes.txt", recipes.out | recipes.app);
+    constexpr auto filename = "recipes.txt";
+    std::fstream recipes(filename, recipes.out | recipes.app);
 
     if (!recipes.is_open()) {
         return false;
@@ -43,9 +44,12 @@ std::stringstream FormatRecipit(std::vector<std::string> steps,
     std::stringstream recipit;
     std::vector<std::string> vecIngedients = FormatIngredients(ingredients, amount);
 
-    recipit << "Składniki:\n";
+    constexpr auto ingredientsMessage = "Składniki:\n";
+    recipit << ingredientsMessage;
     std::copy(vecIngedients.cbegin(), vecIngedients.cend(), std::ostream_iterator<std::string>(recipit, ",\n"));
-    recipit << "\nKroki:\n";
+
+    constexpr auto stepsMessage = "\nKroki:\n";
+    recipit << stepsMessage;
     std::transform(steps.cbegin(), steps.cend(),
                    std::ostream_iterator<std::string>(recipit, "\n"),
                    [counter{1}](const auto& step) mutable {
