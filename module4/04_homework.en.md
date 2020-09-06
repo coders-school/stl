@@ -102,5 +102,5 @@ Read and write a short note and an example of using the following adapters:
 * <!-- .element: class="fragment fade-in" --> queue
 * <!-- .element: class="fragment fade-in" --> priority_queue
 
-I will reward the most interesting study with 30xp. Second place will get 20xp and third place 10xp.
+I will reward the most interesting essay with 30xp. Second place will get 20xp and third place 10xp.
 <!-- .element: class="fragment fade-in" -->
