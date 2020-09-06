@@ -3,5 +3,5 @@
 
 class ArithmeticAverage {
 public:
-    int operator()(std::vector<int>& a, std::vector<int>& b) const;
+    float operator()(std::vector<int>& lhs, std::vector<int>& rhs) const;
 };
