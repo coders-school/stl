@@ -17,15 +17,6 @@ enum OperationType {
     Bad
 };
 
-const std::map<char, std::function<double(double, double)>> operations{
-    {'+', std::plus<double>()},
-    {'-', std::minus<double>()},
-    {'*', std::multiplies<double>()},
-    {'/', std::divides<double>()},
-    {'%', std::modulus<int>()},
-    {'^', [](double base, double pow) { return std::pow(base, pow); }},
-    {'$', [](double base, double root) { return std::pow(base, 1.0 / root); }}};
-
 enum ErrorCode {
     OK,
     BadCharacter,
@@ -34,6 +25,15 @@ enum ErrorCode {
     SqrtOfNegativeNumber,
     ModuleOfNonIntegerValue
 };
+
+const std::map<char, std::function<double(double, double)>> operations{
+    {'+', std::plus<double>()},
+    {'-', std::minus<double>()},
+    {'*', std::multiplies<double>()},
+    {'/', std::divides<double>()},
+    {'%', std::modulus<int>()},
+    {'^', [](double base, double pow) { return std::pow(base, pow); }},
+    {'$', [](double base, double root) { return std::pow(base, 1.0 / root); }}};
 
 const std::map<ErrorCode, std::string> errorCodeString{
     {ErrorCode::OK, "OK"},

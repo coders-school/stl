@@ -34,5 +34,4 @@ TEST(arithmeticAverageTest, ShouldCalculateDistance) {
     first = {1, 2, 3};
     second = {5, 6};
     EXPECT_TRUE(cmp(Distance(first, second), 0.0));
-
 }

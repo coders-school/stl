@@ -17,8 +17,11 @@ int main() {
     while (std::getline(std::cin, inputData)) {
         if (inputData == "help") {
             printHelp();
+        } else if (inputData == "quit") {
+            break;
         } else {
             compute(inputData);
         }
     }
+    return 0;
 }
