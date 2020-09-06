@@ -31,7 +31,7 @@ bool AppendNewRecipe(std::vector<std::string> steps,
                      const std::list<std::string>& ingredients,
                      const std::deque<std::pair<size_t, char>>& amount) {
     auto ss = FormatRecipit(steps, ingredients, amount);
-    std::fstream recipes("recipes.txt", recipes.out | recipes.app);
+    std::fstream recipes(FILENAME, recipes.out | recipes.app);
     if (recipes.is_open()) {
         recipes << ss.str();
         recipes.close();
@@ -47,13 +47,13 @@ std::stringstream FormatRecipit(std::vector<std::string> steps,
     std::stringstream ss;
     auto formattedIngredients = FormatIngredients(ingredients, amount);
 
-    ss << "Skladniki:\n";
+    ss << INGREDIENTS_SENTENCE;
     for (auto& el : formattedIngredients) {
-        ss << el << ",\n";
+        ss << el << END_OF_INGREDIENT;
     }
-    ss << "\nKroki:\n";
+    ss << STEPS_SENTENCE;
     for (size_t i = 0; i < steps.size(); ++i) {
-        ss << std::to_string(i + 1) << ") " << steps[i] << ".\n";
+        ss << std::to_string(i + 1) << ") " << steps[i] << END_OF_STEP;
     }
     ss << dash << "\n";
     return ss;

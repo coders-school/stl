@@ -1,14 +1,19 @@
 #pragma once
 
 #include <deque>
+#include <istream>
 #include <list>
 #include <string>
 #include <vector>
-#include <istream>
 
 constexpr char GLASSES[] = " szklanka(i) ";
 constexpr char GRAM[] = " gram ";
 constexpr char MILILITRES[] = " mililitrow ";
+constexpr char END_OF_INGREDIENT[] = ",\n";
+constexpr char END_OF_STEP[] = ".\n";
+constexpr char INGREDIENTS_SENTENCE[] = "Skladniki:\n";
+constexpr char STEPS_SENTENCE[] = "\nKroki:\n";
+constexpr char FILENAME[] = "recipes.txt";
 
 bool AppendNewRecipe(std::vector<std::string> steps,
                      const std::list<std::string>& ingredients,
