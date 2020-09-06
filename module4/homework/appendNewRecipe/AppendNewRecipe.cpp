@@ -5,7 +5,7 @@
 #include <iterator>
 #include <map>
 
-const std::map<char, std::string> quantities{{'g', "gram"}, {'s', "szklanka(i)"}, {'m', "mililitrów"}};
+const std::map<char, std::string> quantities{{'g', "gram"}, {'s', "szklanka(i)"}, {'m', "mililitrow"}};
 
 bool AppendNewRecipe(std::vector<std::string> steps,
                      const std::list<std::string>& ingredients,
@@ -44,7 +44,7 @@ std::stringstream FormatRecipit(std::vector<std::string> steps,
     std::stringstream recipit;
     std::vector<std::string> vecIngedients = FormatIngredients(ingredients, amount);
 
-    constexpr auto ingredientsMessage = "Składniki:\n";
+    constexpr auto ingredientsMessage = "Skladniki:\n";
     recipit << ingredientsMessage;
     std::copy(vecIngedients.cbegin(), vecIngedients.cend(), std::ostream_iterator<std::string>(recipit, ",\n"));
 
