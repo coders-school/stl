@@ -107,7 +107,7 @@ std::string getErrorMsg(ErrorCode ec) {
     case ErrorCode::BadFormat:
         return "Invalid format.";
     case ErrorCode::DivideBy0:
-        return "NIGDY CHOLERO NIE DZIEL PRZEZ 0.";
+        return "Division by 0 is forbidden.";
     case ErrorCode::ModuleOfNonIntegerValue:
         return "Modulo applies only for integers.";
     case ErrorCode::SqrtOfNegativeNumber:
