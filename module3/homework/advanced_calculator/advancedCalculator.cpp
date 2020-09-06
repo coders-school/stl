@@ -39,14 +39,14 @@ ErrorCode process(std::string operation, double* out) {
     operation.erase(remove_if(operation.begin(), operation.end(), isspace), operation.end());
     auto operandSeparator = std::find_if(operation.begin() + 1, operation.end(), [](const char& c){
         return (std::ispunct(c) && c != '.'); });
-    if (std::count_if(operation.begin() + 1, operation.end(), [](const char& c){
+    if (std::count_if(operation.cbegin() + 1, operation.cend(), [](const char& c){
         return (std::ispunct(c) && c != '.' && c != '-'); }) > 1) {
             return ErrorCode::BadFormat;
     }
     if (std::ispunct(operation[0]) && operation[0] != '-') {
         return ErrorCode::BadFormat;
     }
-    if (std::count(operation.begin(), operation.end(), '.') > 2) {
+    if (std::count(operation.cbegin(), operation.cend(), '.') > 2) {
         return ErrorCode::BadFormat;
     }
     std::string operandOne {};
