@@ -29,5 +29,12 @@ TEST(arithmeticAverageTest, ShouldCalculateDistance) {
     std::vector<int> first{7, 4, 3};
     std::vector<int> second{17, 6, 2};
     EXPECT_TRUE(cmp(Distance{}(first, second), 10.247));
+    // (7−17)² + (4−6)² + (3−2)² = sqrt105
+    
+    std::vector<int> third{0, 0, 0};
+    std::vector<int> fourth{0, 0, 0};
+    EXPECT_TRUE(cmp(Distance{}(third, fourth), 0));
+
     // Write more test case
+    
 }
