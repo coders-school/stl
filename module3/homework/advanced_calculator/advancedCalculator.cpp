@@ -21,14 +21,12 @@ bool isInteger(double num) {
 
 bool badChar(const std::string& input) {
     const std::string allowed_ops{"+-*/!$%^.,"};
-    for (const auto el : input) {
-        auto it = std::find(allowed_ops.begin(), allowed_ops.end(), el);
-        if (it == allowed_ops.end() && !isdigit(el)) {
-            return true;
-        }
-    }
 
-    return false;
+    auto pred = [&allowed_ops](const auto el){
+        return (!isdigit(el) && std::find(allowed_ops.begin(), allowed_ops.end(), el) == allowed_ops.end());
+    };
+
+    return std::any_of(input.begin(), input.end(), pred);
 }
 
 std::map<char, std::function<double(double, double)>> operators{
