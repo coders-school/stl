@@ -7,8 +7,6 @@
 #include <iterator>
 #include <map>
 
-#include <iostream>
-
 double factorial (double num) {
     if (num <= 0) 
         return 1;

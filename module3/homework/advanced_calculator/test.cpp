@@ -93,8 +93,8 @@ TEST(advancedCalculatorTest, ShouldCalculateSqrt) {
     EXPECT_TRUE(cmp(result, 32.));
     ASSERT_EQ(process("1024$4", &result), ErrorCode::OK);
     EXPECT_TRUE(cmp(result, 5.65685));
-    //ASSERT_EQ(process("13.71 $-4", &result), ErrorCode::OK);
-    //EXPECT_TRUE(cmp(result, 5.19686e-1));
+    ASSERT_EQ(process("13.71 $-4", &result), ErrorCode::SqrtOfNegativeNumber);
+    //EXPECT_TRUE(cmp(result, 5.19686e-1)); - In that case result won't be calculated
     ASSERT_EQ(process("2.5 $ 2.5", &result), ErrorCode::OK);
     EXPECT_TRUE(cmp(result, 1.4427));
 }
