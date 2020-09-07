@@ -8,3 +8,4 @@ DivideBy0 = 3,
 SqrtOfNegativeNumber = 4,
 ModuleOfNonIntegerValue = 5 
 };
+

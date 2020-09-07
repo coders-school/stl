@@ -5,6 +5,7 @@
 int main() {
 
    bool returnFlag = true;
+
    while (returnFlag) {
     
     double result;

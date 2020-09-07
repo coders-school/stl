@@ -5,15 +5,26 @@
 
 ErrorCode process(std::string input, double &out) {
 
-  mathOperation dataObject;
-  dataObject.setInputString(input);
-  ErrorCode error = dataObject.ValidateInputString();
-  dataObject.setErrorCode(error);
+  mathOperation dataObject(input);
+  dataObject.printString();
+  dataObject.printRegexGroups();
+  std::cout << "FirstValue: " << dataObject.getFirstValue() << std::endl;
+  std::cout << "SecondValue: " << dataObject.getSecondValue() << std::endl;
+  //cout << "SecondValue: " << dataObject.getSecondValue() << std::endl;
+  dataObject.printErrorCode();
+
+
+return dataObject.getErrorCode();
+
+/*   ErrorCode error = dataObject.ValidateInputString();
+
+  dataObject.printString();
   std::cout << dataObject.getFirstValue() << std::endl;
   std::cout << dataObject.getSecondValue() << std::endl;
   dataObject.printErrorCode();
-  //calculate result
+  dataObject.CalculateResult();
   out = dataObject.getResult();
+  std::cout << "Oto WYNIK: " << out;
   //return 
-  return ErrorCode::OK;
+  return ErrorCode::OK; */
 }
