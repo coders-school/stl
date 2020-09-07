@@ -18,9 +18,7 @@ They cannot:
 * delete items
 * add items
 
-Here you will only find popular or interesting uses of some algorithms. The full list of algorithms is available on cppreference.com
-
-[Algorithms on cppreference.com](https://en.cppreference.com/w/cpp/algorithm)
+Here you will only find popular or interesting uses of some algorithms. The full list of algorithms is available on [cppreference.com](https://en.cppreference.com/w/cpp/algorithm).
 
 ___
 
