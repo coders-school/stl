@@ -18,7 +18,7 @@ public:
   void printErrorCode() const;
   void printString() const;
   void printRegexGroups() const;
-  ErrorCode calculateResult();
+  void calculateResult();
 
 
 

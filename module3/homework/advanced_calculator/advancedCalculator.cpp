@@ -12,7 +12,7 @@ ErrorCode process(std::string input, double &out) {
   std::cout << "SecondValue: " << dataObject.getSecondValue() << std::endl;
   //cout << "SecondValue: " << dataObject.getSecondValue() << std::endl;
   dataObject.printErrorCode();
-
+  std::cout << "Result: " << dataObject.getResult() << std::endl;
 
 return dataObject.getErrorCode();
 

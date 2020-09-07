@@ -11,6 +11,9 @@ mathOperation::mathOperation(std::string& inputString)
         actualError_ =  checkIfBadFormat();
         actualError_ =  checkIfBadCharacter();
         actualError_ =  checkIfDivideByZero();
+        actualError_ = checkIfSqrtOfNegativeNumber();
+        actualError_ = checkIfmoduleOfNonIntegerValue();
+        calculateResult();
 
       };
 
@@ -71,11 +74,7 @@ double mathOperation::modulo(double &firstValue, double &secondValue) {
                              static_cast<int>(secondValue));
 }
 double mathOperation::factorial(double &firstValue, double &secondValue) {
-  double result = 0;
-  for (double i = 1; i <= firstValue; i++) {
-    double result = result * i;
-  }
-  return result;
+  return std::tgamma(firstValue+1);
 }
 double mathOperation::squareRoot(double &firstValue, double &secondValue) {
   return pow(firstValue, 1/secondValue);
@@ -172,18 +171,13 @@ ErrorCode mathOperation::checkIfmoduleOfNonIntegerValue() {
     return ErrorCode::ModuleOfNonIntegerValue;
 }
 
-ErrorCode mathOperation::calculateResult() {
+void mathOperation::calculateResult() {
 
   if (actualError_ == ErrorCode::OK && operationCharacter_.size() == 1) {
 
     auto it = FunctionalMap_.find(operationCharacter_[0]);
-    it->second(firstValue_, secondValue_);
-    if (it == FunctionalMap_.end()) {
-      return ErrorCode::OK;
-    } else
-      return ErrorCode::BadCharacter;
-  } else
-    return ErrorCode::BadCharacter;
+    result_ = it->second(firstValue_, secondValue_);
+  }
 }
 
 void mathOperation::printRegexGroups() const {
