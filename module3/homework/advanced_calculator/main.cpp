@@ -9,7 +9,7 @@ int main() {
     while(true) {
         std::cout << ">>> ";
         getline(std::cin, input);
-        if (input == "exit") {
+        if (input == "q") {
             break;
         }
         auto ec = process(input, &result);

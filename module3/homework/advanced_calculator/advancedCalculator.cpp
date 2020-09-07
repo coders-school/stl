@@ -6,17 +6,17 @@
 #include <regex>
 
 void printInfo() {
-    std::cout << "Possible operators: {'+', '-', '*', '/', '%', '!', '$', '^'}\n";
-    std::cout << "To quit type \"exit\"\n";
+    std::cout << "Possible operations: {'+', '-', '*', '/', '%', '!', '$', '^'}\n";
     std::cout << "Eg. >>> 5 + 5\n10\n";
+    std::cout << "To quit type 'q'\n";
 }
 
 double factorial(double n) {
     return (n > 0.0) ? tgamma(n + 1) : 1.0;
 }
 
-bool isInteger(double num) {
-    return (num == static_cast<int>(num));
+bool isInteger(double n) {
+    return (n == static_cast<int>(n));
 }
 
 bool badChar(const std::string& input) {
