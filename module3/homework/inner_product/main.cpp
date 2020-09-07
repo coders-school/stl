@@ -9,6 +9,7 @@ int main() {
     std ::cout << result << '\n';
     std::vector<int> first{7, 4, 3};
     std::vector<int> second{17, 6, 2};
+    std::copy(first.begin(), first.end(), second.begin());
     result = Distance(first, second);
     std ::cout << result << '\n';
 }
