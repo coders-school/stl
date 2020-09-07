@@ -4,6 +4,15 @@
 
 ___
 
+## Post-work
+
+* recipes (25 XP)
+* adapters (10, 20 lub 30 XP)
+
++3 XP for delivering each task before 20 September 2020 23:59
+
+___
+
 ## Task 1
 
 Write a function that will allow you to save new recipes in a `recipes.txt` file. Return false if you failed to save the recipe.
