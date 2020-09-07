@@ -1,5 +1,9 @@
 #include <vector>
+<<<<<<< HEAD
 #include <cmath>
+=======
+
+>>>>>>> de509a7025d42aab3757896a0daa2012b289832a
 #include "arithmeticAverage.hpp"
 #include "gtest/gtest.h"
 

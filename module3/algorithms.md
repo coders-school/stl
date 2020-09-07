@@ -138,10 +138,17 @@ ___
 Napisz funkcję Gather, która przyjmie `std::vector<char>` oraz spowoduje, że
 wszystkie wystąpienia `*` pojawią się w środku `std::vector<char>`.
 
+<<<<<<< HEAD
 Input: `std::vector<char> vec {'*', '$', '@', '*', '#', '@', '^', '*', '(', ')', '$', '*'};`
 <!-- .element: class="fragment fade-in" -->
 
 Output: `$ @ # @ * * * * ^ ( ) $`
+=======
+Input: `std::vector<char> vec {'*', '@', '*', '#', '@', '^', '*', '(', ')', '*'};`
+<!-- .element: class="fragment fade-in" -->
+
+Output: `@ # @ * * * * ^ ( )`
+>>>>>>> de509a7025d42aab3757896a0daa2012b289832a
 <!-- .element: class="fragment fade-in" -->
 ___
 <!-- .slide: style="font-size: 0.9em" -->
