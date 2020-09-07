@@ -4,6 +4,15 @@
 
 ___
 
+## Post-work
+
+* innerProduct (10 XP)
+* advancedCalculator (25 XP)
+
++3 XP for delivering each task before 20 September 2020 23:59
+
+___
+
 ## Task 1
 
 Using `std::inner_product`, write a program that computes the arithmetic mean of two `std::vector<int>`.
