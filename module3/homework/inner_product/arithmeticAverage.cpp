@@ -9,7 +9,7 @@ double ArithmeticAverage(const std::vector<int>& first, const std::vector<int>& 
     if (amount == 0) {
         return 0.0;
     }
-    return (std::inner_product(first.begin(), first.end(), second.begin(), 0.0, std::plus<>(), std::plus<>())) / amount;
+    return (std::inner_product(first.cbegin(), first.cend(), second.cbegin(), 0.0, std::plus<>(), std::plus<>())) / amount;
 }
 
 double Distance(const std::vector<int>& first, const std::vector<int>& second) {
@@ -21,5 +21,5 @@ double Distance(const std::vector<int>& first, const std::vector<int>& second) {
         return pow((el_second - el_first), 2);
     };
 
-    return sqrt(std::inner_product(first.begin(), first.end(), second.begin(), 0.0, std::plus<>(), pred));
+    return sqrt(std::inner_product(first.cbegin(), first.cend(), second.cbegin(), 0.0, std::plus<>(), pred));
 }

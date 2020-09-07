@@ -23,10 +23,10 @@ bool badChar(const std::string& input) {
     const std::string allowed_ops{"+-*/!$%^.,"};
 
     auto pred = [&allowed_ops](const auto el){
-        return (!isdigit(el) && std::find(allowed_ops.begin(), allowed_ops.end(), el) == allowed_ops.end());
+        return (!isdigit(el) && std::find(allowed_ops.cbegin(), allowed_ops.cend(), el) == allowed_ops.cend());
     };
 
-    return std::any_of(input.begin(), input.end(), pred);
+    return std::any_of(input.cbegin(), input.cend(), pred);
 }
 
 std::map<char, std::function<double(double, double)>> operators{
