@@ -27,30 +27,39 @@ bool isBadFormat(const std::string& input) {
 }
 
 bool noDigitBeforeOperator(const std::string& input) {
-    std::regex pattern(R"(\d+)(\s+)(\+|\-|\/|\*|\^|\$|\!|\%)");
+    std::regex pattern(R"((\d+)(\s+)?(\+|\-|\/|\*|\^|\$|\!|\%))");
     return !std::regex_search(input, pattern);
 }
 
 bool noDigitAfterBinaryOperator(const std::string& input) {
-    std::regex pattern(R"(\+|\-|\/|\*|\^|\$|\%)(\s+)(\d+)");
+    std::regex pattern(R"((\+|\-|\/|\*|\^|\$|\%)(\s+)?(\d+))");
     return !std::regex_search(input, pattern);
 }
 
 bool moreThanOneOperator(const std::string& input) {
-    std::regex operators(R"(\+|\-|\/|\*|\^|\$|\%|\!)");
+    std::regex operators(R"((\+|\-|\/|\*|\^|\$|\%|\!))");
     std::smatch foundOperators;
-    std::regex_match(input, foundOperators, operators);
-    if (foundOperators[0].length() > 2) {
+    auto operators_begin = std::sregex_iterator(input.begin(), input.end(), operators);
+    auto operators_end = std::sregex_iterator();
+    auto equalToMinus = [](auto elem) { return elem.str() == "-"; };
+    if (std::distance(operators_begin, operators_end) > 3) {
         return true;
     }
-    if (foundOperators[0].length() == 2) {
-        if (!(foundOperators[0].str()[0] == '-' && foundOperators[0].str()[0] == '-')) {
+    if (std::distance(operators_begin, operators_end) == 3) {
+        return !std::all_of(operators_begin, operators_end, equalToMinus);
+    }
+    if (std::distance(operators_begin, operators_end) == 2) {
+        if (!firstDigitIsNegative(input)) {
             return true;
         }
     }
     return false;
 }
 
+bool firstDigitIsNegative(const std::string& input) {
+    std::regex pattern(R"(^(\s+)?(\-)(\s+)?(\d+))");
+    return std::regex_search(input, pattern);
+}
 
 ErrorCode process(std::string input, double* out) {
     std::variant<std::function<double(double, double)>, std::function<int(int, int)>, std::function<double(double)>>
@@ -64,6 +73,7 @@ ErrorCode process(std::string input, double* out) {
         {'!', std::function<double(double)>([](double lhs) { return std::tgamma(lhs + 1); })},
         {'^', std::function<double(double, double)>([](double lhs, double rhs) { return std::pow(lhs, rhs); })},
         {'$', std::function<double(double, double)>([](double lhs, double rhs) { return std::pow(lhs, 1 / rhs); })}};
+    std::cout << isBadFormat(input);
 
     return ErrorCode::OK;
 }

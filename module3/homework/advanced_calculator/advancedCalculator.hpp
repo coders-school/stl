@@ -12,3 +12,10 @@ enum class ErrorCode {
 };
 
 ErrorCode process(std::string input, double* out);
+
+bool isBadCharacter(const std::string& input);
+bool isBadFormat(const std::string& input);
+bool noDigitBeforeOperator(const std::string& input);
+bool noDigitAfterBinaryOperator(const std::string& input);
+bool moreThanOneOperator(const std::string& input);
+bool firstDigitIsNegative(const std::string& input);
