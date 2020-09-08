@@ -20,6 +20,9 @@ bool isBadFormat(const std::string& input) {
     if (noDigitAfterBinaryOperator(input)) {
         return true;
     }
+    if (moreThanOneOperator(input)) {
+        return true;
+    }
     return false;
 }
 
@@ -31,6 +34,21 @@ bool noDigitBeforeOperator(const std::string& input) {
 bool noDigitAfterBinaryOperator(const std::string& input) {
     std::regex pattern(R"(\+|\-|\/|\*|\^|\$|\%)(\s+)(\d+)");
     return !std::regex_search(input, pattern);
+}
+
+bool moreThanOneOperator(const std::string& input) {
+    std::regex operators(R"(\+|\-|\/|\*|\^|\$|\%|\!)");
+    std::smatch foundOperators;
+    std::regex_match(input, foundOperators, operators);
+    if (foundOperators[0].length() > 2) {
+        return true;
+    }
+    if (foundOperators[0].length() == 2) {
+        if (!(foundOperators[0].str()[0] == '-' && foundOperators[0].str()[0] == '-')) {
+            return true;
+        }
+    }
+    return false;
 }
 
 
