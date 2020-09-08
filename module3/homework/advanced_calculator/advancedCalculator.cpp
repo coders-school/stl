@@ -78,10 +78,8 @@ bool firstDigitIsNegative(const std::string& input) {
 }
 
 bool isDividedBy0(const std::string& input) {
-    std::regex pattern(R"((?<=\/(\s+)?)(\d+))");
-    auto resultBegin = std::sregex_iterator(begin(input), end(input), pattern);
-    auto resultEnd = std::sregex_iterator();
-    return resultBegin->str() == "0";
+    std::regex pattern(R"((\/(\s+)?0))");
+    return std::regex_search(input, pattern);
 }
 
 ErrorCode process(std::string input, double* out) {
@@ -98,7 +96,7 @@ ErrorCode process(std::string input, double* out) {
         {'$', std::function<double(double, double)>([](double lhs, double rhs) { return std::pow(lhs, 1 / rhs); })}};
     std::cout << "badCharacter: " << isBadCharacter(input) << '\n';
     std::cout << "badFormat: " << isBadFormat(input) << '\n';
-    // std::cout << "divide by 0: " << isDividedBy0(input) << '\n';
+    std::cout << "divide by 0: " << isDividedBy0(input) << '\n';
 
     return ErrorCode::OK;
 }
