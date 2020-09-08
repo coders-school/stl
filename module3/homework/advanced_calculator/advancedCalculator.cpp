@@ -6,6 +6,16 @@
 #include <iostream>
 #include <regex>
 
+std::map<char, std::function<double(double, double)>> operators{
+    {'+', [](const auto lhs, const auto rhs) { return lhs + rhs; }},
+    {'-', [](const auto lhs, const auto rhs) { return lhs - rhs; }},
+    {'*', [](const auto lhs, const auto rhs) { return lhs * rhs; }},
+    {'/', [](const auto lhs, const auto rhs) { return lhs / rhs; }},
+    {'%', [](const auto lhs, const auto rhs) { return static_cast<int>(lhs) % static_cast<int>(rhs); }},
+    {'^', [](const auto lhs, const auto rhs) { return pow(lhs, rhs); }},
+    {'$', [](const auto lhs, const auto rhs) { return pow(lhs, 1.0 / rhs); }},
+    {'!', [](const auto lhs, const auto rhs) { return factorial(lhs); }}};
+
 void printInfo() {
     std::cout << "Possible operations: {'+', '-', '*', '/', '%', '!', '$', '^'}\n";
     std::cout << "Eg. >>> 5 + 5\n10\n";
@@ -29,16 +39,6 @@ bool badChar(const std::string& input) {
 
     return std::any_of(input.cbegin(), input.cend(), pred);
 }
-
-std::map<char, std::function<double(double, double)>> operators{
-    {'+', [](const auto lhs, const auto rhs) { return lhs + rhs; }},
-    {'-', [](const auto lhs, const auto rhs) { return lhs - rhs; }},
-    {'*', [](const auto lhs, const auto rhs) { return lhs * rhs; }},
-    {'/', [](const auto lhs, const auto rhs) { return lhs / rhs; }},
-    {'%', [](const auto lhs, const auto rhs) { return static_cast<int>(lhs) % static_cast<int>(rhs); }},
-    {'^', [](const auto lhs, const auto rhs) { return pow(lhs, rhs); }},
-    {'$', [](const auto lhs, const auto rhs) { return pow(lhs, 1.0 / rhs); }},
-    {'!', [](const auto lhs, const auto rhs) { return factorial(lhs); }}};
 
 std::vector<std::string> getEquation(const std::string& input) {
     const std::regex pattern("(-?[0-9]+\\.?[0-9]*)([^!{1}])(-?[0-9]+\\.?[0-9]*)");
