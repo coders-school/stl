@@ -1,4 +1,5 @@
 #include "arithmeticAverage.hpp"
+
 #include <cmath>
 #include <functional>
 #include <numeric>
@@ -14,7 +15,7 @@ double ArithmeticAverage(const std::vector<int>& firstVec, const std::vector<int
 }
 
 double Distance(const std::vector<int>& firstVec, const std::vector<int>& secondVec) {
-    const int initValue = 0;
+    constexpr int initValue = 0;
     return std::inner_product(secondVec.begin(),
                               secondVec.end(),
                               firstVec.begin(),
