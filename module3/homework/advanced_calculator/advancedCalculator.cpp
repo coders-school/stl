@@ -26,6 +26,9 @@ bool isBadFormat(const std::string& input) {
     if (moreThanOneOperator(input)) {
         return true;
     }
+    if (isWrongDivisionSign(input)) {
+        return true;
+    }
     return false;
 }
 
@@ -62,6 +65,11 @@ bool moreThanOneOperator(const std::string& input) {
         }
     }
     return false;
+}
+
+bool isWrongDivisionSign(const std::string& input) {
+    std::regex pattern(R"((\.\S+\.)|(,))");
+    return std::regex_search(input, pattern);
 }
 
 bool firstDigitIsNegative(const std::string& input) {
