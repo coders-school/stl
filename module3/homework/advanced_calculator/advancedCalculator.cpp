@@ -13,6 +13,20 @@ bool isBadCharacter(const std::string& input) {
     return std::regex_search(input, pattern);
 }
 
+bool isBadFormat(const std::string& input) {
+    std::stringstream stream(input);
+    std::vector<std::string> vec {std::istream_iterator<std::string>(stream), {}};
+    if (noDigitBeforeOperator(input)) {
+        return true;
+    }
+    return false;
+}
+
+bool noDigitBeforeOperator(const std::string& input) {
+    std::regex pattern(R"(\d+)(\ +)(\+|\-|\/|\*|\^|\$|\!|\%)");
+    return !std::regex_search(input, pattern);
+}
+
 ErrorCode process(std::string input, double* out) {
     std::variant<std::function<double(double, double)>, std::function<int(int, int)>, std::function<double(double)>>
         functions;
