@@ -8,24 +8,31 @@
 #include <variant>
 
 bool isBadCharacter(const std::string& input) {
-    std::string badCharacters{R"([^0-9\+\-\*\/\^\%\!\$\ ])"};
+    std::string badCharacters{R"([^0-9\+\-\*\/\^\%\!\$\s])"};
     std::regex pattern(badCharacters);
     return std::regex_search(input, pattern);
 }
 
 bool isBadFormat(const std::string& input) {
-    std::stringstream stream(input);
-    std::vector<std::string> vec {std::istream_iterator<std::string>(stream), {}};
     if (noDigitBeforeOperator(input)) {
+        return true;
+    }
+    if (noDigitAfterBinaryOperator(input)) {
         return true;
     }
     return false;
 }
 
 bool noDigitBeforeOperator(const std::string& input) {
-    std::regex pattern(R"(\d+)(\ +)(\+|\-|\/|\*|\^|\$|\!|\%)");
+    std::regex pattern(R"(\d+)(\s+)(\+|\-|\/|\*|\^|\$|\!|\%)");
     return !std::regex_search(input, pattern);
 }
+
+bool noDigitAfterBinaryOperator(const std::string& input) {
+    std::regex pattern(R"(\+|\-|\/|\*|\^|\$|\%)(\s+)(\d+)");
+    return !std::regex_search(input, pattern);
+}
+
 
 ErrorCode process(std::string input, double* out) {
     std::variant<std::function<double(double, double)>, std::function<int(int, int)>, std::function<double(double)>>
