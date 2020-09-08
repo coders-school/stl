@@ -9,37 +9,45 @@ bool isZero(const std::string& input) {
 }
 
 bool isDouble(const std::string& input) {
-    if (isEmpty(input))
+    if (isEmpty(input)) {
         return false;
+    }
 
     auto inputIt = input.begin();
-    if (*inputIt == '-')
+    if (*inputIt == '-') {
         inputIt++;
+    }
 
-    if (*inputIt == '.' || inputIt == input.end())
+    if (*inputIt == '.' || inputIt == input.end()) {
         return false;
+    }
 
     int dotCounter = 0;
     for (inputIt; inputIt != input.end(); inputIt++) {
-        if (*inputIt == '.')
+        if (*inputIt == '.') {
             dotCounter++;
-        if (!(std::isdigit(*inputIt) || *inputIt == '.') || dotCounter > 1)
+        }
+        if (!(std::isdigit(*inputIt) || *inputIt == '.') || dotCounter > 1) {
             return false;
+        }
     }
     return true;
 }
 
 bool isIntiger(const std::string& input) {
-    if (isEmpty(input))
+    if (isEmpty(input)) {
         return false;
+    }
 
     auto inputIt = input.begin();
-    if (*inputIt == '-')
+    if (*inputIt == '-') {
         inputIt++;
+    }
 
     for (inputIt; inputIt != input.end(); inputIt++) {
-        if (!std::isdigit(*inputIt))
+        if (!std::isdigit(*inputIt)) {
             return false;
+        }
     }
     return true;
 }
