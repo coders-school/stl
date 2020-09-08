@@ -38,16 +38,8 @@ endif()
 project(advancedCalculator)
 enable_testing()
 
-<<<<<<< HEAD
-add_executable(${PROJECT_NAME} main.cpp advancedCalculator.cpp IOFunctions.cpp mathOperation.cpp)
-#add_executable(${PROJECT_NAME}-ut test.cpp advancedCalculator.cpp)
-
-#target_link_libraries(${PROJECT_NAME}-ut gtest_main)
-#add_test(NAME ${PROJECT_NAME}_test COMMAND ${PROJECT_NAME}-ut)
-=======
-add_executable(${PROJECT_NAME} main.cpp advancedCalculator.cpp)
-add_executable(${PROJECT_NAME}-ut test.cpp advancedCalculator.cpp)
+add_executable(${PROJECT_NAME} main.cpp advancedCalculator.cpp mathOperation.cpp IOFunctions.cpp)
+add_executable(${PROJECT_NAME}-ut test.cpp advancedCalculator.cpp mathOperation.cpp IOFunctions.cpp)
 
 target_link_libraries(${PROJECT_NAME}-ut gtest_main)
 add_test(NAME ${PROJECT_NAME}_test COMMAND ${PROJECT_NAME}-ut)
->>>>>>> de509a7025d42aab3757896a0daa2012b289832a

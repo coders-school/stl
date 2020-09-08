@@ -1,6 +1,7 @@
 #include "mathOperation.hpp"
 #include "errorCodeEnum.hpp"
 #include <cmath>
+#include <cctype>
 #include <iostream>
 #include <vector>
 
@@ -74,7 +75,9 @@ double mathOperation::modulo(double &firstValue, double &secondValue) {
                              static_cast<int>(secondValue));
 }
 double mathOperation::factorial(double &firstValue, double &secondValue) {
-  return std::tgamma(firstValue+1);
+  if(firstValue < 0){
+    return 1;
+  }else return static_cast<double>(std::tgamma(firstValue+1));
 }
 double mathOperation::squareRoot(double &firstValue, double &secondValue) {
   return pow(firstValue, 1/secondValue);
@@ -99,7 +102,7 @@ void mathOperation::removeSpaces() {
 ErrorCode mathOperation::checkIfBadFormat() {
 
   const std::regex regexPattern_(
-      "^(-?[0-9]+\\.?([0-9]+)?)(?:(?=!)(!)|(?!!)([\\+\\-\\*\\/\\^\\$%!#@&?\\[\\]]?(\\\\)?)(-?[0-9]+\\.?([0-9]+)?))$");
+      "^(-?[0-9]+\\.?([0-9]+)?)(?:(?=!)(!)|(?!!)([\\+\\-\\*\\/\\^\\$%!#@&?;\\[\\]]?(\\\\)?)(-?[0-9]+\\.?([0-9]+)?))$");
   if (std::regex_match(dataString_, regexMatchGroups_, regexPattern_) == true) {
     return actualError_;
   } else
@@ -107,19 +110,27 @@ ErrorCode mathOperation::checkIfBadFormat() {
 }
 
 ErrorCode mathOperation::checkIfBadCharacter() {
+
+  std::string badCharacters{"abcdefghijklmnopqrstuvwxyz=#;\\"};
+
+   if(std::find_first_of(dataString_.begin(), dataString_.end(),
+                  badCharacters.begin(), badCharacters.end()) != dataString_.end()){ return ErrorCode::BadCharacter; }
+
   if(actualError_ == ErrorCode::OK){
-  std::vector<std::string> validSymbols{"+", "-", "*", "/", "!", "%", "$"};
-  if (regexMatchGroups_[3].str().length() == 1 &&
-      std::find_if(validSymbols.begin(), validSymbols.end(), [this](auto &el) {
-        if (el == regexMatchGroups_[3].str()) {
-          std::cout << el << std::endl;
-          return true;
-        } else
-          return false;
-      }) != validSymbols.end()) {
-            std::cout << "modulo!" << std::endl;
-    operationCharacter_ = regexMatchGroups_[3].str();
-    return actualError_;
+
+    std::vector<std::string> validSymbols{"+", "-", "*", "/",
+                                          "!", "%", "$", "^"};
+    if (regexMatchGroups_[3].str().length() == 1 &&
+        std::find_if(validSymbols.begin(), validSymbols.end(),
+                     [this](auto &el) {
+                       if (el == regexMatchGroups_[3].str()) {
+                         std::cout << el << std::endl;
+                         return true;
+                       } else
+                         return false;
+                     }) != validSymbols.end()) {
+      operationCharacter_ = regexMatchGroups_[3].str();
+      return actualError_;
   } else if (regexMatchGroups_[4].str().length() == 1 &&
              std::find_if(validSymbols.begin(), validSymbols.end(),
                           [this](auto &el) {
@@ -133,6 +144,8 @@ ErrorCode mathOperation::checkIfBadCharacter() {
   } else
     return ErrorCode::BadCharacter;
   }else return actualError_;
+
+
 }
 
 ErrorCode mathOperation::checkIfDivideByZero() {
@@ -151,7 +164,7 @@ ErrorCode mathOperation::checkIfDivideByZero() {
 }
 
 ErrorCode mathOperation::checkIfSqrtOfNegativeNumber() {
-  if (actualError_ == ErrorCode::OK) {
+  if (actualError_ == ErrorCode::OK && operationCharacter_ == "$") {
     if (operationCharacter_ == "$" && firstValue_ < 0) {
       return ErrorCode::SqrtOfNegativeNumber;
     }
@@ -161,6 +174,8 @@ ErrorCode mathOperation::checkIfSqrtOfNegativeNumber() {
 }
 
 ErrorCode mathOperation::checkIfmoduleOfNonIntegerValue() {
+  if(operationCharacter_ == "%"){
+
   int firstValueInt = static_cast<int>(firstValue_);
   int secondValueInt = static_cast<int>(secondValue_);
 
@@ -169,6 +184,7 @@ ErrorCode mathOperation::checkIfmoduleOfNonIntegerValue() {
     return actualError_;
   } else
     return ErrorCode::ModuleOfNonIntegerValue;
+  }return actualError_;
 }
 
 void mathOperation::calculateResult() {
