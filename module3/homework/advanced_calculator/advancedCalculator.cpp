@@ -20,6 +20,9 @@ bool isBadFormat(const std::string& input) {
     if (noDigitAfterBinaryOperator(input)) {
         return true;
     }
+    if (isDigitAfterUnaryOperator(input)) {
+        return true;
+    }
     if (moreThanOneOperator(input)) {
         return true;
     }
@@ -32,8 +35,13 @@ bool noDigitBeforeOperator(const std::string& input) {
 }
 
 bool noDigitAfterBinaryOperator(const std::string& input) {
-    std::regex pattern(R"((\+|\-|\/|\*|\^|\$|\%)(\s+)?(\d+))");
+    std::regex pattern(R"(((\+|\-|\/|\*|\^|\$|\%)(\s+)?(\d+))?(\d+)(\s+)?(\!))");
     return !std::regex_search(input, pattern);
+}
+
+bool isDigitAfterUnaryOperator(const std::string& input) {
+    std::regex pattern(R"((\!)(\s+)?(\d+))");
+    return std::regex_search(input, pattern);
 }
 
 bool moreThanOneOperator(const std::string& input) {
@@ -73,7 +81,8 @@ ErrorCode process(std::string input, double* out) {
         {'!', std::function<double(double)>([](double lhs) { return std::tgamma(lhs + 1); })},
         {'^', std::function<double(double, double)>([](double lhs, double rhs) { return std::pow(lhs, rhs); })},
         {'$', std::function<double(double, double)>([](double lhs, double rhs) { return std::pow(lhs, 1 / rhs); })}};
-    std::cout << isBadFormat(input);
+    std::cout << "badCharacter: " << isBadCharacter(input) << '\n';
+    std::cout << "badFormat: " << isBadFormat(input) << '\n';
 
     return ErrorCode::OK;
 }

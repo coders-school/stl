@@ -17,5 +17,6 @@ bool isBadCharacter(const std::string& input);
 bool isBadFormat(const std::string& input);
 bool noDigitBeforeOperator(const std::string& input);
 bool noDigitAfterBinaryOperator(const std::string& input);
+bool isDigitAfterUnaryOperator(const std::string& input);
 bool moreThanOneOperator(const std::string& input);
 bool firstDigitIsNegative(const std::string& input);
