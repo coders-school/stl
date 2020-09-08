@@ -4,8 +4,6 @@
 
 ___
 
-<<<<<<< HEAD
-=======
 ## Post-work
 
 * innerProduct (10 XP)
@@ -15,7 +13,6 @@ ___
 
 ___
 
->>>>>>> de509a7025d42aab3757896a0daa2012b289832a
 ## Zadanie 1
 
 Wykorzystując `std::inner_product`, napisz program, który obliczy średnią arytmetyczną dwóch `std::vector<int>`.
@@ -75,11 +72,6 @@ ___
 * <!-- .element: class="fragment fade-in" --> Obliczanie silni (<code>!</code>),
 * <!-- .element: class="fragment fade-in" --> Podnoszenie liczby do potęgi (<code>^</code>),
 * <!-- .element: class="fragment fade-in" --> Obliczanie pierwiastka (<code>$</code>).
-<<<<<<< HEAD
-  
-=======
-
->>>>>>> de509a7025d42aab3757896a0daa2012b289832a
 ___
 
 ### Error code
