@@ -8,7 +8,7 @@
 #include <variant>
 
 bool isBadCharacter(const std::string& input) {
-    std::string badCharacters{R"([^0-9\+\-\*\/\^\%\!\$\s])"};
+    std::string badCharacters{R"([^0-9\+\-\*\/\^\%\!\$\s\.])"};
     std::regex pattern(badCharacters);
     return std::regex_search(input, pattern);
 }
@@ -33,13 +33,13 @@ bool isBadFormat(const std::string& input) {
 }
 
 bool noDigitBeforeOperator(const std::string& input) {
-    std::regex pattern(R"((\d+)(\s+)?(\+|\-|\/|\*|\^|\$|\!|\%))");
-    return !std::regex_search(input, pattern);
+    std::regex pattern(R"(^(\D+)?(\s+)?(\+|\/|\*|\^|\$|\!|\%))");
+    return std::regex_search(input, pattern);
 }
 
 bool noDigitAfterBinaryOperator(const std::string& input) {
-    std::regex pattern(R"(((\+|\-|\/|\*|\^|\$|\%)(\s+)?(\d+))?(\d+)(\s+)?(\!))");
-    return !std::regex_search(input, pattern);
+    std::regex pattern(R"((\+|\-|\/|\*|\^|\$|\%)$)");
+    return std::regex_search(input, pattern);
 }
 
 bool isDigitAfterUnaryOperator(const std::string& input) {
@@ -77,6 +77,13 @@ bool firstDigitIsNegative(const std::string& input) {
     return std::regex_search(input, pattern);
 }
 
+bool isDividedBy0(const std::string& input) {
+    std::regex pattern(R"((?<=\/(\s+)?)(\d+))");
+    auto resultBegin = std::sregex_iterator(begin(input), end(input), pattern);
+    auto resultEnd = std::sregex_iterator();
+    return resultBegin->str() == "0";
+}
+
 ErrorCode process(std::string input, double* out) {
     std::variant<std::function<double(double, double)>, std::function<int(int, int)>, std::function<double(double)>>
         functions;
@@ -91,6 +98,7 @@ ErrorCode process(std::string input, double* out) {
         {'$', std::function<double(double, double)>([](double lhs, double rhs) { return std::pow(lhs, 1 / rhs); })}};
     std::cout << "badCharacter: " << isBadCharacter(input) << '\n';
     std::cout << "badFormat: " << isBadFormat(input) << '\n';
+    // std::cout << "divide by 0: " << isDividedBy0(input) << '\n';
 
     return ErrorCode::OK;
 }

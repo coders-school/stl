@@ -6,8 +6,14 @@
 
 int main() {
     std::string text;
-    std::getline(std::cin, text);
-    double result = 0;
-    process(text, &result);
-    std::cout << result << '\n';    
+    while (true) {
+        std::getline(std::cin, text);
+        double result = 0;
+        process(text, &result);
+        if (text == "q") {
+            break;
+        }
+    }
+
+    // std::cout << result << '\n';
 }
