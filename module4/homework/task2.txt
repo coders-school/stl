@@ -1,0 +1,32 @@
+stack:
+-adapter stosu
+-jest określany mianem LIFO(last in first out)
+-może przechowywać dowolny typ danych
+Metody:
+-push
+-size
+-top
+-empty
+-pop
+
+queue:
+-adapter kolejki
+-jest określany mianem FIFO(first in first out)
+-może przechowywać dowolny typ danych
+Metody:
+-push
+-front
+-back
+-size
+-empty
+-pop
+
+pririty_queue:
+struktura danych, w której dostęp do danych jest możliwy
+tylko do pierwszego elementu, a dane w niej są uporządkowane nierosnąco lub niemalejąco
+Metody:
+-push
+-pop
+-empty
+-size
+-top
