@@ -58,7 +58,7 @@ bool moreThanOneOperator(const std::string& input) {
         return !std::all_of(operators_begin, operators_end, equalToMinus);
     }
     if (std::distance(operators_begin, operators_end) == 2) {
-        if (!firstDigitIsNegative(input)) {
+        if (!firstDigitIsNegative(input) && !std::all_of(operators_begin, operators_end, equalToMinus)) {
             return true;
         }
     }
@@ -105,6 +105,7 @@ bool isModuloOfNonIntegerValue(const std::string& input) {
 double getResult(const std::string& input) {
     EquationData data;
     if (binaryOperation(input)) {
+        std::cout << "binary\n";
         data = getBinaryEquationData(input);
     }
     if (unaryOperation(input)) {
@@ -114,27 +115,31 @@ double getResult(const std::string& input) {
 }
 
 bool binaryOperation(const std::string& input) {
-    std::regex pattern(R"((\+|\-|\/|\*|\%|\$|\^))");
+    std::regex pattern(R"((\-?\d+(\.\d+)?)(\s*)((\+|\-|\/|\*|\%|\^|\$)|(\-\s*\-))(\s*)(\d+(\.\d+)?))");
     return std::regex_search(input, pattern);
 }
 
 EquationData getBinaryEquationData(const std::string& input) {
-    std::regex pattern(R"((\-?\d+(\.\d+)?)(\s*)((\+|\-|\/|\*|\%|\^|\!|\$|)|(\-\s*\-))(\s*)(\d+(\.\d+)?))");
+    std::regex pattern(R"((\-?\d+(\.\d+)?)(\s*)((\+|\-|\/|\*|\%|\^|\$)|(\-\s*\-))(\s*)(\d+(\.\d+)?))");
     std::smatch match;
     std::regex_search(input, match, pattern);
     EquationData data;
     data.lhs = std::stod(match[1].str());
     data.rhs = std::stod(match[8].str());
-    if (match[5].str().size() == 2) {
+    auto operators = match[4].str();
+    std::cout << operators << '\n';
+    std::cout << std::count_if(begin(operators), end(operators), [](char sign) { return sign == '-'; }) << '\n';
+    if (std::count_if(begin(operators), end(operators), [](auto sign) { return sign == '-'; }) == 2) {
         data.operation = '+';
     } else {
-        data.operation = match[5].str()[0];
+        data.operation = operators[0];
     }
+    std::cout << "data operation: " << data.operation << " data lhs: " << data.lhs << " " << data.rhs << '\n';
     return data;
 }
 
 bool unaryOperation(const std::string& input) {
-    std::regex pattern(R"((\!))");
+    std::regex pattern(R"((\-?\d+(\.\d+)?)(\s*)(\!))");
     return std::regex_search(input, pattern);
 }
 
@@ -149,7 +154,7 @@ EquationData getUnaryEquationData(const std::string& input) {
     return data;
 }
 
-double calculate(double lhs, double rhs, char operationSign) {
+double calculate(const EquationData& data) {
     static std::map<char, OperationVariant> mathOperations{
         {'+', std::function<double(double, double)>([](double lhs, double rhs) { return lhs + rhs; })},
         {'-', std::function<double(double, double)>([](double lhs, double rhs) { return lhs - rhs; })},
@@ -160,16 +165,16 @@ double calculate(double lhs, double rhs, char operationSign) {
         {'^', std::function<double(double, double)>([](double lhs, double rhs) { return std::pow(lhs, rhs); })},
         {'$', std::function<double(double, double)>([](double lhs, double rhs) { return std::pow(lhs, 1 / rhs); })}};
 
-    if (std::holds_alternative<std::function<double(double, double)>>(mathOperations[operationSign])) {
-        auto function = std::get<0>(mathOperations[operationSign]);
-        return function(lhs, rhs);
+    if (std::holds_alternative<std::function<double(double, double)>>(mathOperations[data.operation])) {
+        auto function = std::get<0>(mathOperations[data.operation]);
+        return function(data.lhs, data.rhs);
 
-    } else if (std::holds_alternative<std::function<int(int, int)>>(mathOperations[operationSign])) {
-        auto modulo = std::get<1>(mathOperations[operationSign]);
-        return modulo(lhs, rhs);
+    } else if (std::holds_alternative<std::function<int(int, int)>>(mathOperations[data.operation])) {
+        auto modulo = std::get<1>(mathOperations[data.operation]);
+        return modulo(data.lhs, data.rhs);
     } else {
-        auto factorial = std::get<2>(mathOperations[operationSign]);
-        return factorial(lhs);
+        auto factorial = std::get<2>(mathOperations[data.operation]);
+        return factorial(data.lhs);
     }
 }
 
