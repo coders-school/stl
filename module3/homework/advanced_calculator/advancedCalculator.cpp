@@ -83,12 +83,15 @@ bool isDividedBy0(const std::string& input) {
 }
 
 bool isEvenRootOfNegativeNumber(const std::string& input) {
-    if(!firstDigitIsNegative(input)) {
+    if (!firstDigitIsNegative(input)) {
         return false;
     }
     std::regex pattern(R"(((\$)(\s*)(\d+))$)");
     std::smatch match;
     std::regex_search(input, match, pattern);
+    if (match.empty()) {
+        return false;
+    }
     auto rootDegree = std::stoi(match[4].str());
     if (rootDegree % 2 == 0) {
         return true;
