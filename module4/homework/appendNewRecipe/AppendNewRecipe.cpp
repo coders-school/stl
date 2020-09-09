@@ -8,7 +8,7 @@ std::map<char, std::string> units{
     {'s', "szklanka(i)"},
     {'m', "mililitrow"}};
 
-bool AppendNewRecipe(VecStr steps, const ListStr& ingredients, const DequeSizetChar& amount) {
+bool AppendNewRecipe(VecStr steps, const ListStr& ingredients, const DeqSizetChar& amount) {
     auto newRecipe = (FormatRecipit(steps, ingredients, amount)).str();
 
     std::fstream file("recipes.txt", file.app);
@@ -21,7 +21,7 @@ bool AppendNewRecipe(VecStr steps, const ListStr& ingredients, const DequeSizetC
     return false;
 }
 
-std::stringstream FormatRecipit(VecStr steps, const ListStr& ingredients, const DequeSizetChar& amount) {
+std::stringstream FormatRecipit(VecStr steps, const ListStr& ingredients, const DeqSizetChar& amount) {
     auto formatedIngredients = FormatIngredients(ingredients, amount);
     std::stringstream result{};
     result << "Skladniki:\n";
@@ -39,7 +39,7 @@ std::stringstream FormatRecipit(VecStr steps, const ListStr& ingredients, const 
     return result;
 }
 
-VecStr FormatIngredients(const ListStr& ingredients, const DequeSizetChar& amount) {
+VecStr FormatIngredients(const ListStr& ingredients, const DeqSizetChar& amount) {
     VecStr result{};
     size_t i = 0;
     for (const auto& ingredient : ingredients) {
