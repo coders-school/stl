@@ -103,23 +103,50 @@ bool isModuloOfNonIntegerValue(const std::string& input) {
 }
 
 double getResult(const std::string& input) {
+    EquationData data;
+    if (binaryOperation(input)) {
+        data = getBinaryEquationData(input);
+    }
+    if (unaryOperation(input)) {
+        data = getUnaryEquationData(input);
+    }
+    return calculate(data);
+}
+
+bool binaryOperation(const std::string& input) {
+    std::regex pattern(R"((\+|\-|\/|\*|\%|\$|\^))");
+    return std::regex_search(input, pattern);
+}
+
+EquationData getBinaryEquationData(const std::string& input) {
     std::regex pattern(R"((\-?\d+(\.\d+)?)(\s*)((\+|\-|\/|\*|\%|\^|\!|\$|)|(\-\s*\-))(\s*)(\d+(\.\d+)?))");
     std::smatch match;
     std::regex_search(input, match, pattern);
-    if (match.size() >= 2) {
-        auto lhs = std::stod(match[1].str());
+    EquationData data;
+    data.lhs = std::stod(match[1].str());
+    data.rhs = std::stod(match[8].str());
+    if (match[5].str().size() == 2) {
+        data.operation = '+';
+    } else {
+        data.operation = match[5].str()[0];
     }
-    char operation;
-    if (match.size() >= 5) {
-        if (match[4].str().size() == 2) {
-            operation = '+';
-        } else {
-            operation = match[4].str()[0];
-        }
-    }
-    if (match)
-    auto rhs = std::stod(match[8].str());
-    return calculate(lhs, rhs, operation);
+    return data;
+}
+
+bool unaryOperation(const std::string& input) {
+    std::regex pattern(R"((\!))");
+    return std::regex_search(input, pattern);
+}
+
+EquationData getUnaryEquationData(const std::string& input) {
+    std::regex pattern(R"((\-?\d+(\.\d+)?)(\s*)(\!))");
+    std::smatch match;
+    std::regex_search(input, match, pattern);
+    EquationData data;
+    data.lhs = std::stod(match[1].str());
+    data.rhs = 0;
+    data.operation = match[4].str()[0];
+    return data;
 }
 
 double calculate(double lhs, double rhs, char operationSign) {
