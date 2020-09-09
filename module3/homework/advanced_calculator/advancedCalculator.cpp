@@ -1,11 +1,9 @@
 #include "advancedCalculator.hpp"
 
 #include <cmath>
-#include <functional>
 #include <iostream>
 #include <map>
 #include <regex>
-#include <variant>
 
 bool isBadCharacter(const std::string& input) {
     std::string badCharacters{R"([^0-9\+\-\*\/\^\%\!\$\s\.])"};
@@ -105,15 +103,27 @@ bool isModuloOfNonIntegerValue(const std::string& input) {
 }
 
 int getResult(const std::string& input) {
+    std::regex pattern(R"((\-?\d+(\.\d+)?)(\s*)((\+|\-|\/|\*|\%|\^|\!|\$|)|(\-\s*\-))(\s*)(\d+(\.\d+)?))");
+    std::smatch match;
+    std::regex_search(input, match, pattern);
+    int lhs = std::stoi(match[1].str());
+    char operation;
+    if (match[4].str().size() == 2) {
+        operation = '+';
+    } else {
+        operation= match[4].str()[0];
+    }
+    int rhs = std::stoi(match[8].str());
+
+}
+
+int calculate(double lhs, double rhs, const Operation& op) {
     
 }
 
 
-
 ErrorCode process(std::string input, double* out) {
-    std::variant<std::function<double(double, double)>, std::function<int(int, int)>, std::function<double(double)>>
-        functions;
-    std::map<char, decltype(functions)> basicMathOperations{
+    std::map<char, Operation> basicMathOperations{
         {'+', std::function<double(double, double)>([](double lhs, double rhs) { return lhs + rhs; })},
         {'-', std::function<double(double, double)>([](double lhs, double rhs) { return lhs - rhs; })},
         {'*', std::function<double(double, double)>([](double lhs, double rhs) { return lhs * rhs; })},
@@ -122,9 +132,9 @@ ErrorCode process(std::string input, double* out) {
         {'!', std::function<double(double)>([](double lhs) { return std::tgamma(lhs + 1); })},
         {'^', std::function<double(double, double)>([](double lhs, double rhs) { return std::pow(lhs, rhs); })},
         {'$', std::function<double(double, double)>([](double lhs, double rhs) { return std::pow(lhs, 1 / rhs); })}};
-    if(isBadCharacter(input)) {
+    if (isBadCharacter(input)) {
         return ErrorCode::BadCharacter;
-    } 
+    }
     if (isBadFormat(input)) {
         return ErrorCode::BadFormat;
     }

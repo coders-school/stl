@@ -1,6 +1,8 @@
 #pragma once
 
+#include <functional>
 #include <string>
+#include <variant>
 
 enum class ErrorCode {
     OK,
@@ -10,6 +12,8 @@ enum class ErrorCode {
     SqrtOfNegativeNumber,
     ModuleOfNonIntegerValue,
 };
+
+using Operation = std::variant<std::function<double(double, double)>, std::function<int(int, int)>, std::function<double(double)>>;
 
 ErrorCode process(std::string input, double* out);
 
@@ -25,3 +29,4 @@ bool isDividedBy0(const std::string& input);
 bool isEvenRootOfNegativeNumber(const std::string& input);
 bool isModuloOfNonIntegerValue(const std::string& input);
 int getResult(const std::string& input);
+int calculate(double lhs, double rhs, const Operation& op);
