@@ -99,6 +99,11 @@ bool isEvenRootOfNegativeNumber(const std::string& input) {
     return false;
 }
 
+bool isModuloOfNonIntegerValue(const std::string& input) {
+    
+}
+
+
 ErrorCode process(std::string input, double* out) {
     std::variant<std::function<double(double, double)>, std::function<int(int, int)>, std::function<double(double)>>
         functions;
