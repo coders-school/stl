@@ -100,7 +100,8 @@ bool isEvenRootOfNegativeNumber(const std::string& input) {
 }
 
 bool isModuloOfNonIntegerValue(const std::string& input) {
-    
+    std::regex pattern(R"((\d+)(\.)(\d+)(\s*)(\%))");
+    return std::regex_search(input, pattern);
 }
 
 
@@ -120,6 +121,7 @@ ErrorCode process(std::string input, double* out) {
     std::cout << "badFormat: " << isBadFormat(input) << '\n';
     std::cout << "divide by 0: " << isDividedBy0(input) << '\n';
     std::cout << "root of negative: " << isEvenRootOfNegativeNumber(input) << '\n';
+    std::cout << "modulo of non int: " << isModuloOfNonIntegerValue(input) << '\n';
 
     return ErrorCode::OK;
 }
