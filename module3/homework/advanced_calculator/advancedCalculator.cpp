@@ -102,28 +102,28 @@ bool isModuloOfNonIntegerValue(const std::string& input) {
     return std::regex_search(input, pattern);
 }
 
-int getResult(const std::string& input) {
+double getResult(const std::string& input) {
     std::regex pattern(R"((\-?\d+(\.\d+)?)(\s*)((\+|\-|\/|\*|\%|\^|\!|\$|)|(\-\s*\-))(\s*)(\d+(\.\d+)?))");
     std::smatch match;
     std::regex_search(input, match, pattern);
-    int lhs = std::stoi(match[1].str());
-    char operation;
-    if (match[4].str().size() == 2) {
-        operation = '+';
-    } else {
-        operation= match[4].str()[0];
+    if (match.size() >= 2) {
+        auto lhs = std::stod(match[1].str());
     }
-    int rhs = std::stoi(match[8].str());
-
+    char operation;
+    if (match.size() >= 5) {
+        if (match[4].str().size() == 2) {
+            operation = '+';
+        } else {
+            operation = match[4].str()[0];
+        }
+    }
+    if (match)
+    auto rhs = std::stod(match[8].str());
+    return calculate(lhs, rhs, operation);
 }
 
-int calculate(double lhs, double rhs, const Operation& op) {
-    
-}
-
-
-ErrorCode process(std::string input, double* out) {
-    std::map<char, Operation> basicMathOperations{
+double calculate(double lhs, double rhs, char operationSign) {
+    static std::map<char, OperationVariant> mathOperations{
         {'+', std::function<double(double, double)>([](double lhs, double rhs) { return lhs + rhs; })},
         {'-', std::function<double(double, double)>([](double lhs, double rhs) { return lhs - rhs; })},
         {'*', std::function<double(double, double)>([](double lhs, double rhs) { return lhs * rhs; })},
@@ -132,6 +132,21 @@ ErrorCode process(std::string input, double* out) {
         {'!', std::function<double(double)>([](double lhs) { return std::tgamma(lhs + 1); })},
         {'^', std::function<double(double, double)>([](double lhs, double rhs) { return std::pow(lhs, rhs); })},
         {'$', std::function<double(double, double)>([](double lhs, double rhs) { return std::pow(lhs, 1 / rhs); })}};
+
+    if (std::holds_alternative<std::function<double(double, double)>>(mathOperations[operationSign])) {
+        auto function = std::get<0>(mathOperations[operationSign]);
+        return function(lhs, rhs);
+
+    } else if (std::holds_alternative<std::function<int(int, int)>>(mathOperations[operationSign])) {
+        auto modulo = std::get<1>(mathOperations[operationSign]);
+        return modulo(lhs, rhs);
+    } else {
+        auto factorial = std::get<2>(mathOperations[operationSign]);
+        return factorial(lhs);
+    }
+}
+
+ErrorCode process(std::string input, double* out) {
     if (isBadCharacter(input)) {
         return ErrorCode::BadCharacter;
     }

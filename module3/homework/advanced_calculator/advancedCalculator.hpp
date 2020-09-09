@@ -13,7 +13,7 @@ enum class ErrorCode {
     ModuleOfNonIntegerValue,
 };
 
-using Operation = std::variant<std::function<double(double, double)>, std::function<int(int, int)>, std::function<double(double)>>;
+using OperationVariant = std::variant<std::function<double(double, double)>, std::function<int(int, int)>, std::function<double(double)>>;
 
 ErrorCode process(std::string input, double* out);
 
@@ -28,5 +28,5 @@ bool isWrongDivisionSign(const std::string& input);
 bool isDividedBy0(const std::string& input);
 bool isEvenRootOfNegativeNumber(const std::string& input);
 bool isModuloOfNonIntegerValue(const std::string& input);
-int getResult(const std::string& input);
-int calculate(double lhs, double rhs, const Operation& op);
+double getResult(const std::string& input);
+double calculate(double lhs, double rhs, char operationSign);
