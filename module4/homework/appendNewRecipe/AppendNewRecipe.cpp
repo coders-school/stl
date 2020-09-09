@@ -1,5 +1,6 @@
 #include "AppendNewRecipe.hpp"
 
+#include <algorithm>
 #include <fstream>
 #include <map>
 
@@ -41,13 +42,14 @@ std::stringstream FormatRecipit(VecStr steps, const ListStr& ingredients, const 
 
 VecStr FormatIngredients(const ListStr& ingredients, const DeqSizetChar& amount) {
     VecStr result{};
-    size_t i = 0;
-    for (const auto& ingredient : ingredients) {
+    
+    auto op = [&result](const auto& ingredient, const auto& amount) {
         std::stringstream ss{};
-        ss << amount[i].first << ' ' << units[amount[i].second] << ' ' << ingredient;
-        result.push_back(ss.str());
-        i++;
-    }
+        ss << amount.first << ' ' << units[amount.second] << ' ' << ingredient;
+        return ss.str();
+    };
+
+    std::transform(ingredients.cbegin(), ingredients.cend(), amount.cbegin(), std::back_inserter(result), op);
     
     return result;
 }
