@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <fstream>
+#include <iterator>
 #include <map>
 
 std::map<char, std::string> units{
@@ -25,15 +26,14 @@ bool AppendNewRecipe(VecStr steps, const ListStr& ingredients, const DeqSizetCha
 std::stringstream FormatRecipit(VecStr steps, const ListStr& ingredients, const DeqSizetChar& amount) {
     auto formatedIngredients = FormatIngredients(ingredients, amount);
     std::stringstream result{};
+
     result << "Skladniki:\n";
-    for(const auto& ingredient : formatedIngredients) {
-        result << ingredient << ',' << '\n';
-    }
+    std::copy(formatedIngredients.cbegin(), formatedIngredients.cend(), std::ostream_iterator<std::string>(result, ",\n"));
+    
     result << "\nKroki:";
     size_t i = 1;
     for(const auto& step : steps) {
-        result << '\n' << i << ") " << step << '.';
-        i++;
+        result << '\n' << i++ << ") " << step << '.';
     }
     result << "\n___________________________________\n";
     
@@ -42,7 +42,7 @@ std::stringstream FormatRecipit(VecStr steps, const ListStr& ingredients, const 
 
 VecStr FormatIngredients(const ListStr& ingredients, const DeqSizetChar& amount) {
     VecStr result{};
-    
+
     auto op = [&result](const auto& ingredient, const auto& amount) {
         std::stringstream ss{};
         ss << amount.first << ' ' << units[amount.second] << ' ' << ingredient;
