@@ -1,7 +1,7 @@
  ![](https://miro.medium.com/max/875/1*KpDOKMFAgDWaGTQHL0r70g.png)
 # Struktury Danych
 ---
-Hej dzisiaj przedstawie Wam trochę informacji o strukturach danych. Czym są struktury danych? Większość z Was zapewne już wie, że jest to nic innego jak sposób przechowywania danych w pamięci komputera. Struktury danych niemal zawsze współistnieją z algorytmami. Naszym zadaniem, będąc programistą jest dobranie takiej strutkury, aby optymalizowała złożoność obliczeniową naszego alogrytmu. Przykładami struktur danych mogą być takie abstrakcyjne tworki jak:
+Hej dzisiaj przedstawię Wam trochę informacji o strukturach danych. Czym są struktury danych? Większość z Was zapewne już wie, że jest to nic innego jak sposób przechowywania danych w pamięci komputera. Struktury danych niemal zawsze współistnieją z algorytmami. Naszym zadaniem, będąc programistą jest dobranie takiej strutkury, aby optymalizowała złożoność obliczeniową naszego alogrytmu. Przykładami struktur danych mogą być takie abstrakcyjne tworki jak:
 - tablica
 - lista
 - drzewo
@@ -24,6 +24,7 @@ Jak widzimy komórka tablicy z indeskem [0] nie posiada elementu poprzedniego, n
 ---
 Czymże jest stos? Zapytał Mateusz, student pierwszego roku politechniki. Zawsze przeciez kojarzył on mu się, ze średniowiecznym zwyczajem "opalania" czarownic. Dużo się nie pomylił, gdyż jest tam pewna analogia, ale nie bądźmy tacy brutalni :). Do rzeczy. Stos to liniowa struktura danych, w której takie dane możemy dokładać na wierzch stosu lub z tego wierzchu je ściągać czyli pobierać. Jest to bufor typu LIFO (Last In First Out) bądź alternatywnie nazywany FILO (First In Last Out). Idee stosu prezentuje poniższy obrazek. 
 ![](https://cdn.programiz.com/sites/tutorial2program/files/stack.png)
+
 Łatwo możemy sobie taką wizję stosu przeniść na świat rzeczywisty. Wyobraźmy sobie stos takich książek lub nawet stos talerzy w szafce. Podczas zmywania, talerze układamy do szafki. Nadchodzi wtedy czas obiadu. Zdejmujemy talerze. W jakiej kolejności? A no w odwrotnej kolejności! Ostatni umyty talerz, będzie naszym pierwszym, który ściągniemy, aby przygotować stół do obiadu! Tak, to jest takie łatwe :).
 
 ## Operacje na stosie
@@ -47,7 +48,7 @@ Ponieważ implementacje operacji stosu nie zawierają żadnych pętl ich wykonyw
 
 ## Implementacje
 ---
-Występują dwie popularne ścieżki, aby taki stos zaimplementować. Obie mają swoje wady i zalety. Pierwszym sposobem jest użycie tablicy. Drugim natomiast jest użycie listy. Oczywiście możemy użyc także innych kontenerów np. std::vector. Poniżej zaprezentuje implemtnacje stosu wykorzystując std::array. Dla ciekawskich implementacja stosu za pomocą listy znajduje się [tutaj](https://www.geeksforgeeks.org/implement-a-stack-using-singly-linked-list/).
+Występują dwie popularne ścieżki, aby taki stos zaimplementować. Obie mają swoje wady i zalety. Pierwszym sposobem jest użycie tablicy. Drugim natomiast jest użycie listy. Oczywiście możemy użyc także innych kontenerów np. std::vector. Poniżej zaprezentuje implementacje stosu wykorzystując std::array. Dla ciekawskich implementacja stosu za pomocą listy znajduje się [tutaj](https://www.geeksforgeeks.org/implement-a-stack-using-singly-linked-list/).
 
 | Stos za pomocą tablicy | Stos za pomocą listy |
 | ------ | ------ |
@@ -112,7 +113,7 @@ int main() {
 }
 ```
 
-### Output
+## Output
 ---
 ```
 5 Pushed into stack
@@ -124,28 +125,28 @@ Stack is empty
 ```
 ## Stos w STL 
 ---
-Biblioteka standardowa oddaje nam do użytku własną implementację stosu zdefiniowaną w headerze *<stack>*. Jest to tak zwany adapter stosu, który stadnardowo jest wrapperem na std::deque. To tyle z suchej teorii. Wszystkie metody, operatory, kontruktor, destruktor itd. tej bibilioteki znajdziesz [tutaj](https://en.cppreference.com/w/cpp/container/stack). My zajmiemy się omówieniem nawajżniejszych metod tej biblioteki. Analogicznie stos znajdujący się w bibliotece standardowej zawiera metody takie jak:
+Biblioteka standardowa oddaje nam do użytku własną implementację stosu zdefiniowaną w headerze *<stack>*. Jest to tak zwany adapter stosu, który stadnardowo jest wrapperem na std::deque. To tyle z suchej teorii. Wszystkie metody, operatory, konstruktor, destruktor itd. tej bibilioteki znajdziesz [tutaj](https://en.cppreference.com/w/cpp/container/stack). My zajmiemy się omówieniem nawajżniejszych metod tej biblioteki. Analogicznie stos znajdujący się w bibliotece standardowej zawiera metody takie jak:
 - push()
 - pop()
 - top()
 - empty()
 
-Ich funckjonalnosć oraz złożonośc czasowa jest identyczna jak tych omówionych powyżej w punktach:  "Operacje na stosie" oraz "Złożoność czasowa". Nowe metody, które warto znać to:
+Ich funckjonalnosć oraz złożoność czasowa jest identyczna jak tych omówionych powyżej w punktach:  "Operacje na stosie" oraz "Złożoność czasowa". Nowe metody, które warto znać to:
 - size()  - zwraca nam ilość elementów, które znajdują się na stosie.
 - swap() - umożliwa nam zamianę stosów, które mają ten sam typ, lecz różnią sie rozmiarem.
 - emplace() - robi to samo co push, złożoność obliczeniowa ta sama, ale... push() powoduje skopiowanie przekazanego elementu, a emplace() tworzy ten element w odpowiednim miejscu na podstawie przekazanych elemetnów. Podobnie jak w wektorze push_back() vs emplace_back().
 
-Trzy powyższe metody mają złożoność czasową O(1). Demonstracja korzystania z STL'owego stosu znajduję się w zadaniu na końcu działu poświęconego stosowi.
+Trzy powyższe metody mają złożoność czasową O(1). Demonstracja korzystania z STL'owego stosu znajduje się w zadaniu na końcu działu poświęconego stosowi.
 
 ## Wykorzystanie
 ---
-Jedną z implementacja stosu jako struktury danych jest obszar w pamięci wydzielony dla danego wątku, służący do przechowywania adresów powrotu i zmiennych loklanych. Możemy, również korzystać z tej struktury w innych sytuacjach! Zaprezentuje Wam idealny przykład użycia stosu dla kurstantów C++, dla których zmorą jest niedomknięcie klamr, nawiasów. Program, który sprawdzi czy nawiasy są zrównoważone!
+Jedną z implementacji stosu jako struktury danych jest obszar w pamięci wydzielony dla danego wątku, służący do przechowywania adresów powrotu i zmiennych loklanych. Możemy, również korzystać z tej struktury w innych sytuacjach! Zaprezentuje Wam idealny przykład użycia stosu dla kurstantów C++, dla których zmorą jest niedomknięcie klamr bądź nawiasów. Program, który sprawdzi czy nawiasy są zrównoważone!
 
-### Zadanie z klamrami
+## Zadanie z klamrami
 ---
 Napiszemy program, w którym użytkownik poda ciąg nawiasów, a program sprawdzi czy takie nawiasy są zrównoważone. Program będzie oparty na liniowej strukturze danych, stosie.
 
-#### Implementacja
+## Implementacja
 ---
 ```
 #include <iostream>
@@ -212,7 +213,7 @@ int main() {
 }
 ```
 
-### Output
+## Output
 ---
 ```
 Program that check if paranthiesis are balanced
@@ -231,7 +232,7 @@ q
 ```
 # Kolejka (ang. Queue)
 ---
-Nasi rodzice i dziadkowie wspominają często komunę. My będziemy wspominali Covida. Co łączyło te dwie rzeczy? Kolejki. Wyobraź sobie, że po całej nocy imprezowania wchodzisz do lokalu z kebabem. Stajesz w kolejce i czekasz na swoją kolej. Wyczekujesz tej chwili, aż w końcu zostajesz obsłużony i dostajesz do ręki ciepłą torille, a życie staje się piękniejsze. Pewnie zapytasz teraz "Co to ma wspólnego ze strukturami danych do cholery?!". No właśnie wiele. Nauczyłeś się właśnie jak działa nasza kolejna struktura danych - kolejka (ang. queue). Gratulacje ;) Konkretnie liniowa struktura danych. W naszej struktórce nowe dane dopisywane są na końcu kolejki, a z początku kolejki pobierane są dane do dalszego przetwarzania. Kolejka posiada tzw. bufor FIFO (First In, First Out). 
+Nasi rodzice i dziadkowie wspominają często komunę. My będziemy wspominali Covida. Co łączyło te dwie rzeczy? Kolejki. Wyobraź sobie, że po całej nocy imprezowania wchodzisz do lokalu z kebabem. Stajesz w kolejce i czekasz na swoją kolej. Wyczekujesz tej chwili, aż w końcu zostajesz obsłużony i dostajesz do ręki ciepłą torille, a życie staje się piękniejsze. Pewnie zapytasz teraz "Co to ma wspólnego ze strukturami danych do cholery?!". No właśnie wiele. Nauczyłeś się właśnie jak działa nasza kolejna struktura danych - kolejka (ang. queue). Gratulacje ;) Konkretnie liniowa struktura danych. W naszej strukturce nowe dane dopisywane są na końcu kolejki, a z początku kolejki pobierane są dane do dalszego przetwarzania. Kolejka posiada tzw. bufor FIFO (First In, First Out). 
 
 ![](https://www.studytonight.com/code/python/ds/images/queue-basic.png)
 
@@ -248,7 +249,7 @@ Poniżej umieszczam dwie implementacje kolejki:
 Tym razem omówimy wszystkie cechy kolejki, korzystając z zdefinowanych metod kolejki w bibliotece standardowej. Znajdują się one w headerze *<queue>*. Jest to tak zwany adapter kolejki, który domyślnie jest wrapperem na std::deque. 
 ## Operacje udostępnione nam przez bibilioteke standardową
 ---
-Operacje, które udostępnia nam bibliotek standardowa to:
+Operacje, które udostępnia nam biblioteka standardowa to:
 - empty() - zwraca true jeśli nasza kolejka jest pusta, zwraca false jeśli nie jest pusta.
 - size() - zwraca liczbe elementów znajdujących się w naszej kolejce.
 - front() - zwraca wartość zmiennej znajdującej się na początku kolejki.
@@ -305,16 +306,119 @@ Możemy łatwo zaobserwować, że zawołanie metody pop(), spowodowało usunięc
 
 ## Wykorzystanie
 ---
-Zastosowanie kolejki możemy bardzo często zauważyć w sytuacjach związanych z obsługą zdarzeń. Możemy także natrafić na wykorzystanie jej podczas przesyłu asynchornicznego między dwoma procesami np. bufory IO, potoki, pliki IO itd.
+Zastosowanie kolejki możemy bardzo często zauważyć w sytuacjach związanych z obsługą zdarzeń. Możemy także natrafić na wykorzystanie jej podczas przesyłu asynchronicznego między dwoma procesami np. bufory IO, potoki, pliki IO itd.
 
 # Kolejka Priorytetowa (ang. Priority Queue)
 ---
-Znacie to uczucie? Jesteście chorzy. Umawiacie się na wizytę do lekarza. Jutro godzina 8:00. Mniej lub bardziej uradowani tym faktem planujecie co do godziny przyszły dzień. Kładziecie się spać i wyczekujecie godziny zero, odwiedzenia przychodni. Wchodzicie równitko o 8:00, zaspani otwieracie gabinet swojego lekarza, a wtedy unosi sie nagły krzyk. "Panie, co Pan!? Pan dopiero co przyszedl, my tu już z Halinką od godziny czekamy!!!". Wiecie, że jesteście umówieni, ale wtedy zadajecie ostateczny cios, wyciągacie legitymacje honorowego dawcy krwi i ostentacyjnie bez tłumaczeń wchodzicie do gabinetu. Dlaczego tak? Bo macie priorytet. Czy to sie komuś podoba czy nie. Tak działa nasza kolejna struktura danych, która jest tak naprawdę modyfikacją poprzedniej. Tą struktuą jest kolejka priorytetowa. Poniżej omówimy sobie działanie takiej kolejki.
+Znacie to uczucie? Jesteście chorzy. Umawiacie się na wizytę do lekarza. Jutro godzina 8:00. Mniej lub bardziej uradowani tym faktem planujecie co do godziny przyszły dzień. Kładziecie się spać i wyczekujecie godziny zero,czyli odwiedzenia przychodni. Wchodzicie równitko o 8:00, zaspani otwieracie gabinet swojego lekarza, a wtedy unosi sie nagły krzyk. "Panie, co Pan!? Pan dopiero co przyszedl, my tu już z Halinką od godziny czekamy!!!". Wiecie, że jesteście umówieni, ale wtedy zadajecie ostateczny cios, wyciągacie legitymacje honorowego dawcy krwi i ostentacyjnie, bez tłumaczeń wchodzicie do gabinetu. Dlaczego tak? Bo macie priorytet. Czy to sie komuś podoba czy nie. Tak działa nasza kolejna struktura danych, która jest tak naprawdę modyfikacją poprzedniej. Tą struktuą jest kolejka priorytetowa. Poniżej omówimy sobie działanie takiej kolejki.
 
 ![](https://cdn.softwaretestinghelp.com/wp-content/qa/uploads/2019/07/Java-Implementation-for-priority-queue.png)
 
+Kolejka priorytetowa działa podobnie do zwykłej kolejki. Posiada natomiast ona pewną abstrakcyjną wartość zwaną kluczem. Przyjmijmy, że wartość naszej zmiennej będzie jednocześnie jej kluczem.
+Kolejki priorytetowe dzielimy na:
+- kolejki typu min
+- kolejki typu max
 
+Główna różnica między nimi to, to co znajduje się na pozycji Front. Kolejka typy max przyjmie największą wartość klucza na pozycji Front, a kolejka typu min najmniejszą wartość klucza. Na powyższym obrazku przedstawiona jest kolejka priorytetowa typu min. Najmniejsza wartość klucza znajduje się na pozycji Front. Tak domyślnie zaimplementowana jest kolejka priorytetowa w bibiliotece standardowej STL, o której poniżej.
 
+## Implementacje
+---
+Przykładową implementacje kolejki priorytetowej za pomocą listy znajdziesz [tutaj](https://www.geeksforgeeks.org/priority-queue-using-linked-list/)
+
+## Kolejka Priorytetowa w STL
+---
+Omówimy wszystkie cechy kolejki priorytetowej korzystając z zdefinowanych metod tejże kolejki w bibliotece standardowej. Znajdują się one w headerze *<queue>*. Jest to tak zwany adapter kolejki priorytetowej, który jest domyślnie wrapperem na std::vector. Tak jak wspomniane było wcześniej,  domyślne użycie kolejki priorytetowej,którą udostępniono nam przez bibilioteke standardową,  oznaczać będzie ustawienia klucza o najmniejszej wartości na pozycji Front. Oczywiście nie jest to obligatoryjne, ale o tym później.
+
+## Operacje udostępnione nam przez bibiliotekę standardową
+---
+Operacje, które udostępnia nam biblioteka standardowa to:
+- top() - zwraca wartość zmiennej znajdującej się na początku kolejki (pozycja front).
+- empty() - zwraca true jeśli nasza kolejka jest pusta, zwraca false jeśli nie jest pusta.
+- size() - zwraca liczbe elementów znajdujących się w naszej kolejce.
+- push() - dodaje wartość do kolejki wg. priorytetu.
+- emplace() - robi to samo co push, złożoność obliczeniowa ta sama, ale… push() powoduje skopiowanie przekazanego elementu, a emplace() tworzy ten element w odpowiednim miejscu na podstawie przekazanych elemetnów.
+- pop() - usuwa wartość z początku kolejki (pozycja front).
+- swap() - zamienia zawartość kolejek
+
+## Złożoność czasowa
+---
+Niestety, w porównaniu do dwóch ostatnich struktur. W przypadku kolejki priorytetowej będziemy mieli pewny spadek na wydajności, aczkolwiek nadal będzie ona błyskawiczna!
+| Operacja | Złożoność czasowa |
+| ------ | ------ |
+| push() | O(log(n)) |
+| pop() | O(log(n)) |
+| emplace() | O(log(n)) |
+| top() | O(1) |
+| size() | O(1) |
+| empty() | O(1) |
+| swap() | O(1) |
+
+## Przykład użycia
+---
+```
+#include <iostream>
+#include <queue>
+
+template <typename Type>
+void printQueue(Type& priorityQueue) {
+    while (!priorityQueue.empty()) {
+        std::cout << priorityQueue.top() << " ";
+        priorityQueue.pop();
+    }
+    std::cout << '\n';
+}
+
+int main() {
+    /// Najmniejsza wartosc na pozycji FRONT
+
+    std::priority_queue<int> myQueue;
+
+    for (int i : {1, 5, 2, 3, 8, 4, 9, 6, 7, 0}) {
+        myQueue.push(i);
+    }
+    printQueue(myQueue);
+
+    /// Najwieksza wartosc na pozycji FRONT
+
+    std::priority_queue<int, std::vector<int>, std::greater<int> > mySecondQueue;
+
+    for (int i : {1, 5, 2, 3, 8, 4, 9, 6, 7, 0}) {
+        mySecondQueue.push(i);
+    }
+    printQueue(mySecondQueue);
+
+    return 0;
+}
+```
+
+## Output
+---
+```
+9 8 7 6 5 4 3 2 1 0 
+0 1 2 3 4 5 6 7 8 9
+```
+Jak widzimy samemu możemy podać czy kolejka ma być typu min czy max. Możemy utworzyć nawet własny predykat! Dzięki temu dostajemy kontrole nad tym jaka wartość będzie miała jaki priorytet.
+
+## Wykorzystanie
+---
+Kolejki priorytetowe wykorzystywane są często do rzeczy takich jak: 
+ - szeregowanie procesów w jądrach sytemów operacyjnych (odmiana kolejki max).
+ - symulatory zdarzeń (odmiana kolejki typu min).
+
+# Podsumowanie
+---
+Dzisiaj dowiedzieliśmy się wiele na temat liniowych struktur danych. Ich złożoność czasowa jest wyśmienita. W zależności od implementacji mogą występować różnice niektórych cech np. rozmiar zarezerwowanej pamięci dla danych implementacji struktury może się różnić (stos reprezentowany za pomocą tablicy, a listy). Najważniejsze, że zrozumieliśmy jak te struktury działają, a ich szczegóły implementacyjne zostawmy sobie na zimne, zimowe wieczory. Cieszmy się z końcówki lata i pamiętajmy, stos jest sztos! Pozdrawiam wszystkich kurstantów [coders.school](https://coders.school/) :).
+# Bibliografia
+---
+- [1][struktury danych](https://www.geeksforgeeks.org/data-structures/)
+- [2][struktury danych](https://pl.wikipedia.org/wiki/Struktura_danych)
+- [3][stos](https://www.geeksforgeeks.org/stack-data-structure/)
+- [4][stos](https://pl.wikipedia.org/wiki/Stos_(informatyka))
+- [5][queue](https://pl.wikipedia.org/wiki/Kolejka_(informatyka))
+- [6][queue](https://www.geeksforgeeks.org/queue-data-structure/)
+- [7][queue](https://en.cppreference.com/w/cpp/container/queue)
+- [8][priority queue](https://en.cppreference.com/w/cpp/container/priority_queue)
+- [9][priority queue](https://www.geeksforgeeks.org/priority-queue-set-1-introduction/)
 
 
 
