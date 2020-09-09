@@ -100,7 +100,7 @@ bool isEvenRootOfNegativeNumber(const std::string& input) {
 }
 
 bool isModuloOfNonIntegerValue(const std::string& input) {
-    std::regex pattern(R"((\d+)(\.)(\d+)(\s*)(\%))");
+    std::regex pattern(R"((\d+\.\d+\s*\%)|(\%\s*\d+\.\d+))");
     return std::regex_search(input, pattern);
 }
 
@@ -117,11 +117,21 @@ ErrorCode process(std::string input, double* out) {
         {'!', std::function<double(double)>([](double lhs) { return std::tgamma(lhs + 1); })},
         {'^', std::function<double(double, double)>([](double lhs, double rhs) { return std::pow(lhs, rhs); })},
         {'$', std::function<double(double, double)>([](double lhs, double rhs) { return std::pow(lhs, 1 / rhs); })}};
-    std::cout << "badCharacter: " << isBadCharacter(input) << '\n';
-    std::cout << "badFormat: " << isBadFormat(input) << '\n';
-    std::cout << "divide by 0: " << isDividedBy0(input) << '\n';
-    std::cout << "root of negative: " << isEvenRootOfNegativeNumber(input) << '\n';
-    std::cout << "modulo of non int: " << isModuloOfNonIntegerValue(input) << '\n';
+    if(isBadCharacter(input)) {
+        return ErrorCode::BadCharacter;
+    } 
+    if (isBadFormat(input)) {
+        return ErrorCode::BadFormat;
+    }
+    if (isDividedBy0(input)) {
+        return ErrorCode::DivideBy0;
+    }
+    if (isEvenRootOfNegativeNumber(input)) {
+        return ErrorCode::SqrtOfNegativeNumber;
+    }
+    if (isModuloOfNonIntegerValue(input)) {
+        return ErrorCode::ModuleOfNonIntegerValue;
+    }
 
     return ErrorCode::OK;
 }
