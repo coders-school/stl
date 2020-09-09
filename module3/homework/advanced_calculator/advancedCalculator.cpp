@@ -104,6 +104,11 @@ bool isModuloOfNonIntegerValue(const std::string& input) {
     return std::regex_search(input, pattern);
 }
 
+int getResult(const std::string& input) {
+    
+}
+
+
 
 ErrorCode process(std::string input, double* out) {
     std::variant<std::function<double(double, double)>, std::function<int(int, int)>, std::function<double(double)>>
@@ -132,6 +137,7 @@ ErrorCode process(std::string input, double* out) {
     if (isModuloOfNonIntegerValue(input)) {
         return ErrorCode::ModuleOfNonIntegerValue;
     }
+    *out = getResult(input);
 
     return ErrorCode::OK;
 }

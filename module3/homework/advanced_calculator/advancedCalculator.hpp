@@ -24,3 +24,4 @@ bool isWrongDivisionSign(const std::string& input);
 bool isDividedBy0(const std::string& input);
 bool isEvenRootOfNegativeNumber(const std::string& input);
 bool isModuloOfNonIntegerValue(const std::string& input);
+int getResult(const std::string& input);
