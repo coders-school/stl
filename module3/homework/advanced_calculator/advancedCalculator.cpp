@@ -82,6 +82,10 @@ bool isDividedBy0(const std::string& input) {
     return std::regex_search(input, pattern);
 }
 
+bool isEvenRootOfNegativeNumber(const std::string& input) {
+
+}
+
 ErrorCode process(std::string input, double* out) {
     std::variant<std::function<double(double, double)>, std::function<int(int, int)>, std::function<double(double)>>
         functions;
@@ -97,6 +101,7 @@ ErrorCode process(std::string input, double* out) {
     std::cout << "badCharacter: " << isBadCharacter(input) << '\n';
     std::cout << "badFormat: " << isBadFormat(input) << '\n';
     std::cout << "divide by 0: " << isDividedBy0(input) << '\n';
+    std::cout << "root of negative: " << isEvenRootOfNegativeNumber(input) << '\n';
 
     return ErrorCode::OK;
 }
