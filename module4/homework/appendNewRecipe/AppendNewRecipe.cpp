@@ -30,7 +30,7 @@ std::stringstream FormatRecipe(std::vector<std::string> steps,
     for (const auto& ingredient : ingredientsVector) {
         recipeStream << ingredient << ",\n";
     }
-    constexpr auto messageSteps = "Skladniki:\n";
+    constexpr auto messageSteps = "\nKroki:\n";
     recipeStream << messageSteps;
     int step = 1;
     for (const auto& it : steps) {
