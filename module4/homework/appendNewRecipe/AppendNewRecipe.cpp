@@ -31,7 +31,7 @@ std::stringstream FormatRecipit(std::vector<std::string> steps,
     std::stringstream ss;
     ss << ingredientsMessage << ":\n";
     std::copy(formattedIngredients.begin(), formattedIngredients.end(), std::ostream_iterator<std::string>(ss, ",\n"));
-    ss << "\n"<< stepMessage << ":\n";
+    ss << "\n" << stepMessage << ":\n";
 
     std::for_each(steps.begin(), steps.end(),
                   [count = 1, &ss](const auto& step) mutable {
