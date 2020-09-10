@@ -195,7 +195,21 @@ double AdvancedCalculator::calculate() {
 }
 
 ErrorCode AdvancedCalculator::getErrorCode() {
-    
+    if (isBadCharacter()) {
+        return ErrorCode::BadCharacter;
+    }
+    if (isBadFormat()) {
+        return ErrorCode::BadFormat;
+    }
+    if (isDividedBy0()) {
+        return ErrorCode::DivideBy0;
+    }
+    if (isEvenRootOfNegativeNumber()) {
+        return ErrorCode::SqrtOfNegativeNumber;
+    }
+    if (isModuloOfNonIntegerValue()) {
+        return ErrorCode::ModuleOfNonIntegerValue;
+    }
 }
 
 ErrorCode process(std::string input, double* out) {
