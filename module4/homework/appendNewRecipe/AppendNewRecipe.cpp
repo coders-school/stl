@@ -3,9 +3,12 @@
 #include <algorithm>
 #include <fstream>
 #include <iostream>
+#include <iterator>
 #include <map>
 
-std::map<char, std::string> amountCode{{'g', "gram"}, {'s', "szklanka(i)"}, {'m', "mililitrow"}};
+const std::map<char, std::string> amountCode{{'g', "gram"}, {'s', "szklanka(i)"}, {'m', "mililitrow"}};
+const std::string ingredientsMessage{"Skladniki"};
+const std::string stepMessage{"Kroki"};
 
 std::vector<std::string> FormatIngredients(const std::list<std::string>& ingredients,
                                            const std::deque<std::pair<size_t, char>>& amount) {
@@ -18,26 +21,26 @@ std::vector<std::string> FormatIngredients(const std::list<std::string>& ingredi
                        ss << ingredient;
                        return ss.str();
                    });
-
     return formattedIngredients;
 }
 
 std::stringstream FormatRecipit(std::vector<std::string> steps,
                                 const std::list<std::string>& ingredients,
                                 const std::deque<std::pair<size_t, char>>& amount) {
-    std::stringstream ss;
     std::vector<std::string> formattedIngredients = FormatIngredients(ingredients, amount);
+    std::stringstream ss;
+    ss << ingredientsMessage << ":\n";
+    std::copy(formattedIngredients.begin(), formattedIngredients.end(), std::ostream_iterator<std::string>(ss, ",\n"));
+    ss << "\n"<< stepMessage << ":\n";
 
-    ss << "Skladniki:\n";
-    for (auto el : formattedIngredients) {
-        ss << el << ',' << '\n';
-    }
-    ss << "\nKroki:\n";
-    for (size_t i = 0; i < steps.size(); ++i) {
-        ss << std::to_string(i + 1) << ") " << steps[i] << ".\n";
-    }
+    std::for_each(steps.begin(), steps.end(),
+                  [count = 1, &ss](const auto& step) mutable {
+                      ss << std::to_string(count) << ") " << step << ".\n";
+                      count++;
+                  });
 
     ss << "___________________________________\n";
+
     return ss;
 }
 
