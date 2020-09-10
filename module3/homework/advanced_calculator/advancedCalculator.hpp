@@ -15,6 +15,18 @@ enum class ErrorCode {
 };
 
 std::ostream& operator<<(std::ostream& os, ErrorCode error);
+
+class AdvancedCalculator {
+    double lhs;
+    double rhs;
+    char operation;
+
+    public:
+    AdvancedCalculator();
+    explicit AdvancedCalculator(const std::string& input);
+    double getResult();
+    ErrorCode getErrorCode();
+};
 struct EquationData {
     double lhs;
     double rhs;
