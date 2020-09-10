@@ -24,12 +24,14 @@ std::stringstream FormatRecipe(std::vector<std::string> steps,
                                const std::list<std::string>& ingredients,
                                const std::deque<std::pair<size_t, char>>& amount) {
     std::stringstream recipeStream;
-    recipeStream << "Skladniki:\n";
+    constexpr auto messageIngredients = "Skladniki:\n";
+    recipeStream << messageIngredients;
     std::vector<std::string> ingredientsVector = FormatIngredients(ingredients, amount);
     for (const auto& ingredient : ingredientsVector) {
         recipeStream << ingredient << ",\n";
     }
-    recipeStream << "\nKroki:\n";
+    constexpr auto messageSteps = "Skladniki:\n";
+    recipeStream << messageSteps;
     int step = 1;
     for (const auto& it : steps) {
         recipeStream << step << ") " << it << ".\n";
@@ -42,7 +44,8 @@ std::stringstream FormatRecipe(std::vector<std::string> steps,
 bool AppendNewRecipe(std::vector<std::string> steps,
                      const std::list<std::string>& ingredients,
                      const std::deque<std::pair<size_t, char>>& amount) {
-    std::fstream recipe("recipes.txt", recipe.out | recipe.app);
+    constexpr auto filename = "recipes.txt";
+    std::fstream recipe(filename, recipe.out | recipe.app);
     if (recipe.is_open()) {
         std::stringstream recipesStream = FormatRecipe(steps, ingredients, amount);
         recipe << recipesStream.str();
