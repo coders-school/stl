@@ -1,6 +1,5 @@
 ---
-title: STL Homework 2 Notes
-output: pdf_document
+title: STL Homework - Notes
 ---
 
 ## std::stack
