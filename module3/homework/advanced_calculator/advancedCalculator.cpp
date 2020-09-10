@@ -73,15 +73,11 @@ bool isDigitAfterUnaryOperator(const std::string& input) {
 }
 
 bool moreThanOneOperator(const std::string& input) {
-    std::regex operators(R"((\-?\d+(\.\d+)?)(\s*)((\+|\-|\/|\*|\%|\^|\$|\!)(\s*))+(\s*)(\-?\d+(\.\d+)?))");
-    std::smatch match;
-    std::regex_search(input, match, operators);
-
-    if (match.size() >= 5) {
-        auto foundOperators = match[5].str();
-        if (foundOperators.size() > 1) {
-            return true;
-        }
+    std::regex operators(R"((\+|\-|\/|\*|\%|\^|\$|\!)(?=\D))");
+    auto operators_begin = std::sregex_iterator(begin(input), end(input), operators);
+    auto operators_end = std::sregex_iterator();
+    if (std::distance(operators_begin, operators_end) > 1) {
+        return true;
     }
     return false;
 }
