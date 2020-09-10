@@ -5,6 +5,8 @@
 #include <iterator>
 #include <map>
 
+constexpr char fileName[] = "recipes.txt";
+
 std::map<char, std::string> units{
     {'g', "gram"},
     {'s', "szklanka(i)"},
@@ -13,7 +15,7 @@ std::map<char, std::string> units{
 bool AppendNewRecipe(VecStr steps, const ListStr& ingredients, const DeqSizetChar& amount) {
     auto newRecipe = (FormatRecipit(steps, ingredients, amount)).str();
 
-    std::fstream file("recipes.txt", file.app);
+    std::fstream file(fileName, file.app);
     if (file.is_open()) {
         file << newRecipe;
         file.close();
