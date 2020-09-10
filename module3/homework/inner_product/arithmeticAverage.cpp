@@ -1,6 +1,7 @@
 #include "arithmeticAverage.hpp"
 
 #include <cmath>
+#include <functional>
 #include <numeric>
 
 double ArithmeticAverage(std::vector<int> lhs, std::vector<int> rhs) {
