@@ -1,6 +1,7 @@
 #pragma once
 
 #include <functional>
+#include <ostream>
 #include <string>
 #include <variant>
 
@@ -13,6 +14,7 @@ enum class ErrorCode {
     ModuleOfNonIntegerValue,
 };
 
+std::ostream& operator<<(std::ostream& os, ErrorCode error);
 struct EquationData {
     double lhs;
     double rhs;

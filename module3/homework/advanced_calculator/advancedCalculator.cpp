@@ -5,13 +5,40 @@
 #include <map>
 #include <regex>
 
+std::ostream& operator<<(std::ostream& os, ErrorCode error) {
+    switch (error) {
+        case ErrorCode::OK:
+            os << "OK";
+            break;
+        case ErrorCode::BadCharacter:
+            os << "BadCharacter";
+            break;
+        case ErrorCode::BadFormat:
+            os << "BadFormat";
+            break;
+        case ErrorCode::DivideBy0:
+            os << "DivideBy0";
+            break;
+        case ErrorCode::SqrtOfNegativeNumber:
+            os << "SqrtOfNegativeNumber";
+            break;
+        case ErrorCode::ModuleOfNonIntegerValue:
+            os << "ModuleOfNonIntegerValue";
+            break;
+    }
+    return os;
+}
+
 bool isBadCharacter(const std::string& input) {
-    std::string badCharacters{R"([^0-9\+\-\*\/\^\%\!\$\s\.])"};
+    std::string badCharacters{R"([^0-9\+\-\*\/\^\%\!\$\s\.,])"};
     std::regex pattern(badCharacters);
     return std::regex_search(input, pattern);
 }
 
 bool isBadFormat(const std::string& input) {
+    if (std::all_of(begin(input), end(input), [](unsigned char elem) { return isblank(elem); })) {
+        return true;
+    }
     if (noDigitBeforeOperator(input)) {
         return true;
     }
@@ -46,19 +73,13 @@ bool isDigitAfterUnaryOperator(const std::string& input) {
 }
 
 bool moreThanOneOperator(const std::string& input) {
-    std::regex operators(R"((\+|\-|\/|\*|\^|\$|\%|\!))");
-    std::smatch foundOperators;
-    auto operators_begin = std::sregex_iterator(input.begin(), input.end(), operators);
-    auto operators_end = std::sregex_iterator();
-    auto equalToMinus = [](auto elem) { return elem.str() == "-"; };
-    if (std::distance(operators_begin, operators_end) > 3) {
-        return true;
-    }
-    if (std::distance(operators_begin, operators_end) == 3) {
-        return !std::all_of(operators_begin, operators_end, equalToMinus);
-    }
-    if (std::distance(operators_begin, operators_end) == 2) {
-        if (!firstDigitIsNegative(input) && !std::all_of(operators_begin, operators_end, equalToMinus)) {
+    std::regex operators(R"((\-?\d+(\.\d+)?)(\s*)((\+|\-|\/|\*|\%|\^|\$|\!)(\s*))+(\s*)(\-?\d+(\.\d+)?))");
+    std::smatch match;
+    std::regex_search(input, match, operators);
+
+    if (match.size() >= 5) {
+        auto foundOperators = match[5].str();
+        if (foundOperators.size() > 1) {
             return true;
         }
     }
@@ -66,7 +87,7 @@ bool moreThanOneOperator(const std::string& input) {
 }
 
 bool isWrongDivisionSign(const std::string& input) {
-    std::regex pattern(R"((\.\S+\.)|(,))");
+    std::regex pattern(R"(\d+\.\d+\.|(,))");
     return std::regex_search(input, pattern);
 }
 
@@ -76,7 +97,7 @@ bool firstDigitIsNegative(const std::string& input) {
 }
 
 bool isDividedBy0(const std::string& input) {
-    std::regex pattern(R"((\/(\s+)?0))");
+    std::regex pattern(R"((\/(\s*)\-?0))");
     return std::regex_search(input, pattern);
 }
 
@@ -84,7 +105,7 @@ bool isEvenRootOfNegativeNumber(const std::string& input) {
     if (!firstDigitIsNegative(input)) {
         return false;
     }
-    std::regex pattern(R"(((\$)(\s*)(\d+))$)");
+    std::regex pattern(R"(((\$)(\s*)(\-?\d+))$)");
     std::smatch match;
     std::regex_search(input, match, pattern);
     if (match.empty()) {
@@ -92,6 +113,9 @@ bool isEvenRootOfNegativeNumber(const std::string& input) {
     }
     auto rootDegree = std::stoi(match[4].str());
     if (rootDegree % 2 == 0) {
+        return true;
+    }
+    if (rootDegree < 2) {
         return true;
     }
     return false;
@@ -105,7 +129,6 @@ bool isModuloOfNonIntegerValue(const std::string& input) {
 double getResult(const std::string& input) {
     EquationData data;
     if (binaryOperation(input)) {
-        std::cout << "binary\n";
         data = getBinaryEquationData(input);
     }
     if (unaryOperation(input)) {
@@ -115,26 +138,23 @@ double getResult(const std::string& input) {
 }
 
 bool binaryOperation(const std::string& input) {
-    std::regex pattern(R"((\-?\d+(\.\d+)?)(\s*)((\+|\-|\/|\*|\%|\^|\$)|(\-\s*\-))(\s*)(\d+(\.\d+)?))");
+    std::regex pattern(R"((\-?\d+(\.\d+)?)(\s*)((\+|\-|\/|\*|\%|\^|\$)|(\-\s*\-))(\s*)(\-?\d+(\.\d+)?))");
     return std::regex_search(input, pattern);
 }
 
 EquationData getBinaryEquationData(const std::string& input) {
-    std::regex pattern(R"((\-?\d+(\.\d+)?)(\s*)((\+|\-|\/|\*|\%|\^|\$)|(\-\s*\-))(\s*)(\d+(\.\d+)?))");
+    std::regex pattern(R"((\-?\d+(\.\d+)?)(\s*)((\+|\-|\/|\*|\%|\^|\$)|(\-\s*\-))(\s*)(\-?\d+(\.\d+)?))");
     std::smatch match;
     std::regex_search(input, match, pattern);
     EquationData data;
     data.lhs = std::stod(match[1].str());
     data.rhs = std::stod(match[8].str());
     auto operators = match[4].str();
-    std::cout << operators << '\n';
-    std::cout << std::count_if(begin(operators), end(operators), [](char sign) { return sign == '-'; }) << '\n';
     if (std::count_if(begin(operators), end(operators), [](auto sign) { return sign == '-'; }) == 2) {
         data.operation = '+';
     } else {
         data.operation = operators[0];
     }
-    std::cout << "data operation: " << data.operation << " data lhs: " << data.lhs << " " << data.rhs << '\n';
     return data;
 }
 
@@ -161,7 +181,7 @@ double calculate(const EquationData& data) {
         {'*', std::function<double(double, double)>([](double lhs, double rhs) { return lhs * rhs; })},
         {'/', std::function<double(double, double)>([](double lhs, double rhs) { return lhs / rhs; })},
         {'%', std::function<int(int, int)>([](int lhs, int rhs) { return lhs % rhs; })},
-        {'!', std::function<double(double)>([](double lhs) { return std::tgamma(lhs + 1); })},
+        {'!', std::function<double(double)>([](double lhs) { return (lhs + 1 > 0) ? std::tgamma(lhs + 1) : 1; })},
         {'^', std::function<double(double, double)>([](double lhs, double rhs) { return std::pow(lhs, rhs); })},
         {'$', std::function<double(double, double)>([](double lhs, double rhs) { return std::pow(lhs, 1 / rhs); })}};
 
