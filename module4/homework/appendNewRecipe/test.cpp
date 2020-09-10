@@ -59,7 +59,7 @@ TEST_F(Test, ShouldFormatWholeRecipe) {
         {1, 's'},
         {40, 'm'}};
 
-    EXPECT_EQ(FormatRecipit(steps, ingredients, amount).str(), kExpected);
+    EXPECT_EQ(FormatRecipe(steps, ingredients, amount).str(), kExpected);
 }
 
 TEST_F(Test, ShouldWriteFile) {
