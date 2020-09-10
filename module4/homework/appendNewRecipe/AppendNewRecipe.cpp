@@ -1,7 +1,7 @@
 #include "AppendNewRecipe.hpp"
 #include <algorithm>
 #include <fstream>
-#include <iostream>
+#include <iterator>
 #include <map>
 #include <sstream>
 #include <string>
@@ -38,26 +38,24 @@ std::vector<std::string> FormatIngridients(const std::list<std::string>& ingridi
 }
 
 std::stringstream FormatRecipit(std::vector<std::string> steps, const std::list<std::string>& ingridients, const std::deque<std::pair<size_t, char>>& amount) {
-    const std::string stepsStart = "\n\nKroki:";
-    const std::string ingidientsStart = "Skladniki:";
-
+    const std::string stepsStart = "\nKroki:";
+    const std::string ingidientsStart = "Skladniki:\n";
+    const std::string breakLine = "\n___________________________________\n";
     std::stringstream output{};
+
     output << ingidientsStart;
     auto formattedIngredients = FormatIngridients(ingridients, amount);
-    std::for_each(formattedIngredients.begin(), formattedIngredients.end(),
-                  [&output](const auto& ingridient) {
-                      output << "\n"
-                             << ingridient << ",";
-                  });
-    output << stepsStart;
+    std::copy(formattedIngredients.begin(), formattedIngredients.end(), std::ostream_iterator<std::string>(output, ",\n"));
 
+    output << stepsStart;
     std::for_each(steps.begin(), steps.end(),
                   [counter = 1, &output](const auto& step) mutable {
                       output << "\n"
                              << counter << ") " << step << ".";
                       counter++;
                   });
-    output << "\n___________________________________\n";
+
+    output << breakLine;
 
     return output;
 }
