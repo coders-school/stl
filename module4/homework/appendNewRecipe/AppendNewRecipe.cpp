@@ -93,18 +93,12 @@ if (diary.is_open()) {
 bool AppendNewRecipe(std::vector<std::string> steps,
                      const std::list<std::string>& ingredients,
                      const std::deque<std::pair<size_t, char>>& amount) {
-    //std::ofstream ofs("receipe.txt", std::ios_base::app);
-    std::fstream ofs("receipe.txt", ofs.out | ofs.app);
-    //ofs.open("receipe.txt", std::ios_base::app);
-    std::stringstream ss = FormatRecipit(steps, ingredients, amount);
-    if (!ofs) {
-        return false;
-    }
-
+        std::fstream ofs("recipes.txt", ofs.out | ofs.app);
     if (ofs.is_open()) {
+        std::stringstream ss = FormatRecipit(steps, ingredients, amount);
         ofs << ss.str();
         ofs.close();
+        return true;
     }
-
-    return true;
+    return false;
 }
