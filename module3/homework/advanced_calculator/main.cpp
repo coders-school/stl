@@ -6,14 +6,16 @@
 
 int main() {
     std::string text;
+    std::string dash(40, '-');
     while (true) {
+        std::cout << "Enter your equation: (q to finish) \n";
         std::getline(std::cin, text);
-        double result = 0;
-        process(text, &result);
-        if (text == "q") {
+        if (text == "q" || text == "Q") {
             break;
         }
+        double result = 0;
+        process(text, &result);
+        std::cout << "Result: " << result << '\n';
+        std::cout << dash << '\n';
     }
-
-    // std::cout << result << '\n';
 }
