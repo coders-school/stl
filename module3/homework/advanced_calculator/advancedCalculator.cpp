@@ -5,6 +5,19 @@
 #include <map>
 #include <regex>
 
+AdvancedCalculator::AdvancedCalculator(const std::string& input) :
+    input(input),
+    mathOperations{
+        {'+', std::function<double(double, double)>([](double lhs, double rhs) { return lhs + rhs; })},
+        {'-', std::function<double(double, double)>([](double lhs, double rhs) { return lhs - rhs; })},
+        {'*', std::function<double(double, double)>([](double lhs, double rhs) { return lhs * rhs; })},
+        {'/', std::function<double(double, double)>([](double lhs, double rhs) { return lhs / rhs; })},
+        {'%', std::function<int(int, int)>([](int lhs, int rhs) { return lhs % rhs; })},
+        {'!', std::function<double(double)>([](double lhs) { return (lhs + 1 > 0) ? std::tgamma(lhs + 1) : 1; })},
+        {'^', std::function<double(double, double)>([](double lhs, double rhs) { return std::pow(lhs, rhs); })},
+        {'$', std::function<double(double, double)>([](double lhs, double rhs) { return std::pow(lhs, 1 / rhs); })}} {
+}
+
 std::ostream& operator<<(std::ostream& os, ErrorCode error) {
     switch (error) {
         case ErrorCode::OK:
@@ -29,50 +42,50 @@ std::ostream& operator<<(std::ostream& os, ErrorCode error) {
     return os;
 }
 
-bool isBadCharacter(const std::string& input) {
+bool AdvancedCalculator::isBadCharacter() {
     std::string badCharacters{R"([^0-9\+\-\*\/\^\%\!\$\s\.,])"};
     std::regex pattern(badCharacters);
     return std::regex_search(input, pattern);
 }
 
-bool isBadFormat(const std::string& input) {
+bool AdvancedCalculator::isBadFormat() {
     if (std::all_of(begin(input), end(input), [](unsigned char elem) { return isblank(elem); })) {
         return true;
     }
-    if (noDigitBeforeOperator(input)) {
+    if (noDigitBeforeOperator()) {
         return true;
     }
-    if (noDigitAfterBinaryOperator(input)) {
+    if (noDigitAfterBinaryOperator()) {
         return true;
     }
-    if (isDigitAfterUnaryOperator(input)) {
+    if (isDigitAfterUnaryOperator()) {
         return true;
     }
-    if (moreThanOneOperator(input)) {
+    if (moreThanOneOperator()) {
         return true;
     }
-    if (isWrongDivisionSign(input)) {
+    if (isWrongDivisionSign()) {
         return true;
     }
     return false;
 }
 
-bool noDigitBeforeOperator(const std::string& input) {
+bool AdvancedCalculator::noDigitBeforeOperator() {
     std::regex pattern(R"(^(\D+)?(\s+)?(\+|\/|\*|\^|\$|\!|\%))");
     return std::regex_search(input, pattern);
 }
 
-bool noDigitAfterBinaryOperator(const std::string& input) {
+bool AdvancedCalculator::noDigitAfterBinaryOperator() {
     std::regex pattern(R"((\+|\-|\/|\*|\^|\$|\%)$)");
     return std::regex_search(input, pattern);
 }
 
-bool isDigitAfterUnaryOperator(const std::string& input) {
+bool AdvancedCalculator::isDigitAfterUnaryOperator() {
     std::regex pattern(R"((\!)(\s+)?(\d+))");
     return std::regex_search(input, pattern);
 }
 
-bool moreThanOneOperator(const std::string& input) {
+bool AdvancedCalculator::moreThanOneOperator() {
     std::regex operators(R"((\+|\-|\/|\*|\%|\^|\$|\!)(?=\D))");
     auto operators_begin = std::sregex_iterator(begin(input), end(input), operators);
     auto operators_end = std::sregex_iterator();
@@ -82,23 +95,23 @@ bool moreThanOneOperator(const std::string& input) {
     return false;
 }
 
-bool isWrongDivisionSign(const std::string& input) {
+bool AdvancedCalculator::isWrongDivisionSign() {
     std::regex pattern(R"(\d+\.\d+\.|(,))");
     return std::regex_search(input, pattern);
 }
 
-bool firstDigitIsNegative(const std::string& input) {
+bool AdvancedCalculator::firstDigitIsNegative() {
     std::regex pattern(R"(^(\s+)?(\-)(\s+)?(\d+))");
     return std::regex_search(input, pattern);
 }
 
-bool isDividedBy0(const std::string& input) {
+bool AdvancedCalculator::isDividedBy0() {
     std::regex pattern(R"((\/(\s*)\-?0))");
     return std::regex_search(input, pattern);
 }
 
-bool isEvenRootOfNegativeNumber(const std::string& input) {
-    if (!firstDigitIsNegative(input)) {
+bool AdvancedCalculator::isEvenRootOfNegativeNumber() {
+    if (!firstDigitIsNegative()) {
         return false;
     }
     std::regex pattern(R"(((\$)(\s*)(\-?\d+))$)");
@@ -117,100 +130,89 @@ bool isEvenRootOfNegativeNumber(const std::string& input) {
     return false;
 }
 
-bool isModuloOfNonIntegerValue(const std::string& input) {
+bool AdvancedCalculator::isModuloOfNonIntegerValue() {
     std::regex pattern(R"((\d+\.\d+\s*\%)|(\%\s*\d+\.\d+))");
     return std::regex_search(input, pattern);
 }
 
-double getResult(const std::string& input) {
-    EquationData data;
-    if (binaryOperation(input)) {
-        data = getBinaryEquationData(input);
+double AdvancedCalculator::getResult() {
+    if (binaryOperation()) {
+        setBinaryEquationData();
     }
-    if (unaryOperation(input)) {
-        data = getUnaryEquationData(input);
+    if (unaryOperation()) {
+        setUnaryEquationData();
     }
-    return calculate(data);
+    return calculate();
 }
 
-bool binaryOperation(const std::string& input) {
+bool AdvancedCalculator::binaryOperation() {
     std::regex pattern(R"((\-?\d+(\.\d+)?)(\s*)((\+|\-|\/|\*|\%|\^|\$)|(\-\s*\-))(\s*)(\-?\d+(\.\d+)?))");
     return std::regex_search(input, pattern);
 }
 
-EquationData getBinaryEquationData(const std::string& input) {
+void AdvancedCalculator::setBinaryEquationData() {
     std::regex pattern(R"((\-?\d+(\.\d+)?)(\s*)((\+|\-|\/|\*|\%|\^|\$)|(\-\s*\-))(\s*)(\-?\d+(\.\d+)?))");
     std::smatch match;
     std::regex_search(input, match, pattern);
     EquationData data;
-    data.lhs = std::stod(match[1].str());
-    data.rhs = std::stod(match[8].str());
+    lhs = std::stod(match[1].str());
+    rhs = std::stod(match[8].str());
     auto operators = match[4].str();
     if (std::count_if(begin(operators), end(operators), [](auto sign) { return sign == '-'; }) == 2) {
-        data.operation = '+';
+        operation = '+';
     } else {
-        data.operation = operators[0];
+        operation = operators[0];
     }
-    return data;
 }
 
-bool unaryOperation(const std::string& input) {
+bool AdvancedCalculator::unaryOperation() {
     std::regex pattern(R"((\-?\d+(\.\d+)?)(\s*)(\!))");
     return std::regex_search(input, pattern);
 }
 
-EquationData getUnaryEquationData(const std::string& input) {
+void AdvancedCalculator::setUnaryEquationData() {
     std::regex pattern(R"((\-?\d+(\.\d+)?)(\s*)(\!))");
     std::smatch match;
     std::regex_search(input, match, pattern);
     EquationData data;
-    data.lhs = std::stod(match[1].str());
-    data.rhs = 0;
-    data.operation = match[4].str()[0];
-    return data;
+    lhs = std::stod(match[1].str());
+    rhs = 0;
+    operation = match[4].str()[0];
 }
 
-double calculate(const EquationData& data) {
-    static std::map<char, OperationVariant> mathOperations{
-        {'+', std::function<double(double, double)>([](double lhs, double rhs) { return lhs + rhs; })},
-        {'-', std::function<double(double, double)>([](double lhs, double rhs) { return lhs - rhs; })},
-        {'*', std::function<double(double, double)>([](double lhs, double rhs) { return lhs * rhs; })},
-        {'/', std::function<double(double, double)>([](double lhs, double rhs) { return lhs / rhs; })},
-        {'%', std::function<int(int, int)>([](int lhs, int rhs) { return lhs % rhs; })},
-        {'!', std::function<double(double)>([](double lhs) { return (lhs + 1 > 0) ? std::tgamma(lhs + 1) : 1; })},
-        {'^', std::function<double(double, double)>([](double lhs, double rhs) { return std::pow(lhs, rhs); })},
-        {'$', std::function<double(double, double)>([](double lhs, double rhs) { return std::pow(lhs, 1 / rhs); })}};
+double AdvancedCalculator::calculate() {
+    if (std::holds_alternative<std::function<double(double, double)>>(mathOperations[operation])) {
+        auto function = std::get<0>(mathOperations[operation]);
+        return function(lhs, rhs);
 
-    if (std::holds_alternative<std::function<double(double, double)>>(mathOperations[data.operation])) {
-        auto function = std::get<0>(mathOperations[data.operation]);
-        return function(data.lhs, data.rhs);
-
-    } else if (std::holds_alternative<std::function<int(int, int)>>(mathOperations[data.operation])) {
-        auto modulo = std::get<1>(mathOperations[data.operation]);
-        return modulo(data.lhs, data.rhs);
+    } else if (std::holds_alternative<std::function<int(int, int)>>(mathOperations[operation])) {
+        auto modulo = std::get<1>(mathOperations[operation]);
+        return modulo(lhs, rhs);
     } else {
-        auto factorial = std::get<2>(mathOperations[data.operation]);
-        return factorial(data.lhs);
+        auto factorial = std::get<2>(mathOperations[operation]);
+        return factorial(lhs);
     }
+}
+
+ErrorCode AdvancedCalculator::getErrorCode() {
+    
 }
 
 ErrorCode process(std::string input, double* out) {
-    if (isBadCharacter(input)) {
-        return ErrorCode::BadCharacter;
+    AdvancedCalculator calculator(input);
+    switch (calculator.getErrorCode()) {
+        case ErrorCode::BadCharacter:
+            return ErrorCode::BadCharacter;
+        case ErrorCode::BadFormat:
+            return ErrorCode::BadFormat;
+        case ErrorCode::DivideBy0:
+            return ErrorCode::DivideBy0;
+        case ErrorCode::ModuleOfNonIntegerValue:
+            return ErrorCode::ModuleOfNonIntegerValue;
+        case ErrorCode::SqrtOfNegativeNumber:
+            return ErrorCode::SqrtOfNegativeNumber;
     }
-    if (isBadFormat(input)) {
-        return ErrorCode::BadFormat;
-    }
-    if (isDividedBy0(input)) {
-        return ErrorCode::DivideBy0;
-    }
-    if (isEvenRootOfNegativeNumber(input)) {
-        return ErrorCode::SqrtOfNegativeNumber;
-    }
-    if (isModuloOfNonIntegerValue(input)) {
-        return ErrorCode::ModuleOfNonIntegerValue;
-    }
-    *out = getResult(input);
+    *out = calculator.getResult();
 
     return ErrorCode::OK;
 }

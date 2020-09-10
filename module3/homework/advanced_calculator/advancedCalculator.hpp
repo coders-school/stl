@@ -3,6 +3,7 @@
 #include <functional>
 #include <ostream>
 #include <string>
+#include <unordered_map>
 #include <variant>
 
 enum class ErrorCode {
@@ -17,10 +18,13 @@ enum class ErrorCode {
 std::ostream& operator<<(std::ostream& os, ErrorCode error);
 
 class AdvancedCalculator {
-    double lhs;
-    double rhs;
-    char operation;
-    std::string input;
+    using OperationVariant = std::
+        variant<std::function<double(double, double)>, std::function<int(int, int)>, std::function<double(double)>>;
+    double lhs{0};
+    double rhs{0};
+    char operation{'0'};
+    std::string input{};
+    std::unordered_map<char, OperationVariant> mathOperations{};
 
     bool isBadCharacter();
     bool isBadFormat();
@@ -39,9 +43,8 @@ class AdvancedCalculator {
     void setUnaryEquationData();
 
     double calculate();
-
    public:
-    AdvancedCalculator();
+    AdvancedCalculator() = default;
     explicit AdvancedCalculator(const std::string& input);
     double getResult();
     ErrorCode getErrorCode();
@@ -51,9 +54,6 @@ struct EquationData {
     double rhs;
     char operation;
 };
-
-using OperationVariant =
-    std::variant<std::function<double(double, double)>, std::function<int(int, int)>, std::function<double(double)>>;
 
 ErrorCode process(std::string input, double* out);
 
