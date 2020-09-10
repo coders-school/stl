@@ -21,7 +21,7 @@ bool AppendNewRecipe(VecStr steps, const ListStr& ingredients, const DeqSizetCha
         file.close();
         return true;
     }
-    
+
     return false;
 }
 
@@ -31,14 +31,14 @@ std::stringstream FormatRecipit(VecStr steps, const ListStr& ingredients, const 
 
     result << "Skladniki:\n";
     std::copy(formatedIngredients.cbegin(), formatedIngredients.cend(), std::ostream_iterator<std::string>(result, ",\n"));
-    
+
     result << "\nKroki:";
     size_t i = 1;
-    for(const auto& step : steps) {
+    for (const auto& step : steps) {
         result << '\n' << i++ << ") " << step << '.';
     }
     result << "\n___________________________________\n";
-    
+
     return result;
 }
 
@@ -52,6 +52,6 @@ VecStr FormatIngredients(const ListStr& ingredients, const DeqSizetChar& amount)
     };
 
     std::transform(ingredients.cbegin(), ingredients.cend(), amount.cbegin(), std::back_inserter(result), op);
-    
+
     return result;
 }
