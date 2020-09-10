@@ -1,62 +1,25 @@
 #include "AppendNewRecipe.hpp"
 
+#include <algorithm>
+#include <fstream>
 #include <iostream>
-/*
-INPUT
-std::vector<std::string> steps{"Wsypać do miski 20 gram cukru",
-                                "Dorzucić 1 szklankę mąki",
-                                "Dokładnie wymieszać",
-                                "Nalać 40ml rumu do kieliszka",
-                                "Wypić kieliszek",
-                                "Wysypać zawartość miski"};
-std::list<std::string> ingredients{"cukru", "mąki", "rumu"};
-std::deque<std::pair<size_t, char>> amount{
-    {20, 'g'},
-    {1, 's'},
-    {40, 'm'}};
+#include <map>
 
-*/
-
-/*
-Output:(textfile)
-Składniki:
-20 gram cukru,
-1 szklanka(i) mąki,
-40ml rumu,
-
-Kroki:
-1) Wsypać do miski 20 gram cukru.
-2) Dorzucić 1 szklankę mąki.
-3) Dokładnie wymieszać.
-4) Nalać 40ml rumu do kieliszka.
-5) Wypić kieliszek.
-6) Wysypać zawartość miski.
-
-
-*/
+std::map<char, std::string> amountCode{{'g', "gram"}, {'s', "szklanka(i)"}, {'m', "mililitrow"}};
 
 std::vector<std::string> FormatIngredients(const std::list<std::string>& ingredients,
                                            const std::deque<std::pair<size_t, char>>& amount) {
-    std::vector<std::string> result;
-    auto it = ingredients.begin();
-    for (size_t i = 0; i < ingredients.size(); ++i) {
-        std::string recentIngredient{};
-        recentIngredient += std::to_string(amount[i].first);
+    std::vector<std::string> formattedIngredients;
+    std::transform(ingredients.cbegin(), ingredients.cend(), amount.cbegin(), std::back_inserter(formattedIngredients),
+                   [](const auto& ingredient, const auto& amount) {
+                       std::stringstream ss;
+                       ss << amount.first << " ";
+                       ss << amountCode.at(amount.second) << " ";
+                       ss << ingredient;
+                       return ss.str();
+                   });
 
-        if (amount[i].second == 'g') {
-            recentIngredient += " gram ";
-        } else if (amount[i].second == 's') {
-            recentIngredient += " szklanka(i) ";
-        } else if (amount[i].second == 'm') {
-            recentIngredient += " mililitrow ";
-        }
-        recentIngredient += *it;
-
-        result.push_back(recentIngredient);
-        it++;
-    }
-
-    return result;
+    return formattedIngredients;
 }
 
 std::stringstream FormatRecipit(std::vector<std::string> steps,
@@ -78,22 +41,10 @@ std::stringstream FormatRecipit(std::vector<std::string> steps,
     return ss;
 }
 
-/*
-std::fstream diary("Day1.txt", diary.out | diary.app);
-// or longer -> std::ifstream::out | std::ifstream::app
-if (diary.is_open()) {
-    std::cout << "OPENED!\n";
-    diary << "Today is my first day on ship, with my crew\n";
-    diary << "I'm a little scared!\n";
-    diary << "Hope it will be a marvelous adventure.\n";
-    diary.close();
-}
-*/
-
 bool AppendNewRecipe(std::vector<std::string> steps,
                      const std::list<std::string>& ingredients,
                      const std::deque<std::pair<size_t, char>>& amount) {
-        std::fstream ofs("recipes.txt", ofs.out | ofs.app);
+    std::fstream ofs("recipes.txt", ofs.out | ofs.app);
     if (ofs.is_open()) {
         std::stringstream ss = FormatRecipit(steps, ingredients, amount);
         ofs << ss.str();
