@@ -40,20 +40,19 @@ std::vector<std::string> FormatIngredients(const std::list<std::string>& ingredi
     std::vector<std::string> result;
     auto it = ingredients.begin();
     for (size_t i = 0; i < ingredients.size(); ++i) {
-        std::string xx{};
-        xx += std::to_string(amount[i].first);
+        std::string recentIngredient{};
+        recentIngredient += std::to_string(amount[i].first);
 
         if (amount[i].second == 'g') {
-            xx += " gram ";
+            recentIngredient += " gram ";
         } else if (amount[i].second == 's') {
-            xx += " szklanka(i) ";
+            recentIngredient += " szklanka(i) ";
         } else if (amount[i].second == 'm') {
-            xx += " mililitrow ";
+            recentIngredient += " mililitrow ";
         }
-        xx += *it;
+        recentIngredient += *it;
 
-        result.push_back(xx);
-        std::cout<<xx<<'\n';
+        result.push_back(recentIngredient);
         it++;
     }
 
@@ -63,17 +62,49 @@ std::vector<std::string> FormatIngredients(const std::list<std::string>& ingredi
 std::stringstream FormatRecipit(std::vector<std::string> steps,
                                 const std::list<std::string>& ingredients,
                                 const std::deque<std::pair<size_t, char>>& amount) {
-    std::stringstream ss{"abc"};
-    ss << "abc";
+    std::stringstream ss;
+    std::vector<std::string> formattedIngredients = FormatIngredients(ingredients, amount);
+
+    ss << "Skladniki:\n";
+    for (auto el : formattedIngredients) {
+        ss << el << ',' << '\n';
+    }
+    ss << "\nKroki:\n";
+    for (size_t i = 0; i < steps.size(); ++i) {
+        ss << std::to_string(i + 1) << ") " << steps[i] << ".\n";
+    }
+
+    ss << "___________________________________\n";
     return ss;
 }
+
+/*
+std::fstream diary("Day1.txt", diary.out | diary.app);
+// or longer -> std::ifstream::out | std::ifstream::app
+if (diary.is_open()) {
+    std::cout << "OPENED!\n";
+    diary << "Today is my first day on ship, with my crew\n";
+    diary << "I'm a little scared!\n";
+    diary << "Hope it will be a marvelous adventure.\n";
+    diary.close();
+}
+*/
 
 bool AppendNewRecipe(std::vector<std::string> steps,
                      const std::list<std::string>& ingredients,
                      const std::deque<std::pair<size_t, char>>& amount) {
-    std::ofstream ofs{"receipe.txt"};
+    //std::ofstream ofs("receipe.txt", std::ios_base::app);
+    std::fstream ofs("receipe.txt", ofs.out | ofs.app);
+    //ofs.open("receipe.txt", std::ios_base::app);
+    std::stringstream ss = FormatRecipit(steps, ingredients, amount);
     if (!ofs) {
         return false;
     }
+
+    if (ofs.is_open()) {
+        ofs << ss.str();
+        ofs.close();
+    }
+
     return true;
 }
