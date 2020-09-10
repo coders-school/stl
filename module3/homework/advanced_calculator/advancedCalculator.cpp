@@ -1,8 +1,6 @@
 #include "advancedCalculator.hpp"
 
 #include <cmath>
-#include <iostream>
-#include <map>
 #include <regex>
 
 AdvancedCalculator::AdvancedCalculator(const std::string& input) :
@@ -154,7 +152,6 @@ void AdvancedCalculator::setBinaryEquationData() {
     std::regex pattern(R"((\-?\d+(\.\d+)?)(\s*)((\+|\-|\/|\*|\%|\^|\$)|(\-\s*\-))(\s*)(\-?\d+(\.\d+)?))");
     std::smatch match;
     std::regex_search(input, match, pattern);
-    EquationData data;
     lhs = std::stod(match[1].str());
     rhs = std::stod(match[8].str());
     auto operators = match[4].str();
@@ -174,7 +171,6 @@ void AdvancedCalculator::setUnaryEquationData() {
     std::regex pattern(R"((\-?\d+(\.\d+)?)(\s*)(\!))");
     std::smatch match;
     std::regex_search(input, match, pattern);
-    EquationData data;
     lhs = std::stod(match[1].str());
     rhs = 0;
     operation = match[4].str()[0];
@@ -210,6 +206,7 @@ ErrorCode AdvancedCalculator::getErrorCode() {
     if (isModuloOfNonIntegerValue()) {
         return ErrorCode::ModuleOfNonIntegerValue;
     }
+    return ErrorCode::OK;
 }
 
 ErrorCode process(std::string input, double* out) {

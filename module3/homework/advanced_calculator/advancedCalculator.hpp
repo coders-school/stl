@@ -49,30 +49,5 @@ class AdvancedCalculator {
     double getResult();
     ErrorCode getErrorCode();
 };
-struct EquationData {
-    double lhs;
-    double rhs;
-    char operation;
-};
 
 ErrorCode process(std::string input, double* out);
-
-bool isBadCharacter();
-bool isBadFormat();
-bool noDigitBeforeOperator();
-bool noDigitAfterBinaryOperator();
-bool isDigitAfterUnaryOperator();
-bool moreThanOneOperator();
-bool firstDigitIsNegative();
-bool isWrongDivisionSign();
-bool isDividedBy0();
-bool isEvenRootOfNegativeNumber();
-bool isModuloOfNonIntegerValue();
-
-double getResult();
-
-double calculate(const EquationData& data);
-bool binaryOperation();
-bool unaryOperation();
-EquationData getBinaryEquationData();
-EquationData getUnaryEquationData();
