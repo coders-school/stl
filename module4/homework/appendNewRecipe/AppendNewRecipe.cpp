@@ -7,7 +7,7 @@
 
 constexpr char fileName[] = "recipes.txt";
 
-std::map<char, std::string> units{
+const std::map<char, std::string> units{
     {'g', "gram"},
     {'s', "szklanka(i)"},
     {'m', "mililitrow"}};
@@ -47,7 +47,7 @@ VecStr FormatIngredients(const ListStr& ingredients, const DeqSizetChar& amount)
 
     auto op = [&result](const auto& ingredient, const auto& amount) {
         std::stringstream ss{};
-        ss << amount.first << ' ' << units[amount.second] << ' ' << ingredient;
+        ss << amount.first << ' ' << units.at(amount.second) << ' ' << ingredient;
         return ss.str();
     };
 
