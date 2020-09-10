@@ -1,0 +1,18 @@
+#pragma once
+
+#include <deque>
+#include <list>
+#include <sstream>
+#include <string>
+#include <vector>
+
+bool AppendNewRecipe(std::vector<std::string> steps,
+                     const std::list<std::string>& ingridients,
+                     const std::deque<std::pair<size_t, char>>& amount);
+
+std::vector<std::string> FormatIngridients(const std::list<std::string>& ingridients,
+                                           const std::deque<std::pair<size_t, char>>& amount);
+
+std::stringstream FormatRecipit(std::vector<std::string> steps,
+                                const std::list<std::string>& ingridients,
+                                const std::deque<std::pair<size_t, char>>& amount);

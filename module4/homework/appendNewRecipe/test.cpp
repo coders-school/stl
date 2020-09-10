@@ -25,9 +25,9 @@ constexpr const char kFileName[] = "recipes.txt";
 
 class Test : public testing::Test {
 public:
-  void SetUp() override {
-    remove(kFileName);
-  }
+    void SetUp() override {
+        remove(kFileName);
+    }
 };
 
 TEST_F(Test, ShoudlFormatIngredients) {
@@ -37,7 +37,7 @@ TEST_F(Test, ShoudlFormatIngredients) {
         {1, 's'},
         {40, 'm'}};
 
-    std::vector<std::string> result = FormatIngredients(ingredients, amount);
+    std::vector<std::string> result = FormatIngridients(ingredients, amount);
     const std::vector<std::string> expected{
         "20 gram cukru",
         "1 szklanka(i) maki",
