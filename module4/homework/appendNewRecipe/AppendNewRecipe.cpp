@@ -49,5 +49,6 @@ std::stringstream FormatRecipit(std::vector<std::string> steps,
     for (size_t i = 0; i < steps.size(); ++i) {
         stream << i + 1 << ") " << steps[i] << ".\n";
     }
+    stream << "___________________________________\n";
     return stream;
 }
