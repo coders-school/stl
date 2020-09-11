@@ -41,7 +41,7 @@ std::ostream& operator<<(std::ostream& os, ErrorCode error) {
 }
 
 bool AdvancedCalculator::isBadCharacter() {
-    std::string badCharacters{R"([^0-9\+\-\*\/\^\%\!\$\s\.,])"};
+    const std::string badCharacters{R"([^0-9\+\-\*\/\^\%\!\$\s\.,])"};
     std::regex pattern(badCharacters);
     return std::regex_search(input, pattern);
 }
