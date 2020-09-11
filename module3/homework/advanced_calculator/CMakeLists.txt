@@ -38,8 +38,17 @@ endif()
 project(advancedCalculator)
 enable_testing()
 
-add_executable(${PROJECT_NAME} main.cpp advancedCalculator.cpp)
-add_executable(${PROJECT_NAME}-ut test.cpp advancedCalculator.cpp)
+set(SRC 
+      advancedCalculator.cpp
+      formulaParser.cpp
+      textParser.cpp
+)
 
-target_link_libraries(${PROJECT_NAME}-ut gtest_main)
+add_library(LIB STATIC ${SRC})
+add_executable(${PROJECT_NAME} main.cpp)
+add_executable(${PROJECT_NAME}-ut test.cpp)
+
+target_link_libraries(${PROJECT_NAME} LIB)
+target_link_libraries(${PROJECT_NAME}-ut gtest_main LIB)
+
 add_test(NAME ${PROJECT_NAME}_test COMMAND ${PROJECT_NAME}-ut)
