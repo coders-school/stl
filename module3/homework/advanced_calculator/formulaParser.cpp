@@ -21,10 +21,6 @@ bool FormulaParser::symbolIsValid(char symbol){
 void FormulaParser::parseText(){
     trimSpaces();
     parseTextIntoFormula();
-
-    if(formula.second != 0 && formula.symbol == '!')
-        throw BadFormatException();
-
 }
 
 void FormulaParser::trimSpaces(){
