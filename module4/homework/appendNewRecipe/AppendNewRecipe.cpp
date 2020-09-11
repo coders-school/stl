@@ -28,10 +28,7 @@ std::vector<std::string> FormatIngredients(const std::list<std::string>& ingredi
                            formattedUnit = "szklanka(i)";
                        }
                        if (unit == 'm') {
-                           formattedUnit = "ml";
-                       }
-                       if (formattedUnit == "ml") {
-                           return std::to_string(amount) + formattedUnit + ' ' + ingredient;
+                           formattedUnit = "mililitrow";
                        }
                        return std::to_string(amount) + ' ' + formattedUnit + ' ' + ingredient;
                    });
