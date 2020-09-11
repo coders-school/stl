@@ -1,8 +1,8 @@
 #include <algorithm>
 #include <vector>
+#include <cmath>
 
 #include "advancedCalculator.hpp"
-#include "exercise4.cpp"
 #include "gtest/gtest.h"
 
 bool cmp(double first, double second, double epsilon = 0.5) {
@@ -88,15 +88,15 @@ TEST(advancedCalculatorTest, ShouldCalculateSqrt) {
     double result = 0;
 
     ASSERT_EQ(process("225 $3", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 8.77915e-08));
+    EXPECT_TRUE(cmp(result, 6.0822));
     ASSERT_EQ(process("1024$ 2", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 9.53674e-07));
+    EXPECT_TRUE(cmp(result, 32.));
     ASSERT_EQ(process("1024$4", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 9.09495e-13));
+    EXPECT_TRUE(cmp(result, 5.65685));
     ASSERT_EQ(process("13.71 $-4", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 35330.5));
+    EXPECT_TRUE(cmp(result, 5.19686e-1));
     ASSERT_EQ(process("2.5 $ 2.5", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 0.101193));
+    EXPECT_TRUE(cmp(result, 1.4427));
 }
 
 TEST(advancedCalculatorTest, ShouldModulo) {
@@ -188,8 +188,8 @@ TEST(advancedCalculatorTest, ShouldReturnModuleOfNonIntegerValue) {
 TEST(advancedCalculatorTest, ShouldReturnSqrtOfNagativeNumber) {
     double result = 0;
 
-    ASSERT_EQ(process("-123 $ -1", &result), ErrorCode::SqrtOfNagativeNumber);
-    ASSERT_EQ(process("-123.4 $ -1", &result), ErrorCode::SqrtOfNagativeNumber);
-    ASSERT_EQ(process("-123.2 $ 1", &result), ErrorCode::SqrtOfNagativeNumber);
-    ASSERT_EQ(process("-123 $ 1", &result), ErrorCode::SqrtOfNagativeNumber);
+    ASSERT_EQ(process("-123 $ -1", &result), ErrorCode::SqrtOfNegativeNumber);
+    ASSERT_EQ(process("-123.4 $ -1", &result), ErrorCode::SqrtOfNegativeNumber);
+    ASSERT_EQ(process("-123.2 $ 1", &result), ErrorCode::SqrtOfNegativeNumber);
+    ASSERT_EQ(process("-123 $ 1", &result), ErrorCode::SqrtOfNegativeNumber);
 }
