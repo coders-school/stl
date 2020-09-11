@@ -1,10 +1,18 @@
 #include "AppendNewRecipe.hpp"
 
 #include <algorithm>
+#include <fstream>
 
 bool AppendNewRecipe(std::vector<std::string> steps,
                      const std::list<std::string>& ingredients,
                      const std::deque<std::pair<size_t, char>>& amount) {
+    std::ofstream file("recipes.txt", std::ios::app);
+    if (file.is_open()) {
+        auto text = FormatRecipit(steps, ingredients, amount).str();
+        file << text;
+        file.close();
+        return true;
+    }
     return false;
 }
 
