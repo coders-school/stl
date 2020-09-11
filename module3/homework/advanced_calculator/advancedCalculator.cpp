@@ -5,6 +5,41 @@
 #include <iostream>
 
 
+void TextParser::parse(){
+    searchElements();
+    readElements();
+    validateElements();
+}
+
+void TextParser::searchElements(){
+    std::regex formulaPattern(NUMBER_PATTERN + SYMBOL_PATTERN + NUMBER_PATTERN);
+    bool foundMatch = std::regex_search(text_, elements_, formulaPattern);
+
+    if(!foundMatch)
+        throw BadFormatException();
+}
+
+void TextParser::readElements(){
+    match = getElement(0);
+    firstNumber = getElement(1);
+    symbol = getElement(2);
+    secondNumber = getElement(3);
+}
+
+std::string TextParser::getElement(size_t number){
+    return elements_[number].str();
+}
+
+bool TextParser::validateElements(){
+    if(match != text_ || firstNumber.empty() || symbol.empty())
+        throw BadFormatException();
+}
+
+void TextParser::castToFormula(){
+    formula_.first = std::stod(firstNumber);
+    formula_.second = std::stod(secondNumber);
+    formula_.symbol = symbol[0]; 
+}
 
 
 
@@ -19,12 +54,16 @@ bool FormulaParser::hasValidCharacters(){
 };
 
 bool FormulaParser::symbolIsValid(char symbol){
-    return validCharacters.find(symbol) != std::string::npos;
+    return VALID_CHARACTERS.find(symbol) != std::string::npos;
 }
 
 void FormulaParser::parseText(){
     trimSpaces();
     parseTextIntoFormula();
+
+    if(formula.second != 0 && formula.symbol == '!')
+        throw BadFormatException();
+
 }
 
 void FormulaParser::trimSpaces(){
@@ -32,38 +71,8 @@ void FormulaParser::trimSpaces(){
 }
 
 void FormulaParser::parseTextIntoFormula(){
-    std::string numberGroupPattern = "(-?\\d*\\.?\\d*)";
-    std::string symbolGroupPattern = "([" + validSymbols + "])";
-    std::regex formulaPattern(numberGroupPattern + symbolGroupPattern + numberGroupPattern);
-    std::smatch formulaElements;
-
-    bool found = std::regex_search(text_, formulaElements, formulaPattern);
-    if(!found || !areElementsValid(formulaElements))
-        throw BadFormatException();
-
-    readAndValidateElements(formulaElements);
-
-}
-
-bool FormulaParser::areElementsValid(std::smatch el){
-    bool lengthValid = el[0].length() == text_.length();
-    bool sizeValid = el.size() == 4;
-    bool elementsNotEmpty = el[1].length() != 0 
-                         && el[2].length() != 0 
-                         && el[3].length() != 0;
-    return lengthValid && sizeValid && elementsNotEmpty;
-}
-
-void FormulaParser::readAndValidateElements(std::smatch elements){
-    std::string firstNumber = elements[1];
-    std::string symbol = elements[2];
-    std::string secondNumber = elements[3];
-
-    std::cout << elements[0] << "\n";
-
-    formula.first = std::stod(firstNumber);
-    formula.second = std::stod(secondNumber);
-    formula.symbol = symbol[0];
+    TextParser tp(text_);
+    formula = tp.getFormula();
 }
 
 ErrorCode process(std::string input, double* out){

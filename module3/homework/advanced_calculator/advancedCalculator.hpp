@@ -21,8 +21,6 @@ enum class ErrorCode{
 ErrorCode process(std::string input, double* out);
 
 
-const std::string validCharacters = "-+/*%!^$., 0123456789";
-const std::string validSymbols = "-+/*%!^$";
 
 
 struct Formula{
@@ -30,6 +28,41 @@ struct Formula{
     double second;
     char symbol;
 };
+
+class TextParser{
+public:
+    TextParser(std::string text): text_(text){
+        parse();
+    }
+
+    Formula getFormula() const { return formula_; }
+
+private:
+    void parse();
+    void searchElements();
+    void readElements();
+    std::string getElement(size_t number);
+    bool validateElements();
+
+    void castToFormula();
+
+
+private:
+    std::string match;
+    std::string symbol;
+    std::string firstNumber;
+    std::string secondNumber;
+
+    Formula formula_;
+
+    std::string text_;
+    std::smatch elements_;
+
+    const std::string VALID_SYMBOLS = "-+/*%!^$";
+    const std::string NUMBER_PATTERN = "(-?\\d*\\.?\\d*)";
+    const std::string SYMBOL_PATTERN = "([" + VALID_SYMBOLS + "])";
+};
+
 
 class FormulaParser{
 public:
@@ -48,14 +81,12 @@ private:
     void parseText();
         void trimSpaces();
         void parseTextIntoFormula();
-        void readAndValidateElements(std::smatch elements);
-        bool areElementsValid(std::smatch el);
-
+  
 
 
 private:
     std::string text_;
-
+    const std::string VALID_CHARACTERS = "-+/*%!^$., 0123456789";
 };
 
 class FormulaProcess{
