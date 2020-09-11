@@ -18,10 +18,22 @@ std::vector<std::string> FormatIngredients(const std::list<std::string>& ingredi
                    end(ingredients),
                    begin(amount),
                    begin(formattedIngredients),
-                   [](const auto& ingredient, const auto& pair) 
-                   {
+                   [](const auto& ingredient, const auto& pair) {
                        auto [amount, unit] = pair;
-                       return std::to_string(amount) + unit + ' ' + ingredient;
+                       std::string formattedUnit{};
+                       if (unit == 'g') {
+                           formattedUnit = "gram";
+                       }
+                       if (unit == 's') {
+                           formattedUnit = "szklanka(i)";
+                       }
+                       if (unit == 'm') {
+                           formattedUnit = "ml";
+                       }
+                       if (formattedUnit == "ml") {
+                           return std::to_string(amount) + formattedUnit + ' ' + ingredient;
+                       }
+                       return std::to_string(amount) + ' ' + formattedUnit + ' ' + ingredient;
                    });
     return formattedIngredients;
 }
