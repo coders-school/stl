@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/dell/stl/module4/homework/appendNewRecipe/AppendNewRecipe.cpp
+AppendNewRecipe.hpp
+/home/dell/stl/module4/homework/appendNewRecipe/AppendNewRecipe.hpp
+fstream
+-
+
+/home/dell/stl/module4/homework/appendNewRecipe/AppendNewRecipe.hpp
+iostream
+-
+vector
+-
+list
+-
+deque
+-
+string
+-
+utility
+-
+
