@@ -23,7 +23,7 @@ bool AppendNewRecipe(std::vector<std::string> steps,
 std::vector<std::string> FormatIngredients(const std::list<std::string>& ingredients,
                                            const std::deque<std::pair<size_t, char>>& amount) {
     std::vector<std::string> result;
-    std::transform(ingredients.begin(), ingredients.end(), amount.begin(), std::back_inserter(result),
+    std::transform(ingredients.cbegin(), ingredients.cend(), amount.cbegin(), std::back_inserter(result),
     [&](auto& ingredient, auto am){
         std::stringstream ss;
         ss << am.first << convertEnumToString(am.second) << " " << ingredient;
@@ -56,13 +56,10 @@ std::string convertEnumToString(char c) {
     {
     case 'g':
         return " gram";
-        break;
     case 'm':
         return " mililitrow";
-        break;
     case 's':
         return " szklanka(i)";
-        break;
     default:
         break;
     }
