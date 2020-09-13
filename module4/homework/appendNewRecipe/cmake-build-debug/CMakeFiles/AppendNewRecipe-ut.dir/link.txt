@@ -1,1 +1,0 @@
-/usr/bin/c++  -g  -rdynamic CMakeFiles/AppendNewRecipe-ut.dir/test.cpp.o CMakeFiles/AppendNewRecipe-ut.dir/AppendNewRecipe.cpp.o  -o AppendNewRecipe-ut  lib/libgtest_maind.a lib/libgtestd.a -lpthread 

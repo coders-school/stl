@@ -15,37 +15,37 @@
 
 const std::string expected{"Składniki:\n20 gram cukru,\n1 szklanka(i) mąki,\n40 mililitrów rumu,\n\nKroki:\n1) Wsypać do miski 20 gram cukru.\n2) Dorzucić 1 szklanke mąki.\n3) Dokładnie wymieszać.\n4) Nalać 40ml rumu do kieliszka.\n5) Wypić kieliszek.\n6) Wysypac zawartośc miski.\n___________________________________\n"};
 
-//TEST(AppendNewRecipe, ShoudlFormatIngredients) {
-//    std::list<std::string> ingredients{"cukru", "mąki", "rumu"};
-//    std::deque<std::pair<size_t, char>> amount{
-//        {20, 'g'},
-//        {1, 's'},
-//        {40, 'm'}};
-//
-//    std::vector<std::string> result = FormatIngredients(ingredients, amount);
-//    const std::vector<std::string> expected{
-//        "20 gram cukru",
-//        "1 szklanka(i) mąki",
-//        "40ml rumu"};
-//
-//    EXPECT_EQ(expected, result);
-//}
+TEST(AppendNewRecipe, ShoudlFormatIngredients) {
+    std::list<std::string> ingredients{"cukru", "mąki", "rumu"};
+    std::deque<std::pair<size_t, char>> amount{
+        {20, 'g'},
+        {1, 's'},
+        {40, 'm'}};
 
-//TEST(AppendNewRecipe, ShouldFormatWholeRecipe) {
-//    std::vector<std::string> steps{"Wsypać do miski 20 gram cukru",
-//                                   "Dorzucić 1 szklanke mąki",
-//                                   "Dokładnie wymieszać",
-//                                   "Nalać 40ml rumu do kieliszka",
-//                                   "Wypić kieliszek",
-//                                   "Wysypac zawartośc miski"};
-//    std::list<std::string> ingredients{"cukru", "mąki", "rumu"};
-//    std::deque<std::pair<size_t, char>> amount{
-//        {20, 'g'},
-//        {1, 's'},
-//        {40, 'm'}};
-//
-//    EXPECT_EQ(FormatRecipit(steps, ingredients, amount).str(), expected);
-//}
+    std::vector<std::string> result = FormatIngredients(ingredients, amount);
+    const std::vector<std::string> expected{
+        "20 gram cukru",
+        "1 szklanka(i) mąki",
+        "40 mililitrów rumu"};
+
+    EXPECT_EQ(expected, result);
+}
+
+TEST(AppendNewRecipe, ShouldFormatWholeRecipe) {
+    std::vector<std::string> steps{"Wsypać do miski 20 gram cukru",
+                                   "Dorzucić 1 szklanke mąki",
+                                   "Dokładnie wymieszać",
+                                   "Nalać 40ml rumu do kieliszka",
+                                   "Wypić kieliszek",
+                                   "Wysypac zawartośc miski"};
+    std::list<std::string> ingredients{"cukru", "mąki", "rumu"};
+    std::deque<std::pair<size_t, char>> amount{
+        {20, 'g'},
+        {1, 's'},
+        {40, 'm'}};
+
+    EXPECT_EQ(FormatRecipit(steps, ingredients, amount).str(), expected);
+}
 
 TEST(AppendNewRecipe, ShouldWriteFile) {
     std::vector<std::string> steps{"Wsypać do miski 20 gram cukru",
@@ -67,8 +67,8 @@ TEST(AppendNewRecipe, ShouldWriteFile) {
 
     std::string str;
     std::stringstream ss;
-    while (file >> str) {
-        ss << str;
+    while (!getline(file, str, '\n').eof()) {
+        ss << str << '\n';
     }
     file.close();
 
@@ -97,8 +97,8 @@ TEST(AppendNewRecipe, ShouldAppendNewRecipit) {
 
     std::string str;
     std::stringstream ss;
-    while (file >> str) {
-        ss << str;
+    while (!getline(file, str, '\n').eof()) {
+        ss << str << '\n';
     }
     file.close();
 

@@ -1,41 +1,74 @@
 #include "AppendNewRecipe.hpp"
 
+#include <iostream>
 #include <fstream>
 
 bool AppendNewRecipe(vecOfStrings steps, const listOfStrings& ingredients, const dequeOfPairs& amount){
-    std::fstream recipes{"../recipes.txt", recipes.out};
+    std::fstream recipes{"recipes.txt", recipes.out};
 
-    if(recipes.is_open()){
-        std::cout << "Opened!\n";
-
-        recipes << "Składniki: \n";
-        auto it = ingredients.begin();
-        for(size_t i = 0; i < ingredients.size(); i++){
-            recipes << std::to_string(amount[i].first);
-
-            if(amount[i].second == 'g')
-                recipes << " gram ";
-            else if(amount[i].second == 's')
-                recipes << " szklanka(i) ";
-            else if(amount[i].second == 'm')
-                recipes << "ml ";
-
-            recipes << *it++ << "\n";
+    try {
+        if (recipes.is_open()) {
+            std::cout << "Opened!\n";
+            recipes << FormatRecipit(steps, ingredients, amount).str();
+            recipes.close();
+            return true;
         }
-        recipes << "Kroki: \n";
-        for(size_t i = 0; i < steps.size(); i++){
-            recipes << i + 1 << ") " << steps[i] << "\n";
-        }
-        recipes.close();
-        return true;
+    } catch (std::invalid_argument){
+        std::cerr << "Cannot open file";
     }
 
     return false;
 }
 
-//std::vector<std::string> FormatIngredients(const listOfStrings& ingredients, const dequeOfPairs& amount){
-//}
+vecOfStrings FormatIngredients(const listOfStrings& ingredients, const dequeOfPairs& amount){
+    if(ingredients.size() == amount.size()){
 
-//std::stringstream FormatRecipit(vecOfStrings steps, const listOfStrings& ingredients, const dequeOfPairs& amount){
-//
-//}
+        vecOfStrings formattedIngredients;
+        formattedIngredients.resize(ingredients.size());
+        auto amountIt = amount.begin();
+        auto ingredientsIt = ingredients.begin();
+
+        for(auto& ingredient : formattedIngredients){
+            switch(amountIt->second){
+                case 'g':
+                    ingredient.append(std::to_string(amountIt->first) + " gram ");
+                    break;
+                case 's':
+                    ingredient.append(std::to_string(amountIt->first) + " szklanka(i) ");
+                    break;
+                case 'm':
+                    ingredient.append(std::to_string(amountIt->first) + " mililitrów ");
+                    break;
+                default:
+                    ingredient.append("Bledne dane ");
+            }
+            ingredient.append(*ingredientsIt);
+            ingredientsIt++;
+            amountIt++;
+        }
+        return formattedIngredients;
+    } else {
+        throw std::invalid_argument("Ingredient's list size does not equal to amount's deque size");
+    }
+}
+
+std::stringstream FormatRecipit(vecOfStrings steps, const listOfStrings& ingredients, const dequeOfPairs& amount){
+    vecOfStrings formattedIngredients = FormatIngredients(ingredients, amount);
+    std::stringstream formattedRecipit;
+
+    if(formattedIngredients.size() == amount.size()){
+        formattedRecipit << "Składniki:\n";
+        for(const auto& ingredients : formattedIngredients){
+            formattedRecipit << ingredients << ',' << '\n';
+        }
+        formattedRecipit << "\nKroki:\n";
+        int index = 1;
+        for(const auto& step : steps){
+            formattedRecipit << index++ << ") " << step << ".\n";
+        }
+        formattedRecipit << "___________________________________\n";
+        return formattedRecipit;
+    } else{
+        throw std::invalid_argument("Ingredient's list size does not equal to amount's deque size");
+    }
+}
