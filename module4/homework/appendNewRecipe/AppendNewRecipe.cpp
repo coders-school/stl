@@ -6,10 +6,12 @@
 
 #include "AppendNewRecipe.hpp"
 
+constexpr char fileName[] = "recipes.txt";
+
 bool AppendNewRecipe(std::vector<std::string> steps,
                      const std::list<std::string>& ingredients,
                      const std::deque<std::pair<size_t, char>>& amount) {
-    std::fstream recipes("recipes.txt", recipes.out | recipes.app);
+    std::fstream recipes(fileName, recipes.out | recipes.app);
     if (recipes.is_open()) {
         std::cout << FormatRecipit(steps, ingredients, amount).str();
         recipes << FormatRecipit(steps, ingredients, amount).str();
