@@ -13,7 +13,9 @@ bool AppendNewRecipe(std::vector<std::string> &steps,
   std::fstream fsOut (fileName, fsOut.out | fsOut.app);
   if(fsOut.is_open()){
     fsOut << formattedRecipt.str();
-  } fsOut.close();
+    fsOut.close();
+    return ifFileWritten = true;
+  }
   try{
   } catch(std::invalid_argument) {}
 
@@ -59,13 +61,13 @@ std::stringstream
 FormatRecipit(std::vector<std::string> steps,
               const std::list<std::string> &ingredients,
               const std::deque<std::pair<size_t, char>> &amount) {
- std::vector<std::string> formattedIngredients =
-  FormatIngredients(ingredients, amount);
+  std::vector<std::string> formattedIngredients =
+      FormatIngredients(ingredients, amount);
   std::stringstream formattedRecipit;
   if (ingredients.size() == amount.size()) {
     formattedRecipit << "Skladniki:\n";
-    for(auto& el : formattedIngredients){
-      formattedRecipit << el <<','<<'\n';
+    for (auto &el : formattedIngredients) {
+      formattedRecipit << el << ',' << '\n';
     }
     auto StepsItr = steps.begin();
     int indeks = 1;
@@ -77,7 +79,7 @@ FormatRecipit(std::vector<std::string> steps,
     }
     formattedRecipit << "___________________________________\n";
     return formattedRecipit;
-  }else
+  } else
     throw std::invalid_argument(
         "Ingredients list size doesn't equal amount deque size");
 }
