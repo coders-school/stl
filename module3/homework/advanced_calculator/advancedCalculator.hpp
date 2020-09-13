@@ -3,8 +3,7 @@
 
 #include <iostream>
 #include <map>
-#include <functional>
-#include <regex>
+#include <vector>
 
 enum class ErrorCode{
     OK,
@@ -12,21 +11,19 @@ enum class ErrorCode{
     BadFormat,
     DivideBy0,
     SqrtOfNegativeNumber,
-    ModuleOfNonIntegerValue,
+    ModuleOfNonIntegerValue,s
 };
 
 void removeSpaces(std::string&);
 bool isInt(double);
-std::vector<std::string> expressionRegex(std::string);
+std::vector<std::string> checkRegex(std::string);
 
 bool badCharacter(std::string);
-bool divideByZero(std::vector<std::string>);
-bool sqrtOfNegativeNumber(std::vector<std::string>);
-bool moduleOfNonIntegerValue(std::vector<std::string>);
+bool divideByZero(double, std::string);
+bool sqrtOfNegativeNumber(double, std::string);
+bool moduleOfNonIntegerValue(double, double, std::string);
+bool badFormat(std::vector<std::string>);
 
 ErrorCode process(std::string, double*);
-
-
-
 
 #endif

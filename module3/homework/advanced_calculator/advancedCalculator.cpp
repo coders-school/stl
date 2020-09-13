@@ -1,7 +1,8 @@
 #include "advancedCalculator.hpp"
 
 #include <cmath>
-#include <langinfo.h>
+#include <functional>
+#include <regex>
 
 // Lambdas
 auto factorial = [](double a, double b)     { return a <= 1 ? 1 : a * std::tgamma(a); };
@@ -26,28 +27,26 @@ void removeSpaces(std::string& input){
 }
 
 bool isInt(double n){
-    int res=n/1;
-    if(n<=0 || n>=0 && res*1==n)
+    int res = n / 1;
+    if(n <= 0 || n >= 0 && res * 1 == n)
         return true;
     else
         return false;
 }
 
-std::vector<std::string> expressionRegex(std::string input){
+std::vector<std::string> checkRegex(std::string input){
     std::regex expRegex("(([-]?\\d+\\.?\\d*)([-+*\\/^$%])([-]?\\d+\\.?\\d*)?)$");
-    std::regex facRegex("^(\\d+\\.?\\d*)([!])?");
+    std::regex facRegex("([-]?\\d+\\.?\\d*)([!])?");
     std::smatch regexMatch;
     std::vector<std::string> result;
 
     if (std::regex_match(input, regexMatch, expRegex)) {
-        std::cout << " what?! ";
         result.push_back(regexMatch[2]);
         result.push_back(regexMatch[3]);
         result.push_back(regexMatch[4]);
     } else if (std::regex_match(input, regexMatch, facRegex)) {
-        std::cout << " yes ";
+        result.push_back(regexMatch[1]);
         result.push_back(regexMatch[2]);
-        result.push_back(regexMatch[3]);
     }
 
     return result;
@@ -62,66 +61,67 @@ bool badCharacter(std::string input){
     });
 }
 
-bool divideByZero(std::vector<std::string> matchResult){
-    double secondNumber = std::stod(matchResult[2]);
-    std::string operationType = matchResult[1];
-
+bool divideByZero(double secondNumber, std::string operationType){
     if(operationType == "/" && secondNumber == 0)
         return true;
     return false;
 }
 
-bool sqrtOfNegativeNumber(std::vector<std::string> matchResult) {
-//    double secondNumber = std::stod(matchResult[2]);
-//    std::string operationType = matchResult[1];
-//
-//    if(operationType == "$" && secondNumber < 0)
-//        return true;
+bool sqrtOfNegativeNumber(double firstNumber, std::string operationType) {
+    if(operationType == "$" && firstNumber < 0)
+        return true;
     return false;
 }
 
-bool moduleOfNonIntegerValue(std::vector<std::string> matchResult) {
-    double firstNumber = std::stod(matchResult[0]);
-    double secondNumber = std::stod(matchResult[2]);
-    std::string operationType = matchResult[1];
-
+bool moduleOfNonIntegerValue(double firstNumber, double secondNumber, std::string operationType) {
     if(operationType == "%" && (!isInt(firstNumber) || !isInt(secondNumber)))
         return true;
     return false;
 }
 
+bool badFormat(std::vector<std::string> matchResult){
+    if(matchResult.size() == 0){
+        return true;
+    }
+    return false;
+}
+
 ErrorCode process(std::string input, double* out){
     removeSpaces(input);
-    std::vector<std::string> matchResult = expressionRegex(input);
 
     if(badCharacter(input)) {
         std::cout << "bad character" << " ";
         return ErrorCode::BadCharacter;
     }
 
-    double firstNumber(std::stod(matchResult[0]));
-    double secondNumber(std::stod(matchResult[2]));
-    std::string operationType = matchResult[1];
-    std::cout << firstNumber << operationType << secondNumber;
+    std::vector<std::string> matchResult = checkRegex(input);
 
-    if(matchResult.size() == 0) {
+    if(badFormat(matchResult)) {
         std::cout << "bad format" << " ";
         return ErrorCode::BadFormat;
     }
 
-    if(divideByZero(matchResult)){
-        std::cout << "divide by 0" << " ";
-        return ErrorCode::DivideBy0;
-    }
+    double firstNumber(std::stod(matchResult[0]));
+    double secondNumber = 0;
+    std::string operationType = matchResult[1];
 
-    if(sqrtOfNegativeNumber(matchResult)){
-        std::cout << "sqrt of negative number" << " ";
-        return ErrorCode::SqrtOfNegativeNumber;
-    }
+    if(matchResult.size() > 2) {
+        secondNumber = std::stod(matchResult[2]);
 
-    if(moduleOfNonIntegerValue(matchResult)){
-        std::cout << "module of non integer number" << " ";
-        return ErrorCode::ModuleOfNonIntegerValue;
+        if (divideByZero(secondNumber, operationType)) {
+            std::cout << "divide by 0" << " ";
+            return ErrorCode::DivideBy0;
+        }
+
+        if (sqrtOfNegativeNumber(firstNumber, operationType)) {
+            std::cout << "sqrt of negative number" << " ";
+            return ErrorCode::SqrtOfNegativeNumber;
+        }
+
+        if (moduleOfNonIntegerValue(firstNumber, secondNumber, operationType)) {
+            std::cout << "module of non integer number" << " ";
+            return ErrorCode::ModuleOfNonIntegerValue;
+        }
     }
 
     *out = operations.at(operationType)(firstNumber, secondNumber);
