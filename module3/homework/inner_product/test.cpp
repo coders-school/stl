@@ -1,6 +1,7 @@
 #include <vector>
 
 #include "arithmeticAverage.hpp"
+#include "cmath"
 #include "gtest/gtest.h"
 
 bool cmp(double first, double second, double epsilon = 0.5) {
