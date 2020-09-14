@@ -4,6 +4,21 @@
 
 #include <iostream>
 
+class FormulaProcess{
+public:
+    FormulaProcess(Formula & formula) : formula_(formula){
+        process();
+    }
+
+private:
+    void process(){
+        
+    }
+
+private:
+    Formula & formula_;
+};
+
 
 ErrorCode process(std::string input, double* out){
     try{
