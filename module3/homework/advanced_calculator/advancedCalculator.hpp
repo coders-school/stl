@@ -13,5 +13,6 @@ enum class ErrorCode {
 };
 
 std::string eraseSpaces(std::string input);
+ErrorCode allowedCharacters(std::string input);
 
 ErrorCode process(std::string input, double* out);

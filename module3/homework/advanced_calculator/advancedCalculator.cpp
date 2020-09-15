@@ -4,12 +4,24 @@
 
 std::string eraseSpaces(std::string input)
 {
-    input.erase(std::remove_if(input.begin(), 
-                              input.end(),
-                              [](unsigned char x){return std::isspace(x);}),
-               input.end());
+    input.erase(std::remove_if(input.begin(),
+                               input.end(),
+                               [](unsigned char x) { return std::isspace(x); }),
+                input.end());
 
     return input;
+}
+
+ErrorCode allowedCharacters(std::string input)
+{
+    const std::string ALLOWEDCHARACTERS = "+*/-%!^$1234567890.";
+
+    auto foundBadCharacter = input.find_first_not_of(ALLOWEDCHARACTERS);
+    if (foundBadCharacter != std::string::npos) {
+        return ErrorCode::BadCharacter;
+    }
+
+    return ErrorCode::OK;
 }
 
 ErrorCode process(std::string input, double* out)

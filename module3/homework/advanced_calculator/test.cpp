@@ -200,3 +200,15 @@ TEST(advancedCalculatorTest, ShouldEraseAllSpaces) {
     ASSERT_EQ(eraseSpaces("+8 - 32.  1"), "+8-32.1");
 }
 
+TEST(advancedCalculatorTest, ShouldReturnBadCharacterOrOK) {
+    ASSERT_EQ(allowedCharacters("123 #- 123"), ErrorCode::BadCharacter);
+    ASSERT_EQ(allowedCharacters("123 @- 123"), ErrorCode::BadCharacter);
+    ASSERT_EQ(allowedCharacters("123 &- 123"), ErrorCode::BadCharacter);
+    ASSERT_EQ(allowedCharacters("123 ? 123"), ErrorCode::BadCharacter);
+    ASSERT_EQ(allowedCharacters("123 \\ 123"), ErrorCode::BadCharacter);
+    ASSERT_EQ(allowedCharacters("-123 [ -123"), ErrorCode::BadCharacter);
+    ASSERT_EQ(allowedCharacters("-123 ] 123"), ErrorCode::BadCharacter);
+    ASSERT_EQ(allowedCharacters("5+11"), ErrorCode::OK);
+    ASSERT_EQ(allowedCharacters("43.21+11.54"), ErrorCode::OK);
+    ASSERT_EQ(allowedCharacters("-54.31+11"), ErrorCode::OK);
+}
