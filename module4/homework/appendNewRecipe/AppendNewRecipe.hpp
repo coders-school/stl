@@ -15,7 +15,8 @@ std::string ingredientSeparator = ",\n";
 std::string stepsHeader = "\nKroki:\n";
 std::string stepsSeparator = ".\n";
 std::string recipeSeparator = "___________________________________\n";
-}
+std::string fileName = "recipes.txt";
+}  // namespace ConstStrings
 
 bool AppendNewRecipe(std::vector<std::string> steps,
                      const std::list<std::string>& ingredients,

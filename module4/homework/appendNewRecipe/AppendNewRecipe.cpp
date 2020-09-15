@@ -1,16 +1,11 @@
 #include "AppendNewRecipe.hpp"
 #include <algorithm>
 #include <deque>
+#include <fstream>
 #include <list>
 #include <sstream>
 #include <string>
 #include <vector>
-
-bool AppendNewRecipe(std::vector<std::string> steps,
-                     const std::list<std::string>& ingredients,
-                     const std::deque<std::pair<size_t, char>>& amount) {
-    return true;
-}
 
 std::vector<std::string> FormatIngredients(const std::list<std::string>& ingredients,
                                            const std::deque<std::pair<size_t, char>>& amount) {
@@ -41,4 +36,17 @@ std::stringstream FormatRecipit(std::vector<std::string> steps,
     ss << ConstStrings::recipeSeparator;
 
     return ss;
+}
+
+bool AppendNewRecipe(std::vector<std::string> steps,
+                     const std::list<std::string>& ingredients,
+                     const std::deque<std::pair<size_t, char>>& amount) {
+    std::stringstream ss = FormatRecipit(steps, ingredients, amount);
+
+    std::fstream file(ConstStrings::fileName, file.out | file.app);
+    if (file.is_open()) {
+        file << ss.str();
+        return true;
+    }
+    return false;
 }
