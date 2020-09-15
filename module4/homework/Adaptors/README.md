@@ -37,5 +37,6 @@ In order to use this adaptor the container which you want to transform must supp
 |pop()  | removes the element from the stack        | 
 |emplace()  | constructs the element in-place and adds to the structure        | 
 
-### Examples of usage
-- can be used to simulate putting stuff into backpack
+#### Examples of usage
+- can be used to simulate putting stuff into backpack (elements added first will be on the bottom)
+- can be used to simulate building a tower (elements added first will be on the bottom)
