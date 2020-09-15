@@ -1,16 +1,21 @@
 #include <deque>
 #include <list>
+#include <map>
 #include <string>
 #include <vector>
-#include <map>
 
-std::map<char, std::string> ingredientMap {
-    {'g', " gram "} , {'s', " szklanka(i) "} , {'m', " mililitrow "}
-};
+namespace ConstStrings {
+std::map<char, std::string> ingredientMap{
+    {'g', " gram "},
+    {'s', " szklanka(i) "},
+    {'m', " mililitrow "}};
 
 std::string ingredientHeader = "Skladniki:\n";
-std::string stepsHeader = "Kroki\n";
-
+std::string ingredientSeparator = ",\n";
+std::string stepsHeader = "\nKroki:\n";
+std::string stepsSeparator = ".\n";
+std::string recipeSeparator = "___________________________________\n";
+}
 
 bool AppendNewRecipe(std::vector<std::string> steps,
                      const std::list<std::string>& ingredients,
