@@ -1,4 +1,4 @@
-## Adaptors
+# Adaptors
 They are used as container wrappers. That means they are not independent containers, but they use them underneath. Adaptors allow you to use a normal container as if it was a certain data structure. If you use adaptor you can only use it's interface, the container that is underneath is now inaccesible.  
 **Caution!**
 Adaptors do not support methods such as:
@@ -9,7 +9,7 @@ That means you cannot use stl algorithms or for ranged loops with
 - Stack  
 - Queue  
 - Priority Queue  
-# Stack
+## Stack
 Stack is a LIFO structure which means Last In First Out. The last element that will be added to the structure also will be the first one to be removed from the structure.  
 Example:  
   ```cpp
