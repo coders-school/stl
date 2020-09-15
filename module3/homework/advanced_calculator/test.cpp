@@ -193,3 +193,10 @@ TEST(advancedCalculatorTest, ShouldReturnSqrtOfNagativeNumber) {
     ASSERT_EQ(process("-123.2 $ 1", &result), ErrorCode::SqrtOfNagativeNumber);
     ASSERT_EQ(process("-123 $ 1", &result), ErrorCode::SqrtOfNagativeNumber);
 }
+
+TEST(advancedCalculatorTest, ShouldEraseAllSpaces) {
+
+    ASSERT_EQ(eraseSpaces("-123 $ -1"), "-123$-1");
+    ASSERT_EQ(eraseSpaces("+8 - 32.  1"), "+8-32.1");
+}
+

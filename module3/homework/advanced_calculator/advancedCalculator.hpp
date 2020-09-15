@@ -1,4 +1,6 @@
 #pragma once
+#include <functional>
+#include <map>
 #include <string>
 
 enum class ErrorCode {
@@ -9,5 +11,7 @@ enum class ErrorCode {
     ModuleOfNonIntegerValue,
     SqrtOfNagativeNumber
 };
+
+std::string eraseSpaces(std::string input);
 
 ErrorCode process(std::string input, double* out);
