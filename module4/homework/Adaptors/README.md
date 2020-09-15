@@ -13,7 +13,8 @@ That means you **cannot** use stl algorithms or for ranged loops with:
 Stack is a LIFO structure which means Last In First Out. The last element that will be added to the structure also will be the first one to be removed from the structure.  
 Example:  
   ```cpp
-  std::stack<int, std::vector<int>> stack{std::vector<int>{1, 5, 8, 3, 4}};  
+  std::stack<int, std::vector<int>> stack{{1, 5, 8, 3, 4}}; //the order of the elements is preserved,
+                                                            //1 will be removed as last from the stack
   std::cout << stack.top() << '\n'; // 4  
   s.pop();  
   std::cout << s.top() << '\n'; // 3  
