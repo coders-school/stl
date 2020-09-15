@@ -5,7 +5,7 @@ Adaptors do not support methods such as:
   - begin()  
   - end()  
   
-That means you cannot use stl algorithms or for ranged loops with
+That means you **cannot** use stl algorithms or for ranged loops with:
 - Stack  
 - Queue  
 - Priority Queue  
@@ -27,9 +27,11 @@ In order to use this adaptor the container which you want to transform must supp
   - pop_back()  
   
  Additionally, the container must be sequential (stl containers that fulfill these requirements: string, array, vector, deque, foward_list, list).  
- From now on the stack allows us to use this interface:  
-   - top()             //allows us to read the element that will be popped first  
-   - empty() / size()  
-   - push()            //adds the element to the stack  
-   - pop()             //removes the element from the stack  
-    
+| Stack Interface | Description |
+| :---        |    ----:   |  
+| top()      | reads the element that will be popped first        | 
+|empty()  | checks if the stack is empty        | 
+|size()  | returns the size of the stack        | 
+|push()  | adds the element to the stack        | 
+|pop()  | removes the element from the stack        | 
+|emplace()  | constructs the element in-place and adds to the structure        | 
