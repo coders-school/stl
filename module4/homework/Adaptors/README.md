@@ -16,10 +16,10 @@ Example:
   std::stack<int, std::vector<int>> stack{{1, 5, 8, 3, 4}}; //the order of the elements is preserved,
                                                             //1 will be removed as last from the stack
   std::cout << stack.top() << '\n'; // 4  
-  s.pop();  
-  std::cout << s.top() << '\n'; // 3  
-  s.push(10);  
-  std::cout << s.top() << '\n'; // 10  
+  stack.pop();  
+  std::cout << stack.top() << '\n'; // 3  
+  stack.push(10);  
+  std::cout << stack.top() << '\n'; // 10  
   ```
   
 In order to use this adaptor the container which you want to transform must support these operations:
