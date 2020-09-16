@@ -28,7 +28,8 @@ class distanceExceptionTestFixture : public ::testing::TestWithParam<ExceptionTe
 
 TEST_P(averageCalculationTestFixture, ShouldCalculateArithmeticAverage) {
     auto [first, second, result] = GetParam();
-    EXPECT_TRUE(cmp(ArithmeticAverage(first, second), result));
+    EXPECT_EQ(ArithmeticAverage(first, second), result);
+    // EXPECT_TRUE(cmp(ArithmeticAverage(first, second), result));
 }
 
 TEST_P(averageExceptionTestFixture, ArithmeticAverageShouldThrowInvalidArgument) {
