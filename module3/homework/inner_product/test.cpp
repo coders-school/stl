@@ -4,69 +4,75 @@
 #include "arithmeticAverage.hpp"
 #include "gtest/gtest.h"
 
-bool cmp(double first, double second, double epsilon = 0.5) {
-    return (fabs(first - second) < epsilon);
+using CalculationTuple = std::tuple<std::vector<int>, std::vector<int>, double>;
+using ExceptionTestTuple = std::tuple<std::vector<int>, std::vector<int>>;
+
+class ResultsComparison {
+public:
+    bool cmp(double first, double second, double epsilon = 0.5) {
+        return (fabs(first - second) < epsilon);
+    }
+};
+
+class averageCalculationTestFixture : public ::testing::TestWithParam<CalculationTuple> , public ResultsComparison {
+};
+
+class distanceCalculationTestFixture : public ::testing::TestWithParam<CalculationTuple>, public ResultsComparison {
+};
+
+class averageExceptionTestFixture : public ::testing::TestWithParam<ExceptionTestTuple> {
+};
+
+class distanceExceptionTestFixture : public ::testing::TestWithParam<ExceptionTestTuple> {
+};
+
+TEST_P(averageCalculationTestFixture, ShouldCalculateArithmeticAverage) {
+    auto [first, second, result] = GetParam();
+    EXPECT_TRUE(cmp(ArithmeticAverage(first, second), result));
 }
 
-TEST(arithmeticAverageTest, ShouldCalculateArithmeticAverage) {
-    std::vector<int> first{-5, 4, 2, -5, 2, 4, 6, 7};
-    std::vector<int> second{3, 5, -2, 6, 7, -3, 6, 9};
-    EXPECT_TRUE(cmp(ArithmeticAverage(first, second), 2.875));
-}
-
-TEST(arithmeticAverageTest, ShouldCalculateArithmeticAverageWhenFirstVectorIsLonger) {
-    std::vector<int> first{2, 3, 4};
-    std::vector<int> second{5, 6};
-    EXPECT_TRUE(cmp(ArithmeticAverage(first, second), 4));
-}
-
-TEST(arithmeticAverageTest, ShouldCalculateArithmeticAverageWhenFirstVectorIsShorter) {
-    std::vector<int> first{2, 3};
-    std::vector<int> second{4, 5, 6};
-    EXPECT_TRUE(cmp(ArithmeticAverage(first, second), 4));
-}
-
-TEST(arithmeticAverageTest, ShouldCalculateArithmeticAverageWhenFirstVectorIsEmpty) {
-    std::vector<int> first{};
-    std::vector<int> second{6, 10};
-    EXPECT_TRUE(cmp(ArithmeticAverage(first, second), 8));
-}
-
-TEST(arithmeticAverageTest, ShouldCalculateArithmeticAverageWhenSecondVectorIsEmpty) {
-    std::vector<int> first{6, 10};
-    std::vector<int> second{};
-    EXPECT_TRUE(cmp(ArithmeticAverage(first, second), 8));
-}
-
-TEST(arithmeticAverageTest, ShouldThrowInvalidArgumentWhenBothVectorsAreEmpty) {
-    std::vector<int> first{};
-    std::vector<int> second{};
+TEST_P(averageExceptionTestFixture, ArithmeticAverageShouldThrowInvalidArgument) {
+    auto [first, second] = GetParam();
     EXPECT_THROW(ArithmeticAverage(first, second), std::invalid_argument);
 }
 
-
-
-
-TEST(arithmeticAverageTest, ShouldCalculateDistance) {
-    std::vector<int> first{7, 4, 3};
-    std::vector<int> second{17, 6, 2};
-    EXPECT_TRUE(cmp(Distance(first, second), 10.247));
+TEST_P(distanceCalculationTestFixture, ShouldCalculateDistance) {
+    auto [first, second, result] = GetParam();
+    EXPECT_TRUE(cmp(Distance(first, second), result));
 }
 
-TEST(arithmeticAverageTest, DistanceShouldThrowInvalidArgumentWhenBothVectorsAreEmpty) {
-    std::vector<int> first{};
-    std::vector<int> second{};
+TEST_P(distanceExceptionTestFixture, DistanceShouldThrowInvalidArgument) {
+    auto [first, second] = GetParam();
     EXPECT_THROW(Distance(first, second), std::invalid_argument);
 }
 
-TEST(arithmeticAverageTest, DistanceShouldThrowInvalidArgumentWhenOneVectorIsEmpty) {
-    std::vector<int> first{};
-    std::vector<int> second{1,2,3};
-    EXPECT_THROW(Distance(first, second), std::invalid_argument);
-}
+INSTANTIATE_TEST_CASE_P(
+        averageCalculationTest,
+        averageCalculationTestFixture,
+        ::testing::Values(CalculationTuple{{-5, 4, 2, -5, 2, 4, 6, 7} , {3, 5, -2, 6, 7, -3, 6, 9} , 2.875},
+                          CalculationTuple{{2, 3, 4}                  , {5, 6}                     , 4},
+                          CalculationTuple{{2, 3}                     , {4, 5, 6}                  , 4},
+                          CalculationTuple{{}                         , {6, 10}                    , 8},
+                          CalculationTuple{{6, 10}                    , {}                         , 8}
+        ));
 
-TEST(arithmeticAverageTest, DistanceShouldThrowInvalidArgumentWhenVectorsHaveDifferentSizes) {
-    std::vector<int> first{5,6};
-    std::vector<int> second{1,2,3};
-    EXPECT_THROW(Distance(first, second), std::invalid_argument);
-}
+INSTANTIATE_TEST_CASE_P(
+        distanceCalculationTest,
+        distanceCalculationTestFixture,
+        ::testing::Values(CalculationTuple{{7, 4, 3} , {17, 6, 2} , 10.247},
+                          CalculationTuple{{1, 2, 3, 4, 5} , {-1, 2, -3, 4, -5} , 11.832}
+        ));
+
+INSTANTIATE_TEST_CASE_P(
+        averageExceptionTest,
+        averageExceptionTestFixture,
+        ::testing::Values(ExceptionTestTuple{{}, {}}
+        ));
+
+INSTANTIATE_TEST_CASE_P(
+        distanceExceptionTest,
+        distanceExceptionTestFixture,
+        ::testing::Values(ExceptionTestTuple{{}, {}},
+                          ExceptionTestTuple{{}, {1, 2, 3}},
+                          ExceptionTestTuple{{4, 5}, {1, 2, 3}}
+        ));
