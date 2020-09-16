@@ -128,5 +128,6 @@ Example:
 |size()  | returns the size of the priority queue        |
 
 #### Examples of usage
--   
-- 
+- it could contain a list of some threats that have to be taken care of based on the level of danger each threat imposes
+- it could contain a list of steps that need to be done in a specific order (for example cooking steps in a recipe :))
+- it could be used to indicate the closest enemy from the base on the map  (if the enemy is destroyed we remove element from the queue)
