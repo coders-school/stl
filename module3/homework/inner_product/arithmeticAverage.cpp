@@ -15,7 +15,7 @@ double ArithmeticAverage(std::vector<int> first, std::vector<int> second) {
         throw std::invalid_argument("Both vectors should be the same size");
     }
     
-    auto sum = std::inner_product(first.begin(), first.end(), second.begin(), 0,
+    auto sum = std::inner_product(first.cbegin(), first.cend(), second.cbegin(), 0,
                                  std::plus<>(), std::plus<>());
 
     return static_cast<double>(sum) / (first.size() + second.size());
@@ -29,7 +29,7 @@ double Distance(std::vector<int> first, std::vector<int> second) {
         throw std::invalid_argument("Both vectors should be the same size");
     }
 
-    auto sum = std::inner_product(first.begin(), first.end(), second.begin(), 0,
+    auto sum = std::inner_product(first.cbegin(), first.cend(), second.cbegin(), 0,
                                  std::plus<>(), [](const auto& x, const auto& y){
                                      return pow((y - x), 2);
                                  });
