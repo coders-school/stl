@@ -1,4 +1,4 @@
 #pragma once
 #include <vector>
 
-double ArithmeticAverage(std::vector<int> & firstVec, std::vector<int> & secVec);
+double ArithmeticAverage(const std::vector<int> & firstVec, const std::vector<int> & secVec);
