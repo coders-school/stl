@@ -1,9 +1,7 @@
 #pragma once
 
-
 #include "errorCodes.hpp"
 #include <stdexcept>
-
 
 struct CalcException : public std::invalid_argument{
 	CalcException(std::string message, ErrorCode code) 
@@ -12,7 +10,6 @@ struct CalcException : public std::invalid_argument{
 
 	ErrorCode errorCode; 
 };
-
 
 struct BadFormatException : public CalcException{
 	BadFormatException() : CalcException("BadFormat Exception" , 

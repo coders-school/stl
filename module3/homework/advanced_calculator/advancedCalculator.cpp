@@ -1,13 +1,10 @@
 #include "advancedCalculator.hpp"
-#include "formulaParser.hpp"
 #include "calcExceptions.hpp"
 
 #include <iostream>
 #include <map>
 #include <functional>
 #include <math.h>
-
-using FunctionMap = std::map<char, std::function<double(double,double)>>;
 
 double division(double a, double b){
     if(b == 0)
@@ -36,17 +33,6 @@ double modulo(double a, double b){
         throw ModuleOfNonIntegerValueException();
     return fmod(a,b);
 }
-
-FunctionMap functions{
-        {'+', std::plus<double>()},
-        {'-', std::minus<double>()},
-        {'*', std::multiplies<double>()},
-        {'/', division},
-        {'!', factorial},
-        {'^', power},
-        {'$', squareRoot},
-        {'%', modulo}
-};
 
 double calculate(FormulaParser & fp){
     auto function = functions[fp.symbol];
