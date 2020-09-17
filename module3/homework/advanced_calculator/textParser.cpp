@@ -1,11 +1,43 @@
 #include "textParser.hpp"
-#include "calculatorExceptions.hpp"
+#include "calcExceptions.hpp"
 
-void TextParser::parse(){
+#include <algorithm>
+
+
+TextParser::TextParser(std::string text) : text_(text){
+    checkAndPrepareText();
+    parseTextAndValidateOutput();
+}
+
+void TextParser::checkAndPrepareText(){
+    trimSpaces();
+    validateCharacters();
+}
+
+void TextParser::trimSpaces(){
+    text_.erase(std::remove(text_.begin(), text_.end(), ' '), text_.end());
+}
+
+void TextParser::validateCharacters(){
+    if(!hasValidCharacters())
+        throw BadCharacterException();
+}
+
+bool TextParser::hasValidCharacters(){
+    return std::all_of(text_.begin(), text_.end(), 
+        [&](char c){ return isdigit(c) || isSymbol(c) || c == '.'; });
+};
+
+bool TextParser::isSymbol(char c){
+    return VALID_SYMBOLS.find(c) != std::string::npos;
+}
+
+
+
+void TextParser::parseTextAndValidateOutput(){
     searchElements();
     readElements();
     validateElements();
-    castElements();
 }
 
 void TextParser::searchElements(){
@@ -18,9 +50,9 @@ void TextParser::searchElements(){
 
 void TextParser::readElements(){
     match = getElement(0);
-    firstNumber = getElement(1);
     symbol = getElement(2);
-    secondNumber = getElement(3);
+    numberOne = getElement(1);
+    numberTwo = getElement(3);
 }
 
 std::string TextParser::getElement(size_t number){
@@ -28,21 +60,19 @@ std::string TextParser::getElement(size_t number){
 }
 
 void TextParser::validateElements(){
-    if(match != text_ || firstNumber.empty() || symbol.empty())
-        throw BadFormatException();
-}
-
-//move it to formulaParser??
-void TextParser::castElements() 
-try{
-    castToFormula();
-} catch (std::logic_error &){
+    if(machIsValid() && (isStandard()  || isFactorial()))
+        return;
     throw BadFormatException();
 }
 
-//move it to formulaParser??
-void TextParser::castToFormula(){
-    formula_.first = std::stod(firstNumber);
-    formula_.second = std::stod(secondNumber);
-    formula_.symbol = symbol[0]; 
+bool TextParser::machIsValid(){
+    return match == text_;
+}
+
+bool TextParser::isStandard(){
+    return !numberOne.empty() && !symbol.empty() && symbol != "!" && !numberTwo.empty();
+}
+
+bool TextParser::isFactorial(){
+    return !numberOne.empty() && symbol == "!" && numberTwo.empty();
 }
