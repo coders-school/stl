@@ -5,11 +5,11 @@
 
 
 TextParser::TextParser(std::string text) : text_(text){
-    checkAndPrepareText();
+    prepareAndCheckText();
     parseTextAndValidateOutput();
 }
 
-void TextParser::checkAndPrepareText(){
+void TextParser::prepareAndCheckText(){
     trimSpaces();
     validateCharacters();
 }

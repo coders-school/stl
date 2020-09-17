@@ -8,7 +8,7 @@ public:
     TextParser(std::string text);
 
 private:
-    void checkAndPrepareText();
+    void prepareAndCheckText();
         void trimSpaces();
         void validateCharacters();
         bool hasValidCharacters();
