@@ -128,9 +128,9 @@ TEST(advancedCalculatorTest, ShouldFactorial) {
     ASSERT_EQ(process("3.435!", &result), ErrorCode::OK);
     EXPECT_TRUE(cmp(result, 10.63327));
     ASSERT_EQ(process("-13!", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 1));
+    EXPECT_TRUE(cmp(result, -6227020800));
     ASSERT_EQ(process("-12.4!", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 1));
+    EXPECT_TRUE(cmp(result, -1324024774.02));
 }
 
 TEST(advancedCalculatorTest, ShouldReturnBadFormat) {
