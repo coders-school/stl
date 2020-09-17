@@ -1,6 +1,6 @@
 #include "advancedCalculator.hpp"
 #include "formulaParser.hpp"
-#include "calculatorExceptions.hpp"
+#include "calcExceptions.hpp"
 
 #include <iostream>
 #include <map>
@@ -9,16 +9,6 @@
 
 using FunctionMap = std::map<char, std::function<double(double,double)>>;
 
-// double addition(double a, double b){
-//     return a + b;
-// }
-// double substraction(double a, double b){
-//     return a - b;
-// }
-// double multiplication(double a, double b){
-//     return a * b;
-// }
-
 double division(double a, double b){
     if(b == 0)
         throw DivideBy0Exception();
@@ -26,9 +16,9 @@ double division(double a, double b){
 }
 
 double factorial(double a, double b){
-    if(b != 0)
-        throw BadFormatException();
-    return a;
+    if(a < 0)
+        return 1;
+    return tgamma(a + 1);
 }
 
 double power(double a, double b){
@@ -42,6 +32,8 @@ double squareRoot(double a, double b){
 }
 
 double modulo(double a, double b){
+    if(fmod(a,1) != 0 || fmod(b,1) != 0)
+        throw ModuleOfNonIntegerValueException();
     return fmod(a,b);
 }
 
@@ -54,49 +46,19 @@ FunctionMap functions{
         {'^', power},
         {'$', squareRoot},
         {'%', modulo}
-    };
-
-
-class FormulaProcessor{
-public:
-    FormulaProcessor(FormulaParser & fp) : formula_(fp.formula){
-        process();
-    }
-
-    double getValue() const {
-        return value_;
-    }
-
-private:
-    void process(){
-        value_ = functions[formula_.symbol](formula_.first, formula_.second);
-    }
-
-private:
-    Formula & formula_;
-    double value_;
-
-    
 };
 
-
-ErrorCode process(std::string input, double* out){
-    try{
-        FormulaParser fp(input);
-        FormulaProcessor fpr(fp);
-        *out = fpr.getValue();
-
-    } catch (const BadFormatException e) {
-        return ErrorCode::BadFormat;
-    } catch (const BadCharacterException e) {
-        return ErrorCode::BadCharacter;
-    } catch (const DivideBy0Exception e) {
-        return ErrorCode::DivideBy0;
-    } catch (const SqrtOfNegativeNumberException e) {
-        return ErrorCode::SqrtOfNegativeNumber;
-    } catch (const ModuleOfNonIntegerValueException e) {
-        return ErrorCode::ModuleOfNonIntegerValue;
-    }
-    return ErrorCode::OK;
+double calculate(FormulaParser & fp){
+    auto function = functions[fp.symbol];
+    return function(fp.numberOne, fp.numberTwo);
 }
+
+ErrorCode process(std::string input, double* out) try{
+    FormulaParser fp(input);
+    *out = calculate(fp);
+    return ErrorCode::OK;
+} catch (const CalcException & e) {
+    return e.errorCode;
+}
+
 

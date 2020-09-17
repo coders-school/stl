@@ -1,15 +1,7 @@
 #pragma once
 
 #include <string>
-
-enum class ErrorCode{
-    OK,
-    BadFormat,
-    BadCharacter,
-    DivideBy0,
-    ModuleOfNonIntegerValue,
-    SqrtOfNegativeNumber,
-};
+#include "errorCodes.hpp"
 
 ErrorCode process(std::string input, double* out);
 
