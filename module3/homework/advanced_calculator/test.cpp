@@ -212,3 +212,30 @@ TEST(advancedCalculatorTest, ShouldReturnBadCharacterOrOK) {
     ASSERT_EQ(allowedCharacters("43.21+11.54"), ErrorCode::OK);
     ASSERT_EQ(allowedCharacters("-54.31+11"), ErrorCode::OK);
 }
+
+TEST(advancedCalculatorTest, ShouldReturnBadFormatOrOK) {
+    ASSERT_EQ(allowedFormat("123+--123"), ErrorCode::BadFormat);
+    ASSERT_EQ(allowedFormat("--123+123"), ErrorCode::BadFormat);
+    ASSERT_EQ(allowedFormat("*123"), ErrorCode::BadFormat);
+    ASSERT_EQ(allowedFormat("123*"), ErrorCode::BadFormat);
+    ASSERT_EQ(allowedFormat("123.*-123.10"), ErrorCode::BadFormat);
+    ASSERT_EQ(allowedFormat("-123/-123."), ErrorCode::BadFormat);
+    ASSERT_EQ(allowedFormat("-123+*-123"), ErrorCode::BadFormat);
+    ASSERT_EQ(allowedFormat("1.2.3+123"), ErrorCode::BadFormat);
+    ASSERT_EQ(allowedFormat("123+1.2.3"), ErrorCode::BadFormat);
+    ASSERT_EQ(allowedFormat("-123/123.-"), ErrorCode::BadFormat);
+    ASSERT_EQ(allowedFormat("-123//123"), ErrorCode::BadFormat);
+    ASSERT_EQ(allowedFormat("12.3**1.23"), ErrorCode::BadFormat);
+    ASSERT_EQ(allowedFormat("5!!"), ErrorCode::BadFormat);
+    ASSERT_EQ(allowedFormat("5"), ErrorCode::BadFormat);
+    ASSERT_EQ(allowedFormat("5+11"), ErrorCode::OK);
+    ASSERT_EQ(allowedFormat("43.21+11.54"), ErrorCode::OK);
+    ASSERT_EQ(allowedFormat("-54.31/-11"), ErrorCode::OK);
+    ASSERT_EQ(allowedFormat("-54.1*-11"), ErrorCode::OK);
+    ASSERT_EQ(allowedFormat("54.3122+11"), ErrorCode::OK);
+    ASSERT_EQ(allowedFormat("-54.31+11"), ErrorCode::OK);
+    ASSERT_EQ(allowedFormat("5!"), ErrorCode::OK);
+    ASSERT_EQ(allowedFormat("-5!"), ErrorCode::OK);
+    ASSERT_EQ(allowedFormat("5.1!"), ErrorCode::OK);
+    ASSERT_EQ(allowedFormat("-5.55!"), ErrorCode::OK);
+}

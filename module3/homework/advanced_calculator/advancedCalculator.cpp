@@ -1,6 +1,8 @@
 #include "advancedCalculator.hpp"
 
 #include <algorithm>
+#include <iostream>
+#include <regex>
 
 std::string eraseSpaces(std::string input)
 {
@@ -21,6 +23,19 @@ ErrorCode allowedCharacters(std::string input)
         return ErrorCode::BadCharacter;
     }
 
+    return ErrorCode::OK;
+}
+
+ErrorCode allowedFormat(std::string input)
+{
+    std::regex patternUnary("(-?)(([0-9]+)|([0-9]+[/.]?[0-9]+))(!)");
+    std::regex patternBinary("(-?)(([0-9]+)|([0-9]+[/.]?[0-9]+))([/+-/*///^%!]?)(-?)(([0-9]+)|([0-9]+[/.]?[0-9]+))");
+
+    std::smatch singleMatch;
+
+    if (!std::regex_match(input, singleMatch, patternUnary) && !std::regex_match(input, singleMatch, patternBinary)) {
+        return ErrorCode::BadFormat;
+    }
     return ErrorCode::OK;
 }
 
