@@ -228,6 +228,7 @@ TEST(advancedCalculatorTest, ShouldReturnBadFormatOrOK) {
     ASSERT_EQ(allowedFormat("12.3**1.23"), ErrorCode::BadFormat);
     ASSERT_EQ(allowedFormat("5!!"), ErrorCode::BadFormat);
     ASSERT_EQ(allowedFormat("5"), ErrorCode::BadFormat);
+    ASSERT_EQ(allowedFormat("-5.7"), ErrorCode::BadFormat);
     ASSERT_EQ(allowedFormat("5+11"), ErrorCode::OK);
     ASSERT_EQ(allowedFormat("43.21+11.54"), ErrorCode::OK);
     ASSERT_EQ(allowedFormat("-54.31/-11"), ErrorCode::OK);
