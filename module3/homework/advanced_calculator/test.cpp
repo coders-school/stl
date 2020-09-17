@@ -243,4 +243,15 @@ TEST(advancedCalculatorTest, ShouldReturnBadFormatOrOK) {
     ASSERT_EQ(allowedFormat("-5$55"), ErrorCode::OK);
     ASSERT_EQ(allowedFormat("-4.55$21"), ErrorCode::OK);
     ASSERT_EQ(allowedFormat("-5.55%-23"), ErrorCode::OK);
+    ASSERT_EQ(allowedFormat("5-2"), ErrorCode::OK);
+    ASSERT_EQ(allowedFormat("5.5-2.2"), ErrorCode::OK);
+}
+
+TEST(advancedCalculatorTest, ShouldUnpackExpressionToVector) {
+
+    ASSERT_EQ(unpackExpression("123+123"), (std::vector<std::string> {{"123"},{"+"},{"123"}}));
+    ASSERT_EQ(unpackExpression("5.5-2.2"), (std::vector<std::string> {{"5.5"},{"-"},{"2.2"}}));
+    ASSERT_EQ(unpackExpression("-90.1*1.23"), (std::vector<std::string> {{"-90.1"},{"*"},{"1.23"}}));
+    ASSERT_EQ(unpackExpression("23!"), (std::vector<std::string> {{"23"},{"!"},{"Unary expression"}}));
+    ASSERT_EQ(unpackExpression("50.6^23"), (std::vector<std::string> {{"50.6"},{"^"},{"23"}}));
 }

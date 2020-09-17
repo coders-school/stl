@@ -29,7 +29,7 @@ ErrorCode allowedCharacters(std::string input)
 ErrorCode allowedFormat(std::string input)
 {
     std::regex patternUnary("(([-]?[0-9]+)|([-]?[0-9]+[/.][0-9]+))(!)");
-    std::regex patternBinary("(([-]?[0-9]+)|([-]?[0-9]+[/.][0-9]+))([/+/-/*///^%!/$])(([-]?[0-9]+)|([-]?[0-9]+[/.][0-9]+))");
+    std::regex patternBinary("(([-]?[0-9]+)|([-]?[0-9]+[/.][0-9]+))([-/+/*///^%!/$])(([-]?[0-9]+)|([-]?[0-9]+[/.][0-9]+))");
 
     std::smatch singleMatch;
 
@@ -42,7 +42,7 @@ ErrorCode allowedFormat(std::string input)
 std::vector<std::string> unpackExpression(std::string input)
 {
     std::regex patternUnary("(([-]?[0-9]+)|([-]?[0-9]+[/.][0-9]+))(!)");
-    std::regex patternBinary("(([-]?[0-9]+)|([-]?[0-9]+[/.][0-9]+))([/+/-/*///^%!/$])(([-]?[0-9]+)|([-]?[0-9]+[/.][0-9]+))");
+    std::regex patternBinary("(([-]?[0-9]+)|([-]?[0-9]+[/.][0-9]+))([-/+/*///^%!/$])(([-]?[0-9]+)|([-]?[0-9]+[/.][0-9]+))");
 
     std::smatch singleMatch;
 
@@ -69,9 +69,24 @@ std::vector<std::string> unpackExpression(std::string input)
     return {{firstNumber},{action},{secondNumber}};
 }
 
+ErrorCode prohibitedOperations(std::string input, std::vector<std::string> unpackedElements) {
+    return ErrorCode::OK;
+}
+
 ErrorCode process(std::string input, double* out)
 {
-    return ErrorCode::OK;
+    ErrorCode errorCode {ErrorCode::OK};
+    std::vector<std::string> unpackedElements{}; 
+
+    input = eraseSpaces(input);
+    errorCode = allowedCharacters(input);
+    errorCode = allowedFormat(input);
+    unpackedElements = unpackExpression(input);
+
+    errorCode = allowedCharacters(input);
+
+
+    return errorCode;
 }
 
 using specMap = std::map<char, std::function<void()>>;
