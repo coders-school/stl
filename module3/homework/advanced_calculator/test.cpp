@@ -255,3 +255,8 @@ TEST(advancedCalculatorTest, ShouldUnpackExpressionToVector) {
     ASSERT_EQ(unpackExpression("23!"), (std::vector<std::string> {{"23"},{"!"},{"Unary expression"}}));
     ASSERT_EQ(unpackExpression("50.6^23"), (std::vector<std::string> {{"50.6"},{"^"},{"23"}}));
 }
+
+TEST(advancedCalculatorTest, ShouldReturnProhibitedOperationsErrorOrOK) {
+
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"123"},{"/"},{"0"}})), ErrorCode::DivideBy0);
+}

@@ -69,7 +69,7 @@ std::vector<std::string> unpackExpression(std::string input)
     return {{firstNumber},{action},{secondNumber}};
 }
 
-ErrorCode prohibitedOperations(std::string input, std::vector<std::string> unpackedElements) {
+ErrorCode prohibitedOperations(std::vector<std::string> unpackedElements) {
     return ErrorCode::OK;
 }
 
@@ -83,7 +83,7 @@ ErrorCode process(std::string input, double* out)
     errorCode = allowedFormat(input);
     unpackedElements = unpackExpression(input);
 
-    errorCode = allowedCharacters(input);
+    errorCode = prohibitedOperations(unpackedElements);
 
 
     return errorCode;
