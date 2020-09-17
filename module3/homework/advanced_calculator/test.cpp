@@ -237,5 +237,9 @@ TEST(advancedCalculatorTest, ShouldReturnBadFormatOrOK) {
     ASSERT_EQ(allowedFormat("5!"), ErrorCode::OK);
     ASSERT_EQ(allowedFormat("-5!"), ErrorCode::OK);
     ASSERT_EQ(allowedFormat("5.1!"), ErrorCode::OK);
-    ASSERT_EQ(allowedFormat("-5.55!"), ErrorCode::OK);
+    ASSERT_EQ(allowedFormat("-5%55"), ErrorCode::OK);
+    ASSERT_EQ(allowedFormat("1235^5.52"), ErrorCode::OK);
+    ASSERT_EQ(allowedFormat("-5$55"), ErrorCode::OK);
+    ASSERT_EQ(allowedFormat("-4.55$21"), ErrorCode::OK);
+    ASSERT_EQ(allowedFormat("-5.55%-23"), ErrorCode::OK);
 }
