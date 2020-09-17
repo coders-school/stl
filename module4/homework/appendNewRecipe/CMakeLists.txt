@@ -35,11 +35,11 @@ if (CMAKE_VERSION VERSION_LESS 2.8.11)
   include_directories("${gtest_SOURCE_DIR}/include")
 endif()
 
-project(arithmeticAverage)
+project(AppendNewRecipe)
 enable_testing()
 
-add_executable(${PROJECT_NAME} main.cpp arithmeticAverage.cpp)
-add_executable(${PROJECT_NAME}-ut test.cpp arithmeticAverage.cpp)
-include_directories(.)
+add_executable(${PROJECT_NAME} main.cpp AppendNewRecipe.cpp)
+add_executable(${PROJECT_NAME}-ut test.cpp AppendNewRecipe.cpp)
+
 target_link_libraries(${PROJECT_NAME}-ut gtest_main)
 add_test(NAME ${PROJECT_NAME}_test COMMAND ${PROJECT_NAME}-ut)

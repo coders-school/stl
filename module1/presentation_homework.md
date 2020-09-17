@@ -61,7 +61,7 @@ ___
 
 ## Zadanie 1 - `removeVowels()`
 
-Napisz funkcję `removeVowels()`, która przyjmie `std::vector<std::string>>` oraz usunie wszystkie samogłoski z tych wyrażeń.
+Napisz funkcję `removeVowels()`, która przyjmie `std::vector<std::string>` oraz usunie wszystkie samogłoski z tych wyrażeń.
 
 * Input: `{"abcde", "aabbbccabc", "qwerty"}`
 * Output: `{"bcd", "bbccbc", "qwrt"}`
