@@ -51,7 +51,7 @@ bool is_palindrome(const std::string& word)
 }
 bool isInRange(const char c, const uint8_t lowerBound, const uint8_t upperBound2)
 {
-    const int index = (const int)c;
+    const int index = static_cast<const int>(c);
     if (index >= lowerBound && index <= upperBound2)
         return true;
     else
