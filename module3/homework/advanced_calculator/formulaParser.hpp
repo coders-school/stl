@@ -1,28 +1,19 @@
 #pragma once
 
-#include "formula.hpp"
+#include "textParser.hpp"
 
 #include <string>
 
 class FormulaParser{
 public:
-    Formula formula;
-
-    FormulaParser(std::string text) : text_(text){
-        validateCharacters();
-        parseText();
-    }
+    FormulaParser(std::string text);
 
 private:
-    void validateCharacters();
-        bool hasValidCharacters();
-        bool symbolIsValid(char symbol);
+    void castIntoValues(TextParser & tp);
+    void castParsedElementsIntoValues(TextParser & tp);
 
-    void parseText();
-        void trimSpaces();
-        void parseTextIntoFormula();
-
-private:
-    std::string text_;
-    const std::string VALID_CHARACTERS = "-+/*%!^$., 0123456789";
+public:
+    char symbol;
+    double numberOne;
+    double numberTwo;
 };
