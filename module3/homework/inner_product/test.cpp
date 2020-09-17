@@ -15,9 +15,9 @@ TEST(arithmeticAverageTest, ShouldCalculateArithmeticAverage) {
     // Write more test case
 }
 
-// TEST(arithmeticAverageTest, ShouldCalculateDistance) {
-//     std::vector<int> first{7, 4, 3};
-//     std::vector<int> second{17, 6, 2};
-//     EXPECT_TRUE(cmp(Distance(first, second), 10.247));
-//     // Write more test case
-// }
+TEST(arithmeticAverageTest, ShouldCalculateDistance) {
+    std::vector<int> first{7, 4, 3};
+    std::vector<int> second{17, 6, 2};
+    EXPECT_TRUE(cmp(Distance(first, second), 10.247));
+    // Write more test case
+}
