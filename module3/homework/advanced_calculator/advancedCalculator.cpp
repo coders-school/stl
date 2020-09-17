@@ -28,8 +28,8 @@ ErrorCode allowedCharacters(std::string input)
 
 ErrorCode allowedFormat(std::string input)
 {
-    std::regex patternUnary("((-?[0-9]+)|(-?[0-9]+[/.][0-9]+))(!)");
-    std::regex patternBinary("[-]?([0-9]+|[0-9]+[/.][0-9]+)[/+/-/*///^%!/$][-]?([0-9]+|[0-9]+[/.][0-9]+)");
+    std::regex patternUnary("(([-]?[0-9]+)|([-]?[0-9]+[/.][0-9]+))(!)");
+    std::regex patternBinary("(([-]?[0-9]+)|([-]?[0-9]+[/.][0-9]+))([/+/-/*///^%!/$])(([-]?[0-9]+)|([-]?[0-9]+[/.][0-9]+))");
 
     std::smatch singleMatch;
 
@@ -41,8 +41,8 @@ ErrorCode allowedFormat(std::string input)
 
 std::vector<std::string> unpackExpression(std::string input)
 {
-    std::regex patternUnary("((-?[0-9]+)|(-?[0-9]+[/.][0-9]+))(!)");
-    std::regex patternBinary("[-]?([0-9]+|[0-9]+[/.][0-9]+)[/+/-/*///^%!/$][-]?([0-9]+|[0-9]+[/.][0-9]+)");
+    std::regex patternUnary("(([-]?[0-9]+)|([-]?[0-9]+[/.][0-9]+))(!)");
+    std::regex patternBinary("(([-]?[0-9]+)|([-]?[0-9]+[/.][0-9]+))([/+/-/*///^%!/$])(([-]?[0-9]+)|([-]?[0-9]+[/.][0-9]+))");
 
     std::smatch singleMatch;
 

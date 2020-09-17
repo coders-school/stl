@@ -6,7 +6,7 @@
 
 int main(){
 
-    std::string input {"-50.5"};
+    std::string input {"-50.5*-67.9"};
     std::vector<std::string> allActions{};
 
     allActions = unpackExpression(input);
