@@ -2,6 +2,7 @@
 #include <functional>
 #include <map>
 #include <string>
+#include <vector>
 
 enum class ErrorCode {
     OK,
@@ -15,5 +16,6 @@ enum class ErrorCode {
 std::string eraseSpaces(std::string input);
 ErrorCode allowedCharacters(std::string input);
 ErrorCode allowedFormat(std::string input);
+std::vector<std::string> unpackExpression(std::string input);
 
 ErrorCode process(std::string input, double* out);
