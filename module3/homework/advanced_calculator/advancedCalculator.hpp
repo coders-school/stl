@@ -1,7 +1,8 @@
 #pragma once
+#include <string>
 
 enum class ErrorCode {
-    Ok,
+    OK,
     BadCharacter,
     BadFormat,
     DivideBy0,
@@ -10,3 +11,8 @@ enum class ErrorCode {
 };
 
 void startCalculate();
+void printWelcomeScreen();
+void calculate();
+void printGoodByeScreen();
+
+ErrorCode process(std::string input, double* out);
