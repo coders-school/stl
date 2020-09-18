@@ -21,6 +21,5 @@ int main()
             std::cout << "Error: " << static_cast<int>(code) << std::endl;
         }
     }
-
-    return 0;   
+    return 0;
 }

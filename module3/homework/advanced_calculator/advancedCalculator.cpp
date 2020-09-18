@@ -15,8 +15,7 @@ const std::map<char, std::function<double(double, double)>> operations{
     {'%', std::modulus<int>()},
     {'^', [](auto base, auto exponent) { return pow(base, exponent); }},
     {'$', [](auto value, auto root) { return pow(value, 1.0 / root); }},
-    {'!', [](auto value, auto notUsed) { return value <= 0 ? -std::tgamma(1.0 - value) : std::tgamma(value + 1.0); }}
-};
+    {'!', [](auto value, auto notUsed) { return value <= 0 ? -std::tgamma(1.0 - value) : std::tgamma(value + 1.0); }}};
 
 const std::regex regex2arguments{R"((^[\-]?\d+\.*\d*)\s*(\D)\s*([\-]?\d+\.*\d*)$)"};
 const std::regex regex1argument{R"((^[\-]?\d+\.*\d*)\s*(\D)$)"};
@@ -88,8 +87,7 @@ ErrorCode process(const std::string& input, double* result)
 
     if (checkBadCharacter(input)) {
         return ErrorCode::BadCharacter;
-    }
-    else if (!parseString(input, &operation, &lhs, &rhs)) {
+    } else if (!parseString(input, &operation, &lhs, &rhs)) {
         return ErrorCode::BadFormat;
     } else if (checkDivideBy0(operation, rhs)) {
         return ErrorCode::DivideBy0;
@@ -98,8 +96,9 @@ ErrorCode process(const std::string& input, double* result)
     } else if (checkModuleOfNonIntegerValue(operation, rhs)) {
         return ErrorCode::ModuleOfNonIntegerValue;
     }
-    
-    auto it = operations.find(operation); it != operations.end();
+
+    auto it = operations.find(operation);
+    it != operations.end();
     *result = it->second(lhs, rhs);
     return ErrorCode::OK;
 }
