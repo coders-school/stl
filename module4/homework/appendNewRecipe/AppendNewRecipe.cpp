@@ -40,7 +40,7 @@ vecOfStrings FormatIngredients(const listOfStrings& ingredients, const dequeOfPa
                     ingredient.append(std::to_string(amountIt->first) + " mililitrów ");
                     break;
                 default:
-                    ingredient.append("Bledne dane ");
+                    ingredient.append("Bad data ");
             }
             ingredient.append(*ingredientsIt);
             ingredientsIt++;
@@ -66,7 +66,7 @@ std::stringstream FormatRecipit(vecOfStrings steps, const listOfStrings& ingredi
         for(const auto& step : steps){
             formattedRecipit << index++ << ") " << step << ".\n";
         }
-        formattedRecipit << "___________________________________\n";
+        formattedRecipit << std::string underscores(36, '_') << '\n';
         return formattedRecipit;
     } else{
         throw std::invalid_argument("Ingredient's list size does not equal to amount's deque size");
