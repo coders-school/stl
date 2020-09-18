@@ -2,6 +2,7 @@
 
 #include "arithmeticAverage.hpp"
 #include "gtest/gtest.h"
+#include <math.h>
 
 bool cmp(double first, double second, double epsilon = 0.5) {
     return (fabs(first - second) < epsilon);
