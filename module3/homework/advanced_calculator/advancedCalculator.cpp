@@ -15,7 +15,7 @@ const std::map<char, std::function<double(double, double)>> operations{
     {'%', std::modulus<int>()},
     {'^', [](auto base, auto exponent) { return pow(base, exponent); }},
     {'$', [](auto value, auto root) { return pow(value, 1.0 / root); }},
-    {'!', [](auto value, auto notUsed) { return value <= 0 ? 1.0 : std::tgamma(value + 1.0); }}
+    {'!', [](auto value, auto notUsed) { return value <= 0 ? -std::tgamma(1.0 - value) : std::tgamma(value + 1.0); }}
 };
 
 const std::regex regex2arguments{R"((^[\-]?\d+\.*\d*)\s*(\D)\s*([\-]?\d+\.*\d*)$)"};
@@ -49,7 +49,7 @@ bool checkBadCharacter(const std::string& string)
     for (const auto& operation : operations) {
         allowedCharacters.append(std::string(1, operation.first));
     }
-    allowedCharacters.append(" .0123456789");
+    allowedCharacters.append(" .,0123456789");
 
     return !std::all_of(string.cbegin(), string.cend(), [allowedCharacters](auto c) {
         return std::find(allowedCharacters.cbegin(), allowedCharacters.cend(), c) != allowedCharacters.cend();
