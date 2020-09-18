@@ -1,7 +1,9 @@
+#include <cmath>
 #include <vector>
 
 #include "arithmeticAverage.hpp"
 #include "gtest/gtest.h"
+
 
 bool cmp(double first, double second, double epsilon = 0.5) {
     return (fabs(first - second) < epsilon);
