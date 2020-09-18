@@ -74,7 +74,7 @@ bool checkSqrtOfNegativeNumber(char operation, double number)
 
 bool checkModuleOfNonIntegerValue(char operation, double value)
 {
-    if ((operation == '%') and (value != floor(value))) {
+    if ((operation == '%') and (value != floor(value)) or value == 0) {
         return true;
     }
     return false;
