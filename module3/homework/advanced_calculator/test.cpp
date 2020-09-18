@@ -84,7 +84,7 @@ TEST(advancedCalculatorTest, ShouldPower) {
     EXPECT_TRUE(cmp(result, 0.000976562));
 }
 
-TEST(advancedCalculatorTest, ShouldCalculateSqrt) {
+TEST(advancedCalculatorTest, ShouldCalculateRoot) {
     double result = 0;
 
     ASSERT_EQ(process("225 $3", &result), ErrorCode::OK);
@@ -128,9 +128,9 @@ TEST(advancedCalculatorTest, ShouldFactorial) {
     ASSERT_EQ(process("3.435!", &result), ErrorCode::OK);
     EXPECT_TRUE(cmp(result, 10.63327));
     ASSERT_EQ(process("-13!", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 1));
+    EXPECT_TRUE(cmp(result, -6227020800));
     ASSERT_EQ(process("-12.4!", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 1));
+    EXPECT_TRUE(cmp(result, -1324024774.02));
 }
 
 TEST(advancedCalculatorTest, ShouldReturnBadFormat) {
@@ -187,7 +187,7 @@ TEST(advancedCalculatorTest, ShouldReturnModuleOfNonIntegerValue) {
     ASSERT_EQ(process("123.1 % 0.1", &result), ErrorCode::ModuleOfNonIntegerValue);
 }
 
-TEST(advancedCalculatorTest, ShouldReturnSqrtOfNegativeNumber) {
+TEST(advancedCalculatorTest, ShouldReturnRootOfNegativeNumber) {
     double result = 0;
 
     ASSERT_EQ(process("-123 $ -1", &result), ErrorCode::SqrtOfNegativeNumber);
