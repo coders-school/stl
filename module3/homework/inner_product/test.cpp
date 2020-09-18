@@ -1,6 +1,7 @@
 #include <vector>
 #include <math.h>
 
+
 #include "arithmeticAverage.hpp"
 #include "gtest/gtest.h"
 

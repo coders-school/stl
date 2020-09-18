@@ -159,10 +159,12 @@ TEST(advancedCalculatorTest, ShouldReturnBadCharacter) {
     ASSERT_EQ(process("123 \\ 123", &result), ErrorCode::BadCharacter);
     ASSERT_EQ(process("-123 [ -123", &result), ErrorCode::BadCharacter);
     ASSERT_EQ(process("-123 ] 123", &result), ErrorCode::BadCharacter);
+
     ASSERT_EQ(process("-98 + 12.3 =", &result), ErrorCode::BadCharacter);
     ASSERT_EQ(process("123 -#- 4", &result), ErrorCode::BadCharacter);
     ASSERT_EQ(process("qwert + 123", &result), ErrorCode::BadCharacter);
     ASSERT_EQ(process("123,4 ; 345", &result), ErrorCode::BadCharacter);
+
 }
 
 TEST(advancedCalculatorTest, ShouldReturnDivideBy0) {
