@@ -5,6 +5,8 @@
 #include <map>
 #include <regex>
 
+#include <iostream>
+
 const std::map<char, std::function<double(double, double)>> operations{
     {'+', std::plus<>()},
     {'-', std::minus<>()},
@@ -47,7 +49,11 @@ bool checkBadCharacter(const std::string& string)
     for (const auto& operation : operations) {
         allowedCharacters.append(std::string(1, operation.first));
     }
-    return false;
+    allowedCharacters.append(" .0123456789");
+
+    return !std::all_of(string.cbegin(), string.cend(), [allowedCharacters](auto c) {
+        return std::find(allowedCharacters.cbegin(), allowedCharacters.cend(), c) != allowedCharacters.cend();
+    });
 }
 
 bool checkDivideBy0(char operation, double number)
