@@ -50,8 +50,8 @@ bool checkBadCharacter(const std::string& string)
     }
     allowedCharacters.append(" .,0123456789");
 
-    return !std::all_of(string.cbegin(), string.cend(), [allowedCharacters](auto c) {
-        return std::find(allowedCharacters.cbegin(), allowedCharacters.cend(), c) != allowedCharacters.cend();
+    return std::any_of(string.cbegin(), string.cend(), [allowedCharacters](auto c) {
+        return std::find(allowedCharacters.cbegin(), allowedCharacters.cend(), c) == allowedCharacters.cend();
     });
 }
 
