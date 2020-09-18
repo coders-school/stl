@@ -6,8 +6,7 @@
 
 double ArithmeticAverage(const std::vector<int>& lhs, const std::vector<int>& rhs)
 {
-    auto sum = std::inner_product(lhs.begin(), lhs.end(), rhs.begin(), 0, std::plus<int>(),
-                                  [](auto a, auto b) { return a + b; });
+    auto sum = std::inner_product(lhs.begin(), lhs.end(), rhs.begin(), 0, std::plus<int>(), std::plus<int>());
     return (double)sum / (double)(lhs.size() * 2);
 }
 
