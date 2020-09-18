@@ -9,7 +9,7 @@ auto factorial = [](double a, double b)     { return a <= 1 ? 1 : a * std::tgamm
 auto power = [](double a, double b)         { return std::pow(a, b); };
 auto root = [](double a, double b)          { return std::pow(a, 1 / b); };
 
-std::map<std::string, std::function<double(double, double)>> operations{
+const std::map<std::string, std::function<double(double, double)>> operations{
         {"+", std::plus<double>()},
         {"-", std::minus<double>()},
         {"*", std::multiplies<double>()},
@@ -28,15 +28,17 @@ void removeSpaces(std::string& input){
 
 bool isInt(double n){
     int res = n / 1;
-    if(n <= 0 || n >= 0 && res * 1 == n)
+    if(n <= 0 || n >= 0 && res * 1 == n){
         return true;
-    else
+    }
+    else{
         return false;
+    }
 }
 
 std::vector<std::string> checkRegex(std::string input){
-    std::regex expRegex("(([-]?\\d+\\.?\\d*)([-+*\\/^$%])([-]?\\d+\\.?\\d*)?)$");
-    std::regex facRegex("([-]?\\d+\\.?\\d*)([!])?");
+    const std::regex expRegex("(([-]?\\d+\\.?\\d*)([-+*\\/^$%])([-]?\\d+\\.?\\d*)?)$");
+    const std::regex facRegex("([-]?\\d+\\.?\\d*)([!])?");
     std::smatch regexMatch;
     std::vector<std::string> result;
 
@@ -55,28 +57,22 @@ std::vector<std::string> checkRegex(std::string input){
 bool badCharacter(std::string input){
     std::vector<char> operationCharacters {'+', '-', '*', '/', '^', '$', '!', '%', '.'};
 
-    return std::any_of(input.begin(), input.end(), [&operationCharacters](char ch){
+    return std::any_of(input.begin(),input.end(), [&operationCharacters](char ch){
         return std::isalpha(ch) || std::ispunct(ch) && std::find(
                 operationCharacters.begin(), operationCharacters.end(), ch) == operationCharacters.end();
     });
 }
 
 bool divideByZero(double secondNumber, std::string operationType){
-    if(operationType == "/" && secondNumber == 0)
-        return true;
-    return false;
+    return operationType == "/" && secondNumber == 0;
 }
 
 bool sqrtOfNegativeNumber(double firstNumber, std::string operationType) {
-    if(operationType == "$" && firstNumber < 0)
-        return true;
-    return false;
+    return operationType == "$" && firstNumber < 0;
 }
 
 bool moduleOfNonIntegerValue(double firstNumber, double secondNumber, std::string operationType) {
-    if(operationType == "%" && (!isInt(firstNumber) || !isInt(secondNumber)))
-        return true;
-    return false;
+    return operationType == "%" && (!isInt(firstNumber) || !isInt(secondNumber));
 }
 
 bool badFormat(std::vector<std::string> matchResult){
