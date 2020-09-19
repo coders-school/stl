@@ -34,14 +34,7 @@ auto powerAction = [](double firstNumber, double secondNumber) {
 };
 
 auto factorialAction = [](double firstNumber, double secondNumber) {
-    unsigned int steps = std::abs(firstNumber);
-    int result = firstNumber;
-
-    for (int i = steps - 1; i > 0; i--) {
-        result *= i;
-    }
-
-    return result;
+    return std::tgamma(firstNumber + 1);
 };
 
 std::string eraseSpaces(std::string input)
