@@ -4,25 +4,23 @@
 #include <string>
 #include <vector>
 
-int main(){
-
-    /*enum class ErrorCode {
-   0 OK,
-   1 BadFormat,
-   2 BadCharacter,
-   3 DivideBy0,
-   4 ModuleOfNonIntegerValue,
-   5 SqrtOfNagativeNumber
-    };*/
-
+int main()
+{
     ErrorCode ec{};
-    std::string input {"13.4 ++ 12.43"};
     double result{};
+    std::string input;
+    std::cin >> input;
 
-    ec = process(input, &result);
-    std::cout << result << "\n";
+    while (input != "exit") {
+        process(input, &result);
+        if ((int)ec == 0) {
+            std::cout << result << "\n";
+        }
+        else {
+            std::cout << "Bad input!\n";
+        }
+        std::cin >> input;
+    }
 
-    std::cout << (int)ec << "\n";
-
-return 0;
+    return 0;
 }
