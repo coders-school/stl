@@ -1,4 +1,5 @@
 #include "advancedCalculator.hpp"
+#include <cctype>
 #include <cmath>
 #include <iostream>
 
@@ -58,7 +59,31 @@ void printGoodByeScreen() {
     std::cout << "Thank you for using our services. \n";
 }
 
+bool isBadCharacter(std::string input) {
+    return (std::any_of(input.begin(), input.end(), [](auto el) { 
+        return !(std::isdigit(el) || std::iscoma(el) || operations.find(el) != operations.end(); }));
+}
+
+bool isBadFormat(std::string input) {
+    return false;
+}
+
+bool isDivideBy0(std::string input) {
+    return false;
+}
+
+bool isSqrtOfNegativeNumber(std::string input) {
+    return false;
+}
+
+bool isModuleOfNonIntegerValue(std::string input) {
+    return false;
+}
+
 ErrorCode process(std::string input, double* out) {
+    if (isBadCharacter(input)) {
+        return ErrorCode::BadCharacter;
+    }
     return ErrorCode::OK;
 }
 
