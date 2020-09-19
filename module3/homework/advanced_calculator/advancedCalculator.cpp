@@ -18,6 +18,7 @@ void pickAction(Action choice) {
         break;
         }
         case Action::Help {
+        printHelp();
         break;
         }
         case Action::Exit {
