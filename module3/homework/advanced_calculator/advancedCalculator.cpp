@@ -15,15 +15,17 @@ void printWelcomeScreen() {
 void makeAction(Action choice) {
     switch (choice) {
         case Action::Calculate {
-        break;
+            break;
         }
         case Action::Help {
-        printHelp();
-        break;
+            printHelp();
+            break;
         }
         case Action::Exit {
-        break;
+            break;
         }
+        default:
+            std::cout << "I can't do this. \n";  
     }
 }
 
