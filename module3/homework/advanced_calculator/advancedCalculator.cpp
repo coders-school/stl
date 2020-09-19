@@ -12,8 +12,27 @@ void printWelcomeScreen() {
     std::cout << "Welcome in calculator for professionals. \n";
 }
 
-void calculate() {
+void pickAction(Action choice) {
+    switch (choice) {
+        case Action::Calculate {
+        break;
+        }
+        case Action::Help {
+        break;
+        }
+        case Action::Exit {
+        break;
+        }
+    }
+}
 
+void calculate() {
+    while(true) {
+        std::cout << "Choose what you want to do: \n
+                     "1 - calculate \n 2 - help \n 3 - end \n"
+        void pickAction();
+        break;
+    }
 }
 
 void printGoodByeScreen() {
