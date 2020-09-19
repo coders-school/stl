@@ -20,7 +20,7 @@ enum class Action {
 
 void startCalculate();
 void printWelcomeScreen();
-void calculate();
+void mainLoop();
 void makeAction();
 void printHelp();
 void printGoodByeScreen();
