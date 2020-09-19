@@ -35,7 +35,7 @@ void mainLoop() {
                   << "1 - calculate \n 2 - help \n 3 - end \n";
         int pickAction;
         std::cin >> pickAction;
-        void makeAction(static_cast<Action>(pickAction));
+        makeAction(static_cast<Action>(pickAction));
         if (static_cast<Action>(pickAction) == Action::Exit) {
             break;
         }
