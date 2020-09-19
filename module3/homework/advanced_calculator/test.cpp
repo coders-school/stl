@@ -1,7 +1,6 @@
 #include <algorithm>
 #include <cmath>
 #include <vector>
-
 #include "advancedCalculator.hpp"
 #include "gtest/gtest.h"
 

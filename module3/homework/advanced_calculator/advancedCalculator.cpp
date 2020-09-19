@@ -4,6 +4,7 @@
 #include <cmath>
 #include <functional>
 #include <map>
+#include <regex>
 
 const std::map<std::string, std::function<double(double, double)>> commands{
     {"+", std::plus<double>()},
@@ -22,7 +23,32 @@ bool isBadCharacter(std::string in) {
                        [calculatorCommands](char c) {
                            return (std::ispunct(c) &&
                                    (std::find(calculatorCommands.begin(),
-                                    calculatorCommands.end(), c) == calculatorCommands.end())) 
-                                    || std::isalpha(c);
+                                              calculatorCommands.end(), c) == calculatorCommands.end())) ||
+                                  std::isalpha(c);
                        });
+}
+
+ErrorCode process(std::string input, double* out) {
+    if (isBadCharacter(input)) {
+        return ErrorCode::BadCharacter;
+    }
+    if (std::find(input.begin(), input.end(), ',') != input.end()) {
+        return ErrorCode::BadFormat;
+    }
+
+    std::regex commandPattern(R"(([-]?\d+\.\d+|[-]?\d+)\s?([+*/\-%^$])\s?([-]?\d+\.\d+|[-]?\d+))");
+
+    std::smatch correctInput;
+
+    if (std::regex_search(input, correctInput, commandPattern)) {
+        if (correctInput[0] != input) {
+            return ErrorCode::BadFormat;
+        }
+    }
+
+    double firstValue = std::stod(correctInput[1]);
+    double secondValue = std::stod(correctInput[3]);
+    std::string command = correctInput[2];
+    
+
 }
