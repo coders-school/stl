@@ -58,11 +58,15 @@ std::string eraseSpaces(std::string input)
 
 ErrorCode allowedCharacters(std::string input)
 {
-    const std::string ALLOWEDCHARACTERS = "+*/-%!^$1234567890.";
+    const std::string ALLOWEDCHARACTERS = "+*/-%!^$1234567890.,";
 
     auto foundBadCharacter = input.find_first_not_of(ALLOWEDCHARACTERS);
     if (foundBadCharacter != std::string::npos) {
         return ErrorCode::BadCharacter;
+    }
+
+    if (input.find(',') != std::string::npos) {
+        return ErrorCode::BadFormat;
     }
 
     return ErrorCode::OK;
