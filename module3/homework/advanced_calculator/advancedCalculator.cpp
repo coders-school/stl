@@ -14,14 +14,14 @@ void printWelcomeScreen() {
 
 void makeAction(Action choice) {
     switch (choice) {
-        case Action::Calculate {
+        case Action::Calculate: {
             break;
         }
-        case Action::Help {
+        case Action::Help: {
             printHelp();
             break;
         }
-        case Action::Exit {
+        case Action::Exit: {
             break;
         }
         default:
