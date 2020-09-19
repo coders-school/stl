@@ -1,6 +1,7 @@
 #include "advancedCalculator.hpp"
 
 #include <algorithm>
+#include <cmath>
 #include <iostream>
 #include <regex>
 
@@ -100,10 +101,46 @@ ErrorCode process(std::string input, double* out)
     unpackedElements = unpackExpression(input);
     errorCode = prohibitedOperations(unpackedElements);
 
-
-
     return errorCode;
 }
+
+auto addAction = [](double firstNumber, double secondNumber) {
+    return firstNumber + secondNumber;
+};
+
+auto substractAction = [](double firstNumber, double secondNumber) {
+    return firstNumber - secondNumber;
+};
+
+auto divideAction = [](double firstNumber, double secondNumber) {
+    return firstNumber / secondNumber;
+};
+
+auto multiplyAction = [](double firstNumber, double secondNumber) {
+    return firstNumber * secondNumber;
+};
+
+auto moduloAction = [](int firstNumber, int secondNumber) {
+    return firstNumber % secondNumber;
+};
+
+auto sqrtAction = [](double firstNumber, double secondNumber) {
+    return std::pow(firstNumber, 1/secondNumber);
+};
+
+auto powerAction = [](double firstNumber, double secondNumber) {
+    return std::pow(firstNumber, secondNumber);
+};
+
+auto factorialAction = [](double firstNumber) {
+    unsigned int factorial = std::abs(firstNumber);
+    int result = 1;
+
+    for (int i = factorial; i > 0; i--) {
+        result *= firstNumber;
+    }
+    return result;
+};
 
 using specMap = std::map<char, std::function<void()>>;
 specMap actionsHolder;
