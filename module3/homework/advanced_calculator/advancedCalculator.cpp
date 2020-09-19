@@ -4,7 +4,7 @@
 
 void startCalculate() {
     printWelcomeScreen();
-    calculate();
+    mainLoop();
     printGoodByeScreen();
 }
 
