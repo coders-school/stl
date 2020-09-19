@@ -6,7 +6,6 @@
 #include <regex>
 
 auto addAction = [](double firstNumber, double secondNumber) {
-    std::cout << "add\n";
     return firstNumber + secondNumber;
 };
 
@@ -39,7 +38,6 @@ auto factorialAction = [](double firstNumber, double secondNumber) {
     int result = firstNumber;
 
     for (int i = steps - 1; i > 0; i--) {
-        std::cout << "result: " << result << " i " << i << "\n";
         result *= i;
     }
 
