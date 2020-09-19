@@ -44,11 +44,18 @@ ErrorCode process(std::string input, double* out) {
         if (correctInput[0] != input) {
             return ErrorCode::BadFormat;
         }
-    }
+        double firstValue = std::stod(correctInput[1]);
+        double secondValue = std::stod(correctInput[3]);
+        std::string command = correctInput[2];
 
-    double firstValue = std::stod(correctInput[1]);
-    double secondValue = std::stod(correctInput[3]);
-    std::string command = correctInput[2];
-    
-
+        if(command == "/" && secondValue == 0){
+            return ErrorCode::DivideBy0;
+        } else if(command == "$" && (secondValue < 0)){
+            return ErrorCode::SqrtOfNegativeNumber;
+        } else if(command == "%" && (!std::isdigit(firstValue) || !std::isdigit(secondValue))){
+            return ErrorCode::ModuleOfNonIntegerValue;
+        }   
+            *out = commands.at(command)(firstValue, secondValue);
+            return ErrorCode::OK;
+    } 
 }
