@@ -25,4 +25,10 @@ void makeAction(Action choice);
 void printHelp();
 void printGoodByeScreen();
 
+bool isBadCharacter(std::string input);
+bool isBadFormat(std::string input);
+bool isDivideBy0(std::string input);
+bool isSqrtOfNegativeNumber(std::string input);
+bool isModuleOfNonIntegerValue(std::string input);
+
 ErrorCode process(std::string input, double* out);
