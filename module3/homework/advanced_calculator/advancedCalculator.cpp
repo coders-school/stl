@@ -72,8 +72,8 @@ void printGoodByeScreen() {
 }
 
 bool isBadCharacter(std::string input) {
-    return (std::any_of(input.begin(), input.end(), [](auto el) { 
-        return !(std::isdigit(el) || std::isnormal(el) || operations.find(el) != operations.end()); }));
+    return (std::any_of(input.cbegin(), input.cend(), [](auto el) { 
+        return !(std::isdigit(el) || std::isnormal(el) || operations.find(el) != operations.cend()); }));
 }
 
 bool isBadFormat(std::string input) {
