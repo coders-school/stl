@@ -25,6 +25,7 @@ void makeAction(Action choice);
 void printHelp();
 void printGoodByeScreen();
 
+bool isComma(const char input);
 bool isBadCharacter(std::string input);
 bool isBadFormat(std::string input);
 bool isDivideBy0(std::string input);

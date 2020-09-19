@@ -28,6 +28,11 @@ void printWelcomeScreen() {
 void makeAction(Action choice) {
     switch (choice) {
         case Action::Calculate: {
+            std::string input;
+            double output;
+            std::getline(std::cin, input);
+            process(input, & output);
+            std::cout << "Result \n" << output;
             break;
         }
         case Action::Help: {
@@ -71,9 +76,13 @@ void printGoodByeScreen() {
     std::cout << "Thank you for using our services. \n";
 }
 
+bool isComma(const char input) {
+    return input == '.' || ',';
+}
+
 bool isBadCharacter(std::string input) {
     return (std::any_of(input.cbegin(), input.cend(), [](auto el) { 
-        return !(std::isdigit(el) || std::isnormal(el) || operations.find(el) != operations.cend()); }));
+        return !(std::isdigit(el) || isComma(el) || operations.find(el) != operations.cend()); }));
 }
 
 bool isBadFormat(std::string input) {
@@ -96,5 +105,6 @@ ErrorCode process(std::string input, double* out) {
     if (isBadCharacter(input)) {
         return ErrorCode::BadCharacter;
     }
+
     return ErrorCode::OK;
 }
