@@ -346,7 +346,11 @@ ___
 
 ## Hash Table
 
+<<<<<<< HEAD
 <image src="https://ycpcs.github.io/cs201-fall2018/notes/figures/chainedHashing.png">
+=======
+<image src="img/chainedHashing.png">
+>>>>>>> 1d66207fc7ef740be07bd53cc49682d57a83c218
 
 ___
 <!-- .slide: style="font-size: 0.8em" -->

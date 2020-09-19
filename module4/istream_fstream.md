@@ -4,7 +4,11 @@
 
 ___
 
+<<<<<<< HEAD
 ## Krótka pasta o iteratorach
+=======
+## Krótka pasta o strumieniach
+>>>>>>> 1d66207fc7ef740be07bd53cc49682d57a83c218
 
 <img src="img/iostream.gif">
 

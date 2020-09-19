@@ -4,6 +4,18 @@
 
 ___
 
+<<<<<<< HEAD
+=======
+## Post-work
+
+* innerProduct (10 XP)
+* advancedCalculator (25 XP)
+
++3 XP za dostarczenie każdego zadania przed 20.09.2020 23:59
+
+___
+
+>>>>>>> 1d66207fc7ef740be07bd53cc49682d57a83c218
 ## Zadanie 1
 
 Wykorzystując `std::inner_product`, napisz program, który obliczy średnią arytmetyczną dwóch `std::vector<int>`.
@@ -63,7 +75,11 @@ ___
 * <!-- .element: class="fragment fade-in" --> Obliczanie silni (<code>!</code>),
 * <!-- .element: class="fragment fade-in" --> Podnoszenie liczby do potęgi (<code>^</code>),
 * <!-- .element: class="fragment fade-in" --> Obliczanie pierwiastka (<code>$</code>).
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> 1d66207fc7ef740be07bd53cc49682d57a83c218
 ___
 
 ### Error code

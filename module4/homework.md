@@ -4,6 +4,18 @@
 
 ___
 
+<<<<<<< HEAD
+=======
+## Post-work
+
+* recipes (25 XP)
+* adapters (10, 20 lub 30 XP)
+
++3 XP za dostarczenie każdego zadania przed 20.09.2020 23:59
+
+___
+
+>>>>>>> 1d66207fc7ef740be07bd53cc49682d57a83c218
 ## Zadanie 1
 
 Napisz funkcję, która umożliwi zapisywanie nowych przepisów w pliku `recipes.txt`. Zwróć false, jeżeli nie uda się zapisać przepisu.

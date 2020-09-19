@@ -37,7 +37,11 @@ Jeżeli nie chcemy modyfikować danych wskazywanych przez iterator zastosujemy o
 
 ___
 
+<<<<<<< HEAD
 ## Hierarhia iteratorów
+=======
+## Hierarchia iteratorów
+>>>>>>> 1d66207fc7ef740be07bd53cc49682d57a83c218
 
 <image src="img/iterator_categories.gif" height="350px">
 
@@ -89,7 +93,11 @@ Input iterator:
 Output iterator:
 <!-- .element: class="fragment fade-in" -->
 
+<<<<<<< HEAD
 * <!-- .element: class="fragment fade-in" --> <code>operator()++</code>
+=======
+* <!-- .element: class="fragment fade-in" --> <code>operator++</code>
+>>>>>>> 1d66207fc7ef740be07bd53cc49682d57a83c218
 * <!-- .element: class="fragment fade-in" --> <code>operator*</code>
 
 ___
