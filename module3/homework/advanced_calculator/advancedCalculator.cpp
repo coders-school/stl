@@ -61,7 +61,7 @@ void printGoodByeScreen() {
 
 bool isBadCharacter(std::string input) {
     return (std::any_of(input.begin(), input.end(), [](auto el) { 
-        return !(std::isdigit(el) || std::iscoma(el) || operations.find(el) != operations.end(); }));
+        return !(std::isdigit(el) || std::iscomma(el) || operations.find(el) != operations.end(); }));
 }
 
 bool isBadFormat(std::string input) {
@@ -87,7 +87,7 @@ ErrorCode process(std::string input, double* out) {
     return ErrorCode::OK;
 }
 
-const std::map<std::string, std::function<double(double, double)>> operations{
+const std::map<std::string, std::function<double(double, double)>> operations {
     {"+", std::plus<double>()},
     {"*", std::multiplies<double>()},
     {"/", std::divides<double>()},
