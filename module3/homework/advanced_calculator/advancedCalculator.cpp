@@ -35,6 +35,18 @@ void calculate() {
     }
 }
 
+void printHelp() {
+    std::cout << "You can use operations: \n
+                  Add [+] \n 
+                  Multiply [*] \n 
+                  Divide [/]\n
+                  Substract [-] \n
+                  Modulo [%] \n
+                  Factorial [!]\n
+                  Power [^]\n  
+                  Root [$]\n"
+}
+
 void printGoodByeScreen() {
     std::cout << "Thank you for using our services. \n";
 }
