@@ -50,15 +50,14 @@ std::vector<std::string> unpackExpression(std::string input)
     std::string action{};
     std::string secondNumber{};
 
-    
     if (std::regex_match(input, singleMatch, patternUnary)) {
         firstNumber = singleMatch[1];
         action = singleMatch[4];
         secondNumber = "Unary expression";
-    } 
-    
-    if(std::regex_match(input, singleMatch, patternBinary)) {
-        for(auto match : singleMatch) {
+    }
+
+    if (std::regex_match(input, singleMatch, patternBinary)) {
+        for (auto match : singleMatch) {
             std::cout << match << "\n";
         }
         firstNumber = singleMatch[1];
@@ -66,43 +65,41 @@ std::vector<std::string> unpackExpression(std::string input)
         secondNumber = singleMatch[5];
     }
 
-    return {{firstNumber},{action},{secondNumber}};
+    return {{firstNumber}, {action}, {secondNumber}};
 }
 
-ErrorCode prohibitedOperations(std::vector<std::string> unpackedElements) {
-
+ErrorCode prohibitedOperations(std::vector<std::string> unpackedElements)
+{
     double firstNumber = std::stod(unpackedElements[0]);
     std::string action = unpackedElements[1];
     double secondNumber = std::stod(unpackedElements[2]);
 
-    if((action == "/") && (!secondNumber)){
+    if ((action == "/") && (!secondNumber)) {
         return ErrorCode::DivideBy0;
     }
 
-    if((action == "%") && (!std::isdigit(secondNumber))){
+    if ((action == "%") && (!std::isdigit(secondNumber))) {
         return ErrorCode::ModuleOfNonIntegerValue;
     }
 
-    if((action == "$") && (firstNumber < 0)){
+    if ((action == "$") && (firstNumber < 0)) {
         return ErrorCode::SqrtOfNagativeNumber;
     }
-    
 
     return ErrorCode::OK;
-
 }
 
 ErrorCode process(std::string input, double* out)
 {
-    ErrorCode errorCode {ErrorCode::OK};
-    std::vector<std::string> unpackedElements{}; 
+    ErrorCode errorCode{ErrorCode::OK};
+    std::vector<std::string> unpackedElements{};
 
     input = eraseSpaces(input);
     errorCode = allowedCharacters(input);
     errorCode = allowedFormat(input);
     unpackedElements = unpackExpression(input);
-
     errorCode = prohibitedOperations(unpackedElements);
+
 
 
     return errorCode;
