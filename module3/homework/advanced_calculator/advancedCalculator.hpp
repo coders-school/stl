@@ -10,7 +10,7 @@ enum class ErrorCode {
     BadCharacter,
     DivideBy0,
     ModuleOfNonIntegerValue,
-    SqrtOfNagativeNumber
+    SqrtOfNegativeNumber
 };
 
 std::string eraseSpaces(std::string input);

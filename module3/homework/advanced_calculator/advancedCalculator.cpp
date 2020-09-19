@@ -6,6 +6,7 @@
 #include <regex>
 
 auto addAction = [](double firstNumber, double secondNumber) {
+    std::cout << "add\n";
     return firstNumber + secondNumber;
 };
 
@@ -21,7 +22,7 @@ auto multiplyAction = [](double firstNumber, double secondNumber) {
     return firstNumber * secondNumber;
 };
 
-auto moduloAction = [](double firstNumber, double secondNumber) -> double {
+auto moduloAction = [](double firstNumber, double secondNumber) {
     return (int)firstNumber % (int)secondNumber;
 };
 
@@ -30,17 +31,18 @@ auto sqrtAction = [](double firstNumber, double secondNumber) {
 };
 
 auto powerAction = [](double firstNumber, double secondNumber) {
-    //std::cout << "f: " << firstNumber << " s: " << secondNumber << "\n";
     return std::pow(firstNumber, secondNumber);
 };
 
 auto factorialAction = [](double firstNumber, double secondNumber) {
-    unsigned int factorial = std::abs(firstNumber);
-    int result = 1;
+    unsigned int steps = std::abs(firstNumber);
+    int result = firstNumber;
 
-    for (int i = factorial; i > 0; i--) {
-        result *= firstNumber;
+    for (int i = steps - 1; i > 0; i--) {
+        std::cout << "result: " << result << " i " << i << "\n";
+        result *= i;
     }
+
     return result;
 };
 
@@ -69,7 +71,7 @@ ErrorCode allowedCharacters(std::string input)
 ErrorCode allowedFormat(std::string input)
 {
     std::regex patternUnary("(([-]?[0-9]+)|([-]?[0-9]+[/.][0-9]+))(!)");
-    std::regex patternBinary("(([-]?[0-9]+)|([-]?[0-9]+[/.][0-9]+))([-/+/*///^%!/$])(([-]?[0-9]+)|([-]?[0-9]+[/.][0-9]+))");
+    std::regex patternBinary("(([-]?[0-9]+)|([-]?[0-9]+[/.][0-9]+))([-/+/*///^%/$])(([-]?[0-9]+)|([-]?[0-9]+[/.][0-9]+))");
 
     std::smatch singleMatch;
 
@@ -93,7 +95,7 @@ std::vector<std::string> unpackExpression(std::string input)
     if (std::regex_match(input, singleMatch, patternUnary)) {
         firstNumber = singleMatch[1];
         action = singleMatch[4];
-        secondNumber = "Unary expression";
+        secondNumber = "0";
     }
 
     if (std::regex_match(input, singleMatch, patternBinary)) {
@@ -115,12 +117,22 @@ ErrorCode prohibitedOperations(std::vector<std::string> unpackedElements)
         return ErrorCode::DivideBy0;
     }
 
-    if ((action == "%") && (!std::isdigit(firstNumber)) && (!std::isdigit(secondNumber))) {
-        return ErrorCode::ModuleOfNonIntegerValue;
+    if (action == "%") {
+        if (firstNumber > 0 || secondNumber > 0) {
+            if ((firstNumber - int(firstNumber) > 0) || (secondNumber - int(secondNumber) > 0)) {
+                return ErrorCode::ModuleOfNonIntegerValue;
+            }
+        }
+
+        if (firstNumber < 0 || secondNumber < 0) {
+            if ((firstNumber - int(firstNumber) < 0) || (secondNumber - int(secondNumber) < 0)) {
+                return ErrorCode::ModuleOfNonIntegerValue;
+            }
+        }
     }
 
     if ((action == "$") && (firstNumber < 0)) {
-        return ErrorCode::SqrtOfNagativeNumber;
+        return ErrorCode::SqrtOfNegativeNumber;
     }
 
     return ErrorCode::OK;
@@ -155,11 +167,16 @@ ErrorCode process(std::string input, double* out)
 
     input = eraseSpaces(input);
     errorCode = allowedCharacters(input);
-    errorCode = allowedFormat(input);
-    unpackedElements = unpackExpression(input);
-    errorCode = prohibitedOperations(unpackedElements);
-
-    *out = calculate(actionsHolder, unpackedElements);
+    if (errorCode == ErrorCode::OK) {
+        errorCode = allowedFormat(input);
+    }
+    if (errorCode == ErrorCode::OK) {
+        unpackedElements = unpackExpression(input);
+        errorCode = prohibitedOperations(unpackedElements);
+    };
+    if (errorCode == ErrorCode::OK) {
+        *out = calculate(actionsHolder, unpackedElements);
+    }
 
     return errorCode;
 }

@@ -84,55 +84,55 @@ TEST(advancedCalculatorTest, ShouldPower) {
     EXPECT_TRUE(cmp(result, 0.000976562));
 }
 
-TEST(advancedCalculatorTest, ShouldCalculateSqrt) {
+TEST(advancedCalculatorTest, ShouldCalculateRoot) {
     double result = 0;
 
     ASSERT_EQ(process("225 $3", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 8.77915e-08));
+    EXPECT_TRUE(cmp(result, 6.0822));
     ASSERT_EQ(process("1024$ 2", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 9.53674e-07));
+    EXPECT_TRUE(cmp(result, 32.));
     ASSERT_EQ(process("1024$4", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 9.09495e-13));
+    EXPECT_TRUE(cmp(result, 5.65685));
     ASSERT_EQ(process("13.71 $-4", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 35330.5));
+    EXPECT_TRUE(cmp(result, 5.19686e-1));
     ASSERT_EQ(process("2.5 $ 2.5", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 0.101193));
+    EXPECT_TRUE(cmp(result, 1.4427));
 }
 
 TEST(advancedCalculatorTest, ShouldModulo) {
     double result = 0;
 
     ASSERT_EQ(process("225 %1000", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 225));
+    EXPECT_TRUE(cmp(result, 225.0));
     ASSERT_EQ(process("7% 3", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 1));
+    EXPECT_TRUE(cmp(result, 1.0));
     ASSERT_EQ(process("1024%7", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 2));
+    EXPECT_TRUE(cmp(result, 2.0));
     ASSERT_EQ(process("1378 % 91", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 13));
+    EXPECT_TRUE(cmp(result, 13.0));
     ASSERT_EQ(process("-2091% 67", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, -14));
+    EXPECT_TRUE(cmp(result, -14.0));
     ASSERT_EQ(process("-2091 %-67", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, -14));
+    EXPECT_TRUE(cmp(result, -14.0));
     ASSERT_EQ(process("2091%-67", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 14));
+    EXPECT_TRUE(cmp(result, 14.0));
 }
-
+/*
 TEST(advancedCalculatorTest, ShouldFactorial) {
     double result = 0;
 
     ASSERT_EQ(process("5!", &result), ErrorCode::OK);
     EXPECT_TRUE(cmp(result, 120));
     ASSERT_EQ(process("6.7!", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 3048.33));
+    EXPECT_TRUE(cmp(result, 2769.83));
     ASSERT_EQ(process("3.435!", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 12.0027));
+    EXPECT_TRUE(cmp(result, 10.63327));
     ASSERT_EQ(process("-13!", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 1));
+    EXPECT_TRUE(cmp(result, -6227020800));
     ASSERT_EQ(process("-12.4!", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 1));
+    EXPECT_TRUE(cmp(result, -1324024774.02));
 }
-
+*/
 TEST(advancedCalculatorTest, ShouldReturnBadFormat) {
     double result = 0;
 
@@ -146,10 +146,6 @@ TEST(advancedCalculatorTest, ShouldReturnBadFormat) {
     ASSERT_EQ(process("12 ^% 3", &result), ErrorCode::BadFormat);
     ASSERT_EQ(process("+ 3 4", &result), ErrorCode::BadFormat);
     ASSERT_EQ(process("12.4.3 + 12.3", &result), ErrorCode::BadFormat);
-    ASSERT_EQ(process("-98 + 12.3 =", &result), ErrorCode::BadFormat);
-    ASSERT_EQ(process("123 -#- 4", &result), ErrorCode::BadFormat);
-    ASSERT_EQ(process("qwert + 123", &result), ErrorCode::BadFormat);
-    ASSERT_EQ(process("123,4 ; 345", &result), ErrorCode::BadFormat);
     ASSERT_EQ(process("123.4 ! 345", &result), ErrorCode::BadFormat);
 }
 
@@ -163,6 +159,10 @@ TEST(advancedCalculatorTest, ShouldReturnBadCharacter) {
     ASSERT_EQ(process("123 \\ 123", &result), ErrorCode::BadCharacter);
     ASSERT_EQ(process("-123 [ -123", &result), ErrorCode::BadCharacter);
     ASSERT_EQ(process("-123 ] 123", &result), ErrorCode::BadCharacter);
+    ASSERT_EQ(process("-98 + 12.3 =", &result), ErrorCode::BadCharacter);
+    ASSERT_EQ(process("123 -#- 4", &result), ErrorCode::BadCharacter);
+    ASSERT_EQ(process("qwert + 123", &result), ErrorCode::BadCharacter);
+    ASSERT_EQ(process("123,4 ; 345", &result), ErrorCode::BadCharacter);
 }
 
 TEST(advancedCalculatorTest, ShouldReturnDivideBy0) {
@@ -185,13 +185,13 @@ TEST(advancedCalculatorTest, ShouldReturnModuleOfNonIntegerValue) {
     ASSERT_EQ(process("123.1 % 0.1", &result), ErrorCode::ModuleOfNonIntegerValue);
 }
 
-TEST(advancedCalculatorTest, ShouldReturnSqrtOfNagativeNumber) {
+TEST(advancedCalculatorTest, ShouldReturnRootOfNegativeNumber) {
     double result = 0;
 
-    ASSERT_EQ(process("-123 $ -1", &result), ErrorCode::SqrtOfNagativeNumber);
-    ASSERT_EQ(process("-123.4 $ -1", &result), ErrorCode::SqrtOfNagativeNumber);
-    ASSERT_EQ(process("-123.2 $ 1", &result), ErrorCode::SqrtOfNagativeNumber);
-    ASSERT_EQ(process("-123 $ 1", &result), ErrorCode::SqrtOfNagativeNumber);
+    ASSERT_EQ(process("-123 $ -1", &result), ErrorCode::SqrtOfNegativeNumber);
+    ASSERT_EQ(process("-123.4 $ -1", &result), ErrorCode::SqrtOfNegativeNumber);
+    ASSERT_EQ(process("-123.2 $ 1", &result), ErrorCode::SqrtOfNegativeNumber);
+    ASSERT_EQ(process("-123 $ 1", &result), ErrorCode::SqrtOfNegativeNumber);
 }
 
 TEST(advancedCalculatorTest, ShouldEraseAllSpaces) {
@@ -245,6 +245,8 @@ TEST(advancedCalculatorTest, ShouldReturnBadFormatOrOK) {
     ASSERT_EQ(allowedFormat("-5.55%-23"), ErrorCode::OK);
     ASSERT_EQ(allowedFormat("5-2"), ErrorCode::OK);
     ASSERT_EQ(allowedFormat("5.5-2.2"), ErrorCode::OK);
+    ASSERT_EQ(allowedFormat("5,1!"), ErrorCode::BadFormat);
+    ASSERT_EQ(allowedFormat("13.4 ++ 12.43"), ErrorCode::BadFormat);
 }
 
 TEST(advancedCalculatorTest, ShouldUnpackExpressionToVector) {
@@ -252,7 +254,7 @@ TEST(advancedCalculatorTest, ShouldUnpackExpressionToVector) {
     ASSERT_EQ(unpackExpression("123+123"), (std::vector<std::string> {{"123"},{"+"},{"123"}}));
     ASSERT_EQ(unpackExpression("5.5-2.2"), (std::vector<std::string> {{"5.5"},{"-"},{"2.2"}}));
     ASSERT_EQ(unpackExpression("-90.1*1.23"), (std::vector<std::string> {{"-90.1"},{"*"},{"1.23"}}));
-    ASSERT_EQ(unpackExpression("23!"), (std::vector<std::string> {{"23"},{"!"},{"Unary expression"}}));
+    ASSERT_EQ(unpackExpression("23!"), (std::vector<std::string> {{"23"},{"!"},{"0"}}));
     ASSERT_EQ(unpackExpression("50.6^23"), (std::vector<std::string> {{"50.6"},{"^"},{"23"}}));
 }
 
@@ -277,9 +279,9 @@ TEST(advancedCalculatorTest, ShouldReturnProhibitedOperationsErrorOrOK) {
     ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-1.23"},{"%"},{"-0.0123"}})), ErrorCode::ModuleOfNonIntegerValue);
     ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-123.0"},{"%"},{"0.1"}})), ErrorCode::ModuleOfNonIntegerValue);
 
-    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-12.3"},{"$"},{"-1"}})), ErrorCode::SqrtOfNagativeNumber);
-    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-12.3"},{"$"},{"0.5"}})), ErrorCode::SqrtOfNagativeNumber);
-    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-0.123"},{"$"},{"-10"}})), ErrorCode::SqrtOfNagativeNumber);
-    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-13.4"},{"$"},{"1"}})), ErrorCode::SqrtOfNagativeNumber);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-12.3"},{"$"},{"-1"}})), ErrorCode::SqrtOfNegativeNumber);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-12.3"},{"$"},{"0.5"}})), ErrorCode::SqrtOfNegativeNumber);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-0.123"},{"$"},{"-10"}})), ErrorCode::SqrtOfNegativeNumber);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-13.4"},{"$"},{"1"}})), ErrorCode::SqrtOfNegativeNumber);
 
 }
