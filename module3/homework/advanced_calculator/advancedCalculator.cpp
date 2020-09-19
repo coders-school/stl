@@ -6,6 +6,17 @@
 #include <map>
 #include <regex>
 
+double calculateFactorial(double number){
+    if(number <= 1){
+        return 1;
+    }
+    return std::tgamma(number + 1);
+}
+
+bool isInt(double number){
+    return std::abs(number) - std::abs(static_cast<int>(number)) == 0;
+}
+
 const std::map<std::string, std::function<double(double, double)>> commands{
     {"+", std::plus<double>()},
     {"-", std::minus<double>()},
@@ -50,9 +61,9 @@ ErrorCode process(std::string input, double* out) {
 
         if(command == "/" && secondValue == 0){
             return ErrorCode::DivideBy0;
-        } else if(command == "$" && (secondValue < 0)){
+        } else if(command == "$" && (firstValue < 0)){
             return ErrorCode::SqrtOfNegativeNumber;
-        } else if(command == "%" && (!std::isdigit(firstValue) || !std::isdigit(secondValue))){
+        } else if(command == "%" && ( !isInt(firstValue) || !isInt(secondValue))){
             return ErrorCode::ModuleOfNonIntegerValue;
         }   
             *out = commands.at(command)(firstValue, secondValue);
@@ -64,7 +75,7 @@ ErrorCode process(std::string input, double* out) {
 
         double result = std::stod(correctInput[1]);
         *out = calculateFactorial(result);
-        return ErrorCode::OK
+        return ErrorCode::OK;
     }
     return ErrorCode::BadFormat; 
 }
