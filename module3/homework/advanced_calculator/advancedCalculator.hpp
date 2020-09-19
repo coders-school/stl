@@ -21,6 +21,7 @@ enum class Action {
 void startCalculate();
 void printWelcomeScreen();
 void calculate();
+void makeAction();
 void printHelp();
 void printGoodByeScreen();
 
