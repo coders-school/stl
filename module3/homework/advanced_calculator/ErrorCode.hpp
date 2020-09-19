@@ -1,4 +1,6 @@
-enum class ErrorCode{
+#pragma once
+
+enum class ErrorCode {
     Ok,
     BadCharacter,
     BadFormat,
