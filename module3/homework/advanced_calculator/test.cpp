@@ -259,4 +259,27 @@ TEST(advancedCalculatorTest, ShouldUnpackExpressionToVector) {
 TEST(advancedCalculatorTest, ShouldReturnProhibitedOperationsErrorOrOK) {
 
     ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"123"},{"/"},{"0"}})), ErrorCode::DivideBy0);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"123"},{"/"},{"0.0"}})), ErrorCode::DivideBy0);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"123"},{"/"},{"-0"}})), ErrorCode::DivideBy0);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"123"},{"/"},{"-0.0"}})), ErrorCode::DivideBy0);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-123"},{"/"},{"0"}})), ErrorCode::DivideBy0);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-123"},{"/"},{"0.0"}})), ErrorCode::DivideBy0);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-123"},{"/"},{"-0"}})), ErrorCode::DivideBy0);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-123"},{"/"},{"-0.0"}})), ErrorCode::DivideBy0);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-1.23"},{"/"},{"0"}})), ErrorCode::DivideBy0);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-12.3"},{"/"},{"0.0"}})), ErrorCode::DivideBy0);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-12.3"},{"/"},{"-0"}})), ErrorCode::DivideBy0);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-0.123"},{"/"},{"-0.0"}})), ErrorCode::DivideBy0);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"0"},{"/"},{"0"}})), ErrorCode::DivideBy0);
+
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"123"},{"%"},{"0.1"}})), ErrorCode::ModuleOfNonIntegerValue);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-123.6"},{"%"},{"0.005"}})), ErrorCode::ModuleOfNonIntegerValue);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-1.23"},{"%"},{"-0.0123"}})), ErrorCode::ModuleOfNonIntegerValue);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-123.0"},{"%"},{"0.1"}})), ErrorCode::ModuleOfNonIntegerValue);
+
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-12.3"},{"$"},{"-1"}})), ErrorCode::SqrtOfNagativeNumber);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-12.3"},{"$"},{"0.5"}})), ErrorCode::SqrtOfNagativeNumber);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-0.123"},{"$"},{"-10"}})), ErrorCode::SqrtOfNagativeNumber);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-13.4"},{"$"},{"1"}})), ErrorCode::SqrtOfNagativeNumber);
+
 }

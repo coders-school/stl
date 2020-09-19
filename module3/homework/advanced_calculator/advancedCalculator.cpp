@@ -47,8 +47,8 @@ std::vector<std::string> unpackExpression(std::string input)
     std::smatch singleMatch;
 
     std::string firstNumber{};
-    std::string secondNumber{};
     std::string action{};
+    std::string secondNumber{};
 
     
     if (std::regex_match(input, singleMatch, patternUnary)) {
@@ -70,7 +70,26 @@ std::vector<std::string> unpackExpression(std::string input)
 }
 
 ErrorCode prohibitedOperations(std::vector<std::string> unpackedElements) {
+
+    double firstNumber = std::stod(unpackedElements[0]);
+    std::string action = unpackedElements[1];
+    double secondNumber = std::stod(unpackedElements[2]);
+
+    if((action == "/") && (!secondNumber)){
+        return ErrorCode::DivideBy0;
+    }
+
+    if((action == "%") && (!std::isdigit(secondNumber))){
+        return ErrorCode::ModuleOfNonIntegerValue;
+    }
+
+    if((action == "$") && (firstNumber < 0)){
+        return ErrorCode::SqrtOfNagativeNumber;
+    }
+    
+
     return ErrorCode::OK;
+
 }
 
 ErrorCode process(std::string input, double* out)
