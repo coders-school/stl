@@ -30,13 +30,15 @@ void makeAction(Action choice) {
 }
 
 void mainLoop() {
-    while(true) {
+    while (true) {
         std::cout << "Choose what you want to do: \n"
                   << "1 - calculate \n 2 - help \n 3 - end \n"
         int pickAction;
         std::cin >> pickAction;
         void makeAction(static_cast<Action>(pickAction));
-        break;
+        if (pickAction == Action::End) {
+            break;
+        }
     }
 }
 
