@@ -12,6 +12,12 @@ enum class ErrorCode {
     ModuleOfNonIntegerValue,
 };
 
+enum class Action {
+    Calculate,
+    Help,
+    Exit,
+};
+
 void startCalculate();
 void printWelcomeScreen();
 void calculate();
