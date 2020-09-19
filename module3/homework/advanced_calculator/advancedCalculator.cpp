@@ -37,7 +37,7 @@ ErrorCode process(std::string input, double* out) {
     }
 
     std::regex commandPattern(R"(([-]?\d+\.\d+|[-]?\d+)\s?([+*/\-%^$])\s?([-]?\d+\.\d+|[-]?\d+))");
-
+    std::regex factorialPattern(R"(([-]?\d+\.\d+|[-]?\d+)\s?(\!))");
     std::smatch correctInput;
 
     if (std::regex_search(input, correctInput, commandPattern)) {
@@ -57,5 +57,14 @@ ErrorCode process(std::string input, double* out) {
         }   
             *out = commands.at(command)(firstValue, secondValue);
             return ErrorCode::OK;
-    } 
+    } else if (std::regex_search(input, correctInput, factorialPattern)){
+        if(correctInput[0] != input){
+            return ErrorCode::BadFormat;
+        }
+
+        double result = std::stod(correctInput[1]);
+        *out = calculateFactorial(result);
+        return ErrorCode::OK
+    }
+    return ErrorCode::BadFormat; 
 }
