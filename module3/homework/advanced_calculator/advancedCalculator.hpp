@@ -21,6 +21,7 @@ enum class Action {
 void startCalculate();
 void printWelcomeScreen();
 void calculate();
+void printHelp();
 void printGoodByeScreen();
 
 ErrorCode process(std::string input, double* out);
