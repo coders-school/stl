@@ -36,7 +36,7 @@ void mainLoop() {
         int pickAction;
         std::cin >> pickAction;
         void makeAction(static_cast<Action>(pickAction));
-        if (pickAction == Action::End) {
+        if (pickAction == Action::Exit) {
             break;
         }
     }
