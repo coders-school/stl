@@ -103,19 +103,19 @@ TEST(advancedCalculatorTest, ShouldModulo) {
     double result = 0;
 
     ASSERT_EQ(process("225 %1000", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 225.0));
+    EXPECT_TRUE(cmp(result, 225));
     ASSERT_EQ(process("7% 3", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 1.0));
+    EXPECT_TRUE(cmp(result, 1));
     ASSERT_EQ(process("1024%7", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 2.0));
+    EXPECT_TRUE(cmp(result, 2));
     ASSERT_EQ(process("1378 % 91", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 13.0));
+    EXPECT_TRUE(cmp(result, 13));
     ASSERT_EQ(process("-2091% 67", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, -14.0));
+    EXPECT_TRUE(cmp(result, -14));
     ASSERT_EQ(process("-2091 %-67", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, -14.0));
+    EXPECT_TRUE(cmp(result, -14));
     ASSERT_EQ(process("2091%-67", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 14.0));
+    EXPECT_TRUE(cmp(result, 14));
 }
 
 TEST(advancedCalculatorTest, ShouldFactorial) {

@@ -6,16 +6,11 @@
 
 int main(){
 
-    std::string input {"5.5-5.5"};
-    std::vector<std::string> allActions{};
+    std::string input {"2$1024 "};
+    double result{};
 
-    allActions = unpackExpression(input);
-
-    std::cout << "ALL ACTIONS!\n";
-    for(auto action : allActions) {
-        std::cout << action << "\n";
-    }
-    
+    process(input, &result);
+    std::cout << result << "\n";
 
 return 0;
 }

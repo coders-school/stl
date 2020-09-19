@@ -5,6 +5,45 @@
 #include <iostream>
 #include <regex>
 
+auto addAction = [](double firstNumber, double secondNumber) {
+    return firstNumber + secondNumber;
+};
+
+auto substractAction = [](double firstNumber, double secondNumber) {
+    return firstNumber - secondNumber;
+};
+
+auto divideAction = [](double firstNumber, double secondNumber) {
+    return firstNumber / secondNumber;
+};
+
+auto multiplyAction = [](double firstNumber, double secondNumber) {
+    return firstNumber * secondNumber;
+};
+
+auto moduloAction = [](double firstNumber, double secondNumber) -> double {
+    return (int)firstNumber % (int)secondNumber;
+};
+
+auto sqrtAction = [](double firstNumber, double secondNumber) {
+    return std::pow(firstNumber, 1 / secondNumber);
+};
+
+auto powerAction = [](double firstNumber, double secondNumber) {
+    //std::cout << "f: " << firstNumber << " s: " << secondNumber << "\n";
+    return std::pow(firstNumber, secondNumber);
+};
+
+auto factorialAction = [](double firstNumber, double secondNumber) {
+    unsigned int factorial = std::abs(firstNumber);
+    int result = 1;
+
+    for (int i = factorial; i > 0; i--) {
+        result *= firstNumber;
+    }
+    return result;
+};
+
 std::string eraseSpaces(std::string input)
 {
     input.erase(std::remove_if(input.begin(),
@@ -58,9 +97,6 @@ std::vector<std::string> unpackExpression(std::string input)
     }
 
     if (std::regex_match(input, singleMatch, patternBinary)) {
-        for (auto match : singleMatch) {
-            std::cout << match << "\n";
-        }
         firstNumber = singleMatch[1];
         action = singleMatch[4];
         secondNumber = singleMatch[5];
@@ -79,7 +115,7 @@ ErrorCode prohibitedOperations(std::vector<std::string> unpackedElements)
         return ErrorCode::DivideBy0;
     }
 
-    if ((action == "%") && (!std::isdigit(secondNumber))) {
+    if ((action == "%") && (!std::isdigit(firstNumber)) && (!std::isdigit(secondNumber))) {
         return ErrorCode::ModuleOfNonIntegerValue;
     }
 
@@ -90,8 +126,30 @@ ErrorCode prohibitedOperations(std::vector<std::string> unpackedElements)
     return ErrorCode::OK;
 }
 
+double calculate(specMap actionsHolder, std::vector<std::string> unpackedElements)
+{
+    double firstNumber = std::stod(unpackedElements[0]);
+    const char* action = unpackedElements[1].c_str();
+    double secondNumber = std::stod(unpackedElements[2]);
+
+    specMap::iterator it = actionsHolder.find(*action);
+    auto result = it->second(firstNumber, secondNumber);
+
+    return result;
+}
+
 ErrorCode process(std::string input, double* out)
 {
+    specMap actionsHolder{
+        {'+', addAction},
+        {'-', substractAction},
+        {'/', divideAction},
+        {'*', multiplyAction},
+        {'%', moduloAction},
+        {'^', powerAction},
+        {'$', sqrtAction},
+        {'!', factorialAction}};
+
     ErrorCode errorCode{ErrorCode::OK};
     std::vector<std::string> unpackedElements{};
 
@@ -101,46 +159,7 @@ ErrorCode process(std::string input, double* out)
     unpackedElements = unpackExpression(input);
     errorCode = prohibitedOperations(unpackedElements);
 
+    *out = calculate(actionsHolder, unpackedElements);
+
     return errorCode;
 }
-
-auto addAction = [](double firstNumber, double secondNumber) {
-    return firstNumber + secondNumber;
-};
-
-auto substractAction = [](double firstNumber, double secondNumber) {
-    return firstNumber - secondNumber;
-};
-
-auto divideAction = [](double firstNumber, double secondNumber) {
-    return firstNumber / secondNumber;
-};
-
-auto multiplyAction = [](double firstNumber, double secondNumber) {
-    return firstNumber * secondNumber;
-};
-
-auto moduloAction = [](int firstNumber, int secondNumber) {
-    return firstNumber % secondNumber;
-};
-
-auto sqrtAction = [](double firstNumber, double secondNumber) {
-    return std::pow(firstNumber, 1/secondNumber);
-};
-
-auto powerAction = [](double firstNumber, double secondNumber) {
-    return std::pow(firstNumber, secondNumber);
-};
-
-auto factorialAction = [](double firstNumber) {
-    unsigned int factorial = std::abs(firstNumber);
-    int result = 1;
-
-    for (int i = factorial; i > 0; i--) {
-        result *= firstNumber;
-    }
-    return result;
-};
-
-using specMap = std::map<char, std::function<void()>>;
-specMap actionsHolder;

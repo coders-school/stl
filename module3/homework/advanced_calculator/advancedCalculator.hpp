@@ -19,4 +19,7 @@ ErrorCode allowedFormat(std::string input);
 std::vector<std::string> unpackExpression(std::string input);
 ErrorCode prohibitedOperations(std::vector<std::string> unpackedElements);
 
+using specMap = std::map<char, std::function<double(double,double)>>;
+double calculate(specMap actionsHolder, std::vector<std::string> unpackedElements);
+
 ErrorCode process(std::string input, double* out);
