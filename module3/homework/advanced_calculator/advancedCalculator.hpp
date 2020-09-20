@@ -22,6 +22,7 @@ void startCalculate();
 void removeSpace();
 void printWelcomeScreen();
 void mainLoop();
+double calculate(std::string input);
 void makeAction(Action choice);
 void printHelp();
 void printGoodByeScreen();

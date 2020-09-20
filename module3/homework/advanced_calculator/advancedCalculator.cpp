@@ -3,6 +3,8 @@
 #include <cctype>
 #include <cmath>
 #include <iostream>
+#include <iterator>
+#include <map>
 
 const std::map<char, std::function<double(double, double)>> operations {
     {'+', std::plus<double>()},
@@ -12,11 +14,20 @@ const std::map<char, std::function<double(double, double)>> operations {
     {'%', std::modulus<int>()},
     {'!', [](double firstNum, double secNum) { return firstNum <= 0 ? 1.0 : std::tgamma(firstNum + 1.0 + secNum - secNum); }},
     {'^', [](auto firstNum, auto secNum) { return std::pow(firstNum, secNum); }},
-    {'$', [](auto firstNum, auto secNum) { return pow(firstNum, 1.0 / secNum); }}
+    {'$', [](auto firstNum, auto secNum) { return std::pow(firstNum, 1.0 / secNum); }}
 };
 
 void removeSpace(std::string & input) {
     input.erase(std::remove_if(input.begin(), input.end(), [](auto el) { return std::isspace(el); }), input.end());
+}
+
+double calculate(std::string input) {
+    double result = 0;
+    auto operationIt = std::find_if(std::next(input.begin()), input.end(), [](auto el) { return operations.find(el); });
+    char operationSign = *operationIt;
+    double firstValue = std::stod(std::string {input.begin(), operationIt});
+    double secondValue = std::stod(std::string {std::next(operationIt), input.end()});
+    return result;
 }
 
 void startCalculate() {
@@ -34,10 +45,10 @@ void makeAction(Action choice) {
         case Action::Calculate: {
             std::string input;
             removeSpace(input);
-            double output;
+            //double output = calculate(input);
             std::getline(std::cin, input);
-            process(input, & output);
-            std::cout << "Result \n" << output;
+            //process(input, & output);
+            //std::cout << "Result: \n" << output;
             break;
         }
         case Action::Help: {
@@ -91,7 +102,7 @@ bool isBadCharacter(std::string input) {
 }
 
 bool isBadFormat(std::string input) {
-    return false;
+    return (operations.find(input.front()) != operations.end() && input.front() != '-');
 }
 
 bool isDivideBy0(std::string input) {
