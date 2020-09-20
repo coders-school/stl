@@ -6,6 +6,17 @@
 #include <functional>
 #include <math.h>
 
+FunctionMap functions{
+        {'+', std::plus<double>()},
+        {'-', std::minus<double>()},
+        {'*', std::multiplies<double>()},
+        {'/', division},
+        {'!', factorial},
+        {'^', power},
+        {'$', squareRoot},
+        {'%', modulo}
+};
+
 double division(double a, double b){
     if(b == 0)
         throw DivideBy0Exception();
@@ -14,7 +25,7 @@ double division(double a, double b){
 
 double factorial(double a, double b){
     if(a < 0)
-        return 1;
+        return -tgamma(-a + 1);
     return tgamma(a + 1);
 }
 
