@@ -81,7 +81,8 @@ std::stringstream FormatRecipit(std::vector<std::string> steps,
     recipe << std::endl;
     recipe << stepsHeader << "\n";
 
-    for (auto index = 1; const auto& step : steps) {
+    auto index = 1;
+    for (const auto& step : steps) {
         recipe << index << ") " << step << ".\n";
         index++;
     }
