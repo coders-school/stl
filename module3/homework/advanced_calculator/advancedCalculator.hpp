@@ -19,6 +19,7 @@ enum class Action {
 };
 
 void startCalculate();
+void removeSpace();
 void printWelcomeScreen();
 void mainLoop();
 void makeAction(Action choice);

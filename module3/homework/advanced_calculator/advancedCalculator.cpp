@@ -15,6 +15,10 @@ const std::map<char, std::function<double(double, double)>> operations {
     {'$', [](auto firstNum, auto secNum) { return pow(firstNum, 1.0 / secNum); }}
 };
 
+void removeSpace(std::string & input) {
+    input.erase(std::remove_if(input.begin(), input.end(), [](auto el) { return std::isspace(el); }), input.end());
+}
+
 void startCalculate() {
     printWelcomeScreen();
     mainLoop();
@@ -29,6 +33,7 @@ void makeAction(Action choice) {
     switch (choice) {
         case Action::Calculate: {
             std::string input;
+            removeSpace(input);
             double output;
             std::getline(std::cin, input);
             process(input, & output);
