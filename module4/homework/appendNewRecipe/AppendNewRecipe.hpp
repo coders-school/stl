@@ -1,11 +1,9 @@
 #include <deque>
-#include <sstream>
 #include <list>
+#include <sstream>
 #include <string>
 #include <utility>
 #include <vector>
-
-
 
 bool AppendNewRecipe(std::vector<std::string> steps,
                      const std::list<std::string>& ingredients,

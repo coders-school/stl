@@ -25,12 +25,14 @@ constexpr const char kFileName[] = "recipes.txt";
 
 class Test : public testing::Test {
 public:
-  void SetUp() override {
-    remove(kFileName);
-  }
+    void SetUp() override
+    {
+        remove(kFileName);
+    }
 };
 
-TEST_F(Test, ShoudlFormatIngredients) {
+TEST_F(Test, ShoudlFormatIngredients)
+{
     std::list<std::string> ingredients{"cukru", "maki", "rumu"};
     std::deque<std::pair<size_t, char>> amount{
         {20, 'g'},
@@ -46,7 +48,8 @@ TEST_F(Test, ShoudlFormatIngredients) {
     EXPECT_EQ(expected, result);
 }
 
-TEST_F(Test, ShouldFormatWholeRecipe) {
+TEST_F(Test, ShouldFormatWholeRecipe)
+{
     std::vector<std::string> steps{"Wsypac do miski 20 gram cukru",
                                    "Dorzucic 1 szklanke maki",
                                    "Dokladnie wymieszac",
@@ -62,7 +65,8 @@ TEST_F(Test, ShouldFormatWholeRecipe) {
     EXPECT_EQ(FormatRecipit(steps, ingredients, amount).str(), kExpected);
 }
 
-TEST_F(Test, ShouldWriteFile) {
+TEST_F(Test, ShouldWriteFile)
+{
     std::vector<std::string> steps{"Wsypac do miski 20 gram cukru",
                                    "Dorzucic 1 szklanke maki",
                                    "Dokladnie wymieszac",
@@ -91,7 +95,8 @@ TEST_F(Test, ShouldWriteFile) {
     EXPECT_EQ(str, kExpected);
 }
 
-TEST_F(Test, ShouldAppendNewRecipit) {
+TEST_F(Test, ShouldAppendNewRecipit)
+{
     std::vector<std::string> steps{"Wsypac do miski 20 gram cukru",
                                    "Dorzucic 1 szklanke maki",
                                    "Dokladnie wymieszac",
