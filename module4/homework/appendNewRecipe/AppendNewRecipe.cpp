@@ -1,10 +1,10 @@
 #include "AppendNewRecipe.hpp"
 
+#include <algorithm>
 #include <fstream>
 #include <iostream>
-#include <sstream>
 #include <iterator>
-#include <algorithm>
+#include <sstream>
 
 constexpr char filename[] = "recipes.txt";
 constexpr char ingredientsHeader[] = "Skladniki:";
@@ -12,6 +12,7 @@ constexpr char stepsHeader[] = "Kroki:";
 constexpr char gram[] = "gram";
 constexpr char glass[] = "szklanka(i)";
 constexpr char ml[] = "mililitrow";
+constexpr char recipeEndMarker[] = "___________________________________";
 
 bool AppendNewRecipe(std::vector<std::string> steps,
                      const std::list<std::string>& ingredients,
@@ -47,14 +48,14 @@ std::string FormatUnits(char unit)
 std::vector<std::string> FormatIngredients(const std::list<std::string>& ingredients,
                                            const std::deque<std::pair<size_t, char>>& amount)
 {
-    std::vector<std::string> ingredientsVec(ingredients.size());    
+    std::vector<std::string> ingredientsVec(ingredients.size());
     auto itIngredients = ingredients.begin();
     auto itAmount = amount.begin();
 
     std::generate(ingredientsVec.begin(), ingredientsVec.end(), [itIngredients, itAmount]() mutable {
         std::stringstream ingredient;
-        
-        ingredient << std::to_string((itAmount)->first); 
+
+        ingredient << std::to_string((itAmount)->first);
         ingredient << " ";
         ingredient << FormatUnits(itAmount->second);
         ingredient << " ";
@@ -67,7 +68,6 @@ std::vector<std::string> FormatIngredients(const std::list<std::string>& ingredi
 
     return ingredientsVec;
 }
-
 
 std::stringstream FormatRecipit(std::vector<std::string> steps,
                                 const std::list<std::string>& ingredients,
@@ -83,9 +83,9 @@ std::stringstream FormatRecipit(std::vector<std::string> steps,
 
     for (auto index = 1; const auto& step : steps) {
         recipe << index << ") " << step << ".\n";
-        index ++;
+        index++;
     }
-    recipe << "___________________________________\n";
+    recipe << recipeEndMarker << "\n";
 
     return recipe;
 }
