@@ -6,6 +6,10 @@
 #include <iterator>
 #include <map>
 
+double factorial (double firstNum, double secNum) {
+    return firstNum <= 0.0 ? -(std::tgamma(fabs(firstNum) + 1.0)) : std::tgamma(firstNum + 1.0 + secNum - secNum);
+}
+
 const std::map<char, std::function<double(double, double)>> operations {
     {'+', std::plus<double>()},
     {'*', std::multiplies<double>()},
@@ -16,10 +20,6 @@ const std::map<char, std::function<double(double, double)>> operations {
     {'^', [](auto firstNum, auto secNum) { return std::pow(firstNum, secNum); }},
     {'$', [](auto firstNum, auto secNum) { return std::pow(firstNum, 1.0 / secNum); }}
 };
-
-double factorial (double firstNum, double secNum) {
-    return firstNum <= 0.0 ? 1.0 : std::tgamma(firstNum + 1.0 + secNum - secNum);
-}
 
 void removeSpace(std::string & input) {
     input.erase(std::remove_if(input.begin(), input.end(), [](auto el) { return std::isspace(el); }), input.end());
@@ -32,17 +32,14 @@ char findOperatorSign(std::string input) {
 
 double findFirstValue(std::string input) {
     auto operationIt = std::find_if(std::next(input.begin()), input.end(), [](auto el) { return operations.find(el)!= operations.cend(); });
-    if (operationIt == input.end()) {
-        return 0.0;
-    } 
     return std::stod(std::string {input.begin(), operationIt});
 }
 
 double findSecondValue(std::string input) {
     auto operationIt = std::find_if(std::next(input.begin()), input.end(), [](auto el) { return operations.find(el) != operations.cend(); });
-    if (operationIt == input.end()) {
+    if (*operationIt == '!') {
         return 0.0;
-    } 
+    }
     return std::stod(std::string {std::next(operationIt), input.end()});
 }
 
@@ -117,41 +114,37 @@ bool isComma(const char input) {
 }
 
 bool isBadCharacter(std::string input) {
-    return false;
-    //(std::any_of(input.cbegin(), input.cend(), [](auto el) { 
-     //   return !(std::isdigit(el) || std::isspace(el) || operations.find(el) != operations.cend()); }));
+    return (std::any_of(input.cbegin(), input.cend(), [](auto el) { 
+        return !(std::isdigit(el) || isComma(el) || operations.find(el) != operations.cend()); }));
 }
 
 bool isBadFormat(std::string input) {
-    // if (input.back() == '!' ) {
-    //     return (std::any_of(input.cbegin(), input.cend(), [](auto el) { 
-    //         return !(isComma(el) || operations.find(el) != operations.cend()); }));
-    // }
-    return false;
-    //(operations.find(input.front()) != operations.end() && input.front() != '-');
+    if (findOperatorSign(input) == '!' ) {
+        return (std::any_of(input.cbegin(), input.cend(), [](auto el) { 
+            return !(isComma(el) || operations.find(el) != operations.cend()); }));
+    }
+    return (operations.find(input.front()) != operations.end() && input.front() != '-');
 }
 
 bool isDivideBy0(std::string input) {
-    // if (input.back() == '!' ) {
-    //     return false;
-    // }
-    // return findSecondValue(input) == 0.0;
-    return false;
+    if (findOperatorSign(input) == '!' ) {
+        return false;
+    }
+    return findSecondValue(input) == 0.0;
 }
 
 bool isSqrtOfNegativeNumber(std::string input) {
-    // auto operationIt = std::find_if(std::next(input.begin()), input.end(), [](auto el) { return operations.find(el) != operations.cend(); });
-    // double firstValue = std::stod(std::string {input.begin(), operationIt});
+    if (findOperatorSign(input) == '$' ) {
+        return findFirstValue(input) < 0.0;
+    }
     return false;
-    //firstValue < 0;
 }
 
 bool isModuleOfNonIntegerValue(std::string input) {
-    // auto operationIt = std::find_if(std::next(input.begin()), input.end(), [](auto el) { return operations.find(el) != operations.cend(); });
-    // double firstValue = std::stod(std::string {input.begin(), operationIt});
-    // int integerValue = (int)firstValue;
+    if (findOperatorSign(input) == '%' ) {
+        return findFirstValue(input) != (int)findFirstValue(input) ;
+    }
     return false;
-    //integerValue != firstValue;
 }
 
 ErrorCode process(std::string input, double* out) {
