@@ -14,9 +14,9 @@
 #include "gtest/gtest.h"
 
 constexpr const char kExpected[] =
-    "Skladniki:\n20 gram cukru,\n1 szklanka(i) maki,"
+    "Skladniki:\n20 gramow cukru,\n1 szklanka(i) maki,"
     "\n40 mililitrow rumu,\n\nKroki:\n1) Wsypac do miski"
-    " 20 gram cukru.\n2) Dorzucic 1 szklanke maki.\n3)"
+    " 20 gramow cukru.\n2) Dorzucic 1 szklanke maki.\n3)"
     " Dokladnie wymieszac.\n4) Nalac 40ml rumu do kieliszka.\n"
     "5) Wypic kieliszek.\n6) Wysypac zawartosc miski."
     "\n___________________________________\n";
@@ -39,7 +39,7 @@ TEST_F(Test, ShoudlFormatIngredients) {
 
     std::vector<std::string> result = FormatIngredients(ingredients, amount);
     const std::vector<std::string> expected{
-        "20 gram cukru",
+        "20 gramow cukru",
         "1 szklanka(i) maki",
         "40 mililitrow rumu"};
 
@@ -47,7 +47,7 @@ TEST_F(Test, ShoudlFormatIngredients) {
 }
 
 TEST_F(Test, ShouldFormatWholeRecipe) {
-    std::vector<std::string> steps{"Wsypac do miski 20 gram cukru",
+    std::vector<std::string> steps{"Wsypac do miski 20 gramow cukru",
                                    "Dorzucic 1 szklanke maki",
                                    "Dokladnie wymieszac",
                                    "Nalac 40ml rumu do kieliszka",
@@ -63,7 +63,7 @@ TEST_F(Test, ShouldFormatWholeRecipe) {
 }
 
 TEST_F(Test, ShouldWriteFile) {
-    std::vector<std::string> steps{"Wsypac do miski 20 gram cukru",
+    std::vector<std::string> steps{"Wsypac do miski 20 gramow cukru",
                                    "Dorzucic 1 szklanke maki",
                                    "Dokladnie wymieszac",
                                    "Nalac 40ml rumu do kieliszka",
@@ -92,7 +92,7 @@ TEST_F(Test, ShouldWriteFile) {
 }
 
 TEST_F(Test, ShouldAppendNewRecipit) {
-    std::vector<std::string> steps{"Wsypac do miski 20 gram cukru",
+    std::vector<std::string> steps{"Wsypac do miski 20 gramow cukru",
                                    "Dorzucic 1 szklanke maki",
                                    "Dokladnie wymieszac",
                                    "Nalac 40ml rumu do kieliszka",
@@ -121,3 +121,4 @@ TEST_F(Test, ShouldAppendNewRecipit) {
     auto double_expected = std::string(kExpected) + std::string(kExpected);
     EXPECT_EQ(str, double_expected);
 }
+
