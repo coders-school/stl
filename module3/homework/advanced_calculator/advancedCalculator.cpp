@@ -12,22 +12,42 @@ const std::map<char, std::function<double(double, double)>> operations {
     {'/', std::divides<double>()},
     {'-', std::minus<double>()},
     {'%', std::modulus<int>()},
-    {'!', [](double firstNum, double secNum) { return firstNum <= 0 ? 1.0 : std::tgamma(firstNum + 1.0 + secNum - secNum); }},
+    {'!', [](double firstNum, double secNum) { return factorial(firstNum, secNum); }},
     {'^', [](auto firstNum, auto secNum) { return std::pow(firstNum, secNum); }},
     {'$', [](auto firstNum, auto secNum) { return std::pow(firstNum, 1.0 / secNum); }}
 };
+
+double factorial (double firstNum, double secNum) {
+    return firstNum <= 0.0 ? 1.0 : std::tgamma(firstNum + 1.0 + secNum - secNum);
+}
 
 void removeSpace(std::string & input) {
     input.erase(std::remove_if(input.begin(), input.end(), [](auto el) { return std::isspace(el); }), input.end());
 }
 
+char findOperatorSign(std::string input) {
+    auto operationIt = std::find_if(std::next(input.begin()), input.end(), [](auto el) { return operations.find(el) != operations.cend(); });
+    return *operationIt;
+}
+
+double findFirstValue(std::string input) {
+    auto operationIt = std::find_if(std::next(input.begin()), input.end(), [](auto el) { return operations.find(el)!= operations.cend(); });
+    if (operationIt == input.end()) {
+        return 0.0;
+    } 
+    return std::stod(std::string {input.begin(), operationIt});
+}
+
+double findSecondValue(std::string input) {
+    auto operationIt = std::find_if(std::next(input.begin()), input.end(), [](auto el) { return operations.find(el) != operations.cend(); });
+    if (operationIt == input.end()) {
+        return 0.0;
+    } 
+    return std::stod(std::string {std::next(operationIt), input.end()});
+}
+
 double calculate(std::string input) {
-    double result = 0;
-    auto operationIt = std::find_if(std::next(input.begin()), input.end(), [](auto el) { return operations.find(el); });
-    char operationSign = *operationIt;
-    double firstValue = std::stod(std::string {input.begin(), operationIt});
-    double secondValue = std::stod(std::string {std::next(operationIt), input.end()});
-    return result;
+    return operations.at(findOperatorSign(input))(findFirstValue(input), findSecondValue(input));
 }
 
 void startCalculate() {
@@ -45,10 +65,10 @@ void makeAction(Action choice) {
         case Action::Calculate: {
             std::string input;
             removeSpace(input);
-            //double output = calculate(input);
+            double output = calculate(input);
             std::getline(std::cin, input);
-            //process(input, & output);
-            //std::cout << "Result: \n" << output;
+            process(input, & output);
+            std::cout << "Result: \n" << output;
             break;
         }
         case Action::Help: {
@@ -97,30 +117,56 @@ bool isComma(const char input) {
 }
 
 bool isBadCharacter(std::string input) {
-    return (std::any_of(input.cbegin(), input.cend(), [](auto el) { 
-        return !(std::isdigit(el) || isComma(el) || operations.find(el) != operations.cend()); }));
+    return false;
+    //(std::any_of(input.cbegin(), input.cend(), [](auto el) { 
+     //   return !(std::isdigit(el) || std::isspace(el) || operations.find(el) != operations.cend()); }));
 }
 
 bool isBadFormat(std::string input) {
-    return (operations.find(input.front()) != operations.end() && input.front() != '-');
+    // if (input.back() == '!' ) {
+    //     return (std::any_of(input.cbegin(), input.cend(), [](auto el) { 
+    //         return !(isComma(el) || operations.find(el) != operations.cend()); }));
+    // }
+    return false;
+    //(operations.find(input.front()) != operations.end() && input.front() != '-');
 }
 
 bool isDivideBy0(std::string input) {
+    // if (input.back() == '!' ) {
+    //     return false;
+    // }
+    // return findSecondValue(input) == 0.0;
     return false;
 }
 
 bool isSqrtOfNegativeNumber(std::string input) {
+    // auto operationIt = std::find_if(std::next(input.begin()), input.end(), [](auto el) { return operations.find(el) != operations.cend(); });
+    // double firstValue = std::stod(std::string {input.begin(), operationIt});
     return false;
+    //firstValue < 0;
 }
 
 bool isModuleOfNonIntegerValue(std::string input) {
+    // auto operationIt = std::find_if(std::next(input.begin()), input.end(), [](auto el) { return operations.find(el) != operations.cend(); });
+    // double firstValue = std::stod(std::string {input.begin(), operationIt});
+    // int integerValue = (int)firstValue;
     return false;
+    //integerValue != firstValue;
 }
 
 ErrorCode process(std::string input, double* out) {
     if (isBadCharacter(input)) {
         return ErrorCode::BadCharacter;
+    } else if (isBadFormat(input)) {
+        return ErrorCode::BadFormat;
+    } else if (isDivideBy0(input)) {
+        return ErrorCode::DivideBy0;
+    } else if (isSqrtOfNegativeNumber(input)) {
+        return ErrorCode::SqrtOfNegativeNumber;
+    } else if (isModuleOfNonIntegerValue(input)) {
+        return ErrorCode::ModuleOfNonIntegerValue;
+    } else {
+        *out = calculate(input);
+        return ErrorCode::OK;
     }
-
-    return ErrorCode::OK;
 }

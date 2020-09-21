@@ -23,9 +23,13 @@ void removeSpace();
 void printWelcomeScreen();
 void mainLoop();
 double calculate(std::string input);
+double factorial (double firstNum, double secNum);
 void makeAction(Action choice);
 void printHelp();
 void printGoodByeScreen();
+char findOperatorSign(std::string input);
+double findFirstValue(std::string input);
+double findSecondValue(std::string input);
 
 bool isComma(const char input);
 bool isBadCharacter(std::string input);
