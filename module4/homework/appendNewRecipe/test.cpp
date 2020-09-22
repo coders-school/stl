@@ -39,6 +39,7 @@ TEST_F(Test, ShoudlFormatIngredients) {
 
     std::vector<std::string> result = FormatIngredients(ingredients, amount);
     const std::vector<std::string> expected{
+
         "20 gramow cukru",
         "1 szklanka(i) maki",
         "40 mililitrow rumu"};
@@ -47,6 +48,7 @@ TEST_F(Test, ShoudlFormatIngredients) {
 }
 
 TEST_F(Test, ShouldFormatWholeRecipe) {
+
     std::vector<std::string> steps{"Wsypac do miski 20 gramow cukru",
                                    "Dorzucic 1 szklanke maki",
                                    "Dokladnie wymieszac",
@@ -121,4 +123,3 @@ TEST_F(Test, ShouldAppendNewRecipit) {
     auto double_expected = std::string(kExpected) + std::string(kExpected);
     EXPECT_EQ(str, double_expected);
 }
-
