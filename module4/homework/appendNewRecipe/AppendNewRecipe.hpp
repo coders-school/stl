@@ -8,6 +8,9 @@
 #include <utility>
 #include <vector>
 #include <algorithm>
+#include <iostream>
+#include <fstream>
+#include <iterator>
 
 const std::map<char, std::string> measures_dict{
     {'g', "gramow"}, {'s', "szklanka(i)"}, {'m', "mililitrow"}};
