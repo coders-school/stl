@@ -8,6 +8,8 @@
 #include <stdexcept>
 #include <stdlib.h>
 
+constexpr char  acceptedChars[] = "0123456789-+*$/^%!., ";
+
 CalculationException::CalculationException(std::string p_msg, ErrorCode errorCode_)
     : logic_error(p_msg), errorCode(errorCode_)
 {
@@ -23,16 +25,18 @@ const char* CalculationException::what() const throw()
 ErrorCode parse(const std::string& input, double& a, double& b, std::string& oper)
 {
 
-    if (input.find_first_not_of("0123456789-+*$/^%!., ") != std::string::npos)
+    if (input.find_first_not_of(acceptedChars) != std::string::npos)
+    {
         return ErrorCode::BadCharacter;
+    }
 
     std::vector<std::string> result;
 
-    std::regex command("\\s*(-?\\s*[0-9]+*\\.[0-9]+|-?\\s*[0-9]+)\\s*" // match int or double with or w/o minus sign
+    const std::regex command("\\s*(-?\\s*[0-9]+*\\.[0-9]+|-?\\s*[0-9]+)\\s*" // match int or double with or w/o minus sign
                        "\\s*([^!])\\s*"                                // match one char except ! and zero or more spaces
                        "\\s*(-?\\s*[0-9]+*\\.[0-9]+|-?\\s*[0-9]+)\\s*");
 
-    std::regex command_factorial("\\s*([-]?[0-9]*\\.[0-9]+|[+-]?[0-9]+)\\s*"
+    const std::regex command_factorial("\\s*([-]?[0-9]*\\.[0-9]+|[+-]?[0-9]+)\\s*"
                                  "\\s*(\\!)\\s*");
 
     std::smatch match_result;
@@ -73,7 +77,10 @@ ErrorCode process(std::string input, double* out)
     double b = 0.0;
     std::string oper{};
     ErrorCode status = parse(input,a,b,oper);
-    if(status != ErrorCode::OK) return status;
+    if(status != ErrorCode::OK)
+    {
+        return status;
+    }
 
     std::map<std::string, std::function<double(double, double)>> operations;
 
@@ -84,7 +91,6 @@ ErrorCode process(std::string input, double* out)
         if (b == 0)
         {
             throw CalculationException("Divide By Zero", ErrorCode::DivideBy0);
-            return 0.0;
         }
         return a / b;
     };
@@ -104,15 +110,16 @@ ErrorCode process(std::string input, double* out)
         if (a < 0)
         {
             throw CalculationException("Sqrt of Negative Number", ErrorCode::SqrtOfNegativeNumber);
-            return 0.0;
         }
 
         return pow(a, 1 / b);
     };
 
     operations["!"] = [a, b](double a, double b) {
-        if (a < 0)
+        if (a < 0) 
+        {
             return 1.0;
+        }
         return tgamma(a + 1.0);
     };
 
