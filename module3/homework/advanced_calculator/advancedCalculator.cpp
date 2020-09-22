@@ -103,7 +103,7 @@ ErrorCode process(std::string input, double* out)
             throw CalculationException("Module of Non Integer", ErrorCode::ModuleOfNonIntegerValue);
         }
 
-        return (int)a % (int)b;
+        return static_cast<int>(a) %  static_cast<int>(b);
     };
 
     operations["$"] = [a, b](double a, double b) {
