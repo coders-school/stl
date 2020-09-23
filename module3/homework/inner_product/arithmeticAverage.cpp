@@ -1,7 +1,8 @@
 #include "arithmeticAverage.hpp"
 
-#include <math.h>
+#include <functional>
 #include <numeric>
+#include <math.h>
 
 double ArithmeticAverage(std::vector<int> & first, std::vector<int>  & second){
     double result = std::inner_product(first.begin(), first.end() ,second.begin(),0
