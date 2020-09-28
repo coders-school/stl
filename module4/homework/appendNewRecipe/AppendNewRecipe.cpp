@@ -31,8 +31,8 @@ bool AppendNewRecipe(const std::vector<std::string>& steps,
             file.close();
             return true;
         }
-    } catch (const std::fstream::failure& e) {
-        std::cerr << "Can't open this file: " << e.what() << '\n';
+    } catch (const std::fstream::failure& error) {
+        std::cerr << "Can't open this file: " << error.what() << '\n';
     }
     return false;
 }
