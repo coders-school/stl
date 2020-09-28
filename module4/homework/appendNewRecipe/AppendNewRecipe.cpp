@@ -28,18 +28,21 @@ std::vector<std::string> FormatIngredients(const std::list<std::string>& ingredi
                    begin(amount),
                    begin(formattedIngredients),
                    [](const auto& ingredient, const auto& pair) {
-                       auto [amount, unit] = pair;
+                       const auto [amount, unit] = pair;
                        std::string formattedUnit{};
-                       if (unit == 'g') {
+                       switch (unit) {
+                           case 'g':
                            formattedUnit = "gram";
-                       }
-                       if (unit == 's') {
+                           break;
+                           case 's':
                            formattedUnit = "szklanka(i)";
-                       }
-                       if (unit == 'm') {
+                           break;
+                           case 'm':
                            formattedUnit = "mililitrow";
+                           break;
                        }
-                       return std::to_string(amount) + ' ' + formattedUnit + ' ' + ingredient;
+                       std::stringstream temp_stream(std::to_string(amount) + ' ' + formattedUnit + ' ' + ingredient);
+                       return temp_stream.str();
                    });
     return formattedIngredients;
 }
