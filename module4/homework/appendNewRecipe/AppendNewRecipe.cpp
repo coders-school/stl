@@ -46,21 +46,22 @@ std::vector<std::string> FormatIngredients(const std::list<std::string>& ingredi
                    });
     return formattedIngredients;
 }
-
 std::stringstream FormatRecipit(const std::vector<std::string>& steps,
                                 const std::list<std::string>& ingredients,
                                 const std::deque<std::pair<size_t, char>>& amount) {
     std::stringstream stream;
-    stream << "Skladniki:\n";
+    const std::string ingredientsMessage{"Skladniki:\n"};
+    stream << ingredientsMessage;
     auto formattedIngredients = FormatIngredients(ingredients, amount);
     for (auto line : formattedIngredients) {
         stream << line << ",\n";
     }
-    stream << '\n';
-    stream << "Kroki:\n";
+    const std::string stepsMessage{"\nKroki:\n"};
+    stream << stepsMessage;
     for (size_t i = 0; i < steps.size(); ++i) {
         stream << i + 1 << ") " << steps[i] << ".\n";
     }
-    stream << "___________________________________\n";
+    const std::string dash{"___________________________________\n"};
+    stream << dash;
     return stream;
 }
