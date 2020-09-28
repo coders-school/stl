@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <fstream>
 
-bool AppendNewRecipe(std::vector<std::string> steps,
+bool AppendNewRecipe(const std::vector<std::string>& steps,
                      const std::list<std::string>& ingredients,
                      const std::deque<std::pair<size_t, char>>& amount) {
     std::ofstream file("recipes.txt", std::ios::app);
@@ -43,7 +43,7 @@ std::vector<std::string> FormatIngredients(const std::list<std::string>& ingredi
     return formattedIngredients;
 }
 
-std::stringstream FormatRecipit(std::vector<std::string> steps,
+std::stringstream FormatRecipit(const std::vector<std::string>& steps,
                                 const std::list<std::string>& ingredients,
                                 const std::deque<std::pair<size_t, char>>& amount) {
     std::stringstream stream;
