@@ -59,7 +59,7 @@ ___
 
 ```C++
 bool ChangePos(std::vector<int>& vec, int value, int new_pos) {
-    if (new_pos >= vec.size()) {
+    if (new_pos < 0 || new_pos >= vec.size()) {
         return false;
     }
 
@@ -105,7 +105,7 @@ ___
 
 ```C++
 void ChangePos(std::vector<int>& vec, const std::vector<int>& values, int new_pos) {
-    auto pred {[&](auto& el){
+    auto pred {[&](auto& el) {
         return (std::find(values.begin(), values.end(), el) == values.end());
     }};
 
@@ -150,7 +150,7 @@ ___
 
 ```C++
 void Gather(std::vector<char>& vec) {
-    auto pred {[&](auto& el){
+    auto pred {[&](auto& el) {
         return el != '*';
     }};
 
