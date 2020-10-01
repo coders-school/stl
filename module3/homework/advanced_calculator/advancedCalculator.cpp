@@ -10,7 +10,7 @@ double calculateFactorial(double number){
     if(number <= 1){
         return 1;
     }
-    return std::tgamma(number + 1);
+    return number <= 1 ? 1 : std::tgamma(number + 1);
 }
 
 bool isInt(double number){
