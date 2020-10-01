@@ -6,14 +6,14 @@
 #include <map>
 #include <regex>
 
-double calculateFactorial(double number){
-    if(number <= 1){
+double calculateFactorial(double number) {
+    if (number <= 1) {
         return 1;
     }
     return number <= 1 ? 1 : std::tgamma(number + 1);
 }
 
-bool isInt(double number){
+bool isInt(double number) {
     double integer = 0;
     double rest = std::modf(number, &integer);
     return integer == number;
@@ -49,35 +49,38 @@ ErrorCode process(std::string input, double* out) {
         return ErrorCode::BadFormat;
     }
 
-    std::regex commandPattern(R"(([-]?\d+\.\d+|[-]?\d+)\s?([+*/\-%^$])\s?([-]?\d+\.\d+|[-]?\d+))");
-    std::regex factorialPattern(R"(([-]?\d+\.\d+|[-]?\d+)\s?(\!))");
+    const std::regex commandPattern(R"(([-]?\d+\.\d+|[-]?\d+)\s?([+*/\-%^$])\s?([-]?\d+\.\d+|[-]?\d+))");
+    const std::regex factorialPattern(R"(([-]?\d+\.\d+|[-]?\d+)\s?(\!))");
     std::smatch correctInput;
 
     if (std::regex_search(input, correctInput, commandPattern)) {
         if (correctInput[0] != input) {
             return ErrorCode::BadFormat;
         }
-        double firstValue = std::stod(correctInput[1]);
-        double secondValue = std::stod(correctInput[3]);
-        std::string command = correctInput[2];
+        const double firstValue = std::stod(correctInput[1]);
+        const double secondValue = std::stod(correctInput[3]);
+        const std::string command = correctInput[2];
 
-        if(command == "/" && secondValue == 0){
+        if (command == "/" && secondValue == 0) {
             return ErrorCode::DivideBy0;
-        } else if(command == "$" && (firstValue < 0)){
+        }
+        if (command == "$" && (firstValue < 0)) {
             return ErrorCode::SqrtOfNegativeNumber;
-        } else if(command == "%" && ( !isInt(firstValue) || !isInt(secondValue))){
+        }
+        if (command == "%" && (!isInt(firstValue) || !isInt(secondValue))) {
             return ErrorCode::ModuleOfNonIntegerValue;
-        }   
-            *out = commands.at(command)(firstValue, secondValue);
-            return ErrorCode::OK;
-    } else if (std::regex_search(input, correctInput, factorialPattern)){
-        if(correctInput[0] != input){
+        }
+        *out = commands.at(command)(firstValue, secondValue);
+        return ErrorCode::OK;
+    }
+    if (std::regex_search(input, correctInput, factorialPattern)) {
+        if (correctInput[0] != input) {
             return ErrorCode::BadFormat;
         }
 
-        double result = std::stod(correctInput[1]);
+        const double result = std::stod(correctInput[1]);
         *out = calculateFactorial(result);
         return ErrorCode::OK;
     }
-    return ErrorCode::BadFormat; 
+    return ErrorCode::BadFormat;
 }
