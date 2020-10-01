@@ -14,7 +14,9 @@ double calculateFactorial(double number){
 }
 
 bool isInt(double number){
-    return std::abs(number) - std::abs(static_cast<int>(number)) == 0;
+    double integer = 0;
+    double rest = std::modf(number, &integer);
+    return integer == number;
 }
 
 const std::map<std::string, std::function<double(double, double)>> commands{
