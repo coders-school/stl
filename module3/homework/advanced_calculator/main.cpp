@@ -10,7 +10,7 @@ int main() {
     while (true) {
         std::cout << "Enter your equation: (q to exit) \n";
         std::getline(std::cin, input);
-       
+
         if (input == "q") {
             break;
         }
@@ -18,7 +18,7 @@ int main() {
         double result = 0;
         auto ec = process(input, &result);
         if (ec != ErrorCode::OK) {
-            std::cout << errorOutput.find(ec)->second << "\n";            
+            std::cout << errorOutput.find(ec)->second << "\n";
         } else {
             std::cout << "\nResult: " << result << '\n'
                       << dash << '\n'

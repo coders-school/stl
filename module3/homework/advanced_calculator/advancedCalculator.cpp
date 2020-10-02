@@ -24,8 +24,11 @@ std::map<char, std::function<double(double, double)>> operatorsMap{
 };
 
 bool checkCharacter(const std::string& input) {
-    std::string operatorCode{",.!+/%$-+*^"};
-    return std::any_of(input.begin(), input.end(), [&operatorCode](char letter) { return std::find(operatorCode.begin(), operatorCode.end(), letter) == operatorCode.end() && !isdigit(letter); });
+    std::string opCode{",.!+/%$-+*^"};
+    return std::any_of(input.begin(), input.end(),
+                       [&opCode](char letter) {
+                           return std::find(opCode.begin(), opCode.end(), letter) == opCode.end() && !isdigit(letter);
+                       });
 };
 
 ErrorCode extractPattern(std::string& input, std::vector<std::string>* out) {
@@ -76,10 +79,10 @@ ErrorCode checkOperatorCode(const double& firstNum, const double& secondNum, con
     case '+':
         return ErrorCode::OK;
     case '%': {
-        if (firstNum - int(firstNum) == 0 && secondNum - int(secondNum == 0)) {
-            return ErrorCode::OK;
+        if (ceil(firstNum) != floor(firstNum) || ceil(secondNum) != floor(secondNum)) {
+            return ErrorCode::ModuleOfNonIntegerValue;
         }
-        return ErrorCode::ModuleOfNonIntegerValue;
+        return ErrorCode::OK;
     }
     case '/': {
         if (secondNum != 0) {
