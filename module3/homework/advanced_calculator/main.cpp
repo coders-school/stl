@@ -1,9 +1,7 @@
-#include "advancedCalculator.hpp"
-
 #include <iostream>
-#include <iterator>
 #include <string>
-#include <algorithm>
+
+#include "advancedCalculator.hpp"
 
 int main() {
     std::string input;

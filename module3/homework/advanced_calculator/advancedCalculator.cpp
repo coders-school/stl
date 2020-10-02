@@ -1,12 +1,11 @@
 #include "advancedCalculator.hpp"
 
-#include <math.h>
 #include <algorithm>
-#include <iostream>
+#include <cmath>
 #include <regex>
 
 double factorial(double num) {
-    return num > 1.0 ? num * factorial(num - 1) : 1.0;
+    return std::tgamma(std::abs(num) + 1) * num / std::abs(num);
 }
 
 void removeSpaces(std::string& input) {
@@ -24,29 +23,40 @@ std::map<char, std::function<double(double, double)>> operatorsMap{
     {'$', [](auto lhs, auto rhs) { return std::pow(lhs, 1 / rhs); }},
 };
 
+bool checkCharacter(const std::string& input) {
+    std::string operatorCode{",.!+/%$-+*^"};
+    return std::any_of(input.begin(), input.end(), [&operatorCode](char letter) { return std::find(operatorCode.begin(), operatorCode.end(), letter) == operatorCode.end() && !isdigit(letter); });
+};
+
 ErrorCode extractPattern(std::string& input, std::vector<std::string>* out) {
     removeSpaces(input);
     out->clear();
 
-    const std::regex patternRegex("(-?[0-9]+\\.?[0-9]*)([^!]{1})(-?[0-9]+\\.?[0-9]*)");
-    const std::regex patternFactorial("(-?[0-9]+\\.?[0-9]*)!");
+    const std::regex patternRegex("([-]?\\d+\\.?\\d*)([-+*\\/^$%])?([-]?\\d+\\.?\\d*)?$");
+    const std::regex patternFactorial("([-]?\\d+\\.?\\d*)([!])?");
     std::smatch match;
 
+    if (checkCharacter(input)) {
+        return ErrorCode::BadCharacter;
+    }
+
     if (std::regex_search(input, match, patternRegex)) {
-        if (match.size() == 4) {
-            out->emplace_back(match[1]);
-            out->emplace_back(match[2]);
-            out->emplace_back(match[3]);
-
-            return ErrorCode::OK;
+        if (match[0] != input) {
+            return ErrorCode::BadFormat;
         }
+
+        out->emplace_back(match[1]);
+        out->emplace_back(match[2]);
+        out->emplace_back(match[3]);
+        return ErrorCode::OK;
     } else if (std::regex_search(input, match, patternFactorial)) {
-        if (match.size() == 2) {
-            out->emplace_back(match[1]);
-            out->emplace_back(match[2]);
-
-            return ErrorCode::OK;
+        if (match[0] != input) {
+            return ErrorCode::BadFormat;
         }
+
+        out->emplace_back(match[1]);
+        out->emplace_back(match[2]);
+        return ErrorCode::OK;
     }
     return ErrorCode::BadFormat;
 }

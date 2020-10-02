@@ -15,6 +15,7 @@ enum class ErrorCode {
 
 void removeSpaces(std::string& input);
 double factorial(double num);
+bool checkCharacter(const std::string& input);
 
 const std::map<ErrorCode, std::string> errorOutput{
     {ErrorCode::OK, "All is OK\n"},
