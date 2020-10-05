@@ -13,6 +13,7 @@ int main() {
         {20, 'g'},
         {1, 's'},
         {40, 'm'}};
+    AppendNewRecipe(steps,ingredients,amount);
 
     return 0;
 }
