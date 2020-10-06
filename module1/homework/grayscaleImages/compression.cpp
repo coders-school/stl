@@ -3,7 +3,7 @@
 #include <array>
 #include <algorithm>
 
-compressed_vec compressGrayscale(bitmap_array const bitmap)
+compressed_vec compressGrayscale(bitmap_array const& bitmap)
 {
     compressed_vec out_vec;
     const uint8_t* registered_value = nullptr;
@@ -13,24 +13,26 @@ compressed_vec compressGrayscale(bitmap_array const bitmap)
         while(true)
         {
             auto iter = std::find_if(registered_value, row->end(),
-                [registered_value](
-                uint8_t elem)
-                {
-                    return elem != *registered_value;
-                }
+                    [registered_value](uint8_t elem)
+                    {
+                        return elem != *registered_value;
+                    }
             );
 
             out_vec.push_back(std::make_pair(*registered_value,
                     iter - registered_value));
             registered_value = iter;
-            if(iter == row->end()) break;
+            if(iter == row->end())
+            {
+                break;
+            }
         }
     }
 
     return out_vec;
 }
 
-bitmap_array decompressGrayscale(const compressed_vec comp_vec)
+bitmap_array decompressGrayscale(const compressed_vec& comp_vec)
 {
     int num_of_row = 0;
     std::vector<uint8_t> row = {};
@@ -50,7 +52,7 @@ bitmap_array decompressGrayscale(const compressed_vec comp_vec)
     return decompressed_data;
 }
 
-void printMap(bitmap_array input_map)
+void printMap(const bitmap_array& input_map)
 {
     for(int i = 0; i < height; i++)
     {
