@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-        <title>STL - kontenery sekwencyjne - Coders School</title>
+        <title>STL - złożoność obliczeniowa, iteratory i algorytmy - Coders School</title>
 
         <meta name="description" content="STL">
         <meta name="author" content="Mateusz Adamski & Łukasz Ziobroń">
@@ -31,8 +31,8 @@
                 <section>
                     <section data-background="#111111">
 
-                        <h1>STL #1</h1>
-                        <h2>Kontenery sekwencyjne</h2>
+                        <h1>STL #3</h1>
+                        <h2>Złożoność obliczeniowa, iteratory, algorytmy</h2>
                         <a href="https://coders.school">
                             <img width="500" data-src="../coders_school_logo.png" alt="Coders School" class="plain">
                         </a>
@@ -43,27 +43,11 @@
                     <section data-markdown>
                         <textarea data-template>
 
-                        ## Agenda
-
-                        1. <!-- .element: class="fragment fade-in" --> Przypomnienie STLa
-                        1. <!-- .element: class="fragment fade-in" --> Jak czytać dokumentację
-                        1. <!-- .element: class="fragment fade-in" --> <code>std::vector&lt;T&gt;</code>
-                        1. <!-- .element: class="fragment fade-in" --> <code>std::list&lt;T&gt;</code>
-                        1. <!-- .element: class="fragment fade-in" --> <code>std::forward_list&lt;T&gt;</code>
-                        1. <!-- .element: class="fragment fade-in" --> <code>std::array&lt;T, N&gt;</code>
-                        1. <!-- .element: class="fragment fade-in" --> <code>std::deque&lt;T&gt;</code>
-
-
-                        </textarea>
-                    </section>
-                    <section data-markdown>
-                        <textarea data-template>
-
                         ## Zadania
 
-                        Repo GH `coders-school/stl`
+                        [Repo GH `coders-school/stl`]
 
-                        [https://github.com/coders-school/stl/tree/master/module1](https://github.com/coders-school/stl/tree/master/module1/homework)
+                        [https://github.com/coders-school/stl/tree/master/module3/homework](https://github.com/coders-school/stl/tree/master/module3/homework)
 
                         Zadania wykonywane podczas zajęć online nie wymagają ściągania repo. Pliki będą tworzone od zera.
 
@@ -82,11 +66,16 @@
 
                         </textarea>
                     </section>
-                    <section>
-                            
-                        <h2>Kontenery sekwencyjne</h2>
-                        <img width="500" data-src="img/sequence_containers.png" alt="Kontenery sekwencyjne" class="plain">
+                    <section data-markdown>
+                        <textarea data-template>
 
+                        ## AGENDA
+
+                        * <!-- .element: class="fragment fade-in" --> Złożoność obliczeniowa
+                        * <!-- .element: class="fragment fade-in" --> Iteratory
+                        * <!-- .element: class="fragment fade-in" --> Algorytmy
+
+                        </textarea>
                     </section>
                 </section>
                 <!--
@@ -103,32 +92,20 @@
                     Open http://localhost:8000 to view your presentation
 
                     You can change the port by using npm start -- --port=8001.
-                -->                
-                <section data-markdown="presentation_stl.md"
+                -->   
+                <section data-markdown="computational_complexity.md"
                          data-separator-vertical="^___"
                          data-separator-notes="^Note:">
                 </section>
-                <section data-markdown="presentation_vector.md"
+                <section data-markdown="iterators.md"
                          data-separator-vertical="^___"
                          data-separator-notes="^Note:">
                 </section>
-                <section data-markdown="presentation_array.md"
+                <section data-markdown="algorithms.md"
                          data-separator-vertical="^___"
                          data-separator-notes="^Note:">
                 </section>
-                <section data-markdown="presentation_list.md"
-                         data-separator-vertical="^___"
-                         data-separator-notes="^Note:">
-                </section>
-                <section data-markdown="presentation_forward_list.md"
-                         data-separator-vertical="^___"
-                         data-separator-notes="^Note:">
-                </section>
-                <section data-markdown="presentation_deque.md"
-                         data-separator-vertical="^___"
-                         data-separator-notes="^Note:">
-                </section>
-                <section data-markdown="presentation_homework.md"
+                <section data-markdown="homework.md"
                          data-separator-vertical="^___"
                          data-separator-notes="^Note:">
                 </section>
@@ -158,7 +135,8 @@
                     { src: '../../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
                     { src: '../../plugin/markdown/marked.js' },
                     { src: '../../plugin/markdown/markdown.js' },
-                    { src: '../../plugin/notes/notes.js', async: true }
+                    { src: '../../plugin/notes/notes.js', async: true },
+                    { src: '../../plugin/math/math.js'},
                 ]
             });
         </script>
