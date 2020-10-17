@@ -11,7 +11,7 @@ using UnitsDeque = std::deque<std::pair<size_t, char>>;
 using StepList = std::vector<std::string>;
 using RecipitList = std::vector<std::string>;
 
-RecipitList FormatIngredients(IngredientsList&, UnitsDeque&);
-std::stringstream FormatRecipit(StepList&, IngredientsList&, UnitsDeque&);
-void AppendNewRecipe(StepList&, IngredientsList&, UnitsDeque&);
+RecipitList FormatIngredients(const IngredientsList&, const UnitsDeque&);
+std::stringstream FormatRecipit(const StepList&, const IngredientsList&, const UnitsDeque&);
+void AppendNewRecipe(const StepList&, const IngredientsList&, const UnitsDeque&);
 
