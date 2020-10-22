@@ -139,13 +139,13 @@ ErrorCode prohibitedOperations(const std::vector<std::string>& unpackedElements)
     return ErrorCode::OK;
 }
 
-double calculate(specMap actionsHolder, std::vector<std::string> unpackedElements)
+double calculate(const specMap& actionsHolder, const std::vector<std::string>& unpackedElements)
 {
     const double firstNumber = std::stod(unpackedElements[0]);
     const char* action = unpackedElements[1].c_str();
     const double secondNumber = std::stod(unpackedElements[2]);
 
-    const specMap::iterator it = actionsHolder.find(*action);
+    const specMap::const_iterator it = actionsHolder.find(*action);
     const auto result = it->second(firstNumber, secondNumber);
 
     return result;

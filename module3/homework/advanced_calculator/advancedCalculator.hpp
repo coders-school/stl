@@ -20,6 +20,6 @@ std::vector<std::string> unpackExpression(const std::string& input);
 ErrorCode prohibitedOperations(const std::vector<std::string>& unpackedElements);
 
 using specMap = std::map<char, std::function<double(double,double)>>;
-double calculate(specMap actionsHolder, std::vector<std::string> unpackedElements);
+double calculate(const specMap& actionsHolder, const std::vector<std::string>& unpackedElements);
 
 ErrorCode process(std::string input, double* out);
