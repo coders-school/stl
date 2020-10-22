@@ -144,7 +144,7 @@ double calculate(specMap actionsHolder, std::vector<std::string> unpackedElement
 
 ErrorCode process(std::string input, double* out)
 {
-    specMap actionsHolder{
+    const specMap actionsHolder{
         {'+', addAction},
         {'-', substractAction},
         {'/', divideAction},

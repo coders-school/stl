@@ -1,15 +1,18 @@
 #include <algorithm>
 #include <cmath>
+#include <string>
 #include <vector>
 
 #include "advancedCalculator.hpp"
 #include "gtest/gtest.h"
 
-bool cmp(double first, double second, double epsilon = 0.5) {
+bool cmp(double first, double second, double epsilon = 0.5)
+{
     return (fabs(first - second) < epsilon);
 }
 
-TEST(advancedCalculatorTest, ShouldAdd) {
+TEST(advancedCalculatorTest, ShouldAdd)
+{
     double result = 0;
 
     ASSERT_EQ(process("5+ 11", &result), ErrorCode::OK);
@@ -24,7 +27,8 @@ TEST(advancedCalculatorTest, ShouldAdd) {
     EXPECT_TRUE(cmp(result, -88.551));
 }
 
-TEST(advancedCalculatorTest, ShouldSubstract) {
+TEST(advancedCalculatorTest, ShouldSubstract)
+{
     double result = 0;
 
     ASSERT_EQ(process("5- 11", &result), ErrorCode::OK);
@@ -39,7 +43,8 @@ TEST(advancedCalculatorTest, ShouldSubstract) {
     EXPECT_TRUE(cmp(result, 66.091));
 }
 
-TEST(advancedCalculatorTest, ShouldMultiply) {
+TEST(advancedCalculatorTest, ShouldMultiply)
+{
     double result = 0;
 
     ASSERT_EQ(process("5 * 11", &result), ErrorCode::OK);
@@ -54,7 +59,8 @@ TEST(advancedCalculatorTest, ShouldMultiply) {
     EXPECT_TRUE(cmp(result, 868.315));
 }
 
-TEST(advancedCalculatorTest, ShouldDivide) {
+TEST(advancedCalculatorTest, ShouldDivide)
+{
     double result = 0;
 
     ASSERT_EQ(process("5 /11", &result), ErrorCode::OK);
@@ -69,7 +75,8 @@ TEST(advancedCalculatorTest, ShouldDivide) {
     EXPECT_TRUE(cmp(result, 0.145239));
 }
 
-TEST(advancedCalculatorTest, ShouldPower) {
+TEST(advancedCalculatorTest, ShouldPower)
+{
     double result = 0;
 
     ASSERT_EQ(process("5 ^2", &result), ErrorCode::OK);
@@ -84,7 +91,8 @@ TEST(advancedCalculatorTest, ShouldPower) {
     EXPECT_TRUE(cmp(result, 0.000976562));
 }
 
-TEST(advancedCalculatorTest, ShouldCalculateRoot) {
+TEST(advancedCalculatorTest, ShouldCalculateRoot)
+{
     double result = 0;
 
     ASSERT_EQ(process("225 $3", &result), ErrorCode::OK);
@@ -99,7 +107,8 @@ TEST(advancedCalculatorTest, ShouldCalculateRoot) {
     EXPECT_TRUE(cmp(result, 1.4427));
 }
 
-TEST(advancedCalculatorTest, ShouldModulo) {
+TEST(advancedCalculatorTest, ShouldModulo)
+{
     double result = 0;
 
     ASSERT_EQ(process("225 %1000", &result), ErrorCode::OK);
@@ -118,7 +127,8 @@ TEST(advancedCalculatorTest, ShouldModulo) {
     EXPECT_TRUE(cmp(result, 14.0));
 }
 
-TEST(advancedCalculatorTest, ShouldFactorial) {
+TEST(advancedCalculatorTest, ShouldFactorial)
+{
     double result = 0;
 
     ASSERT_EQ(process("5!", &result), ErrorCode::OK);
@@ -133,7 +143,8 @@ TEST(advancedCalculatorTest, ShouldFactorial) {
     //EXPECT_TRUE(cmp(result, -1324024774.02));
 }
 
-TEST(advancedCalculatorTest, ShouldReturnBadFormat) {
+TEST(advancedCalculatorTest, ShouldReturnBadFormat)
+{
     double result = 0;
 
     ASSERT_EQ(process("5,1!", &result), ErrorCode::BadFormat);
@@ -149,7 +160,8 @@ TEST(advancedCalculatorTest, ShouldReturnBadFormat) {
     ASSERT_EQ(process("123.4 ! 345", &result), ErrorCode::BadFormat);
 }
 
-TEST(advancedCalculatorTest, ShouldReturnBadCharacter) {
+TEST(advancedCalculatorTest, ShouldReturnBadCharacter)
+{
     double result = 0;
 
     ASSERT_EQ(process("123 #- 123", &result), ErrorCode::BadCharacter);
@@ -165,7 +177,8 @@ TEST(advancedCalculatorTest, ShouldReturnBadCharacter) {
     ASSERT_EQ(process("123,4 ; 345", &result), ErrorCode::BadCharacter);
 }
 
-TEST(advancedCalculatorTest, ShouldReturnDivideBy0) {
+TEST(advancedCalculatorTest, ShouldReturnDivideBy0)
+{
     double result = 0;
 
     ASSERT_EQ(process("123 / 0", &result), ErrorCode::DivideBy0);
@@ -176,7 +189,8 @@ TEST(advancedCalculatorTest, ShouldReturnDivideBy0) {
     ASSERT_EQ(process("0.0 / 0", &result), ErrorCode::DivideBy0);
 }
 
-TEST(advancedCalculatorTest, ShouldReturnModuleOfNonIntegerValue) {
+TEST(advancedCalculatorTest, ShouldReturnModuleOfNonIntegerValue)
+{
     double result = 0;
 
     ASSERT_EQ(process("123 % 0.1", &result), ErrorCode::ModuleOfNonIntegerValue);
@@ -185,7 +199,8 @@ TEST(advancedCalculatorTest, ShouldReturnModuleOfNonIntegerValue) {
     ASSERT_EQ(process("123.1 % 0.1", &result), ErrorCode::ModuleOfNonIntegerValue);
 }
 
-TEST(advancedCalculatorTest, ShouldReturnRootOfNegativeNumber) {
+TEST(advancedCalculatorTest, ShouldReturnRootOfNegativeNumber)
+{
     double result = 0;
 
     ASSERT_EQ(process("-123 $ -1", &result), ErrorCode::SqrtOfNegativeNumber);
@@ -194,13 +209,16 @@ TEST(advancedCalculatorTest, ShouldReturnRootOfNegativeNumber) {
     ASSERT_EQ(process("-123 $ 1", &result), ErrorCode::SqrtOfNegativeNumber);
 }
 
-TEST(advancedCalculatorTest, ShouldEraseAllSpaces) {
-
-    ASSERT_EQ(eraseSpaces("-123 $ -1"), "-123$-1");
-    ASSERT_EQ(eraseSpaces("+8 - 32.  1"), "+8-32.1");
+TEST(advancedCalculatorTest, ShouldEraseAllSpaces)
+{
+    std::string text1 = "-123 $ -1";
+    std::string text2 = "+8 - 32.  1";
+    ASSERT_EQ(eraseSpaces(text1), "-123$-1");
+    ASSERT_EQ(eraseSpaces(text2), "+8-32.1");
 }
 
-TEST(advancedCalculatorTest, ShouldReturnBadCharacterOrOK) {
+TEST(advancedCalculatorTest, ShouldReturnBadCharacterOrOK)
+{
     ASSERT_EQ(allowedCharacters("123 #- 123"), ErrorCode::BadCharacter);
     ASSERT_EQ(allowedCharacters("123 @- 123"), ErrorCode::BadCharacter);
     ASSERT_EQ(allowedCharacters("123 &- 123"), ErrorCode::BadCharacter);
@@ -213,7 +231,8 @@ TEST(advancedCalculatorTest, ShouldReturnBadCharacterOrOK) {
     ASSERT_EQ(allowedCharacters("-54.31+11"), ErrorCode::OK);
 }
 
-TEST(advancedCalculatorTest, ShouldReturnBadFormatOrOK) {
+TEST(advancedCalculatorTest, ShouldReturnBadFormatOrOK)
+{
     ASSERT_EQ(allowedFormat("123+--123"), ErrorCode::BadFormat);
     ASSERT_EQ(allowedFormat("--123+123"), ErrorCode::BadFormat);
     ASSERT_EQ(allowedFormat("*123"), ErrorCode::BadFormat);
@@ -249,39 +268,38 @@ TEST(advancedCalculatorTest, ShouldReturnBadFormatOrOK) {
     ASSERT_EQ(allowedFormat("13.4 ++ 12.43"), ErrorCode::BadFormat);
 }
 
-TEST(advancedCalculatorTest, ShouldUnpackExpressionToVector) {
-
-    ASSERT_EQ(unpackExpression("123+123"), (std::vector<std::string> {{"123"},{"+"},{"123"}}));
-    ASSERT_EQ(unpackExpression("5.5-2.2"), (std::vector<std::string> {{"5.5"},{"-"},{"2.2"}}));
-    ASSERT_EQ(unpackExpression("-90.1*1.23"), (std::vector<std::string> {{"-90.1"},{"*"},{"1.23"}}));
-    ASSERT_EQ(unpackExpression("23!"), (std::vector<std::string> {{"23"},{"!"},{"0"}}));
-    ASSERT_EQ(unpackExpression("50.6^23"), (std::vector<std::string> {{"50.6"},{"^"},{"23"}}));
+TEST(advancedCalculatorTest, ShouldUnpackExpressionToVector)
+{
+    ASSERT_EQ(unpackExpression("123+123"), (std::vector<std::string>{{"123"}, {"+"}, {"123"}}));
+    ASSERT_EQ(unpackExpression("5.5-2.2"), (std::vector<std::string>{{"5.5"}, {"-"}, {"2.2"}}));
+    ASSERT_EQ(unpackExpression("-90.1*1.23"), (std::vector<std::string>{{"-90.1"}, {"*"}, {"1.23"}}));
+    ASSERT_EQ(unpackExpression("23!"), (std::vector<std::string>{{"23"}, {"!"}, {"0"}}));
+    ASSERT_EQ(unpackExpression("50.6^23"), (std::vector<std::string>{{"50.6"}, {"^"}, {"23"}}));
 }
 
-TEST(advancedCalculatorTest, ShouldReturnProhibitedOperationsErrorOrOK) {
+TEST(advancedCalculatorTest, ShouldReturnProhibitedOperationsErrorOrOK)
+{
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string>{{"123"}, {"/"}, {"0"}})), ErrorCode::DivideBy0);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string>{{"123"}, {"/"}, {"0.0"}})), ErrorCode::DivideBy0);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string>{{"123"}, {"/"}, {"-0"}})), ErrorCode::DivideBy0);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string>{{"123"}, {"/"}, {"-0.0"}})), ErrorCode::DivideBy0);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string>{{"-123"}, {"/"}, {"0"}})), ErrorCode::DivideBy0);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string>{{"-123"}, {"/"}, {"0.0"}})), ErrorCode::DivideBy0);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string>{{"-123"}, {"/"}, {"-0"}})), ErrorCode::DivideBy0);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string>{{"-123"}, {"/"}, {"-0.0"}})), ErrorCode::DivideBy0);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string>{{"-1.23"}, {"/"}, {"0"}})), ErrorCode::DivideBy0);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string>{{"-12.3"}, {"/"}, {"0.0"}})), ErrorCode::DivideBy0);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string>{{"-12.3"}, {"/"}, {"-0"}})), ErrorCode::DivideBy0);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string>{{"-0.123"}, {"/"}, {"-0.0"}})), ErrorCode::DivideBy0);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string>{{"0"}, {"/"}, {"0"}})), ErrorCode::DivideBy0);
 
-    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"123"},{"/"},{"0"}})), ErrorCode::DivideBy0);
-    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"123"},{"/"},{"0.0"}})), ErrorCode::DivideBy0);
-    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"123"},{"/"},{"-0"}})), ErrorCode::DivideBy0);
-    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"123"},{"/"},{"-0.0"}})), ErrorCode::DivideBy0);
-    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-123"},{"/"},{"0"}})), ErrorCode::DivideBy0);
-    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-123"},{"/"},{"0.0"}})), ErrorCode::DivideBy0);
-    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-123"},{"/"},{"-0"}})), ErrorCode::DivideBy0);
-    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-123"},{"/"},{"-0.0"}})), ErrorCode::DivideBy0);
-    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-1.23"},{"/"},{"0"}})), ErrorCode::DivideBy0);
-    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-12.3"},{"/"},{"0.0"}})), ErrorCode::DivideBy0);
-    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-12.3"},{"/"},{"-0"}})), ErrorCode::DivideBy0);
-    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-0.123"},{"/"},{"-0.0"}})), ErrorCode::DivideBy0);
-    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"0"},{"/"},{"0"}})), ErrorCode::DivideBy0);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string>{{"123"}, {"%"}, {"0.1"}})), ErrorCode::ModuleOfNonIntegerValue);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string>{{"-123.6"}, {"%"}, {"0.005"}})), ErrorCode::ModuleOfNonIntegerValue);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string>{{"-1.23"}, {"%"}, {"-0.0123"}})), ErrorCode::ModuleOfNonIntegerValue);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string>{{"-123.0"}, {"%"}, {"0.1"}})), ErrorCode::ModuleOfNonIntegerValue);
 
-    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"123"},{"%"},{"0.1"}})), ErrorCode::ModuleOfNonIntegerValue);
-    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-123.6"},{"%"},{"0.005"}})), ErrorCode::ModuleOfNonIntegerValue);
-    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-1.23"},{"%"},{"-0.0123"}})), ErrorCode::ModuleOfNonIntegerValue);
-    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-123.0"},{"%"},{"0.1"}})), ErrorCode::ModuleOfNonIntegerValue);
-
-    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-12.3"},{"$"},{"-1"}})), ErrorCode::SqrtOfNegativeNumber);
-    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-12.3"},{"$"},{"0.5"}})), ErrorCode::SqrtOfNegativeNumber);
-    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-0.123"},{"$"},{"-10"}})), ErrorCode::SqrtOfNegativeNumber);
-    ASSERT_EQ(prohibitedOperations((std::vector<std::string> {{"-13.4"},{"$"},{"1"}})), ErrorCode::SqrtOfNegativeNumber);
-
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string>{{"-12.3"}, {"$"}, {"-1"}})), ErrorCode::SqrtOfNegativeNumber);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string>{{"-12.3"}, {"$"}, {"0.5"}})), ErrorCode::SqrtOfNegativeNumber);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string>{{"-0.123"}, {"$"}, {"-10"}})), ErrorCode::SqrtOfNegativeNumber);
+    ASSERT_EQ(prohibitedOperations((std::vector<std::string>{{"-13.4"}, {"$"}, {"1"}})), ErrorCode::SqrtOfNegativeNumber);
 }
