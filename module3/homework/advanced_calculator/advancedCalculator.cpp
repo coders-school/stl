@@ -50,7 +50,7 @@ std::string eraseSpaces(std::string input)
     return input;
 }
 
-ErrorCode allowedCharacters(std::string input)
+ErrorCode allowedCharacters(const std::string& input)
 {
     const std::string ALLOWEDCHARACTERS = "+*/-%!^$1234567890.,";
 
@@ -66,7 +66,7 @@ ErrorCode allowedCharacters(std::string input)
     return ErrorCode::OK;
 }
 
-ErrorCode allowedFormat(std::string input)
+ErrorCode allowedFormat(const std::string& input)
 {
     std::smatch singleMatch;
 
@@ -76,7 +76,7 @@ ErrorCode allowedFormat(std::string input)
     return ErrorCode::OK;
 }
 
-std::vector<std::string> unpackExpression(std::string input)
+std::vector<std::string> unpackExpression(const std::string& input)
 {
     std::smatch singleMatch;
 
@@ -99,7 +99,7 @@ std::vector<std::string> unpackExpression(std::string input)
     return {{firstNumber}, {action}, {secondNumber}};
 }
 
-ErrorCode prohibitedOperations(std::vector<std::string> unpackedElements)
+ErrorCode prohibitedOperations(const std::vector<std::string>& unpackedElements)
 {
     const double firstNumber = std::stod(unpackedElements[0]);
     const std::string action = unpackedElements[1];

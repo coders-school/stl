@@ -14,10 +14,10 @@ enum class ErrorCode {
 };
 
 std::string eraseSpaces(std::string input);
-ErrorCode allowedCharacters(std::string input);
-ErrorCode allowedFormat(std::string input);
-std::vector<std::string> unpackExpression(std::string input);
-ErrorCode prohibitedOperations(std::vector<std::string> unpackedElements);
+ErrorCode allowedCharacters(const std::string& input);
+ErrorCode allowedFormat(const std::string& input);
+std::vector<std::string> unpackExpression(const std::string& input);
+ErrorCode prohibitedOperations(const std::vector<std::string>& unpackedElements);
 
 using specMap = std::map<char, std::function<double(double,double)>>;
 double calculate(specMap actionsHolder, std::vector<std::string> unpackedElements);
