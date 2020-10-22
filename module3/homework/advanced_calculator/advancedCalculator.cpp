@@ -4,6 +4,7 @@
 #include <cmath>
 #include <iostream>
 #include <regex>
+#include <type_traits>
 
 const std::regex patternUnary("(([-]?[0-9]+)|([-]?[0-9]+[/.][0-9]+))(!)");
 const std::regex patternBinary("(([-]?[0-9]+)|([-]?[0-9]+[/.][0-9]+))([-/+/*///^%/$])(([-]?[0-9]+)|([-]?[0-9]+[/.][0-9]+))");
@@ -110,16 +111,25 @@ ErrorCode prohibitedOperations(const std::vector<std::string>& unpackedElements)
     }
 
     if (action == "%") {
-        if (firstNumber > 0 || secondNumber > 0) {
-            if ((firstNumber - int(firstNumber) > 0) || (secondNumber - int(secondNumber) > 0)) {
-                return ErrorCode::ModuleOfNonIntegerValue;
+        auto isFloatingPoint = [](auto numberToCheck) -> bool {
+            if (numberToCheck > 0) {
+                if (numberToCheck - (int)numberToCheck > 0) {
+                    return true;
+                }
             }
-        }
+            if (numberToCheck < 0) {
+                if (numberToCheck - (int)numberToCheck < 0) {
+                    return true;
+                }
+            }
+            return false;
+        };
 
-        if (firstNumber < 0 || secondNumber < 0) {
-            if ((firstNumber - int(firstNumber) < 0) || (secondNumber - int(secondNumber) < 0)) {
-                return ErrorCode::ModuleOfNonIntegerValue;
-            }
+        bool isFirstNonInteger = isFloatingPoint(firstNumber);
+        bool isSecondNonInteger = isFloatingPoint(secondNumber);
+
+        if (isFirstNonInteger || isSecondNonInteger) {
+            return ErrorCode::ModuleOfNonIntegerValue;
         }
     }
 
