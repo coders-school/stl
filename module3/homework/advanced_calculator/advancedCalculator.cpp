@@ -4,7 +4,6 @@
 #include <cmath>
 #include <iostream>
 #include <regex>
-#include <type_traits>
 
 const std::regex patternUnary("(([-]?[0-9]+)|([-]?[0-9]+[/.][0-9]+))(!)");
 const std::regex patternBinary("(([-]?[0-9]+)|([-]?[0-9]+[/.][0-9]+))([-/+/*///^%/$])(([-]?[0-9]+)|([-]?[0-9]+[/.][0-9]+))");
