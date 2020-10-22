@@ -104,9 +104,9 @@ std::vector<std::string> unpackExpression(std::string input)
 
 ErrorCode prohibitedOperations(std::vector<std::string> unpackedElements)
 {
-    double firstNumber = std::stod(unpackedElements[0]);
-    std::string action = unpackedElements[1];
-    double secondNumber = std::stod(unpackedElements[2]);
+    const double firstNumber = std::stod(unpackedElements[0]);
+    const std::string action = unpackedElements[1];
+    const double secondNumber = std::stod(unpackedElements[2]);
 
     if ((action == "/") && (!secondNumber)) {
         return ErrorCode::DivideBy0;
