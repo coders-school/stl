@@ -5,6 +5,9 @@
 #include <iostream>
 #include <regex>
 
+const std::regex patternUnary("(([-]?[0-9]+)|([-]?[0-9]+[/.][0-9]+))(!)");
+const std::regex patternBinary("(([-]?[0-9]+)|([-]?[0-9]+[/.][0-9]+))([-/+/*///^%/$])(([-]?[0-9]+)|([-]?[0-9]+[/.][0-9]+))");
+
 auto addAction = [](double firstNumber, double secondNumber) {
     return firstNumber + secondNumber;
 };
@@ -65,9 +68,6 @@ ErrorCode allowedCharacters(std::string input)
 
 ErrorCode allowedFormat(std::string input)
 {
-    const std::regex patternUnary("(([-]?[0-9]+)|([-]?[0-9]+[/.][0-9]+))(!)");
-    const std::regex patternBinary("(([-]?[0-9]+)|([-]?[0-9]+[/.][0-9]+))([-/+/*///^%/$])(([-]?[0-9]+)|([-]?[0-9]+[/.][0-9]+))");
-
     std::smatch singleMatch;
 
     if (!std::regex_match(input, singleMatch, patternUnary) && !std::regex_match(input, singleMatch, patternBinary)) {
@@ -78,9 +78,6 @@ ErrorCode allowedFormat(std::string input)
 
 std::vector<std::string> unpackExpression(std::string input)
 {
-    const std::regex patternUnary("(([-]?[0-9]+)|([-]?[0-9]+[/.][0-9]+))(!)");
-    const std::regex patternBinary("(([-]?[0-9]+)|([-]?[0-9]+[/.][0-9]+))([-/+/*///^%!/$])(([-]?[0-9]+)|([-]?[0-9]+[/.][0-9]+))");
-
     std::smatch singleMatch;
 
     std::string firstNumber{};
