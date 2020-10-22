@@ -40,7 +40,7 @@ auto factorialAction = [](double firstNumber, double secondNumber) {
     return std::tgamma(firstNumber + 1);
 };
 
-std::string eraseSpaces(std::string input)
+std::string eraseSpaces(std::string& input)
 {
     input.erase(std::remove_if(input.begin(),
                                input.end(),

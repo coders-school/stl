@@ -13,7 +13,7 @@ enum class ErrorCode {
     SqrtOfNegativeNumber
 };
 
-std::string eraseSpaces(std::string input);
+std::string eraseSpaces(std::string& input);
 ErrorCode allowedCharacters(const std::string& input);
 ErrorCode allowedFormat(const std::string& input);
 std::vector<std::string> unpackExpression(const std::string& input);
