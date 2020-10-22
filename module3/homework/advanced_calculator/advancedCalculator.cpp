@@ -136,8 +136,8 @@ double calculate(specMap actionsHolder, std::vector<std::string> unpackedElement
     const char* action = unpackedElements[1].c_str();
     double secondNumber = std::stod(unpackedElements[2]);
 
-    specMap::iterator it = actionsHolder.find(*action);
-    auto result = it->second(firstNumber, secondNumber);
+    const specMap::iterator it = actionsHolder.find(*action);
+    const auto result = it->second(firstNumber, secondNumber);
 
     return result;
 }
