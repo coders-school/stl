@@ -2,7 +2,8 @@
 
 #include "transformContainers.hpp"
 
-TEST(transformContainerTests, ShouldReturnUniqueMap) {
+TEST(transformContainerTests, ShouldReturnUniqueMap)
+{
     std::map<int, std::string> expected_result{
         {1, "Ala"},
         {2, "Kot"},
