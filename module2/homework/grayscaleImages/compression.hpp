@@ -8,6 +8,9 @@
 constexpr size_t width = 32;
 constexpr size_t height = 32;
 
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array<uint8_t, width>, height>& getGray);
-std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>> Compressed);
-void printMap(std::array<std::array<uint8_t, width>, height>& getMap);
+using SqueezedMap = std::vector<std::pair<uint8_t, uint8_t>>;
+using DiffusedMap = std::array<std::array<uint8_t, width>, height>;
+
+SqueezedMap compressGrayscale(DiffusedMap& getGray);
+DiffusedMap decompressGrayscale(SqueezedMap Compressed);
+void printMap(DiffusedMap& getMap);

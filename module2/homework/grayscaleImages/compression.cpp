@@ -4,56 +4,56 @@
 #include <cctype>
 #include <iostream>
 
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array<uint8_t, width>, height>& getGray)
+SqueezedMap compressGrayscale(DiffusedMap& getGray)
 {
-    std::vector<std::pair<uint8_t, uint8_t>> smallMap;
-    smallMap.reserve(width * height);
+    SqueezedMap squeezedMap;
+    squeezedMap.reserve(width * height);
 
     std::transform(getGray.begin(), getGray.end(), getGray.begin(),
 
-                   [&smallMap](std::array<uint8_t, width> everyRow) {
+                   [&squeezedMap](std::array<uint8_t, width> everyRow) {
                        auto firstIt = everyRow.begin();
                        while (firstIt != everyRow.end()) {
                            auto secondIt = std::find_if_not(firstIt, everyRow.end(), [firstIt](int x) { return x == *firstIt; });
-                           smallMap.emplace_back(*firstIt, std::distance(firstIt, secondIt));
+                           squeezedMap.emplace_back(*firstIt, std::distance(firstIt, secondIt));
                            firstIt = secondIt;
                        }
 
                        return everyRow;
                    });
 
-    smallMap.shrink_to_fit();
-    return smallMap;
+    squeezedMap.shrink_to_fit();
+    return squeezedMap;
 }
 
-std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>> compressedMap)
+DiffusedMap decompressGrayscale(SqueezedMap compressedMap)
 {
-    std::array<std::array<uint8_t, width>, height> result;
+    DiffusedMap diffusedMap;
 
-    auto iter = result.front().begin();
+    auto iter = diffusedMap.front().begin();
 
     std::transform(compressedMap.begin(), compressedMap.end(), compressedMap.begin(),
                    [&iter](const auto& myPair) mutable {
                        iter = std::fill_n(iter, myPair.second, myPair.first);
                        return myPair;
                    });
-    return result;
+    return diffusedMap;
 }
 
-void printMap(std::array<std::array<uint8_t, width>, height>& getMap)
+void printMap(DiffusedMap& getMap)
 {
-    std::transform(getMap.begin(), getMap.end(), getMap.begin(), [](auto& a) {
-        std::transform(a.begin(), a.end(), a.begin(), [](auto& el) {
-            if (isprint(el) == 0) {
+    std::transform(getMap.begin(), getMap.end(), getMap.begin(), [](auto& everyElement) {
+        std::transform(everyElement.begin(), everyElement.end(), everyElement.begin(), [](auto& singleElement) {
+            if (isprint(singleElement) == 0) {
                 std::cout << " ";
             }
             else {
-                std::cout << el;
+                std::cout << singleElement;
             }
 
-            return el;
+            return singleElement;
         });
         std::cout << "\n";
-        return a;
+        return everyElement;
     });
 }
