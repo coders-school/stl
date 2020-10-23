@@ -1,12 +1,10 @@
 #include <algorithm>
-#include <array>
-#include <utility>  // for std::pair<>
-#include <vector>
+#include <utility>
 
 #include "compression.hpp"
 #include "gtest/gtest.h"
 
-void expectBitmap(const std::vector<std::pair<uint8_t, uint8_t>>& bitmap, size_t fraction)
+void expectBitmap(const SqueezedMap& bitmap, size_t fraction)
 {
     for (int j = 0; j < fraction; j++) {
         for (int i = j; i < height * fraction; i += fraction) {
@@ -16,9 +14,9 @@ void expectBitmap(const std::vector<std::pair<uint8_t, uint8_t>>& bitmap, size_t
     }
 }
 
-std::vector<std::pair<uint8_t, uint8_t>> getBitmap(size_t fraction)
+SqueezedMap getBitmap(size_t fraction)
 {
-    std::vector<std::pair<uint8_t, uint8_t>> bitmap;
+    SqueezedMap bitmap;
     bitmap.reserve(height * fraction);
     for (size_t i = 0; i < height; ++i) {
         for (size_t j = 0; j < fraction; ++j) {
@@ -31,7 +29,7 @@ std::vector<std::pair<uint8_t, uint8_t>> getBitmap(size_t fraction)
 
 TEST(compressionTests, ShouldCompressWholeLines)
 {
-    std::array<std::array<uint8_t, width>, height> arr;
+    DiffusedMap arr;
     for (int i = 0; i < height; ++i)
         for (int j = 0; j < width; ++j)
             arr[i][j] = 0;
@@ -43,7 +41,7 @@ TEST(compressionTests, ShouldCompressWholeLines)
 
 TEST(compressionTests, ShouldCompressHalfLines)
 {
-    std::array<std::array<uint8_t, width>, height> arr;
+    DiffusedMap arr;
     for (int i = 0; i < height; ++i) {
         for (int j = 0; j < width / 2; ++j)
             arr[i][j] = 0;
@@ -57,7 +55,7 @@ TEST(compressionTests, ShouldCompressHalfLines)
 
 TEST(compressionTests, ShouldCompressQuaterLines)
 {
-    std::array<std::array<uint8_t, width>, height> arr;
+    DiffusedMap arr;
     for (int i = 0; i < height; ++i) {
         for (int j = 0; j < width / 4; ++j)
             arr[i][j] = 0;
@@ -76,7 +74,7 @@ TEST(compressionTests, ShouldCompressQuaterLines)
 
 TEST(compressionTests, ShouldCompressOneEighthLines)
 {
-    std::array<std::array<uint8_t, width>, height> arr;
+    DiffusedMap arr;
     for (int i = 0; i < height; ++i) {
         for (int j = 0; j < width / 8; ++j)
             arr[i][j] = 0;
