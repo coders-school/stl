@@ -48,9 +48,9 @@ std::stringstream FormatRecipit(const Steps& steps,
 {
     std::stringstream result;
     FormattedIngredients formIngrs = FormatIngredients(ingredients, amount);
-
     const std::string ingredientsHeader{"Skladniki:\n"};
     const std::string stepsHeader{"\nKroki:\n"};
+
     result << ingredientsHeader;
     for (const auto& ingr : formIngrs) {
         result << ingr << ",\n";
