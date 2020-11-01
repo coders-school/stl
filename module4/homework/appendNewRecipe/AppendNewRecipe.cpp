@@ -8,7 +8,6 @@ static const std::map<char, std::string> units{{'g', "gram"},
                                                {'s', "szklanka(i)"},
                                                {'m', "mililitrow"}};
 
-
 bool AppendNewRecipe(const Steps& steps,
                      const Ingredients& ingredients,
                      const Amount& amount) 
