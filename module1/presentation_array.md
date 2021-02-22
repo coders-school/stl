@@ -39,7 +39,7 @@ ___
 
 ___
 
-### Przekazanie `std::array<T, N>` do funkcji
+## Przekazanie `std::array<T, N>` do funkcji
 
 Ponieważ `std::array<T, N>` ma 2 parametry szablonu, niektórzy mogą mieć problem przy przekazywaniu jej do funkcji, gdyż pisząc `std::array<T>` zapominając o rozmiarze tablicy.
 <!-- .element: class="fragment fade-in" -->
