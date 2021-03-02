@@ -1,0 +1,10 @@
+Otwórz dokumentację wektora na cppreference.com
+Stwórz nowy plik cpp i napisz funkcję main()
+Stwórz wektor o wartościach { 1, 2, 4, 5, 6 }
+Usuń pierwszą wartość
+Dodaj wartość 5 na końcu wektora
+Dodaj wartość 12 na początku wektora metodą emplace
+Wypisz rozmiar wektora i maksymalny możliwy rozmiar
+Wypisz zawartość wektora
+Wyczyść wektor
+Wypisz rozmiar wektora
