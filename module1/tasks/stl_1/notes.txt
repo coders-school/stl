@@ -8,3 +8,15 @@ Wypisz rozmiar wektora i maksymalny możliwy rozmiar
 Wypisz zawartość wektora
 Wyczyść wektor
 Wypisz rozmiar wektora
+
+
+Otwórz dokumentację wektora na cppreference.com
+Stwórz nowy plik cpp i napisz funkcję main()
+Stwórz pusty wektor
+Wypisz rozmiar i pojemność wektora
+Zmień rozmiar wektora na 10 i wypełnij go wartościami 5
+Wypisz rozmiar i pojemność wektora
+Zarezerwuj pamięć na 20 elementów
+Wypisz rozmiar i pojemność wektora
+Zredukuj pojemność wektora metodą shrink_to_fit()
+Wypisz rozmiar i pojemność wektora
