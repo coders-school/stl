@@ -20,3 +20,44 @@ Zarezerwuj pamięć na 20 elementów
 Wypisz rozmiar i pojemność wektora
 Zredukuj pojemność wektora metodą shrink_to_fit()
 Wypisz rozmiar i pojemność wektora
+
+Znajdź dokumentację std::array na cppreference.com
+Stwórz nowy plik cpp i napisz funkcję main()
+Stwórz std::array o rozmiarze 10
+Wypełnij ją wartościami 5
+Do czwartego elementu przypisz wartość 3
+Stwórz inną tablicę o tym samym rozmiarze
+Podmień tablice
+Wypisz obie tablice, każdą w osobnej linii
+
+Znajdź dokumentację std::list na cppreference.com
+Stwórz nowy plik cpp i napisz funkcję main()
+Stwórz listę zawierającą elementy od 0 do 5
+Wyświetl listę
+Usuń trzeci element z listy
+Dodaj na początek i koniec listy wartość 10
+Wyświetl listę
+Dodaj na czwartej pozycji liczbę 20
+Przepisz listę do std::array
+Wyświetl std::array
+
+Znajdź dokumentację std::forward_list na cppreference.com
+Skorzystaj z kodu z zadania z std::list
+Stwórz listę jednokierunkową zawierającą elementy od 0 do 5
+Wyświetl listę
+Usuń 3 element z listy
+Dodaj na początek i koniec listy wartość 10
+Wyświetl listę
+Dodaj na czwartej pozycji liczbę 20
+Wyświetl listę
+
+Znajdź dokumentację std::deque na cppreference.com
+Stwórz nowy plik cpp i napisz funkcję main()
+Stwórz pusty deque
+Dodaj do niego 5 dowolnych wartości
+Wyświetl deque
+Usuń 2-gi i 4-ty element
+Dodaj na początek i koniec wartość 30
+Wyświetl deque
+Dodaj na 4 pozycji liczbę 20
+Wyświetl deque

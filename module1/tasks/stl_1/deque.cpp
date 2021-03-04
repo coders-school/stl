@@ -18,7 +18,7 @@ int main (){
     deq.push_front(1);
     print(deq);
     deq.erase(deq.begin() + 1);
-    deq.erase(deq.begin() + 2);
+    deq.erase(deq.begin() + 3);
     print(deq);
     deq.push_front(30);
     deq.push_back(30);

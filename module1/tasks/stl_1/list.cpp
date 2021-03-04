@@ -32,9 +32,6 @@ int main (){
         ele = *it++;
     }
     print(arr);
-
-
-
     
     return 0;
 
