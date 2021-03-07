@@ -1,5 +1,6 @@
 #include <array>
 #include <forward_list>
+#include "compression.hpp"
 
 // TODO: include
 
@@ -44,7 +45,7 @@ int main() {
     auto ninja = generateNinja();
     // printMap(ninja);
     auto compressed = compressGrayscale(ninja);
-    auto decompressed = decompressGrayscale(compressed);
+    //auto decompressed = decompressGrayscale(compressed);
     // printMap(decompressed);
 
     return 0;
