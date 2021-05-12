@@ -1,6 +1,6 @@
 <!-- .slide: data-background="#111111" -->
 
-# Algorytmy modyfikujące
+# Modifying algorithms
 
 <a href="https://coders.school">
     <img width="500" data-src="../coders_school_logo.png" src="../coders_school_logo.png" alt="Coders School" class="plain">
@@ -8,19 +8,19 @@
 
 ___
 
-## Algorytmy  modyfikujące kolejność elementów
+## Algorithms modifying the order of elements
 
-Modyfikują one kontenery na których działają.
+They modify the containers they operate on.
 
-Mogą:
+They can:
 
-* zmieniać kolejności elementów w kontenerze
-* usuwać elementy
-* dodawać elementy
+* rearrange items in a container
+* delete items
+* add items
 
-Tutaj znajdziesz tylko popularne lub ciekawe użycia niektórych algorytmów. Pełna lista algorytmów dostępna jest na cppreferene.com
+Here you will only find popular or interesting uses of some algorithms. The full list of algorithms is available on cppreference.com
 
-[Algorytmy na cppreference.com](https://en.cppreference.com/w/cpp/algorithm)
+[Algorithms on cppreference.com](https://en.cppreference.com/w/cpp/algorithm)
 
 ___
 
@@ -38,12 +38,12 @@ OutputIt copy_if( InputIt first, InputIt last,
                   UnaryPredicate pred );
 ```
 
-* Podstawowa wersja `std::copy`, kopiuje podany zakres do innego zakresu. Przykładowo kopiuje elementy z wektora do listy.
-* `std::copy_if` kopiuje tylko te elementy, które spełniają podany przez nas predykat. Np. `::is_upper`, `::is::digit`.
+* Basic version of `std::copy`, copies the given range to another range. For example, it copies items from a vector to a list.
+* `std::copy_if` copies only these elements that meet the predicate we have given. For example `::is_upper`, `::is::digit`.
 
 ___
 
-## `std::copy`, `std::copy_if` - użycie
+## `std::copy`, `std::copy_if` - use
 
 ```cpp
 std::vector<int> vec {1, 2, 3, 4, 5};
@@ -74,7 +74,7 @@ template< class ForwardIt, class T >
 void fill( ForwardIt first, ForwardIt last, const T& value );
 ```
 
-Funkcja wypełnia podany zakres wartościami `value`
+The function fills the given range with `value` values
 
 ```cpp
 int main() {
@@ -94,7 +94,7 @@ ___
 
 ## `std::transform`
 
-Potężny algorytm, mogący zrobić dużo więcej niż się wydaje na początku :)
+A powerful algorithm that can do much more than it seems at the beginning :)
 
 ```cpp
 template< class InputIt, class OutputIt, class UnaryOperation >
@@ -111,14 +111,14 @@ OutputIt transform( InputIt1 first1, InputIt1 last1,
                     BinaryOperation binary_op );
 ```
 
-* Pierwsza wersja `std::transform` przyjmuje zakres `[first1, last1)`, oraz wykonuje na każdym elemencie operację `unary_op`, a następnie zapisuje zmodyfikowane elementy w drugim zakresie (`d_first`).
-* Druga wersja, przyjmuje 2 zakresy, pobiera z obu tych zakresów po 1 elemencie i wykonuje na nich operacje `binary_op`, następnie zapisuje wynik w 3 zakresie (`d_first`).
+* First version of `std::transform` takes the range `[first1, last1)`, and performs `unary_op` operation on each element and then saves the modified items in the second range (`d_first`).
+* The second version, takes 2 ranges, takes 1 element from both ranges and performs `binary_op` operation on them, then writes the result in the 3 range (`d_first`).
 
 ___
 
-## `std::transform` - przykład użycia #1
+## `std::transform` - example of use # 1
 
-Konwersja jednego typu kontenera na drugi
+Converting one type of container to another
 
 ```cpp
 int main() {
@@ -143,9 +143,9 @@ Output: `0 1 2 3 4 5`
 
 ___
 
-## `std::transform` - przykład użycia #2
+## `std::transform` - example of use #2
 
-Konwersja kontenera
+Container conversion
 
 ```cpp
 std::vector<std::pair<int, std::string>> vec {
@@ -170,9 +170,9 @@ Output: `Zero : 0, One : 1, Two : 2, Three : 3, Four : 4, Five : 5`
 
 ___
 
-## `std::transform` - przykład użycia #3
+## `std::transform` - usage example #3
 
-Zamiana znaków na małe litery
+Convert characters to lowercase
 
 ```cpp
 int main() {
@@ -195,9 +195,9 @@ Output: `zero one two three four five`
 
 ___
 
-## `std::transform` przykład użycia #4
+## `std::transform` usage example #4
 
-Sumowanie wartości wektora i listy:
+Adding vector and list values:
 
 ```cpp
 int main() {
@@ -227,7 +227,7 @@ template< class ForwardIt, class Generator >
 void generate( ForwardIt first, ForwardIt last, Generator g );
 ```
 
-Funkcja służąca do generowania danych.
+A function for generating data.
 
 ```cpp
 int main() {
@@ -252,7 +252,7 @@ ForwardIt2 swap_ranges( ForwardIt1 first1, ForwardIt1 last1,
                         ForwardIt2 first2 );
 ```
 
-Podmienia pewien zakres danych
+It replaces a certain range of data
 
 ```cpp
 int main() {
@@ -282,7 +282,7 @@ template< class BidirIt >
 void reverse( BidirIt first, BidirIt last );
 ```
 
-Odwraca zakres
+Reverses the scope
 
 ```cpp
 int main() {
@@ -305,11 +305,11 @@ template< class ForwardIt >
 ForwardIt unique( ForwardIt first, ForwardIt last );
 ```
 
-Usuwa duplikaty. Ważne! Kontener musi być posortowany. Tak naprawdę ta funkcja nie usuwa duplikatów, lecz przenosi unikalne wartości na początek kontenera (nie zmieniając ich wzajemnej kolejności) oraz zwraca iterator wskazujący pierwszy element, gdzie zaczynają się duplikaty.
+Removes duplicates. Important! The container must be sorted. In fact, this function does not remove duplicates, but moves the unique values ​​to the top of the container (without changing their mutual order) and returns an iterator pointing to the first element where duplicates begin.
 
 ___
 
-## `std::unique` - przykład
+## `std::unique` - example
 
 ```cpp
 int main() {
@@ -333,24 +333,24 @@ Output:
 
 ___
 
-## Zadanie
+## Task
 
-1. Stwórz `std::vector<int>`
-2. Wypełnij go elementami nieparzystymi licząc od 1 do 15
-3. Odwróć kontener nie używając pętli ani `std::reverse`
-4. Przepisz `std::vector<int>` do listy używając `std::copy`
-5. Stwórz drugi `std::vector<int>` i wypełnij go liczbami parzystymi od 0 do 14.
-6. Znajdź sposób jak połączyć oba wektory w jeden, zawierający wartości od 0 do 15 ułożone po kolei.
+1. Create `std::vector<int>`
+2. Fill it with odd numbers from 1 to 15
+3. Reverse container without using a loop or `std::reverse`
+4. Rewrite `std::vector<int>` to the list using `std::copy`
+5. Create the second `std::vector<int>` and fill it with even numbers from 0 to 14.
+6. Find a way to combine both vectors into one with values ​​from 0 to 15 arranged in sequence.
 
 ___
 
-## Zadanie
+## Task
 
-1. Stwórz `std::list<int>` z wartościami od 1 do 10.
-2. Utwórz `std::vector<int>` z wartościami od 5 do 10.
-3. Przekaż odpowiednie iteratory do funkcji `std::equal`, tak by zwróciła, że oba kontenery są sobie równe.
-4. Za pomocą `std::mismatch` oraz `erase`, usuń niepasujące elementy z listy
-5. Zawołaj funkcję `std::equal` dla pełnych zakresów aby upewnić się, że są teraz identyczne.
+1. Create `std::list<int>` with values ​​from 1 to 10.
+2. Create `std::vector<int>` with values ​​from 5 to 10.
+3. Pass the appropriate iterators to the function `std::equal` so that it would make both containers equal.
+4. With `std::mismatch` and `erase`, remove mismatched items from the list
+5. Call the function `std::equal` for full ranges to make sure they are now identical.
 
 ___
 

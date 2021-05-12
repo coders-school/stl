@@ -13,7 +13,7 @@ ___
 ## Cechy `std::array<T, N>`
 
 * <!-- .element: class="fragment fade-in" --> Cache-friendly, tzn. iterując po <code>std::array&lt;T, N&gt;</code>, zostanie on cały załadowany do pamięci podręcznej procesora, co przyspieszy odczytywanie danych
-* <!-- .element: class="fragment fade-in" --> Typ <code>&lt;T&gt;</code> może być dowolny. Zarówno typ wbudowany jak int, double, jak i własny zdefiniowany przez nas typ
+* <!-- .element: class="fragment fade-in" --> Typ <code>&lt;T&gt;</code> może być dowolny. Zarówno typ wbudowany jak <code>int</code>, <code>double</code>, jak i własny zdefiniowany przez nas typ
 * <!-- .element: class="fragment fade-in" --> Typ <code>&lt;N&gt;</code> oznacza rozmiar tablicy, który musi być znany już w czasie kompilacji
 * <!-- .element: class="fragment fade-in" --> Elementy są ułożone obok siebie w pamięci, tak jak w zwykłej tablicy
 * <!-- .element: class="fragment fade-in" --> <code>std::array</code> jest najprymitywniejszym <code>wrapperem</code> na zwykłe tablice, używanie jej jest praktycznie tak samo wydajne

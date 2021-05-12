@@ -51,7 +51,6 @@ std::deque<std::pair<size_t, char>> amount{
 ```
 <!-- .element: class="fragment fade-in" -->
 
-<!-- nie mieściło się, dzielę na dwa -->
 ___
 
 ## Zadanie1 #3

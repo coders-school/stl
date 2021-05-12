@@ -80,7 +80,6 @@ ___
 * <!-- .element: class="fragment fade-in" --> wyczyszczenie nieużywanej pamięci: Brak
 * <!-- .element: class="fragment fade-in" --> iterator początku/końca: <code>begin()</code>, <code>end()</code>
 
-<!-- znowu dużo contentu, ciacham na pół :) -->
 ___
 
 ## Operacje na `std::map<K, T>` i `std::multimap<K, T>` #2
@@ -423,7 +422,6 @@ ___
 * <!-- .element: class="fragment fade-in" --> iterator początku/końca: <code>begin()</code>, <code>end()</code>
 * <!-- .element: class="fragment fade-in" --> odwrócony (ang. reverse) iterator: Brak
 
-<!-- ciacham -->
 ___
 
 ## Operacje na `std::unordered_set<T>` i `std::unordered_multiset<T>` #2

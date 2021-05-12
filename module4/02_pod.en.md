@@ -6,7 +6,7 @@ ___
 
 ## POD - Plain old data
 
-Czyli klasa/struktura bez konstruktora, destruktora i metod wirtualnych.
+POD is a class/structure without a constructor, destructor and virtual methods.
 
 ```C++
 class Pod {
@@ -23,12 +23,11 @@ private:
 ```
 <!-- .element: class="fragment fade-in" -->
 
-<!-- Podzieliłem slajd na dwa, bo trzeba było bardzo mocno zmniejszyć czcionkę żeby się zmieściło -->
 ___
 
-## POD - Plain old data #2
+## POD - Plain old data # 2
 
-Ale to już nie jest POD.
+But that's not a POD anymore.
 
 ```C++
 class Pod {
@@ -48,7 +47,7 @@ private:
 ___
 <!-- .slide: style="font-size: 0.9em" -->
 
-## Zapisywanie POD
+## Saving POD to a file
 
 ```C++
 class Pod {
@@ -72,17 +71,17 @@ private:
 };
 
 int main() {
-    Pod mateusz;
-    mateusz.SetName("Mateusz");
-    mateusz.SetIndex(123456);
-    mateusz.SetAverage(5.0);
+    Pod matthew;
+    matthew.SetName("Matthew");
+    matthew.SetIndex(123456);
+    matthew.SetAverage(5.0);
 
     // or
-    // Pod mateusz{"Mateusz", 123456, 5.0};
+    // Pod matthew{"Matthew", 123456, 5.0};
 
     std::fstream student("Student.txt", student.binary | student.out);
     if (student.is_open()) {
-        student.write(reinterpret_cast<char*>(&mateusz), sizeof(Pod));
+        student.write(reinterpret_cast<char*>(&matthew), sizeof(Pod));
         student.close();
     }
 }
@@ -92,16 +91,16 @@ int main() {
 ___
 <!-- .slide: style="font-size: 0.9em" -->
 
-## Odczyt POD
+## Reading POD
 
 ```C++
     student.open("Student.txt", student.binary | student.in);
-    Pod mateusz_read;
+    Pod matthew_read;
     if (student.is_open()) {
-        student.read(reinterpret_cast<char*>(&mateusz_read), sizeof(Pod));
-        std::cout << "Name: " << mateusz_read.GetName() << '\n';
-        std::cout << "Index: " << mateusz_read.GetIndex() << '\n';
-        std::cout << "Average: " << mateusz_read.GetAverage() << '\n';
+        student.read(reinterpret_cast<char*>(&matthew_read), sizeof(Pod));
+        std::cout << "Name: " << matthew_read.GetName() << '\n';
+        std::cout << "Index: " << matthew_read.GetIndex() << '\n';
+        std::cout << "Average: " << matthew_read.GetAverage() << '\n';
         student.close();
     }
 ```
@@ -121,7 +120,7 @@ Output:
 <!-- .element: class="fragment fade-in" -->
 
 ```C++
-Name: Mateusz
+Name: Matthew
 Index: 123456
 Average: 5
 ```
@@ -130,12 +129,12 @@ Average: 5
 ___
 <!-- .slide: style="font-size: 0.9em" -->
 
-## stringstream - jak wygodnie używać `std::string` jako strumień
+## stringstream - how to use `std::string` conveniently as a stream
 
-Podzielenie `std::string` na pojedyncze słowa. Niestety nie możemy tego w tak prosty sposób zrobić dla innch znaków niż spacja.
+Divide `std::string` into single words. Unfortunately, we cannot do this in such a simple way for characters other than spaces.
 
 ```C++
-std::string str {"Ala ma kota, a kot ma ale, ale to nie to samo, co Sierotka ma rysia."};
+std::string str {"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."};
 std::istringstream iss(str);
 std::vector<std::string> vec {std::istream_iterator<std::string>(iss), {}};
 std::copy(begin(vec), end(vec), std::ostream_iterator<std::string>(std::cout, "\t"));
@@ -146,16 +145,16 @@ Output:
 <!-- .element: class="fragment fade-in" -->
 
 ```C++
-Ala     ma      kota,   a       kot     ma      ale,    ale     to      nie     to      samo,   co      Sierotka        ma      rysia.
+Lorem   ipsum   dolor   sit     amet,   consectetur     adipiscing      elit,   sed     do      eiusmod tempor  incididunt      ut      labore  et      dolore  magna   aliqua.
 ```
 <!-- .element: class="fragment fade-in" -->
 
-`std::ostream_iterator` pozwala nam wpisywać dane do `std::cout`, w wygodny sposób.
+`std::ostream_iterator` allows us to enter data into `std::cout` in a convenient way.
 <!-- .element: class="fragment fade-in" -->
 
 ___
 
-## stringstream -> jak skonwertować na string
+## stringstream -> how to convert to string
 
 ```C++
 std::stringstream ss;

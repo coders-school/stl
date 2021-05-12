@@ -178,6 +178,7 @@ std::cout << "O(n^2): " << std::chrono::duration_cast<std::chrono::nanoseconds>(
 <!-- .element: class="fragment fade-in" -->
 
 Possible output:
+<!-- .element: class="fragment fade-in" -->
 
 ```C++
 O(n^2): 9'974'800 ns
