@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>STL containers - Coders School</title>
+
+        <meta name="description" content="STL">
+        <meta name="author" content="Mateusz Adamski & Łukasz Ziobroń">
+
+        <link rel="stylesheet" href="../../dist/reset.css">
+        <link rel="stylesheet" href="../../dist/reveal.css">
+        <link rel="stylesheet" href="../../dist/theme/coders.css" id="theme">
+
+        <!-- Theme used for syntax highlighting of code -->
+        <link rel="stylesheet" href="../../plugin/highlight/monokai.css">
+
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <section data-background="#111111">
+
+                        <h1>STL</h1>
+                        <h2>Containers</h2>
+                        <a href="https://coders.school">
+                            <img width="500" data-src="../img/coders_school_logo.png" alt="Coders School" class="plain">
+                        </a>
+                        <h3>Mateusz Adamski</h3>
+                        <h3>Łukasz Ziobroń</h3>
+
+                    </section>
+                    <section data-markdown>
+                        <textarea data-template>
+
+                        ## Agenda
+
+                        1. <!-- .element: class="fragment fade-in" --> Sequence containers
+                        1. <!-- .element: class="fragment fade-in" --> Associative containers
+                        1. <!-- .element: class="fragment fade-in" --> Adapters
+                        1. <!-- .element: class="fragment fade-in" --> Other containers
+
+                        </textarea>
+                    </section>
+                    <section data-markdown>
+                        <textarea data-template>
+
+                        [Repo GH `coders-school/stl:cr`](https://github.com/coders-school/stl/tree/cr/module1/homework)
+
+                        </textarea>
+                    </section>
+                    <section>
+
+                        <h2>Sequence container</h2>
+                        <img width="500" data-src="../img/sequence_containers.png" alt="Kontenery sekwencyjne" class="plain">
+
+                    </section>
+                </section>
+                <!--
+                    Note that Windows uses `\r\n` instead of `\n` as its linefeed character.
+                    For a regex that supports all operating systems, use `\r?\n` instead of `\n`.
+
+                    Usage:
+                    Install dependencies
+
+                    $ npm install
+                    Serve the presentation and monitor source files for changes
+
+                    $ npm start
+                    Open http://localhost:8000 to view your presentation
+
+                    You can change the port by using npm start -- --port=8001.
+                -->
+                <section data-markdown="../01-containers/00-intro.md"
+                         data-separator-vertical="^___"
+                         data-separator-notes="^Note:">
+                </section>
+                <section data-markdown="../01-containers/01-sequence-containers/01-vector.md"
+                         data-separator-vertical="^___"
+                         data-separator-notes="^Note:">
+                </section>
+                <section data-markdown="../01-containers/01-sequence-containers/02-array.md"
+                         data-separator-vertical="^___"
+                         data-separator-notes="^Note:">
+                </section>
+                <section data-markdown="../01-containers/01-sequence-containers/03-list.md"
+                         data-separator-vertical="^___"
+                         data-separator-notes="^Note:">
+                </section>
+                <section data-markdown="../01-containers/01-sequence-containers/04-forward.md"
+                         data-separator-vertical="^___"
+                         data-separator-notes="^Note:">
+                </section>
+                <section data-markdown="../01-containers/01-sequence-containers/05-deque.md"
+                         data-separator-vertical="^___"
+                         data-separator-notes="^Note:">
+                </section>
+                <section data-markdown="../01-containers/01-sequence-containers/06-homework.md"
+                         data-separator-vertical="^___"
+                         data-separator-notes="^Note:">
+                </section>
+                <section data-background="#111111">
+
+                    <h1>Coders School</h1>
+                    <img width="400" data-src="../logo.png" alt="Coders School" class="plain">
+
+                </section>
+            </div>
+        </div>
+
+        <script src="../../dist/reveal.js"></script>
+        <script src="../../plugin/notes/notes.js"></script>
+        <script src="../../plugin/markdown/markdown.js"></script>
+        <script src="../../plugin/highlight/highlight.js"></script>
+
+        <script>
+            Reveal.initialize({
+                    width: 1200,
+                    height: 750,
+                    slideNumber: true,
+                    hash: true,
+                    pdfSeparateFragments: false,
+                    plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+            });
+        </script>
+    </body>
+</html>
