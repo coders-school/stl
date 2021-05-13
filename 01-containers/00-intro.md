@@ -1,7 +1,7 @@
 ## Something about you
 
 * Which STL containers are you familiar with?
-* Which is your favourite?
+* Which of them is your favourite?
 
 ___
 <!-- .slide: data-background="../img/lukin.jpg" -->
