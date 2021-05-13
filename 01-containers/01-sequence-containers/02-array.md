@@ -40,6 +40,31 @@ ___
 
 ___
 
+## Operations complexity
+
+* Insertion/deletion
+  * Not available
+* Access
+  * `O(1)`
+* Searching
+  * `O(n)`
+
+___
+
+## Memory usage
+
+* `n * sizeof(T)`
+* Additional small constant memory for internal data is used (size, capacity, allocator)
+
+___
+
+## Iterator invalidation
+
+* Never
+* During `swap`, the iterator will continue to point to the same array element, and will thus change its value
+
+___
+
 ### Passing `std::array<T, N>` to function
 
 Because `std::array<T, N>` has 2 template parameters, some may have a problem passing it to a function
