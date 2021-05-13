@@ -12,21 +12,23 @@ ___
 
 ## `std::vector<T>` traits
 
-* <!-- .element: class="fragment fade-in" --> Cache-friendly.
-* <!-- .element: class="fragment fade-in" --> Type <code>&lt;T&gt;</code> can be any type. There are no additional constraints.
-* <!-- .element: class="fragment fade-in" --> Items are arranged contiguously in memory just like in a regular array.
+* <!-- .element: class="fragment fade-in" --> Cache-friendly
+* <!-- .element: class="fragment fade-in" --> Items are arranged contiguously in memory just like in a regular array
 * <!-- .element: class="fragment fade-in" --> The complexity of adding a new item:
   * <!-- .element: class="fragment fade-in" --> Is constant when  <code>size() < capacity()</code>
-  * <!-- .element: class="fragment fade-in" --> Is undefined when <code>size() >= capacity()</code>
-  * <!-- .element: class="fragment fade-in" --> The vector will allocate additional memory space.
-  * <!-- .element: class="fragment fade-in" --> In a critical situation, when there is no more space for additional data in the current area, the entire vector will be copied to another memory location.
-* <!-- .element: class="fragment fade-in" --> Removing the last element from a vector is cheap, but removing the element from the middle or beginning is expensive.
-* <!-- .element: class="fragment fade-in" --> But we usually do not have intuition about how the cache memory can improve the performance.
+  * <!-- .element: class="fragment fade-in" --> Is linear when <code>size() >= capacity()</code>
+  * <!-- .element: class="fragment fade-in" --> The vector allocates additional memory space
+  * <!-- .element: class="fragment fade-in" --> When there is no more space for additional data in the current area, the entire vector will be copied to another memory location
+* <!-- .element: class="fragment fade-in" --> Removing the last element from a vector is cheap, but removing the element from the middle or beginning is expensive
+* <!-- .element: class="fragment fade-in" --> We usually do not have proper intuition about how the cache memory can improve the performance
+* <!-- .element: class="fragment fade-in" --> Iterators are invalidated after each insertion or deletion
 
 ___
-<!-- .element: style="font-size: 0.9em" -->
+<!-- .element: style="font-size: 0.8em" -->
 
 ## `std::vector<T>` methods
+
+[`std::vector<T>` on cppreference.org](https://en.cppreference.com/w/cpp/container/vector)
 
 * <!-- .element: class="fragment fade-in" --> adding an item: <code>push_back()</code>, <code>emplace_back()</code>, <code>insert()</code>
 * <!-- .element: class="fragment fade-in" --> modifying/accessing an item: <code>at()</code>, <code>operator[]</code>
@@ -45,101 +47,26 @@ ___
 
 ___
 
-## Inserting items #1
+## Operations complexity
 
-### `std::vector<T>::insert()`
-
-```cpp
-iterator insert( const_iterator pos, const T& value );
-```
-<!-- .element: class="fragment fade-in" -->
-
-In order to add an element to a vector, we can use an iterator:
-<!-- .element: class="fragment fade-in" -->
-
-```cpp
-std::vector<int> vec{1, 2, 3, 4};
-auto it = vec.begin();
-vec.insert(it, 20); // {20, 1, 2, 3, 4};
-```
-<!-- .element: class="fragment fade-in" -->
+* Insertion/deletion
+  * `O(1)` at the end if `size() < capacity()`
+  * `O(n)` at the end if `size() >= capacity()`
+  * `O(n)` - other
+* Access
+  * `O(1)`
+* Searching
+  * `O(n)`
 
 ___
 
-## Inserting items #2
+## Memory usage
 
-### `std::vector<T>::insert()`
-
-```cpp
-iterator insert( const_iterator pos, size_type count, const T& value );
-```
-<!-- .element: class="fragment fade-in" -->
-
-We can also define how many elements we want to add:
-<!-- .element: class="fragment fade-in" -->
-
-```cpp
-std::vector<int> vec{1, 2, 3, 4};
-auto it = vec.begin();
-vec.insert(it, 5, 20); // {20, 20, 20, 20, 20, 1, 2, 3, 4};
-```
-<!-- .element: class="fragment fade-in" -->
-
-___
-
-## Insert items #3
-
-### `std::vector<T>::insert()`
-
-```cpp
-template< class InputIt >
-iterator insert( const_iterator pos, InputIt first, InputIt last );
-```
-<!-- .element: class="fragment fade-in" -->
-
-It is also possible to insert elements from one container to another:
-<!-- .element: class="fragment fade-in" -->
-
-```cpp
-std::vector<int> vec{1, 2, 3, 4};
-std::list<int> list{10, 20, 30, 40};
-vec.insert(vec.begin(), list.begin(), list.end());
-// vec = {10, 20, 30, 40, 1, 2, 3, 4}
-```
-<!-- .element: class="fragment fade-in" -->
-
-___
-
-## Iterating backwards
-
-### `std::vector<T>::rbegin()`, `std::vector<T>::rend()`
-<!-- .element: style="font-size: 0.9em" -->
-
-```cpp
-std::vector<int> vec {1, 2, 3, 4, 5, 6, 7, 8, 9};
-for (auto it = vec.crbegin() ; it != vec.crend() ; ++it) {
-    // cr = (r)everse iterator to (c)onst value
-    std::cout << *it << ' ';
-}
-```
-<!-- .element: class="fragment fade-in" -->
-
-Output: `9 8 7 6 5 4 3 2 1`
-<!-- .element: class="fragment fade-in" -->
-
-```cpp
-std::vector<int> vec {1, 2, 3, 4, 5, 6, 7, 8, 9};
-for (auto it = vec.rbegin() ; it != vec.rend() ; ++it) {
-    *it *= 2;
-}
-for (auto it = vec.crbegin() ; it != vec.crend() ; ++it) {
-    std::cout << *it << ' ';
-}
-```
-<!-- .element: class="fragment fade-in" -->
-
-Output: `18 16 14 12 10 8 6 4 2`
-<!-- .element: class="fragment fade-in" -->
+* Generally: `n * sizeof(T)`
+* In fact: gradual allocation dependent on the capacity (implementation defined)
+  * You can use `reserve()` to allocate memory upfront
+  * You can use `shrink_to_fit()` to release not used memory (shrink capacity to size)
+* Additional small constant memory for internal data is used (size, capacity, allocator)
 
 ___
 <!-- .slide: style="font-size: 0.85em" -->
@@ -148,7 +75,7 @@ ___
 
 ### `std::remove()` from `<algorithm>` header
 
-```cpp
+```cpp []
 template< class ForwardIt, class T >
 ForwardIt remove( ForwardIt first, ForwardIt last, const T& value );
 ```
@@ -163,7 +90,7 @@ As a result, values to be removed are overwritten with values from the end of th
 Therefore, "garbage" remains at the end of the vector, which must be erased from memory.
 <!-- .element: class="fragment fade-in" -->
 
-```cpp
+```cpp []
 std::vector<int> vec{1, 4, 2, 4, 3, 4, 5};
 auto it = std::remove(vec.begin(), vec.end(), 4);
 // for example: vec {1, 2, 3, 5, 3, 4, 5}
@@ -180,7 +107,7 @@ ___
 
 ### `std::vector<T>::erase()`
 
-```cpp
+```cpp []
 template< class T, class Alloc, class U >
 constexpr typename std::vector<T,Alloc>::size_type
     erase(std::vector<T, Alloc>& c, const U& value);
@@ -190,7 +117,7 @@ constexpr typename std::vector<T,Alloc>::size_type
 Thanks to the `erase()` function, we can now remove unnecessary data from the container:
 <!-- .element: class="fragment fade-in" -->
 
-```cpp
+```cpp []
 std::vector<int> vec{1, 4, 2, 4, 3, 4, 5};
 auto it = std::remove(vec.begin(), vec.end(), 4);
 vec.erase(it, vec.end());
@@ -201,7 +128,7 @@ vec.erase(it, vec.end());
 We can also write it all on one line (Erase-Remove Idiom)
 <!-- .element: class="fragment fade-in" -->
 
-```cpp
+```cpp []
 vec.erase(std::remove(vec.begin(), vec.end(), 4), vec.end());
 ```
 <!-- .element: class="fragment fade-in" -->
@@ -215,34 +142,4 @@ Implement a `removeVowels()` function, which takes `std::vector<std::string>>` a
 * Input: `{"abcde", "aabbbccabc", "qwerty"}`
 * Output: `{"bcd", "bbccbc", "qwrt"}`
 
-[Download the task](../tasks/removeVowels/)
-
-___
-
-## Task 1
-
-* [Open the vector documentation at cppreference.com](https://en.cppreference.com/w/cpp/container/vector)
-* Create new cpp file and write `main()` function
-* Create a vector with values ​​{1, 2, 4, 5, 6}
-* Delete first value
-* Add value 5 to the end of the vector
-* Add value 12 to the start of the vector with the method `emplace`
-* List the vector size and the maximum possible size
-* List the vector content
-* Clear vector
-* List the vector size
-
-___
-
-## Task 2
-
-* [Open the vector documentation at cppreference.com](https://en.cppreference.com/w/cpp/container/vector)
-* Create new cpp file and write `main()` function
-* Create an empty vector
-* List the size and capacity of the vector
-* Resize the vector to 10 and fill it with 5 values
-* List the size and capacity of the vector
-* Reserve memory for 20 items
-* List the size and capacity of the vector
-* Reduce vector capacity with `shrink_to_fit()` method
-* List the size and capacity of the vector
+[Download the task](https://github.com/coders-school/stl/tree/cr/01-containers/tasks/removeVowels)

@@ -12,18 +12,20 @@ ___
 
 ## `std::list<T>` traits
 
-* <!-- .element: class="fragment fade-in" --> Items scattered around memory
-* <!-- .element: class="fragment fade-in" --> Each element (node) has a pointer to the previous and next element
-* <!-- .element: class="fragment fade-in" --> Type <code>&lt;T&gt;</code> can be any type. Both the built-in type like <code>int</code>, <code>double</code> as well as type defined by us
-* <!-- .element: class="fragment fade-in" --> It is not cache-friendly
-* <!-- .element:  class="fragment fade-in" --> Adding a new item is easy. The program will allocate the necessary memory for the node and provide the neighboring nodes (if there are any) with information about its location
-* <!-- .element: class="fragment fade-in" --> Deleting an element is fast, the program frees memory allocated to a given node and informs neighboring nodes about it so that they can change their pointers
-* <!-- .element: class="fragment fade-in" --> Searching for a node (e.g. to remove or insert a new element after it) is already expensive, because we have to iterate through all the nodes one by one until we find the wanted one (even if we know exactly that it is e.g. the 40th element in the list)
+* <!-- .element: class="fragment fade-in" --> Elements are scattered around memory (cache-unfriendly)
+* <!-- .element: class="fragment fade-in" --> Each element (node) has a pointer to the previous and the next element (mind the memory consumption)
+* <!-- .element:  class="fragment fade-in" --> Adding a new element is easy. The necessary memory for the node is allocated and proper pointers (next/prev) are set.
+* <!-- .element: class="fragment fade-in" --> Deleting an element is fast, the allocated memory is freed and neighboring nodes have their pointers changed
+* <!-- .element: class="fragment fade-in" --> Searching for a node (e.g. to remove or insert a new element after it) is expensive. We have to iterate through all the nodes one by one until we find the wanted one (even if we know exactly that it is e.g. the 40th element in the list)
+* <!-- .element: class="fragment fade-in" --> Iterators are not invalidated after each insertion or deletion
+* <!-- .element: class="fragment fade-in" --> Only the iterator to the deleted node is invalidated
 
 ___
 <!-- .element: style="font-size: 0.9em" -->
 
 ## `std::list<T>` methods
+
+[`std::list<T>` on cppreference.org](https://en.cppreference.com/w/cpp/container/list)
 
 * <!-- .element: class="fragment fade-in" --> adding an item: <code>push_back()</code>, <code>emplace_back()</code>, <code>push_front()</code>, <code>emplace_front()</code>, <code>insert()</code>
 * <!-- .element: class="fragment fade-in" --> modify/access an item: you have to find the item yourself
@@ -47,7 +49,7 @@ ___
 Because the list includes its own `remove()` method, we no longer need to use `erase()`.
 <!-- .element: class="fragment fade-in" -->
 
-```cpp
+```cpp []
 std::list<int> list{1, 4, 2, 4, 3, 4, 5};
 list.remove(4);
 // list {1, 2, 3, 5}
@@ -57,7 +59,7 @@ list.remove(4);
 `erase()` is used in similar way like for `std::vector<T>`
 <!-- .element: class="fragment fade-in" -->
 
-```cpp
+```cpp []
 std::list<int> list{1, 2, 3, 4, 5, 6, 7, 8};
 auto it = list.begin();
 std::advance(it, 3); // like on pointer ptr += 3
