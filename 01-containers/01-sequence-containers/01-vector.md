@@ -50,8 +50,8 @@ ___
 ## Operations complexity
 
 * Insertion/deletion
-  * `O(1)` at the end if `size() < capacity()`
-  * `O(n)` at the end if `size() >= capacity()`
+  * `O(1)` - at the end if `size() < capacity()`
+  * `O(n)` - at the end if `size() >= capacity()`
   * `O(n)` - other
 * Access
   * `O(1)`
@@ -67,6 +67,20 @@ ___
   * You can use `reserve()` to allocate memory upfront
   * You can use `shrink_to_fit()` to release not used memory (shrink capacity to size)
 * Additional small constant memory for internal data is used (size, capacity, allocator)
+
+___
+
+## Iterator invalidation
+
+* All read only operations
+  * Never
+* Insertion
+  * If the vector changed capacity, all iterators are invalidated
+  * If not, only those at or after the insertion point (including `end()`).
+* Deletion
+  * Erased elements and all elements after them (including `end()`)
+
+[Refer to cppreference.org](https://en.cppreference.com/w/cpp/container/vector)
 
 ___
 <!-- .slide: style="font-size: 0.85em" -->

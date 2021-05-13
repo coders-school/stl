@@ -34,13 +34,42 @@ ___
 * <!-- .element: class="fragment fade-in" --> start/end iterator: <code>begin()</code>, <code>end()</code>
 * <!-- .element: class="fragment fade-in" --> reverse iterator: <code>rbegin()</code>, <code>rend()</code>
 * <!-- .element: class="fragment fade-in" --> constant iterator: <code>cbegin()</code>, <code>cend()</code>, <code>crbegin()</code>, <code>crend()</code>
-* <!-- .element: class="fragment fade-in" --> container clearing: <code>clear()</code>
+* <!-- .element: class="fragment fade-in" --> clearing the container: <code>clear()</code>
 * <!-- .element: class="fragment fade-in" --> sort list: <code>sort()</code>
 * <!-- .element: class="fragment fade-in" --> reverse list: <code>reverse()</code>
 * <!-- .element: class="fragment fade-in" --> removing duplicates: <code>unique()</code>
 * <!-- .element: class="fragment fade-in" --> removing items from the list: <code>remove()</code>
 * <!-- .element: class="fragment fade-in" --> erasing items from memory: <code>erase()</code>
 * <!-- .element: class="fragment fade-in" --> replacement of the entire container: <code>swap()</code>
+
+___
+
+## Operations complexity
+
+* Insertion/deletion
+  * `O(1)` - at the end or at the beginning
+  * `O(1)` - with iterator, anywhere
+  * `O(n)` - other
+* Access
+  * `O(1)` - at the end or at the beginning
+  * `O(1)` - with iterator, anywhere
+  * `O(n)` - other
+* Searching
+  * `O(n)`
+
+___
+
+## Memory usage
+
+* `n * (sizeof(T) + 2 * sizeof(T*))`
+* Additional small constant memory for internal data is used (size, head, tail, allocator)
+
+___
+
+## Iterator invalidation
+
+* Adding, removing and moving the elements within the list or across several lists does not invalidate the iterators or references.
+* An iterator is invalidated only when the corresponding element is deleted.
 
 ___
 
@@ -70,22 +99,3 @@ list.erase(list.begin(), it);
 
 `std::advance()` is used to increment iterators. In our case, we are moving 3 elements forward.
 <!-- .element: class="fragment fade-in" -->
-
-___
-
-## Task 4
-
-* Find documentation about `std::list` on [cppreference.com](https://en.cppreference.com)
-* Create new cpp file and write `main()` function
-* Create a list containing items from 0 to 5
-* Print list
-* Remove the third item from the list
-* Add the value 10 to the beginning and end of the list
-* Print list
-* Add the number 20 in the fourth position
-* Move list content to `std::array`
-* Print `std::array`
-
-___
-
-## Q&A
