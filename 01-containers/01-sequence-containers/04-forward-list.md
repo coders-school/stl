@@ -52,7 +52,7 @@ If we want to put value at the beginning of the list using the `insert_after`, w
 Thus, the method `insert_after()` will insert the desired value exactly as the first item in the list.
 <!-- .element: class="fragment fade-in" -->
 
-```cpp
+```cpp []
 std::forward_list<int> list {1, 2, 3, 4, 5, 6};
 list.insert_after(list.begin(), 10);
 print(list);
@@ -64,7 +64,7 @@ print(list);
 Output:
 <!-- .element: class="fragment fade-in" -->
 
-```cpp
+```cpp []
 1 10 2 3 4 5 6
 0 1 10 2 3 4 5 6
 ```
@@ -77,7 +77,7 @@ ___
 Because list includes its own method `remove()`, we no longer need to use `erase()`.
 <!-- .element: class="fragment fade-in" -->
 
-```cpp
+```cpp []
 std::forward_list<int> list {1, 4, 2, 4, 3, 4, 5};
 list.remove(4);
 // {1, 2, 3, 5}
@@ -92,7 +92,7 @@ ___
 Erase_after is used to remove nodes from the position after the element indicated by the first iterator to the point indicated by the second iterator (without the element pointed to by it).
 <!-- .element: class="fragment fade-in" -->
 
-```cpp
+```cpp []
 std::forward_list<int> list {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 auto it = list.begin();
 std::advance(it, 4);
@@ -108,7 +108,7 @@ print(list);
 Output:
 <!-- .element: class="fragment fade-in" -->
 
-```cpp
+```cpp []
 it: 5
 it2: 8
 1 2 3 4 5 8 9 10

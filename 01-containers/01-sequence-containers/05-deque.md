@@ -78,7 +78,7 @@ ___
 
 ### Example
 
-```cpp
+```cpp []
 #include <iostream>
 #include <deque>
 

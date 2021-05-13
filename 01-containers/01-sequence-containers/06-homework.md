@@ -89,7 +89,7 @@ The task will be to compress a grayscale image with dimensions of 240x160 pixels
 
 <img width="300px" data-src="img/example.png" src="img/example.png" alt="Przykład pikseli" class="plain">
 
-```cpp
+```cpp []
 255 255 0   255 0   255   // 0xFF 0xFF 0x00 0xFF 0x00 0xFF
 128 0   128 0   128 0     // 0x80 0x00 0x80 0x00 0x80 0x00
 64  64  64  64  64  64    // 0x40 0x40 0x40 0x40 0x40 0x40
@@ -117,7 +117,7 @@ ___
 
 ## Task 3a - `compressGrayscale()` - example
 
-```cpp
+```cpp []
 input: {{0 0 0 1 1 2 3 0 0 0},
         {0 0 4 4 4 1 1 1 1 1},
         {2 2 2 2 2 1 2 2 2 2}}
