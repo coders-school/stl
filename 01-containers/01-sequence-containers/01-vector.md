@@ -154,9 +154,11 @@ ForwardIt remove( ForwardIt first, ForwardIt last, const T& value );
 ```
 <!-- .element: class="fragment fade-in" -->
 
-Since removing items from the end of the vector is the fastest, the STL library allows us to prepare `std::vector<T>` to remove elements by moving the correct ones to the beginning of the container.
+Since removing items from the end of the vector is fast, the STL library allows us to prepare `std::vector<T>` to remove elements by moving the correct ones to the beginning of the container.
+<!-- .element: class="fragment fade-in" -->
 
-As a result, values to be removed are overwritten with values ​​from the end of the vector that should not be removed.
+As a result, values to be removed are overwritten with values from the end of the vector that should not be removed.
+<!-- .element: class="fragment fade-in" -->
 
 Therefore, "garbage" remains at the end of the vector, which must be erased from memory.
 <!-- .element: class="fragment fade-in" -->
@@ -169,7 +171,7 @@ auto it = std::remove(vec.begin(), vec.end(), 4);
 ```
 <!-- .element: class="fragment fade-in" -->
 
-`std::remove()` will return an iterator that will point to the beginning of the data to be erased.
+`std::remove()` returns an iterator that points to the beginning of the data to be erased.
 <!-- .element: class="fragment fade-in" -->
 
 ___
@@ -207,6 +209,13 @@ vec.erase(std::remove(vec.begin(), vec.end(), 4), vec.end());
 ___
 
 ## Task - remove-vowels
+
+Implement a `removeVowels()` function, which takes `std::vector<std::string>>` and removes all vowels from all strings.
+
+* Input: `{"abcde", "aabbbccabc", "qwerty"}`
+* Output: `{"bcd", "bbccbc", "qwrt"}`
+
+[Download the task](../tasks/removeVowels/)
 
 ___
 
