@@ -7,23 +7,18 @@
 ### Summary
 
 <a href="https://coders.school">
-    <img width="500px" data-src="../img/coders_school_logo.png" src="../img/coders_school_logo.png" alt="Coders School" class="plain">
+    <img width="500px" src="../img/coders_school_logo.png" alt="Coders School" class="plain">
 </a>
 
 ___
 
-## What do you remember from today?
+## What do you remember about sequence containers?
 
-### Write as many keywords as possible in the chat
-<!-- .element: class="fragment fade-in" -->
-
-1. <!-- .element: class="fragment fade-in" --> STL reminder
-2. <!-- .element: class="fragment fade-in" --> How to read the documentation
-3. <!-- .element: class="fragment fade-in" --> <code>std::vector&lt;T&gt;</code>
-4. <!-- .element: class="fragment fade-in" --> <code>std::list&lt;T&gt;</code>
-5. <!-- .element: class="fragment fade-in" --> <code>std::forward_list&lt;T&gt;</code>
-6. <!-- .element: class="fragment fade-in" --> <code>std::array&lt;T, N&gt;</code>
-7. <!-- .element: class="fragment fade-in" --> <code>std::deque&lt;T&gt;</code>
+1. <!-- .element: class="fragment fade-in" --> 5 containers
+2. <!-- .element: class="fragment fade-in" --> Which of them are cache-friendly?
+3. <!-- .element: class="fragment fade-in" --> Operations complexity
+4. <!-- .element: class="fragment fade-in" --> Memory consumption
+5. <!-- .element: class="fragment fade-in" --> Iterators invalidation
 
 ___
 
