@@ -5,7 +5,7 @@
 ## Modern functors
 
 <a href="https://coders.school">
-    <img width="500" data-src="../coders_school_logo.png" src="../coders_school_logo.png" alt="Coders School" class="plain">
+    <img width="500" data-src="../img/coders_school_logo.png" src="../img/coders_school_logo.png" alt="Coders School" class="plain">
 </a>
 
 ___
@@ -24,7 +24,7 @@ ___
 
 ## Creating a simple lambda expression
 
-```cpp
+```cpp []
 #include <algorithm>
 #include <iostream>
 #include <vector>
@@ -49,7 +49,7 @@ ___
 
 ## Capture list - example
 
-```cpp
+```cpp []
 int main() {
     int number = 10;
     auto add10 = [number](int num) { return num + number; };
@@ -86,7 +86,7 @@ ___
   * `[](const auto first, const auto& second, auto third) {}`
 * Writing generic lambdas is effective because they can be easily reused over and over again
 
-```cpp
+```cpp []
 int multiply(int first, int second) {
     return first * second;
 }
@@ -107,13 +107,13 @@ ___
 * We do not specify a return type, because by default the lambda expression deduces this type from the data contained in its body `{}`
 * By default, the type returned by a lambda expression is deduced from the expressions `return`
 
-  ```cpp
+  ```cpp []
   [i{0}](const int el){ return el + i; }; // return type is int
   ```
 
 * If we want to impose a specific return type we do it with `->`
 
-  ```cpp
+  ```cpp []
   [i{0}](const auto el) -> double { return el + i; };
   ```
 

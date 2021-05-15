@@ -5,7 +5,7 @@
 ## Tablica o dynamicznym rozmiarze
 
 <a href="https://coders.school">
-    <img width="500" data-src="../coders_school_logo.png" src="../coders_school_logo.png" alt="Coders School" class="plain">
+    <img width="500" data-src="../img/coders_school_logo.png" src="../img/coders_school_logo.png" alt="Coders School" class="plain">
 </a>
 
 ___
@@ -44,7 +44,7 @@ ___
 
 ### `std::vector<T>::insert()`
 
-```cpp
+```cpp []
 iterator insert( const_iterator pos, const T& value );
 ```
 <!-- .element: class="fragment fade-in" -->
@@ -52,7 +52,7 @@ iterator insert( const_iterator pos, const T& value );
 W celu dodania elementu do wektora, możemy wykorzystać iterator:
 <!-- .element: class="fragment fade-in" -->
 
-```cpp
+```cpp []
 std::vector<int> vec{1, 2, 3, 4};
 auto it = vec.begin();
 vec.insert(it, 20); // {20, 1, 2, 3, 4};
@@ -65,7 +65,7 @@ ___
 
 ### `std::vector<T>::insert()`
 
-```cpp
+```cpp []
 iterator insert( const_iterator pos, size_type count, const T& value );
 ```
 <!-- .element: class="fragment fade-in" -->
@@ -73,7 +73,7 @@ iterator insert( const_iterator pos, size_type count, const T& value );
 Możemy także określić ile elementów chcemy dodać:
 <!-- .element: class="fragment fade-in" -->
 
-```cpp
+```cpp []
 std::vector<int> vec{1, 2, 3, 4};
 auto it = vec.begin();
 vec.insert(it, 5, 20); // {20, 20, 20, 20, 20, 1, 2, 3, 4};
@@ -86,7 +86,7 @@ ___
 
 ### `std::vector<T>::insert()`
 
-```cpp
+```cpp []
 template< class InputIt >
 iterator insert( const_iterator pos, InputIt first, InputIt last );
 ```
@@ -95,7 +95,7 @@ iterator insert( const_iterator pos, InputIt first, InputIt last );
 Istnieje też możliwość wstawienia elementów z jednego kontenera do drugiego:
 <!-- .element: class="fragment fade-in" -->
 
-```cpp
+```cpp []
 std::vector<int> vec{1, 2, 3, 4};
 std::list<int> list{10, 20, 30, 40};
 vec.insert(vec.begin(), list.begin(), list.end());
@@ -110,7 +110,7 @@ ___
 ### `std::vector<T>::rbegin()`, `std::vector<T>::rend()`
 <!-- .element: style="font-size: 0.9em" -->
 
-```cpp
+```cpp []
 std::vector<int> vec {1, 2, 3, 4, 5, 6, 7, 8, 9};
 for (auto it = vec.crbegin() ; it != vec.crend() ; ++it) {
     // cr = (r)everse iterator to (c)onst value
@@ -122,7 +122,7 @@ for (auto it = vec.crbegin() ; it != vec.crend() ; ++it) {
 Output: `9 8 7 6 5 4 3 2 1`
 <!-- .element: class="fragment fade-in" -->
 
-```cpp
+```cpp []
 std::vector<int> vec {1, 2, 3, 4, 5, 6, 7, 8, 9};
 for (auto it = vec.rbegin() ; it != vec.rend() ; ++it) {
     *it *= 2;
@@ -143,7 +143,7 @@ ___
 
 ### `std::remove()` z nagłówka `<algorithm>`
 
-```cpp
+```cpp []
 template< class ForwardIt, class T >
 ForwardIt remove( ForwardIt first, ForwardIt last, const T& value );
 ```
@@ -154,7 +154,7 @@ W wyniku tego część wartości do usunięcia jest nadpisywana wartościami z k
 Dlatego na końcu wektora pozostają "śmieci", które należy wymazać (ang. erase) z pamięci.
 <!-- .element: class="fragment fade-in" -->
 
-```cpp
+```cpp []
 std::vector<int> vec{1, 4, 2, 4, 3, 4, 5};
 std::remove(vec.begin(), vec.end(), 4);
 // for example: vec {1, 2, 3, 5, 3, 4, 5}
@@ -170,7 +170,7 @@ ___
 
 ### `std::vector<T>::erase()`
 
-```cpp
+```cpp []
 template< class T, class Alloc, class U >
 constexpr typename std::vector<T,Alloc>::size_type
     erase(std::vector<T, Alloc>& c, const U& value);
@@ -180,7 +180,7 @@ constexpr typename std::vector<T,Alloc>::size_type
 Dzięki funkcji erase, możemy teraz usunąć niepotrzebne dane z kontenera:
 <!-- .element: class="fragment fade-in" -->
 
-```cpp
+```cpp []
 std::vector<int> vec{1, 4, 2, 4, 3, 4, 5};
 auto it = std::remove(vec.begin(), vec.end(), 4);
 vec.erase(it, vec.end());
@@ -191,7 +191,7 @@ vec.erase(it, vec.end());
 Możemy też zapisać to wszystko w jednej linii (Erase-Remove Idiom)
 <!-- .element: class="fragment fade-in" -->
 
-```cpp
+```cpp []
 vec.erase(std::remove(vec.begin(), vec.end(), 4), vec.end());
 ```
 <!-- .element: class="fragment fade-in" -->

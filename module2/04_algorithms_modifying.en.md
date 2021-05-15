@@ -3,7 +3,7 @@
 # Modifying algorithms
 
 <a href="https://coders.school">
-    <img width="500" data-src="../coders_school_logo.png" src="../coders_school_logo.png" alt="Coders School" class="plain">
+    <img width="500" data-src="../img/coders_school_logo.png" src="../img/coders_school_logo.png" alt="Coders School" class="plain">
 </a>
 
 ___
@@ -26,12 +26,12 @@ ___
 
 ## `std::copy`, `std::copy_if`
 
-```cpp
+```cpp []
 template< class InputIt, class OutputIt >
 OutputIt copy( InputIt first, InputIt last, OutputIt d_first );
 ```
 
-```cpp
+```cpp []
 template< class InputIt, class OutputIt, class UnaryPredicate >
 OutputIt copy_if( InputIt first, InputIt last,
                   OutputIt d_first,
@@ -45,7 +45,7 @@ ___
 
 ## `std::copy`, `std::copy_if` - use
 
-```cpp
+```cpp []
 std::vector<int> vec {1, 2, 3, 4, 5};
 std::array<int, 5> arr;
 std::copy(begin(vec), end(vec), begin(arr));
@@ -69,14 +69,14 @@ ___
 
 ## `std::fill`
 
-```cpp
+```cpp []
 template< class ForwardIt, class T >
 void fill( ForwardIt first, ForwardIt last, const T& value );
 ```
 
 The function fills the given range with `value` values
 
-```cpp
+```cpp []
 int main() {
     std::vector<int> v{0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
     std::fill(v.begin(), v.end(), -1);
@@ -96,14 +96,14 @@ ___
 
 A powerful algorithm that can do much more than it seems at the beginning :)
 
-```cpp
+```cpp []
 template< class InputIt, class OutputIt, class UnaryOperation >
 OutputIt transform( InputIt first1, InputIt last1,
                     OutputIt d_first,
                     UnaryOperation unary_op );
 ```
 
-```cpp
+```cpp []
 template< class InputIt1, class InputIt2, class OutputIt, class BinaryOperation >
 OutputIt transform( InputIt1 first1, InputIt1 last1,
                     InputIt2 first2,
@@ -120,7 +120,7 @@ ___
 
 Converting one type of container to another
 
-```cpp
+```cpp []
 int main() {
     std::vector<std::pair<int, std::string>> vec {
         {0, "Zero"},
@@ -147,7 +147,7 @@ ___
 
 Container conversion
 
-```cpp
+```cpp []
 std::vector<std::pair<int, std::string>> vec {
     {0, "Zero"},
     {1, "One"},
@@ -174,7 +174,7 @@ ___
 
 Convert characters to lowercase
 
-```cpp
+```cpp []
 int main() {
     std::vector<std::string> vec {
         "ZeRo", "ONe", "TwO", "ThREe", "FoUr", "FiVe"
@@ -199,7 +199,7 @@ ___
 
 Adding vector and list values:
 
-```cpp
+```cpp []
 int main() {
     std::vector<int> vec {1, 2, 3, 4, 5, 6, 7, 8};
     std::list<int> list {10, 20, 30 , 40 , 50, 60, 70, 80};
@@ -222,14 +222,14 @@ ___
 
 ## `std::generate`
 
-```cpp
+```cpp []
 template< class ForwardIt, class Generator >
 void generate( ForwardIt first, ForwardIt last, Generator g );
 ```
 
 A function for generating data.
 
-```cpp
+```cpp []
 int main() {
     std::vector<int> vec(10);
     std::generate(begin(vec), end(vec), [i{0}]() mutable { return i++; });
@@ -246,7 +246,7 @@ ___
 
 ## `std::swap_ranges`
 
-```cpp
+```cpp []
 template< class ForwardIt1, class ForwardIt2 >
 ForwardIt2 swap_ranges( ForwardIt1 first1, ForwardIt1 last1,
                         ForwardIt2 first2 );
@@ -254,7 +254,7 @@ ForwardIt2 swap_ranges( ForwardIt1 first1, ForwardIt1 last1,
 
 It replaces a certain range of data
 
-```cpp
+```cpp []
 int main() {
     std::vector<int> vec {1, 2, 3, 4, 5, 6, 7, 8};
     std::list<int> list {10, 20, 30, 40, 50, 60, 70, 80};
@@ -277,14 +277,14 @@ ___
 
 ## `std::reverse`
 
-```cpp
+```cpp []
 template< class BidirIt >
 void reverse( BidirIt first, BidirIt last );
 ```
 
 Reverses the scope
 
-```cpp
+```cpp []
 int main() {
     std::vector<int> vec {1, 2, 3, 4, 5, 6, 7, 8};
     std::reverse(begin(vec), end(vec));
@@ -300,7 +300,7 @@ ___
 
 ## `std::unique`
 
-```cpp
+```cpp []
 template< class ForwardIt >
 ForwardIt unique( ForwardIt first, ForwardIt last );
 ```
@@ -311,7 +311,7 @@ ___
 
 ## `std::unique` - example
 
-```cpp
+```cpp []
 int main() {
     std::vector<int> vec {1, 2, 1, 2, 1, 2, 3, 2, 3, 1, 3, 2, 1};
     std::sort(begin(vec), end(vec));

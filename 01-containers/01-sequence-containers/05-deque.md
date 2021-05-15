@@ -24,7 +24,7 @@ ___
 
 ## `std::deque<T>` structure
 
-<img height="600" data-src="../img/deque-white.png" src="img/deque-white.png" alt="deque" class="plain">
+<img height="600" src="../img/deque-white.png" src="img/deque-white.png" alt="deque" class="plain">
 
 ___
 

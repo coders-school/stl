@@ -6,7 +6,7 @@
 ## Lista jednokierunkowa
 
 <a href="https://coders.school">
-    <img width="500" data-src="../coders_school_logo.png" src="../coders_school_logo.png" alt="Coders School" class="plain">
+    <img width="500" data-src="../img/coders_school_logo.png" src="../img/coders_school_logo.png" alt="Coders School" class="plain">
 </a>
 
 ___
@@ -52,7 +52,7 @@ Jeżeli chcemy wstawić wartość na początku listy używając metody `insert_a
 W ten sposób, metoda `insert_after()` wstawi pożądaną przez na wartość dokładnie jako pierwszy element listy.
 <!-- .element: class="fragment fade-in" -->
 
-```cpp
+```cpp []
 std::forward_list<int> list {1, 2, 3, 4, 5, 6};
 list.insert_after(list.begin(), 10);
 print(list);
@@ -64,7 +64,7 @@ print(list);
 Output:
 <!-- .element: class="fragment fade-in" -->
 
-```cpp
+```cpp []
 1 10 2 3 4 5 6
 0 1 10 2 3 4 5 6
 ```
@@ -77,7 +77,7 @@ ___
 Ponieważ lista zawiera swoją metodę `remove()`, nie musimy już korzystać z `erase()`.
 <!-- .element: class="fragment fade-in" -->
 
-```cpp
+```cpp []
 std::forward_list<int> list {1, 4, 2, 4, 3, 4, 5};
 list.remove(4);
 // {1, 2, 3, 5}
@@ -92,7 +92,7 @@ ___
 Erase_after służy do usunięcia węzłów od miejsca za elementem wskazanym przez pierwszy iterator do momentu wskazanego przez drugi iterator (bez elementu wskazywanego przez niego).
 <!-- .element: class="fragment fade-in" -->
 
-```cpp
+```cpp []
 std::forward_list<int> list {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 auto it = list.begin();
 std::advance(it, 4);
@@ -108,7 +108,7 @@ print(list);
 Output:
 <!-- .element: class="fragment fade-in" -->
 
-```cpp
+```cpp []
 it: 5
 it2: 8
 1 2 3 4 5 8 9 10

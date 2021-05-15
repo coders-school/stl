@@ -6,7 +6,7 @@ Zadaniem będzie kompresja obrazka w odcieniach szarości o wymiarach 240x160 pi
 
 <img width="300px" data-src="../../img/example.png" src="../../img/example.png" alt="Przykład pikseli" class="plain">
 
-```cpp
+```cpp []
 255 255 0   255 0   255   // 0xFF 0xFF 0x00 0xFF 0x00 0xFF
 128 0   128 0   128 0     // 0x80 0x00 0x80 0x00 0x80 0x00
 64  64  64  64  64  64    // 0x40 0x40 0x40 0x40 0x40 0x40
@@ -34,7 +34,7 @@ ___
 
 ## `compressGrayscale()` - przykład
 
-```cpp
+```cpp []
 input: {{0 0 0 1 1 2 3 0 0 0},
         {0 0 4 4 4 1 1 1 1 1},
         {2 2 2 2 2 1 2 2 2 2}}
@@ -61,7 +61,7 @@ Stwórz odpowiedni plik nagłówkowy (hpp) oraz źródłowy (cpp).
 
 W pliku nagłówkowym zdefiniuj stałe dotyczące rozmiaru w taki sposób:
 
-```cpp
+```cpp []
 constexpr size_t width = 32;
 constexpr size_t height = 32;
 ```
@@ -81,38 +81,38 @@ Domyślnie `std::cout` potraktuje `uint8_t` jako `unsigned char`, dlatego też m
 Jeśli chcesz zrobić to zadanie (nie ma za nie dodatkowych punktów, ale będzie dodatkowe osiągnięcie na platformie) to zaimplementuj zakomentowaną w main.cpp funkcję `printMap()`. Jej implementację wrzuć do pliku z funkcjami `compressGrayscale()` i `decompressGrayscale()`. Jej prawidłowa implementacja i odpalenie funkcji `main()` poprzez wywołanie `./grayscaleImages` powinna wyświetlić ninję na ekranie :)
 
 ```text
-          $**********$          
-          488888888883          
-         +@DDDDDDDDDD@/         
-     !]=.9W]]]]]]]]]]]]]L       
-      5GOQ������������W4       
-      !K[k�������������Y"       
-     !]=Z����=������p]�d"       
- Wq   /+e��������������d"    vX 
- UpH'  #\��������������Y"   9�k 
- )@�P  #,333333333337;B1"  a�Q6 
-   Nil #,333333333337;B1" yyk*  
-   -]g**,333333333337;B1=Z�sB   
-    ,>M6,333333333337;B1_�L+    
-      <FC+2333333349>=,DHD      
-      )>@2/////////369=C=)      
-       1::-**********3M?/       
-         *1333699>BBB>*         
-        #/.033466:==869&        
-       #,3,-3333369900B1"       
-       #,3,-3333334900B1"       
-       #,3,-3333334900B1"       
-       #,3,-333333490/@0"       
-       #,3,-333333490.9."       
-       #+,*<UUUUUUUV<+.+"       
-        "");R\XRRRSU<(""        
-          %-3YM3335B3$          
-          %-3YM3369B3$          
-          %-3LC336:B3$          
-          %-333336:B3$          
-          %-33/++3:B3$          
-          %,//(  )38/$          
-          $)))    )))$          
+          $**********$
+          488888888883
+         +@DDDDDDDDDD@/
+     !]=.9W]]]]]]]]]]]]]L
+      5GOQ������������W4
+      !K[k�������������Y"
+     !]=Z����=������p]�d"
+ Wq   /+e��������������d"    vX
+ UpH'  #\��������������Y"   9�k
+ )@�P  #,333333333337;B1"  a�Q6
+   Nil #,333333333337;B1" yyk*
+   -]g**,333333333337;B1=Z�sB
+    ,>M6,333333333337;B1_�L+
+      <FC+2333333349>=,DHD
+      )>@2/////////369=C=)
+       1::-**********3M?/
+         *1333699>BBB>*
+        #/.033466:==869&
+       #,3,-3333369900B1"
+       #,3,-3333334900B1"
+       #,3,-3333334900B1"
+       #,3,-333333490/@0"
+       #,3,-333333490.9."
+       #+,*<UUUUUUUV<+.+"
+        "");R\XRRRSU<(""
+          %-3YM3335B3$
+          %-3YM3369B3$
+          %-3LC336:B3$
+          %-333336:B3$
+          %-33/++3:B3$
+          %,//(  )38/$
+          $)))    )))$
 ```
 
 ___
@@ -123,7 +123,7 @@ Jest to zadanie dla chętnych (bez dodatkowych punktów, ale za dodatkowe osiąg
 
 Napisz nową funkcję, która zastąpi te brzydkie pętle w testach:
 
-```cpp
+```cpp []
 for (int i = 0; i < height; ++i) {
     for (int j = 0; j < width / 4; ++j)
         arr[i][j] = 0;

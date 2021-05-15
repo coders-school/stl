@@ -22,7 +22,8 @@ ___
 
 ___
 
-<img width="500" data-src="img/sequence_containers.png" src="img/sequence_containers.png" alt="Kontenery sekwencyjne" class="plain">
+<img width="500" src="../img/sequence_containers.png" alt="Kontenery sekwencyjne" class="plain">
+
 ___
 <!-- .slide: style="font-size: 0.9em" -->
 
@@ -82,7 +83,7 @@ ___
 
 The task will be to compress a grayscale image with dimensions of 240x160 pixels. Each pixel can have a value from 0 (black) to 255 (white). The larger the value, the lighter the hue the pixel represents. Example of a small 6x4 pixel image:
 
-<img width="300px" data-src="img/example.png" src="img/example.png" alt="Przykład pikseli" class="plain">
+<img width="300px" src="../img/example.png" alt="Przykład pikseli" class="plain">
 
 ```cpp []
 255 255 0   255 0   255   // 0xFF 0xFF 0x00 0xFF 0x00 0xFF
@@ -144,7 +145,7 @@ ___
 For those willing (without points), we also recommend writing a function `printMap()` which will display the map.
 By default `std::cout` will treat `uint8_t` as `unsigned char` therefore you can write a map from ASCII codes.
 
-<img width="450px" data-src="img/ascii_art_mug.jpg" src="img/ascii_art_mug.jpg" alt="ASCII art z kubkiem" class="plain">
+<img width="450px" src="../img/ascii_art_mug.jpg" alt="ASCII art z kubkiem" class="plain">
 
 ___
 

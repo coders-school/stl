@@ -170,7 +170,7 @@ std::cout << "str: " << str;
 Output:
 <!-- .element: class="fragment fade-in" -->
 
-```cpp
+```cpp []
 str: End of passion play, crumbling away
 I'm your source of self-destruction
 Veins that pump with fear, sucking darkest clear

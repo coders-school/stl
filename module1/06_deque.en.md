@@ -5,7 +5,7 @@
 ## Double-ended queue
 
 <a href="https://coders.school">
-    <img width="500" data-src="../coders_school_logo.png" src="../coders_school_logo.png"  alt="Coders School" class="plain">
+    <img width="500" data-src="../img/coders_school_logo.png" src="../img/coders_school_logo.png"  alt="Coders School" class="plain">
 </a>
 
 ___
@@ -15,7 +15,7 @@ ___
 * <!-- .element: class="fragment fade-in" --> List and vector hybrid
 * <!-- .element: class="fragment fade-in" --> <code>deque</code> is divided into chunks, which are arrays scattered around the memory
 * <!-- .element: class="fragment fade-in" --> The compiler decides the size of such array (there is no rule)
-* <!-- .element: class="fragment fade-in" --> Additionally, deque comes with one more vector that holds pointers that indicate the start of each chunk in memory. 
+* <!-- .element: class="fragment fade-in" --> Additionally, deque comes with one more vector that holds pointers that indicate the start of each chunk in memory.
 * <!-- .element: class="fragment fade-in" --> This way we get 2 things:
   * Adding a new item is faster because we always allocate memory for the whole chunk and we will not move items like in `std::vector<T>` when we run out of space to allocate additional memory
   * Data loaded from one chunk are cache-friendly
@@ -78,7 +78,7 @@ ___
 
 ### Example
 
-```cpp
+```cpp []
 #include <iostream>
 #include <deque>
 
