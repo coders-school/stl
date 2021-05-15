@@ -24,7 +24,7 @@ ___
 
 ### `std::forward_list<T>` methods
 
-[`std::list<T>` on cppreference.org](https://en.cppreference.com/w/cpp/container/forward_list)
+[`std::forward_list<T>` on cppreference.org](https://en.cppreference.com/w/cpp/container/forward_list)
 
 * <!-- .element: class="fragment fade-in" --> adding an item: <code>push_front()</code>, <code>emplace_front()</code>, <code>insert_after()</code>, <code>emplace_after()</code>
 * <!-- .element: class="fragment fade-in" --> modify/access an item: via iterators
