@@ -5,7 +5,7 @@
 ## Nowoczesne funktory
 
 <a href="https://coders.school">
-    <img width="500" data-src="../coders_school_logo.png" src="../coders_school_logo.png" alt="Coders School" class="plain">
+    <img width="500" data-src="../img/coders_school_logo.png" src="../img/coders_school_logo.png" alt="Coders School" class="plain">
 </a>
 
 ___
@@ -24,7 +24,7 @@ ___
 
 ## Utworzenie prostego wyrażenia lambda
 
-```cpp
+```cpp []
 #include <algorithm>
 #include <iostream>
 #include <vector>
@@ -49,7 +49,7 @@ ___
 
 ## Lista przechwytująca (capture list) - przykład
 
-```cpp
+```cpp []
 int main() {
     int number = 10;
     auto add10 = [number](int num) { return num + number; };
@@ -86,7 +86,7 @@ ___
   * `[](const auto first, const auto& second, auto third) {}`
 * Pisanie generycznych lambd jest opłacalne, ponieważ łatwo można je wielokrotnie wykorzystać
 
-```cpp
+```cpp []
 int multiply(int first, int second) {
     return first * second;
 }
@@ -107,13 +107,13 @@ ___
 * Nie podajemy typu zwracanego, gdyż domyślnie wyrażenie lambda dedukuje ten typ poprzez dane zawarte w jej ciele `{}`
 * Domyślnie typ zwracany przez wyrażenie lambda jest dedukowany na podstawie wyrażeń `return`
 
-  ```cpp
+  ```cpp []
   [i{0}](const int el){ return el + i; }; // return type is int
   ```
 
 * Jeżeli chcemy narzucić konkretny typ zwracany robimy to poprzez `->`
 
-  ```cpp
+  ```cpp []
   [i{0}](const auto el) -> double { return el + i; };
   ```
 

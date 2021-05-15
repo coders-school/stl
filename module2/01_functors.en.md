@@ -5,7 +5,7 @@
 ## Function objects
 
 <a href="https://coders.school">
-    <img width="500" data-src="../coders_school_logo.png" src="../coders_school_logo.png" alt="Coders School" class="plain">
+    <img width="500" data-src="../img/coders_school_logo.png" src="../img/coders_school_logo.png" alt="Coders School" class="plain">
 </a>
 
 ___
@@ -16,7 +16,7 @@ ___
 A functor is an object that can be called like a normal function. Each class and structure that has defined `operator()` can act as a functor.
 An alternative name for a functor is a function object.
 
-```cpp
+```cpp []
 struct Functor {
     void operator() () {
         std::cout << "I'm a functor!\n";
@@ -45,7 +45,7 @@ ___
 
 Any function is also treated as a functor because we can also call it with `()`.
 
-```cpp
+```cpp []
 void function() {
     std::cout << "I'm a functor!\n";
 }
@@ -65,7 +65,7 @@ ___
 
 We can use functors in STL algorithms. For example, `for_each` algorithm for each element calls the passed functor. The functor itself must take as its only argument the type of element in the range it is working on.
 
-```cpp
+```cpp []
 struct Functor {
     void operator()(int el) {
         std::cout << el << ' ';

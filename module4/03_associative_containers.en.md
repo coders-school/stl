@@ -97,7 +97,7 @@ ___
 
 ## Example of `emplace_hint` usage
 
-```cpp
+```cpp []
 int main() {
     std::map<int, std::string> map;
 

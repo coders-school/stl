@@ -5,7 +5,7 @@
 ## Obiekty funkcyjne
 
 <a href="https://coders.school">
-    <img width="500" data-src="../coders_school_logo.png" src="../coders_school_logo.png" alt="Coders School" class="plain">
+    <img width="500" data-src="../img/coders_school_logo.png" src="../img/coders_school_logo.png" alt="Coders School" class="plain">
 </a>
 
 ___
@@ -16,7 +16,7 @@ ___
 Funktor jest to obiekt, który może zostać wywołany jak zwykła funkcja. Każda klasa oraz struktura, która posiada zdefiniowany `operator()` może pełnić rolę funktora.
 Alternatywną nazwą dla funktora jest obiekt funkcyjny.
 
-```cpp
+```cpp []
 struct Functor {
     void operator() () {
         std::cout << "I'm a functor!\n";
@@ -45,7 +45,7 @@ ___
 
 Funkcja także jest traktowana jako funktor, ponieważ również możemy ją wywołać poprzez `()`.
 
-```cpp
+```cpp []
 void function() {
     std::cout << "I'm a functor!\n";
 }
@@ -65,7 +65,7 @@ ___
 
 Funktory możemy wykorzystać w algorytmach STL. Przykładowo algorytm `for_each` dla każdego elementu wywołuje on przekazany funktor. Sam funktor za swój jedyny argument musi przyjmować typ elementu z zakresu, na którym pracuje.
 
-```cpp
+```cpp []
 struct Functor {
     void operator()(int el) {
         std::cout << el << ' ';

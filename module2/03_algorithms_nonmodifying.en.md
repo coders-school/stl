@@ -3,7 +3,7 @@
 # Non-modifying algorithms
 
 <a href="https://coders.school">
-    <img width="500" data-src="../coders_school_logo.png" src="../coders_school_logo.png" alt="Coders School" class="plain">
+    <img width="500" data-src="../img/coders_school_logo.png" src="../img/coders_school_logo.png" alt="Coders School" class="plain">
 </a>
 
 ___
@@ -24,7 +24,7 @@ ___
 
 ## `std::find_if`
 
-```cpp
+```cpp []
 template< class InputIt, class UnaryPredicate >
 InputIt find_if( InputIt first, InputIt last, UnaryPredicate p );
 ```
@@ -40,7 +40,7 @@ ___
 
 ## `std::find_if` - use
 
-```cpp
+```cpp []
 std::vector<int> vec {1, 2, 3, 4, 5, 6, 7, 8, 9};
 auto found = std::find_if(begin(vec), end(vec), [](const auto& el) {
     return el == 7;
@@ -56,7 +56,7 @@ ___
 
 ## `std::search`
 
-```cpp
+```cpp []
 template< class ForwardIt1, class ForwardIt2 >
 ForwardIt1 search( ForwardIt1 first, ForwardIt1 last,
                    ForwardIt2 s_first, ForwardIt2 s_last );
@@ -71,7 +71,7 @@ ___
 
 ## `std::search` - use
 
-```cpp
+```cpp []
 std::vector<int> vec {1, 2, 3, 4, 5, 6, 7, 8, 9};
 std::vector<int> vec2 {4, 5, 6};
 auto found = std::search(begin(vec), end(vec),
@@ -87,13 +87,13 @@ ___
 
 ## `std::count` and `std::count_if`
 
-```cpp
+```cpp []
 template< class InputIt, class T >
 typename iterator_traits<InputIt>::difference_type
     count( InputIt first, InputIt last, const T &value );
 ```
 
-```cpp
+```cpp []
 template< class InputIt, class UnaryPredicate >
 typename iterator_traits<InputIt>::difference_type
     count_if( InputIt first, InputIt last, UnaryPredicate p );
@@ -106,7 +106,7 @@ ___
 
 ## `std::count` and `std::count_if` - use
 
-```cpp
+```cpp []
 std::vector<int> vec {1, 2, 3, 4, 5, 1, 1, 1, 6, 7};
 
 std::cout << std::count(begin(vec), end(vec), 1) << '\n';
@@ -128,13 +128,13 @@ ___
 
 ## `std::equal`
 
-```cpp
+```cpp []
   template< class InputIt1, class InputIt2 >
   bool equal( InputIt1 first1, InputIt1 last1,
               InputIt2 first2 );
 ```
 
-```cpp
+```cpp []
   template< class InputIt1, class InputIt2 >
   bool equal( InputIt1 first1, InputIt1 last1,
               InputIt2 first2, InputIt2 last2 )
@@ -147,7 +147,7 @@ ___
 
 ## `std::equal` - use # 1
 
-```cpp
+```cpp []
 // Missing vec1 and vec2 :D Can you think of the examples of vec1 and 2 that
 // will make the output look like below?
 std::cout << std::boolalpha << "EQUAL?: "
@@ -172,7 +172,7 @@ ___
 
 ## `std::equal` - use # 2
 
-```cpp
+```cpp []
 bool is_palindrome(const std::string& s) {
     return std::equal(s.begin(), s.begin() + s.size()/2, s.rbegin());
 }
@@ -198,14 +198,14 @@ ___
 
 ## `std::mismatch`
 
-```cpp
+```cpp []
 template< class InputIt1, class InputIt2 >
 std::pair<InputIt1,InputIt2>
     mismatch( InputIt1 first1, InputIt1 last1,
               InputIt2 first2 );
 ```
 
-```cpp
+```cpp []
 template< class InputIt1, class InputIt2 >
 std::pair<InputIt1,InputIt2>
     mismatch( InputIt1 first1, InputIt1 last1,
@@ -218,7 +218,7 @@ ___
 
 ## `std::mismatch` - use
 
-```cpp
+```cpp []
 std::string mirror_ends(const std::string& in) {
     return std::string(in.begin(),
                        std::mismatch(in.begin(), in.end(), in.rbegin()).first);

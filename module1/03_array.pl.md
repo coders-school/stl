@@ -5,7 +5,7 @@
 ## Tablica o stałym rozmiarze
 
 <a href="https://coders.school">
-    <img width="500" data-src="../coders_school_logo.png" src="../coders_school_logo.png" alt="Coders School" class="plain">
+    <img width="500" data-src="../img/coders_school_logo.png" src="../img/coders_school_logo.png" alt="Coders School" class="plain">
 </a>
 
 ___
@@ -44,7 +44,7 @@ ___
 Ponieważ `std::array<T, N>` ma 2 parametry szablonu, niektórzy mogą mieć problem przy przekazywaniu jej do funkcji, gdyż pisząc `std::array<T>` zapominając o rozmiarze tablicy.
 <!-- .element: class="fragment fade-in" -->
 
-```cpp
+```cpp []
 void print(const std::array<int, 10>& arr) {
     for (const auto& el : arr) {
         std::cout << el << ' ';

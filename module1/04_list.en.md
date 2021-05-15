@@ -5,7 +5,7 @@
 ## Doubly-linked list
 
 <a href="https://coders.school">
-    <img width="500" data-src="../coders_school_logo.png" src="../coders_school_logo.png" alt="Coders School" class="plain">
+    <img width="500" data-src="../img/coders_school_logo.png" src="../img/coders_school_logo.png" alt="Coders School" class="plain">
 </a>
 
 ___
@@ -47,7 +47,7 @@ ___
 Because the list includes its own `remove()` method, we no longer need to use `erase()`.
 <!-- .element: class="fragment fade-in" -->
 
-```cpp
+```cpp []
 std::list<int> list{1, 4, 2, 4, 3, 4, 5};
 list.remove(4);
 // list {1, 2, 3, 5}
@@ -57,7 +57,7 @@ list.remove(4);
 `erase()` is used in similar way like for `std::vector<T>`
 <!-- .element: class="fragment fade-in" -->
 
-```cpp
+```cpp []
 std::list<int> list{1, 2, 3, 4, 5, 6, 7, 8};
 auto it = list.begin();
 std::advance(it, 3); // like on pointer ptr += 3

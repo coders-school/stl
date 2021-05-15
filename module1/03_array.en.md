@@ -5,7 +5,7 @@
 ## Fixed size array
 
 <a href="https://coders.school">
-    <img width="500" data-src="../coders_school_logo.png" src="../coders_school_logo.png" alt="Coders School" class="plain">
+    <img width="500" data-src="../img/coders_school_logo.png" src="../img/coders_school_logo.png" alt="Coders School" class="plain">
 </a>
 
 ___
@@ -44,7 +44,7 @@ ___
 Because `std::array<T, N>` has 2 template parameters, some may have a problem passing it to a function as when typing `std::array<T>` they forget the size of the array.
 <!-- .element: class="fragment fade-in" -->
 
-```cpp
+```cpp []
 void print(const std::array<int, 10>& arr) {
     for (const auto& el : arr) {
         std::cout << el << ' ';
