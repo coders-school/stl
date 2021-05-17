@@ -88,3 +88,14 @@ int main() {
 }
 ```
 <!-- .element: class="fragment fade-in" -->
+
+___
+
+## Task
+
+Develop our performance testing framework.
+
+3. Measure the time of accessing the middle element of the `std::array` of ints of size 500K and 5M.
+4. Refactor the code - write an `access` function. It should take a container and it's size as parameters.
+   You need to extend the functionality of `measure` function to take additional parameters.
+   Use variadic templates and perfect_forwarding.

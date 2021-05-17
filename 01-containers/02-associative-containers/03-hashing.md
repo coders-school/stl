@@ -161,3 +161,9 @@ ___
 
 * <!-- .element: class="fragment fade-in" --> Guess the features
 * <!-- .element: class="fragment fade-in" --> Guess the implementation
+
+___
+
+## Task
+
+18. Measure the time of accessing/inserting the middle element of the `std::unordered_set` and `std::unordered_multiset` of size 500K and 5M.

@@ -150,11 +150,14 @@ vec.erase(std::remove(vec.begin(), vec.end(), 4), vec.end());
 
 ___
 
-## Task - remove-vowels
+## Task
 
-Implement a `removeVowels()` function, which takes `std::vector<std::string>>` and removes all vowels from all strings.
+During this session we will write a "framework" for performance testing of STL containers. We will start with only a basic functionality and later we will implement additional features
 
-* Input: `{"abcde", "aabbbccabc", "qwerty"}`
-* Output: `{"bcd", "bbccbc", "qwrt"}`
+The task for now is:
 
-[Download the task](https://github.com/coders-school/stl/tree/cr/01-containers/tasks/removeVowels)
+1. Write a `measure` function that takes a description and any other function (without parameters so far).
+   It should measure the execution time of the given function. Use `std::chrono::high_resolution_clock()`.
+   After the measurement it should print results + description.
+
+2. Measure the time of accessing the middle element of the vectors of ints of size 500K and 5M.

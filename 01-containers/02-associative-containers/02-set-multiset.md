@@ -130,3 +130,10 @@ Output:
 8 7 6 6 5 5 4 4 3 3 2 2 1 1 0
 ```
 <!-- .element: class="fragment fade-in" -->
+
+___
+
+## Task
+
+16. Measure the time of accessing the middle element of the `std::set` and `std::multiset` of size 500K and 5M.
+17. Add measurements of inserting the data in the middle of these containers.

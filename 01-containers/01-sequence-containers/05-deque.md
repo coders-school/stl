@@ -102,3 +102,12 @@ ___
 
 * Insertion and deletion at either end of a deque never invalidates pointers or references to the rest of the elements.
 * Otherwise - all iterators are invalidated (including the past-the-end iterator).
+
+___
+
+## Task
+
+9. Add measurements for accessing the middle elements of std::deque of size 500K and 5M.
+
+10. Refactor the code. Add `measureBoth` function that takes 2 containers of the same type (exception - `std::array<T, N>`).
+   It should simplify the code.

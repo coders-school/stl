@@ -145,3 +145,10 @@ it2: 8
 1 2 3 4 5 8 9 10
 ```
 <!-- .element: class="fragment fade-in" -->
+
+___
+
+## Task
+
+7. Measure the time of accessing the middle element of the forward lists of size 500K and 5M.
+8. Print the `sizeof()` of each container.

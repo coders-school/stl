@@ -100,3 +100,10 @@ list.erase(list.begin(), it);
 
 `std::advance()` is used to increment iterators. In our case, we are moving 3 elements forward.
 <!-- .element: class="fragment fade-in" -->
+
+___
+
+## Task
+
+5. Measure the time of accessing the middle element of the lists of size 500K and 5M.
+6. Measure if accessing vector or array via index is faster than accessing it via advancing the begin iterator.
