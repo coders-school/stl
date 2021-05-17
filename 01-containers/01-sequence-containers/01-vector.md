@@ -63,6 +63,7 @@ ___
 ## Memory usage
 
 * Generally: `n * sizeof(T)`
+* `O(n)`
 * In fact: gradual allocation dependent on the capacity (implementation defined)
   * You can use `reserve()` to allocate memory upfront
   * You can use `shrink_to_fit()` to release not used memory (shrink capacity to size)

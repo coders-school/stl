@@ -54,6 +54,7 @@ ___
 ## Memory usage
 
 * `n * sizeof(T)`
+* `O(n)`
 * Additional small constant memory for internal data is used (size, capacity, allocator)
 
 ___

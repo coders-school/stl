@@ -91,7 +91,8 @@ ___
 
 ## Memory usage
 
-* `n * sizeof(T) + log(n)`
+* `n * sizeof(T) + n / chunk_size`
+* `O(n)`
 * Additional memory for vector of pointers is used
 * Additional internal data is used (size, begin, end, allocator)
 

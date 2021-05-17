@@ -4,6 +4,16 @@
 
 ___
 
+## What is a sequence container?
+
+It's a container, in which elements are stored exactly in the order we put them.
+<!-- .element: class="fragment fade-in" -->
+
+Sequence containers implement data structures which can be accessed sequentially.
+<!-- .element: class="fragment fade-in" -->
+
+___
+
 ## What are the differences between them?
 
 Let's have a discussion!
@@ -18,4 +28,4 @@ Consider:
 
 ___
 
-<img width="500" src="../img/bigO.png" alt="BigO notation" class="plain">
+<img src="../img/bigO.png" alt="BigO notation" class="plain r-stretch">
