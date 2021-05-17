@@ -20,7 +20,7 @@ ___
 
 Jest to tzw. złożoność stała, która jest niezależna od liczby danych wejściowych. Przy obliczeniu sumy ciągu arytmetycznego (kod poniżej), nie iterujemy po wszystkich elementach tablicy, zatem czas wykonania jest stały i niezależny od wielkości tablicy.
 
-```C++
+```cpp
 int sum(std::vector<int> vec) {
     if (vec.empty()) {
         return 0;
@@ -47,7 +47,7 @@ ___
 
 Wyobraźmy sobie, że szukamy numeru telefonu naszego kolegi Andrzeja. Bierzemy książkę telefoniczną i otwieramy ją na środku i patrzymy, że wypada nam osoba o imieniu Kornelia. Wiemy, że Andrzej jest w pierwszej połowie książki adresowej, gdyż litera K jest dużo dalej w alfabecie niż litera A. Zatem znów otwieramy na środku pierwszej połowy i patrzymy, że widnieje tam imię Dominik. Więc powtarzamy nasze szukanie natrafiając w kolejnej części na Bartka, aż w końcu trafiamy na Andrzeja. Takie przeszukiwanie, w którym za każdym razem odrzucamy połowę zakresu jest właśnie zapisywane w notacji `O(logn)`.
 
-```C++
+```cpp
 std::vector<int> vec{1, 2, 3, 4, 5, 6};
 std::cout << std::boolalpha
           << std::binary_search(begin(vec), end(vec), 2) << std::endl
@@ -58,7 +58,7 @@ std::cout << std::boolalpha
 Output:
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 true
 false
 ```
@@ -76,7 +76,7 @@ ___
 
 ## Złożoność `O(n)` - przykład
 
-```C++
+```cpp
 constexpr size_t samples = 1'000'000'000;
 constexpr size_t search_num = 987'654'321;
 std::vector<int> vec(samples);
@@ -100,7 +100,7 @@ std::cout << "O(n): " << std::chrono::duration_cast<std::chrono::nanoseconds>(st
 Example Output:
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 O(logn): 0 ns
 O(n): 6'949'430'300 ns
 ```
@@ -117,7 +117,7 @@ ___
 
 ## Złożoność `O(nlog(n))` - przykład
 
-```C++
+```cpp
 constexpr size_t samples = 1'000'000'000;
 std::vector<int> vec(samples);
 std::iota(begin(vec), end(vec), 0);
@@ -150,7 +150,7 @@ ___
 
 ## Złożoność `O(n^2)` - przykład
 
-```C++
+```cpp
 constexpr size_t samples = 1'000'000;
 std::vector<int> vec(samples);
 std::iota(begin(vec), end(vec), 0);
@@ -180,7 +180,7 @@ std::cout << "O(n^2): " << std::chrono::duration_cast<std::chrono::nanoseconds>(
 Possible output:
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 O(n^2): 9'974'800 ns
 O(n^2): 83'777'600 ns
 O(n^2): 810'269'600 ns
@@ -212,7 +212,7 @@ ___
 
 ## Złożoność `O(n * n!)` Przykład
 
-```C++
+```cpp
 std::random_device rd;
 std::mt19937 generator(rd());
 
@@ -242,7 +242,7 @@ int main() {
 Possible output:
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 O(n * n!): 35'938'300 ns
 O(n * n!): 85'772'000 ns
 O(n * n!): 899'885'600 ns

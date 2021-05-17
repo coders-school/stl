@@ -75,9 +75,9 @@ ___
 
 * <!-- .element: class="fragment fade-in" --> adding an item: <code>insert()</code>, <code>emplace()</code>, <code>emplace_hint()</code>. Additionally, the map has: <code>insert_or_assign()</code>, <code>try_emplace()</code> and <code>operator[]</code> (additive modifying)
 * <!-- .element: class="fragment fade-in" --> modifying/accessing an item: <code>at()</code>, <code>operator[]</code> (Multimap does not have such options)
-* <!-- .element: class="fragment fade-in" --> first/last item: None
+* <!-- .element: class="fragment fade-in" --> first/last item: none
 * <!-- .element: class="fragment fade-in" --> size/is the container empty: <code>size()</code>, <code>empty()</code>
-* <!-- .element: class="fragment fade-in" --> clear unused memory: None
+* <!-- .element: class="fragment fade-in" --> clear unused memory: none
 * <!-- .element: class="fragment fade-in" --> start/end iterator: <code>begin()</code>, <code>end()</code>
 
 ___
@@ -87,7 +87,7 @@ ___
 * <!-- .element: class="fragment fade-in" --> reverse iterator: <code>rbegin()</code>, <code>rend()</code>
 * <!-- .element: class="fragment fade-in" --> constant iterator: <code>cbegin()</code>, <code>cend()</code>, <code>crbegin()</code>, <code>crend()</code>
 * <!-- .element: class="fragment fade-in" --> container cleaning: <code>clear()</code>
-* <!-- .element: class="fragment fade-in" --> preparing item for removal: None
+* <!-- .element: class="fragment fade-in" --> preparing item for removal: none
 * <!-- .element: class="fragment fade-in" --> erasing items from memory: <code>erase()</code>
 * <!-- .element: class="fragment fade-in" --> replacement of the entire container: <code>swap()</code>
 * <!-- .element: class="fragment fade-in" --> counting elements matching a given key: <code>count()</code> (for the map it is 0 or 1, for the multimap from 0 to n)
@@ -120,7 +120,7 @@ ___
 
 ### Example of `insert_or_assign` usage
 
-```C++
+```cpp
 int main() {
     std::map<int, std::string> map;
 
@@ -138,7 +138,7 @@ int main() {
 Output:
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 Ten
 Dziesiec
 Cent
@@ -149,7 +149,7 @@ ___
 
 ### Example of `count` usage
 
-```C++
+```cpp
 int main() {
     std::multimap<int, std::string> map;
 
@@ -169,7 +169,7 @@ ___
 
 ### Example of `find` usage
 
-```C++
+```cpp
 int main() {
     std::multimap<int, std::string> map;
 
@@ -189,7 +189,7 @@ int main() {
 Output:
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 5 | Five
 5 | Funf
 5 | Piec
@@ -203,7 +203,7 @@ ___
 
 * <!-- .element: class="fragment fade-in" --> Create a multimap and fill it with the given values
 
-```C++
+```cpp
 map.insert({5, "Ala"});
 map.insert({5, "Ma"});
 map.insert({5, "Kota"});
@@ -220,7 +220,7 @@ ___
 
 ## Solution
 
-```C++
+```cpp
 std::vector<std::pair<int, std::string>> result;
 std::copy_if(it,
              end(map),
@@ -265,10 +265,10 @@ ___
 ## `std::set<T>` and `std::multiset<T>` methods #1
 
 * <!-- .element: class="fragment fade-in" --> adding an item: <code>insert()</code>, <code>emplace()</code>, <code>emplace_hint()</code>
-* <!-- .element: class="fragment fade-in" --> modifying / accessing an item: None
-* <!-- .element: class="fragment fade-in" --> first / last item: None
+* <!-- .element: class="fragment fade-in" --> modifying / accessing an item: none
+* <!-- .element: class="fragment fade-in" --> first / last item: none
 * <!-- .element: class="fragment fade-in" --> size / is the container empty: <code>size()</code>, <code>empty()</code>
-* <!-- .element: class="fragment fade-in" --> clear unused memory: None
+* <!-- .element: class="fragment fade-in" --> clear unused memory: none
 * <!-- .element: class="fragment fade-in" --> start / end iterator: <code>begin()</code>, <code>end()</code>
 * <!-- .element: class="fragment fade-in" --> reverse iterator: <code>rbegin()</code>, <code>rend()</code>
 
@@ -279,7 +279,7 @@ ___
 
 * <!-- .element: class="fragment fade-in" --> constant iterator: <code>cbegin()</code>, <code>cend()</code>, <code>crbegin()</code>, <code>crend()</code>
 * <!-- .element: class="fragment fade-in" --> container cleaning: <code>clear()</code>
-* <!-- .element: class="fragment fade-in" --> preparing item for removal: None
+* <!-- .element: class="fragment fade-in" --> preparing item for removal: none
 * <!-- .element: class="fragment fade-in" --> erasing items from memory: <code>erase()</code>
 * <!-- .element: class="fragment fade-in" --> replacement of the entire container: <code>swap()</code>
 * <!-- .element: class="fragment fade-in" --> counting elements matching a given key: <code>count()</code> (for <code>set</code> is 0 or 1 for <code>multiset</code> 0 to n)
@@ -289,7 +289,7 @@ ___
 
 ## Example of `std::set<T>` usage
 
-```C++
+```cpp
 std::set<int> set {5, 4, 3, 2, 1, 0, 6, 8, 7};
 for (const auto el : set) {
     std::cout << el << ' ';
@@ -307,7 +307,7 @@ std::cout << '\n';
 Output:
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 0 1 2 3 4 5 6 7 8
 8 7 6 5 4 3 2 1 0
 ```
@@ -317,7 +317,7 @@ ___
 
 ## Example of `std::multiset<T>` usage
 
-```C++
+```cpp
 std::multiset<int> set {5, 4, 3, 2, 1, 0, 6, 8, 7, 1, 2, 3, 4, 5, 6};
 for (const auto el : set) {
     std::cout << el << ' ';
@@ -335,7 +335,7 @@ std::cout << '\n';
 Output:
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 0 1 1 2 2 3 3 4 4 5 5 6 6 7 8
 8 7 6 6 5 5 4 4 3 3 2 2 1 1 0
 ```
@@ -354,12 +354,12 @@ ___
 
 It is a function that will generate an index for the array from any object. Its most important feature is that it must always generate the same index for the same input data. Another important feature is generating the index in such a way that it can be repeated for only one combination, e.g.
 
-```C++
+```cpp
 size_t hash(const std::string& str) { return str.size(); }
 ```
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 size_t hash(const std::string& str) {
     size_t index = 0;
     for (size_t i = 0 ; i < str.size() ; ++i) {
@@ -370,7 +370,7 @@ size_t hash(const std::string& str) {
 ```
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 size_t hash(const std::string& str) {
     size_t index = 0;
     for (size_t i = 0 ; i < str.size() - 1 ; ++i) {
@@ -415,12 +415,12 @@ ___
 ## `std::unordered_set<T>` and `std::unordered_multiset<T>` methods
 
 * <!-- .element: class="fragment fade-in" --> adding an item: <code>insert()</code>, <code>emplace()</code>, <code>emplace_hint()</code>
-* <!-- .element: class="fragment fade-in" --> modifying/accessing an item: None
-* <!-- .element: class="fragment fade-in" --> first/last item: None
+* <!-- .element: class="fragment fade-in" --> modifying/accessing an item: none
+* <!-- .element: class="fragment fade-in" --> first/last item: none
 * <!-- .element: class="fragment fade-in" --> size/is the container empty: <code>size()</code>, <code>empty()</code>
-* <!-- .element: class="fragment fade-in" --> clear unused memory: None
+* <!-- .element: class="fragment fade-in" --> clear unused memory: none
 * <!-- .element: class="fragment fade-in" --> start/end iterator: <code>begin()</code>, <code>end()</code>
-* <!-- .element: class="fragment fade-in" --> reverse iterator: None
+* <!-- .element: class="fragment fade-in" --> reverse iterator: none
 
 ___
 
@@ -428,7 +428,7 @@ ___
 
 * <!-- .element: class="fragment fade-in" --> constant iterator: <code>cbegin()</code>, <code>cend()</code>
 * <!-- .element: class="fragment fade-in" --> container cleaning: <code>clear()</code>
-* <!-- .element: class="fragment fade-in" --> preparing item for removal: None
+* <!-- .element: class="fragment fade-in" --> preparing item for removal: none
 * <!-- .element: class="fragment fade-in" --> erasing items from memory: <code>erase()</code>
 * <!-- .element: class="fragment fade-in" --> replacement of the entire container: <code>swap()</code>
 * <!-- .element: class="fragment fade-in" --> counting elements matching a given key: <code>count()</code> (for <code>set</code> is 0 or 1 for <code>multiset</code> 0 to n)
@@ -438,7 +438,7 @@ ___
 
 ## Example of `std::unordered_set<T>` and `std::unordered_multiset<T>` usage
 
-```C++
+```cpp
 std::unordered_set<std::string> set{"Ala", "Ma", "Kota", "A", "Kot", "Ma", "ALE"};
 for (const auto el : set) {
     std::cout << el << ' ';

@@ -120,7 +120,7 @@ ___
 
 ### Przykład użycia `insert_or_assign`
 
-```C++
+```cpp
 int main() {
     std::map<int, std::string> map;
 
@@ -138,7 +138,7 @@ int main() {
 Output:
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 Ten
 Dziesiec
 Cent
@@ -149,7 +149,7 @@ ___
 
 ### Przykład użycia `count`
 
-```C++
+```cpp
 int main() {
     std::multimap<int, std::string> map;
 
@@ -169,7 +169,7 @@ ___
 
 ### Przykład użycia `find`
 
-```C++
+```cpp
 int main() {
     std::multimap<int, std::string> map;
 
@@ -189,7 +189,7 @@ int main() {
 Output:
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 5 | Five
 5 | Funf
 5 | Piec
@@ -203,7 +203,7 @@ ___
 
 * <!-- .element: class="fragment fade-in" --> Stwórz multimapę i wypełnij ją podanymi wartościami
 
-```C++
+```cpp
 map.insert({5, "Ala"});
 map.insert({5, "Ma"});
 map.insert({5, "Kota"});
@@ -220,7 +220,7 @@ ___
 
 ## Rozwiązanie
 
-```C++
+```cpp
 std::vector<std::pair<int, std::string>> result;
 std::copy_if(it,
              end(map),
@@ -289,7 +289,7 @@ ___
 
 ## Przykład użycia `std::set<T>`
 
-```C++
+```cpp
 std::set<int> set {5, 4, 3, 2, 1, 0, 6, 8, 7};
 for (const auto el : set) {
     std::cout << el << ' ';
@@ -307,7 +307,7 @@ std::cout << '\n';
 Output:
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 0 1 2 3 4 5 6 7 8
 8 7 6 5 4 3 2 1 0
 ```
@@ -317,7 +317,7 @@ ___
 
 ## Przykład użycia `std::multiset<T>`
 
-```C++
+```cpp
 std::multiset<int> set {5, 4, 3, 2, 1, 0, 6, 8, 7, 1, 2, 3, 4, 5, 6};
 for (const auto el : set) {
     std::cout << el << ' ';
@@ -335,7 +335,7 @@ std::cout << '\n';
 Output:
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 0 1 1 2 2 3 3 4 4 5 5 6 6 7 8
 8 7 6 6 5 5 4 4 3 3 2 2 1 1 0
 ```
@@ -354,12 +354,12 @@ ___
 
 Jest to funkcja, która z dowolnego obiektu wygeneruje nam index w tablicy. Najważniejszą jej cechą jest to, że zawsze dla takich samych danych wejściowych musi wygenerować ten sam index. Kolejną ważną cechą jest takie generowanie indexu, aby tylko dla jednej kombinacji mógł on się powtórzyć np.:
 
-```C++
+```cpp
 size_t hash(const std::string& str) { return str.size(); }
 ```
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 size_t hash(const std::string& str) {
     size_t index = 0;
     for (size_t i = 0 ; i < str.size() ; ++i) {
@@ -370,7 +370,7 @@ size_t hash(const std::string& str) {
 ```
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 size_t hash(const std::string& str) {
     size_t index = 0;
     for (size_t i = 0 ; i < str.size() - 1 ; ++i) {
@@ -438,7 +438,7 @@ ___
 
 ## Przykład `std::unordered_set<T>` i `std::unordered_multiset<T>`
 
-```C++
+```cpp
 std::unordered_set<std::string> set{"Ala", "Ma", "Kota", "A", "Kot", "Ma", "ALE"};
 for (const auto el : set) {
     std::cout << el << ' ';

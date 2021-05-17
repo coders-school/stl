@@ -54,7 +54,7 @@ ___
 
 Input iterator: pochodzi np. ze strumienia `std::istream`, czyli znanego nam `std::cin`. Raz wczytane dane znikają, nie możemy ich ponownie odczytać. Mamy możliwość tylko jednorazowego przejścia przez dane. Innym słowem jak tylko odczytamy jakąś daną nasz operator od razu jest inkrementowany.
 
-```C++
+```cpp
 int a;
 int b;
 std::cin >> a >> b;
@@ -64,7 +64,7 @@ std::cin >> a >> b;
 Output iterator: pochodzi np. ze strumienia `std::ostream`, czyli znanego nam `std::cout`. Raz wypisane dane znikają, nie możemy ich ponownie wyświetlić, musimy ponownie podać dane.
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 int a;
 int b;
 std::cin >> a >> b;
@@ -98,7 +98,7 @@ ___
 
 Jest to iterator, który umożliwia nam wielokrotne przejście danego zakresu w jedną stronę (w przód).
 
-```C++
+```cpp
 std::forward_list<int> list {1, 2, 3, 4, 5};
 for (auto it = list.begin() ; it != list.end() ; ++it) {
     std::cout << *it << '\n';
@@ -125,7 +125,7 @@ ___
 
 Jest to iterator, który umożliwia nam wielokrotne przejście danego zakresu w obie strony (w przód i tył).
 
-```C++
+```cpp
 std::list<int> list{1, 2, 3, 4, 5};
 for (auto it = list.begin(); it != list.end(); ++it) {
     std::cout << *it << ' ';
@@ -156,7 +156,7 @@ ___
 
 Jest to iterator, który umożliwia nam wielokrotne przejście danego zakresu w obie strony (w przód i tył), a także dostęp do dowolnego obiektu.
 
-```C++
+```cpp
 std::vec<int> vec{1, 2, 3, 4, 5};
 for (auto it = vec.begin(); it != vec.end(); ++it) {
     std::cout << *it << ' ';

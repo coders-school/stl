@@ -22,7 +22,7 @@ Write a function that will allow you to save new recipes in a `recipes.txt` file
 * <!-- .element: class="fragment fade-in" --> The function takes 2 arguments <code>std::list&lt;std::string&gt;</code> containing the name of the ingredients.
 * <!-- .element: class="fragment fade-in" --> The function for the 3rd argument takes data in <code>std::deque&lt;std::pair&lt;size_t, char&gt;&gt;</code> containing information about the amount of the ingredient and its representation <code>g</code> -> grams <code>m</code> -> milliliters, <code>s</code> -> glasses.
 
-```C++
+```cpp
 bool AppendNewRecipe(std::vector<std::string> steps,
                      const std::list<std::string>& ingredients,
                      const std::deque<std::pair<size_t, char>>& amount);
@@ -36,7 +36,7 @@ ___
 Input:
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 std::vector<std::string> steps{"Pour 20 grams of sugar into a bowl",
                                 "Throw in 1 glass of flour",
                                 "Mix thoroughly",
@@ -81,7 +81,7 @@ ___
 Auxiliary functions:
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 std::vector<std::string> FormatIngredients(const std::list<std::string>& ingredients,
                                            const std::deque<std::pair<size_t, char>>& amount);
 ```
@@ -90,7 +90,7 @@ std::vector<std::string> FormatIngredients(const std::list<std::string>& ingredi
 each vector record should contain a ready-made section of one component, e.g .: `20 grams of sugar` or `1 glass(es) of flour`.
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 std::stringstream FormatRecipit(std::vector<std::string> steps,
                                 const std::list<std::string>& ingredients,
                                 const std::deque<std::pair<size_t, char>>& amount);

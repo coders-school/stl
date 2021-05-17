@@ -54,7 +54,7 @@ ___
 
 Input iterator comes e.g. from stream `std::istream`, that is known to us as `std::cin`. Once loaded, the data disappears, we cannot read it again. We can only go through the data once. In other words, as soon as we read given data, our operator is immediately incremented.
 
-```C++
+```cpp
 int a;
 int b;
 std::cin >> a >> b;
@@ -64,7 +64,7 @@ std::cin >> a >> b;
 Output iterator comes e.g. from stream `std::ostream`, that is known to us as `std::cout`. Once the data is printed, it disappears, we cannot display it again, we have to enter the data again.
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 int a;
 int b;
 std::cin >> a >> b;
@@ -98,7 +98,7 @@ ___
 
 It is an iterator that allows us to repeatedly traverse a given range in one direction (forward).
 
-```C++
+```cpp
 std::forward_list<int> list {1, 2, 3, 4, 5};
 for (auto it = list.begin() ; it != list.end() ; ++it) {
     std::cout << *it << '\n';
@@ -125,7 +125,7 @@ ___
 
 It is an iterator that allows us to repeatedly traverse a given range in both directions (forwards and backwards).
 
-```C++
+```cpp
 std::list<int> list{1, 2, 3, 4, 5};
 for (auto it = list.begin(); it != list.end(); ++it) {
     std::cout << *it << ' ';
@@ -156,7 +156,7 @@ ___
 
 It is an iterator that allows us to repeatedly traverse a given range back and forth, as well as access any object.
 
-```C++
+```cpp
 std::vec<int> vec{1, 2, 3, 4, 5};
 for (auto it = vec.begin(); it != vec.end(); ++it) {
     std::cout << *it << ' ';

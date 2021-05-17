@@ -20,7 +20,7 @@ ___
 
 This is called Constant complexity that is independent of the number of inputs. When calculating the sum of an arithmetic sequence (code below), we do not iterate over all the elements of the array, so the execution time is constant and independent of the size of the array.
 
-```C++
+```cpp
 int sum(std::vector<int> vec) {
     if (vec.empty()) {
         return 0;
@@ -47,7 +47,7 @@ ___
 
 Let's imagine that we are looking for the phone number of our friend Albert. We take the phone book and open it in the middle and see that we have a person named Karen. We know that Albert is in the first half of the address book, because the letter K is much further down the alphabet than the letter A. So we open again in the middle of the first half and see that the name Dylan is there. So we repeat our search, finding Bella in the next part, and finally we come across Albert. Such a search, in which we drop half the range every time, is written as `O(logn)` notation.
 
-```C++
+```cpp
 std::vector<int> vec{1, 2, 3, 4, 5, 6};
 std::cout << std::boolalpha
           << std::binary_search(begin(vec), end(vec), 2) << std::endl
@@ -58,7 +58,7 @@ std::cout << std::boolalpha
 Output:
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 true
 false
 ```
@@ -76,7 +76,7 @@ ___
 
 ## `O(n)` complexity  - example
 
-```C++
+```cpp
 constexpr size_t samples = 1'000'000'000;
 constexpr size_t search_num = 987'654'321;
 std::vector<int> vec(samples);
@@ -100,7 +100,7 @@ std::cout << "O(n): " << std::chrono::duration_cast<std::chrono::nanoseconds>(st
 Example Output:
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 O(logn): 0 ns
 O(n): 6'949'430'300 ns
 ```
@@ -117,7 +117,7 @@ ___
 
 ## `O(nlog(n))` complexity  - example
 
-```C++
+```cpp
 constexpr size_t samples = 1'000'000'000;
 std::vector<int> vec(samples);
 std::iota(begin(vec), end(vec), 0);
@@ -150,7 +150,7 @@ ___
 
 ## `O(n^2)` complexity - example
 
-```C++
+```cpp
 constexpr size_t samples = 1'000'000;
 std::vector<int> vec(samples);
 std::iota(begin(vec), end(vec), 0);
@@ -180,7 +180,7 @@ std::cout << "O(n^2): " << std::chrono::duration_cast<std::chrono::nanoseconds>(
 Possible output:
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 O(n^2): 9'974'800 ns
 O(n^2): 83'777'600 ns
 O(n^2): 810'269'600 ns
@@ -212,7 +212,7 @@ ___
 
 ## `O(n * n!)` complexity - example
 
-```C++
+```cpp
 std::random_device rd;
 std::mt19937 generator(rd());
 
@@ -242,7 +242,7 @@ int main() {
 Possible output:
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 O(n * n!): 35'938'300 ns
 O(n * n!): 85'772'000 ns
 O(n * n!): 899'885'600 ns

@@ -40,7 +40,7 @@ Z definicji streambuffer reprezentuje urządzenia wyjściowe i wejściowe (jak m
 Klasę tę użyjemy między innymi do tworzenia własnych strumieni. Popatrzmy na przykład jak utworzyć własny strumień wyjściowy `ostream`.
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 std::cout << 42 << '\n';
 std::streambuf* buffer = std::cout.rdbuf();
 std::ostream ost(buffer);
@@ -51,7 +51,7 @@ ost << 24 << '\n';
 Output:
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 42
 24
 ```
@@ -66,7 +66,7 @@ ___
 
 Aby nie ingerować w zwykły strumień `std::cout`, który jest używany globalnie.
 
-```C++
+```cpp
 std::cout << M_PI << '\n';
 std::streambuf* buffer = std::cout.rdbuf();
 std::ostream ost(buffer);
@@ -79,7 +79,7 @@ std::cout << M_PI << '\n';
 Output:
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 3.14159
 3.14159265358979
 3.14159
@@ -135,7 +135,7 @@ ___
 
 ## Przykład zapisu dziennika pokładowego załogi statku
 
-```C++
+```cpp
 std::fstream diary("Day1.txt", diary.out | diary.app);
 // or longer -> std::ifstream::out | std::ifstream::app
 if (diary.is_open()) {
@@ -156,7 +156,7 @@ ___
 
 ## Przykład odczytu dziennika pokładowego załogi statku
 
-```C++
+```cpp
 diary.open("Day1.txt", diary.in);
 if (diary.is_open()) {
     std::string str;
@@ -177,7 +177,7 @@ ___
 
 Jeżeli chcemy odczytywać dane linijka po linijce, możemy użyć funkcji `getline()`.
 
-```C++
+```cpp
 diary.open("Day1.txt", diary.in);
 if (diary.is_open()) {
     std::string str;
