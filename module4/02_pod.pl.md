@@ -8,7 +8,7 @@ ___
 
 Czyli klasa/struktura bez konstruktora, destruktora i metod wirtualnych.
 
-```C++
+```cpp
 class Pod {
 public:
     void DoSth() {}
@@ -29,7 +29,7 @@ ___
 
 Ale to już nie jest POD.
 
-```C++
+```cpp
 class Pod {
 public:
     void DoSth() {}
@@ -49,7 +49,7 @@ ___
 
 ## Zapisywanie POD
 
-```C++
+```cpp
 class Pod {
 public:
     void DoSth() {}
@@ -93,7 +93,7 @@ ___
 
 ## Odczyt POD
 
-```C++
+```cpp
     student.open("Student.txt", student.binary | student.in);
     Pod mateusz_read;
     if (student.is_open()) {
@@ -109,7 +109,7 @@ ___
 Hexdump:
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 0000000 614d 6574 7375 007a 0000 0000 0000 0000
 0000010 e240 0001 0000 0000 0000 0000 0000 4014
 0000020
@@ -119,7 +119,7 @@ Hexdump:
 Output:
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 Name: Mateusz
 Index: 123456
 Average: 5
@@ -133,7 +133,7 @@ ___
 
 Podzielenie `std::string` na pojedyncze słowa. Niestety nie możemy tego w tak prosty sposób zrobić dla innch znaków niż spacja.
 
-```C++
+```cpp
 std::string str {"Ala ma kota, a kot ma ale, ale to nie to samo, co Sierotka ma rysia."};
 std::istringstream iss(str);
 std::vector<std::string> vec {std::istream_iterator<std::string>(iss), {}};
@@ -144,7 +144,7 @@ std::copy(begin(vec), end(vec), std::ostream_iterator<std::string>(std::cout, "\
 Output:
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 Ala     ma      kota,   a       kot     ma      ale,    ale     to      nie     to      samo,   co      Sierotka        ma      rysia.
 ```
 <!-- .element: class="fragment fade-in" -->
@@ -156,7 +156,7 @@ ___
 
 ## stringstream -> jak skonwertować na string
 
-```C++
+```cpp
 std::stringstream ss;
 ss << "End of passion play, crumbling away\n";
 ss << "I'm your source of self-destruction\n";

@@ -41,7 +41,7 @@ By definition, streambuffer represents output and input devices (like monitor, k
 Among other things, we will use this class to create our own streams. For example, let's look at how to create your own output stream `ostream`.
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 std::cout << 42 << '\n';
 std::streambuf* buffer = std::cout.rdbuf();
 std::ostream ost(buffer);
@@ -52,7 +52,7 @@ ost << 24 << '\n';
 Output:
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 42
 24
 ```
@@ -67,7 +67,7 @@ ___
 
 In order not to interfere with the usual stream `std::cout` which is used globally.
 
-```C++
+```cpp
 std::cout << M_PI << '\n';
 std::streambuf* buffer = std::cout.rdbuf();
 std::ostream ost(buffer);
@@ -80,7 +80,7 @@ std::cout << M_PI << '\n';
 Output:
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 3.14159
 3.14159265358979
 3.14159
@@ -136,7 +136,7 @@ ___
 
 ## Example of a ship's crew logbook entry
 
-```C++
+```cpp
 std::fstream diary("Day1.txt", diary.out | diary.app);
 // or longer -> std::ifstream::out | std::ifstream::app
 if (diary.is_open()) {
@@ -157,7 +157,7 @@ ___
 
 ## Example of reading the ship's crew logbook
 
-```C++
+```cpp
 diary.open("Day1.txt", diary.in);
 if (diary.is_open()) {
     std::string str;
@@ -178,7 +178,7 @@ ___
 
 If we want to read data line by line, we can use the function `getline()`.
 
-```C++
+```cpp
 diary.open("Day1.txt", diary.in);
 if (diary.is_open()) {
     std::string str;

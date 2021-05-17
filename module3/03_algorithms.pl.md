@@ -57,7 +57,7 @@ ___
 
 ## Rozwiązanie 1
 
-```C++
+```cpp
 bool ChangePos(std::vector<int>& vec, int value, int new_pos) {
     if (new_pos < 0 || new_pos >= vec.size()) {
         return false;
@@ -103,7 +103,7 @@ ___
 
 ## Rozwiązanie 2
 
-```C++
+```cpp
 void ChangePos(std::vector<int>& vec, const std::vector<int>& values, int new_pos) {
     auto pred {[&](auto& el) {
         return (std::find(values.begin(), values.end(), el) == values.end());
@@ -148,7 +148,7 @@ ___
 
 ## Rozwiązanie 3
 
-```C++
+```cpp
 void Gather(std::vector<char>& vec) {
     auto pred {[&](auto& el) {
         return el != '*';
@@ -198,7 +198,7 @@ ___
 
 ## Rozwiązanie 4
 
-```C++
+```cpp
 std::vector<int> GetVec(size_t count) {
     std::vector<int> vec(count);
     std::iota(begin(vec), end(vec), 10);

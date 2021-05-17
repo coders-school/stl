@@ -22,7 +22,7 @@ Napisz funkcję, która umożliwi zapisywanie nowych przepisów w pliku `recipes
 * <!-- .element: class="fragment fade-in" --> Funkcja za 2 argument przyjmuje <code>std::list&lt;std::string&gt;</code> zawierającą nazwę składników.
 * <!-- .element: class="fragment fade-in" --> Funkcja za 3 argument przyjmuje dane w <code>std::deque&lt;std::pair&lt;size_t, char&gt;&gt;</code> zawierające informacje o ilości składnika i jego reprezentacji <code>g</code> -> gramy <code>m</code> -> mililitry, <code>s</code> -> szklanki.
 
-```C++
+```cpp
 bool AppendNewRecipe(std::vector<std::string> steps,
                      const std::list<std::string>& ingredients,
                      const std::deque<std::pair<size_t, char>>& amount);
@@ -36,7 +36,7 @@ ___
 Input:
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 std::vector<std::string> steps{"Wsypać do miski 20 gram cukru",
                                 "Dorzucić 1 szklankę mąki",
                                 "Dokładnie wymieszać",
@@ -81,7 +81,7 @@ ___
 Pomocnicze funkcje:
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 std::vector<std::string> FormatIngredients(const std::list<std::string>& ingredients,
                                            const std::deque<std::pair<size_t, char>>& amount);
 ```
@@ -90,7 +90,7 @@ std::vector<std::string> FormatIngredients(const std::list<std::string>& ingredi
 każdy rekord wektora powinien zawierać gotową sekcję jednego składnika np: `20 gram cukru` lub `1 szklanka(i) mąki`.
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 std::stringstream FormatRecipit(std::vector<std::string> steps,
                                 const std::list<std::string>& ingredients,
                                 const std::deque<std::pair<size_t, char>>& amount);

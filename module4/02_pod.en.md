@@ -8,7 +8,7 @@ ___
 
 POD is a class/structure without a constructor, destructor and virtual methods.
 
-```C++
+```cpp
 class Pod {
 public:
     void DoSth() {}
@@ -29,7 +29,7 @@ ___
 
 But that's not a POD anymore.
 
-```C++
+```cpp
 class Pod {
 public:
     void DoSth() {}
@@ -49,7 +49,7 @@ ___
 
 ## Saving POD to a file
 
-```C++
+```cpp
 class Pod {
 public:
     void DoSth() {}
@@ -93,7 +93,7 @@ ___
 
 ## Reading POD
 
-```C++
+```cpp
     student.open("Student.txt", student.binary | student.in);
     Pod matthew_read;
     if (student.is_open()) {
@@ -109,7 +109,7 @@ ___
 Hexdump:
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 0000000 614d 6574 7375 007a 0000 0000 0000 0000
 0000010 e240 0001 0000 0000 0000 0000 0000 4014
 0000020
@@ -119,7 +119,7 @@ Hexdump:
 Output:
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 Name: Matthew
 Index: 123456
 Average: 5
@@ -133,7 +133,7 @@ ___
 
 Divide `std::string` into single words. Unfortunately, we cannot do this in such a simple way for characters other than spaces.
 
-```C++
+```cpp
 std::string str {"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."};
 std::istringstream iss(str);
 std::vector<std::string> vec {std::istream_iterator<std::string>(iss), {}};
@@ -144,7 +144,7 @@ std::copy(begin(vec), end(vec), std::ostream_iterator<std::string>(std::cout, "\
 Output:
 <!-- .element: class="fragment fade-in" -->
 
-```C++
+```cpp
 Lorem   ipsum   dolor   sit     amet,   consectetur     adipiscing      elit,   sed     do      eiusmod tempor  incididunt      ut      labore  et      dolore  magna   aliqua.
 ```
 <!-- .element: class="fragment fade-in" -->
@@ -156,7 +156,7 @@ ___
 
 ## stringstream -> how to convert to string
 
-```C++
+```cpp
 std::stringstream ss;
 ss << "End of passion play, crumbling away\n";
 ss << "I'm your source of self-destruction\n";

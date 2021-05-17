@@ -5,8 +5,8 @@ Napisz funckję, która umożliwi zapisywanie nowych przepisów w pliku recipes.
 * Funkjca za 1 argument przyjmuje dane w `std::vector<std::string>`, który zawiera kolejne kroki przepisu.
 * Funckja za 2 argument przyjmuje `std::list<std::string>` zawierającą nazwe składników.
 * Funkjca za 3 argument przyjmuje dane w `std::deque<std::pair<size_t, char>>` zawierające informacje o ilości składnika i jego reprezentacji `g` -> gramy `m` mililirty, `s` -> szklanki.
-  
-```C++
+
+```cpp
 bool AppendNewRecipe(std::vector<std::string> steps,
                           const std::list<std::string>& ingredients,
                           const std::deque<std::pair<size_t, char>>& amount);
@@ -14,7 +14,7 @@ bool AppendNewRecipe(std::vector<std::string> steps,
 
 Input:
 
-```C++
+```cpp
 std::vector<std::string> steps{"Wsypać do miski 20 gram cukru",
                                 "Dorzucić 1 szklankę mąki",
                                 "Dokładnie wymieszać",
@@ -48,14 +48,14 @@ __________________________________
 
 Pomocnicze funkcje:
 
-```C++
+```cpp
 std::vector<std::string> FormatIngredients(const std::list<std::string>& ingredients,
                                           const std::deque<std::pair<size_t, char>>& amount);
 ```
 
 każdy rekord wektora powinien zawierać gotową sekcje jednego składnika np: `20 gram cukru` lub `1 szklanka(i) mąki`.
 
-```C++
+```cpp
 std::stringstream FormatRecipit(std::vector<std::string> steps,
                                 const std::list<std::string>& ingredients,
                                 const std::deque<std::pair<size_t, char>>& amount);
