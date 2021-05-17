@@ -49,3 +49,9 @@ ___
 ### [Download the code](https://replit.com/@ziobron/interval-map#main.cpp)
 
 Your task is to implement the assign member function of this data structure.
+
+___
+
+## Post-test
+
+Link will be provided in the next week with all materials
