@@ -55,6 +55,10 @@ Consider:
 
 ___
 
+<img src="../img/set-map.png" alt="BigO notation" class="plain r-stretch">
+
+___
+
 ## Operations complexity
 
 <img src="../img/bigO.png" alt="BigO notation" class="plain r-stretch">
