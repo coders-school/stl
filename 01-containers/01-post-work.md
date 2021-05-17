@@ -1,8 +1,8 @@
 <!-- .slide: data-background="#111111" -->
 
-# Associative containers
+# STL containers
 
-## Task
+## Post-work
 
 <a href="https://coders.school">
     <img width="500" src="../img/coders_school_logo.png" alt="Coders School" class="plain">
@@ -46,6 +46,6 @@ Initially, the whole range of K is associated with a given initial value, passed
 
 ___
 
-### [Task in repo](https://github.com/coders-school/stl/tree/cr/01-containers/tasks/intervalMap/)
+### [Download the code](https://replit.com/@ziobron/interval-map#main.cpp)
 
 Your task is to implement the assign member function of this data structure.

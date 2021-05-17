@@ -198,35 +198,8 @@ Output:
 
 ___
 
-## Task 1
+## Task
 
-* <!-- .element: class="fragment fade-in" --> Create a multimap and fill it with the given values
-
-```cpp
-map.insert({5, "Ala"});
-map.insert({5, "Ma"});
-map.insert({5, "Kota"});
-map.insert({5, "A"});
-map.insert({5, "Kot"});
-map.insert({5, "Ma"});
-map.insert({5, "Ale"});
-```
-<!-- .element: class="fragment fade-in" -->
-
-* <!-- .element: class="fragment fade-in" --> Write a function that will display words in a map with the number of characters equal to 3.
-
-___
-
-## Solution
-
-```cpp
-std::vector<std::pair<int, std::string>> result;
-std::copy_if(it,
-             end(map),
-             std::back_inserter(result),
-             [](const auto& pair) { return pair.second.size() == 3; });
-std::for_each(begin(result),
-              end(result),
-              [](const auto& pair) { std::cout << pair.second << '\n'; });
-```
-<!-- .element: class="fragment fade-in" -->
+13. Measure the time of accessing the middle element of the `std::map` and `std::multimap` of size 500K and 5M.
+14. Add measurements of inserting the data in the middle of these containers.
+15. Measure the time of accessing / inserting data with `operator[]` into the `std::map` when the key exists and when it does not exist.

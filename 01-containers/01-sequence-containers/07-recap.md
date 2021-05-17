@@ -21,3 +21,10 @@ ___
 ___
 
 <img width="500" src="../img/sequence_containers.png" alt="Kontenery sekwencyjne" class="plain">
+
+___
+
+## Task
+
+11. Fill all containers with unique values - eg. use `std::iota()`
+12. Add measurements of inserting the data in the middle of all containers.
