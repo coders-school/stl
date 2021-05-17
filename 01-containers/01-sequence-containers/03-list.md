@@ -61,7 +61,8 @@ ___
 
 ## Memory usage
 
-* `n * (sizeof(T) + 2 * sizeof(T*))`
+* `n * (sizeof(T) + 2 * sizeof(X*))`
+* `O(n)`
 * Additional small constant memory for internal data is used (size, head, tail, allocator)
 
 ___

@@ -1,31 +1,14 @@
 <!-- .slide: data-background="#111111" -->
 
-# STL #1
+# Sequence containers
 
-## Sequence containers
-
-### Summary
+## Task
 
 <a href="https://coders.school">
     <img width="500px" src="../img/coders_school_logo.png" alt="Coders School" class="plain">
 </a>
 
 ___
-
-## What do you remember about sequence containers?
-
-1. <!-- .element: class="fragment fade-in" --> 5 containers
-2. <!-- .element: class="fragment fade-in" --> Which of them are cache-friendly?
-3. <!-- .element: class="fragment fade-in" --> Operations complexity
-4. <!-- .element: class="fragment fade-in" --> Memory consumption
-5. <!-- .element: class="fragment fade-in" --> Iterators invalidation
-
-___
-
-<img width="500" src="../img/sequence_containers.png" alt="Kontenery sekwencyjne" class="plain">
-
-___
-<!-- .slide: style="font-size: 0.9em" -->
 
 ## Homework
 
@@ -38,11 +21,6 @@ This homework may already be a bit of a challenge. Work a lot with the cpprefere
 * Task 2 - `lengthSort()` (6 points)
 * Task 3a - `compressGrayscale()` (7 points)
 * Task 3b - `decompressGrayscale()` (7 points)
-
-#### Bonuses
-
-* 2 points for each task delivered before 06/14/2020 (Sunday) by 23:59
-* 3 points for group work for each person in the group. We recommend groups of 3.
 
 #### [Repo tasks](https://github.com/coders-school/stl/tree/master/module1/homework)
 
@@ -128,7 +106,7 @@ Volunteers can also refactor (i.e. write more readily, improve) tests so that th
 After extracting and refactoring the generator function, try to add cases for 1/16, 1/32 and 1/64 of the map.
 
 ___
-<!-- .slide: data-background="img/jjfile1_002.png" -->
+<!-- .slide: data-background="../img/jjfile1_002.png" -->
 
 ___
 
