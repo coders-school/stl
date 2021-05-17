@@ -28,8 +28,8 @@ ___
 
 * <!-- .element: class="fragment fade-in" --> adding an item: <code>push_front()</code>, <code>emplace_front()</code>, <code>insert_after()</code>, <code>emplace_after()</code>
 * <!-- .element: class="fragment fade-in" --> modify/access an item: via iterators
-* <!-- .element: class="fragment fade-in" --> first/last item: <code>front()</code>
-* <!-- .element: class="fragment fade-in" --> size/is the container empty: no <code>size()</code>, <code>empty()</code> is available
+* <!-- .element: class="fragment fade-in" --> first/last item: <code>front()</code>, <u class="fragment highlight-red">NO <code>back()</code></u>
+* <!-- .element: class="fragment fade-in" --> size/is the container empty: <u class="fragment highlight-red">NO <code>size()</code></u>, <code>empty()</code> is available
 * <!-- .element: class="fragment fade-in" --> start/end iterator: <code>begin()</code>, <code>end()</code>
 * <!-- .element: class="fragment fade-in" --> an iterator that points to the element before <code>begin()</code>: <code>before_begin()</code>
 * <!-- .element: class="fragment fade-in" --> constant iterator: <code>cbegin()</code>, <code>cend()</code>, <code>cbefore_begin()</code>
