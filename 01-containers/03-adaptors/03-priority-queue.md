@@ -1,6 +1,7 @@
 <!-- .slide: data-background="#111111" -->
 
 # `std::priority_queue<T>`
+<!-- .element: style="font-size: 2.2em" -->
 
 ## heap data structure
 
