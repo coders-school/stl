@@ -64,4 +64,37 @@ ___
 
 ___
 
-## Pre-test
+## Pre-test 1/3 🤯
+
+### Mark true statements about STL containers
+
+1. In <code>std::deque</code>, items can be added from both sides using <code>push_front()</code> and <code>push_back()</code>, respectively.
+2. <code>std::set</code> supports random access to contained elements.
+3. <code>std::vector</code> supports random access to contained elements.
+4. <code>std::deque</code> supports random access to contained elements.
+5. <code>std::multimap</code> allows multiple values to be stored for every key value.
+
+___
+
+## Pre-test 2/3 🤯
+
+### Which of the following containers are contiguous?
+
+1. <code>deque</code>
+2. <code>vector</code>
+3. <code>unordered_set</code>
+4. <code>array</code>
+5. <code>forward_list</code>
+
+___
+<!-- .slide: style="font-size: 0.95em" -->
+
+## Pre-test 3/3 🤯
+
+### What is the complexity of operations on `std::unordered_map`?
+
+1. Inserting/removing <code>O(log n)</code>, accessing <code>O(1)</code>, searching <code>O(log n)</code>
+2. Inserting/removing <code>O(1)</code>, accessing <code>O(1)</code>, searching <code>O(1)</code>
+3. Inserting/removing <code>O(n)</code>, accessing <code>O(n)</code>, searching <code>O(n)</code>
+4. Inserting/removing <code>O(nlog n)</code>, accessing <code>O(log n)</code>, searching <code>O(n)</code>
+5. Inserting/removing <code>O(nlog n)</code>, accessing <code>O(1)</code>, searching <code>O(log n)</code>
