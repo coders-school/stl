@@ -24,6 +24,10 @@ ___
 
 ___
 
+<img src="../img/bigO.png" alt="BigO notation" class="plain r-stretch">
+
+___
+
 ## Task
 
 11. Fill all containers with unique values - eg. use `std::iota()`

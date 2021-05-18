@@ -9,16 +9,18 @@ ___
 It's a container, in which elements are stored exactly in the order we put them.
 <!-- .element: class="fragment fade-in" -->
 
-Sequence containers implement data structures which can be accessed sequentially.
+Sequence containers implement data structures that can be accessed sequentially.
 <!-- .element: class="fragment fade-in" -->
 
 ___
 
 ## What are the differences between them?
 
-Let's have a discussion!
+### Let's have a discussion!
+<!-- .element: class="fragment fade-in" -->
 
 Consider:
+<!-- .element: class="fragment fade-in" -->
 
 * <!-- .element: class="fragment fade-in-then-semi-out" --> Available methods
 * <!-- .element: class="fragment fade-in-then-semi-out" --> Memory usage
