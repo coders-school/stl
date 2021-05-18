@@ -18,7 +18,7 @@ ___
 
 ## `std::valarray<T>` methods
 
-[`std::valarray<T>` on cppreference.org](https://en.cppreference.com/w/cpp/numeric/valarray)
+##### [`std::valarray<T>` on cppreference.org](https://en.cppreference.com/w/cpp/numeric/valarray)
 
 ___
 

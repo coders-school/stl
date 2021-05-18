@@ -9,6 +9,7 @@
 </a>
 
 ___
+<!-- .slide: data-background="#aaaaaa" -->
 
 ## LIFO
 
@@ -29,7 +30,7 @@ ___
 
 ## `std::stack<T>` methods
 
-[`std::stack<T>` on cppreference.org](https://en.cppreference.com/w/cpp/container/stack)
+##### [`std::stack<T>` on cppreference.org](https://en.cppreference.com/w/cpp/container/stack)
 
 * <!-- .element: class="fragment fade-in" --> adding an item: <code>push()</code>, <code>emplace()</code>
 * <!-- .element: class="fragment fade-in" --> accessing an item: <code>top()</code>

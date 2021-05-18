@@ -28,9 +28,11 @@ ___
 
 ## What are the differences between them?
 
-Let's have a discussion!
+### Let's have a discussion!
+<!-- .element: class="fragment fade-in" -->
 
 Consider:
+<!-- .element: class="fragment fade-in" -->
 
 * <!-- .element: class="fragment fade-in-then-semi-out" --> Available operations
 * <!-- .element: class="fragment fade-in-then-semi-out" --> Default underlying container
