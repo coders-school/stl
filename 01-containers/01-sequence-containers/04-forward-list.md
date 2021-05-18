@@ -150,5 +150,6 @@ ___
 
 ## Task
 
-7. Measure the time of accessing the middle element of the forward lists of size 500K and 5M.
+7. Measure the time of accessing the middle element of the forward lists of size 100K and 1M.
+
 8. Print the `sizeof()` of each container.

@@ -157,8 +157,8 @@ During this session, we will write a "framework" for performance testing of STL 
 
 The task for now is:
 
-1. Write a `measure` function that takes a description as a string and any other function (without parameters so far). Use template parameter for the function.
+1. Measure the time of accessing the middle element of the vectors of ints of size 100K and 1M.
+
+2. Write a `measure` function that takes a description as a string and any other function (without parameters so far). Use template parameter for the function.
    It should measure the execution time of the given function. Use `std::chrono::high_resolution_clock()`.
    After the measurement it should print the measurement and the description in one line.
-
-2. Measure the time of accessing the middle element of the vectors of ints of size 500K and 5M.

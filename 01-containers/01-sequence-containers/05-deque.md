@@ -107,6 +107,6 @@ ___
 
 ## Task
 
-9. Add measurements for accessing the middle elements of std::deque of size 500K and 5M.
+9. Add measurements for accessing the middle elements of std::deque of size 100K and 1M.
 
 10. Refactor the code, eg. create `measureBoth` function that takes 2 containers of the same type to simplify the code.

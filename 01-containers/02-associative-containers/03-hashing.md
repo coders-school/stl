@@ -168,4 +168,4 @@ ___
 
 ## Task
 
-18. Measure the time of accessing/inserting the middle element of the `std::unordered_set` and `std::unordered_multiset` of size 500K and 5M.
+17. Measure the time of accessing/inserting the middle element of the `std::unordered_set` and `std::unordered_multiset` of size 100K and 1M.

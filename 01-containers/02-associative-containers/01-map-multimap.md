@@ -119,35 +119,6 @@ However, if we give an incorrect hint, the insertion time is `O(log n)`. Rather 
 
 ___
 
-### Example of `insert_or_assign` usage
-
-```cpp
-int main() {
-    std::map<int, std::string> map;
-
-    auto it = map.begin();
-    map.insert_or_assign(it, 10, "Ten");
-    std::cout << map[10] << '\n';
-    map.insert_or_assign(it, 10, "Dziesiec");
-    std::cout << map[10] << '\n';
-    map[10] = "Cent";
-    std::cout << map[10] << '\n';
-}
-```
-<!-- .element: class="fragment fade-in" -->
-
-Output:
-<!-- .element: class="fragment fade-in" -->
-
-```cpp
-Ten
-Dziesiec
-Cent
-```
-<!-- .element: class="fragment fade-in" -->
-
-___
-
 ### Example of `count` usage
 
 ```cpp
@@ -170,6 +141,5 @@ ___
 
 ## Task
 
-13. Measure the time of accessing the middle element of the `std::map` and `std::multimap` of size 500K and 5M.
-14. Add measurements of inserting the data in the middle of these containers.
-15. Measure the time of accessing/inserting data with `operator[]` into the `std::map` when the key exists and when it does not exist.
+13. Measure the time of accessing/inserting the middle element of the `std::map` and `std::multimap` of size 100K and 1M.
+14. Measure the time of accessing/inserting data with `operator[]` into the `std::map` when the key exists and when it does not exist.
