@@ -14,8 +14,8 @@ ___
 
 * <!-- .element: class="fragment fade-in" --> Elements are scattered around memory (cache-unfriendly)
 * <!-- .element: class="fragment fade-in" --> Each element (node) has a pointer to the previous and the next element (mind the memory consumption)
-* <!-- .element:  class="fragment fade-in" --> Adding a new element is cheap. The necessary memory for the node is allocated and proper pointers (next/prev) are set.
-* <!-- .element: class="fragment fade-in" --> Deleting an element is fast, the allocated memory is freed and neighboring nodes have their pointers changed
+* <!-- .element:  class="fragment fade-in" --> Adding a new element is cheap, if you already have the iterator. The necessary memory for the node is allocated and proper pointers (next/prev) are set.
+* <!-- .element: class="fragment fade-in" --> Deleting an element is fast, the allocated memory is freed and neighbouring nodes have their pointers changed
 * <!-- .element: class="fragment fade-in" --> Searching for a node (e.g. to remove or insert a new element after it) is expensive. We have to iterate through all the nodes one by one until we find the wanted one (even if we know exactly that it is e.g. the 40th element in the list)
 * <!-- .element: class="fragment fade-in" --> Iterators are not invalidated after each insertion or deletion
 * <!-- .element: class="fragment fade-in" --> Only the iterator to the deleted node is invalidated
@@ -25,19 +25,19 @@ ___
 
 ## `std::list<T>` methods
 
-[`std::list<T>` on cppreference.org](https://en.cppreference.com/w/cpp/container/list)
+##### [`std::list<T>` on cppreference.org](https://en.cppreference.com/w/cpp/container/list)
 
-* <!-- .element: class="fragment fade-in" --> adding an item: <code>push_back()</code>, <code>emplace_back()</code>, <code>push_front()</code>, <code>emplace_front()</code>, <code>insert()</code>
-* <!-- .element: class="fragment fade-in" --> modify/access an item: via iterators
+* <!-- .element: class="fragment fade-in" --> adding an item: <code>push_back()</code>, <code>emplace_back()</code>, <code class="fragment highlight-green">push_front()</code>, <code class="fragment highlight-green">emplace_front()</code>, <code>insert()</code>
+* <!-- .element: class="fragment fade-in" --> modify/access an item: <span class="fragment highlight-red">via iterators</span>
 * <!-- .element: class="fragment fade-in" --> first/last item: <code>back()</code>, <code>front()</code>
 * <!-- .element: class="fragment fade-in" --> size/is container empty: <code>size()</code>, <code>empty()</code>
 * <!-- .element: class="fragment fade-in" --> start/end iterator: <code>begin()</code>, <code>end()</code>
 * <!-- .element: class="fragment fade-in" --> reverse iterator: <code>rbegin()</code>, <code>rend()</code>
 * <!-- .element: class="fragment fade-in" --> constant iterator: <code>cbegin()</code>, <code>cend()</code>, <code>crbegin()</code>, <code>crend()</code>
 * <!-- .element: class="fragment fade-in" --> clearing the container: <code>clear()</code>
-* <!-- .element: class="fragment fade-in" --> sorting: <code>sort()</code>
-* <!-- .element: class="fragment fade-in" --> reversing: <code>reverse()</code>
-* <!-- .element: class="fragment fade-in" --> removing duplicates: <code>unique()</code>
+* <!-- .element: class="fragment fade-in" --> sorting: <code class="fragment highlight-green">sort()</code>
+* <!-- .element: class="fragment fade-in" --> reversing: <code class="fragment highlight-green">reverse()</code>
+* <!-- .element: class="fragment fade-in" --> removing duplicates: <code class="fragment highlight-green">unique()</code>
 * <!-- .element: class="fragment fade-in" --> removing items: <code>remove()</code>
 * <!-- .element: class="fragment fade-in" --> erasing items: <code>erase()</code>
 * <!-- .element: class="fragment fade-in" --> replacement of the entire container: <code>swap()</code>
@@ -46,31 +46,31 @@ ___
 
 ## Operations complexity
 
-* Insertion/deletion
-  * `O(1)` - at the end or at the beginning
-  * `O(1)` - with iterator, anywhere
-  * `O(n)` - other
-* Access
-  * `O(1)` - at the end or at the beginning
-  * `O(1)` - with iterator, anywhere
-  * `O(n)` - other
-* Searching
-  * `O(n)`
+* <!-- .element: class="fragment fade-in" --> Insertion/deletion
+  * <!-- .element: class="fragment fade-in" --> <code>O(1)</code> - at the end or the beginning
+  * <!-- .element: class="fragment fade-in" --> <code>O(1)</code> - with an iterator, anywhere
+  * <!-- .element: class="fragment fade-in" --> <code>O(n)</code> - other
+* <!-- .element: class="fragment fade-in" --> Access
+  * <!-- .element: class="fragment fade-in" --> <code>O(1)</code> - at the end or at the beginning
+  * <!-- .element: class="fragment fade-in" --> <code>O(1)</code> - with an iterator, anywhere
+  * <!-- .element: class="fragment fade-in" --> <code>O(n)</code> - other
+* <!-- .element: class="fragment fade-in" --> Searching
+  * <!-- .element: class="fragment fade-in" --> <code>O(n)</code>
 
 ___
 
 ## Memory usage
 
-* `n * (sizeof(T) + 2 * sizeof(X*))`
-* `O(n)`
-* Additional small constant memory for internal data is used (size, head, tail, allocator)
+* <!-- .element: class="fragment fade-in" --> <code>n * (sizeof(T) + 2 * sizeof(X*))</code>
+* <!-- .element: class="fragment fade-in" --> <code>O(n)</code>
+* <!-- .element: class="fragment fade-in" --> Additional small constant memory for internal data is used (size, head, tail, allocator)
 
 ___
 
 ## Iterator invalidation
 
-* Adding, removing and moving the elements within the list or across several lists does not invalidate the iterators or references.
-* An iterator is invalidated only when the corresponding element is deleted.
+* <!-- .element: class="fragment fade-in" --> Adding, removing and moving the elements within the list or across several lists does not invalidate the iterators or references
+* <!-- .element: class="fragment fade-in" --> An iterator is invalidated only when the corresponding element is deleted
 
 ___
 
@@ -106,4 +106,4 @@ ___
 ## Task
 
 5. Measure the time of accessing the middle element of the lists of size 500K and 5M.
-6. Measure if accessing vector or array via index is faster than accessing it via advancing the begin iterator.
+6. Measure if accessing a vector or an array via an index is faster than accessing it via advancing the begin iterator.

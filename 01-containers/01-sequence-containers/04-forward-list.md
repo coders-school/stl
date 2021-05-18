@@ -24,19 +24,19 @@ ___
 
 ### `std::forward_list<T>` methods
 
-[`std::forward_list<T>` on cppreference.org](https://en.cppreference.com/w/cpp/container/forward_list)
+##### [`std::forward_list<T>` on cppreference.org](https://en.cppreference.com/w/cpp/container/forward_list)
 
-* <!-- .element: class="fragment fade-in" --> adding an item: <code>push_front()</code>, <code>emplace_front()</code>, <code>insert_after()</code>, <code>emplace_after()</code>
-* <!-- .element: class="fragment fade-in" --> modify/access an item: via iterators
+* <!-- .element: class="fragment fade-in" --> adding an item: <code>push_front()</code>, <code>emplace_front()</code>, <code>insert_after()</code>, <code>emplace_after()</code>, <u class="fragment highlight-red">NO <code>push_back()</code></u>, <u class="fragment highlight-red">NO <code>emplace_back()</code></u>
+* <!-- .element: class="fragment fade-in" --> modify/access an item: <span class="fragment highlight-red">via iterators</span>
 * <!-- .element: class="fragment fade-in" --> first/last item: <code>front()</code>, <u class="fragment highlight-red">NO <code>back()</code></u>
 * <!-- .element: class="fragment fade-in" --> size/is the container empty: <u class="fragment highlight-red">NO <code>size()</code></u>, <code>empty()</code> is available
 * <!-- .element: class="fragment fade-in" --> start/end iterator: <code>begin()</code>, <code>end()</code>
 * <!-- .element: class="fragment fade-in" --> an iterator that points to the element before <code>begin()</code>: <code>before_begin()</code>
 * <!-- .element: class="fragment fade-in" --> constant iterator: <code>cbegin()</code>, <code>cend()</code>, <code>cbefore_begin()</code>
 * <!-- .element: class="fragment fade-in" --> clearing the container: <code>clear()</code>
-* <!-- .element: class="fragment fade-in" --> sorting: <code>sort()</code>
-* <!-- .element: class="fragment fade-in" --> reversing: <code>reverse()</code>
-* <!-- .element: class="fragment fade-in" --> removing duplicates: <code>unique()</code>
+* <!-- .element: class="fragment fade-in" --> sorting: <code class="fragment highlight-green">sort()</code>
+* <!-- .element: class="fragment fade-in" --> reversing: <code class="fragment highlight-green">reverse()</code>
+* <!-- .element: class="fragment fade-in" --> removing duplicates: <code class="fragment highlight-green">unique()</code>
 * <!-- .element: class="fragment fade-in" --> removing items: <code>remove()</code>
 * <!-- .element: class="fragment fade-in" --> erasing items: <code>erase_after()</code>
 * <!-- .element: class="fragment fade-in" --> erase items using <code>&lt;algorithm&gt;</code>: <code>erase()</code>
@@ -46,32 +46,32 @@ ___
 
 ## Operations complexity
 
-* The same as for <code>std::list&lt;T&gt;</code>
-* Insertion/deletion
-  * `O(1)` - at the end or at the beginning
-  * `O(1)` - with iterator, anywhere
-  * `O(n)` - other
-* Access
-  * `O(1)` - at the end or at the beginning
-  * `O(1)` - with iterator, anywhere
-  * `O(n)` - other
-* Searching
-  * `O(n)`
+* <!-- .element: class="fragment fade-in" --> The same as for <code>std::list&lt;T&gt;</code>
+* <!-- .element: class="fragment fade-in" --> Insertion/deletion
+  * <!-- .element: class="fragment fade-in" --> <code>O(1)</code> - at the end or the beginning
+  * <!-- .element: class="fragment fade-in" --> <code>O(1)</code> - with an iterator, anywhere
+  * <!-- .element: class="fragment fade-in" --> <code>O(n)</code> - other
+* <!-- .element: class="fragment fade-in" --> Access
+  * <!-- .element: class="fragment fade-in" --> <code>O(1)</code> - at the end or at the beginning
+  * <!-- .element: class="fragment fade-in" --> <code>O(1)</code> - with an iterator, anywhere
+  * <!-- .element: class="fragment fade-in" --> <code>O(n)</code> - other
+* <!-- .element: class="fragment fade-in" --> Searching
+  * <!-- .element: class="fragment fade-in" --> <code>O(n)</code>
 
 ___
 
 ## Memory usage
 
-* `n * (sizeof(T) + sizeof(X*))`
-* `O(n)`
-* Additional small constant memory for internal data is used (head, allocator)
+* <!-- .element: class="fragment fade-in" --> <code>n * (sizeof(T) + sizeof(X*))</code>
+* <!-- .element: class="fragment fade-in" --> <code>O(n)</code>
+* <!-- .element: class="fragment fade-in" --> Additional small constant memory for internal data is used (head, allocator)
 
 ___
 
 ## Iterator invalidation
 
-* Adding, removing and moving the elements within the list or across several lists does not invalidate the iterators or references.
-* An iterator is invalidated only when the corresponding element is deleted.
+* <!-- .element: class="fragment fade-in" --> Adding, removing and moving the elements within the list or across several lists does not invalidate the iterators or references.
+* <!-- .element: class="fragment fade-in" --> An iterator is invalidated only when the corresponding element is deleted.
 
 ___
 

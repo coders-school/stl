@@ -28,15 +28,15 @@ ___
 
 ## `std::vector<T>` methods
 
-[`std::vector<T>` on cppreference.org](https://en.cppreference.com/w/cpp/container/vector)
+##### [`std::vector<T>` on cppreference.org](https://en.cppreference.com/w/cpp/container/vector)
 
 * <!-- .element: class="fragment fade-in" --> adding an item: <code>push_back()</code>, <code>emplace_back()</code>, <code>insert()</code>
-* <!-- .element: class="fragment fade-in" --> modifying/accessing an item: <code>at()</code>, <code>operator[]</code>
+* <!-- .element: class="fragment fade-in" --> modifying/accessing an item: <code class="fragment highlight-green">at()</code>, <code class="fragment highlight-green">operator[]</code>
 * <!-- .element: class="fragment fade-in" --> first/last item: <code>back()</code>, <code>front()</code>
 * <!-- .element: class="fragment fade-in" --> size/is the container empty: <code>size()</code>, <code>empty()</code>
-* <!-- .element: class="fragment fade-in" --> reserved memory space: <code>capacity()</code>
-* <!-- .element: class="fragment fade-in" --> reserve memory space: <code>reserve()</code>
-* <!-- .element: class="fragment fade-in" --> clearing unused memory from the vector: <code>shrink_to_fit()</code>
+* <!-- .element: class="fragment fade-in" --> reserved memory space: <code class="fragment highlight-green">capacity()</code>
+* <!-- .element: class="fragment fade-in" --> reserve memory space: <code class="fragment highlight-green">reserve()</code>
+* <!-- .element: class="fragment fade-in" --> clearing unused memory: <code class="fragment highlight-green">shrink_to_fit()</code>
 * <!-- .element: class="fragment fade-in" --> start/end iterator: <code>begin()</code>, <code>end()</code>
 * <!-- .element: class="fragment fade-in" --> reverse iterator: <code>rbegin()</code>, <code>rend()</code>
 * <!-- .element: class="fragment fade-in" --> constant iterator: <code>cbegin()</code>, <code>cend()</code>, <code>crbegin()</code>, <code>crend()</code>
@@ -49,39 +49,40 @@ ___
 
 ## Operations complexity
 
-* Insertion/deletion
-  * `O(1)` - at the end if `size() < capacity()`
-  * `O(n)` - at the end if `size() >= capacity()`
-  * `O(n)` - other
-* Access
-  * `O(1)`
-* Searching
-  * `O(n)`
+* <!-- .element: class="fragment fade-in" --> Insertion/deletion
+  * <!-- .element: class="fragment fade-in" -->  <code>O(1)</code> - at the end, if <code>size() < capacity()</code>
+  * <!-- .element: class="fragment fade-in" -->  <code>O(n)</code> - at the end, if <code>size() >= capacity()</code>
+  * <!-- .element: class="fragment fade-in" -->  <code>O(n)</code> - other
+* <!-- .element: class="fragment fade-in" --> Access
+  * <!-- .element: class="fragment fade-in" -->  <code>O(1)</code>
+* <!-- .element: class="fragment fade-in" --> Searching
+  * <!-- .element: class="fragment fade-in" -->  <code>O(n)</code>
 
 ___
 
 ## Memory usage
 
-* Generally: `n * sizeof(T)`
-* `O(n)`
-* In fact: gradual allocation dependent on the capacity (implementation defined)
-  * You can use `reserve()` to allocate memory upfront
-  * You can use `shrink_to_fit()` to release not used memory (shrink capacity to size)
-* Additional small constant memory for internal data is used (size, capacity, allocator)
+* <!-- .element: class="fragment fade-in" --> Generally: <code>n * sizeof(T)</code>
+* <!-- .element: class="fragment fade-in" --> <code>O(n)</code>
+* <!-- .element: class="fragment fade-in" --> In fact: gradual allocation dependent on the capacity (implementation-defined)
+  * <!-- .element: class="fragment fade-in" --> You can use <code>reserve()</code> to allocate memory upfront
+  * <!-- .element: class="fragment fade-in" --> You can use <code>shrink_to_fit()</code> to release not used memory (shrinks the capacity to the size)
+* <!-- .element: class="fragment fade-in" --> Additional small constant memory for internal data is used (size, capacity, allocator)
 
 ___
 
 ## Iterator invalidation
 
-* All read only operations
-  * Never
-* Insertion
-  * If the vector changed capacity, all iterators are invalidated
-  * If not, only those at or after the insertion point (including `end()`).
-* Deletion
-  * Erased elements and all elements after them (including `end()`)
+* <!-- .element: class="fragment fade-in" --> All read-only operations
+  * <!-- .element: class="fragment fade-in" --> Never
+* <!-- .element: class="fragment fade-in" --> Insertion
+  * <!-- .element: class="fragment fade-in" --> If the vector changed capacity, all iterators are invalidated
+  * <!-- .element: class="fragment fade-in" --> If not, only those at or after the insertion point (including `end()`).
+* <!-- .element: class="fragment fade-in" --> Deletion
+  * <!-- .element: class="fragment fade-in" --> Erased elements and all elements after them (including `end()`)
 
 [Refer to cppreference.org](https://en.cppreference.com/w/cpp/container/vector)
+<!-- .element: class="fragment fade-in" -->
 
 ___
 <!-- .slide: style="font-size: 0.85em" -->
@@ -152,12 +153,12 @@ ___
 
 ## Task
 
-During this session we will write a "framework" for performance testing of STL containers. We will start with only a basic functionality and later we will implement additional features
+During this session, we will write a "framework" for performance testing of STL containers. We will start with only basic functionality and later we will implement additional features
 
 The task for now is:
 
-1. Write a `measure` function that takes a description and any other function (without parameters so far).
+1. Write a `measure` function that takes a description as a string and any other function (without parameters so far). Use template parameter for the function.
    It should measure the execution time of the given function. Use `std::chrono::high_resolution_clock()`.
-   After the measurement it should print results + description.
+   After the measurement it should print the measurement and the description in one line.
 
 2. Measure the time of accessing the middle element of the vectors of ints of size 500K and 5M.
