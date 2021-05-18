@@ -26,7 +26,7 @@ ___
 
 ## `std::priority_queue<T>` methods
 
-[`std::priority_queue<T>` on cppreference.org](https://en.cppreference.com/w/cpp/container/priority_queue)
+##### [`std::priority_queue<T>` on cppreference.org](https://en.cppreference.com/w/cpp/container/priority_queue)
 
 * <!-- .element: class="fragment fade-in" --> adding an item: <code>push()</code>, <code>emplace()</code>
 * <!-- .element: class="fragment fade-in" --> accessing an item: <code>top()</code>

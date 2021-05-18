@@ -9,6 +9,7 @@
 </a>
 
 ___
+<!-- .slide: data-background="#aaaaaa" -->
 
 ## FIFO
 
@@ -28,7 +29,7 @@ ___
 
 ## `std::queue<T>` methods
 
-[`std::queue<T>` on cppreference.org](https://en.cppreference.com/w/cpp/container/queue)
+##### [`std::queue<T>` on cppreference.org](https://en.cppreference.com/w/cpp/container/queue)
 
 * <!-- .element: class="fragment fade-in" --> adding an item: <code>push()</code>, <code>emplace()</code>
 * <!-- .element: class="fragment fade-in" --> accessing an item: <code>front()</code>, <code>back()</code>
