@@ -137,5 +137,5 @@ ___
 
 ## Task
 
-16. Measure the time of accessing the middle element of the `std::set` and `std::multiset` of size 500K and 5M.
-17. Add measurements of inserting the data in the middle of these containers.
+15. Measure the time of accessing the middle element of the `std::set` and `std::multiset` of size 100K and 1M.
+16. Add measurements of inserting the data in the middle of these containers.
