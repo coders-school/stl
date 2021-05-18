@@ -69,8 +69,8 @@ Advantages:
 <!-- .element: class="fragment fade-in" -->
 
 * <!-- .element: class="fragment fade-in" --> Very fast searching
-* <!-- .element: class="fragment fade-in" --> Constant time of adding and removing items
-* <!-- .element: class="fragment fade-in" --> Assuming we have a good hash function
+* <!-- .element: class="fragment fade-in" --> Constant time of adding and removing items...
+* <!-- .element: class="fragment fade-in" --> Assuming that we have a good hash function
 
 Perfect for read-only containers. Reading time is `O(1)`.
 Great for types with a good hash function.
@@ -80,15 +80,17 @@ ___
 
 ## `std::unordered_set<K>` and `std::unordered_multiset<K>` methods
 
-[`std::unordered_set<K>` on cppreference.org](https://en.cppreference.com/w/cpp/container/unordered_set), [`std::unordered_multiset<K>` on cppreference.org](https://en.cppreference.com/w/cpp/container/unordered_multiset)
+[`std::unordered_set<K>` on cppreference.org](https://en.cppreference.com/w/cpp/container/unordered_set)
 
-* <!-- .element: class="fragment fade-in" --> adding an item: <code>insert()</code>, <code>emplace()</code>, <code>emplace_hint()</code>
-* <!-- .element: class="fragment fade-in" --> modifying/accessing an item: none
-* <!-- .element: class="fragment fade-in" --> first/last item: none
+[`std::unordered_multiset<K>` on cppreference.org](https://en.cppreference.com/w/cpp/container/unordered_multiset)
+
+* <!-- .element: class="fragment fade-in" --> adding an item: <code>insert()</code>, <code>emplace()</code>, <code class="fragment highlight-green">emplace_hint()</code>
+* <!-- .element: class="fragment fade-in" --> modifying/accessing an item: <span class="fragment highlight-red">none</span>
+* <!-- .element: class="fragment fade-in" --> first/last item: <span class="fragment highlight-red">none</span>
 * <!-- .element: class="fragment fade-in" --> size/is the container empty: <code>size()</code>, <code>empty()</code>
-* <!-- .element: class="fragment fade-in" --> clear unused memory: none
+* <!-- .element: class="fragment fade-in" --> clear unused memory: <span class="fragment highlight-red">none</span>
 * <!-- .element: class="fragment fade-in" --> start/end iterator: <code>begin()</code>, <code>end()</code>
-* <!-- .element: class="fragment fade-in" --> reverse iterator: none
+* <!-- .element: class="fragment fade-in" --> reverse iterator: <span class="fragment highlight-red">none</span>
 
 ___
 
@@ -96,34 +98,34 @@ ___
 
 * <!-- .element: class="fragment fade-in" --> constant iterator: <code>cbegin()</code>, <code>cend()</code>
 * <!-- .element: class="fragment fade-in" --> container cleaning: <code>clear()</code>
-* <!-- .element: class="fragment fade-in" --> preparing item for removal: none
+* <!-- .element: class="fragment fade-in" --> preparing item for removal: <span class="fragment highlight-red">none</span>
 * <!-- .element: class="fragment fade-in" --> erasing items from memory: <code>erase()</code>
 * <!-- .element: class="fragment fade-in" --> replacement of the entire container: <code>swap()</code>
-* <!-- .element: class="fragment fade-in" --> counting elements matching a given key: <code>count()</code> (returns only 0 or 1 for <code>map</code> or any positive number from 0 to n for <code>multimap</code>)
-* <!-- .element: class="fragment fade-in" --> finding an element with a given key: <code>find()</code>
+* <!-- .element: class="fragment fade-in" --> counting elements matching a given key: <code class="fragment highlight-green">count()</code> (returns only 0 or 1 for <code>map</code> or any positive number from 0 to n for <code>multimap</code>)
+* <!-- .element: class="fragment fade-in" --> finding an element with a given key: <code class="fragment highlight-green">find()</code>
 
 ___
 
 ## Operations complexity
 
-* Insertion/deletion
-  * `O(1)` - average case
-  * `O(n)` - worst case
-* Access
-  * `O(1)` - average case
-  * `O(n)` - worst case
-* Searching
-  * `O(1)` - average case
-  * `O(n)` - worst case
+* <!-- .element: class="fragment fade-in" --> Insertion/deletion
+  * <!-- .element: class="fragment fade-in" --> <code>O(1)</code> - average case
+  * <!-- .element: class="fragment fade-in" --> <code>O(n)</code> - worst case
+* <!-- .element: class="fragment fade-in" --> Access
+  * <!-- .element: class="fragment fade-in" --> <code>O(1)</code> - average case
+  * <!-- .element: class="fragment fade-in" --> <code>O(n)</code> - worst case
+* <!-- .element: class="fragment fade-in" --> Searching
+  * <!-- .element: class="fragment fade-in" --> <code>O(1)</code> - average case
+  * <!-- .element: class="fragment fade-in" --> <code>O(n)</code> - worst case
 
 ___
 
 ## Memory usage
 
-* `n * (sizeof(K) + sizeof(X*)) + n / bucket_size`
-* `O(n)`
-* Additional memory for vector of pointers is used (bucket list)
-* Additional small constant memory for internal data is used (begin, end, size, hash, key_eq, allocator)
+* <!-- .element: class="fragment fade-in" --> <code>n * (sizeof(K) + sizeof(X*)) + n / bucket_size</code>
+* <!-- .element: class="fragment fade-in" --> <code>O(n)</code>
+* <!-- .element: class="fragment fade-in" --> Additional memory for vector of pointers is used (bucket list)
+* <!-- .element: class="fragment fade-in" --> Additional small constant memory for internal data is used (begin, end, size, hash, key_eq, allocator)
 
 ___
 

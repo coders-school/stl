@@ -11,7 +11,7 @@ ___
 ## `std::set<K>` and `std::multiset<K>` traits
 
 * <!-- .element: class="fragment fade-in" --> The same properties as <code>std::map&lt;K, V&gt;</code> and <code>std::multimap&lt;K, V&gt;</code>
-* <!-- .element: class="fragment fade-in" --> The only difference is, that <code>set</code> and <code>multiset</code> hold only an ordered keys (not key-value pairs)
+* <!-- .element: class="fragment fade-in" --> The only difference is, that <code>set</code> and <code>multiset</code> hold only ordered keys (not key-value pairs)
 * <!-- .element: class="fragment fade-in" --> Perfect when you want to always have sorted values
 
 If we do not want the container to be always sorted, it might be better to use <code>std::vector&lt;T&gt;</code> and sort it when necessary.
@@ -24,13 +24,15 @@ ___
 
 ## `std::set<K>` and `std::multiset<K>` methods #1
 
-[`std::set<K, T>` on cppreference.org](https://en.cppreference.com/w/cpp/container/set), [`std::multiset<K, T>` on cppreference.org](https://en.cppreference.com/w/cpp/container/multiset)
+[`std::set<K, T>` on cppreference.org](https://en.cppreference.com/w/cpp/container/set)
 
-* <!-- .element: class="fragment fade-in" --> adding an item: <code>insert()</code>, <code>emplace()</code>, <code>emplace_hint()</code>
-* <!-- .element: class="fragment fade-in" --> modifying / accessing an item: none
+[`std::multiset<K, T>` on cppreference.org](https://en.cppreference.com/w/cpp/container/multiset)
+
+* <!-- .element: class="fragment fade-in" --> adding an item: <code>insert()</code>, <code>emplace()</code>, <code class="fragment highlight-green">emplace_hint()</code>
+* <!-- .element: class="fragment fade-in" --> modifying / accessing an item: <span class="fragment highlight-red">via iterators</span>
 * <!-- .element: class="fragment fade-in" --> size / is the container empty: <code>size()</code>, <code>empty()</code>
-* <!-- .element: class="fragment fade-in" --> clear unused memory: none
-* <!-- .element: class="fragment fade-in" --> first / last item: none
+* <!-- .element: class="fragment fade-in" --> clear unused memory: <span class="fragment highlight-red">none</span>
+* <!-- .element: class="fragment fade-in" --> first / last item: <span class="fragment highlight-red">none</span>
 * <!-- .element: class="fragment fade-in" --> start / end iterator: <code>begin()</code>, <code>end()</code>
 * <!-- .element: class="fragment fade-in" --> reverse iterator: <code>rbegin()</code>, <code>rend()</code>
 
@@ -40,38 +42,38 @@ ___
 
 * <!-- .element: class="fragment fade-in" --> constant iterator: <code>cbegin()</code>, <code>cend()</code>, <code>crbegin()</code>, <code>crend()</code>
 * <!-- .element: class="fragment fade-in" --> clearing the container: <code>clear()</code>
-* <!-- .element: class="fragment fade-in" --> preparing item for removal: none
+* <!-- .element: class="fragment fade-in" --> preparing item for removal: <span class="fragment highlight-red">none</span>
 * <!-- .element: class="fragment fade-in" --> erasing items from memory: <code>erase()</code>
 * <!-- .element: class="fragment fade-in" --> replacement of the entire container: <code>swap()</code>
-* <!-- .element: class="fragment fade-in" --> counting elements matching a given key: <code>count()</code> (returns only 0 or 1 for <code>map</code> or any positive number from 0 to n for <code>multimap</code>)
-* <!-- .element: class="fragment fade-in" --> finding an element with a given key: <code>find()</code>
-* <!-- .element: class="fragment fade-in" --> contains a given key (C++20): <code>contains()</code>
+* <!-- .element: class="fragment fade-in" --> counting elements matching a given key: <code class="fragment highlight-green">count()</code> (returns only 0 or 1 for <code>map</code> or any positive number from 0 to n for <code>multimap</code>)
+* <!-- .element: class="fragment fade-in" --> finding an element with a given key: <code class="fragment highlight-green">find()</code>
+* <!-- .element: class="fragment fade-in" --> contains a given key (C++20): <code class="fragment highlight-green">contains()</code>
 
 ___
 
 ## Operations complexity
 
-* Insertion/deletion
-  * `O(log n)`
-* Access
-  * `O(log n)`
-* Searching
-  * `O(log n)`
+* <!-- .element: class="fragment fade-in" --> Insertion/deletion
+  * <!-- .element: class="fragment fade-in" --> <code>O(log n)</code>
+* <!-- .element: class="fragment fade-in" --> Access
+  * <!-- .element: class="fragment fade-in" --> <code>O(log n)</code>
+* <!-- .element: class="fragment fade-in" --> Searching
+  * <!-- .element: class="fragment fade-in" --> <code>O(log n)</code>
 
 ___
 
 ## Memory usage
 
-* `n * (sizeof(K) + 2 * sizeof(X*))`
-* `O(n)`
-* Additional small constant memory for internal data is used (root, compare, allocator)
+* <!-- .element: class="fragment fade-in" --> <code>n * (sizeof(K) + 2 * sizeof(X*))</code>
+* <!-- .element: class="fragment fade-in" --> <code>O(n)</code>
+* <!-- .element: class="fragment fade-in" --> Additional small constant memory for internal data is used (root, compare, allocator)
 
 ___
 
 ## Iterator invalidation
 
-* Adding, removing and moving the elements within the map or across several maps does not invalidate the iterators or references.
-* An iterator is invalidated only when the corresponding element is deleted.
+* <!-- .element: class="fragment fade-in" --> Adding, removing and moving the elements within the map or across several maps does not invalidate the iterators or references.
+* <!-- .element: class="fragment fade-in" --> An iterator is invalidated only when the corresponding element is deleted.
 
 ___
 

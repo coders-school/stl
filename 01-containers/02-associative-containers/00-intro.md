@@ -10,7 +10,7 @@ ___
 
 ## What is an associative container?
 
-It's a container, in which elements are stored in predefined order.
+It's a container, in which elements are stored in a predefined order.
 <!-- .element: class="fragment fade-in" -->
 
 ___
@@ -22,7 +22,7 @@ ___
 * <!-- .element: class="fragment fade-in" --> <code>map</code>
 * <!-- .element: class="fragment fade-in" --> <code>multimap</code>
 
-Associative containers implement sorted data structures that can be quickly searched (`O(log n)` complexity).
+Associative containers implement sorted data structures that can be quickly searched - `O(log n)` complexity.
 <!-- .element: class="fragment fade-in" -->
 
 ___
@@ -34,16 +34,18 @@ ___
 * <!-- .element: class="fragment fade-in" --> <code>unordered_map</code>
 * <!-- .element: class="fragment fade-in" --> <code>unordered_multimap</code>
 
-Unordered associative containers implement unsorted (hashed) data structures that can be quickly searched (`O(1)` amortized, `O(n)` worst-case complexity).
+Unordered associative containers implement unsorted (hashed) data structures that can be quickly searched - `O(1)` average-case complexity, `O(n)` worst-case complexity.
 <!-- .element: class="fragment fade-in" -->
 
 ___
 
 ## What are the differences between them?
 
-Let's have a discussion!
+### Let's have a discussion!
+<!-- .element: class="fragment fade-in" -->
 
 Consider:
+<!-- .element: class="fragment fade-in" -->
 
 * <!-- .element: class="fragment fade-in-then-semi-out" --> Ordering
 * <!-- .element: class="fragment fade-in-then-semi-out" --> Key Type
