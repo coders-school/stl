@@ -38,6 +38,9 @@ Unordered associative containers implement unsorted (hashed) data structures tha
 <!-- .element: class="fragment fade-in" -->
 
 ___
+<!-- .slide: data-background="../img/associative_containers.png" data-background-size="contain" -->
+
+___
 
 ## What are the differences between them?
 
@@ -54,10 +57,6 @@ Consider:
 * <!-- .element: class="fragment fade-in-then-semi-out" --> Time complexity of accessing the specific element
 * <!-- .element: class="fragment fade-in-then-semi-out" --> Time complexity of searching for a matching item
 * <!-- .element: class="fragment fade-in-then-semi-out" --> Time complexity of insertion and deletion
-
-___
-
-<img src="../img/set-map.png" alt="BigO notation" class="plain r-stretch">
 
 ___
 

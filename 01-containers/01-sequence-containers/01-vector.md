@@ -10,6 +10,10 @@
 
 ___
 
+### [Size vs Capacity](https://hackingcpp.com/cpp/std/vector.html)
+
+___
+
 ## `std::vector<T>` traits
 
 * <!-- .element: class="fragment fade-in" --> Cache-friendly
@@ -153,12 +157,15 @@ ___
 
 ## Task
 
-During this session, we will write a "framework" for performance testing of STL containers. We will start with only basic functionality and later we will implement additional features
-
-The task for now is:
+During this session, we will write a "framework" for performance testing of STL containers. We will start with only basic functionality and later we will implement additional features. The task for now are:
 
 1. Measure the time of accessing the middle element of the vectors of ints of size 100K and 1M.
+   Use `std::chrono::high_resolution_clock()`.
+   Print the measurement result and the description in one line.
 
-2. Write a `measure` function that takes a description as a string and any other function (without parameters so far). Use template parameter for the function.
-   It should measure the execution time of the given function. Use `std::chrono::high_resolution_clock()`.
-   After the measurement it should print the measurement and the description in one line.
+2. We are going to measure accessing the middle element for other containers as well. Please refactor the code.
+   Extract a `measure` function that takes 2 parameters:
+   * a description of measurement as a string
+   * a function without parameters (so far) - use a template parameter for the function
+   The `measure` function should measure the execution time of the given function.
+   The measurement result and the description should be printed in one line.

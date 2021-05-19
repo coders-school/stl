@@ -105,6 +105,8 @@ ___
 
 ## Task
 
-5. Measure the time of accessing the middle element of the lists of size 100K and 1M.
+4. Measure the time of accessing the middle element of the lists of size 100K and 1M.
 
-6. Measure if accessing a vector or an array via an index is faster than accessing it via advancing the begin iterator.
+5. Measure if accessing a vector or an array via an index is faster than accessing it via advancing the begin iterator.
+
+6. Refactor the code if necessary.
