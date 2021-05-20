@@ -22,10 +22,11 @@ ___
   * <!-- .element: class="fragment fade-in" --> Is constant when  <code>size() < capacity()</code>
   * <!-- .element: class="fragment fade-in" --> Is linear when <code>size() >= capacity()</code>
   * <!-- .element: class="fragment fade-in" --> The vector allocates additional memory space
-  * <!-- .element: class="fragment fade-in" --> When there is no more space for additional data in the current area, the entire vector will be copied to another memory location
+  * <!-- .element: class="fragment fade-in" --> When there is no more space for additional data in the current area, the entire vector will be copied to another memory location (copy constructor is called for every element)
 * <!-- .element: class="fragment fade-in" --> Removing the last element from a vector is cheap, but removing the element from the middle or beginning is expensive
 * <!-- .element: class="fragment fade-in" --> We usually do not have proper intuition about how the cache memory can improve the performance
 * <!-- .element: class="fragment fade-in" --> Iterators are invalidated after each insertion or deletion
+  * <!-- .element: class="fragment fade-in" --> You can use <code>__gnu_debug::vector&lt;T&gt;</code> from <code>#include &lt;debug/vector&gt;</code> to have debug information about invalid iterators
 
 ___
 <!-- .element: style="font-size: 0.8em" -->
@@ -157,7 +158,7 @@ ___
 
 ## Task
 
-During this session, we will write a "framework" for performance testing of STL containers. We will start with only basic functionality and later we will implement additional features. The task for now are:
+During this session, we will write a "framework" for performance testing of STL containers. We will start with only basic functionality and later we will implement additional features. Tasks for now are:
 
 1. Measure the time of accessing the middle element of the vectors of ints of size 100K and 1M.
    Use `std::chrono::high_resolution_clock()`.
