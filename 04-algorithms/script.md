@@ -88,13 +88,6 @@ ___
 
 ## Algorithm versions
 
-* `ranges::` - works on a whole container (C++20)
-
-    ```cpp
-    std::sort(v.begin(), v.end());
-    std::ranges::sort(v);
-    ```
-
 * `*_if` - takes a predicate instead of a value
 
     ```cpp
@@ -114,6 +107,13 @@ ___
     ```cpp
     std::fill(v.begin(), v.end(), -1);
     std::fill_n(v.begin(), 5, -1);
+    ```
+
+* `ranges::` - works on the whole container (C++20)
+
+    ```cpp
+    std::sort(v.begin(), v.end());
+    std::ranges::sort(v);
     ```
 
 ___
@@ -155,15 +155,6 @@ No difference, the first one works on C-style arrays. When working with your own
 ___
 
 ## all other algos
-
-___
-
-## Bonus: C++20 Ranges
-
-```cpp
-std::vector<int> v = {7, 1, 4, 0, -1};
-std::ranges::sort(v)
-```
 
 ___
 
