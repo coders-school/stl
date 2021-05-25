@@ -4,54 +4,57 @@
 
 ## Agenda
 
-1. Overview
-2. Algorithm versions
-   1. `ranges::` - works on a whole container
-   2. `*_if` - takes a predicate instead of a value
-   3. `*_copy` - produce result in another container
-   4. `*_n` - takes `n` items/operations instead of `last` iterator
-3. Non-modifying sequence operations
-   1. Existence queries - `std::all_of`, `std::any_of`, `std::none_of`
-   2. Counting elements - `std::count`, `std::count_if`
-   3. Finding elements - `std::find_if` vs `std::find_first_of` vs `std::search` vs `std::adjacent_find`
-4. Modifying sequence operations
-   1. `std::generate*` vs `std::transform`
-   2. Copying, moving elements - `std::copy*`, `std::move*`
-   3. Modifying elements - `std::fill*`, `std::replace*`
-   4. Shifting elements - `std::reverse*`, `std::rotate*`, `std::shift*`, `std::shuffle`
-   5. Removing elements - `std::remove*`, `std::unique*`
-5. Sorting operations
-   1. Structural properties - `std::is_sorted*`
-   2. Sorting - `std::sort` vs `std::stable_sort`
-   3. Partial sorting - `std::partial_sort` vs `std::nth_element`
-6. Binary search operations (of sorted ranges)
-   1. `std::binary_search`
-   2. Bounds - `std::lower_bound`, `std::upper_bound`, `std::equal_range`
-   3. Merge operations - `std::merge` vs `std::inplace_merge`
-7. Set operations
-   1. `std::includes`
-   2. `std::set_difference`, `std::set_intersection`, `std::set_symmetric_difference`, `set_union`
-8. Heap operations
-   1. Structural properties - `std::is_heap*`
-   2. Heap - `std::make_heap`, `std::push_heap`, `std::pop_heap`
-   3. Sorting - `std::sort_heap`
-9. Min/max operations
-   1. `std::min`, `std::max`, `std::minmax`
-   2. `std::min_element`, `std::max_element`, `std::minmax_element`
-   3. `std::clamp`
-10. Comparison operations
-    1. Comparing ranges: `std::equal` vs `std::mismatch`
-    2. Comparing ranges: `std::lexicographical_compare` vs `std::lexicographical_compare_three_way`
-11. Permutation operations
-    1. Structural properties - `std::is_permutation`
-    2. `std::next_permutation`, `std::prev_permutation`
-12. Numeric operations
-    1. `std::iota`
-    2. Reductions - `std::accumulate` vs `std::reduce`
-    3. Scans - `std::partial_sum` vs `std::inclusive_scan` vs `std::exclusive_scan`
-    4. `std::adjacent_difference`
-    5. `std::transform_reduce` vs `std::inner_product`
-13. Uninitialized memory operations
+1. [Intro](#intro)
+2. [Overview](#overview)
+3. [Algorithm versions](#algorithm-versions)
+  1. `*_if` - takes a predicate instead of a value
+  2. `*_copy` - produce result in another container
+  3. `*_n` - takes `n` items/operations instead of `last` iterator
+  4. `ranges::` - works on the whole container
+4. [Non-modifying sequence operations](#non-modifying-sequence-operations)
+  1. Existence queries - `std::all_of`, `std::any_of`, `std::none_of`
+  2. Counting elements - `std::count`, `std::count_if`
+  3. Finding elements - `std::find_if` vs `std::find_first_of` vs `std::search` vs `std::adjacent_find`
+5. [Modifying sequence operations](#modifying-sequence-operations)
+  1. `std::generate*` vs `std::transform`
+  2. Copying, moving elements - `std::copy*`, `std::move*`
+  3. Modifying elements - `std::fill*`, `std::replace*`
+  4. Shifting elements - `std::reverse*`, `std::rotate*`, `std::shift*`, `std::shuffle`
+  5. Removing elements - `std::remove*`, `std::unique*`
+6. Sorting operations
+  1. Structural properties - `std::is_sorted*`
+  2. Sorting - `std::sort` vs `std::stable_sort`
+  3. Partial sorting - `std::partial_sort` vs `std::nth_element`
+7. Binary search operations (of sorted ranges)
+  1. `std::binary_search`
+  2. Bounds - `std::lower_bound`, `std::upper_bound`, `std::equal_range`
+  3. Merge operations - `std::merge` vs `std::inplace_merge`
+8. Set operations
+  1. `std::includes`
+  2. `std::set_difference`, `std::set_intersection`, `std::set_symmetric_difference`, `set_union`
+9. Heap operations
+  1. Structural properties - `std::is_heap*`
+  2. Heap - `std::make_heap`, `std::push_heap`, `std::pop_heap`
+  3. Sorting - `std::sort_heap`
+10. Min/max operations
+  1. `std::min`, `std::max`, `std::minmax`
+  2. `std::min_element`, `std::max_element`, `std::minmax_element`
+  3. `std::clamp`
+11. Comparison operations
+  1. Comparing ranges: `std::equal` vs `std::mismatch`
+  2. Comparing ranges: `std::lexicographical_compare` vs `std::lexicographical_compare_three_way`
+12. Permutation operations
+  1. Structural properties - `std::is_permutation`
+  2. `std::next_permutation`, `std::prev_permutation`
+13. Numeric operations
+  1. `std::iota`
+  2. Reductions - `std::accumulate` vs `std::reduce`
+  3. Scans - `std::partial_sum` vs `std::inclusive_scan` vs `std::exclusive_scan`
+  4. `std::adjacent_difference`
+  5. `std::transform_reduce` vs `std::inner_product`
+14. Uninitialized memory operations
+15. [Bonus: Execution policies](#bonus-execution-policies)
+16. [Recap](#recap)
 
 ___
 
@@ -65,7 +68,7 @@ ___
 No presentation!
 Fully interactive session 😉
 
-* [This document on Github](.) <!-- TODO: Provide a link-->
+* [This document on Github](https://github.com/coders-school/stl/blob/cr/04-algorithms/script.md)
 * [Algorithms library on cppreference.com](https://en.cppreference.com/w/cpp/algorithm)
 * [Numerics library on cppreference.com](https://en.cppreference.com/w/cpp/numeric)
 * [Algorithms on hackingcpp.com](https://hackingcpp.com/cpp/std/algorithms.png)
@@ -83,6 +86,8 @@ ___
 ## Overview
 
 [Algorithms library at cppreference.com](https://en.cppreference.com/w/cpp/algorithm)
+
+All algorithms work on ranges defined by 2 iterators. They are always given as the first and second argument.  
 
 ___
 
@@ -118,6 +123,19 @@ ___
 
 ___
 
+## Iterators - `begin(v)` vs `v.begin()`
+
+    ```cpp
+    std::sort(v.begin(), v.end());
+    std::sort(begin(v), end(v));
+    ```
+
+* Usually no difference
+* `begin(v)` works with C-style arrays
+* When working with your own types you can specify both
+
+___
+
 ## Non-modifying sequence operations
 
 They do not modify the containers they run on. They cannot:
@@ -144,13 +162,29 @@ They do not modify the containers they run on. They cannot:
 4. Search the vector `v` for a range `{6, 6}` and `{7, 7}`
 5. Run `std::adjacent_find` on the vector `v`
 
-##### `begin(v)` vs `v.begin()`
-
-No difference, the first one works on C-style arrays. When working with your own types you should/can specify both.
-
 #### hackingcpp.com
 
 [Finding / Locating Elements](https://hackingcpp.com/cpp/std/algorithms.html)
+
+___
+
+## Modifying sequence operations
+
+They modify the containers they operate on.
+
+They can:
+
+* rearrange items in a container
+* delete items
+* add items
+
+### `std::generate*` vs `std::transform`
+
+#### Task
+
+### `std::reverse*`, `std::rotate*`, `std::shift*`, `std::shuffle`
+
+#### Task
 
 ___
 
