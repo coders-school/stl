@@ -180,7 +180,48 @@ They can:
 
 ### `std::generate*` vs `std::transform`
 
+```cpp
+std::vector<int> vec {1, 2, 3, 4, 5, 6, 7, 8};
+std::list<int> list {10, 20, 30 , 40 , 50, 60, 70, 80};
+std::transform(begin(vec),
+               end(vec),
+               begin(list),
+               begin(vec),
+               [](auto first, auto second) {
+                   return first + second;
+               });
+}
+```
+
+```cpp
+std::vector<int> vec(10);
+std::generate(begin(vec), end(vec), [i{0}]() mutable { return i++; });
+```
+
+```cpp
+std::mt19937 rng; // default constructed, seeded with fixed seed
+std::generate_n(std::ostream_iterator<std::mt19937::result_type>(std::cout, " "),
+                5,
+                std::ref(rng));
+```
+
+* `std::generate` generates values into a container "from nothing"
+* `std::transform` transform values from one container into another one
+* Both take a function object telling how to generate/transform elements
+* Remember to use `std::back_inserter(v)` to create new elements in the output container
+* You can provide `std::ostream_iterator<T>(std::cout, " ")` as the output iterator to print the result on the screen!
+
 #### Task
+
+1. Create a below vector
+    ```cpp
+    std::vector<std::pair<int, std::string>> v {
+        {0, "Zero"}, {1, "One"}, {2, "Two"}, {3, "Three"}, {4, "Four"}, {5, "Five"}
+    };
+    ```
+2. Create a vector of ints `v2` and fill it with all ints (first item of pair) from `v`
+3. Create a vector of strings `v3` and fill it with concatenated string + colon + int from all pairs from `v` 
+4. Create a vector of chars `v4` and fill it with every other letter of the alphabet 
 
 ### `std::reverse*`, `std::rotate*`, `std::shift*`, `std::shuffle`
 
