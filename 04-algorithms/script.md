@@ -21,40 +21,43 @@
     3. Modifying elements - `std::fill*`, `std::replace*`
     4. Shifting elements - `std::reverse*`, `std::rotate*`, `std::shift*`, `std::shuffle`
     5. Removing elements - `std::remove*`, `std::unique*`
-6. Sorting operations
+6. [Partitioning operations](#partitioning-operations)
+    1. Structural properties - `std::is_partitioned`, `std::partition_point`
+    2. Partitioning - `std::partition` vs `std::stable_partition` vs `std::partition_copy`
+7. Sorting operations
     1. Structural properties - `std::is_sorted*`
     2. Sorting - `std::sort` vs `std::stable_sort`
     3. Partial sorting - `std::partial_sort` vs `std::nth_element`
-7. Binary search operations (of sorted ranges)
+8. Binary search operations (of sorted ranges)
     1. `std::binary_search`
     2. Bounds - `std::lower_bound`, `std::upper_bound`, `std::equal_range`
     3. Merge operations - `std::merge` vs `std::inplace_merge`
-8. Set operations
+9. Set operations
     1. `std::includes`
     2. `std::set_difference`, `std::set_intersection`, `std::set_symmetric_difference`, `set_union`
-9. Heap operations
+10. Heap operations
     1. Structural properties - `std::is_heap*`
     2. Heap - `std::make_heap`, `std::push_heap`, `std::pop_heap`
     3. Sorting - `std::sort_heap`
-10. Min/max operations
+11. Min/max operations
     1. `std::min`, `std::max`, `std::minmax`
     2. `std::min_element`, `std::max_element`, `std::minmax_element`
     3. `std::clamp`
-11. Comparison operations
+12. Comparison operations
     1. Comparing ranges: `std::equal` vs `std::mismatch`
     2. Comparing ranges: `std::lexicographical_compare` vs `std::lexicographical_compare_three_way`
-12. Permutation operations
+13. Permutation operations
     1. Structural properties - `std::is_permutation`
     2. `std::next_permutation`, `std::prev_permutation`
-13. Numeric operations
+14. Numeric operations
     1. `std::iota`
     2. Reductions - `std::accumulate` vs `std::reduce`
     3. Scans - `std::partial_sum` vs `std::inclusive_scan` vs `std::exclusive_scan`
     4. `std::adjacent_difference`
     5. `std::transform_reduce` vs `std::inner_product`
-14. Uninitialized memory operations
-15. [Bonus: Execution policies](#bonus-execution-policies)
-16. [Recap](#recap)
+15. Uninitialized memory operations
+16. [Bonus: Execution policies](#bonus-execution-policies)
+17. [Recap](#recap)
 
 ___
 
@@ -271,6 +274,38 @@ std::copy(v.begin(), v.end(), std::ostream_iterator<int>(std::cout, " "));
 3. Print all elements using `std::copy` and `std::ostream_iterator`
 4. Shuffle all elements
 5. Print all elements once again
+
+___
+
+## Partitioning operations
+
+Range is partitioned according to a predicate P, when all elements for which P is satisfied are ordered before all elements for which P is not satisfied.
+
+```cpp
+auto is_even = [](auto i){ return i % 2 == 0; };
+std::array<int, 9> v = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+std::cout << std::is_partitioned(v.begin(), v.end(), is_even);  // false
+
+std::partition(v.begin(), v.end(), is_even);
+std::cout << std::is_partitioned(v.begin(), v.end(), is_even);  // true
+// v = {8, 2, 6, 4, 5, 3, 7, 1, 9}
+
+v = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+std::stable_partition(v.begin(), v.end(), is_even);
+std::cout << std::is_partitioned(v.begin(), v.end(), is_even);  // true
+// v = {2, 4, 6, 8, 1, 3, 5, 7, 9}
+
+v = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+std::vector<int> true_vector;
+std::vector<int> false_vector;
+std::partition_copy(v.begin(),
+                    v.end(),
+                    std::back_inserter(true_vector),
+                    std::back_inserter(false_vector),
+                    is_even);
+// true_vector = {2, 4, 6, 8}
+// false_vector = {1, 3, 5, 7, 9}
+```
 
 ___
 
