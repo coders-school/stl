@@ -28,7 +28,7 @@
     1. Structural properties - `std::is_sorted*`
     2. Sorting - `std::sort` vs `std::stable_sort`
     3. Partial sorting - `std::partial_sort` vs `std::nth_element`
-8. Binary search operations (of sorted ranges)
+8. [Binary search operations (of sorted ranges)](#binary-search-operations)
     1. `std::binary_search`
     2. Bounds - `std::lower_bound`, `std::upper_bound`, `std::equal_range`
     3. Merge operations - `std::merge` vs `std::inplace_merge`
@@ -353,6 +353,29 @@ std::partial_sort(s.begin(), s.begin() + 3, s.end());
   * the order of the range [middle, last) is unspecified
   * the order of equal elements is not guaranteed to be preserved
   * `O(nlogn)`, or more precisely `(last-first)log(middle-first)` operations
+
+___
+
+## Binary search operations
+
+Binary search algorithms must be used on sorted/partitioned ranges. Otherwise it will not give proper results.
+
+```cpp
+std::vector<int> data = { 1, 2, 2, 4, 5, 5, 5, 6 };
+auto [l, u] = std::equal_range(data.begin(), data.end(), 5);
+// data = { 1, 2, 2, 4, 5, 5, 5, 6 };
+//                      l        u
+
+auto [l, u] = std::equal_range(data.begin(), data.end(), 3);
+// data = { 1, 2, 2, 4  , 5, 5, 5, 6 };
+//                   l=u
+```
+
+* `std::lower_bound` returns an iterator the the first element that is not less than the given value
+* `std::upper_bound` returns an iterator the the first element that is greater than the given value
+* `std::distance` between `lower` and `upper` is the number of elements in the range
+* `std::equal_range` return a pair of `[lower_bound, upper_bound]`
+* `std::binary_search` performs a binary search operation and checks if a given element exists in a given range. **Returns `true/false`**.
 
 ___
 
