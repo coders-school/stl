@@ -39,7 +39,7 @@
     1. Structural properties - `std::is_heap*`
     2. Heap - `std::make_heap`, `std::push_heap`, `std::pop_heap`
     3. Sorting - `std::sort_heap`
-11. Min/max operations
+11. [Min/max operations](#minmax-operations)
     1. `std::min`, `std::max`, `std::minmax`
     2. `std::min_element`, `std::max_element`, `std::minmax_element`
     3. `std::clamp`
@@ -410,6 +410,25 @@ std::set_difference(v1.begin(), v1.end(),
                     v2.begin(), v2.end(),
                     std::back_inserter(diff));
 // diff = {1, 5, 5, 9}
+```
+
+___
+
+## Min/max operations
+
+* `std::min/std::max/std::minmax` returns the minimum, maximum or both from two of more values. They do not work on containers.
+* `std::min_element/std::max_element` work on containers and return an iterator to min/max element.
+* `std::minmax_element` returns a pair of iterators to min and max values.
+* `std::clamp(v, lo, hi)` returns:
+  * `v` if it is between `lo` and `hi`
+  * `lo` if `v` is less than `lo`
+  * `hi` if `v` is greater than `hi`
+
+```cpp
+for (auto v : {10, 200, -1}) {
+    std::cout << std::clamp(v, 0, 100) << '\n';
+}
+// output: 10, 100, 0
 ```
 
 ___
