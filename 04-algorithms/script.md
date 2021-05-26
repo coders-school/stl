@@ -49,7 +49,7 @@
 13. Permutation operations
     1. Structural properties - `std::is_permutation`
     2. `std::next_permutation`, `std::prev_permutation`
-14. Numeric operations
+14. [Numeric operations](#numeric-operations)
     1. `std::iota`
     2. Reductions - `std::accumulate` vs `std::reduce`
     3. Scans - `std::partial_sum` vs `std::inclusive_scan` vs `std::exclusive_scan`
@@ -433,11 +433,36 @@ for (auto v : {10, 200, -1}) {
 
 ___
 
-## all other algos
+## Numeric operations
+
+1. `std::iota`
+2. Reductions - `std::accumulate` vs `std::reduce`
+3. Scans - `std::partial_sum` vs `std::inclusive_scan` vs `std::exclusive_scan`
+4. `std::adjacent_difference`
+5. `std::transform_reduce` vs `std::inner_product`
 
 ___
 
 ## Bonus: Execution policies
+
+From C++17 you can use parallel or unsequential versions of STL algorithms. You need to provide an additional `std::execution_policy` as the first argument.
+
+```cpp
+std::vector<int> v(1'000'000);
+std::generate(std::execution::par,
+              begin(v),
+              end(v),
+              [n = 0]() mutable { return n++; });
+```
+
+### `std::execution`
+
+* `seq` = sequential
+* `par` = parallel
+* `par_unseq` = parallel unsequential
+* `unseq` = unsequential
+
+They are used to specify the execution policy of parallel algorithms - i.e., the kinds of parallelism allowed. Usually linking against `-litbb` (Intel Threading Building Blocks) is required.
 
 ___
 
