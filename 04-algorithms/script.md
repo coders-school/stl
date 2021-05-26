@@ -96,8 +96,9 @@ Fully interactive session 😉
 * [Numerics library on cppreference.com](https://en.cppreference.com/w/cpp/numeric)
 * [Algorithms on hackingcpp.com](https://hackingcpp.com/cpp/std/algorithms.png)
 
-### Task
-<!-- TODO: needed? -->
+### Warm-up task
+
+Let's do it together.
 
 1. Create `std::vector<int> v = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}`
 2. Create a lambda that captures this vector and displays its contents
@@ -178,7 +179,7 @@ They do not modify the containers they run on. They cannot:
   * an iterator to the first matching element, or...
   * last (second argument - the iterator from the first range, usually `end()`) if nothing was found
 
-#### Task
+### Task
 
 1. Create `std::vector<int> v = {8, 2, 5, 3, 4, 4, 2, 7, 6, 6, 1, 8, 9};`
 2. Find all elements greater than `6` and print them
@@ -186,7 +187,7 @@ They do not modify the containers they run on. They cannot:
 4. Search the vector `v` for a range `{6, 6}` and `{7, 7}`
 5. Run `std::adjacent_find` on the vector `v`
 
-#### hackingcpp.com
+### hackingcpp.com
 
 [Finding / Locating Elements](https://hackingcpp.com/cpp/std/algorithms.html)
 
@@ -238,7 +239,7 @@ std::generate_n(std::ostream_iterator<std::mt19937::result_type>(std::cout, " ")
 * Remember to use `std::back_inserter(v)` to create new elements in the output container
 * You can provide `std::ostream_iterator<T>(std::cout, " ")` as the output iterator to print the result on the screen!
 
-#### Task
+### Task
 
 1. Create a below vector
 
@@ -287,7 +288,7 @@ std::copy(v.begin(), v.end(), std::ostream_iterator<int>(std::cout, " "));
 * `std::shift_left/std::shift_right` (C++20) shifts all elements by N positions to left/right
 * `std::shuffle` reorders the elements with the given random number generator
 
-#### Task
+### Task
 
 1. Create `std::vector<int> v = {8, 2, 5, 3, 4, 4, 2, 7, 6, 6, 1, 8, 9};`
 2. Remove all duplicated values from `v`
