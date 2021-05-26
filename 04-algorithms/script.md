@@ -32,7 +32,7 @@
     1. `std::binary_search`
     2. Bounds - `std::lower_bound`, `std::upper_bound`, `std::equal_range`
     3. Merge operations - `std::merge` vs `std::inplace_merge`
-9. Set operations
+9. [Set operations](#set-operations)
     1. `std::includes`
     2. `std::set_difference`, `std::set_intersection`, `std::set_symmetric_difference`, `set_union`
 10. Heap operations
@@ -376,6 +376,41 @@ auto [l, u] = std::equal_range(data.begin(), data.end(), 3);
 * `std::distance` between `lower` and `upper` is the number of elements in the range
 * `std::equal_range` return a pair of `[lower_bound, upper_bound]`
 * `std::binary_search` performs a binary search operation and checks if a given element exists in a given range. **Returns `true/false`**.
+
+___
+
+## Set operations
+
+```cpp
+std::vector<int> v1 {1, 2, 5, 5, 5, 9};
+std::vector<int> v2 {2, 5, 7};
+
+std::includes(v1.begin(), v1.end(), v2.begin(), v2.end());  // false
+
+std::vector<int> union;
+std::set_union(v1.begin(), v1.end(),
+               v2.begin(), v2.end(),
+               std::back_inserter(union));
+// union = {1, 2, 2, 5, 5, 5, 5, 7, 9}
+
+std::vector<int> intersection;
+std::set_intersection(v1.begin(), v1.end(),
+                      v2.begin(), v2.end(),
+                      std::back_inserter(intersection));
+// intersection = {2, 5}
+
+std::vector<int> symmetric_diff;
+std::set_symmetric_difference(v1.begin(), v1.end(),
+                              v2.begin(), v2.end(),
+                              std::back_inserter(symmetric_diff));
+// symmetric_diff = {1, 5, 5, 7, 9}
+
+std::vector<int> diff;
+std::set_difference(v1.begin(), v1.end(),
+                    v2.begin(), v2.end(),
+                    std::back_inserter(diff));
+// diff = {1, 5, 5, 9}
+```
 
 ___
 
