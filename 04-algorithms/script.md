@@ -1,6 +1,6 @@
 # STL algorithms
 
-<!-- TODO: Functors and lambdas - skip, it will be introduced during the session -->
+![Coders School](../img/coders_school_logo.png)
 
 ## Agenda
 
@@ -63,8 +63,28 @@ ___
 
 ## Intro
 
+### Something about you
+
+* What do you expect from today's session?
+* Mention STL algorithms you know and use
+
 ### Pre-test
-<!-- TODO: Prepare -->
+
+#### 1/2 Mark true regarding `std::rotate`
+
+1. Returns `void`
+2. There is a similar right rotation algorithm - `std::rrotate`
+3. It is possible to perform right rotation with special argument
+4. Performs left rotation
+
+#### 2/2 Consider definition `std::vector<int> v{3, 1, 4, 2, 5};`. Mark true regarding `std::none_of(v.begin(), v.end(), [](auto e){ return e < 5; })` call:
+
+1. The code will not compile
+2. Returns `true`
+3. Returns `ForwardIt` to element on 4th position
+4. Returns `false`
+5. Segmentation fault
+
 
 ### Links for you
 
@@ -564,13 +584,33 @@ I type items that you provide.
 
 ### Pre-test answers
 
-#### Q1
+#### 1/2 Mark true regarding `std::rotate`
 
-A
-B
+1. Returns `void`
+2. There is a similar right rotation algorithm - `std::rrotate`
+3. It is possible to perform right rotation with special argument
+4. ✅ **Performs left rotation**
 
-<!-- TODO: Come out with some nice questions -->
+#### 2/2 Consider definition `std::vector<int> v{3, 1, 4, 2, 5};`. Mark true regarding `std::none_of(v.begin(), v.end(), [](auto e){ return e < 5; })` call:
+
+1. The code will not compile
+2. Returns `true`
+3. Returns `ForwardIt` to element on 4th position
+4. ✅ **Returns `false`**
+5. Segmentation fault
 
 ### Post-work
 
-No raw loops challenge
+#### No raw loops challenge 🤔
+
+Every time you want to write a raw loop on any container, think about the STL algorithm that can replace the loop
+
+#### Sorting Singly-Linked List 🤯
+
+Implement merge-sort or quick-sort algorithms on `std::forward_list`.
+
+___
+
+## Thank you!
+
+<img src="../img/logo.png" alt="Coders School Ninja" style="width: 400px" />
