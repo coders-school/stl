@@ -63,12 +63,12 @@ ___
 
 ## Intro
 
-### Something about you
+### Something about you 👨‍💻
 
 * What do you expect from today's session?
 * Mention STL algorithms you know and use
 
-### Pre-test
+### Pre-test 📝
 
 #### 1/2 Mark true regarding `std::rotate`
 
@@ -86,7 +86,7 @@ ___
 5. Segmentation fault
 
 
-### Links for you
+### Links for you 🔗
 
 No presentation!
 Fully interactive session 😉
@@ -96,7 +96,7 @@ Fully interactive session 😉
 * [Numerics library on cppreference.com](https://en.cppreference.com/w/cpp/numeric)
 * [Algorithms on hackingcpp.com](https://hackingcpp.com/cpp/std/algorithms.png)
 
-### Warm-up task
+### Warm-up task 💻
 
 Let's do it together.
 
@@ -179,7 +179,7 @@ They do not modify the containers they run on. They cannot:
   * an iterator to the first matching element, or...
   * last (second argument - the iterator from the first range, usually `end()`) if nothing was found
 
-### Task
+### Task 💻
 
 1. Create `std::vector<int> v = {8, 2, 5, 3, 4, 4, 2, 7, 6, 6, 1, 8, 9};`
 2. Find all elements greater than `6` and print them
@@ -239,7 +239,7 @@ std::generate_n(std::ostream_iterator<std::mt19937::result_type>(std::cout, " ")
 * Remember to use `std::back_inserter(v)` to create new elements in the output container
 * You can provide `std::ostream_iterator<T>(std::cout, " ")` as the output iterator to print the result on the screen!
 
-### Task
+### Task 💻
 
 1. Create a below vector
 
@@ -288,7 +288,7 @@ std::copy(v.begin(), v.end(), std::ostream_iterator<int>(std::cout, " "));
 * `std::shift_left/std::shift_right` (C++20) shifts all elements by N positions to left/right
 * `std::shuffle` reorders the elements with the given random number generator
 
-### Task
+### Task 💻
 
 1. Create `std::vector<int> v = {8, 2, 5, 3, 4, 4, 2, 7, 6, 6, 1, 8, 9};`
 2. Remove all duplicated values from `v`
@@ -334,7 +334,7 @@ ___
 
 ## Sorting operations
 
-### Task
+### Task 💻
 
 ```cpp
 struct Point { int x, y; }
@@ -541,7 +541,7 @@ int r4 = std::transform_reduce(a.begin(), a.end(), b.begin(), 0,
 * `std::inner_product` calculate the inner product of 2 ranges. It can be customized with own operations op1 (sum function) and op2 (product function).
 * `std::transform_reduce` does the same, but it can be parallelized. It require both operations op1 and op2 to be commutative and associative.
 
-### Task
+### Task 💻
 
 1. Create a vector `v1` with numbers from 1 to 1000
 1. Calculate the sum of all numbers from 1 to 1000
@@ -576,14 +576,14 @@ ___
 
 ## Recap
 
-### What do you remember from today?
+### What do you remember from today? 🧠
 
 Let's have an interactive recap session in MD file.
 I type items that you provide.
 
 * Type here...
 
-### Pre-test answers
+### Pre-test answers 📝
 
 #### 1/2 Mark true regarding `std::rotate`
 
@@ -600,7 +600,7 @@ I type items that you provide.
 4. ✅ **Returns `false`**
 5. Segmentation fault
 
-### Post-work
+### Post-work 💻
 
 #### No raw loops challenge 🤔
 
@@ -612,6 +612,10 @@ Implement merge-sort or quick-sort algorithms on `std::forward_list`.
 
 ___
 
-## Thank you!
+## [Rate this training session](https://forms.gle/ADXRttpAaZgW8KwM6) 📊
 
-<img src="../img/logo.png" alt="Coders School Ninja" width="400px" />
+___
+
+## Thank you! 🥷
+
+<img src="../img/logo.png" alt="Coders School Ninja" width="200px" />
