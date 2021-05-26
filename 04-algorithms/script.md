@@ -613,4 +613,4 @@ ___
 
 ## Thank you!
 
-<img src="../img/logo.png" alt="Coders School Ninja" style="width: 400px" />
+<img src="../img/logo.png" alt="Coders School Ninja" width="400px" />
