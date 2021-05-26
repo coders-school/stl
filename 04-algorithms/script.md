@@ -87,7 +87,8 @@ ___
 
 [Algorithms library at cppreference.com](https://en.cppreference.com/w/cpp/algorithm)
 
-All algorithms work on ranges defined by 2 iterators. They are always given as the first and second argument.  
+All algorithms work on ranges defined by 2 iterators.
+They are always given as the first and second argument.
 
 ___
 
@@ -125,10 +126,10 @@ ___
 
 ## Iterators - `begin(v)` vs `v.begin()`
 
-    ```cpp
-    std::sort(v.begin(), v.end());
-    std::sort(begin(v), end(v));
-    ```
+```cpp
+std::sort(v.begin(), v.end());
+std::sort(begin(v), end(v));
+```
 
 * Usually no difference
 * `begin(v)` works with C-style arrays
@@ -146,7 +147,7 @@ They do not modify the containers they run on. They cannot:
 
 ### `std::find_if` vs `std::find_first_of` vs `std::search` vs `std::adjacent_find`
 
-* `std::find_if` returns the first element that satisfies the given UnaryPredicate (for which the predicate returns true)
+* `std::find_if` returns the first element that satisfies the given predicate (for which the predicate returns true)
 * `std::find_first_of` searches the first range for any of the elements given in the second range
 * `std::search` searches in the first range for the first occurrence of the sequence of elements from the second range
 * `std::adjacent_find` finds the first two adjacent items that are equal (or satisfy a given predicate)
@@ -158,7 +159,7 @@ They do not modify the containers they run on. They cannot:
 
 1. Create `std::vector<int> v = {8, 2, 5, 3, 4, 4, 2, 7, 6, 6, 1, 8, 9};`
 2. Find all elements greater than `6` and print them
-3. Find all elements equal to `2, 4, 6, 8` and print them
+3. Find all elements equal to `2`, `4`, `6` or `8` and print them
 4. Search the vector `v` for a range `{6, 6}` and `{7, 7}`
 5. Run `std::adjacent_find` on the vector `v`
 
@@ -190,19 +191,22 @@ std::transform(begin(vec),
                [](auto first, auto second) {
                    return first + second;
                });
+// list = {11, 22, 33, 44, 55, 66, 77, 88}
 }
 ```
 
 ```cpp
 std::vector<int> vec(10);
 std::generate(begin(vec), end(vec), [i{0}]() mutable { return i++; });
+// vec = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
 ```
 
 ```cpp
-std::mt19937 rng; // default constructed, seeded with fixed seed
+std::mt19937 rng;
 std::generate_n(std::ostream_iterator<std::mt19937::result_type>(std::cout, " "),
                 5,
                 std::ref(rng));
+// Possible output: 3499211612 581869302 3890346734 3586334585 545404204
 ```
 
 * `std::generate` generates values into a container "from nothing"
@@ -214,18 +218,59 @@ std::generate_n(std::ostream_iterator<std::mt19937::result_type>(std::cout, " ")
 #### Task
 
 1. Create a below vector
+
     ```cpp
     std::vector<std::pair<int, std::string>> v {
         {0, "Zero"}, {1, "One"}, {2, "Two"}, {3, "Three"}, {4, "Four"}, {5, "Five"}
     };
     ```
+
 2. Create a vector of ints `v2` and fill it with all ints (first item of pair) from `v`
-3. Create a vector of strings `v3` and fill it with concatenated string + colon + int from all pairs from `v` 
-4. Create a vector of chars `v4` and fill it with every other letter of the alphabet 
+3. Create a vector of strings `v3` and fill it with concatenated string + colon + int from all pairs from `v`
+4. Create a vector of chars `v4` and fill it with every other letter of the alphabet
 
 ### `std::reverse*`, `std::rotate*`, `std::shift*`, `std::shuffle`
 
+```cpp
+int a[] = {4, 5, 6, 7};
+std::reverse(std::begin(a), std::end(a));
+// a = {7, 6, 5, 4};
+```
+
+```cpp
+std::vector<int> v{2, 4, 2, 0, 5, 10, 7, 3, 7, 1};
+std::rotate(v.begin(), v.begin() + 3, v.end());
+// v = {0, 5, 10, 7, 3, 7, 1, 2, 4, 2}
+```
+
+```cpp
+std::vector<std::string>  c{"a", "b", "c", "d", "e", "f", "g"};
+std::shift_left(begin(c), end(c), 3);
+// c = {"d", "e", "f", "g", "", "", ""}
+std::shift_right(begin(c), end(c), 2);
+// c = {"", "", "d", "e", "f", "g", ""}
+```
+
+```cpp
+std::vector<int> v = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+std::random_device rd;
+std::mt19937 g(rd());
+std::shuffle(v.begin(), v.end(), g);
+std::copy(v.begin(), v.end(), std::ostream_iterator<int>(std::cout, " "));
+```
+
+* `std::reverse` reverses the order of elements
+* `std::rotate` takes 3 iterators: first, middle, last. After rotation middle is the first element and a range [first, middle) is moved after last.
+* `std::shift_left/std::shift_right` (C++20) shifts all elements by N positions to left/right
+* `std::shuffle` reorders the elements with the given random number generator
+
 #### Task
+
+1. Create `std::vector<int> v = {8, 2, 5, 3, 4, 4, 2, 7, 6, 6, 1, 8, 9};`
+2. Remove all duplicated values from `v`
+3. Print all elements using `std::copy` and `std::ostream_iterator`
+4. Shuffle all elements
+5. Print all elements once again
 
 ___
 
