@@ -24,7 +24,7 @@
 6. [Partitioning operations](#partitioning-operations)
     1. Structural properties - `std::is_partitioned`, `std::partition_point`
     2. Partitioning - `std::partition` vs `std::stable_partition` vs `std::partition_copy`
-7. Sorting operations
+7. [Sorting operations](#sorting-operations)
     1. Structural properties - `std::is_sorted*`
     2. Sorting - `std::sort` vs `std::stable_sort`
     3. Partial sorting - `std::partial_sort` vs `std::nth_element`
@@ -288,7 +288,9 @@ std::cout << std::is_partitioned(v.begin(), v.end(), is_even);  // false
 
 std::partition(v.begin(), v.end(), is_even);
 std::cout << std::is_partitioned(v.begin(), v.end(), is_even);  // true
+auto p = std::partition_point(v.begin(), v.end(), is_even);
 // v = {8, 2, 6, 4, 5, 3, 7, 1, 9}
+//                  p
 
 v = {1, 2, 3, 4, 5, 6, 7, 8, 9};
 std::stable_partition(v.begin(), v.end(), is_even);
@@ -306,6 +308,51 @@ std::partition_copy(v.begin(),
 // true_vector = {2, 4, 6, 8}
 // false_vector = {1, 3, 5, 7, 9}
 ```
+
+___
+
+## Sorting operations
+
+### Task
+
+```cpp
+struct Point { int x, y; }
+```
+
+1. Create `std::deque<Point> d = {{1, 3}, {0, 0}, {1, 2}, {2, 4}, {4, 1}, {0, 2}, {2, 2}};`
+2. Create a function for printing the content of `d`
+3. Write 2 comparators:
+   1. `pointXCompare` that compares only `x` values of `Point`
+   2. `pointYCompare` that compares only `y` values of `Point`
+4. Check if `d` is sorted according to `pointXCompare` and `pointYCompare`
+5. Use `stable_sort` to sort `d` by `x`
+6. Use `sort` to sort `d` by `y`
+
+### `std::partial_sort` vs `std::nth_element`
+
+```cpp
+std::vector<int> v{5, 6, 4, 3, 2, 6, 7, 9, 3};
+std::nth_element(v.begin(), v.begin() + v.size()/2, v.end());
+std::cout << "The median is " << v[v.size()/2] << '\n';
+```
+
+```cpp
+std::array<int, 10> s{5, 7, 4, 2, 8, 6, 1, 9, 0, 3};
+std::partial_sort(s.begin(), s.begin() + 3, s.end());
+// possible s = {0, 1, 2, 7, 8, 6, 5, 9, 4, 3}
+```
+
+* `std::nth_element` and `std::partial_sort` are both partial sort algorithms
+* `std::nth_element` rearranges the items in the way, that:
+  * n-th element is on it's position
+  * all elements less than or equal to n-th element are ordered before it
+  * all other elements are ordered after it
+  * `O(n)` complexity
+* `std::partial_sort` rearranges the items in the way, that:
+  * the range [first, middle) contains sorted smallest elements
+  * the order of the range [middle, last) is unspecified
+  * the order of equal elements is not guaranteed to be preserved
+  * `O(nlogn)`, or more precisely `(last-first)log(middle-first)` operations
 
 ___
 
