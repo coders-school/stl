@@ -70,14 +70,14 @@ ___
 
 ### Pre-test 📝
 
-#### 1/2 Mark true regarding `std::rotate`
+#### 1/3 Mark true regarding `std::rotate`
 
 1. Returns `void`
 2. There is a similar right rotation algorithm - `std::rrotate`
 3. It is possible to perform right rotation with special argument
 4. Performs left rotation
 
-#### 2/2 Consider definition `std::vector<int> v{3, 1, 4, 2, 5};`. Mark true regarding `std::none_of(v.begin(), v.end(), [](auto e){ return e < 5; })` call:
+#### 2/3 Consider definition `std::vector<int> v{3, 1, 4, 2, 5};`. Mark true regarding `std::none_of(v.begin(), v.end(), [](auto e){ return e < 5; })` call:
 
 1. The code will not compile
 2. Returns `true`
@@ -85,6 +85,13 @@ ___
 4. Returns `false`
 5. Segmentation fault
 
+#### 3/3 What does `std::partial_sort(first, middle, last)` do?
+
+1. Performs a quick_sort on whole range with the middle element as a pivot
+2. Sorts only elements which are greater than middle
+3. Put the middle element in proper position and everything less than it is before it and everything greater is after it
+4. Sorts only the range [middle, last)
+5. Sorts only the range [first, middle)
 
 ### Links for you 🔗
 
@@ -585,20 +592,28 @@ I type items that you provide.
 
 ### Pre-test answers 📝
 
-#### 1/2 Mark true regarding `std::rotate`
+#### 1/3 Mark true regarding `std::rotate`
 
 1. Returns `void`
 2. There is a similar right rotation algorithm - `std::rrotate`
 3. It is possible to perform right rotation with special argument
 4. ✅ **Performs left rotation**
 
-#### 2/2 Consider definition `std::vector<int> v{3, 1, 4, 2, 5};`. Mark true regarding `std::none_of(v.begin(), v.end(), [](auto e){ return e < 5; })` call:
+#### 2/3 Consider definition `std::vector<int> v{3, 1, 4, 2, 5};`. Mark true regarding `std::none_of(v.begin(), v.end(), [](auto e){ return e < 5; })` call:
 
 1. The code will not compile
 2. Returns `true`
 3. Returns `ForwardIt` to element on 4th position
 4. ✅ **Returns `false`**
 5. Segmentation fault
+
+#### 3/3 What does `std::partial_sort(first, middle, last)` do?
+
+1. Performs a quick_sort on whole range with the middle element as a pivot
+2. Sorts only elements which are greater than middle
+3. Put the middle element in proper position and everything less than it is before it and everything greater is after it
+4. Sorts only the range [middle, last)
+5. ✅ **Sorts only the range [first, middle)**
 
 ### Post-work 💻
 
@@ -609,6 +624,10 @@ Every time you want to write a raw loop on any container, think about the STL al
 #### Sorting Singly-Linked List 🤯
 
 Implement merge-sort or quick-sort algorithms on `std::forward_list`.
+
+#### Watch a video
+
+[105 STL Algorithms in Less Than an Hour](https://www.youtube.com/watch?v=bFSnXNIsK4A)
 
 ___
 
