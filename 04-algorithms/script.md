@@ -1,6 +1,6 @@
 # STL algorithms
 
-![Coders School](../img/coders_school_logo.png)
+<img src="../img/coders_school_logo.png" alt="Coders School Ninja" width="800px" />
 
 ## Agenda
 
@@ -222,7 +222,7 @@ std::transform(begin(vec),
                [](auto first, auto second) {
                    return first + second;
                });
-// list = {11, 22, 33, 44, 55, 66, 77, 88}
+// vec = {11, 22, 33, 44, 55, 66, 77, 88}
 }
 ```
 
@@ -380,7 +380,7 @@ std::partial_sort(s.begin(), s.begin() + 3, s.end());
   * the range [first, middle) contains sorted smallest elements
   * the order of the range [middle, last) is unspecified
   * the order of equal elements is not guaranteed to be preserved
-  * `O(nlogn)`, or more precisely `(last-first)log(middle-first)` operations
+  * `O(n logn)`, or more precisely `(last-first)log(middle-first)` operations
 
 ___
 
@@ -481,7 +481,7 @@ int sum = std::accumulate(v.begin(), v.end(), 0);
 int product = std::accumulate(v.begin(), v.end(), 1, std::multiplies<int>());
 // sum = 55, product = 3628800
 
-sum = std::reduce(std::std::execution::par, v.begin(), v.end(), 0);
+sum = std::reduce(std::execution::par, v.begin(), v.end(), 0);
 product = std::reduce(v.begin(), v.end(), 1, std::multiplies<int>());
 // sum = 55, product = 3628800
 ```
