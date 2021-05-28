@@ -77,7 +77,12 @@ ___
 3. It is possible to perform right rotation with special argument
 4. Performs left rotation
 
-#### 2/3 Consider definition `std::vector<int> v{3, 1, 4, 2, 5};`. Mark true regarding `std::none_of(v.begin(), v.end(), [](auto e){ return e < 5; })` call:
+#### 2/3 Mark true regarding below code call:
+
+```cpp
+std::vector<int> v{3, 1, 4, 2, 5};
+std::none_of(v.begin(), v.end(), [](auto e){ return e < 5; })
+```
 
 1. The code will not compile
 2. Returns `true`
@@ -599,7 +604,12 @@ I type items that you provide.
 3. It is possible to perform right rotation with special argument
 4. ✅ **Performs left rotation**
 
-#### 2/3 Consider definition `std::vector<int> v{3, 1, 4, 2, 5};`. Mark true regarding `std::none_of(v.begin(), v.end(), [](auto e){ return e < 5; })` call:
+#### 2/3 Mark true regarding below code call:
+
+```cpp
+std::vector<int> v{3, 1, 4, 2, 5};
+std::none_of(v.begin(), v.end(), [](auto e){ return e < 5; })
+```
 
 1. The code will not compile
 2. Returns `true`
