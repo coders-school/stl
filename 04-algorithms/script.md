@@ -593,7 +593,28 @@ ___
 Let's have an interactive recap session in MD file.
 I type items that you provide.
 
-* Type here...
+* many algorithms
+* algorithms do not compare size of input containers
+* lambdas, operations
+* `rotate` vs `shift`
+* `inner_product` - many customizations
+* Partitioning operation
+* `partition`, `sort`
+* Modern versions of the same algorithms in `<numeric>`
+* prefer `reduce` over `accumulate`
+* `std::execution_policy` - parallel execution
+* piping in `ranges`
+* `ostream_iterator` for printing
+* `find_*`, `search*`
+* `*_if`, `*_copy`
+* `copy`, `transform`
+* `generate_n`, `iota`, `transform`
+* `remove` - do not forget to call `erase`
+* `std::ranges::` - algorithms for the whole containers
+* `unique` - sort `first`, `erase` after use
+* `std::set` instead of `sort` + `unique`
+* `std::multiset` instead of `sort`
+* `operator<=>` (spaceship operator)
 
 ### Pre-test answers 📝
 
