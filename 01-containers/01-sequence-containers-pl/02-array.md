@@ -28,17 +28,17 @@ ___
 
 ## Operacje na `std::array<T, N>`
 
-| Operacja                            | Metody                                                                                                                                                                                     |
-| :---------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| dodawanie elementu                  | <!-- .element: class="fragment fade-in" -->  <span class="fragment highlight-red">nie da się</span>                                                                                        |
-| modyfikacja/dostęp do elementu      | <!-- .element: class="fragment fade-in" -->  <code class="fragment highlight-green">at()</code>, <code class="fragment highlight-green">operator[]</code>                                  |
-| pierwszy/ostatni element            | <!-- .element: class="fragment fade-in" -->  <code>back()</code>, <code>front()</code>                                                                                                     |
-| rozmiar | <!-- .element: class="fragment fade-in" -->  <code>size()</code> |
-| odwrócony (ang. reverse) iterator   | <!-- .element: class="fragment fade-in" -->  <code>rbegin()</code>, <code>rend()</code>                                                                                                    |
-| stały iterator                      | <!-- .element: class="fragment fade-in" -->  <code>cbegin()</code>, <code>cend()</code>, <code>crbegin()</code>, <code>crend()</code>                                                      |
+| Operacja                            | Metody                                                                                                                                                                |
+| :---------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| dodawanie elementu                  | <!-- .element: class="fragment fade-in" -->  <span class="fragment highlight-red">nie da się</span>                                                                   |
+| modyfikacja/dostęp do elementu      | <!-- .element: class="fragment fade-in" -->  <code class="fragment highlight-green">at()</code>, <code class="fragment highlight-green">operator[]</code>             |
+| pierwszy/ostatni element            | <!-- .element: class="fragment fade-in" -->  <code>back()</code>, <code>front()</code>                                                                                |
+| rozmiar                             | <!-- .element: class="fragment fade-in" -->  <code>size()</code>                                                                                                      |
+| odwrócony (ang. reverse) iterator   | <!-- .element: class="fragment fade-in" -->  <code>rbegin()</code>, <code>rend()</code>                                                                               |
+| stały iterator                      | <!-- .element: class="fragment fade-in" -->  <code>cbegin()</code>, <code>cend()</code>, <code>crbegin()</code>, <code>crend()</code>                                 |
 | wyczyszczenie kontenera             | <!-- .element: class="fragment fade-in" -->  <span class="fragment highlight-red">nie da się</span>, można użyć <code>fill()</code>, aby wyzerować wszystkie elementy |
-| przygotowanie elementu do usunięcia | <!-- .element: class="fragment fade-in" -->  <span class="fragment highlight-red">nie da się</span>                                                                                        |
-| wymazanie elementów z pamięci       | <!-- .element: class="fragment fade-in" -->  <span class="fragment highlight-red">nie da się</span>                                                                                        |
+| przygotowanie elementu do usunięcia | <!-- .element: class="fragment fade-in" -->  <span class="fragment highlight-red">nie da się</span>                                                                   |
+| wymazanie elementów z pamięci       | <!-- .element: class="fragment fade-in" -->  <span class="fragment highlight-red">nie da się</span>                                                                   |
 
 ___
 
