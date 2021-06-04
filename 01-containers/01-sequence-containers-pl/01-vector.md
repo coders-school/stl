@@ -71,7 +71,7 @@ struct Point2D {
     int y;
 };
 
-std::vector<Point> vec{{1, 1}, {2, 0}, {-3, 10}};
+std::vector<Point2D> vec{{1, 1}, {2, 0}, {-3, 10}};
 vec.push_back({5, 2});
 vec.emplace_back(5, 2);
 ```
