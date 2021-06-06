@@ -10,12 +10,14 @@
 
 ___
 
-## Co pamiętasz o kontenerach sekwencyjnych?
+## Co pamiętasz z kontenerów sekwencyjnych?
 
-1. <!-- .element: class="fragment fade-in" --> Jest ich 5 - wymień je
+### Zapisz w notatkach do tej lekcji jak najwięcej na poniższe tematy
+
+1. <!-- .element: class="fragment fade-in" --> Wymień kontenery sekwencyjne
 2. <!-- .element: class="fragment fade-in" --> Które z nich są cache-friendly?
 3. <!-- .element: class="fragment fade-in" --> Jakie są złożoności poszczególnych operacji?
-4. <!-- .element: class="fragment fade-in" --> Jakie jest zużycie i układ danych w pamięci?
+4. <!-- .element: class="fragment fade-in" --> Jakie jest zużycie pamięci i układ danych w pamięci?
 5. <!-- .element: class="fragment fade-in" --> Które operacje powodują unieważnienie iteratorów?
 
 ___
