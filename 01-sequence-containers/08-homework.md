@@ -9,6 +9,7 @@
 </a>
 
 ___
+<!-- .slide: style="font-size: 0.85em" -->
 
 ## Praca domowa
 
@@ -17,10 +18,11 @@ ___
 Ta praca domowa może już stanowić pewne wyzwanie. Działaj dużo z dokumentacją cppreference i najlepiej z kimś w parze lub nawet grupie 3-osobowej 🙂
 
 * Poczytaj o formacie grafiki PGM - [Wiki ENG](https://en.wikipedia.org/wiki/Netpbm#File_formats). Ta wiedza może się przydać 🙂
-* Zadanie 1 - `removeVowels()` (5 punktów)
-* Zadanie 2 - `lengthSort()` (6 punktów)
-* Zadanie 3a - `compressGrayscale()` (7 punktów)
-* Zadanie 3b - `decompressGrayscale()` (7 punktów)
+* Zadanie 1 - `remove-vowels` (5 punktów)
+* Zadanie 2 - `length-sort` (6 punktów)
+* Zadanie 3 - `grayscale-image` (14 punktów)
+  * Zadanie 3a - `compressGrayscale()`
+  * Zadanie 3b - `decompressGrayscale()`
 
 #### Bonusy
 
@@ -40,7 +42,7 @@ ___
 
 ___
 
-## Zadanie 1 - `removeVowels()`
+## Zadanie 1 - `remove-Vowels`
 
 Napisz funkcję `removeVowels()`, która przyjmie `std::vector<std::string>` oraz usunie wszystkie samogłoski z tych wyrażeń.
 
@@ -49,7 +51,7 @@ Napisz funkcję `removeVowels()`, która przyjmie `std::vector<std::string>` ora
 
 ___
 
-## Zadanie 2 - `lengthSort()`
+## Zadanie 2 - `length-sort`
 
 Napisz funkcję `lengthSort()`.
 
@@ -61,9 +63,11 @@ posortuj je leksykograficznie.
 * Output: `std::deque<std::string>{"One", "Two", "Four", "Three"}`
 
 ___
-<!-- .slide: style="font-size: 0.9em" -->
+<!-- .slide: style="font-size: 0.85em" -->
 
-## Zadanie 3a - `compressGrayscale()`
+## Zadanie 3 - `grayscale-image`
+
+### Zadanie 3a - `compressGrayscale()`
 
 Zadaniem będzie kompresja obrazka w odcieniach szarości o wymiarach 240x160 pikseli. Każdy piksel może mieć wartość od 0 (kolor czarny) do 255 (kolor biały). Im większa wartość tym jaśniejszy odcień piksel reprezentuje. Przykład małego obrazka o rozmiarach 6x4 piksele:
 
@@ -81,7 +85,7 @@ Aby otrzymać z tego plik w formacie PGM wystarczy tylko dodać mu odpowiedni na
 ___
 <!-- .slide: style="font-size: 0.9em" -->
 
-## Zadanie 3a - `compressGrayscale()` - opis
+### Zadanie 3a - `compressGrayscale()` - opis
 
 Napisz funkcję `compressGrayscale()`.
 Powinna ona przyjąć jeden argument typu `std::array<std::array<uint8_t, 240>, 160>` określający rozkład odcieni szarości na obrazku 2D (który w dalszej części nazywać będziemy bitmapą) i zwróci `std::vector<std::pair<uint8_t, uint8_t>>` zawierający skompresowaną bitmapę.
@@ -95,7 +99,7 @@ Kompresja powinna przebiegać w następujący sposób:
 ___
 <!-- .slide: style="font-size: 0.9em" -->
 
-## Zadanie 3a - `compressGrayscale()` - przykład
+### Zadanie 3a - `compressGrayscale()` - przykład
 
 ```cpp
 input: {{0 0 0 1 1 2 3 0 0 0},
@@ -117,11 +121,24 @@ ___
 
 ___
 
-## Zadanie 3b - `decompressGrayscale()`
+### Zadanie 3b - `decompressGrayscale()`
 
 Napisz funkcję `decompressGrayscale()`, która zdekompresuje obrazek skompresowany w zadaniu 3a za pomocą funkcji `compressGrayscale()`.
 
 Jako argument funkcja `decompressGrayscale()` przyjmie `std::vector<std::pair<uint8_t, uint8_t>>` natomiast zwróci `std::array<std::array<uint8_t, 240>, 160>` i przeprowadzi operacje mające na celu rekonstrukcję pierwotnego formatu bitmapy.
+
+___
+
+### Implementacja
+
+Stwórz odpowiedni plik nagłówkowy (hpp) oraz źródłowy (cpp). W pliku nagłówkowym zdefiniuj stałe dotyczące rozmiaru w taki sposób:
+
+```cpp
+constexpr size_t width = 32;
+constexpr size_t height = 32;
+```
+
+Dzięki temu będzie Ci łatwiej zmienić rozmiar obrazka w celach testowych, bo wystarczy to zrobić tylko w jednym miejscu. W testach też są używane takie same nazwy stałych.
 
 ___
 
@@ -130,9 +147,13 @@ ___
 Dla chętnych (bez punktów) polecamy także napisać sobie funkcję `printMap()`, która wyświetli bitmapę.
 Domyślnie `std::cout` potraktuje `uint8_t` jako `unsigned char`, dlatego też możecie sobie wypisać bitmapę z kodów ASCII.
 
-<img width="450px" data-src="../img/ascii_art_mug.jpg" src="img/ascii_art_mug.jpg" alt="ASCII art z kubkiem" class="plain">
+<img width="450px" src="../img/ascii_art_mug.jpg" alt="ASCII art z kubkiem" class="plain">
+
+Jeśli chcesz zrobić to zadanie (nie ma za nie dodatkowych punktów) to zaimplementuj zakomentowaną w main.cpp funkcję `printMap()`. Jej implementację wrzuć do pliku z funkcjami `compressGrayscale()` i `decompressGrayscale()`. Jej prawidłowa implementacja i odpalenie funkcji `main()` poprzez wywołanie `./grayscale-image` powinna wyświetlić ninję na ekranie :)
+
+Rozmiar ninjy odczytaj z main.cpp. Musisz zmienić stałe związane z rozmiarem, aby udało Ci się wyświetlić ninję. Jeśli Ci się uda, to pochwal się tym na Discordzie :)
 
 ___
 
 Chętni mogą także zrefaktoryzować testy, tak by funkcja sprawdzająca bitmapę była generyczna (adekwatnie do funkcji `expectBitmap()`.
-Po refaktoringu funkcji sprawdzającej, postarajcie sie dopisać także przypadki dla 1/16, 1/32 i 1/64 mapy.
+Po refaktoringu funkcji sprawdzającej, postaraj się dopisać także przypadki dla 1/16, 1/32 i 1/64 mapy.
