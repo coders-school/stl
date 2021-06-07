@@ -1,7 +1,12 @@
 #include <array>
 #include <forward_list>
+<<<<<<< HEAD
 #include <cstdint>
 #include "compression.hpp"
+=======
+
+// TODO: include
+>>>>>>> e4445d3 (grayscale image ready)
 
 std::array<std::array<uint8_t, 32>, 32> generateNinja() {
     return {

@@ -6,7 +6,11 @@ Zadaniem będzie kompresja obrazka w odcieniach szarości o wymiarach 240x160 pi
 
 <img width="300px" src="https://github.com/coders-school/stl/raw/master/img/example.png" alt="Przykład pikseli" class="plain">
 
+<<<<<<< HEAD
 ```cpp []
+=======
+```cpp
+>>>>>>> e4445d3 (grayscale image ready)
 255 255 0   255 0   255   // 0xFF 0xFF 0x00 0xFF 0x00 0xFF
 128 0   128 0   128 0     // 0x80 0x00 0x80 0x00 0x80 0x00
 64  64  64  64  64  64    // 0x40 0x40 0x40 0x40 0x40 0x40
@@ -34,7 +38,11 @@ ___
 
 ## `compressGrayscale()` - przykład
 
+<<<<<<< HEAD
 ```cpp []
+=======
+```cpp
+>>>>>>> e4445d3 (grayscale image ready)
 input: {{0 0 0 1 1 2 3 0 0 0},
         {0 0 4 4 4 1 1 1 1 1},
         {2 2 2 2 2 1 2 2 2 2}}
@@ -61,7 +69,11 @@ Stwórz odpowiedni plik nagłówkowy (hpp) oraz źródłowy (cpp).
 
 W pliku nagłówkowym zdefiniuj stałe dotyczące rozmiaru w taki sposób:
 
+<<<<<<< HEAD
 ```cpp []
+=======
+```cpp
+>>>>>>> e4445d3 (grayscale image ready)
 constexpr size_t width = 32;
 constexpr size_t height = 32;
 ```
@@ -123,7 +135,11 @@ Jest to zadanie dla chętnych (bez dodatkowych punktów).
 
 Napisz nową funkcję, która zastąpi te brzydkie pętle w testach:
 
+<<<<<<< HEAD
 ```cpp []
+=======
+```cpp
+>>>>>>> e4445d3 (grayscale image ready)
 for (int i = 0; i < height; ++i) {
     for (int j = 0; j < width / 4; ++j)
         arr[i][j] = 0;

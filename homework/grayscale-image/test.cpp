@@ -3,8 +3,12 @@
 #include <utility>  // for std::pair<>
 #include <vector>
 
+<<<<<<< HEAD
 #include "compression.hpp"
 
+=======
+// TODO: include
+>>>>>>> e4445d3 (grayscale image ready)
 #include "gtest/gtest.h"
 
 void expectBitmap(const std::vector<std::pair<uint8_t, uint8_t>>& bitmap, size_t fraction) {
@@ -28,6 +32,7 @@ std::vector<std::pair<uint8_t, uint8_t>> getBitmap(size_t fraction) {
     return bitmap;
 }
 
+<<<<<<< HEAD
 TEST(compressionTests, testOneLine_AllZeros)
 {
     std::array<uint8_t, 32> input;
@@ -129,6 +134,8 @@ TEST(compressionTests, testOneLine_DividedToEightParts)
     ASSERT_EQ(output_pair.second, 4);
 }
 
+=======
+>>>>>>> e4445d3 (grayscale image ready)
 TEST(compressionTests, ShouldCompressWholeLines) {
     std::array<std::array<uint8_t, width>, height> arr;
     for (int i = 0; i < height; ++i)

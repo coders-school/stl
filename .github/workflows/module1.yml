@@ -6,7 +6,11 @@ jobs:
   grayscale-image:
     runs-on: ubuntu-latest
     env:
+<<<<<<< HEAD
       path: homework/grayscale-image/build
+=======
+      path: homework/grayscale-images/build
+>>>>>>> e4445d3 (grayscale image ready)
     steps:
     - name: Check out code
       uses: actions/checkout@master
@@ -20,6 +24,7 @@ jobs:
     - name: Run tests
       working-directory: ${{ env.path }}
       run: ctest -V
+<<<<<<< HEAD
 
   formatting_check:
     runs-on: ubuntu-latest
@@ -29,3 +34,5 @@ jobs:
       uses: coders-school/github-actions/clang-format-check@main
       with:
         check_path: 'homework/grayscale-img'
+=======
+>>>>>>> e4445d3 (grayscale image ready)
