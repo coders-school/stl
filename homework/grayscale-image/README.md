@@ -4,7 +4,7 @@
 
 Zadaniem będzie kompresja obrazka w odcieniach szarości o wymiarach 240x160 pikseli. Każdy piksel może mieć wartość od 0 (kolor czarny) do 255 (kolor biały). Im większa wartość tym jaśniejszy odcień piksel reprezentuje. Przykład małego obrazka o rozmiarach 6x4 piksele:
 
-<img width="300px" data-src="../../img/example.png" src="../../img/example.png" alt="Przykład pikseli" class="plain">
+<img width="300px" src="https://github.com/coders-school/stl/raw/master/img/example.png" alt="Przykład pikseli" class="plain">
 
 ```cpp
 255 255 0   255 0   255   // 0xFF 0xFF 0x00 0xFF 0x00 0xFF
@@ -76,50 +76,50 @@ ___
 Dla chętnych polecamy także napisać sobie funkcję `printMap()`, która wyświetli obrazek.
 Domyślnie `std::cout` potraktuje `uint8_t` jako `unsigned char`, dlatego też możecie sobie wypisać mapę z kodów ASCII.
 
-<img width="450px" data-src="../../img/ascii_art_mug.jpg" src="../../img/ascii_art_mug.jpg" alt="ASCII art z kubkiem" class="plain">
+<img width="450px" src="https://github.com/coders-school/stl/raw/master/img/ascii_art_mug.jpg" alt="ASCII art z kubkiem" class="plain">
 
-Jeśli chcesz zrobić to zadanie (nie ma za nie dodatkowych punktów, ale będzie dodatkowe osiągnięcie na platformie) to zaimplementuj zakomentowaną w main.cpp funkcję `printMap()`. Jej implementację wrzuć do pliku z funkcjami `compressGrayscale()` i `decompressGrayscale()`. Jej prawidłowa implementacja i odpalenie funkcji `main()` poprzez wywołanie `./grayscaleImages` powinna wyświetlić ninję na ekranie :)
+Jeśli chcesz zrobić to zadanie (nie ma za nie dodatkowych punktów) to zaimplementuj zakomentowaną w main.cpp funkcję `printMap()`. Jej implementację wrzuć do pliku z funkcjami `compressGrayscale()` i `decompressGrayscale()`. Jej prawidłowa implementacja i odpalenie funkcji `main()` poprzez wywołanie `./grayscale-image` powinna wyświetlić ninję na ekranie :)
 
 ```text
-          $**********$          
-          488888888883          
-         +@DDDDDDDDDD@/         
-     !]=.9W]]]]]]]]]]]]]L       
-      5GOQ������������W4       
-      !K[k�������������Y"       
-     !]=Z����=������p]�d"       
- Wq   /+e��������������d"    vX 
- UpH'  #\��������������Y"   9�k 
- )@�P  #,333333333337;B1"  a�Q6 
-   Nil #,333333333337;B1" yyk*  
-   -]g**,333333333337;B1=Z�sB   
-    ,>M6,333333333337;B1_�L+    
-      <FC+2333333349>=,DHD      
-      )>@2/////////369=C=)      
-       1::-**********3M?/       
-         *1333699>BBB>*         
-        #/.033466:==869&        
-       #,3,-3333369900B1"       
-       #,3,-3333334900B1"       
-       #,3,-3333334900B1"       
-       #,3,-333333490/@0"       
-       #,3,-333333490.9."       
-       #+,*<UUUUUUUV<+.+"       
-        "");R\XRRRSU<(""        
-          %-3YM3335B3$          
-          %-3YM3369B3$          
-          %-3LC336:B3$          
-          %-333336:B3$          
-          %-33/++3:B3$          
-          %,//(  )38/$          
-          $)))    )))$          
+          $**********$
+          488888888883
+         +@DDDDDDDDDD@/
+     !]=.9W]]]]]]]]]]]]]L
+      5GOQ������������W4
+      !K[k�������������Y"
+     !]=Z����=������p]�d"
+ Wq   /+e��������������d"    vX
+ UpH'  #\��������������Y"   9�k
+ )@�P  #,333333333337;B1"  a�Q6
+   Nil #,333333333337;B1" yyk*
+   -]g**,333333333337;B1=Z�sB
+    ,>M6,333333333337;B1_�L+
+      <FC+2333333349>=,DHD
+      )>@2/////////369=C=)
+       1::-**********3M?/
+         *1333699>BBB>*
+        #/.033466:==869&
+       #,3,-3333369900B1"
+       #,3,-3333334900B1"
+       #,3,-3333334900B1"
+       #,3,-333333490/@0"
+       #,3,-333333490.9."
+       #+,*<UUUUUUUV<+.+"
+        "");R\XRRRSU<(""
+          %-3YM3335B3$
+          %-3YM3369B3$
+          %-3LC336:B3$
+          %-333336:B3$
+          %-33/++3:B3$
+          %,//(  )38/$
+          $)))    )))$
 ```
 
 ___
 
 ### Refaktoryzacja testów
 
-Jest to zadanie dla chętnych (bez dodatkowych punktów, ale za dodatkowe osiągnięcie na platformie).
+Jest to zadanie dla chętnych (bez dodatkowych punktów).
 
 Napisz nową funkcję, która zastąpi te brzydkie pętle w testach:
 
