@@ -9,7 +9,6 @@ void printVector(const std::vector<T>& collection) {
     std::cout << '\n';
 }
 
-
 int main() {
     std::vector<std::string> words = {
         "Somebody once told me the world is gonna roll me",
