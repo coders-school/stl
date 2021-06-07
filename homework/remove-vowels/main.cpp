@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 #include "vowel.hpp"
 
 template <typename T>
@@ -9,6 +8,7 @@ void printVector(const std::vector<T>& collection) {
     }
     std::cout << '\n';
 }
+
 
 int main() {
     std::vector<std::string> words = {
