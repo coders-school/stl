@@ -1,6 +1,5 @@
 # `lengthSort()`
 
-Napisz funkcję lengthSort().
 Implement `lengthSort()` function. It should take `std::forward_list<std::string>` and return `std::deque<std::string>` with words sorted from the shortest to the longest. If two or more words has the same amount of characters they should be sorted lexicographically.
 
 * Input: `std::forward_list<std::string>{"Three", "One", "Four", "Two"}`
