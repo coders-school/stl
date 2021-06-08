@@ -3,4 +3,4 @@
 
 using expressions = std::vector<std::string>;
 
-expressions removeVowels(expressions);
+void removeVowels(expressions&);
