@@ -12,7 +12,6 @@ std::array<std::array<uint8_t, 32>, 32> decompressGrayscale(std::vector<std::pai
             bitmap_arr[it_bitmap / rows][it_bitmap % cols] = bitmap_compressed[i].first;
             it_bitmap++;
         }
-        
     }
     return bitmap_arr;
 }
