@@ -4,10 +4,12 @@
     <img width="500" src="img/coders_school_logo.png" alt="Coders School" class="plain">
 </a>
 
+___
+
 ## [Kontenery Sekwencyjne](01-sequence-containers)
 
 * [0x00 intro](01-sequence-containers/00-intro.md)
-* [0x01 `std::vector<T>`](01-sequence-containers/01-vectormd)
+* [0x01 `std::vector<T>`](01-sequence-containers/01-vector.md)
 * [0x02 `std::array<T, N>`](01-sequence-containers/02-array.md)
 * [0x03 `std::list<T>`](01-sequence-containers/03-list.md)
 * [0x04 `std::forward_list<T>`](01-sequence-containers/04-forward-list.md)
