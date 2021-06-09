@@ -23,7 +23,7 @@ grayscaleImage decompressGrayscale(compressedGrayscaleImage compressed) {
     size_t i=0;
     for(auto it : compressed){
         for(size_t j=0; j<it.second; ++j, ++i){
-            decompressed[i/width][i%width]=it.first;
+            decompressed[0][i]=it.first;
         }
     }
     return decompressed;
