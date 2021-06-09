@@ -22,13 +22,6 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array
 	return compressed;
 }
 
-void printVecPair(const std::vector<std::pair<uint8_t, uint8_t>>& vec) {
-	for (const auto& el : vec) {
-		std::cout << el.first << " | " << el.second << ' ';
-	}
-	std::cout << '\n';
-}
-
 std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>> compressed) {
     std::array<std::array<uint8_t, width>, height> decompressed;
     return decompressed;
