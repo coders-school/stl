@@ -1,8 +1,20 @@
 #include <array>
 #include <forward_list>
+#include <iostream>
 #include "compression.hpp"
 #include "decompression.hpp"
 // TODO: include
+
+void printMap(std::array<std::array<uint8_t, 32>, 32> bitmap_array){
+    int rows = sizeof(bitmap_array)/sizeof(bitmap_array[0]);
+    int cols = sizeof(bitmap_array[0])/sizeof(bitmap_array[0][0]);
+    for (int i = 0; i < cols; i++){
+        for (int j = 0; j < rows; j++){
+            std::cout << bitmap_array[i][j];
+        }
+        std::cout << "\n";
+    }
+}
 
 std::array<std::array<uint8_t, 32>, 32> generateNinja() {
     return {
@@ -43,10 +55,10 @@ std::array<std::array<uint8_t, 32>, 32> generateNinja() {
 
 int main() {
     auto ninja = generateNinja();
-    // printMap(ninja);
+    printMap(ninja);
     auto compressed = compressGrayscale(ninja);
     auto decompressed = decompressGrayscale(compressed);
-    // printMap(decompressed);
+    printMap(decompressed);
 
     return 0;
 }
