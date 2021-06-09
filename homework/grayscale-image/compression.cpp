@@ -1,7 +1,7 @@
 #include "compression.hpp"
 
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array<uint8_t, width>, height> bitmap) {
-    std::vector<std::pair <uint8_t, uint8_t>> compressed;
+compressedGrayscaleImage compressGrayscale(grayscaleImage bitmap) {
+    compressedGrayscaleImage compressed;
 	compressed.reserve(width * height);
 	for (auto line: bitmap) {
 		uint8_t counter = 1;
@@ -18,15 +18,8 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array
 	return compressed;
 }
 
-void printVecPair(const std::vector<std::pair<uint8_t, uint8_t>>& vec) {
-	for (const auto& el : vec) {
-		std::cout << el.first << " | " << el.second << ' ';
-	}
-	std::cout << '\n';
-}
-
-std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>> compressed) {
-    std::array<std::array<uint8_t, width>, height> decompressed;
+grayscaleImage decompressGrayscale(compressedGrayscaleImage compressed) {
+    grayscaleImage decompressed;
     size_t i=0;
     for(auto it : compressed){
         for(size_t j=0; j<it.second; ++j, ++i){
