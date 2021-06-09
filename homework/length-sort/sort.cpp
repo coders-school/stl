@@ -1,16 +1,14 @@
 #include "sort.hpp"
 #include <algorithm>
-#include <iostream>
 
-std::deque<std::string> lengthSort(const std::forward_list<std::string>& list) {
-    std::deque<std::string> deq;
-    for (auto const & ele : list) {
-        deq.push_back(ele);
-    }
-    sort(deq.begin(), deq.end(), [](std::string a, std::string b) { 
-        if (a.size() == b.size()) {
-            return a < b;
-        }
-        return a.size() < b.size(); });
+std::deque<std::string> lengthSort(const std::forward_list<std::string>& strings) {
+    std::deque<std::string> deq{ strings.begin(), strings.end() };
+    std::sort(deq.begin(), deq.end(),
+              [](const std::string& lhs, const std::string& rhs) {
+                  return lhs.size() == rhs.size() ?
+                         lhs < rhs :
+                         lhs.size() < rhs.size();
+              });
+
     return deq;
 }
