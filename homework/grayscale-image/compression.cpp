@@ -35,10 +35,11 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<s
 void printMap(std::array<std::array<uint8_t, width>, height> ninja) {
     for (const auto& line : ninja) {
         for (const auto& el : line) {
-            if (static_cast<int>(el) == 0) {
+            if (el <= ' ') {
                 std::cout << ' ';
+            } else {
+                std::cout << el;
             }
-            std:: cout << el;
         } 
         std::cout << '\n';
     }
