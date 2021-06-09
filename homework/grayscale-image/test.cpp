@@ -1,3 +1,4 @@
+#include "compression.hpp"
 #include <algorithm>
 #include <array>
 #include <utility>  // for std::pair<>
