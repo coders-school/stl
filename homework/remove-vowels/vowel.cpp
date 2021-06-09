@@ -1,6 +1,6 @@
 #include "vowel.hpp"
 
-void removeVowels(std::vector<std::string> &words)
+void removeVowels(std::vector<std::string>& words)
 {
     for (auto &line : words)
     {
