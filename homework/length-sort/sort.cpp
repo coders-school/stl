@@ -10,14 +10,7 @@ std::deque<std::string> lengthSort(const std::forward_list<std::string>& list)
                 { 
                     if ((lhs.size() == rhs.size()))
                     {
-                        if (std::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()))
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
+                        return std::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
                     }
 
                     return (lhs.size() < rhs.size() ? true : false);
