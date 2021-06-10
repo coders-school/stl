@@ -1,36 +1,51 @@
 #include "compression.hpp"
-#include <iostream>
-#include <algorithm>
 
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array<uint8_t, 32>, 32> bitmap_array){
-    std::vector<std::pair<uint8_t, uint8_t>> compresed_vector;
-    int rows = sizeof(bitmap_array)/sizeof(bitmap_array[0]);
-    int cols = sizeof(bitmap_array[0])/sizeof(bitmap_array[0][0]);
-    
-    for (int i = 0; i < cols; i++){
-        for (int j = 0; j < rows; j++){
-            if (compresed_vector.size() != 0 && j != 0 && compresed_vector.back().first == bitmap_array[i][j]){
-                compresed_vector.back().second ++;
-            }
-            else {
-                compresed_vector.emplace_back(bitmap_array[i][j], 1);
+#include <iostream>
+
+CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
+    CompressedBitmap compressed;
+    compressed.reserve(width * height);
+    for (const auto& line : bitmap) {
+        uint8_t count{ 1 };
+        uint8_t pixel{ line.front() };
+        for (auto it = line.begin(); it != line.end(); ++it) {
+            auto next_pixel_it{ std::next(it) };
+            if (pixel != *next_pixel_it || next_pixel_it == line.end()) {
+                compressed.push_back( {pixel, count} );
+                pixel = *next_pixel_it;
+                count = 1;
+            } else {
+                ++count;
             }
         }
     }
-    std::vector<int>vec(rows * cols);
-    // std::transform(begin(vec), end(vec), begin(vec), [](auto str) {
-    //     std::transform(begin(str), end(str), begin(str), [](auto c) {
-    //     return std::tolower(c);
-    //     });
-    // return str;
-    // });
-    std::transform(&bitmap_array[1][1], &bitmap_array[1][2], vec.begin(), 
-            [](auto some) {
-                    
-            return some;
-            });
-    // for (auto a: vec){
-    //     std::cout << a << "\n";
-    // }
-    return compresed_vector;
+    compressed.shrink_to_fit();
+
+    return compressed;
+}
+
+Bitmap decompressGrayscale(const CompressedBitmap& compressed) {
+    Bitmap bitmap;
+    size_t line{};
+    auto pixel_it{ bitmap[line].begin() };
+    for (const auto& pair : compressed) {
+        if (pixel_it >= bitmap[line].end()) {
+            pixel_it = bitmap[++line].begin();
+        }
+        for (auto i = 0; i < pair.second; ++i) {
+            *pixel_it++ = pair.first;
+        }
+    }
+
+    return bitmap;
+}
+
+void printMap(const Bitmap& bitmap) {
+    for (const auto& line : bitmap) {
+        for (const auto ch : line) {
+            std::cout << static_cast<char>(ch < printable_ascii_min ||
+                                           ch > printable_ascii_max ? ' ' : ch);
+        }
+        std::cout << std::endl;
+    }
 }

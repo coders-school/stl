@@ -2,12 +2,10 @@
 #include <array>
 #include <utility>  // for std::pair<>
 #include <vector>
-#include "compression.hpp"
-#include "decompression.hpp"
 
-// TODO: include
+#include "compression.hpp"
 #include "gtest/gtest.h"
-const int height = 32, width = 32;
+
 void expectBitmap(const std::vector<std::pair<uint8_t, uint8_t>>& bitmap, size_t fraction) {
     for (int j = 0; j < fraction; j++) {
         for (int i = j; i < height * fraction; i += fraction) {
