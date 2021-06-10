@@ -4,5 +4,5 @@
 #include <forward_list>
 #include <string>
 
-std::deque<std::string> lengthSort(std::forward_list<std::string>);
+std::deque<std::string> lengthSort(const std::forward_list<std::string>&);
 
