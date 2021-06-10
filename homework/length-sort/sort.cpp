@@ -6,8 +6,11 @@ bool lessSize(const std::string& first, const std::string& last) {
     }
     return first.size() < last.size();
 }
-std::deque<std::string> lengthSort(const std::forward_list<std::string>& words) {
-    std::deque<std::string>  sorttmp;
 
-    return  sorttmp;
+std::deque<std::string> lengthSort(const std::forward_list<std::string> &words)
+{
+    std::deque<std::string> sorttmp;
+    std::copy(words.begin(), words.end(), std::front_inserter(sorttmp));
+    std::sort(sorttmp.begin(), sorttmp.end(), lessSize);
+    return sorttmp;
 };
