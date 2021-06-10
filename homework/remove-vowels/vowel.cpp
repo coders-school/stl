@@ -1,6 +1,7 @@
 #include "vowel.hpp"
 
 #include <algorithm>
+
 void removeVowels(std::vector<std::string>& vec) {
     std::string vowels{"aeiouyAEIOUY"};
     for (auto& str : vec) {
