@@ -1,6 +1,6 @@
 #include "compression.hpp"
 
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array<uint8_t, width>, height> bitmap) {
+std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, width>, height>& bitmap) {
     std::vector<std::pair<uint8_t, uint8_t>> vec {};
     vec.reserve(width * height);
     size_t counter = 1;
@@ -17,7 +17,7 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array
     return vec;
 }
 
-std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>> bitmap) {
+std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::vector<std::pair<uint8_t, uint8_t>>& bitmap) {
     std::array<std::array<uint8_t, width>, height> arr;
     auto counter = 0;
     auto iter = bitmap.begin();
@@ -32,7 +32,7 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<s
     return arr;
 }
 
-void printMap(std::array<std::array<uint8_t, width>, height> ninja) {
+void printMap(const std::array<std::array<uint8_t, width>, height>& ninja) {
     for (const auto& line : ninja) {
         for (const auto& el : line) {
             if (el <= ' ') {
@@ -47,10 +47,11 @@ void printMap(std::array<std::array<uint8_t, width>, height> ninja) {
 
 // Hey Mateusz! It's 3a solution. Please check it and give us feedback which is better ;)
 
-// std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array<uint8_t, width>, height> bitmap) {
+// std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, width>, height>& bitmap) {
 //     std::vector<std::pair<uint8_t, uint8_t>> vec {};
 //     std::vector<std::pair<uint8_t, uint8_t>> vec2 {};
 //     vec.reserve(width * height);
+//     vec2.reserve(width);
 //     for (const auto &line : bitmap) {
 //         for (const auto &el : line) {
 //             if (vec2.size() > 0 && vec2.back().first == el) {
