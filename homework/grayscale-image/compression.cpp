@@ -21,3 +21,19 @@ CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
 
     return compressed;
 }
+
+Bitmap decompressGrayscale(const CompressedBitmap& compressed) {
+    Bitmap bitmap;
+    size_t line{};
+    auto pixel_it{ bitmap[line].begin() };
+    for (const auto& pair : compressed) {
+        if (pixel_it >= bitmap[line].end()) {
+            pixel_it = bitmap[++line].begin();
+        }
+        for (auto i = 0; i < pair.second; ++i) {
+            *pixel_it++ = pair.first;
+        }
+    }
+
+    return bitmap;
+}
