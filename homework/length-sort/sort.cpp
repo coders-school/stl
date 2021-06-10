@@ -4,10 +4,10 @@
 #include <forward_list>
 #include <string>
 
-bool compareLength(std::string s1, std::string s2) {
-    if (s1.length() < s2.length())
+bool compareLength(std::string word, std::string next_word) {
+    if (word.length() < next_word.length())
         return true;
-    if ((s1.length() == s2.length()) && (s1 < s2))
+    if ((word.length() == next_word.length()) && (word < next_word))
         return true;
 }
 std::deque<std::string> lengthSort(std::forward_list<std::string> container_forward_list) {
