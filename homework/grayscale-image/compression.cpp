@@ -1,5 +1,7 @@
 #include "compression.hpp"
 
+#include <iostream>
+
 CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
     CompressedBitmap compressed;
     compressed.reserve(width * height);
@@ -36,4 +38,14 @@ Bitmap decompressGrayscale(const CompressedBitmap& compressed) {
     }
 
     return bitmap;
+}
+
+void printMap(const Bitmap& bitmap) {
+    for (const auto& line : bitmap) {
+        for (const auto ch : line) {
+            std::cout << static_cast<char>(ch < printable_ascii_min ||
+                                           ch > printable_ascii_max ? ' ' : ch);
+        }
+        std::cout << std::endl;
+    }
 }
