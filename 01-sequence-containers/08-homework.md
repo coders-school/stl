@@ -27,7 +27,7 @@ Ta praca domowa może już stanowić pewne wyzwanie. Działaj dużo z dokumentac
 #### Bonusy
 
 * **16.06.2021 (środa)** to ostatni dzień na zebranie bonusowych punktów za punktualność
-* **3 XP** wpadną Ci za każde zadanie dostarczone w terminie (razem aż 12 punktów)
+* **3 XP** wpadną Ci za każde zadanie dostarczone w terminie (razem aż 9 punktów)
 * **1 XP** za pracę w grupie dla każdej osoby z grupy za każde zadanie (razem 4 punkty dla każdej osoby). Zalecamy grupy 3 osobowe.
 
 #### [Zadania w repo](https://github.com/coders-school/stl/blob/master/01-sequence-containers/08-homework.md)
