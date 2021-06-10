@@ -1,13 +1,15 @@
 #include "vowel.hpp"
 
 #include <algorithm>
-#include <iostream>
-
 void removeVowels(std::vector<std::string>& vec) {
-    std::string str = {"aeiouyAEIOUY"};
-    for (auto& ele : vec) {
-        for (auto const& s : str) {
-            ele.erase(std::remove(ele.begin(), ele.end(), s), ele.end());
-        }
-    }
+    std::string vowels{"aeiouyAEIOUY"};
+    for (auto& str : vec) {
+        str.erase(std::remove_if(str.begin(),
+                                 str.end(),
+                                 [&vowels](const char c) {
+                                     return std::string(vowels).find(c) !=
+                                            std::string::npos;
+                                 }),
+                  str.end());
+    };
 }
