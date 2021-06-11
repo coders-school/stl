@@ -1,7 +1,8 @@
 #include <array>
 #include <forward_list>
+#include <iostream>
 #include "grayscale.hpp"
-// TODO: include
+
 
 std::array<std::array<uint8_t, 32>, 32> generateNinja() {
     return {
@@ -39,13 +40,32 @@ std::array<std::array<uint8_t, 32>, 32> generateNinja() {
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 41, 41, 41, 28, 0, 0, 29, 41, 41, 41, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     };
 }
+std::array<std::array<uint8_t, width>, height> generateNinja2() {
+    return {
+        std::array<uint8_t, 5>
+        {9,8,7,6,5},
+        {5,5,5,5,5},  
+    };
+}
+
 
 int main() {
-    auto ninja = generateNinja();
-    // printMap(ninja);
+    auto ninja = generateNinja2();
+    printMap(ninja);
+
+    
     auto compressed = compressGrayscale(ninja);
+
+    for (auto x : compressed) {
+        std::cout <<"{"<< int(x.first) << ',' << int(x.second )<<"} ";
+    }
+
+    
     auto decompressed = decompressGrayscale(compressed);
-    // printMap(decompressed);
+
+    std::cout<<std::endl; 
+
+    printMap(decompressed);
 
     return 0;
 }
