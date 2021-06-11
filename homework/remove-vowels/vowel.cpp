@@ -3,7 +3,7 @@
 #include <array>
 
 void removeVowels(std::vector<std::string>& stringsVector) {
-    // I'm using array of chars instead of C-style string to avoid having null terminator in my array
+    // I'm initializing vowels using separate chars rather then string literal to avoid null terminator
     constexpr std::array vowels{'a', 'e', 'i', 'o', 'u', 'y', 'A', 'E', 'I', 'O', 'U', 'Y'};
     for (auto& string : stringsVector) {
         for (const auto& character : vowels) {
