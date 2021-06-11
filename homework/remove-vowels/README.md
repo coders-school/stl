@@ -1,6 +1,6 @@
 # `removeVowels()`
 
-Implement a `removeVowels()` function, which takes `std::vector<std::string>>` and removes all vowels from all strings.
+Implement a `removeVowels()` function, which takes `std::vector<std::string>` and removes all vowels from all strings.
 
 Input: `{"abcde", "aabbbccabc", "qwerty"}`
 Output: `{"bcd", "bbccbc", "qwrt"}`
