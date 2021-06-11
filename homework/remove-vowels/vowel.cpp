@@ -1,4 +1,6 @@
 #include "vowel.hpp"
+#include <string>
+#include <vector>
 #include <algorithm>
 #include <array>
 
