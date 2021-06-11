@@ -1,9 +1,9 @@
 #include "compression.hpp"
-#include <vector>
 #include <array>
-#include <utility>
 #include <cstdint>
 #include <iostream>
+#include <utility>
+#include <vector>
 
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, width>, height>& arr) {
     std::vector<std::pair<uint8_t, uint8_t>> vec;
@@ -14,32 +14,30 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std:
     for (const auto& row : arr) {
         lastValue = row.at(0);
         counter = 0;
-        for(auto pixel = row.cbegin(); pixel != row.cend(); ++pixel) {
+        for (auto pixel = row.cbegin(); pixel != row.cend(); ++pixel) {
             if (lastValue != *pixel) {
                 vec.emplace_back(lastValue, counter);
                 counter = 1;
                 lastValue = *pixel;
-            }
-            else if (counter == UINT8_MAX) {
+            } else if (counter == UINT8_MAX) {
                 vec.emplace_back(lastValue, counter);
                 counter = 1;
-            }
-            else {
+            } else {
                 ++counter;
             }
             if (pixel + 1 == row.cend()) {
                 vec.emplace_back(lastValue, counter);
             }
         }
-    }   
+    }
     vec.shrink_to_fit();
     return vec;
 }
 
 std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::vector<std::pair<uint8_t, uint8_t>>& vec) {
     std::array<std::array<uint8_t, width>, height> arr;
-    size_t row {0};
-    size_t index {0};
+    size_t row{0};
+    size_t index{0};
 
     for (const auto& chunk : vec) {
         for (uint8_t i = 0; i < chunk.second; ++i) {
@@ -55,13 +53,12 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::ve
 }
 
 void printMap(const std::array<std::array<uint8_t, width>, height>& arr) {
-    constexpr uint8_t charactersToDisregard {32};
-    for(const auto& row : arr) {
-        for(const auto& character : row) {
-            if(character < charactersToDisregard) {
+    constexpr uint8_t charactersToDisregard{31};
+    for (const auto& row : arr) {
+        for (const auto& character : row) {
+            if (character <= charactersToDisregard) {
                 std::cout << ' ';
-            }
-            else {
+            } else {
                 std::cout << character;
             }
         }

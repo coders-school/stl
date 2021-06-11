@@ -1,7 +1,7 @@
 #include "compression.hpp"
-#include <vector>
 #include <array>
 #include <utility>
+#include <vector>
 
 std::array<std::array<uint8_t, 32>, 32> generateNinja() {
     return {
