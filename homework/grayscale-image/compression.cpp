@@ -22,11 +22,21 @@ compressGrayscale(std::array<std::array<uint8_t, width>, height> image) {
 }
 
 std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>> pack) {
+    std::array<std::array<uint8_t, width>, height> result;
+    int widthPos = 0;
+    int heightPos = 0;
     std::array<uint8_t, width> line;
-    line.fill(0);
-    std::array<std::array<uint8_t, width>, height> rect;
-    rect.fill(line);
-    return rect;
+    for (const auto& part : pack) {
+        for (int i = 0; i < part.second; ++i) {
+            line[widthPos] = part.first;
+            if (++widthPos == width) {
+                widthPos = 0;
+                result[heightPos++] = line;
+                line = std::array<uint8_t, width>{};
+            }
+        }
+    }
+    return result;
 }
 
 void printCode(uint8_t code) {
