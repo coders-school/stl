@@ -3,13 +3,14 @@
 
 std::deque<std::string> lengthSort(const std::forward_list<std::string>& list_words)
 {
-    std::deque<std::string> deque{};
-    for(const auto& str : list_words)
-    {
-        deque.push_back(str);
-    }
+    static constexpr auto compare = []
+    (const std::string& str1, const std::string& str2)
+    { 
+        if (str1.size() == str2.size()) return str1 < str2;
+        return str1.size() < str2.size();
+    };
 
-    std::sort(deque.begin(), deque.end(), [](auto& str1, auto& str2)
-    {return str1.size() < str2.size() || (str1 < str2 && str1.size() == str2.size()); });
+    std::deque<std::string> deque{list_words.cbegin(), list_words.cend()};
+    std::sort(deque.begin(), deque.end(), compare);
     return deque;
 }
