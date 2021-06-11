@@ -36,10 +36,10 @@ uint8_t getGrayScale(uint8_t code)
     static constexpr std::array<uint8_t, 10> grayScaleChars
     { ' ', '.', ':', '-', '=', '+', '*', '#', '%', '@' };
 
-    //Dirty ;D
-    float fraction{scale / grayScaleChars.size() + 0.1};
+    std::array<uint8_t, 10>::size_type index
+    {index = code * grayScaleChars.size() / (scale+1)};
 
-    return grayScaleChars[code / fraction];
+    return grayScaleChars[index];
 }
 
 void printMap(const Bitmap& bitmap) 
