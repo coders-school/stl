@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include <vector>
 #include <string>
+#include <vector>
 
 void removeVowels(std::vector<std::string>& textVector);
