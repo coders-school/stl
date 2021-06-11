@@ -2,12 +2,11 @@
 #include <algorithm>
 
 std::vector<std::pair<uint8_t, uint8_t>>
-compressGrayscale(std::array<std::array<uint8_t, width>, height> image) {
+compressGrayscale(const std::array<std::array<uint8_t, width>, height>& image) {
     std::vector<std::pair<uint8_t, uint8_t>> result;
-    uint8_t value = 0;
-    bool start = true;
     for (const auto& line : image) {
-        start = true;
+        uint8_t value = 0;
+        bool start = true;
         for (const auto& color : line) {
             if (color != value || start) {
                 value = color;
@@ -21,7 +20,7 @@ compressGrayscale(std::array<std::array<uint8_t, width>, height> image) {
     return result;
 }
 
-std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>> pack) {
+std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::vector<std::pair<uint8_t, uint8_t>>& pack) {
     std::array<std::array<uint8_t, width>, height> result;
     int widthPos = 0;
     int heightPos = 0;
@@ -47,7 +46,7 @@ void printCode(uint8_t code) {
     }
 }
 
-void printCompresedMap(std::vector<std::pair<uint8_t, uint8_t>> compressed, size_t width) {
+void printCompresedMap(const std::vector<std::pair<uint8_t, uint8_t>>& compressed, size_t width) {
     int x = 0;
     for (const auto& pack : compressed) {
         for (int i = 0; i < pack.second; ++i) {
