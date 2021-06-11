@@ -1,5 +1,4 @@
 #include "sort.hpp"
-#include <functional>
 
 std::deque<std::string> lengthSort(const std::forward_list<std::string>& list_words)
 {
