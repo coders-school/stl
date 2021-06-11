@@ -1,18 +1,18 @@
 #include "sort.hpp"
 
-bool compare(std::string x, std::string y) {
+bool compare(const std::string& x, const std::string& y) {
     if (x.length() == y.length()) {
-        return std::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end());
+        return std::lexicographical_compare(x.cbegin(), x.cend(), y.cbegin(), y.cend());
     } else {
         return (x.length() < y.length());
     }
 }
 
 std::deque<std::string> lengthSort(std::forward_list<std::string>& list) {
-    std::deque<std::string> ret(std::distance(list.begin(), list.end()));
+    std::deque<std::string> ret(std::distance(list.cbegin(), list.cend()));
 
-    std::copy(list.begin(), list.end(), ret.begin());
+    std::copy(list.cbegin(), list.cend(), ret.begin());
     std::sort(ret.begin(), ret.end(), compare);
-    
+
     return ret;
 }
