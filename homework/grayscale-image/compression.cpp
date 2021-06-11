@@ -34,9 +34,6 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::ve
     {
         for (size_t j = 0; j < row.second; ++j)
         {
-            decompressed_image.at(n).at(m) = row.first;
-            m++;
-
             if (m >= width)
             {
                 n++;
@@ -47,6 +44,9 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::ve
             {
                 break;
             }
+            
+            decompressed_image.at(n).at(m) = row.first;
+            m++;
         }
     }
     return decompressed_image;
