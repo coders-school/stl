@@ -1,24 +1,21 @@
 #include "grayscale.hpp"
 
-CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
-     CompressedBitmap compressed;
-     std::pair<int,int> pair;
- 
-    for (int i = 0; i < width; i++) {
-        pair.first = bitmap[i][0];
-        pair.second = 0;
- 
-        for (int j = 0; j < height; j++) {
-            if (pair.first == bitmap[i][j]) {
-                pair.second += 1;
-                if (j == height-1) {
-                    compressed.push_back(pair);
-                }
-            } else {
-                compressed.push_back(pair);
-                pair.first = bitmap[i][j];
-                pair.second = 1;
+CompressedBitmap compressGrayscale(const Bitmap& bitmap)
+{
+    CompressedBitmap compressed{};
+
+    uint8_t currCount{1};
+    for(Bitmap::size_type i{0}; i < height; ++i)
+    {
+        for(Bitmap::size_type j{1}; j < width; ++j)
+        {
+            while(bitmap[i][j] == bitmap[i][j - 1] && j < width)
+            {
+                ++currCount;
+                ++j;
             }
+            compressed.emplace_back(bitmap[i][j - 1], currCount);
+            currCount = 1;
         }
     }
     return compressed;
