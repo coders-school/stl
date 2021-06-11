@@ -1,5 +1,8 @@
-#include <iostream>
 #include "sort.hpp"
+#include <iostream>
+#include <string>
+#include <forward_list>
+#include <deque>
 
 template <typename Container>
 void printCollection(const Container& collection) {
