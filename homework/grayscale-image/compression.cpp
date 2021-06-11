@@ -1,8 +1,8 @@
 #include "compression.hpp"
 
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array<uint8_t, 240>, 160> image)
+std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array<uint8_t, width>, height> image)
 {
-    std::vector<std::pair<uint8_t, uint8_t>> result(256);
+    std::vector<std::pair<uint8_t, uint8_t>> result{};
 
     for (size_t i = 0; i < image.size(); ++i)
     {
