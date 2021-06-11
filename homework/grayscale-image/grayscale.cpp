@@ -32,10 +32,14 @@ Bitmap decompressGrayscale(const CompressedBitmap& compressed)
 
 uint8_t getGrayScale(uint8_t code)
 {
-    static constexpr std::array<uint8_t, 10> greyScaleChars
+    static constexpr int scale{255};
+    static constexpr std::array<uint8_t, 10> grayScaleChars
     { ' ', '.', ':', '-', '=', '+', '*', '#', '%', '@' };
 
-    return greyScaleChars[code / 25.6];
+    //Dirty ;D
+    float fraction{scale / grayScaleChars.size() + 0.1};
+
+    return grayScaleChars[code / fraction];
 }
 
 void printMap(const Bitmap& bitmap) 
