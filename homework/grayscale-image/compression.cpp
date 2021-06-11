@@ -55,9 +55,10 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::ve
 }
 
 void printMap(const std::array<std::array<uint8_t, width>, height>& arr) {
+    constexpr uint8_t charactersToDisregard {32};
     for(const auto& row : arr) {
         for(const auto& character : row) {
-            if(character < 32) {
+            if(character < charactersToDisregard) {
                 std::cout << ' ';
             }
             else {
