@@ -21,14 +21,33 @@ CompressedBitmap compressGrayscale(const Bitmap& bitmap)
     return compressed;
 }
 
-Bitmap decompressGrayscale(const CompressedBitmap& compressed) {
-    Bitmap bitmap;
+Bitmap decompressGrayscale(const CompressedBitmap& compressed)
+{
+    Bitmap bitmap{};
+
+    //Have fun :)
 
     return bitmap;
 }
 
-void printMap(const Bitmap& bitmap) {
+uint8_t getGrayScale(uint8_t code)
+{
+    static constexpr std::array<uint8_t, 10> greyScaleChars
+    { ' ', '.', ':', '-', '=', '+', '*', '#', '%', '@' };
 
+    return greyScaleChars[code / 25.6];
+}
+
+void printMap(const Bitmap& bitmap) 
+{
+    for(const auto& row : bitmap)
+    {
+        for(const auto chCode : row)
+        {
+            std::cout << getGrayScale(chCode);
+        }
+        std::cout << '\n';
+    }
 }
 
 
