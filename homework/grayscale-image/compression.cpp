@@ -3,6 +3,7 @@
 #include <array>
 #include <utility>
 #include <cstdint>
+#include <iostream>
 
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, width>, height>& arr) {
     std::vector<std::pair<uint8_t, uint8_t>> vec;
@@ -51,4 +52,18 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::ve
         }
     }
     return arr;
+}
+
+void printMap(const std::array<std::array<uint8_t, width>, height>& arr) {
+    for(const auto& row : arr) {
+        for(const auto& character : row) {
+            if(character < 32) {
+                std::cout << ' ';
+            }
+            else {
+                std::cout << character;
+            }
+        }
+        std::cout << '\n';
+    }
 }
