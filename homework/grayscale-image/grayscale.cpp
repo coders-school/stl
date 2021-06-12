@@ -33,7 +33,7 @@ Bitmap decompressGrayscale(const CompressedBitmap& compressed) {
 
     auto it = temp.begin();
     for (int r = 0; r < height; ++r) {
-        std::copy(it, it + width - 1, bitmap[r].begin());
+        std::copy(it, it + width, bitmap[r].begin());
         it += width;
     }
 
