@@ -45,7 +45,7 @@ int main() {
     printMap(ninja);
     auto compressed = compressGrayscale(ninja);
     auto decompressed = decompressGrayscale(compressed);
-    //printMap(decompressed);
+    printMap(decompressed);
 
     return 0;
 }

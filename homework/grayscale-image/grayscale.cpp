@@ -14,13 +14,26 @@ CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
             currCount = 1;
         }
     }
+
     return compressed;
 }
 
 Bitmap decompressGrayscale(const CompressedBitmap& compressed) {
     Bitmap bitmap{};
 
-    //Have fun :)
+    std::vector<uint8_t> temp;
+    temp.reserve(width * height);
+    for (const auto& el : compressed) {
+        for (int i = 0; i < std::get<1>(el); ++i) {
+            temp.push_back(std::get<0>(el));
+        }
+    }
+
+    auto it = temp.begin();
+    for (int r = 0; r < height; ++r) {
+        std::copy(it, it + width - 1, bitmap[r].begin());
+        it += width;
+    }
 
     return bitmap;
 }
