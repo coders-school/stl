@@ -3,7 +3,6 @@
 #include "compression.hpp"
 
 // TODO: include
-
 std::array<std::array<uint8_t, 32>, 32> generateNinja() {
     return {
         std::array<uint8_t, 32>{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -47,15 +46,16 @@ std::array<std::array<uint8_t, 32>, 32> generateNinja() {
 
 int main() {
 
-    std::array<std::array<uint8_t, 10>, 3> example {{{0, 0, 0, 1, 1, 2, 3, 0, 0, 0}, {0, 0, 4, 4, 4, 1, 1, 1, 1, 1}, {2, 2, 2, 2, 2, 1, 2, 2, 2, 2}}};
+    std::array<std::array<uint8_t, 10>, 3> example {{{0, 0, 0, 1, 1, 2, 3, 0, 0, 0},
+                                                     {0, 0, 4, 4, 4, 1, 1, 1, 1, 1},
+                                                     {2, 2, 2, 2, 2, 1, 2, 2, 2, 2}}};
         
     auto ninja = generateNinja();
     // printMap(ninja);
-    //auto compressed = compressGrayscale(ninja);
-    auto compressed = compressGrayscale(example);
+    auto compressed = compressGrayscale(ninja);
     printCompressed(compressed);
     auto decompressed = decompressGrayscale(compressed);
-    // printMap(decompressed);
-
+    //printMap(decompressed);
+    
     return 0;
 }
