@@ -3,7 +3,7 @@
 #include "vowel.hpp"
 
 template <typename T>
-void printVector(const std::vector<T>& collection) {
+void printVector(const std::vector<std::string>& collection) {
     for (const auto& element : collection) {
         std::cout << element << '\n';
     }
