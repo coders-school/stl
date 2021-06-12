@@ -1,6 +1,8 @@
-#include <iostream>
-#include <string>
 #include "vowel.hpp"
+
+#include <string>
+#include <vector>
+#include <iostream>
 
 template <typename T>
 void printVector(const std::vector<T>& collection) {
