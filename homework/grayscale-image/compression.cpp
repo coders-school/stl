@@ -37,17 +37,17 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(
 
 	std::array<std::array<uint8_t, width>, height> bitmap{};
 
-	int arrRowIndex = 0;
-	int arrElIndex = 0;
+	int arrRowIndex{0};
+	int arrElIndex{0};
 	for (const auto& [value, occurrences] : compressedBitmap)
 	{
-		if (arrElIndex + occurrences >= static_cast<int>(bitmap[0].size()))
+		if (arrElIndex + occurrences > static_cast<int>(bitmap[0].size()))
 		{
 			++arrRowIndex;
 		    arrElIndex = 0;
 		}
 
-	    for (int i=0; i < occurrences; ++i)
+	    for (int i{0}; i < occurrences; ++i)
 	    {
 	        bitmap[arrRowIndex][arrElIndex] = value;
 			++arrElIndex;
