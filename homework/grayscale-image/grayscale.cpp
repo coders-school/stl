@@ -2,7 +2,8 @@
 
 CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
     CompressedBitmap compressed{};
-
+    compressed.reserve(width * height);
+    
     uint8_t currCount{1};
     for (Bitmap::size_type i{0}; i < height; ++i) {
         for (Bitmap::size_type j{1}; j < width + 1; ++j) {
@@ -14,7 +15,8 @@ CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
             currCount = 1;
         }
     }
-
+    
+    compressed.shrink_to_fit(); 
     return compressed;
 }
 
