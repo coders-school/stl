@@ -1,7 +1,7 @@
 #pragma once
-#include <iostream>
 #include <algorithm>
 #include <array>
+#include <iostream>
 #include <utility>
 #include <vector>
 
@@ -14,7 +14,5 @@ using CompressedBitmap = std::vector<std::pair<uint8_t, uint8_t>>;
 CompressedBitmap compressGrayscale(const Bitmap&);
 
 Bitmap decompressGrayscale(const CompressedBitmap&);
- 
+
 void printMap(const Bitmap&);
-
-
