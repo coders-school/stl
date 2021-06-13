@@ -6,17 +6,25 @@
 
 #include "compression.hpp"
 
-void printMap(std::array<std::array<uint8_t, 32>, 32> &img) // to rebuild
+void printMap(const std::array<std::array<uint8_t, width>, height> &bitMap)
 {
-    for (auto &line : img)
+    uint8_t charsL{width - 1};
+    for (const auto &line : bitMap)
     {
-        for (auto &px : line)
+        for (const auto &px : line)
         {
-            std::cout << std::setw(2) << px;
-        };
-        std::cout << "\n";
-    };
-};
+            if (px <= charsL)
+            {
+                std::cout << ' ';
+            }
+            else
+            {
+                std::cout << px;
+            }
+        }
+        std::cout << '\n';
+    }
+}
 
 std::array<std::array<uint8_t, 32>, 32> generateNinja()
 {
