@@ -7,7 +7,7 @@ CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
     uint8_t currCount{1};
     for (Bitmap::size_type i{0}; i < height; ++i) {
         for (Bitmap::size_type j{1}; j < width + 1; ++j) {
-            while (bitmap[i][j] == bitmap[i][j - 1] && j < width) {
+            while (j < width && bitmap[i][j] == bitmap[i][j - 1]) {
                 ++currCount;
                 ++j;
             }
