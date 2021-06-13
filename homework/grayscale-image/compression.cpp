@@ -3,7 +3,27 @@
 
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, width>, height>& arr) {
     std::vector<std::pair<uint8_t, uint8_t>> vec;
+    vec.reserve(height * width);
 
+    for (const auto& row : arr) {
+        uint8_t currentElement = row.front();
+        uint8_t counter = 1;
+
+        for (auto it = cbegin(row)+1; it != cend(row); it++) {
+            if (currentElement != *it) {
+                vec.push_back(std::make_pair(currentElement, counter));
+                currentElement = *it;
+                counter = 1;
+                continue;
+            } 
+            
+            counter++;            
+        }
+
+        vec.push_back(std::make_pair(currentElement, counter));
+    }
+
+    vec.shrink_to_fit();
     return vec;
 }
 
