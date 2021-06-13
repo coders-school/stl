@@ -3,4 +3,4 @@
 #include <string>
 #include <algorithm>
 
-void removeVowels(std::vector<std::string>& str);
+void removeVowels(std::vector<std::string> &str);
