@@ -1,7 +1,7 @@
 #include "vowel.hpp"
 #include <array>
 
-bool isVowel(const char letter) {
+bool isVowel(const char& letter) {
     static constexpr std::array vowelArr{'a', 'A', 'e', 'E', 'i', 'I', 'u', 'U', 'o', 'O', 'y', 'Y'};
 
     return std::find(vowelArr.cbegin(), vowelArr.cend(), letter) != vowelArr.cend();
