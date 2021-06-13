@@ -1,5 +1,7 @@
 #include <array>
 #include <forward_list>
+#include <iostream>
+#include "grays.hpp"
 
 // TODO: include
 

@@ -1,27 +1,34 @@
 #include "grays.hpp"
 
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array<uint8_t, 240>, 160> generateNinja)
+std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array<uint8_t, width>, height> & compress_array)
 {
-    auto tmp = generateNinja.front();
-    auto count = 0;
-    uint8_t multiply = 0;
-    uint8_t el = 0;
-    std::vector<std::pair<uint8_t, uint8_t>> vec;
-    vec.reserve(240 * 160);
+    auto tmp = compress_array[0][0];
 
-    for (auto height = 0; height < 160; height++)
+    uint8_t count = 0;
+
+    std::vector<std::pair<uint8_t, uint8_t>> vec;
+    vec.reserve(width * height);
+
+    for (auto i = 0; i < height; i++)
     {
-        for (auto width = 0; width < 240; width++)
+        for (auto j = 0; j < width; j++)
         {
-            if (tmp == generateNinja[width])
+            if (tmp == compress_array[j][i])
             {
                 count++;
             }
             else
             {
-                vec.emplace_back(el, count);
-                count = 1;
+                vec.push_back(std::make_pair(tmp, count));
+                count = 0;
+                tmp = compress_array[j][i];
             }
         }
     }
+    return vec;
+}
+
+std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>> &)
+{
+    
 }
