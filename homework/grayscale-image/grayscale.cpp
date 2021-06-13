@@ -3,11 +3,11 @@
 CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
     CompressedBitmap compressed{};
     compressed.reserve(width * height);
-    
+
     uint8_t currCount{1};
     for (Bitmap::size_type i{0}; i < height; ++i) {
         for (Bitmap::size_type j{1}; j < width + 1; ++j) {
-            while (bitmap[i][j] == bitmap[i][j - 1] && j < width) {
+            while (j < width && bitmap[i][j] == bitmap[i][j - 1]) {
                 ++currCount;
                 ++j;
             }
@@ -15,8 +15,8 @@ CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
             currCount = 1;
         }
     }
-    
-    compressed.shrink_to_fit(); 
+
+    compressed.shrink_to_fit();
     return compressed;
 }
 
@@ -25,12 +25,10 @@ Bitmap decompressGrayscale(const CompressedBitmap& compressed) {
 
     auto it = bitmap.begin();
     int count{0};
-    for (const auto& [Val, N] : compressed) 
-    {
+    for (const auto& [Val, N] : compressed) {
         std::fill_n(it->begin() + count, N, Val);
         count += N;
-        if(count >= width)
-        {
+        if (count >= width) {
             ++it;
             count = 0;
         }
