@@ -3,13 +3,40 @@
 
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array<uint8_t, width>, height> bitMap)
 {
-std::vector<std::pair<uint8_t, uint8_t>> tmpCompVec;
+    std::vector<std::pair<uint8_t, uint8_t>> tmpCompVec;
+    tmpCompVec.reserve(width * height);
 
+    uint8_t lastPixel;
+    int repCounter = 0;
 
+    for (auto &pixelLine : bitMap)
+    {
+        repCounter = 0;
+        lastPixel = pixelLine.front();
 
-
-
+        for (auto it = pixelLine.begin(); it != pixelLine.end(); ++it)
+        {
+            if ((*it != lastPixel) || (it == std::prev(pixelLine.end())))
+            {
+                if (it == std::prev(pixelLine.end()))
+                {
+                    repCounter++;
+                };
+                tmpCompVec.emplace_back(std::make_pair(lastPixel, (repCounter)));
+                lastPixel = *it;
+                repCounter = 1;
+            }
+            else
+            {
+                repCounter++;
+            };
+        };
+    };
+    tmpCompVec.shrink_to_fit();
+    return tmpCompVec;
 };
+
+
  std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>> vectorData){ 
   std::array<std::array<uint8_t, width>, height> bitmap;
   size_t rowCounter = 0;
@@ -29,6 +56,6 @@ std::vector<std::pair<uint8_t, uint8_t>> tmpCompVec;
         }
  }
 
-    return bitmap
+    return bitmap;
 }
  
