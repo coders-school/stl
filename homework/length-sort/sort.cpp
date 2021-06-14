@@ -3,8 +3,6 @@
 #include <string>
 #include <forward_list>
 
-
-
 std::deque<std::string> lengthSort(std::forward_list<std::string>& words) {
     std::deque<std::string> dec;
     auto compare = [](auto lhs, auto rhs) {
