@@ -38,7 +38,7 @@ endif()
 project(lengthSort)
 enable_testing()
 
-add_executable(${PROJECT_NAME} main.cpp sort.cpp)
+add_executable(${PROJECT_NAME} sort.hpp main.cpp sort.cpp)
 add_executable(${PROJECT_NAME}-ut test.cpp sort.cpp)
 
 target_link_libraries(${PROJECT_NAME}-ut gtest_main)
