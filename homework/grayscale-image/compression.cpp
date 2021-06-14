@@ -51,13 +51,13 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<s
             characterNumber++;
         }
     }
-    for (int y = 0; y < height; y++) {
-        for (int x = 0; x < width; x++) {
-            std::cout << static_cast<uint32_t> (arr[y][x]) << ", ";
-        }
-        std::cout << '\n';
-    }
-    std::cout << '\n';
+    // for (int y = 0; y < height; y++) {
+    //     for (int x = 0; x < width; x++) {
+    //         std::cout << static_cast<uint32_t> (arr[y][x]) << ", ";
+    //     }
+    //     std::cout << '\n';
+    // }
+    // std::cout << '\n';
     return arr;
 }
 
@@ -66,5 +66,20 @@ void printCompressed(std::vector<std::pair<uint8_t, uint8_t>> vec) {
         std::cout << '{' << static_cast<int>(it.first) << ',' << static_cast<int>(it.second) << "} ";
     }
     std::cout << '\n';
+}
+
+void printMap(std::array<std::array<uint8_t, width>, height> arr) {
+
+        for (const auto&  itarray : arr) {
+            for (const auto&  it : itarray) {
+                if(it < ' ') {
+                    std::cout << ' ';     
+                }
+                else {
+                    std::cout << it; 
+                }
+            }
+            std::cout << '\n';
+        } 
 }
 
