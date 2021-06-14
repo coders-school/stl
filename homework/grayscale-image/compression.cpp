@@ -2,14 +2,18 @@
 #include <vector>
 #include <array>
 #include <utility>
+#include <cstdint>
+#include <cstddef>
 
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array<uint8_t, 240>, 160>){
+std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array<uint8_t, width>, height> arr){
+    std::vector<std::pair<uint8_t, uint8_t>> vec;
 
-    return 0;
+    return vec;
 }
 
-std::array<std::array<uint8_t, 240>, 160> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>>){
+std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>> vec){
+    std::array<std::array<uint8_t, width>, height> arr;
 
-    return 0;
+    return arr;
 }
 
