@@ -1,5 +1,23 @@
 #include "compression.hpp"
 
+std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>> vec) {
+    std::array<std::array<uint8_t, width>, height> resArr;
+    
+    int num1 = 0;
+    int num2 = 0;
+    for (auto& it : vec) {
+        for (int i = 0; i < it.second; i++) {
+            if (num2 > 31) {
+                num1++;
+                num2 = 0;
+            }
+            resArr[num1][num2] = it.first;
+            num2++;
+        }
+    }
+    return resArr;
+}
+
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array<uint8_t, width>, height> arr) {
     std::vector<std::pair<uint8_t, uint8_t>> resVec;
     uint8_t numOfOcurrences;
@@ -19,14 +37,9 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array
                 resVec.push_back({prevNum, numOfOcurrences});
                 prevNum = iter;
                 numOfOcurrences = 1;
-                
             }
         }
-
-                resVec.push_back({prevNum, numOfOcurrences});
-                
-            
+        resVec.push_back({prevNum, numOfOcurrences});
     }
-
     return resVec;
 }
