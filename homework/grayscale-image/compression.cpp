@@ -15,17 +15,14 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std:
             else if(j==height-1){
                 std::pair<uint8_t, uint8_t> p = std::make_pair(arr[i].at(j),counter);
                 vec.push_back(p);
-    //            std::cout << "{" << (int)p.first << "," << (int)p.second << "} " ;
                 counter = 1;
             }
             else{
                 std::pair<uint8_t, uint8_t> p = std::make_pair(arr[i].at(j),counter);
                 vec.push_back(p);
-                std::cout << "{" << (int)p.first << "," << (int)p.second << "} " ;
                 counter = 1;
             }
         }
-                std::cout << '\n';
     }
 
     return vec;
@@ -33,7 +30,32 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std:
 
 std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::vector<std::pair<uint8_t, uint8_t>>& vec){
     std::array<std::array<uint8_t, width>, height> arr;
+    uint8_t value {};
+    uint8_t counter {};
+    int i{};
+    int j{};
+    for(auto it=vec.begin(); it!=vec.end(); ++it){
+        value = (*it).first;
+        counter = (*it).second;
+        for(int k=0; k<(int)counter; ++k){
+            arr[i].at(j) = value;
+            ++j;
+        }
+        if(j==height){
+            ++i;
+            j=0;
+        }
+    }
 
     return arr;
+}
+
+void printMap(const std::array<std::array<std::uint8_t, width>, height>& arr){
+    for(size_t i=0; i<width; ++i){
+        for(size_t j=0; j<height; ++j){
+            std::cout << (int)arr[i].at(j);
+        }
+        std::cout << '\n';
+    }
 }
 
