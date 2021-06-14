@@ -38,7 +38,7 @@ endif()
 project(removeVowels)
 enable_testing()
 
-add_executable(${PROJECT_NAME} main.cpp vowel.cpp)
+add_executable(${PROJECT_NAME} vowel.hpp main.cpp vowel.cpp)
 add_executable(${PROJECT_NAME}-ut test.cpp vowel.cpp)
 
 target_link_libraries(${PROJECT_NAME}-ut gtest_main)
