@@ -1,8 +1,8 @@
 #pragma once
 
-#include <vector>
 #include <array>
-#include <utility> 
+#include <utility>
+#include <vector>
 
 #include <cctype>
 #include <iostream>
@@ -10,20 +10,16 @@
 constexpr size_t width = 32;
 constexpr size_t height = 32;
 
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, width>, height>& image);
+using pixelType = uint8_t;
+using imageLine = std::array<pixelType, width>;
+using image = std::array<imageLine, height>;
+using compressPair = std::pair<pixelType, uint8_t>;
+using compressedImage = std::vector<compressPair>;
 
-std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::vector<std::pair<uint8_t, uint8_t>>& pack);
+[[nodiscard]] compressedImage compressGrayscale(const image& image);
 
-void printCode(uint8_t code);
+[[nodiscard]] image decompressGrayscale(const compressedImage& pack);
 
-template <size_t WIDTH, size_t HEIGHT>
-void printMap(const std::array<std::array<uint8_t, WIDTH>, HEIGHT>& map) {
-    for (const auto& line : map) {
-        for (const auto& point : line) {
-            printCode(point);
-        }
-        std::cout << '\n';
-    }
-}
+void printMap(const image& map);
 
-void printCompresedMap(const std::vector<std::pair<uint8_t, uint8_t>>& compressed, size_t width);
+void printCompresedMap(const compressedImage& compressed);

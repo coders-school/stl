@@ -1,58 +1,81 @@
 #include "compression.hpp"
-#include <algorithm>
 
-std::vector<std::pair<uint8_t, uint8_t>>
-compressGrayscale(const std::array<std::array<uint8_t, width>, height>& image) {
-    std::vector<std::pair<uint8_t, uint8_t>> result;
-    for (const auto& line : image) {
-        uint8_t value = 0;
-        bool start = true;
-        for (const auto& color : line) {
-            if (color != value || start) {
-                value = color;
-                result.emplace_back(value, 1);
-                start = false;
+compressedImage compressGrayscale(const image& image) {
+    compressedImage result;
+    for (const auto& imageLine : image) {
+        pixelType lastPixelColor;
+        for (bool startLine = true; const auto& pixelColor : imageLine) {
+            if (pixelColor != lastPixelColor || startLine) {
+                result.emplace_back(pixelColor, 1u);
+                lastPixelColor = pixelColor;
+                startLine = false;
             } else {
-                result[result.size() - 1].second += 1;
+                ++result.back().second;
             }
         }
     }
     return result;
 }
 
-std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::vector<std::pair<uint8_t, uint8_t>>& pack) {
-    std::array<std::array<uint8_t, width>, height> result;
-    int widthPos = 0;
-    int heightPos = 0;
-    std::array<uint8_t, width> line;
+image decompressGrayscale(const compressedImage& pack) {
+    image result;
+    size_t heightPos = 0u;
+    size_t widthPos = 0u;
+    imageLine line;
     for (const auto& part : pack) {
-        for (int i = 0; i < part.second; ++i) {
-            line[widthPos] = part.first;
-            if (++widthPos == width) {
-                widthPos = 0;
+        for (uint8_t counter = 0u; counter < part.second; ++counter) {
+            line[widthPos++] = part.first;
+            if (widthPos == width) {
+                widthPos = 0u;
                 result[heightPos++] = line;
-                line = std::array<uint8_t, width>{};
+                if (heightPos == height) {  //will ignore more data than image size
+                    return result;
+                }
             }
         }
     }
+
+    constexpr pixelType fillerPixel = '.';
+    if (widthPos > 0u) {
+        while (widthPos < width) {  //fill uncomplete line
+            line[widthPos++] = fillerPixel;
+        }
+        result[heightPos++] = line;
+    }
+    if (heightPos < height) {
+        line.fill(fillerPixel);
+        while (heightPos < height) {  //fill uncomplete image
+            result[heightPos++] = line;
+        }
+    }
+
     return result;
 }
 
-void printCode(uint8_t code) {
-    if (std::isprint(code) || code > 127) {
-        std::cout << static_cast<char>(code);
+void printCode(pixelType code) {
+    constexpr uint8_t additionalPrintRangeFrom = 127;
+    if (std::isprint(code) || code >= additionalPrintRangeFrom) {
+        std::cout << code;
     } else {
         std::cout << ' ';
     }
 }
 
-void printCompresedMap(const std::vector<std::pair<uint8_t, uint8_t>>& compressed, size_t width) {
-    int x = 0;
-    for (const auto& pack : compressed) {
-        for (int i = 0; i < pack.second; ++i) {
+void printMap(const image& map) {
+    for (const auto& line : map) {
+        for (const auto& code : line) {
+            printCode(code);
+        }
+        std::cout << '\n';
+    }
+}
+
+void printCompresedMap(const compressedImage& compressed) {
+    for (size_t widthPos = 0u; const auto& pack : compressed) {
+        for (size_t counter = 0u; counter < pack.second; ++counter) {
             printCode(pack.first);
-            if (++x == width) {
-                x = 0;
+            if (++widthPos == width) {
+                widthPos = 0u;
                 std::cout << '\n';
             }
         }
