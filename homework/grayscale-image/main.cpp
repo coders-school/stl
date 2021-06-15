@@ -1,7 +1,7 @@
+#include "compression.hpp"
 #include <array>
 #include <forward_list>
 
-// TODO: include
 
 std::array<std::array<uint8_t, 32>, 32> generateNinja() {
     return {
