@@ -1,7 +1,6 @@
 #include <algorithm>
 #include <array>
 #include <vector>
-#include <utility>
 
 constexpr size_t width = 32;
 constexpr size_t height = 32;
