@@ -6,11 +6,11 @@ compressedGrayscaleImage compressGrayscale(const grayscaleImage& bitmap) {
     for (const auto& line : bitmap) {
         uint8_t counter = 1;
         for (auto it = line.begin(); it != line.end(); it++) {
-            if (*it != *std::next(it) || it == line.end() - 1) {
-                compressed.push_back(std::make_pair(*it, counter));
-                counter = 1;
+            if (it == line.end() - 1 || *it != *std::next(it)) {
+                compressed.emplace_back(std::make_pair(*it, counter));
+                counter = 1;               
             } else {
-                counter++;
+                counter++;               
             }
         }
     }
