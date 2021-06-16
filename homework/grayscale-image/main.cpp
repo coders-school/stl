@@ -1,9 +1,6 @@
 #include <array>
 #include <forward_list>
 #include "compression.hpp"
-#include <iostream>  // wyjebac
-#include <utility>  // tez wyjebac
-// TODO: include
 
 std::array<std::array<uint8_t, 32>, 32> generateNinja() {
     return {
@@ -42,29 +39,11 @@ std::array<std::array<uint8_t, 32>, 32> generateNinja() {
     };
 }
 
-
-std::array<std::array<uint8_t, 32>, 32> generatetesto() {
-    std::array<std::array<uint8_t, 32>, 32> result;
-        for (int i = 0; i < height; ++i) {
-            for (int j = 0; j < width; ++j) {
-              result[i][j] = 0;
-            }
-        }
-    return result;
-}
-
-
 int main() {
     auto ninja = generateNinja();
     printMap(ninja);
     auto compressed = compressGrayscale(ninja);
     auto decompressed = decompressGrayscale(compressed);
-    // printMap(decompressed);
-    // auto testo = generatetesto();
-    // auto compressed = compressGrayscale(testo);
-    // std::cout << "size: " << compressed.size() << "\n";
-    // std::cout << (int)compressed.front().first << "__  " << (int)compressed.front().second <<  "\n";
-    // std::cout << (int)compressed.back().first << "__  " << (int)compressed.back().second <<  "\n";
-    // std::cout << std::get<0>(compressed.front()) << " __ " << std::get<1>(compressed.front()) << "\n";
+    printMap(decompressed);
     return 0;
 }
