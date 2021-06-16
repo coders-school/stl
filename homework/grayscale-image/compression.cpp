@@ -15,15 +15,12 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array
                 collor_value = *pix;
                 counter = 1;
             }
-            else
-            {
+            else {
                 counter++;
             }
-            if (pix + 1 == element.cend())
-            {
+            if (pix + 1 == element.cend()) {
                 compressvec.push_back(std::make_pair(collor_value, counter));
             }
-
         }
     }
 
@@ -37,15 +34,12 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<s
     auto x = 0;
     auto y = 0;
 
-    for (const auto& pair : compress)
-    {
-        for (uint8_t i = 0; i < pair.second; i++)
-        {
+    for (const auto& pair : compress) {
+        for (uint8_t i = 0; i < pair.second; i++) {
             decompressarray.at(y).at(x) = pair.first;
             x++;
         }
-        if (x == width)
-        {
+        if (x == width) {
             y++;
             x = 0;
         }

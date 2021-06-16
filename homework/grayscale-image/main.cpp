@@ -3,8 +3,6 @@
 #include <iostream>
 #include "compression.hpp"
 
-// TODO: include
-
 std::array<std::array<uint8_t, 32>, 32> generateNinja() {
     return {
         std::array<uint8_t, 32>{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
