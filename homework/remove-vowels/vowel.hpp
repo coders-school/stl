@@ -1,4 +1,6 @@
 #pragma once
-# include <string>
-# include <vector>
-void removeVowels(std::vector<std::string>& vec);
+#include <string>
+#include <vector>
+#include <algorithm>
+
+void removeVowels(std::vector<std::string>& words);
