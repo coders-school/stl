@@ -124,6 +124,7 @@ TEST(compressionTests, ShouldDecompressHalfLines) {
     }
 }
 
+
 TEST(compressionTests, ShouldDecompressQuaterLines) {
     constexpr size_t fraction = 4;
     auto bitmap = getBitmap(fraction);
