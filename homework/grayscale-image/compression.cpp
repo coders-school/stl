@@ -30,15 +30,12 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std:
 
 std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::vector<std::pair<uint8_t, uint8_t>>& image_vector) {
     std::array<std::array<uint8_t, width>, height> image_array;
-    //std::array<uint8_t, width> temp;
-    //std::fill(temp.begin(), temp.end(), 0);
-    //std::fill(image_array.begin(), image_array.end(), temp);
-    uint8_t amount = 0;
-    std::for_each(image_vector.begin(), image_vector.end(), [&image_array, &amount](std::pair<uint8_t, uint8_t> pairs){
+    std::for_each(image_vector.begin(), image_vector.end(), [&image_array](std::pair<uint8_t, uint8_t> pairs){
         static int inside_array_size = 0;
+        static int amount = 0;
         std::fill_n(image_array[inside_array_size].begin() + amount, std::get<1>(pairs), std::get<0>(pairs));
         amount += std::get<1>(pairs);
-        if (amount == image_array[inside_array_size].size()) {
+        if (amount >= image_array[inside_array_size].size()) {
             amount = 0;
             ++inside_array_size;
         }
