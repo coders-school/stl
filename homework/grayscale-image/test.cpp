@@ -95,7 +95,7 @@ TEST(compressionTests, ShouldCompressOneEighthLines) {
     ASSERT_EQ(bitmap.size(), height * 8);
     expectBitmap(bitmap, 8);
 }
-/*
+
 TEST(compressionTests, ShouldDecompressWholeLines) {
     constexpr size_t fraction = 1;
     auto bitmap = getBitmap(fraction);
@@ -189,4 +189,3 @@ TEST(compressionTests, ShouldCompressAndDecompress) {
     ASSERT_TRUE(bitmap.size() == input.size());
     EXPECT_EQ(bitmap, input);
 }
-*/
