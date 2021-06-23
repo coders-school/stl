@@ -1,5 +1,4 @@
-#include <iostream>
-#include <string>
+
 #include "vowel.hpp"
 
 template <typename T>
@@ -20,6 +19,8 @@ int main() {
     printVector(words);
     removeVowels(words);
     printVector(words);
+
+
 
     return 0;
 }
