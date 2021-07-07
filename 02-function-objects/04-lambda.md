@@ -10,27 +10,57 @@
 
 ___
 
-## Czym jest wyrażenie lambda?
+## Wyrażenie lambda w akcji
 
-* Wprowadzone w C++11, ulepszane w C++14, C++17, C++20
-* Lambda to obiekt funkcyjny, który może zostać wywołany dla konkretnych parametrów i zwrócić wynik
-* Prosta w budowie - `[](){}`
-* Służy do zwięzłego zapisu obiektu funkcyjnego, który normalnie zająłby nam kilka razy więcej miejsca
-* Zyskujemy lepszą czytelność oraz większą swobodę w działaniu
-* Typ lambdy nazywa się domknięciem (ang. closure) i jest znany tylko kompilatorowi
-* Aby przypisać wyrażenie lambda do zmiennej musimy być ona typu auto, ponieważ tylko kompilator zna typ tego wyrażenia
+```cpp []
+// struct Functor {
+//     int index = 0;
+//
+//     void operator()(int el) {
+//         std::cout << index << ": " << el << " | ";
+//         index++;
+//     }
+// };
+
+int main() {
+    std::vector<int> vec {1, 2, 3, 4, 5};
+    std::for_each(begin(vec), end(vec), [index = 0](int el) mutable {
+        std::cout << index << ": " << el << " | ";
+        index++;
+    });
+    std::cout << '\n';
+
+    return 0;
+}
+```
+<!-- .element: class="fragment fade-in" -->
+
+output: `0: 1 | 1: 2 | 2: 3 | 3: 4 | 4: 5 | `
+<!-- .element: class="fragment fade-in" -->
 
 ___
 
-## Utworzenie prostego wyrażenia lambda
+## Czym jest wyrażenie lambda?
 
-```cpp []
+* <!-- .element: class="fragment fade-in" --> Wprowadzone w C++11, ulepszane w C++14, C++17, C++20
+* <!-- .element: class="fragment fade-in" --> Lambda to obiekt funkcyjny, który może zostać wywołany dla konkretnych parametrów i zwrócić wynik
+* <!-- .element: class="fragment fade-in" --> Prosta w budowie - <code>[](){}</code>
+* <!-- .element: class="fragment fade-in" --> Służy do zwięzłego zapisu obiektu funkcyjnego, który normalnie zająłby nam trochę więcej miejsca
+* <!-- .element: class="fragment fade-in" --> Zyskujemy lepszą czytelność oraz większą swobodę w działaniu
+* <!-- .element: class="fragment fade-in" --> Typ lambdy nazywa się domknięciem (ang. closure) i jest znany tylko kompilatorowi
+* <!-- .element: class="fragment fade-in" --> Aby przypisać wyrażenie lambda do zmiennej musimy być ona typu auto, ponieważ tylko kompilator zna typ tego wyrażenia
+
+___
+
+## Tworzenie prostych wyrażeń lambda
+
+```cpp
 #include <algorithm>
 #include <iostream>
 #include <vector>
 
 int main() {
-    []() { std::cout << "Hello"; }    // lambda printing Hello (not called)
+    []() { std::cout << "Hello"; }  // lambda printing Hello (not called)
 
     std::vector<int> vec {1, 2, 3, 4, 5, 6, 7, 8, 9};
     vec.erase(std::remove_if(vec.begin(),
@@ -38,7 +68,7 @@ int main() {
                              [](int num) { return num % 2; }),
               vec.end());
 
-    auto print = [](int num) { std::cout << num << ' '; };
+    auto print = [](int num) { std::cout << num << ' '; };  // named lambda
     std::for_each(vec.begin(), vec.end(), print);
 
     return 0;
@@ -127,11 +157,10 @@ ___
 
 ## Zadanie
 
-1. Utwórz funktor sprawdzający czy podana liczba typu `int` jest podzielna przez `6`
-2. Utwórz lambdę, która przyjmie 2 argumenty typu `int` oraz zwróci ich iloczyn
-3. Utwórz lambdę, która do podanego ciągu znaków doda cudzysłów. np.
+1. Utwórz lambdę, która przyjmie 2 argumenty typu `int` oraz zwróci ich iloczyn
+2. Utwórz lambdę, która do podanego ciągu znaków doda cudzysłów. np.
    * `krowa` -> `"krowa"`
-4. Utwórz lambdę, która wypisze ciąg znaków `*`. Przy każdym zawołaniu funkcji powinniśmy dostać ciąg dłuższy o jedną `*`. Kolejno:
+3. Utwórz lambdę, która wypisze ciąg znaków `*`. Przy każdym zawołaniu funkcji powinniśmy dostać ciąg dłuższy o jedną `*`. Kolejno:
    * `*`
    * `**`
    * `***`
