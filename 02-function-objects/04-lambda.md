@@ -96,16 +96,17 @@ ___
 
 ## Lista przechwytująca (capture list)
 
-* Kwadratowy nawias `[]` określa, jakie parametry chcemy przechwycić do naszego wyrażenia. Możemy np. chcieć przechwycić jakąś zmienną, z którą będziemy chcieli porównywać każdy element kontenera
-* Wartości możemy przechwycić przez referencję `[&value]`
-* Możemy je także przechwycić przez kopię `[value]`
-* Możemy też mieszać obie możliwości `[&by_ref, by_copy, by_copy2]`
-* Wyrażenia lambda umożliwia także przechwycenie wszystkiego, co potrzebujemy:
+* <!-- .element: class="fragment fade-in" --> Kwadratowy nawias <code>[]</code> określa, jakie parametry chcemy przechwycić do naszego wyrażenia. Możemy np. chcieć przechwycić jakąś zmienną, z którą będziemy chcieli porównywać każdy element kontenera
+* <!-- .element: class="fragment fade-in" --> Wartości możemy przechwycić przez referencję <code>[&value]</code>
+* <!-- .element: class="fragment fade-in" --> Możemy je także przechwycić przez kopię <code>[value]</code>
+* <!-- .element: class="fragment fade-in" --> Możemy też mieszać obie możliwości <code>[&by_ref, by_copy, by_copy2]</code>
+* <!-- .element: class="fragment fade-in" --> Wyrażenia lambda umożliwia także przechwycenie wszystkiego, co potrzebujemy:
   * poprzez kopię `[=]`
   * poprzez referencję `[&]`
-* O ile `[=]` jest bezpieczne, to `[&]` nie zawsze jest zalecane
+* <!-- .element: class="fragment fade-in" --> O ile <code>[=]</code> jest bezpieczne, to <code>[&]</code> nie zawsze jest zalecane
 
-Pytanie: kiedy [&] może być niebezpieczne?
+Pytanie: kiedy `[&]` może być niebezpieczne?
+<!-- .element: class="fragment fade-in" -->
 
 ___
 
@@ -117,14 +118,11 @@ ___
 * Pisanie generycznych lambd jest opłacalne, ponieważ łatwo można je wielokrotnie wykorzystać
 
 ```cpp []
-int multiply(int first, int second) {
-    return first * second;
-}
-
 int main() {
     int number = 10;
-    auto multiplyByX = [&number](auto num) { return multiply(num, number); };
+    auto multiplyByX = [&number](auto num) { return num * number; };
     std::cout << multiplyByX(20) << '\n';
+    std::cout << multiplyByX(3.14) << '\n';
 
     return 0;
 }
@@ -132,30 +130,7 @@ int main() {
 
 ___
 
-## Typ zwracany
-
-* Nie podajemy typu zwracanego, gdyż domyślnie wyrażenie lambda dedukuje ten typ poprzez dane zawarte w jej ciele `{}`
-* Domyślnie typ zwracany przez wyrażenie lambda jest dedukowany na podstawie wyrażeń `return`
-
-  ```cpp []
-  [i{0}](const int el){ return el + i; }; // return type is int
-  ```
-
-* Jeżeli chcemy narzucić konkretny typ zwracany robimy to poprzez `->`
-
-  ```cpp []
-  [i{0}](const auto el) -> double { return el + i; };
-  ```
-
-___
-
-## Q&A
-
-### Tym razem przed zadaniami, bo temat trudny :)
-
-___
-
-## Zadanie
+## Zadania
 
 1. Utwórz lambdę, która przyjmie 2 argumenty typu `int` oraz zwróci ich iloczyn
 2. Utwórz lambdę, która do podanego ciągu znaków doda cudzysłów. np.
@@ -168,9 +143,9 @@ ___
 
 ___
 
-## Zadanie
+## Zadania
 
 1. Utwórz `std::vector<int>` i wypełnij go dowolnymi wartościami
 2. Utwórz lambdę, która przechwyci ten wektor, oraz wyświetli jego zawartość
 3. Utwórz lambdę, która w swoim argumencie przyjmie `int` i go wyświetli
-4. Wykorzystaj tą lambdę w algorytmie `std::for_each()` do wyświetlenia całego kontenera
+4. Wykorzystaj lambdę z pkt. 3 w algorytmie `std::for_each()` do wyświetlenia całego kontenera
