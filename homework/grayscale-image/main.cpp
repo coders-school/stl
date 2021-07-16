@@ -1,6 +1,6 @@
 #include <array>
 #include <forward_list>
-#include "greyscale.hpp"
+#include "compression.hpp"
 
 // TODO: include
 

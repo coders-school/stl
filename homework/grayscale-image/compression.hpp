@@ -1,5 +1,6 @@
 #include<array>
 #include<vector>
+#include<iostream>
 //#include<utility>
 
 constexpr uint8_t width = 32;
