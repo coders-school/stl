@@ -1,9 +1,10 @@
 #include <array>
 #include <forward_list>
+#include "greyscale.hpp"
 
 // TODO: include
 
-std::array<std::array<uint8_t, 32>, 32> generateNinja() {
+std::array<std::array<uint8_t, width>, height> generateNinja() {
     return {
         std::array<uint8_t, 32>{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
         {0, 0, 0, 0, 0, 0, 0, 0, 11, 29, 52, 56, 56, 56, 56, 56, 56, 56, 56, 56, 56, 51, 29, 10, 0, 0, 0, 0, 0, 0, 0, 0},
