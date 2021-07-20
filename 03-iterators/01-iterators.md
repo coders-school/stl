@@ -14,7 +14,7 @@ ___
 
 Każdy kontener ma 2 końce. Na jeden z nich wskazuje `begin()`, a na drugi `end()`.
 
-<image src="img/iterator.png">
+<image src="../img/iterator.png">
 
 ___
 
@@ -22,7 +22,7 @@ ___
 
 Dla niektórych kontenerów możemy także pobrać odwrotny iterator (ang. reverse iterator) umożliwiający nam przejście wstecz przez zakres.
 
-<image src="img/rev_iterator.gif">
+<image src="../img/rev_iterator.gif">
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 ## Hierarchia iteratorów
 
-<image src="img/iterator_categories.gif" height="350px">
+<image src="../img/iterator_categories.gif" height="350px">
 
 Pytanie, co powinno się znaleźć w miejscu `forward_iterator`?
 <!-- .element: class="fragment fade-in" -->
