@@ -43,7 +43,8 @@ auto middle(Iter begin, Iter end) {
     auto middle = begin;
     auto size = 0;
     while(begin != end) {
-        ++size;
+        size++;
+        begin++;
     }
     for (int i = 0; i < size / 2; ++i) {
         middle++;
@@ -62,7 +63,7 @@ Ale wiesz, że dla wektora, można to napisać tak:
 
 ```cpp
 auto middle(Iter begin, Iter end) {
-    size = end - begin;
+    auto size = end - begin;
     return *(begin + size / 2);
 }
 ```
