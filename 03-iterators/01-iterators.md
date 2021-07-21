@@ -2,6 +2,10 @@
 
 # Iteratory
 
+<a href="https://coders.school">
+    <img width="500" data-src="../img/coders_school_logo.png" src="../img/coders_school_logo.png" alt="Coders School" class="plain">
+</a>
+
 ___
 
 ## Co to jest iterator?
