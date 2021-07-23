@@ -1,0 +1,22 @@
+name: STL transform-containers
+
+on: [push, pull_request]
+
+jobs:
+  transform-containers:
+    runs-on: ubuntu-latest
+    env:
+      path: homework/transform-containers/build
+    steps:
+    - name: Check out code
+      uses: actions/checkout@master
+    - name: Create build directory
+      run: mkdir ${{ env.path }}
+    - name: Compile
+      working-directory: ${{ env.path }}
+      run: |
+        cmake ..
+        make
+    - name: Run tests
+      working-directory: ${{ env.path }}
+      run: ctest -V
