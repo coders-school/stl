@@ -25,12 +25,23 @@ ___
 
 1. <!-- .element: class="fragment fade-in" --> Sprawdzanie warunków - <code>std::all_of</code>, <code>std::any_of</code>, <code>std::none_of</code>
 2. <!-- .element: class="fragment fade-in" --> Zliczanie elementów - <code>std::count</code>, <code>std::count_if</code>
-3. <!-- .element: class="fragment fade-in" --> Szukanie elementów - <code>std::find_if</code> vs <code>std::find_first_of</code> vs <code>std::search</code> vs <code>std::adjacent_find</code>
+3. <!-- .element: class="fragment fade-in" --> Szukanie elementów - <code>std::find_if</code>, <code>std::find_first_of</code>, <code>std::search</code>, <code>std::adjacent_find</code>
 4. <!-- .element: class="fragment fade-in" --> Porównywanie - <code>std::mismatch</code>
 
 ___
 
-### `std::find_if` vs `std::find_first_of` vs `std::search` vs `std::adjacent_find`
+### Zadanie 💻
+
+1. Utwórz `std::vector<int> v = {8, 2, 5, 3, 4, 4, 2, 7, 6, 6, 1, 8, 9};`
+2. Policz ile jest elementów większych lub równych 5
+3. Sprawdź czy istnieje element mniejszy od 1
+4. Sprawdź czy wszystkie elementy są większe od 1
+
+___
+
+### Przeszukiwanie
+
+#### `std::find_if` vs `std::find_first_of` vs `std::search` vs `std::adjacent_find`
 
 * <!-- .element: class="fragment fade-in" --> <code>std::find_if</code> zwraca pierwszy element, który spełnia zadany warunek, zwany predykatem (dla którego predykat zwróci <code>true</code>)
 * <!-- .element: class="fragment fade-in" --> <code>std::find_first_of</code> przeszukuje pierwszy zakres w celu znalezienia któregokolwiek z elementów w drugim zakresie
@@ -59,10 +70,12 @@ ___
 
 ___
 
-### Zadanie 💻
+### Zadanie  - przeszukiwanie 💻
 
-1. Utwórz `std::vector<int> v = {8, 2, 5, 3, 4, 4, 2, 7, 6, 6, 1, 8, 9};`
+1. Utwórz `std::vector<int> v = {8, 2, 5, 3, 4, 4, 2, 7, 6, 6, 1, 8, 9};` (ten sam co ostatnio)
 2. Znajdź wszystkie elementy większe od `6` i wypisz je
 3. Znajdź wszystkie elementy równe `2`, `4`, `6` lub `8` i wypisz je
 4. Przeszukaj wektor `v` w poszukiwaniu zakresów `{6, 6}` i `{7, 7}`
 5. Użyj `std::adjacent_find` na wektorze `v`
+
+___
