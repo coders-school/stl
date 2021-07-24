@@ -9,3 +9,4 @@ void removeVowels(std::vector<std::string>& sentens) {
             el.erase(std::remove(el.begin(), el.end(), vowel), el.end());
     }
 }
+
