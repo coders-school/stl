@@ -46,7 +46,7 @@ ___
 * <!-- .element: class="fragment fade-in" --> <code>std::find_if</code> zwraca pierwszy element, który spełnia zadany warunek, zwany predykatem (dla którego predykat zwróci <code>true</code>)
 * <!-- .element: class="fragment fade-in" --> <code>std::find_first_of</code> przeszukuje pierwszy zakres w celu znalezienia któregokolwiek z elementów w drugim zakresie
 * <!-- .element: class="fragment fade-in" --> <code>std::search</code> przeszukuje pierwszy zakres w celu znalezienie pierwszego wystąpienia sekwencji elementów z drugiego zakresu
-* <!-- .element: class="fragment fade-in" --> <code>std::adjacent_find</code> znajduje pierwsze dwie sąsiadujące ze sobą elementy, które są równe (lub spełniają podany warunek)
+* <!-- .element: class="fragment fade-in" --> <code>std::adjacent_find</code> znajduje pierwsze dwa sąsiadujące ze sobą elementy, które są równe (lub spełniają podany warunek)
 * <!-- .element: class="fragment fade-in" --> Wszystkie z nich zwracają:
   * <!-- .element: class="fragment fade-in" --> iterator do pierwszego pasującego elementu, lub...
   * <!-- .element: class="fragment fade-in" --> <code>last</code> (drugi argument podany do algorytmu, zazwyczaj iterator <code>end()</code>) jeśli nic nie pasuje
