@@ -29,7 +29,7 @@ using namespace std;
 
 int main() {
     vector<int> v{3, 1, 4, 2, 5};
-    auto result = none_of(v.begin(), v.end(), [](auto e){ return e < 5; })
+    auto result = none_of(v.begin(), v.end(), [](auto e){ return e < 5; });
 }
 ```
 
@@ -45,6 +45,6 @@ ___
 
 1. <!-- .element: class="fragment highlight-red" --> Wykonuje algorytm quick sort na zakresie od <code>first</code> do <code>last</code> używając <code>middle</code> jako pivot
 2. <!-- .element: class="fragment highlight-red" --> Sortuje tylko elementy, które są większe od <code>middle</code>
-3. <!-- .element: class="fragment highlight-red" --> Ustawia <code>middle</code> na właściwej pozycji, a wszystko mniejsze niego jest przed nim, większe - za nim
+3. <!-- .element: class="fragment highlight-red" --> Ustawia <code>middle</code> na właściwej pozycji, a wszystko mniejsze od niego jest przed nim, większe - za nim
 4. <!-- .element: class="fragment highlight-red" --> Sortuje tylko zakres <code>[middle, last)</code>
 5. <!-- .element: class="fragment highlight-green" --> Sortuje tylko zakres <code>[first, middle)</code>
