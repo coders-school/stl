@@ -27,7 +27,7 @@ using namespace std;
 
 int main() {
     vector<int> v{3, 1, 4, 2, 5};
-    auto result = none_of(v.begin(), v.end(), [](auto e){ return e < 5; })
+    auto result = none_of(v.begin(), v.end(), [](auto e){ return e < 5; });
 }
 ```
 
