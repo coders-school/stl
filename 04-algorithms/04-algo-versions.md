@@ -24,7 +24,7 @@ ___
 
     ```cpp
     std::reverse(v.begin(), v.end());
-    std::reverse_copy(v.begin(), v.end(), r.begin())
+    std::reverse_copy(v.begin(), v.end(), r.begin());
     ```
 <!-- .element: class="fragment fade-in" -->
 
