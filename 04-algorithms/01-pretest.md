@@ -43,6 +43,6 @@ ___
 
 1. Wykonuje algorytm quick sort na zakresie od `first` do `last` używając `middle` jako pivot
 2. Sortuje tylko elementy, które są większe od `middle`
-3. Ustawia `middle` na właściwej pozycji, a wszystko mniejsze niego jest przed nim, większe - za nim
+3. Ustawia `middle` na właściwej pozycji, a wszystko mniejsze od niego jest przed nim, większe - za nim
 4. Sortuje tylko zakres `[middle, last)`
 5. Sortuje tylko zakres `[first, middle)`
