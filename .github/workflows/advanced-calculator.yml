@@ -1,52 +1,22 @@
-name: Module 1 homework
+name: advanced-calculator
 
-on: [push, pull_request]
+on: [push, pull_request, workflow_dispatch]
 
 jobs:
-  removeVowels:
+  advanced-calculator:
     runs-on: ubuntu-latest
+    env:
+      path: homework/advanced-calculator/build
     steps:
     - name: Check out code
       uses: actions/checkout@master
-    - name: mkdir module1/homework/removeVowels/build
-      run: mkdir module1/homework/removeVowels/build
+    - name: Create build directory
+      run: mkdir ${{ env.path }}
     - name: Compile
-      working-directory: module1/homework/removeVowels/build
+      working-directory: ${{ env.path }}
       run: |
         cmake ..
         make
     - name: Run tests
-      working-directory: module1/homework/removeVowels/build
-      run: ctest -V
-
-  lengthSort:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Check out code
-      uses: actions/checkout@master
-    - name: mkdir module1/homework/lengthSort/build
-      run: mkdir module1/homework/lengthSort/build
-    - name: Compile
-      working-directory: module1/homework/lengthSort/build
-      run: |
-        cmake ..
-        make
-    - name: Run tests
-      working-directory: module1/homework/lengthSort/build
-      run: ctest -V
-
-  grayscaleImages:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Check out code
-      uses: actions/checkout@master
-    - name: mkdir module1/homework/grayscaleImages/build
-      run: mkdir module1/homework/grayscaleImages/build
-    - name: Compile
-      working-directory: module1/homework/grayscaleImages/build
-      run: |
-        cmake ..
-        make
-    - name: Run tests
-      working-directory: module1/homework/grayscaleImages/build
+      working-directory: ${{ env.path }}
       run: ctest -V
