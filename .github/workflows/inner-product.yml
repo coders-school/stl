@@ -1,20 +1,22 @@
-name: Module 4 homework
+name: inner-product
 
-on: [push, pull_request]
+on: [push, pull_request, workflow_dispatch]
 
 jobs:
-  appendNewRecipe:
+  inner-product:
     runs-on: ubuntu-latest
+    env:
+      path: homework/inner-product/build
     steps:
     - name: Check out code
       uses: actions/checkout@master
-    - name: mkdir module4/homework/appendNewRecipe/build
-      run: mkdir module4/homework/appendNewRecipe/build
+    - name: Create build directory
+      run: mkdir ${{ env.path }}
     - name: Compile
-      working-directory: module4/homework/appendNewRecipe/build
+      working-directory: ${{ env.path }}
       run: |
         cmake ..
         make
     - name: Run tests
-      working-directory: module4/homework/appendNewRecipe/build
+      working-directory: ${{ env.path }}
       run: ctest -V
