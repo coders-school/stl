@@ -10,7 +10,7 @@
 
 ___
 
-From C++17 you can use parallel or unsequential versions of STL algorithms. You need to provide an additional `std::execution_policy` as the first argument.
+Od C++ możemy używać współbieżnych wersji algorytmów STL. Musisz im dostarczyć dodatkowy tag `std::execution_policy` jako pierwszy argument.
 
 ```cpp
 std::vector<int> v(1'000'000);
@@ -24,9 +24,9 @@ ___
 
 ## `std::execution`
 
-* `seq` = sequential
-* `par` = parallel
-* `par_unseq` = parallel unsequential
-* `unseq` = unsequential
+* `seq` = wykonanie sekwencyjne (standardowo)
+* `par` = wykonanie współbieżne
+* `unseq` = wykonanie niesekwencyjne
+* `par_unseq` = wykonanie współbieżne niesekwencyjne
 
-They are used to specify the execution policy of parallel algorithms - i.e., the kinds of parallelism allowed. Usually linking against `-litbb` (Intel Threading Building Blocks) is required.
+Za pomocą powyższych tagów możesz wyspecyfikować rodzaj współbieżnego wykonania algorytmów. Zazwyczaj musisz jeszcze zlinkować program z biblioteką `-litbb` (Intel Threading Building Blocks).
