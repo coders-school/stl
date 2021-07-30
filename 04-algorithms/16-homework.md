@@ -43,7 +43,7 @@ ___
 
 Ulepsz program `grayscale-images` z poprzedniej pracy domowe (kompresja, dekompresja) obrazków, tak, aby zamiast pętli wykorzystać algorytmy. Działaj na swojej/waszej wersji implementacji tego zadania.
 
-Gotowe zadanie zgłoś na branch `coders/grayscale-image-algo`. Jeśli nie chcesz nadpisać PR z tamtą pracą domową to po prostu utwórz nowego brancha od tego stanu. Jeśli to skomplikowane - po prostu skopiuj swój program `grayscale-images` ;)
+Gotowe zadanie zgłoś na gałąź `coders-school:grayscale-image-algo`. Jeśli nie chcesz nadpisać PR z tamtą pracą domową to po prostu utwórz nowego brancha od tego stanu. Jeśli to skomplikowane - po prostu skopiuj swój program `grayscale-images` ;)
 
 ___
 
@@ -52,6 +52,8 @@ ___
 Napisz program, który będzie sprawdzał, czy podany ciąg wyrazów jest palindromem. Program powinien ignorować znaki specjalne np. `,.?()[]` (i nie tylko). Powinien również ignorować wielkość liter oraz białe znaki jak spacja czy znak nowej linii.
 
 Wywnioskuj po testach jak nazwać funkcję. Stwórz własne pliki źródłowe i nagłówkowe i dodaj je do CMakeLists.txt, aby się budowały. Szczegóły w [README.md do tego zadania](https://github.com/coders-school/stl/tree/insensitive-palindrom/homework/insensitive-palindrom).
+
+Gotowe zadanie zgłoś na gałąź `coders-school:insensitive-palindrom`.
 
 ___
 
@@ -64,3 +66,5 @@ Napisz funkcję `transformContainers`, która:
 3. Na koniec skonwertuje to na `std::map<int, std::string>` i ją zwróci. Użyj `std::transform`.
 
 Wywnioskuj po testach jak nazwać funkcję. Stwórz własne pliki źródłowe i nagłówkowe i dodaj je do CMakeLists.txt, aby się budowały. Szczegóły w [README.md do tego zadania](https://github.com/coders-school/stl/tree/transform-containers/homework/transform-containers).
+
+Gotowe zadanie zgłoś na gałąź `coders-school:transform-containers`.
