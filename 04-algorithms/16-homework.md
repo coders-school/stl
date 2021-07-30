@@ -51,7 +51,7 @@ ___
 
 Napisz program, który będzie sprawdzał, czy podany ciąg wyrazów jest palindromem. Program powinien ignorować znaki specjalne np. `,.?()[]` (i nie tylko). Powinien również ignorować wielkość liter oraz białe znaki jak spacja czy znak nowej linii.
 
-Wywnioskuj po testach jak nazwać funkcję. Stwórz własne pliki źródłowe i nagłówkowe i dodaj je do CMakeLists.txt, aby się budowały. Szczegóły w README.md do tego zadania.
+Wywnioskuj po testach jak nazwać funkcję. Stwórz własne pliki źródłowe i nagłówkowe i dodaj je do CMakeLists.txt, aby się budowały. Szczegóły w [README.md do tego zadania](https://github.com/coders-school/stl/tree/insensitive-palindrom/homework/insensitive-palindrom).
 
 ___
 
@@ -63,4 +63,4 @@ Napisz funkcję `transformContainers`, która:
 2. Usunie duplikaty z obu kontenerów
 3. Na koniec skonwertuje to na `std::map<int, std::string>` i ją zwróci. Użyj `std::transform`.
 
-Wywnioskuj po testach jak nazwać funkcję. Stwórz własne pliki źródłowe i nagłówkowe i dodaj je do CMakeLists.txt, aby się budowały. Szczegóły w README.md do tego zadania.
+Wywnioskuj po testach jak nazwać funkcję. Stwórz własne pliki źródłowe i nagłówkowe i dodaj je do CMakeLists.txt, aby się budowały. Szczegóły w [README.md do tego zadania](https://github.com/coders-school/stl/tree/transform-containers/homework/transform-containers).
