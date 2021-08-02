@@ -24,7 +24,7 @@ Działaj dużo z dokumentacją cppreference i najlepiej z kimś w parze lub nawe
 
 #### Bonusy
 
-* **18.07.2021 (środa)** to ostatni dzień na zebranie bonusowych punktów za punktualność
+* **18.08.2021 (środa)** to ostatni dzień na zebranie bonusowych punktów za punktualność
 * **3 XP** wpadną Ci za każde zadanie dostarczone w terminie (razem aż 9 punktów)
 * **1 XP** za pracę w grupie dla każdej osoby z grupy za każde zadanie (razem 3 punkty dla każdej osoby). Zalecamy grupy 3 osobowe.
 
