@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 2.8.2)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_COMPILER_IS_GNUCXX 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Download and unpack googletest at configure time

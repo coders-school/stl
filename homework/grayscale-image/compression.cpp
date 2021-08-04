@@ -1,31 +1,40 @@
 #include "compression.hpp"
 
+#include <algorithm>
 #include <iostream>
+#include <iterator>
 
 CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
     CompressedBitmap compressed;
-    compressed.reserve(width * height);
-    for (const auto& line : bitmap) {
-        uint8_t count{1};
-        uint8_t pixel{line.front()};
-        for (auto it = line.begin(); it != line.end(); ++it) {
-            auto next_pixel_it{std::next(it)};
-            if (pixel != *next_pixel_it || next_pixel_it == line.end()) {
-                compressed.push_back({pixel, count});
-                pixel = *next_pixel_it;
-                count = 1;
-            } else {
-                ++count;
-            }
+    auto compare = [&compressed](auto pixel, uint8_t counter = 1, uint8_t nextPixel = ' ') {
+        if (pixel != nextPixel) {
+            std::fill_n(std::back_inserter(compressed), 1, std::make_pair(pixel, counter));
+        } else {
+            counter++;
         }
-    }
-    compressed.shrink_to_fit();
+        nextPixel = pixel;
+    };
 
+    std::for_each(begin(bitmap),
+                  end(bitmap),
+                  [&](auto line) { std::for_each(begin(line),
+                                                 end(line), compare); });
+    // for (auto i : compressed) {
+    //     std::cout << i.first << " - " << i.second << "  .....  ";
+    // }
     return compressed;
 }
 
 Bitmap decompressGrayscale(const CompressedBitmap& compressed) {
     Bitmap bitmap;
+    std::transform(begin(compressed), end(compressed), bitmap.begin()->begin());
+
+
+        // std::for_each(begin(bitmap),
+        //           end(bitmap),
+        //           [&](auto line) {  });
+
+
     size_t line{};
     auto pixel_it{bitmap[line].begin()};
     for (const auto& pair : compressed) {
