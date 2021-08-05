@@ -3,7 +3,7 @@ name: STL containers homework
 on: [push, pull_request]
 
 jobs:
-  grayscale-image:
+  grayscale-image-algo:
     runs-on: ubuntu-latest
     env:
       path: homework/grayscale-image/build
@@ -19,4 +19,6 @@ jobs:
         make
     - name: Run tests
       working-directory: ${{ env.path }}
-      run: ctest -V
+      run: |
+        ../../../.github/workflows/check.sh ../compression.cpp
+        ctest -V
