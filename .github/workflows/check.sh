@@ -37,7 +37,7 @@ function positive_lookup()
 {
     echo -e "---"
     echo -e 🔍 $BOLD "CHECKING: $1" $DEFAULT
-    pcregrep -M "$2" "$FILE"
+    egrep "$2" "$FILE"
     check $? $1
 }
 
@@ -45,7 +45,7 @@ function negative_lookup()
 {
     echo -e "---"
     echo -e 🔍 $BOLD "CHECKING: $1" $DEFAULT
-    pcregrep -M "$2" "$FILE"
+    egrep "$2" "$FILE"
     negative_check $? $1
 }
 
