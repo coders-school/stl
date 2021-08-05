@@ -3,10 +3,17 @@ name: STL containers homework
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
+<<<<<<< HEAD
   length-sort:
     runs-on: ubuntu-latest
     env:
       path: homework/length-sort/build
+=======
+  grayscale-image:
+    runs-on: ubuntu-latest
+    env:
+      path: homework/grayscale-image/build
+>>>>>>> c6d93a1ac632305a9dec0b2f2c83c70e9d972f05
     steps:
     - name: Check out code
       uses: actions/checkout@master
