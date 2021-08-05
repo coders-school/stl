@@ -1,6 +1,6 @@
 #include "compression.hpp"
+#include <algorithm>
 #include <array>
-#include <cstdint>
 #include <iostream>
 #include <utility>
 #include <vector>
@@ -8,28 +8,19 @@
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, width>, height>& arr) {
     std::vector<std::pair<uint8_t, uint8_t>> vec;
     vec.reserve(width * height);
-    uint8_t counter;
-    uint8_t lastValue;
-
-    for (const auto& row : arr) {
-        lastValue = row.at(0);
-        counter = 0;
-        for (auto pixel = row.cbegin(); pixel != row.cend(); ++pixel) {
-            if (lastValue != *pixel) {
-                vec.emplace_back(lastValue, counter);
-                counter = 1;
-                lastValue = *pixel;
-            } else if (counter == UINT8_MAX) {
-                vec.emplace_back(lastValue, counter);
-                counter = 1;
-            } else {
-                ++counter;
-            }
-            if (pixel + 1 == row.cend()) {
-                vec.emplace_back(lastValue, counter);
+    std::for_each(arr.cbegin(), arr.cend(), [&vec](const auto& row) {
+        auto it = vec.end();
+        std::transform(row.cbegin(), row.cend(), std::back_inserter(vec), [](const auto& pixel) {
+            return std::make_pair(pixel, 1);
+        });
+        while (it != vec.end()){
+        it = std::adjacent_find(it, vec.end(), [](const auto& a, const auto& b) { return a.first == b.first; });
+            if (it != vec.end()) {
+                ++(it->second);
+                vec.erase(it + 1);
             }
         }
-    }
+    });
     vec.shrink_to_fit();
     return vec;
 }
@@ -43,10 +34,10 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::ve
         for (uint8_t i = 0; i < chunk.second; ++i) {
             arr.at(row).at(index) = chunk.first;
             ++index;
-        }
-        if (index == width) {
-            ++row;
-            index = 0;
+            if (index == width) {
+                ++row;
+                index = 0;
+            }
         }
     }
     return arr;
