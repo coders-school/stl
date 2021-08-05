@@ -6,32 +6,34 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array
     std::vector<std::pair<uint8_t, uint8_t>> tmpCompVec;
     tmpCompVec.reserve(width * height);
 
-    uint8_t lastPixel;
+    
+    uint8_t lastPixel =0;
     int repCounter = 0;
-
-    for (auto &pixelLine : bitMap)
+std::for_each(bitMap.begin(),bitMap.end(), [&lastPixel,&repCounter,&tmpCompVec](auto& pixelLine)
     {
         repCounter = 0;
         lastPixel = pixelLine.front();
+        size_t Counter=0;
 
-        for (auto it = pixelLine.begin(); it != pixelLine.end(); ++it)
+        std::for_each(pixelLine.begin(),pixelLine.end(),[&pixelLine,&repCounter,&lastPixel,&tmpCompVec,&Counter](auto& it)
         {
-            if ((*it != lastPixel) || (it == std::prev(pixelLine.end())))
+            if ((it != lastPixel) || (Counter == pixelLine.size()-1))
             {
-                if (it == std::prev(pixelLine.end()))
+                if (Counter == pixelLine.size()-1)
                 {
                     repCounter++;
                 };
                 tmpCompVec.emplace_back(std::make_pair(lastPixel, (repCounter)));
-                lastPixel = *it;
+                lastPixel = it;
                 repCounter = 1;
             }
             else
             {
                 repCounter++;
             };
-        };
-    };
+             Counter++;
+        });
+    });
     tmpCompVec.shrink_to_fit();
     return tmpCompVec;
 };
@@ -42,7 +44,9 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array
   size_t rowCounter = 0;
   size_t columnCounter = 0;
 
-  for (const auto& pair : vectorData) {
+
+std::for_each(vectorData.begin(),vectorData.end(),[&rowCounter,&columnCounter,&bitmap](auto pair)
+{
         if (rowCounter < height) {
           for (size_t pairValue = 0; pairValue < pair.second; ++pairValue) {
             bitmap[rowCounter][columnCounter] = pair.first;
@@ -55,7 +59,7 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array
           }
         }
  }
-
+ );
     return bitmap;
 }
  
