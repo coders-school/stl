@@ -27,7 +27,7 @@ Bitmap decompressGrayscale(CompressedBitmap& compressed) {
     auto it = begin(bitmap)->begin();
     std::for_each(begin(compressed),
                           end(compressed),
-                          [&it](auto ele) { std::ranges::fill_n(it, 
+                          [&it](auto ele) { std::fill_n(it, 
                                                ele.second, ele.first); 
                                                it = std::next(it, ele.second); });
     return bitmap;
