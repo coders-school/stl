@@ -253,3 +253,55 @@ map.insert({5, "Ale"});
 <!-- .element: class="fragment fade-in" -->
 
 * <!-- .element: class="fragment fade-in" --> Napisz funkcję, która wyświetli słowa w mapie o liczbie znaków równej 3.
+
+___
+<!-- .slide: style="font-size: 0.85em" -->
+
+## Zadanie
+
+```cpp
+struct Point {
+  int x;
+  int y;
+}
+```
+
+Struktura `Point` ma reprezentować punkt o współrzędnych x i y na mapie.
+Mamy też dane 4 miast:
+
+* Wrocław (x = 17, y = 51)
+* Moskwa (x = 37, y = 55)
+* Nowy Jork (x = -74, y = 40)
+* Sydney (x = 151, y = -33)
+
+### Część A - łatwiejsza
+
+* Stwórz `std::map<std::string, Point>`, która będzie przechowywać powyższe miejsca
+* Sprawdź czy w mapie jest element, który znajduje się w promieniu 70 od środka układu współrzędnych (0, 0)
+* Pobierz i wypisz współrzędne Sydney
+
+___
+<!-- .slide: style="font-size: 0.85em" -->
+
+## Zadanie
+
+```cpp
+struct Point {
+  int x;
+  int y;
+}
+```
+
+Struktura `Point` ma reprezentować punkt o współrzędnych x i y na mapie.
+Mamy też dane 4 miast:
+
+* Wrocław (x = 17, y = 51)
+* Moskwa (x = 37, y = 55)
+* Nowy Jork (x = -74, y = 40)
+* Sydney (x = 151, y = -33)
+
+### Część B - trudniejsza
+
+* Skopiuj te dane do mapy `std::map<Point, std::string>`
+* Sprawdź czy w odwróconej mapie jest element, który znajduje się w promieniu 70 od środka układu współrzędnych (0, 0)
+* Pobierz i wypisz współrzędne Sydney
