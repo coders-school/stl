@@ -34,14 +34,11 @@ Bitmap decompressGrayscale(CompressedBitmap& compressed) {
 }
 
 void printMap(const Bitmap& bitmap) {
-    //std::for_each()
-    for (const auto& line : bitmap) {
-        for (const auto ch : line) {
-            std::cout << static_cast<char>(ch < printable_ascii_min ||
-                                                   ch > printable_ascii_max
-                                               ? ' '
-                                               : ch);
-        }
-        std::cout << std::endl;
-    }
+    std::for_each(begin(bitmap)->begin(), end(bitmap)->end(), [](auto ch){ std::cout << static_cast<char>(ch < printable_ascii_min || ch > printable_ascii_max ? ' ' : ch); } );
+    // for (const auto& line : bitmap) {
+    //     for (const auto ch : line) {
+    //         std::cout << static_cast<char>(ch < printable_ascii_min || ch > printable_ascii_max ? ' ' : ch);
+    //     }
+    //     std::cout << std::endl;
+    // }
 }
