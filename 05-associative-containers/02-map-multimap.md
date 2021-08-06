@@ -73,7 +73,6 @@ Alternatywą dla `std::multimap<K, V>` jest`std::vector<pair<K, std::vector<V>>>
 <!-- .element: class="fragment fade-in" -->
 
 ___
-<!-- .slide: style="font-size: 0.6em" -->
 
 ## Metody `std::map<K, T>` i `std::multimap<K, T>`
 
@@ -81,14 +80,12 @@ ___
 
 [`std::multimap<K, T>` na cppreference.org](https://en.cppreference.com/w/cpp/container/multimap)
 
-| Operacja                                                | Metody                                                                                                                                                                                                                              |
-| :------------------------------------------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| dodawanie elementów                                     | <!-- .element: class="fragment fade-in" -->  <code>insert()</code>, <code>emplace()</code>, <code class="fragment highlight-green">emplace_hint()</code>                                                                            |
-| dodawanie elementów (tylko <code>map</code>)            | <!-- .element: class="fragment fade-in" --> <code class="fragment highlight-green">insert_or_assign()</code>, <code class="fragment highlight-green">try_emplace()</code>, <code class="fragment highlight-green">operator[]</code> |
-| modyfikacja/dostęp do elementu (tylko <code>map</code>) | <!-- .element: class="fragment fade-in" -->  <code class="fragment highlight-green">at()</code>, <code class="fragment highlight-green">operator[]</code>                                                                           |
-| rozmiar/pusty                                           | <!-- .element: class="fragment fade-in" -->  <code>size()</code>, <code>empty()</code>                                                                                                                                              |
-| wyczyszczenie nieużywanej pamięci                       | <!-- .element: class="fragment fade-in" -->  <span class="fragment highlight-red"><span class="fragment highlight-red">brak</span></span>                                                                                           |
-| pierwszy/ostatni element                                | <!-- .element: class="fragment fade-in" -->  <span class="fragment highlight-red">brak</span>                                                                                                                                       |
+* <!-- .element: class="fragment fade-in" --> dodawanie elementów: <code>insert()</code>, <code>emplace()</code>, <code class="fragment highlight-green">emplace_hint()</code>
+* <!-- .element: class="fragment fade-in" --> dodawanie elementów (tylko <code>map</code>): <code class="fragment highlight-green">insert_or_assign()</code>, <code class="fragment highlight-green">try_emplace()</code>, <code class="fragment highlight-green">operator[]</code>
+* <!-- .element: class="fragment fade-in" --> modyfikacja/dostęp do elementu (tylko <code>map</code>): <code class="fragment highlight-green">at()</code>, <code class="fragment highlight-green">operator[]</code>
+* <!-- .element: class="fragment fade-in" --> rozmiar/pusty: <code>size()</code>, <code>empty()</code>
+* <!-- .element: class="fragment fade-in" --> wyczyszczenie nieużywanej pamięci: <span class="fragment highlight-red"><span class="fragment highlight-red">brak</span></span>
+* <!-- .element: class="fragment fade-in" --> pierwszy/ostatni element: <span class="fragment highlight-red">brak</span>
 
 ___
 
