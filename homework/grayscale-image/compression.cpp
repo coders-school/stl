@@ -6,50 +6,35 @@
 
 CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
     CompressedBitmap compressed;
-    auto compare = [&compressed](auto pixel, uint8_t counter = 1, uint8_t nextPixel = ' ') {
+    uint8_t nextPixel = ' ';
+    auto compare = [&](uint8_t pixel) {
         if (pixel != nextPixel) {
-            std::fill_n(std::back_inserter(compressed), 1, std::make_pair(pixel, counter));
+            std::fill_n(std::back_inserter(compressed), 1, std::make_pair(pixel, 1));
         } else {
-            counter++;
+            compressed[compressed.size() - 1].second += 1;
         }
         nextPixel = pixel;
     };
-
     std::for_each(begin(bitmap),
                   end(bitmap),
-                  [&](auto line) { std::for_each(begin(line),
+                  [&](auto line) { nextPixel = ' '; std::for_each(begin(line),
                                                  end(line), compare); });
-    // for (auto i : compressed) {
-    //     std::cout << i.first << " - " << i.second << "  .....  ";
-    // }
     return compressed;
 }
 
-Bitmap decompressGrayscale(const CompressedBitmap& compressed) {
+Bitmap decompressGrayscale(CompressedBitmap& compressed) {
     Bitmap bitmap;
-    std::transform(begin(compressed), end(compressed), bitmap.begin()->begin());
-
-
-        // std::for_each(begin(bitmap),
-        //           end(bitmap),
-        //           [&](auto line) {  });
-
-
-    size_t line{};
-    auto pixel_it{bitmap[line].begin()};
-    for (const auto& pair : compressed) {
-        if (pixel_it >= bitmap[line].end()) {
-            pixel_it = bitmap[++line].begin();
-        }
-        for (auto i = 0; i < pair.second; ++i) {
-            *pixel_it++ = pair.first;
-        }
-    }
-
+    auto it = begin(bitmap)->begin();
+    std::for_each(begin(compressed), 
+                  end(compressed), 
+                  [&it](auto ele){ std::fill_n(it, 
+                                               ele.second, ele.first); 
+                                               it = std::next(it, ele.second); });
     return bitmap;
 }
 
 void printMap(const Bitmap& bitmap) {
+    //std::for_each()
     for (const auto& line : bitmap) {
         for (const auto ch : line) {
             std::cout << static_cast<char>(ch < printable_ascii_min ||
