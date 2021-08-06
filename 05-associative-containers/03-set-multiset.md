@@ -21,6 +21,11 @@ Jeśli zależy nam na braku duplikatów możemy też wtedy użyć algorytmu `std
 <!-- .element: class="fragment fade-in" -->
 
 ___
+<!-- .slide: data-background="../img/associative_containers.png" data-background-size="contain" -->
+
+<div data-id="box2" style="height: 600px; background: #363232; opacity: 0.9; margin-top: 230px"></div>
+
+___
 
 ## Metody `std::set<K>` i `std::multiset<K>` #1
 
