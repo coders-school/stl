@@ -9,13 +9,14 @@ CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
     uint8_t nextPixel = ' ';
     auto compare = [&](uint8_t pixel) {
         if (pixel != nextPixel) {
-            std::ranges::fill_n(std::back_inserter(compressed), 1, std::make_pair(pixel, 1));
+            std::fill_n(std::back_inserter(compressed), 1, std::make_pair(pixel, 1));
         } else {
             compressed[compressed.size() - 1].second += 1;
         }
         nextPixel = pixel;
     };
-    std::ranges::for_each(bitmap,
+    std::for_each(begin(bitmap),
+                          end(bitmap),
                           [&](auto line) { nextPixel = ' '; std::for_each(begin(line),
                                                  end(line), compare); });
     return compressed;
@@ -24,7 +25,8 @@ CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
 Bitmap decompressGrayscale(CompressedBitmap& compressed) {
     Bitmap bitmap;
     auto it = begin(bitmap)->begin();
-    std::ranges::for_each(compressed,
+    std::for_each(begin(compressed),
+                          end(compressed),
                           [&it](auto ele) { std::ranges::fill_n(it, 
                                                ele.second, ele.first); 
                                                it = std::next(it, ele.second); });
