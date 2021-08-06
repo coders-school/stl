@@ -17,6 +17,6 @@ std::map<int, std::string> removeDuplicateAndTranformToMap(std::list<std::string
     }
     std::map<int, std::string> result;
     std::transform(deq.cbegin(), deq.cend(), lst.cbegin(), std::inserter(result, result.end()),
-                   [](auto number, auto str) { return std::make_pair(number, str); });
+                   [](auto number, const auto& str) { return std::make_pair(number, str); });
     return result;
 }
