@@ -42,3 +42,5 @@ void printMap(const Bitmap& bitmap) {
                                                 if(index >= 32) {  index = 0; std::cout << '\n';
                                             } });
 }
+
+//while for continue Continuous integration
