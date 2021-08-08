@@ -3,11 +3,19 @@
 #include <algorithm>
 #include <iostream>
 
-std::map<int, std::string> removeDuplicateAndTranformToMap(std::list<std::string> lis, std::deque<int> deq) {
+void removeDuplicate(std::list<std::string>& lis) {
     lis.sort();
     lis.erase(std::unique(lis.begin(), lis.end()), lis.end());
+}
+
+void removeDuplicate(std::deque<int>& deq) {
     std::sort(deq.begin(), deq.end());
     deq.erase(std::unique(deq.begin(), deq.end()), deq.end());
+}
+
+std::map<int, std::string> removeDuplicateAndTranformToMap(std::list<std::string>& lis, std::deque<int>& deq) {
+    removeDuplicate(lis);
+    removeDuplicate(deq);
     std::map<int, std::string> map;
     if (lis.size() != deq.size()) {
         std::cerr << "Containers must be of the same size";
