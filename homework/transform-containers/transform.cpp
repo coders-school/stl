@@ -16,6 +16,10 @@
 #include <iostream>
 
 std::map<int, std::string> removeDuplicateAndTranformToMap(std::list<std::string> lis, std::deque<int> deq) {
+    lis.sort();
+    lis.erase(std::unique(lis.begin(), lis.end()), lis.end());
+    std::sort(deq.begin(), deq.end());
+    deq.erase(std::unique(deq.begin(), deq.end()), deq.end());
     std::map<int, std::string> map;
     return map;
 }
