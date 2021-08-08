@@ -1,4 +1,7 @@
 #include "palindrome.hpp"
+#include <ctype.h>
+#include <algorithm>
+#include <iostream>
 
 bool is_palindrome(std::string sentence) {
     for (size_t i = 0; i < sentence.size(); i++) {
