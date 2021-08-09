@@ -345,7 +345,7 @@ ___
 
 ## Hash Table
 
-<image src="img/chainedHashing.png">
+<img src="img/chainedHashing.png">
 
 ___
 <!-- .slide: style="font-size: 0.8em" -->
