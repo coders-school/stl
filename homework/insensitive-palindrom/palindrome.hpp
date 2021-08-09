@@ -1,6 +1,3 @@
-#include<iostream>
-#include<string>
-#include<algorithm>
-#include <ctype.h>
+#include <string>
 
-bool is_palindrome(std::string sentence);
+bool is_palindrome(std::string);
