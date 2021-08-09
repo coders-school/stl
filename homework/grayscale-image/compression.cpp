@@ -3,27 +3,24 @@
 compressedGrayscaleImage compressGrayscale(const grayscaleImage& bitmap) {
     compressedGrayscaleImage compressed;
     compressed.reserve(width * height);
-    for (const auto& line : bitmap) {
-        uint8_t counter = 1;
-        for (auto it = line.begin(); it != line.end(); it++) {
-            if (it == line.end() - 1 || *it != *std::next(it)) {
-                compressed.emplace_back(std::make_pair(*it, counter));
-                counter = 1;               
-            } else {
-                counter++;               
+    for (const auto& row : bitmap) {
+        for (auto it = row.begin(); it != row.end(); ) {
+            auto fountIt = std::adjacent_find(it, row.end(), std::not_equal_to<int>{});
+            if (fountIt != row.end()) {
+                fountIt++;
             }
+            compressed.emplace_back(*it, std::distance(it, fountIt));
+            it = fountIt;
         }
     }
     return compressed;
 }
 
 grayscaleImage decompressGrayscale(const compressedGrayscaleImage& compressed) {
-    grayscaleImage decompressed;
-    size_t i = 0;
-    for (auto it : compressed) {
-        for (size_t j = 0; j < it.second; ++j, ++i) {
-            decompressed[0][i] = it.first;
-        }
-    }
+    grayscaleImage decompressed{};
+    auto it = decompressed[0].begin();
+    std::for_each(compressed.begin(), compressed.end(), [it](const auto& pair) mutable {
+        it = std::fill_n(it, pair.second, pair.first);
+    });
     return decompressed;
 }
