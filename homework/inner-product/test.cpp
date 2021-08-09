@@ -13,6 +13,12 @@ TEST(arithmeticAverageTest, ShouldCalculateArithmeticAverage) {
 TEST(arithmeticAverageTest, ShouldCalculateDistance) {
     std::vector<int> first{7, 4, 3};
     std::vector<int> second{17, 6, 2};
-    EXPECT_DOUBLE_EQ(Distance(first, second), 10.247);
+    double expected = 10.247;
+    EXPECT_DOUBLE_EQ(Distance(first, second), expected);
+    
+    first = {7, 4, 3, 13};
+    second = {17, 6, 2, -2};
+    expected = 18.16590212458495;
+    EXPECT_DOUBLE_EQ(Distance(first, second), expected);
     // Write more test case
 }
