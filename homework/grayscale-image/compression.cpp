@@ -36,21 +36,31 @@ CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
     return compressed;
 }
 
-Bitmap decompressGrayscale(CompressedBitmap& compressed) {
-    std::cout << " Call DECOMPRESSED \n";
+// Bitmap decompressGrayscale(CompressedBitmap& compressed) {
+//     Bitmap bitmap{};
+//     auto it = begin(bitmap)->begin();
+//     std::for_each(begin(compressed),
+//                           end(compressed), 
+//                           [&it](auto ele) { std::fill_n(it, 
+//                                                ele.second, ele.first); 
+//                                                it = std::next(it, ele.second); });
+//     return bitmap;
+// }
+
+Bitmap decompressGrayscale(const CompressedBitmap& compressed) {
+    uint8_t pixelsAmount = 0;
     Bitmap bitmap{};
-
-    // for ( auto ele : compressed) {
-    //     std::cout << "(" << static_cast<int>(ele.first) << ", " << static_cast<int>(ele.second) << ")   ";
-    // }
-    auto it = begin(bitmap)->begin();
-    std::for_each(begin(compressed),
-                          end(compressed), 
-
-                          [&it](auto ele) { std::fill_n(it, 
-                                               ele.second, ele.first); 
-                                               it = std::next(it, ele.second); });
-    //std::cout << bitmap.size() << "----------------------------------------------------------------\n";
+    auto it = begin(compressed);
+    std::transform(begin(bitmap)->begin(), 
+                   (end(bitmap) - 1)->end(), 
+                   begin(bitmap)->begin(), 
+                   [&](auto pixel){ 
+                       if (it->second - pixelsAmount == 0) {
+                           pixelsAmount = 0;
+                           it++;
+                       }
+                       pixelsAmount++;
+                       return it->first; });
     return bitmap;
 }
 

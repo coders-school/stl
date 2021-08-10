@@ -36,7 +36,7 @@ std::array<std::array<uint8_t, 32>, 32> generateNinja() {
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 37, 45, 51, 51, 51, 51, 51, 54, 58, 66, 51, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 37, 45, 51, 51, 47, 43, 43, 51, 58, 66, 51, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 37, 44, 47, 47, 40, 29, 29, 41, 51, 56, 47, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 41, 41, 41, 28, 0, 0, 29, 41, 41, 41, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 41, 41, 41, 28, 0, 0, 29, 41, 41, 41, 36, 0, 0, 0, 0, 0, 0, 0, 111, 112, 113},
     };
 }
 
@@ -44,9 +44,16 @@ int main() {
     auto ninja = generateNinja();
     printMap(ninja);
     auto compressed = compressGrayscale(ninja);
-    std::cout << compressed.size() << " =======================================================\n";
     auto decompressed = decompressGrayscale(compressed);
     printMap(decompressed);
+    // for (int i = 0; i < 32; i++) {
+    //     for (int j = 0; j < 32; j++) {
+    //         std::cout << "(" << static_cast<int>(ninja[i][j]) << "), ";
+    //         std::cout << "(" << static_cast<int>(decompressed[i][j]) << "), ";
+    //     }
+    //     std::cout << "\n";
+    // }
+
 
     return 0;
 }
