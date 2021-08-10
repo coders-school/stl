@@ -18,12 +18,12 @@ void expectBitmap(const std::vector<std::pair<uint8_t, uint8_t>>& bitmap, size_t
 std::vector<std::pair<uint8_t, uint8_t>> getBitmap(size_t fraction) {
     std::vector<std::pair<uint8_t, uint8_t>> bitmap;
     bitmap.reserve(height * fraction);
+
     for (size_t i = 0; i < height; ++i) {
         for (size_t j = 0; j < fraction; ++j) {
             bitmap.push_back({j, width / fraction});
         }
     }
-
     return bitmap;
 }
 

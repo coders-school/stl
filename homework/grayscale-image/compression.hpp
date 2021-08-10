@@ -15,4 +15,3 @@ using Bitmap = std::array<std::array<uint8_t, width>, height>;
 CompressedBitmap compressGrayscale(const Bitmap& bitmap);
 Bitmap decompressGrayscale(CompressedBitmap& compressed);
 void printMap(const Bitmap& bitmap);
-int f();

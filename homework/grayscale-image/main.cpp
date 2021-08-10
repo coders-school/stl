@@ -1,5 +1,5 @@
 #include <array>
-#include <forward_list>
+#include <iostream>
 
 #include "compression.hpp"
 
@@ -44,6 +44,7 @@ int main() {
     auto ninja = generateNinja();
     printMap(ninja);
     auto compressed = compressGrayscale(ninja);
+    std::cout << compressed.size() << " =======================================================\n";
     auto decompressed = decompressGrayscale(compressed);
     printMap(decompressed);
 
