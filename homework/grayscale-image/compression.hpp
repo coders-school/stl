@@ -3,7 +3,7 @@
 #include <array>
 #include <vector>
 #include <stdint.h>
-#include <algorithm>
+
 
 constexpr size_t width = 32;
 constexpr size_t height = 32;
