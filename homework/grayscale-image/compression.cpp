@@ -18,9 +18,9 @@ compressedGrayscaleImage compressGrayscale(const grayscaleImage& bitmap) {
 
 grayscaleImage decompressGrayscale(const compressedGrayscaleImage& compressed) {
     grayscaleImage decompressed{};
-    auto begin = decompressed.front().begin();
-    auto end = decompressed.back().end();
-    std::generate (begin, end, [i = 0, j = 0, compressed] () mutable{
+    auto it = decompressed.front().begin();
+    auto itEnd = decompressed.back().end();
+    std::generate (it, itEnd, [i = 0, j = 0, compressed] () mutable{
             if ( j < compressed[i].second ){
                 ++j;
             } else {
