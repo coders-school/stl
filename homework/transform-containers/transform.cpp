@@ -1,19 +1,19 @@
 #include "transform.hpp"
 
-std::map <int, std::string> removeDuplicateAndTranformToMap (
-               std::list <std::string>& list, 
-               std::deque <int>& deque) {
-    std::map <int, std::string> m;  
+std::map<int, std::string> removeDuplicateAndTranformToMap(std::list<std::string>& list, std::deque<int>& deq) {
     list.sort();
-    list.erase (std::unique (list.begin(), list.end()), list.end());
+    list.erase(std::unique(list.begin(), list.end()), list.end());
 
-    std::sort (deque.begin(), deque.end());
-    deque.erase (std::unique (deque.begin(), deque.end()), deque.end());
-    if (list.size() != deque.size()) {
+    std::sort(deq.begin(), deq.end());
+    deq.erase(std::unique(deq.begin(), deq.end()), deq.end());
+
+    if (list.size() != deq.size()) {
         return {};
     }
-    std::transform (deque.begin(), deque.end(), list.begin(), std::inserter (m, m.end()), 
-        [](auto value, const auto& str){
-        return make_pair (value, str); 
-    });
+    std::map<int, std::string> map;
+    std::transform(deq.begin(), deq.end(), list.begin(), std::inserter(map, map.end()),
+                   [](auto value, const auto& str) {
+                       return make_pair(value, str);
+                   });
+    return map;
 }
