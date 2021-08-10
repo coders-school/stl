@@ -1,4 +1,5 @@
 #include "transform.hpp"
+#include <iterator>
 
 std::map<int, std::string> removeDuplicateAndTranformToMap(std::list<std::string>& list, std::deque<int>& deq) {
     list.sort();
