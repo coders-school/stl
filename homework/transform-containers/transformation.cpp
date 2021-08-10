@@ -1,7 +1,7 @@
 #include "transformation.hpp"
 
 
-std::map<int, std::string> removeDuplicateAndTranformToMap(std::list<std::string> listCont,std::deque<int> deqCont)
+std::map<int, std::string> removeDuplicateAndTransformToMap(std::list<std::string> listCont,std::deque<int> deqCont)
 {
 listCont.sort();
 listCont.erase(std::unique(listCont.begin(),listCont.end()),listCont.end());
