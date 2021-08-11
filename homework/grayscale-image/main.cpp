@@ -42,7 +42,8 @@ std::array<std::array<uint8_t, 32>, 32> generateNinja() {
 
 int main() {
     auto ninja = generateNinja();
-    // auto ninjaa = compressGrayscale(ninja);
+    
+    auto ninjaa = compressGrayscale(ninja);
     // printMap(ninja);
 
     return 0;

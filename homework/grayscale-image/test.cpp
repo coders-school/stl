@@ -5,6 +5,7 @@
 
 // TODO: include
 #include "gtest/gtest.h"
+#include "compression.hpp"
 
 void expectBitmap(const std::vector<std::pair<uint8_t, uint8_t>>& bitmap, size_t fraction) {
     for (int j = 0; j < fraction; j++) {
@@ -94,6 +95,7 @@ TEST(compressionTests, ShouldCompressOneEighthLines) {
     ASSERT_EQ(bitmap.size(), height * 8);
     expectBitmap(bitmap, 8);
 }
+
 
 TEST(compressionTests, ShouldDecompressWholeLines) {
     constexpr size_t fraction = 1;
