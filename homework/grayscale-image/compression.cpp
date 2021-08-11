@@ -20,6 +20,7 @@ compressedGrayscaleImage compressGrayscale(const grayscaleImage& bitmap) {
         });
         return true;
     });
+    compressed.shrink_to_fit();
     return compressed;
 }
 
