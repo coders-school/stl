@@ -36,17 +36,6 @@ CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
     return compressed;
 }
 
-// Bitmap decompressGrayscale(CompressedBitmap& compressed) {
-//     Bitmap bitmap{};
-//     auto it = begin(bitmap)->begin();
-//     std::for_each(begin(compressed),
-//                           end(compressed), 
-//                           [&it](auto ele) { std::fill_n(it, 
-//                                                ele.second, ele.first); 
-//                                                it = std::next(it, ele.second); });
-//     return bitmap;
-// }
-
 Bitmap decompressGrayscale(const CompressedBitmap& compressed) {
     uint8_t pixelsAmount = 0;
     Bitmap bitmap{};
@@ -64,42 +53,27 @@ Bitmap decompressGrayscale(const CompressedBitmap& compressed) {
     return bitmap;
 }
 
-// Bitmap decompressGrayscale(CompressedBitmap& compressed) {
-//     Bitmap bitmap{};
-//     size_t line{};
-//     auto pixel_it{bitmap[line].begin()};
-//     for (const auto& pair : compressed) {
-//         if (pixel_it >= bitmap[line].end()) {
-//             pixel_it = bitmap[++line].begin();
-//         }
-//         for (auto i = 0; i < pair.second; ++i) {
-//             *pixel_it++ = pair.first;
-//         }
-//     }
-
-//     return bitmap;
-// }
-
-// void printMap(const Bitmap& bitmap) {
-//     std::cout << " Call PRINT \n";
-//     int test = 0;
-//     std::for_each(begin(bitmap)->begin(),
-//                   (end(bitmap) - 1)->end(),
-//                   [&test, index = 0](auto ch) mutable { 
-//                                                 index++; 
-//                                                 std::cout << static_cast<char>(ch < printable_ascii_min || ch > printable_ascii_max ? ' ' : ch); 
-//                                                 if(index >= 32) {  index = 0; std::cout << '\n';
-//                                             } });
-// }
-
 void printMap(const Bitmap& bitmap) {
-    for (const auto& line : bitmap) {
-        for (const auto ch : line) {
-            std::cout << static_cast<char>(ch < printable_ascii_min ||
-                                                   ch > printable_ascii_max
-                                               ? ' '
-                                               : ch);
-        }
-        std::cout << std::endl;
-    }
+    uint8_t pixelCounter = 1;
+    Bitmap bitmapPrint{};
+    std::transform(begin(bitmap)->begin(), 
+                   (end(bitmap) - 1)->begin(),
+                   begin(bitmapPrint)->begin(),
+                   [&](auto pixel){ 
+                       static_cast<char>(pixel < printable_ascii_min ||
+                                           pixel > printable_ascii_max
+                                           ? pixel = ' '
+                                           : pixel);
+                       return pixel; });
+    std::copy_if(begin(bitmapPrint)->begin(), 
+              (end(bitmapPrint) - 1)->end(),
+              std::ostream_iterator<char>(std::cout, ""),
+              [&](auto pixel){ 
+                  if (pixelCounter > height) {
+                      pixelCounter = 1;
+                      std::cout << "\n";
+                  }
+                  pixelCounter++;
+                  return true; } );
+    std::cout << '\n';
 }
