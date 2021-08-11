@@ -1,41 +1,57 @@
 #include "compression.hpp"
 
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, width>, height>& input) {
-    std::vector<std::pair<uint8_t, uint8_t>> result;  
-    bool firstTime = true;
-    for (const auto& row : input) {
-        for (const auto& el : row) {
-            if (firstTime) {
-                result.emplace_back(el, 0);
-                firstTime = false;
-            }
-            if (el == result.back().first) {
-                ++(result.back().second);
-                continue;
-            }
-            result.emplace_back(el, 1);
+#include <algorithm>
+#include <iostream>
+
+Compressed compressGrayscale(const Decompressed& input) {
+    Compressed result;
+
+    auto compression = [&result](const auto& value) { 
+        if (value == result.back().first) {
+            ++(result.back().second);
+            return;
         }
-        firstTime = true;
-    }
+        result.emplace_back(value, 1);
+    };
+    auto processRows = [&result, compression](const auto& row) {
+        result.emplace_back(row.front(), 0);
+        std::for_each(row.begin(), row.end(), compression);
+    };
+    std::for_each(input.begin(), input.end(), processRows);
     return result;
 }
 
-std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::vector<std::pair<uint8_t, uint8_t>>& input) {
-    std::array<std::array<uint8_t, width>, height> result;
-    auto it = input.begin(); 
-    auto value = (*it).first;
-    auto count = (*it).second;
+Decompressed decompressGrayscale(const Compressed& input) {
+    Decompressed result;
+    auto position = result.begin()->begin();
     
-    for (size_t i = 0; i < height; ++i) {
-        for (size_t j = 0; j < width; ++j) {
-            if (count <= 0) {
-                ++it;
-                value = (*it).first;
-                count = (*it).second;
-            }
-            --count;
-            result.at(i).at(j) = value;
+    auto decompression = [&position](const auto& pair) {
+        const auto& [value, number] = pair;
+        std::fill_n(position, number, value);
+        position += number;        
+    };
+    std::for_each(input.begin(), input.end(), decompression);
+    return result;
+}
+
+void printMap(const Decompressed& map) {
+    for (const auto& row : map) {
+        for (const auto& value : row) {
+            std::cout << value;
+        }
+        std::cout << '\n';
+    }
+}
+
+void printMap(const Compressed& map) {
+    size_t colCount = 0;
+    
+    for (const auto& [value, number] : map) {
+        std::cout << std::string(number, value);
+        colCount += number;
+        if (colCount == width) {
+            colCount = 0;
+            std::cout << "\n";
         }
     }
-    return result;
 }
