@@ -3,17 +3,19 @@
 compressedGrayscaleImage compressGrayscale(const grayscaleImage& bitmap) {
     compressedGrayscaleImage compressed;
     compressed.reserve(width * height);
-    std::all_of(bitmap.begin(), bitmap.end(), [&compressed](auto row) {
-        // for (auto it = row.begin(); it != row.end(); ) 
+    std::all_of(bitmap.begin(), bitmap.end(), [&compressed](auto row) { 
         auto it = row.begin();
-        while (it != row.end()) {
-            auto fountIt = std::adjacent_find(it, row.end(), std::not_equal_to<int>{});
-            if (fountIt != row.end()) {
-                fountIt++;
+        std::all_of(row.begin(), row.end(), [&](const auto& el) {
+            if (it != row.end()) {
+                uint8_t color = *it;
+                auto foundIt = std::find_if_not(it, row.end(), [color](uint8_t other) {
+                    return color == other;
+                });
+                compressed.emplace_back(color, std::distance(it, foundIt));
+                it = foundIt;
             }
-            compressed.emplace_back(*it, std::distance(it, fountIt));
-            it = fountIt;
-        }
+            return true;
+        });
         return true;
     });
     return compressed;
