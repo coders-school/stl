@@ -1,7 +1,6 @@
 #include "compression.hpp"
 
 #include <algorithm>
-#include <iostream>
 
 Compressed compressGrayscale(const Decompressed& input) {
     Compressed result;
@@ -32,26 +31,4 @@ Decompressed decompressGrayscale(const Compressed& input) {
     };
     std::for_each(input.begin(), input.end(), decompression);
     return result;
-}
-
-void printMap(const Decompressed& map) {
-    for (const auto& row : map) {
-        for (const auto& value : row) {
-            std::cout << value;
-        }
-        std::cout << '\n';
-    }
-}
-
-void printMap(const Compressed& map) {
-    size_t colCount = 0;
-    
-    for (const auto& [value, number] : map) {
-        std::cout << std::string(number, value);
-        colCount += number;
-        if (colCount == width) {
-            colCount = 0;
-            std::cout << "\n";
-        }
-    }
 }
