@@ -1,5 +1,7 @@
 #include "compression.hpp"
 
+#include <algorithm>
+
 compressedGrayscaleImage compressGrayscale(const grayscaleImage& bitmap) {
     compressedGrayscaleImage compressed;
     compressed.reserve(width * height);
