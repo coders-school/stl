@@ -59,7 +59,7 @@ ___
 
 ## Zadanie 3 - `transform-containers`
 
-Napisz funkcję `transformContainers`, która:
+Napisz funkcję, która:
 
 1. Przyjmie `std::list<std::string>` oraz `std::deque<int>`
 2. Usunie duplikaty z obu kontenerów
