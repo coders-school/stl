@@ -3,8 +3,8 @@
 
 class ImageCompression_insert_iterator {
 public:
-    explicit ImageCompression_insert_iterator(CompressedImage& x)
-        : container(x) {}
+    explicit ImageCompression_insert_iterator(CompressedImage& compressed)
+        : container(compressed) {}
 
     ImageCompression_insert_iterator& operator=(PixelType value) {
         if (width == maxWidth) {
@@ -13,7 +13,7 @@ public:
 
         if (width == 0 || container.back().first != value) {
             container.push_back(CompressPair(value, 1u));
-        }else{
+        } else {
             ++container.back().second;
         }
         ++width;
