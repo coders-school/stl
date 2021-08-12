@@ -10,16 +10,16 @@
 constexpr size_t width = 32;
 constexpr size_t height = 32;
 
-using pixelType = uint8_t;
-using imageLine = std::array<pixelType, width>;
-using image = std::array<imageLine, height>;
-using compressPair = std::pair<pixelType, uint8_t>;
-using compressedImage = std::vector<compressPair>;
+using PixelType = uint8_t;
+using ImageLine = std::array<PixelType, width>;
+using Image = std::array<ImageLine, height>;
+using CompressPair = std::pair<PixelType, uint8_t>;
+using CompressedImage = std::vector<CompressPair>;
 
-[[nodiscard]] compressedImage compressGrayscale(const image& image);
+[[nodiscard]] CompressedImage compressGrayscale(const Image& image);
 
-[[nodiscard]] image decompressGrayscale(const compressedImage& pack);
+[[nodiscard]] Image decompressGrayscale(const CompressedImage& pack);
 
-void printMap(const image& map);
+void printMap(const Image& map);
 
-void printCompresedMap(const compressedImage& compressed);
+void printCompresedMap(const CompressedImage& compressed);

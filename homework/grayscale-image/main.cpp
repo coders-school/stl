@@ -49,7 +49,7 @@ int main() {
 
     auto decompressed = decompressGrayscale(compressed);
     printMap(decompressed);
-    
+
     /*auto corruptedLong = compressed;
     std::copy(begin(compressed), end(compressed), std::back_inserter(corruptedLong));
     //std::cout << "corruptedLong size = " << corruptedLong.size() << '\n';
