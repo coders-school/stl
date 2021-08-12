@@ -7,12 +7,12 @@
 #include <cctype>
 #include <iostream>
 
-constexpr size_t width = 32;
-constexpr size_t height = 32;
+constexpr size_t maxWidth = 32;
+constexpr size_t maxHeight = 32;
 
 using PixelType = uint8_t;
-using ImageLine = std::array<PixelType, width>;
-using Image = std::array<ImageLine, height>;
+using ImageLine = std::array<PixelType, maxWidth>;
+using Image = std::array<ImageLine, maxHeight>;
 using CompressPair = std::pair<PixelType, uint8_t>;
 using CompressedImage = std::vector<CompressPair>;
 

@@ -1,85 +1,83 @@
 #include "compression.hpp"
-
 #include <algorithm>
+
 class ImageCompression_insert_iterator {
 public:
     explicit ImageCompression_insert_iterator(CompressedImage& x)
         : container(x) {}
 
-    ImageCompression_insert_iterator& operator=(CompressedImage::const_reference value) {
-        if (container.empty()) {
-            container.push_back(value);
-        } else if (container.back().first != value.first) {
-            container.push_back(value);
-        } else {
-            container.back().second += 1;
+    ImageCompression_insert_iterator& operator=(PixelType value) {
+        if (width == maxWidth) {
+            width = 0;
         }
+
+        if (width == 0 || container.back().first != value) {
+            container.push_back(CompressPair(value, 1u));
+        }else{
+            ++container.back().second;
+        }
+        ++width;
         return *this;
     }
 
     ImageCompression_insert_iterator& operator=(const ImageLine& line) {
         std::transform(cbegin(line), cend(line), *this,
-                       [](uint8_t pixel) {
-                           return std::pair<uint8_t, uint8_t>(pixel, 1u);
+                       [](PixelType pixel) {
+                           return pixel;
                        });
         return *this;
     }
 
-    ImageCompression_insert_iterator& operator*() {
-        return *this;
-    }
-    ImageCompression_insert_iterator& operator++() {
-        return *this;
-    }
+    ImageCompression_insert_iterator& operator*() { return *this; }
+    ImageCompression_insert_iterator& operator++() { return *this; }
 
 private:
     CompressedImage& container;
+    size_t width = 0;
 };
 
 CompressedImage compressGrayscale(const Image& image) {
     CompressedImage compress;
-    std::transform(
-        cbegin(image),
-        cend(image),
-        ImageCompression_insert_iterator(compress),
-        [](const auto& line) {
-            return line;
-        });
+    std::transform(cbegin(image), cend(image), ImageCompression_insert_iterator(compress),
+                   [](const ImageLine& line) {
+                       return line;
+                   });
     return compress;
 }
 
+class ImageDecompression_insert_iterator {
+public:
+    explicit ImageDecompression_insert_iterator(Image& image)
+        : container(image) {}
+
+    ImageDecompression_insert_iterator& operator=(const CompressPair& pair) {
+        std::generate_n(&container[height][width], pair.second,
+                        [pixel = PixelType{pair.first}]() {
+                            return pixel;
+                        });
+        width += pair.second;
+        if (width == maxWidth) {
+            width = 0;
+            ++height;
+        }
+        return *this;
+    }
+
+    ImageDecompression_insert_iterator& operator*() { return *this; }
+    ImageDecompression_insert_iterator& operator++() { return *this; }
+
+private:
+    Image& container;
+    size_t width = 0;
+    size_t height = 0;
+};
+
 Image decompressGrayscale(const CompressedImage& pack) {
     Image result;
-    size_t heightPos = 0u;
-    size_t widthPos = 0u;
-    ImageLine line;
-    for (const auto& part : pack) {
-        for (uint8_t counter = 0u; counter < part.second; ++counter) {
-            line[widthPos++] = part.first;
-            if (widthPos == width) {
-                widthPos = 0u;
-                result[heightPos++] = line;
-                if (heightPos == height) {  //will ignore more data than image size
-                    return result;
-                }
-            }
-        }
-    }
-
-    constexpr PixelType fillerPixel = '.';
-    if (widthPos > 0u) {
-        while (widthPos < width) {  //fill uncomplete line
-            line[widthPos++] = fillerPixel;
-        }
-        result[heightPos++] = line;
-    }
-    if (heightPos < height) {
-        line.fill(fillerPixel);
-        while (heightPos < height) {  //fill uncomplete image
-            result[heightPos++] = line;
-        }
-    }
-
+    std::transform(cbegin(pack), cend(pack), ImageDecompression_insert_iterator(result),
+                   [](const auto& pair) {
+                       return pair;
+                   });
     return result;
 }
 
@@ -105,7 +103,7 @@ void printCompresedMap(const CompressedImage& compressed) {
     for (size_t widthPos = 0u; const auto& pack : compressed) {
         for (size_t counter = 0u; counter < pack.second; ++counter) {
             printCode(pack.first);
-            if (++widthPos == width) {
+            if (++widthPos == maxWidth) {
                 widthPos = 0u;
                 std::cout << '\n';
             }

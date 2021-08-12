@@ -42,25 +42,15 @@ std::array<std::array<uint8_t, 32>, 32> generateNinja() {
 
 int main() {
     auto ninja = generateNinja();
+    std::cout << "\n\nprint starting image\n\n";
     printMap(ninja);
 
     auto compressed = compressGrayscale(ninja);
-    //printCompresedMap(compressed);
+    std::cout << "\n\nprint compresed image\n\n";
+    printCompresedMap(compressed);
 
     auto decompressed = decompressGrayscale(compressed);
+    std::cout << "\n\nprint decompressed image\n\n";
     printMap(decompressed);
-
-    /*auto corruptedLong = compressed;
-    std::copy(begin(compressed), end(compressed), std::back_inserter(corruptedLong));
-    //std::cout << "corruptedLong size = " << corruptedLong.size() << '\n';
-    decompressed = decompressGrayscale(corruptedLong);  //will ignore more data than size
-    printMap(decompressed);*/
-
-    /*auto corruptedShort = compressed;
-    corruptedShort.resize(corruptedShort.size() / 1.9);
-    //std::cout << "corruptedShort size = " << corruptedShort.size() << '\n';
-    decompressed = decompressGrayscale(corruptedShort);  //will fill missing data
-    printMap(decompressed);*/
-
     return 0;
 }

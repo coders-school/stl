@@ -8,20 +8,20 @@
 
 void expectBitmap(const std::vector<std::pair<uint8_t, uint8_t>>& bitmap, size_t fraction) {
     for (int j = 0; j < fraction; j++) {
-        for (int i = j; i < height * fraction; i += fraction) {
+        for (int i = j; i < maxHeight * fraction; i += fraction) {
             EXPECT_EQ(bitmap[i].first, j);
-            EXPECT_EQ(bitmap[i].second, width / fraction);
+            EXPECT_EQ(bitmap[i].second, maxWidth / fraction);
         }
     }
 }
 
-std::array<std::array<uint8_t, width>, height> createArray(size_t fraction) {
-    std::array<std::array<uint8_t, width>, height> arr;
-    for (int i = 0; i < height; ++i) {
-        arr[i] = std::array<uint8_t, width>{};
+std::array<std::array<uint8_t, maxWidth>, maxHeight> createArray(size_t fraction) {
+    std::array<std::array<uint8_t, maxWidth>, maxHeight> arr;
+    for (int i = 0; i < maxHeight; ++i) {
+        arr[i] = std::array<uint8_t, maxWidth>{};
         for (int fragment = 0; fragment < fraction; ++fragment) {
-            int from = (width * fragment) / fraction;
-            int to = (width * (fragment + 1)) / fraction;
+            int from = (maxWidth * fragment) / fraction;
+            int to = (maxWidth * (fragment + 1)) / fraction;
             for (int j = from; j < to; ++j) {
                 arr[i][j] = fragment;
             }
@@ -30,7 +30,7 @@ std::array<std::array<uint8_t, width>, height> createArray(size_t fraction) {
     return arr;
 }
 
-void testDecompresion(const std::array<uint8_t, width>& line, size_t fraction) {
+void testDecompresion(const std::array<uint8_t, maxWidth>& line, size_t fraction) {
     for (int i = 0; i < fraction; ++i) {
         int from = line.size() * i / fraction;
         int to = line.size() * (i + 1) / fraction;
@@ -42,10 +42,10 @@ void testDecompresion(const std::array<uint8_t, width>& line, size_t fraction) {
 
 std::vector<std::pair<uint8_t, uint8_t>> getBitmap(size_t fraction) {
     std::vector<std::pair<uint8_t, uint8_t>> bitmap;
-    bitmap.reserve(height * fraction);
-    for (size_t i = 0; i < height; ++i) {
+    bitmap.reserve(maxHeight * fraction);
+    for (size_t i = 0; i < maxHeight; ++i) {
         for (size_t j = 0; j < fraction; ++j) {
-            bitmap.push_back({j, width / fraction});
+            bitmap.push_back({j, maxWidth / fraction});
         }
     }
 
@@ -53,13 +53,13 @@ std::vector<std::pair<uint8_t, uint8_t>> getBitmap(size_t fraction) {
 }
 
 TEST(compressionTests, ShouldCompressWholeLines) {
-    std::array<std::array<uint8_t, width>, height> arr;
-    for (int i = 0; i < height; ++i)
-        for (int j = 0; j < width; ++j)
+    std::array<std::array<uint8_t, maxWidth>, maxHeight> arr;
+    for (int i = 0; i < maxHeight; ++i)
+        for (int j = 0; j < maxWidth; ++j)
             arr[i][j] = 0;
 
     auto bitmap = compressGrayscale(arr);
-    ASSERT_EQ(bitmap.size(), height);
+    ASSERT_EQ(bitmap.size(), maxHeight);
     expectBitmap(bitmap, 1);
 }
 
@@ -76,7 +76,7 @@ TEST(compressionTests, ShouldCompressQuaterLines) {
     auto arr = createArray(fraction);
 
     auto bitmap = compressGrayscale(arr);
-    ASSERT_EQ(bitmap.size(), height * fraction);
+    ASSERT_EQ(bitmap.size(), maxHeight * fraction);
     expectBitmap(bitmap, fraction);
 }
 
@@ -85,7 +85,7 @@ TEST(compressionTests, ShouldCompressOneEighthLines) {
     auto arr = createArray(fraction);
 
     auto bitmap = compressGrayscale(arr);
-    ASSERT_EQ(bitmap.size(), height * fraction);
+    ASSERT_EQ(bitmap.size(), maxHeight * fraction);
     expectBitmap(bitmap, fraction);
 }
 
@@ -94,7 +94,7 @@ TEST(compressionTests, ShouldCompressOneSixteenLines) {
     auto arr = createArray(fraction);
 
     auto bitmap = compressGrayscale(arr);
-    ASSERT_EQ(bitmap.size(), height * fraction);
+    ASSERT_EQ(bitmap.size(), maxHeight * fraction);
     expectBitmap(bitmap, fraction);
 }
 
@@ -103,21 +103,21 @@ TEST(compressionTests, ShouldCompressOneThirtyTwoLines) {
     auto arr = createArray(fraction);
 
     auto bitmap = compressGrayscale(arr);
-    ASSERT_EQ(bitmap.size(), height * fraction);
+    ASSERT_EQ(bitmap.size(), maxHeight * fraction);
     expectBitmap(bitmap, fraction);
 }
 
 TEST(compressionTests, ShouldCompressOneSixtyFourLines) {
     constexpr int fraction = 64;
     
-    if constexpr (fraction > width) {
+    if constexpr (fraction > maxWidth) {
         GTEST_SKIP_("Test Redundant");
     }
 
     auto arr = createArray(fraction);
 
     auto bitmap = compressGrayscale(arr);
-    ASSERT_EQ(bitmap.size(), height * fraction);
+    ASSERT_EQ(bitmap.size(), maxHeight * fraction);
     expectBitmap(bitmap, fraction);
     
 }
@@ -127,7 +127,7 @@ TEST(compressionTests, ShouldDecompressWholeLines) {
     auto bitmap = getBitmap(fraction);
 
     auto map = decompressGrayscale(bitmap);
-    ASSERT_EQ(bitmap.size(), height);
+    ASSERT_EQ(bitmap.size(), maxHeight);
     for (const auto& row : map) {
         testDecompresion(row, fraction);
     }
@@ -138,7 +138,7 @@ TEST(compressionTests, ShouldDecompressHalfLines) {
     auto bitmap = getBitmap(fraction);
 
     auto map = decompressGrayscale(bitmap);
-    ASSERT_EQ(map.size(), height);
+    ASSERT_EQ(map.size(), maxHeight);
     for (const auto& row : map) {
         testDecompresion(row, fraction);
     }
@@ -149,7 +149,7 @@ TEST(compressionTests, ShouldDecompressQuaterLines) {
     auto bitmap = getBitmap(fraction);
 
     auto map = decompressGrayscale(bitmap);
-    ASSERT_EQ(map.size(), height);
+    ASSERT_EQ(map.size(), maxHeight);
     for (const auto& row : map) {
         testDecompresion(row, fraction);
     }
@@ -160,7 +160,7 @@ TEST(compressionTests, ShouldDecompressOneEighthLines) {
     auto bitmap = getBitmap(fraction);
 
     auto map = decompressGrayscale(bitmap);
-    ASSERT_EQ(map.size(), height);
+    ASSERT_EQ(map.size(), maxHeight);
     for (const auto& row : map) {
         testDecompresion(row, fraction);
     }
@@ -171,7 +171,7 @@ TEST(compressionTests, ShouldDecompressOneSixteenLines) {
     auto bitmap = getBitmap(fraction);
 
     auto map = decompressGrayscale(bitmap);
-    ASSERT_EQ(map.size(), height);
+    ASSERT_EQ(map.size(), maxHeight);
     for (const auto& row : map) {
         testDecompresion(row, fraction);
     }
@@ -182,7 +182,7 @@ TEST(compressionTests, ShouldDecompressOneThirtyTwoLines) {
     auto bitmap = getBitmap(fraction);
 
     auto map = decompressGrayscale(bitmap);
-    ASSERT_EQ(map.size(), height);
+    ASSERT_EQ(map.size(), maxHeight);
     for (const auto& row : map) {
         testDecompresion(row, fraction);
     }
@@ -191,14 +191,14 @@ TEST(compressionTests, ShouldDecompressOneThirtyTwoLines) {
 TEST(compressionTests, ShouldDecompressOneSixtyFourLines) {
     constexpr size_t fraction = 64;
 
-    if constexpr (fraction > width) {
+    if constexpr (fraction > maxWidth) {
         GTEST_SKIP_("Test Redundant");
     }
 
     auto bitmap = getBitmap(fraction);
 
     auto map = decompressGrayscale(bitmap);
-    ASSERT_EQ(map.size(), height);
+    ASSERT_EQ(map.size(), maxHeight);
     for (const auto& row : map) {
         testDecompresion(row, fraction);
     }
