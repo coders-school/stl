@@ -41,7 +41,7 @@ ___
 
 ## Zadanie 1 - `grayscale-image-algo`
 
-Ulepsz program `grayscale-images` z poprzedniej pracy domowe (kompresja, dekompresja) obrazków, tak, aby zamiast pętli wykorzystać algorytmy. Działaj na swojej/waszej wersji implementacji tego zadania.
+Ulepsz program `grayscale-images` z poprzedniej pracy domowej (kompresja, dekompresja) obrazków, tak, aby zamiast pętli wykorzystać algorytmy. Działaj na swojej/waszej wersji implementacji tego zadania.
 
 Gotowe zadanie zgłoś na gałąź `coders-school:grayscale-image-algo`. Jeśli nie chcesz nadpisać PR z tamtą pracą domową to po prostu utwórz nowego brancha od tego stanu. Jeśli to skomplikowane - po prostu skopiuj swój program `grayscale-images` ;)
 
