@@ -51,10 +51,8 @@ public:
         : container(image) {}
 
     ImageDecompression_insert_iterator& operator=(const CompressPair& pair) {
-        std::generate_n(&container[height][width], pair.second,
-                        [pixel = PixelType{pair.first}]() {
-                            return pixel;
-                        });
+        auto [code, count] = pair;
+        std::fill_n(&container[height][width], count, code);
         width += pair.second;
         if (width == maxWidth) {
             width = 0;
