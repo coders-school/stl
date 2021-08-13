@@ -23,7 +23,7 @@ TEST(arithmeticAverageTest, ShouldCalculateArithmeticAverage) {
         ArithmeticAverage(first, second);
         FAIL() << "Expected std::invalid_argument";
     } catch (const std::invalid_argument& err) {
-        EXPECT_EQ(err.what(), std::string("ArithmeticAverage - arguments are not equal in size."));
+        EXPECT_EQ(err.what(), std::string("ArithmeticAverage - sizes of arguments are not equal"));
     } catch (...) {
         FAIL() << "Expected std::invalid_argument";
     }
@@ -47,7 +47,7 @@ TEST(arithmeticAverageTest, ShouldCalculateDistance) {
         Distance(first, second);
         FAIL() << "Expected std::invalid_argument";
     } catch (const std::invalid_argument& err) {
-        EXPECT_EQ(err.what(), std::string("Distance - different dimension number of provided points."));
+        EXPECT_EQ(err.what(), std::string("Distance - points of different dimensions number provided."));
     } catch (...) {
         FAIL() << "Expected std::invalid_argument";
     }
