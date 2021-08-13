@@ -126,18 +126,14 @@ void printCompresedMap(CompressedImage::const_iterator pairBegin, CompressedImag
 }
 
 void printWithLambdas(const CompressedImage& compressed) {
-    auto printMultipleTimes = [](auto code, auto times) {
-        std::fill_n(std::ostream_iterator<PixelType>(std::cout, ""), times, convert(code));
-    };
-
     size_t width{};
     std::function<void(CompressedImage::const_iterator)> print =
-        [pairEnd = cend(compressed), &width, &printMultipleTimes, &print](auto pairBegin) {
+        [pairEnd = cend(compressed), &width, &print](auto pairBegin) {
             if (pairBegin == pairEnd) {
                 return;
             }
             auto [code, times] = *pairBegin;
-            printMultipleTimes(code, times);
+            std::fill_n(std::ostream_iterator<PixelType>(std::cout, ""), times, convert(code));
 
             width += times;
             if (width == maxWidth) {
@@ -146,7 +142,6 @@ void printWithLambdas(const CompressedImage& compressed) {
             }
             print(std::next(pairBegin));
         };
-
     print(begin(compressed));
 }
 
