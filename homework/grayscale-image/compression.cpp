@@ -153,7 +153,7 @@ public:
     Print_insert_iterator() {}
 
     Print_insert_iterator& operator=(const ImageLine& line) {
-        std::transform(cbegin(line), cend(line), std::ostream_iterator<PixelType>(std::cout, ""),
+        std::transform(cbegin(line), cend(line), container,
                        [](PixelType code) {
                            return convert(code);
                        });
