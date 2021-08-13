@@ -4,7 +4,6 @@
 #include <stdexcept>
 #include <vector>
 #include <cmath>
-#include <iostream>
 
 double ArithmeticAverage(const std::vector<int>& vec1, const std::vector<int>& vec2) {
     if (vec1.size() != vec2.size()) {
