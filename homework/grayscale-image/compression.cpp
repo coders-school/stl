@@ -148,15 +148,20 @@ void printWithLambdas(const CompressedImage& compressed) {
 
 }  // namespace
 
-void printMap(const Image& map) {
-    printLine(cbegin(map), cend(map));
-}
-
-class PrintCompressed_insert_iterator {
+class Print_insert_iterator {
 public:
-    PrintCompressed_insert_iterator() {}
+    Print_insert_iterator() {}
 
-    PrintCompressed_insert_iterator& operator=(const CompressPair& pair) {
+    Print_insert_iterator& operator=(const ImageLine& line) {
+        std::transform(cbegin(line), cend(line), std::ostream_iterator<PixelType>(std::cout, ""),
+                       [](PixelType code) {
+                           return convert(code);
+                       });
+        std::cout << '\n';
+        return *this;
+    }
+
+    Print_insert_iterator& operator=(const CompressPair& pair) {
         auto [code, count] = pair;
         std::fill_n(container, count, convert(code));
         width += count;
@@ -167,13 +172,24 @@ public:
         return *this;
     }
 
-    PrintCompressed_insert_iterator& operator*() { return *this; }
-    PrintCompressed_insert_iterator& operator++() { return *this; }
+    Print_insert_iterator& operator*() { return *this; }
+    Print_insert_iterator& operator++() { return *this; }
 
 private:
     std::ostream_iterator<PixelType> container = std::ostream_iterator<PixelType>(std::cout, "");
     size_t width = 0;
 };
+
+void printMap(const Image& map) {
+    if constexpr (print_version == PrintVersion::ITERATOR) {
+        std::transform(cbegin(map), cend(map), Print_insert_iterator(),
+                       [](const auto& line) {
+                           return line;
+                       });
+    } else {
+        printLine(cbegin(map), cend(map));
+    }
+}
 
 void printCompresedMap(const CompressedImage& compressed) {
     if constexpr (print_version == PrintVersion::FUNCTION) {
@@ -181,7 +197,7 @@ void printCompresedMap(const CompressedImage& compressed) {
     } else if constexpr (print_version == PrintVersion::LAMBDA) {
         printWithLambdas(compressed);
     } else if constexpr (print_version == PrintVersion::ITERATOR) {
-        std::transform(cbegin(compressed), cend(compressed), PrintCompressed_insert_iterator(),
+        std::transform(cbegin(compressed), cend(compressed), Print_insert_iterator(),
                        [](const auto& pair) {
                            return pair;
                        });
