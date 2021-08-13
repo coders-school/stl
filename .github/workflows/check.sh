@@ -65,8 +65,8 @@ echo -e $BOLD "Performing checks on $FILE" $DEFAULT
 
 does_file_exist $FILE
 positive_lookup "should have #include <algorithm>" "\<algorithm\>"
-negative_lookup "should not have for keyword" "for"
-negative_lookup "should not have while keyword" "while"
+negative_lookup "should not have for loop" "^\s*for\s*\("
+negative_lookup "should not have while loop" "^\}?\s*while\s*\("
 
 echo -e "==="
 
