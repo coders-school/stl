@@ -89,47 +89,35 @@ enum class PrintVersion{
 };
 constexpr auto print_version = PrintVersion::LAMBDA;
 
-void printCode(PixelType code) {
+PixelType convert(PixelType code){
     constexpr uint8_t additionalPrintRangeFrom = 127;
     if (std::isprint(code) || code >= additionalPrintRangeFrom) {
-        std::cout << code;
-    } else {
-        std::cout << ' ';
-    }
-}
-
-void printCode(ImageLine::const_iterator codeBegin, ImageLine::const_iterator codeEnd) {
-    if (codeBegin == codeEnd) {
-        return;
-    }
-    printCode(*codeBegin);
-    printCode(std::next(codeBegin), codeEnd);
+        return code;
+    } 
+    return PixelType{' '};
 }
 
 void printLine(Image::const_iterator lineBegin, Image::const_iterator lineEnd) {
     if (lineBegin == lineEnd) {
         return;
     }
-    printCode(cbegin(*lineBegin), cend(*lineBegin));
+    std::transform(cbegin(*lineBegin), cend(*lineBegin), std::ostream_iterator<PixelType>(std::cout,""),
+    [](PixelType code){
+        return convert(code);
+    });
     std::cout << '\n';
-    printLine(std::next(lineBegin), lineEnd);
-}
 
-void printTimes(PixelType pixel, size_t counter, size_t limit) {
-    if (counter == limit) {
-        return;
-    }
-    printCode(pixel);
-    printTimes(pixel, ++counter, limit);
+    printLine(std::next(lineBegin), lineEnd);
 }
 
 void printCompresedMap(CompressedImage::const_iterator pairBegin, CompressedImage::const_iterator pairEnd, size_t width = 0) {
     if (pairBegin == pairEnd) {
         return;
     }
-    printTimes((*pairBegin).first, 0, (*pairBegin).second);
+    auto [code, times] = *pairBegin;
+    std::fill_n(std::ostream_iterator<PixelType>(std::cout,""), times, convert(code));
 
-    width += (*pairBegin).second;
+    width += times;
     if (width == maxWidth) {
         std::cout << '\n';
         width = 0;
@@ -139,14 +127,7 @@ void printCompresedMap(CompressedImage::const_iterator pairBegin, CompressedImag
 
 void printWithLambdas(const CompressedImage& compressed){
     auto printMultipleTimes = [](auto code, auto times) {
-            std::generate_n(std::ostream_iterator<PixelType>(std::cout,""), times, [code](){
-                constexpr uint8_t additionalPrintRangeFrom = 127;
-                if (std::isprint(code) || code >= additionalPrintRangeFrom) {
-                    return code;
-                } else {
-                    return PixelType{' '};
-                }
-            });
+            std::fill_n(std::ostream_iterator<PixelType>(std::cout,""), times, convert(code));
         };
 
     size_t width{};
