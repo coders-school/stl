@@ -90,23 +90,51 @@ void printCode(PixelType code) {
     }
 }
 
-void printMap(const Image& map) {
-    for (const auto& line : map) {
-        for (const auto& code : line) {
-            printCode(code);
-        }
-        std::cout << '\n';
+#include <iterator>
+
+void printCode(ImageLine::const_iterator b, ImageLine::const_iterator e) {
+    if (b == e) {
+        return;
     }
+    printCode(*b);
+    printCode(std::next(b), e);
+}
+
+void printLine(Image::const_iterator b, Image::const_iterator e) {
+    if (b == e) {
+        return;
+    }
+    printCode(begin(*b), end(*b));
+    std::cout << '\n';
+    printLine(std::next(b), e);
+}
+
+void printMap(const Image& map) {
+    printLine(begin(map), end(map));
+}
+
+void printTimes(PixelType pixel, size_t counter, size_t e) {
+    if (counter == e) {
+        return;
+    }
+    printCode(pixel);
+    printTimes(pixel, ++counter, e);
+}
+
+void printCompresedMap(CompressedImage::const_iterator b, CompressedImage::const_iterator e, size_t width = 0) {
+    if (b == e) {
+        return;
+    }
+    printTimes((*b).first, 0, (*b).second);
+
+    width += (*b).second;
+    if (width == maxWidth) {
+        std::cout << '\n';
+        width = 0;
+    }
+    printCompresedMap(std::next(b), e, width);
 }
 
 void printCompresedMap(const CompressedImage& compressed) {
-    for (size_t widthPos = 0u; const auto& pack : compressed) {
-        for (size_t counter = 0u; counter < pack.second; ++counter) {
-            printCode(pack.first);
-            if (++widthPos == maxWidth) {
-                widthPos = 0u;
-                std::cout << '\n';
-            }
-        }
-    }
+    printCompresedMap(cbegin(compressed), cend(compressed));
 }

@@ -1,11 +1,10 @@
 #pragma once
 
 #include <array>
-#include <utility>
-#include <vector>
-
 #include <cctype>
 #include <iostream>
+#include <utility>
+#include <vector>
 
 constexpr size_t maxWidth = 32;
 constexpr size_t maxHeight = 32;
