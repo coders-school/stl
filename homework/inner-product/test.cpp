@@ -27,6 +27,17 @@ TEST(arithmeticAverageTest, ShouldCalculateArithmeticAverage) {
     } catch (...) {
         FAIL() << "Expected std::invalid_argument";
     }
+
+    first = {};
+    second = {};
+    try {
+        ArithmeticAverage(first, second);
+        FAIL() << "Expected std::invalid_argument";
+    } catch (const std::invalid_argument& err) {
+        EXPECT_EQ(err.what(), std::string("ArithmeticAverage - empty vectors."));
+    } catch (...) {
+        FAIL() << "Expected std::invalid_argument";
+    }
 }
 
 TEST(arithmeticAverageTest, ShouldCalculateDistance) {
@@ -48,6 +59,17 @@ TEST(arithmeticAverageTest, ShouldCalculateDistance) {
         FAIL() << "Expected std::invalid_argument";
     } catch (const std::invalid_argument& err) {
         EXPECT_EQ(err.what(), std::string("Distance - points of different dimensions number provided."));
+    } catch (...) {
+        FAIL() << "Expected std::invalid_argument";
+    }
+
+    first = {};
+    second = {};
+    try {
+        Distance(first, second);
+        FAIL() << "Expected std::invalid_argument";
+    } catch (const std::invalid_argument& err) {
+        EXPECT_EQ(err.what(), std::string("Distance - empty vectors."));
     } catch (...) {
         FAIL() << "Expected std::invalid_argument";
     }
