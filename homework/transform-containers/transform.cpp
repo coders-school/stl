@@ -1,8 +1,6 @@
 #include "transform.hpp"
-// #include <iostream>
-// #include <list>
 
-std::map<int, std::string> removeDuplicateAndTranformToMap( std::list<std::string>& list, std::deque<int>& deque) {
+std::map<int, std::string> removeDuplicateAndTranformToMap(std::list<std::string>& list, std::deque<int>& deque) {
     list.sort();
     list.unique();
     std::sort(deque.begin(), deque.end());
