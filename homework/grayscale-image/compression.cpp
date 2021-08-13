@@ -102,7 +102,7 @@ void printLine(Image::const_iterator lineBegin, Image::const_iterator lineEnd) {
     if (lineBegin == lineEnd) {
         return;
     }
-    std::transform(cbegin(*lineBegin), cend(*lineBegin), std::ostream_iterator<PixelType>(std::cout, ""),
+    std::transform(cbegin(*lineBegin), cend(*lineBegin), std::ostream_iterator<PixelType>(std::cout),
                    [](PixelType code) {
                        return convert(code);
                    });
@@ -116,7 +116,7 @@ void printCompresedMap(CompressedImage::const_iterator pairBegin, CompressedImag
         return;
     }
     auto [code, times] = *pairBegin;
-    std::fill_n(std::ostream_iterator<PixelType>(std::cout, ""), times, convert(code));
+    std::fill_n(std::ostream_iterator<PixelType>(std::cout), times, convert(code));
 
     width += times;
     if (width == maxWidth) {
@@ -134,7 +134,7 @@ void printWithLambdas(const CompressedImage& compressed) {
                 return;
             }
             auto [code, times] = *pairBegin;
-            std::fill_n(std::ostream_iterator<PixelType>(std::cout, ""), times, convert(code));
+            std::fill_n(std::ostream_iterator<PixelType>(std::cout), times, convert(code));
 
             width += times;
             if (width == maxWidth) {
@@ -176,7 +176,7 @@ public:
     Print_insert_iterator& operator++() { return *this; }
 
 private:
-    std::ostream_iterator<PixelType> container = std::ostream_iterator<PixelType>(std::cout, "");
+    std::ostream_iterator<PixelType> container = std::ostream_iterator<PixelType>(std::cout);
     size_t width = 0;
 };
 
