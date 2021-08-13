@@ -42,15 +42,15 @@ std::array<std::array<uint8_t, 32>, 32> generateNinja() {
 
 int main() {
     auto ninja = generateNinja();
-    std::cout << "\n\nprint starting image\n\n";
+    std::cout << "print starting image\n";
     printMap(ninja);
 
     auto compressed = compressGrayscale(ninja);
-    std::cout << "\n\nprint compresed image\n\n";
+    std::cout << "print compresed image\n";
     printCompresedMap(compressed);
 
     auto decompressed = decompressGrayscale(compressed);
-    std::cout << "\n\nprint decompressed image\n\n";
+    std::cout << "print decompressed image\n";
     printMap(decompressed);
     return 0;
 }

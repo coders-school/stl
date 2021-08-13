@@ -85,9 +85,10 @@ namespace {
 enum class PrintVersion {
     FUNCTION,
     LAMBDA,
+    ITERATOR,
     NONE
 };
-constexpr auto print_version = PrintVersion::LAMBDA;
+constexpr auto print_version = PrintVersion::ITERATOR;
 
 PixelType convert(PixelType code) {
     constexpr uint8_t additionalPrintRangeFrom = 127;
@@ -151,10 +152,38 @@ void printMap(const Image& map) {
     printLine(cbegin(map), cend(map));
 }
 
+class PrintCompressed_insert_iterator {
+public:
+    PrintCompressed_insert_iterator() {}
+
+    PrintCompressed_insert_iterator& operator=(const CompressPair& pair) {
+        auto [code, count] = pair;
+        std::fill_n(container, count, convert(code));
+        width += count;
+        if (width == maxWidth) {
+            std::cout << '\n';
+            width = 0;
+        }
+        return *this;
+    }
+
+    PrintCompressed_insert_iterator& operator*() { return *this; }
+    PrintCompressed_insert_iterator& operator++() { return *this; }
+
+private:
+    std::ostream_iterator<PixelType> container = std::ostream_iterator<PixelType>(std::cout, "");
+    size_t width = 0;
+};
+
 void printCompresedMap(const CompressedImage& compressed) {
     if constexpr (print_version == PrintVersion::FUNCTION) {
         printCompresedMap(cbegin(compressed), cend(compressed));
     } else if constexpr (print_version == PrintVersion::LAMBDA) {
         printWithLambdas(compressed);
+    } else if constexpr (print_version == PrintVersion::ITERATOR) {
+        std::transform(cbegin(compressed), cend(compressed), PrintCompressed_insert_iterator(),
+                       [](const auto& pair) {
+                           return pair;
+                       });
     }
 }
