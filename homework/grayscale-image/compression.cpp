@@ -53,7 +53,7 @@ public:
     ImageDecompression_insert_iterator& operator=(const CompressPair& pair) {
         auto [code, count] = pair;
         std::fill_n(&container[height][width], count, code);
-        width += pair.second;
+        width += count;
         if (width == maxWidth) {
             width = 0;
             ++height;
@@ -138,16 +138,15 @@ void printCompresedMap(CompressedImage::const_iterator pairBegin, CompressedImag
 }
 
 void printWithLambdas(const CompressedImage& compressed){
-    size_t counter{};
-    std::function<void(CompressPair::first_type, CompressPair::second_type)> printMultipleTimes = 
-        [&counter, &printMultipleTimes](auto code, auto times) {
-            if (counter == times) {
-                counter = 0;
-                return;
-            }
-            printCode(code);
-            ++counter;
-            printMultipleTimes(code, times);
+    auto printMultipleTimes = [](auto code, auto times) {
+            std::generate_n(std::ostream_iterator<PixelType>(std::cout,""), times, [code](){
+                constexpr uint8_t additionalPrintRangeFrom = 127;
+                if (std::isprint(code) || code >= additionalPrintRangeFrom) {
+                    return code;
+                } else {
+                    return PixelType{' '};
+                }
+            });
         };
 
     size_t width{};
