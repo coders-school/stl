@@ -139,6 +139,39 @@ void printCompresedMap(CompressedImage::const_iterator pairBegin, CompressedImag
     printCompresedMap(std::next(pairBegin), pairEnd, width);
 }
 
+void printWithLambdas(const CompressedImage& compressed){
+    size_t counter{};
+    std::function<void(CompressPair::first_type, CompressPair::second_type)> printMultipleTimes = 
+        [&counter, &printMultipleTimes](auto code, auto times) {
+            if (counter == times) {
+                counter = 0;
+                return;
+            }
+            printCode(code);
+            ++counter;
+            printMultipleTimes(code, times);
+        };
+
+    size_t width{};
+    std::function<void(CompressedImage::const_iterator)> print = 
+        [pairEnd = cend(compressed), &width, &printMultipleTimes, &print](auto pairBegin) {
+            if (pairBegin == pairEnd) {
+                return;
+            }
+            auto [code, times] = *pairBegin;
+            printMultipleTimes(code, times);
+
+            width += times;
+            if (width == maxWidth) {
+                std::cout << '\n';
+                width = 0;
+            }
+            print(std::next(pairBegin));
+        };
+
+    print(begin(compressed));
+}
+
 }
 
 void printMap(const Image& map) {
@@ -149,32 +182,6 @@ void printCompresedMap(const CompressedImage& compressed) {
     if constexpr (print_version == PrintVersion::FUNCTION){
         printCompresedMap(cbegin(compressed), cend(compressed));
     }else if constexpr (print_version == PrintVersion::LAMBDA){
-        size_t width{};
-        std::function<void(CompressedImage::const_iterator)> print = 
-            [pairEnd = cend(compressed), &width, &print](auto pairBegin) {
-                if (pairBegin == pairEnd) {
-                    return;
-                }
-
-                size_t counter{};
-                std::function<void()> printMultipleTimes = 
-                    [pixel = (*pairBegin).first, limit = (*pairBegin).second, &counter, &printMultipleTimes]() {
-                        if (counter == limit) {
-                            return;
-                        }
-                        printCode(pixel);
-                        ++counter;
-                        printMultipleTimes();
-                    };
-                printMultipleTimes();
-
-                width += (*pairBegin).second;
-                if (width == maxWidth) {
-                    std::cout << '\n';
-                    width = 0;
-                }
-                print(std::next(pairBegin));
-            };
-        print(begin(compressed));
+        printWithLambdas(compressed);
     }
 }
