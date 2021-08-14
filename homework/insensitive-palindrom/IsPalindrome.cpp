@@ -2,7 +2,7 @@
 #include <cwctype>
 
 bool is_palindrome(std::string word) {
-    std::transform(begin(word), end(word), begin(word), [](auto& el){
+    std::transform(begin(word), end(word), begin(word), [](auto& el) {
         if (iswalnum(el)) {
             el = std::tolower(el);
             return el;
