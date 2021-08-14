@@ -1,0 +1,1 @@
+bool is_palindrome(std::string word);
