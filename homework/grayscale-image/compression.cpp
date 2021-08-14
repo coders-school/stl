@@ -82,68 +82,12 @@ Image decompressGrayscale(const CompressedImage& pack) {
 #include <iterator>
 namespace {
 
-enum class PrintVersion {
-    FUNCTION,
-    LAMBDA,
-    ITERATOR,
-    NONE
-};
-constexpr auto print_version = PrintVersion::ITERATOR;
-
 PixelType convert(PixelType code) {
     constexpr uint8_t additionalPrintRangeFrom = 127;
     if (std::isprint(code) || code >= additionalPrintRangeFrom) {
         return code;
     }
     return PixelType{' '};
-}
-
-void printLine(Image::const_iterator lineBegin, Image::const_iterator lineEnd) {
-    if (lineBegin == lineEnd) {
-        return;
-    }
-    std::transform(cbegin(*lineBegin), cend(*lineBegin), std::ostream_iterator<PixelType>(std::cout),
-                   [](PixelType code) {
-                       return convert(code);
-                   });
-    std::cout << '\n';
-
-    printLine(std::next(lineBegin), lineEnd);
-}
-
-void printCompresedMap(CompressedImage::const_iterator pairBegin, CompressedImage::const_iterator pairEnd, size_t width = 0) {
-    if (pairBegin == pairEnd) {
-        return;
-    }
-    auto [code, times] = *pairBegin;
-    std::fill_n(std::ostream_iterator<PixelType>(std::cout), times, convert(code));
-
-    width += times;
-    if (width == maxWidth) {
-        std::cout << '\n';
-        width = 0;
-    }
-    printCompresedMap(std::next(pairBegin), pairEnd, width);
-}
-
-void printWithLambdas(const CompressedImage& compressed) {
-    size_t width{};
-    std::function<void(CompressedImage::const_iterator)> print =
-        [pairEnd = cend(compressed), &width, &print](auto pairBegin) {
-            if (pairBegin == pairEnd) {
-                return;
-            }
-            auto [code, times] = *pairBegin;
-            std::fill_n(std::ostream_iterator<PixelType>(std::cout), times, convert(code));
-
-            width += times;
-            if (width == maxWidth) {
-                std::cout << '\n';
-                width = 0;
-            }
-            print(std::next(pairBegin));
-        };
-    print(begin(compressed));
 }
 
 }  // namespace
@@ -181,25 +125,15 @@ private:
 };
 
 void printMap(const Image& map) {
-    if constexpr (print_version == PrintVersion::ITERATOR) {
-        std::transform(cbegin(map), cend(map), Print_insert_iterator(),
-                       [](const auto& line) {
-                           return line;
-                       });
-    } else {
-        printLine(cbegin(map), cend(map));
-    }
+    std::transform(cbegin(map), cend(map), Print_insert_iterator(),
+                   [](const auto& line) {
+                       return line;
+                   });
 }
 
 void printCompresedMap(const CompressedImage& compressed) {
-    if constexpr (print_version == PrintVersion::FUNCTION) {
-        printCompresedMap(cbegin(compressed), cend(compressed));
-    } else if constexpr (print_version == PrintVersion::LAMBDA) {
-        printWithLambdas(compressed);
-    } else if constexpr (print_version == PrintVersion::ITERATOR) {
-        std::transform(cbegin(compressed), cend(compressed), Print_insert_iterator(),
-                       [](const auto& pair) {
-                           return pair;
-                       });
-    }
+    std::transform(cbegin(compressed), cend(compressed), Print_insert_iterator(),
+                   [](const auto& pair) {
+                       return pair;
+                   });
 }
