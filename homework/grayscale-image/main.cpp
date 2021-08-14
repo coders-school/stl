@@ -40,11 +40,25 @@ std::array<std::array<uint8_t, 32>, 32> generateNinja() {
     };
 }
 
+void printMap(const std::array<std::array<uint8_t, width>, height>& arr) {
+    constexpr uint8_t charactersToDisregard{31};
+    for (const auto& row : arr) {
+        for (const auto& character : row) {
+            if (character <= charactersToDisregard) {
+                std::cout << ' ';
+            } else {
+                std::cout << character;
+            }
+        }
+        std::cout << '\n';
+    }
+}
+
 int main() {
     auto ninja = generateNinja();
     printMap(ninja);
     auto compressed = compressGrayscale(ninja);
-    std::cout << "dupa\n";
+    std::cout << '\n';
     auto decompressed = decompressGrayscale(compressed);
     std::cout << '\n';
     printMap(decompressed);
