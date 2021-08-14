@@ -33,11 +33,21 @@ function negative_check()
     fi
 }
 
+function max_2_allowed_check()
+{
+    if [ "$1" -gt 2 ]; then
+        echo -e ❌ $RED "FAILED ON" "$@" $DEFAULT
+        ((failed+=1))
+    else
+        echo -e ✅ $GREEN "OK" $DEFAULT
+    fi
+}
+
 function positive_lookup()
 {
     echo -e "---"
     echo -e 🔍 $BOLD "CHECKING: $1" $DEFAULT
-    pcregrep -M "$2" "$FILE"
+    egrep "$2" "$FILE"
     check $? $1
 }
 
@@ -45,8 +55,15 @@ function negative_lookup()
 {
     echo -e "---"
     echo -e 🔍 $BOLD "CHECKING: $1" $DEFAULT
-    pcregrep -M "$2" "$FILE"
+    egrep "$2" "$FILE"
     negative_check $? $1
+}
+
+function max_2_allowed_lookup()
+{
+    echo -e "---"
+    echo -e 🔍 $BOLD "CHECKING: $1" $DEFAULT
+    max_2_allowed_check `egrep "$2" "$FILE" -c` $1
 }
 
 function does_file_exist()
@@ -65,8 +82,8 @@ echo -e $BOLD "Performing checks on $FILE" $DEFAULT
 
 does_file_exist $FILE
 positive_lookup "should have #include <algorithm>" "\<algorithm\>"
-negative_lookup "should not have for keyword" "for"
-negative_lookup "should not have while keyword" "while"
+max_2_allowed_lookup "should not have more than 2 for loops" "for(_each)?\s*\(("
+negative_lookup "should not have while loop" "^\}?\s*while\s*\("
 
 echo -e "==="
 
