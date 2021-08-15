@@ -5,8 +5,8 @@
 std::map<int, std::string> removeDuplicateAndTranformToMap(std::list<std::string>& list, std::deque<int>& deq) {
     list.sort();
     list.unique();
+    
     std::sort(begin(deq), end(deq));
-
     deq.erase(std::unique(begin(deq), end(deq)), end(deq));
 
     std::map<int, std::string> map;
