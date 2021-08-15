@@ -2,36 +2,89 @@
 
 # Złożoność obliczeniowa
 
+<a href="https://coders.school">
+    <img width="500" src="../img/coders_school_logo.png" alt="Coders School" class="plain">
+</a>
+
+___
+
+## Quiz
+
+Ułóż w kolejności rosnącej poszczególne złożoności obliczeniowe
+
+* liniowa
+* wykładnicza
+* stała
+* logarytmiczna
+* silnia
+* liniowo-logarytmiczna
+* wielomianowa
+
+___
+
+## Odpowiedź
+
+1. <!-- .element: class="fragment fade-in" --> <code>O(1)</code> <span class="fragment fade-in">stała</span>
+2. <!-- .element: class="fragment fade-in" --> <code>O(logn)</code> <span class="fragment fade-in">logarytmiczna</span>
+3. <!-- .element: class="fragment fade-in" --> <code>O(n)</code> <span class="fragment fade-in">liniowa</span>
+4. <!-- .element: class="fragment fade-in" --> <code>O(nlogn)</code> <span class="fragment fade-in">liniowo-logarytmiczna </span>
+5. <!-- .element: class="fragment fade-in" --> <code>O(n^x)</code> <span class="fragment fade-in">wielomianowa</span>
+6. <!-- .element: class="fragment fade-in" --> <code>O(x^n)</code> <span class="fragment fade-in">wykładnicza</span>
+7. <!-- .element: class="fragment fade-in" --> <code>O(n!)</code> <span class="fragment fade-in">silnia</span>
+
 ___
 
 ## Złożoność obliczeniowa
 
-<img src="img/complexity.jpg">
+<img src="../img/complexity.jpg">
 
 ___
 
 ## Definicja
 
-Złożoność obliczeniowa - oszacowanie czasu wykonania algorytmu. Mierzymy liczbę operacji, następnie szukamy funkcji opisującej liczbę operacji w zależności od danych wejściowych. Notacja `O` (dużego O) jest szacowaniem z góry. Ponieważ chcemy tylko przybliżyć wartość, pomijamy wszelkiego rodzaju stałe, które nie mają znaczenia dla dużych zbiorów danych wejściowych oznaczanych jako `n`. Zatem `Ο(2n + 5)`, `Ο(2n)` i `Ο(n)` są uznawane za złożoność obliczeniową `O(n)`.
+Złożoność obliczeniowa to oszacowanie czasu wykonania algorytmu. Mierzymy liczbę operacji w zależności od wielkości zbioru wejściowego `n` i szukamy funkcji opisującej zależność liczby tych operacji od danych wejściowych.
+<!-- .element: class="fragment fade-in" -->
+
+Notacja `O` (dużego O) jest oszacowaniem z góry. Chcemy tylko znać rząd wielkości, dlatego pomijamy wszelkiego rodzaju stałe, które nie mają znaczenia dla dużych zbiorów danych wejściowych.
+<!-- .element: class="fragment fade-in" -->
 
 ___
 
-## Złożoność `O(1)`
+## Własności notacji `O`
 
-Jest to tzw. złożoność stała, która jest niezależna od liczby danych wejściowych. Przy obliczeniu sumy ciągu arytmetycznego (kod poniżej), nie iterujemy po wszystkich elementach tablicy, zatem czas wykonania jest stały i niezależny od wielkości tablicy.
+* <!-- .element: class="fragment fade-in" --> stałe nie mają znaczenia, więc je pomijamy
+  * `Ο(1/50n) = Ο(2n) = Ο(n)`
+* <!-- .element: class="fragment fade-in" --> mniejsze rzędy wielkości nie mają znaczenia, więc je pomijamy
+  * `O(n^2 + n) = O(n^2 + logn + 1) = O(n^2)`
+
+___
+
+## Złożoność stała - `O(1)`
+
+Czas wykonania algorytmu nie zależy od wielkości danych wejściowych.
+
+### Przykład `O(1)`
+<!-- .element: class="fragment fade-in" -->
+
+Obliczanie sumy ciągu arytmetycznego. Nie iterujemy po wszystkich elementach tablicy, zatem czas wykonania jest stały i niezależny od długości ciągu.
+<!-- .element: class="fragment fade-in" -->
+
+<img src="../img/sum.png" class="fragment fade-in">
+
+___
+
+### Przykład `O(1)`
 
 ```cpp
-int sum(std::vector<int> vec) {
+int sum(const std::vector<int>& vec) {
     if (vec.empty()) {
         return 0;
     }
-
     return (vec.front() + vec.back()) * vec.size() / 2;
 }
 
 int main() {
-    std::cout << sum({1, 2, 3, 4, 5, 6}) << std::endl;
-
+    std::cout << sum({1, 2, 3, 4, 5, 6}) << '\n';
     return 0;
 }
 ```
@@ -41,11 +94,14 @@ Output: `21`
 <!-- .element: class="fragment fade-in" -->
 
 ___
-<!-- .slide: style="font-size: 0.9em" -->
 
-## Złożoność `O(logn)`
+## Złożoność logarytmiczna - `O(logn)`
 
-Wyobraźmy sobie, że szukamy numeru telefonu naszego kolegi Andrzeja. Bierzemy książkę telefoniczną i otwieramy ją na środku i patrzymy, że wypada nam osoba o imieniu Kornelia. Wiemy, że Andrzej jest w pierwszej połowie książki adresowej, gdyż litera K jest dużo dalej w alfabecie niż litera A. Zatem znów otwieramy na środku pierwszej połowy i patrzymy, że widnieje tam imię Dominik. Więc powtarzamy nasze szukanie natrafiając w kolejnej części na Bartka, aż w końcu trafiamy na Andrzeja. Takie przeszukiwanie, w którym za każdym razem odrzucamy połowę zakresu jest właśnie zapisywane w notacji `O(logn)`.
+Wyobraźmy sobie, że szukamy numeru telefonu naszego kolegi Andrzeja. Bierzemy książkę telefoniczną i otwieramy ją na środku i patrzymy, że wypada nam osoba o imieniu Kornelia. Wiemy, że Andrzej jest w pierwszej połowie książki adresowej, gdyż litera K jest dużo dalej w alfabecie niż litera A. Zatem znów otwieramy na środku pierwszej połowy i patrzymy, że widnieje tam imię Dominik. Powtarzamy więc nasze szukanie natrafiając w kolejnej części na Bartka, aż w końcu trafiamy na Andrzeja. Takie przeszukiwanie, w którym za każdym razem odrzucamy połowę zakresu jest właśnie zapisywane w notacji `O(logn)`.
+
+___
+
+### Przykład `O(logn)`
 
 ```cpp
 std::vector<int> vec{1, 2, 3, 4, 5, 6};
@@ -66,38 +122,38 @@ false
 
 ___
 
-## Złożoność `O(n)`
+## Złożoność liniowa - `O(n)`
 
-Wyobraźmy sobie teraz sytuację, że w książce adresowej szukamy numeru Żanety. Jednak nie będziemy teraz przeszukiwać binarnie, tylko sprawdzimy ile zajmie nam to, gdy będziemy szukać osoba po osobie. Więc zaczynamy od litery A i 4 dni później znajdujemy w końcu numer Żanety 🙂. Taka złożoność, gdzie sprawdzamy po kolei każdy element jest złożonością `O(n)`.
+Wyobraźmy sobie teraz sytuację, że w książce adresowej szukamy numeru Żanety. Jednak nie będziemy teraz przeszukiwać binarnie, tylko sprawdzimy ile zajmie nam to, gdy będziemy szukać osoba po osobie. Więc zaczynamy od litery A i kilka minut później znajdujemy w końcu numer Żanety 🙂. Taka złożoność, gdzie sprawdzamy po kolei każdy element jest złożonością `O(n)`.
 
-<!-- brak miejsca - dzielę na dwa -->
 ___
 <!-- .slide: style="font-size: 0.85em" -->
 
-## Złożoność `O(n)` - przykład
+## Przykład `O(n)`
 
 ```cpp
+using namespace std::chrono;
 constexpr size_t samples = 1'000'000'000;
 constexpr size_t search_num = 987'654'321;
 std::vector<int> vec(samples);
 std::iota(begin(vec), end(vec), 0);
 
-auto start = std::chrono::high_resolution_clock::now();
+auto start = high_resolution_clock::now();
 std::binary_search(begin(vec), end(vec), search_num);
-auto stop = std::chrono::high_resolution_clock::now();
-std::cout << "O(logn): " << std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count() << " ns\n";
+auto stop = high_resolution_clock::now();
+std::cout << "O(logn): " << duration_cast<nanoseconds>(stop - start).count() << " ns\n";
 
-start = std::chrono::high_resolution_clock::now();
+start = high_resolution_clock::now();
 for (const auto el : vec) {
     if (el == search_num) {
         break;
     }
 }
-stop = std::chrono::high_resolution_clock::now();
-std::cout << "O(n): " << std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count() << " ns\n";
+stop = high_resolution_clock::now();
+std::cout << "O(n): " << duration_cast<nanoseconds>(stop - start).count() << " ns\n";
 ```
 
-Example Output:
+Example output:
 <!-- .element: class="fragment fade-in" -->
 
 ```cpp
@@ -108,16 +164,16 @@ O(n): 6'949'430'300 ns
 
 ___
 
-## Złożoność `O(nlog(n))`
+## Złożoność liniowo-logarytmiczna - `O(nlogn)`
 
-Jest to tzw. złożoność liniowo-logarytmiczna, której czas wykonania jest wprost proporcjonalny do iloczynu danych wejściowych i ich logarytmu.
 Wyobraźmy sobie teraz sytuację: próbujemy znaleźć numer Andrzeja w książce telefonicznej, ale nasz kolega zrobił nam psikus i pozamieniał strony. Teraz musimy ją posortować, zależy nam na czasie, więc chcemy to zrobić wydajnie. Dlatego wyrywamy kolejno strony z książki telefonicznej i wstawiamy je do nowej w zgodnej kolejności. Nie dość, że musimy zrobić taką operację dla `n` stron, to jeszcze musimy wstawiać je alfabetycznie, co zajmie nam `logn` czasu. Dlatego cały proces to `nlogn`.
 
 ___
 
-## Złożoność `O(nlog(n))` - przykład
+## Przykład `O(nlogn)`
 
 ```cpp
+using namespace std::chrono;
 constexpr size_t samples = 1'000'000'000;
 std::vector<int> vec(samples);
 std::iota(begin(vec), end(vec), 0);
@@ -126,29 +182,33 @@ std::mt19937 gen(rd());
 
 //Here our colleague mixed up phone book.
 std::shuffle(begin(vec), end(vec), gen);
-auto start = std::chrono::high_resolution_clock::now();
+auto start = high_resolution_clock::now();
 std::sort(begin(vec), end(vec));
-auto stop = std::chrono::high_resolution_clock::now();
-std::cout << "O(nlogn): " << std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count() << " ns\n";
+auto stop = high_resolution_clock::now();
+std::cout << "O(nlogn): " << duration_cast<nanoseconds>(stop - start).count() << " ns\n";
 ```
 <!-- .element: class="fragment fade-in" -->
 
 Possible output: `O(nlogn): 499'694'684'900 ns`
 <!-- .element: class="fragment fade-in" -->
 
-Previous slides output: `O(n): 6'949'430'300 ns`
+Poprzedni output: `O(n): 6'949'430'300 ns`
 <!-- .element: class="fragment fade-in" -->
 
 ___
 
-## Złożoność `O(n^x)`
+## Złożoność wielomianowa - `O(n^x)`
 
-Jest to tzw. złożoność wielomianowa. Jej szczególnym i bardzo częstym przypadkiem jest złożoność kwadratowa - `O(n^2)`, której czas wykonania jest wprost proporcjonalny do kwadratu ilości danych wejściowych. Wyobraźmy sobie teraz inną sytuację. Udało nam się znaleźć numer Andrzeja i postanawiamy również zrobić psikus naszemu koledze, ale chcemy odwdzięczyć się z nawiązką. Dlatego drukujemy nową książkę telefoniczną, ale do każdego numeru dodajemy cyferkę '8' na początku numeru. Teraz nasz kolega nie dość, że musi poprawić każdą stronę `n` to jeszcze sprawdzić i poprawić każdy numer na podstawie oryginalnej książki. Taka złożoność obliczeniowa to `O(n^2)`. Przykładem złożoności `O(n^2)` jest popularne sortowanie bąbelkowe.
+Jej szczególnym i bardzo częstym przypadkiem jest złożoność kwadratowa - `O(n^2)`, której czas wykonania jest wprost proporcjonalny do kwadratu ilości danych wejściowych.
+<!-- .element: class="fragment fade-in" -->
+
+Wyobraźmy sobie teraz inną sytuację. Udało nam się znaleźć numer Andrzeja i postanawiamy również zrobić psikus naszemu koledze, ale chcemy odwdzięczyć się z nawiązką. Dlatego drukujemy nową książkę telefoniczną, ale do każdego numeru dodajemy cyferkę '8' na początku numeru. Teraz nasz kolega nie dość, że musi poprawić każdą stronę `n` to jeszcze sprawdzić i poprawić każdy numer na podstawie oryginalnej książki. Taka złożoność obliczeniowa to `O(n^2)`. Przykładem złożoności `O(n^2)` jest popularne sortowanie bąbelkowe.
+<!-- .element: class="fragment fade-in" -->
 
 ___
 <!-- .slide: style="font-size: 0.7em" -->
 
-## Złożoność `O(n^2)` - przykład
+## Przykład `O(n^2)`
 
 ```cpp
 constexpr size_t samples = 1'000'000;
@@ -210,7 +270,7 @@ W ten sposób napisaliśmy idealnie nieoptymalny algorytm sortowania o złożono
 ___
 <!-- .slide: style="font-size: 0.65em" -->
 
-## Złożoność `O(n * n!)` Przykład
+## Przykład `O(n * n!)`
 
 ```cpp
 std::random_device rd;
@@ -250,7 +310,3 @@ O(n * n!): 2'603'326'600 ns
 O(n * n!): 145'608'700 ns
 ```
 <!-- .element: class="fragment fade-in" -->
-
-___
-
-## Q&A
