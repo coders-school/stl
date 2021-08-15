@@ -1,3 +1,4 @@
 #include <string>
 
-bool is_palindrome(std::string sentence);
+
+bool is_palindrome(std::string word);

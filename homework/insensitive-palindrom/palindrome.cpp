@@ -4,15 +4,16 @@
 #include <iostream>
 
 bool is_palindrome(std::string sentence) {
-    for (size_t i = 0; i < sentence.size(); i++) {
-        if (!isalpha(sentence[i])) {
-            sentence.erase(i, 1);
-            i--;
+    std::transform(sentence.begin(), sentence.end(), sentence.begin(),
+                   [](auto& el) {
+                       if (isalpha(el)) {
+                           el = std::tolower(el);
+                           return el;
+                       }
+                       el = 'Q';
+                       return el;
+                   });
+    sentence.erase(std::remove(begin(sentence), end(sentence), 'Q'), end(sentence));
 
-        } else {
-            sentence[i] = tolower(sentence[i]);
-        }
-    }
-    auto iterators = std::mismatch(sentence.begin(), sentence.end(), sentence.rbegin(), sentence.rend());
-    return (iterators.first == sentence.end() && iterators.second == sentence.rend());
+    return std::equal(begin(sentence), begin(sentence) + sentence.size() / 2, rbegin(sentence));
 }
