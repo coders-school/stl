@@ -12,8 +12,8 @@ removeDuplicateAndTranformToMap(std::list<std::string>& strings, std::deque<int>
     ints.erase(intsit, ints.end());
 
     std::map<int, std::string> result;
-    std::transform(begin(strings), end(strings),
-                   begin(ints),
+    std::transform(cbegin(strings), cend(strings),
+                   cbegin(ints),
                    std::inserter(result, begin(result)),
                    [](const auto& text, auto value) {
                        return std::make_pair(value, text);
