@@ -1,45 +1,34 @@
 #include "compression.hpp"
 
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, width>, height>& arr){
+std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, width>, height>& arr) {
     std::vector<std::pair<uint8_t, uint8_t>> result;
-    result.reserve(width * height);
-
-    for(const auto & i : arr)
-    {
-        uint8_t element = i.front();
-        uint8_t counter = 1;
-        for(auto it = cbegin(i) + 1; it != cend(i); ++it)
-        {
-            if(element != *it)
-            {
-                result.emplace_back(std::make_pair(element, counter));
-                element = *it;
-                counter = 1;
-                continue;
-            }
-            counter++;
+    uint8_t next_el = ' ';
+    auto compare = [&](auto el){
+        if(el != next_el) {
+            std::fill_n(std::back_inserter(result), 1, std::make_pair(el, 1));
         }
-        result.emplace_back(std::make_pair(element, counter));
-    }
-    result.shrink_to_fit();
+        else {
+            result[result.size() - 1].second += 1;
+        }
+        next_el = el;
+    };
+    std::for_each(arr.begin(), arr.end(), [&](auto a){
+        next_el = ' ';
+        std::for_each(a.begin(), a.end(), compare);
+    });
     return result;
 }
 
+ std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::vector<std::pair<uint8_t, uint8_t>>& vec) {
+     std::array<std::array<uint8_t, width>, height> result{};
+     std::for_each(vec.begin(), vec.end(), [it = result.begin(), counter = 0](const auto& el) mutable {
+         std::fill_n(it->begin() + counter, el.second, el.first);
+         counter += el.second;
+         if(counter == width) {
+             ++it;
+             counter = 0;
+         }
+     });
+     return result;
+ }
 
-std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::vector<std::pair<uint8_t, uint8_t>>& vec)
-{
-    std::array<std::array<uint8_t, width>, height> result;
-    int x = 0;
-    int y = 0;
-    for(const auto & it : vec)
-    {
-        std::fill(&result[x][y], &result[x][y + it.second], it.first);
-        y += it.second;
-        if(y >= width)
-        {
-            x++;
-            y = 0;
-        }
-    }
-    return result;
-}
