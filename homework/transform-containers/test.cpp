@@ -1,7 +1,6 @@
 #include "gtest/gtest.h"
 #include "transformContainers.hpp"
 
-
 TEST(transformContainerTests, ShouldReturnUniqueMap) {
     std::map<int, std::string> expected_result{
         {1, "Ala"},
