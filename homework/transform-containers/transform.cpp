@@ -1,5 +1,6 @@
-#include "transform.hpp"
+#include <algorithm>
 #include <iterator>
+#include "transform.hpp"
 
 std::map<int, std::string> removeDuplicateAndTranformToMap(std::list<std::string>& list, std::deque<int>& deq) {
     list.sort();
@@ -17,4 +18,4 @@ std::map<int, std::string> removeDuplicateAndTranformToMap(std::list<std::string
                        return make_pair(value, str);
                    });
     return map;
-}
+} 
