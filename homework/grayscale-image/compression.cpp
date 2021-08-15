@@ -1,70 +1,50 @@
 #include "compression.hpp"
 #include <algorithm>
 #include <functional>
+#include <numeric>
 
-std::vector<uint8_t> compress(std::vector<uint8_t> v, const size_t& sizeUnique) {
-    std::vector<int> v2(v.size());
+std::vector<uint8_t> compress(std::vector<uint8_t> vec1d, std::vector<uint8_t> vecunique) {
     std::vector<uint8_t> v3;
-    uint8_t old = v.at(0);
-    int n = 0;
-    int m = -1;
-    int it = 1;
-    int itEnd = width * height;
-    auto f = [&](uint8_t x) {
-        m = -1;
-        if (old == x) {
-            n++;
-        } else {
-            m = n;
-            old = x;
-            n = 1;
-            it++;
-            return m;
-        }
-        if (it == itEnd) {
-            return n;
-        }
-        it++;
 
-        return m;
+    auto f = [vec1d](int x) {
+        auto i = std::find(vec1d.begin(), vec1d.end(), x);
+        int index = std::distance(vec1d.begin(), i);
+        return index;
     };
+    std::transform(vecunique.begin(), vecunique.end(), std::back_inserter(v3), f);
+    v3.push_back(v3.size());
 
-    std::transform(v.begin(), v.end(), v2.begin(), f);
-
-    auto const is_even = [](int x) { return x > -1; };
-    std::copy_if(v2.begin(), v2.end(), std::back_inserter(v3), is_even);
-    if (v3.size() < sizeUnique) {
-        v3.push_back(1);
-    }
+    adjacent_difference(begin(v3), end(v3), begin(v3));
+    v3.erase(v3.begin());
 
     return v3;
 }
 
 pairUint mergeVector(std::vector<uint8_t> v1, std::vector<uint8_t> v2) {
-    pairUint returnPair;
+    pairUint vectorPair;
     auto f = [](uint8_t x, uint8_t y) {
         return std::make_pair(x, y);
     };
 
-    std::transform(v1.begin(), v1.end(), v2.begin(), std::back_inserter(returnPair), f);
-    return returnPair;
+    std::transform(v1.begin(), v1.end(), v2.begin(), std::back_inserter(vectorPair), f);
+    return vectorPair;
 }
 
 pairUint compressGrayscale(board2d array2D) {
-    int s = width * height;
+    int vectorsize = width * height;
 
     pairUint vecFinal;
     if ((width == 0) || (height == 0)) {
         return vecFinal;
     } else {
-        std::vector<uint8_t> vec1D(s);
-        std::vector<uint8_t> vecUnique(s);
+        std::vector<uint8_t> vec1D(vectorsize);
+        std::vector<uint8_t> vecUnique(vectorsize);
         std::vector<uint8_t> vecCompres;
 
         std::copy(array2D[0].begin(), array2D[height - 1].end(), vec1D.begin());
         auto re = std::unique_copy(vec1D.begin(), vec1D.end(), vecUnique.begin());
         vecUnique.erase(re, vecUnique.end());
-        vecCompres = compress(vec1D, vecUnique.size());
+        vecCompres = compress(vec1D, vecUnique);
         vecFinal = mergeVector(vecUnique, vecCompres);
 
         return vecFinal;
