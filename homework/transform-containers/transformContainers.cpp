@@ -1,4 +1,4 @@
-#include "transform.hpp"
+#include "transformContainers.hpp"
 
 #include <algorithm>
 #include <iterator>
@@ -10,11 +10,7 @@ std::map<int, std::string> removeDuplicateAndTranformToMap(std::list<std::string
     list.erase(std::unique(begin(list), end(list)), end(list));
     deque.erase(std::unique(begin(deque), end(deque)), end(deque));
     if (deque.size() == list.size()) {
-        std::transform(begin(deque), 
-                       end(deque), 
-                       begin(list), 
-                       std::inserter(map, map.end()), 
-                       [](auto a, auto b){return std::make_pair(a, b);});
+        std::transform(begin(deque), end(deque), begin(list), std::inserter(map, map.end()), [](auto a, auto b){return std::make_pair(a, b);});
     }
     return map;
 }
