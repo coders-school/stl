@@ -1,10 +1,10 @@
-Start testing: Aug 16 22:17 BST
+Start testing: Aug 16 22:27 BST
 ----------------------------------------------------------
 1/1 Testing: transformContainers_test
 1/1 Test: transformContainers_test
 Command: "/home/nanautzin/coders_school/stl/homework/transform-containers/build/transformContainers-ut"
 Directory: /home/nanautzin/coders_school/stl/homework/transform-containers/build
-"transformContainers_test" start time: Aug 16 22:17 BST
+"transformContainers_test" start time: Aug 16 22:27 BST
 Output:
 ----------------------------------------------------------
 Running main() from /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-src/googletest/src/gtest_main.cc
@@ -22,8 +22,8 @@ Running main() from /home/nanautzin/coders_school/stl/homework/transform-contain
 Test time =   0.00 sec
 ----------------------------------------------------------
 Test Passed.
-"transformContainers_test" end time: Aug 16 22:17 BST
+"transformContainers_test" end time: Aug 16 22:27 BST
 "transformContainers_test" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Aug 16 22:17 BST
+End testing: Aug 16 22:27 BST
