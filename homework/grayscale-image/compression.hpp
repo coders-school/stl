@@ -1,7 +1,6 @@
 #pragma once
 
 #include <array>
-#include <iostream>
 #include <iterator>
 #include <utility>
 #include <vector>
@@ -14,4 +13,3 @@ using grayscaleImage = std::array<std::array<uint8_t, width>, height>;
 
 compressedGrayscaleImage compressGrayscale(const grayscaleImage&);
 grayscaleImage decompressGrayscale(const compressedGrayscaleImage&);
-void printMap(const grayscaleImage&);
