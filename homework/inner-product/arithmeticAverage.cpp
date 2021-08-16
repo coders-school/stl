@@ -9,11 +9,7 @@ double ArithmeticAverage(std::vector<int> first, std::vector<int> second) {
 }
 
 double Distance(std::vector<int> first, std::vector<int> second) {
-	double result = 0;
-	for (size_t i = 0; i < first.size(); ++i) {
-		double calculation = first.at(i) - second.at(i);
-		calculation *= calculation;
-		result += calculation;
-	}
-	return std::sqrt(result);
+	auto calculate = []( const auto& val1, const auto& val2) { return std::pow(val1 - val2, 2); };
+	auto innerProduct = std::inner_product(first.begin(), first.end(), second.begin(), 0, std::plus<>(), calculate);
+	return std::sqrt(innerProduct);
 }
