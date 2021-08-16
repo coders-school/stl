@@ -6,7 +6,7 @@ int main()
 {
 double d;
 //ExpressionParser Expression("11,3 + 12.4");
-process("5,1!",&d);
+process("123 -#- 4",&d);
 
 std::cout << d << "\n";
 
