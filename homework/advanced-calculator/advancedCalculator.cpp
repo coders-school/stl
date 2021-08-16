@@ -19,11 +19,11 @@ ErrorCode process(std::string input, double* out) {
             return ErrorCode::BadCharacter;
         };
     };
-     std::string precheck = Expression.getOperand1();
-     if (std::any_of(precheck.begin(), precheck.end(), [](char z) { return (isalpha(z));})) {
-            *out = 0;
-            return ErrorCode::BadCharacter;
-        };
+    std::string precheck = Expression.getOperand1();
+    if (std::any_of(precheck.begin(), precheck.end(), [](char z) { return (isalpha(z)); })) {
+        *out = 0;
+        return ErrorCode::BadCharacter;
+    };
 
     if (MapCommands_.find(Expression.getOperation()) != MapCommands_.end()) {
         try {
@@ -49,7 +49,7 @@ ErrorCode process(std::string input, double* out) {
             if (!Expression.getOperand2().empty()) {
                 return ErrorCode::BadFormat;
             };
-            
+
             if (std::stod(Expression.getOperand1()) < 0) {
                 d = -1 * (std::invoke(MapCommands_.find(Expression.getOperation())->second, -(std::stod(Expression.getOperand1())), 0));
             } else
@@ -57,12 +57,26 @@ ErrorCode process(std::string input, double* out) {
             break;
         }
         case '/': {
-            if (std::stod(Expression.getOperand2()) == 0) {*out= 0; return ErrorCode::DivideBy0;};
+            if (std::stod(Expression.getOperand2()) == 0) {
+                *out = 0;
+                return ErrorCode::DivideBy0;
+            };
+            d = std::invoke(MapCommands_.find(Expression.getOperation())->second, std::stod(Expression.getOperand1()), std::stod(Expression.getOperand2()));
+            break;
+        }
+        case '$': {
+            if (std::stod(Expression.getOperand1()) < 0) {
+                *out = 0;
+                return ErrorCode::SqrtOfNegativeNumber;
+            };
             d = std::invoke(MapCommands_.find(Expression.getOperation())->second, std::stod(Expression.getOperand1()), std::stod(Expression.getOperand2()));
             break;
         }
         case '%': {
-            if ((Expression.getOperand1().find('.')!=std::string::npos) || (Expression.getOperand2().find('.')!=std::string::npos)) {*out= 0; return ErrorCode::ModuleOfNonIntegerValue;};
+            if ((Expression.getOperand1().find('.') != std::string::npos) || (Expression.getOperand2().find('.') != std::string::npos)) {
+                *out = 0;
+                return ErrorCode::ModuleOfNonIntegerValue;
+            };
             d = std::invoke(MapCommands_.find(Expression.getOperation())->second, std::stod(Expression.getOperand1()), std::stod(Expression.getOperand2()));
             break;
         }
