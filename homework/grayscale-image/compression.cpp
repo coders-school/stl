@@ -1,6 +1,7 @@
 #include "compression.hpp"
 
 #include <algorithm>
+#include <vector>
 
 compressedGrayscaleImage compressGrayscale(const grayscaleImage& bitmap) {
     compressedGrayscaleImage compressed;
