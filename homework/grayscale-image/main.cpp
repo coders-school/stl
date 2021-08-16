@@ -1,5 +1,4 @@
 #include <array>
-#include <iostream>
 
 #include "compression.hpp"
 
@@ -46,14 +45,5 @@ int main() {
     auto compressed = compressGrayscale(ninja);
     auto decompressed = decompressGrayscale(compressed);
     printMap(decompressed);
-    // for (int i = 0; i < 32; i++) {
-    //     for (int j = 0; j < 32; j++) {
-    //         std::cout << "(" << static_cast<int>(ninja[i][j]) << "), ";
-    //         std::cout << "(" << static_cast<int>(decompressed[i][j]) << "), ";
-    //     }
-    //     std::cout << "\n";
-    // }
-
-
     return 0;
 }
