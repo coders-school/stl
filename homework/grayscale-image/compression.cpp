@@ -55,9 +55,12 @@ board2d decompressGrayscale(pairUint vecPair) {
     board2d finalArray;
     std::vector<uint8_t> vec;
 
-    for (auto x : vecPair) {
-        std::fill_n(std::back_inserter(vec), x.second, x.first);
-    }
+    auto func = [&](std::pair<uint8_t, uint8_t> p) {
+        return fill_n(std::back_inserter(vec), p.second, p.first);
+    };
+
+    transform(vecPair.begin(), vecPair.end(), std::back_inserter(vec), func);
+
     std::copy(vec.begin(), vec.end(), finalArray[0].begin());
 
     return finalArray;
