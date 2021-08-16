@@ -1,13 +1,13 @@
 #include <iostream>
 #include "ExpressionParser.hpp"
+#include "advancedCalculator.hpp"
 
 int main()
 {
+double d;
+//ExpressionParser Expression("11,3 + 12.4");
+process("12.4!",&d);
 
-ExpressionParser Expression("11,3 + 12.4");
-ExpressionParser Expression2("-5+ -11");
-
-
-
+std::cout << d << "\n";
 
 };

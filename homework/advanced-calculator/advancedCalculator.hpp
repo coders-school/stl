@@ -1,10 +1,10 @@
 #pragma once
+#include <map>
 #include <string>
 #include "ExpressionParser.hpp"
+#include <cmath>
 
-
-enum class ErrorCode
-{
+enum class ErrorCode {
     OK,
     BadCharacter,
     BadFormat,
@@ -13,5 +13,6 @@ enum class ErrorCode
     ModuleOfNonIntegerValue
 };
 
+extern std::map<char, std::function<double(double a, double b)>> MapCommands_;
 
 ErrorCode process(std::string input, double* out);

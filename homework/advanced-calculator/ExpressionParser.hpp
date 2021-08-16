@@ -22,6 +22,6 @@ char getParsingFlag() const {return parsingFlag_;};
 
 
 //c-tor
-ExpressionParser(const std::string& input) {setParsingFlag(slice(input));};
+ExpressionParser(const std::string& input):parsingFlag_{false} {slice(input);};
 
 };
