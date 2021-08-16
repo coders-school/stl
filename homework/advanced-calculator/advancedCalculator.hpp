@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "ExpressionParser.hpp"
 
 
 enum class ErrorCode
@@ -11,5 +12,6 @@ enum class ErrorCode
     SqrtOfNegativeNumber,
     ModuleOfNonIntegerValue
 };
+
 
 ErrorCode process(std::string input, double* out);
