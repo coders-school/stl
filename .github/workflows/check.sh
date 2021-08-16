@@ -82,7 +82,7 @@ echo -e $BOLD "Performing checks on $FILE" $DEFAULT
 
 does_file_exist $FILE
 positive_lookup "should have #include <algorithm>" "\<algorithm\>"
-max_2_allowed_lookup "should not have more than 2 for loops" "^\s*for\s*\("
+max_2_allowed_lookup "should not have more than 2 for loops" "for(_each)?\s*\(("
 negative_lookup "should not have while loop" "^\}?\s*while\s*\("
 
 echo -e "==="
