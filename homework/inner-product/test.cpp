@@ -1,6 +1,6 @@
 #include <vector>
 
-#include "arithmeticAverage.hpp"
+#include "arithmeticAverage.h"
 #include "gtest/gtest.h"
 
 TEST(arithmeticAverageTest, ShouldCalculateArithmeticAverage) {
