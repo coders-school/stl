@@ -14,7 +14,7 @@ ErrorCode process(std::string input, double* out) {
     ExpressionParser Expression(input);
     double d;
 
-    if (Expression.getOperation() == '\n') {
+    if (!Expression.getParsingFlag()) {
         *out = 0;
         return ErrorCode::BadFormat;
     };
