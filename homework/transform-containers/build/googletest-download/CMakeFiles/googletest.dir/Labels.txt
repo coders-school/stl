@@ -1,14 +1,14 @@
 # Target labels
  googletest
 # Source files and their labels
-/home/linux/workspace/stl/homework/transform-containers/build/googletest-download/CMakeFiles/googletest
-/home/linux/workspace/stl/homework/transform-containers/build/googletest-download/CMakeFiles/googletest.rule
-/home/linux/workspace/stl/homework/transform-containers/build/googletest-download/CMakeFiles/googletest-complete.rule
-/home/linux/workspace/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-install.rule
-/home/linux/workspace/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-mkdir.rule
-/home/linux/workspace/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-download.rule
-/home/linux/workspace/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-update.rule
-/home/linux/workspace/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-patch.rule
-/home/linux/workspace/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-configure.rule
-/home/linux/workspace/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-build.rule
-/home/linux/workspace/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-test.rule
+/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/CMakeFiles/googletest
+/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/CMakeFiles/googletest.rule
+/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/CMakeFiles/googletest-complete.rule
+/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-install.rule
+/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-mkdir.rule
+/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-download.rule
+/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-update.rule
+/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-patch.rule
+/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-configure.rule
+/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-build.rule
+/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-test.rule

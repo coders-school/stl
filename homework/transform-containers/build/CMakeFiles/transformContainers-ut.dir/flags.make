@@ -6,5 +6,5 @@ CXX_FLAGS =   -std=gnu++17
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -isystem /home/linux/workspace/stl/homework/transform-containers/build/googletest-src/googletest/include -isystem /home/linux/workspace/stl/homework/transform-containers/build/googletest-src/googletest 
+CXX_INCLUDES = -isystem /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-src/googletest/include -isystem /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-src/googletest 
 

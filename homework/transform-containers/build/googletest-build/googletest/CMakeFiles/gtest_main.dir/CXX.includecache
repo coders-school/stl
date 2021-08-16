@@ -6,11 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/home/linux/workspace/stl/homework/transform-containers/build/googletest-src/googletest/src/gtest_main.cc
+/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-src/googletest/src/gtest_main.cc
 cstdio
 -
 gtest/gtest.h
-/home/linux/workspace/stl/homework/transform-containers/build/googletest-src/googletest/src/gtest/gtest.h
+/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-src/googletest/src/gtest/gtest.h
 
 googletest-src/googletest/include/gtest/gtest-death-test.h
 gtest/internal/gtest-death-test-internal.h

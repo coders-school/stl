@@ -6,25 +6,25 @@
 
 #IncludeRegexTransform: 
 
-/home/linux/workspace/stl/homework/transform-containers/build/googletest-src/googletest/src/gtest-all.cc
+/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-src/googletest/src/gtest-all.cc
 gtest/gtest.h
-/home/linux/workspace/stl/homework/transform-containers/build/googletest-src/googletest/src/gtest/gtest.h
+/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-src/googletest/src/gtest/gtest.h
 src/gtest.cc
-/home/linux/workspace/stl/homework/transform-containers/build/googletest-src/googletest/src/src/gtest.cc
+/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-src/googletest/src/src/gtest.cc
 src/gtest-death-test.cc
-/home/linux/workspace/stl/homework/transform-containers/build/googletest-src/googletest/src/src/gtest-death-test.cc
+/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-src/googletest/src/src/gtest-death-test.cc
 src/gtest-filepath.cc
-/home/linux/workspace/stl/homework/transform-containers/build/googletest-src/googletest/src/src/gtest-filepath.cc
+/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-src/googletest/src/src/gtest-filepath.cc
 src/gtest-matchers.cc
-/home/linux/workspace/stl/homework/transform-containers/build/googletest-src/googletest/src/src/gtest-matchers.cc
+/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-src/googletest/src/src/gtest-matchers.cc
 src/gtest-port.cc
-/home/linux/workspace/stl/homework/transform-containers/build/googletest-src/googletest/src/src/gtest-port.cc
+/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-src/googletest/src/src/gtest-port.cc
 src/gtest-printers.cc
-/home/linux/workspace/stl/homework/transform-containers/build/googletest-src/googletest/src/src/gtest-printers.cc
+/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-src/googletest/src/src/gtest-printers.cc
 src/gtest-test-part.cc
-/home/linux/workspace/stl/homework/transform-containers/build/googletest-src/googletest/src/src/gtest-test-part.cc
+/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-src/googletest/src/src/gtest-test-part.cc
 src/gtest-typed-test.cc
-/home/linux/workspace/stl/homework/transform-containers/build/googletest-src/googletest/src/src/gtest-typed-test.cc
+/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-src/googletest/src/src/gtest-typed-test.cc
 
 googletest-src/googletest/include/gtest/gtest-death-test.h
 gtest/internal/gtest-death-test-internal.h

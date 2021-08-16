@@ -6,22 +6,20 @@
 
 #IncludeRegexTransform: 
 
-/home/linux/workspace/stl/homework/transform-containers/test.cpp
+/home/nanautzin/coders_school/stl/homework/transform-containers/test.cpp
 gtest/gtest.h
-/home/linux/workspace/stl/homework/transform-containers/gtest/gtest.h
+/home/nanautzin/coders_school/stl/homework/transform-containers/gtest/gtest.h
 transform.hpp
-/home/linux/workspace/stl/homework/transform-containers/transform.hpp
+/home/nanautzin/coders_school/stl/homework/transform-containers/transform.hpp
 
-/home/linux/workspace/stl/homework/transform-containers/transform.hpp
-string
--
+/home/nanautzin/coders_school/stl/homework/transform-containers/transform.hpp
 deque
 -
 list
 -
 map
 -
-algorithm
+string
 -
 
 googletest-src/googletest/include/gtest/gtest-death-test.h

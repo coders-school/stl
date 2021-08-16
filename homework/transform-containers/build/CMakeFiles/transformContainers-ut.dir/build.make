@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/linux/workspace/stl/homework/transform-containers
+CMAKE_SOURCE_DIR = /home/nanautzin/coders_school/stl/homework/transform-containers
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/linux/workspace/stl/homework/transform-containers/build
+CMAKE_BINARY_DIR = /home/nanautzin/coders_school/stl/homework/transform-containers/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/transformContainers-ut.dir/depend.make
@@ -59,29 +59,29 @@ include CMakeFiles/transformContainers-ut.dir/flags.make
 
 CMakeFiles/transformContainers-ut.dir/test.cpp.o: CMakeFiles/transformContainers-ut.dir/flags.make
 CMakeFiles/transformContainers-ut.dir/test.cpp.o: ../test.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linux/workspace/stl/homework/transform-containers/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/transformContainers-ut.dir/test.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/transformContainers-ut.dir/test.cpp.o -c /home/linux/workspace/stl/homework/transform-containers/test.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nanautzin/coders_school/stl/homework/transform-containers/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/transformContainers-ut.dir/test.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/transformContainers-ut.dir/test.cpp.o -c /home/nanautzin/coders_school/stl/homework/transform-containers/test.cpp
 
 CMakeFiles/transformContainers-ut.dir/test.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/transformContainers-ut.dir/test.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/linux/workspace/stl/homework/transform-containers/test.cpp > CMakeFiles/transformContainers-ut.dir/test.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nanautzin/coders_school/stl/homework/transform-containers/test.cpp > CMakeFiles/transformContainers-ut.dir/test.cpp.i
 
 CMakeFiles/transformContainers-ut.dir/test.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/transformContainers-ut.dir/test.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/linux/workspace/stl/homework/transform-containers/test.cpp -o CMakeFiles/transformContainers-ut.dir/test.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nanautzin/coders_school/stl/homework/transform-containers/test.cpp -o CMakeFiles/transformContainers-ut.dir/test.cpp.s
 
 CMakeFiles/transformContainers-ut.dir/transform.cpp.o: CMakeFiles/transformContainers-ut.dir/flags.make
 CMakeFiles/transformContainers-ut.dir/transform.cpp.o: ../transform.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linux/workspace/stl/homework/transform-containers/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/transformContainers-ut.dir/transform.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/transformContainers-ut.dir/transform.cpp.o -c /home/linux/workspace/stl/homework/transform-containers/transform.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nanautzin/coders_school/stl/homework/transform-containers/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/transformContainers-ut.dir/transform.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/transformContainers-ut.dir/transform.cpp.o -c /home/nanautzin/coders_school/stl/homework/transform-containers/transform.cpp
 
 CMakeFiles/transformContainers-ut.dir/transform.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/transformContainers-ut.dir/transform.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/linux/workspace/stl/homework/transform-containers/transform.cpp > CMakeFiles/transformContainers-ut.dir/transform.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nanautzin/coders_school/stl/homework/transform-containers/transform.cpp > CMakeFiles/transformContainers-ut.dir/transform.cpp.i
 
 CMakeFiles/transformContainers-ut.dir/transform.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/transformContainers-ut.dir/transform.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/linux/workspace/stl/homework/transform-containers/transform.cpp -o CMakeFiles/transformContainers-ut.dir/transform.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nanautzin/coders_school/stl/homework/transform-containers/transform.cpp -o CMakeFiles/transformContainers-ut.dir/transform.cpp.s
 
 # Object files for target transformContainers-ut
 transformContainers__ut_OBJECTS = \
@@ -97,7 +97,7 @@ transformContainers-ut: CMakeFiles/transformContainers-ut.dir/build.make
 transformContainers-ut: lib/libgtest_main.a
 transformContainers-ut: lib/libgtest.a
 transformContainers-ut: CMakeFiles/transformContainers-ut.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/linux/workspace/stl/homework/transform-containers/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable transformContainers-ut"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/nanautzin/coders_school/stl/homework/transform-containers/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable transformContainers-ut"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/transformContainers-ut.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -110,6 +110,6 @@ CMakeFiles/transformContainers-ut.dir/clean:
 .PHONY : CMakeFiles/transformContainers-ut.dir/clean
 
 CMakeFiles/transformContainers-ut.dir/depend:
-	cd /home/linux/workspace/stl/homework/transform-containers/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/linux/workspace/stl/homework/transform-containers /home/linux/workspace/stl/homework/transform-containers /home/linux/workspace/stl/homework/transform-containers/build /home/linux/workspace/stl/homework/transform-containers/build /home/linux/workspace/stl/homework/transform-containers/build/CMakeFiles/transformContainers-ut.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/nanautzin/coders_school/stl/homework/transform-containers/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nanautzin/coders_school/stl/homework/transform-containers /home/nanautzin/coders_school/stl/homework/transform-containers /home/nanautzin/coders_school/stl/homework/transform-containers/build /home/nanautzin/coders_school/stl/homework/transform-containers/build /home/nanautzin/coders_school/stl/homework/transform-containers/build/CMakeFiles/transformContainers-ut.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/transformContainers-ut.dir/depend
 

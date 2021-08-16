@@ -1,10 +1,7 @@
 #include "gtest/gtest.h"
-<<<<<<< HEAD
 
-#include "transformContainers.hpp"
-=======
 #include "transform.hpp"
->>>>>>> 57b26c697123e01cc072be779f4308693316e231
+
 
 TEST(transformContainerTests, ShouldReturnUniqueMap) {
     std::map<int, std::string> expected_result{

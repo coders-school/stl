@@ -1,4 +1,4 @@
-# Install script for directory: /home/linux/workspace/stl/homework/transform-containers/build/googletest-download
+# Install script for directory: /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/linux/workspace/stl/homework/transform-containers/build/googletest-download/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

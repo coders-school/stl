@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/linux/workspace/stl/homework/transform-containers/build/googletest-download
+CMAKE_SOURCE_DIR = /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/linux/workspace/stl/homework/transform-containers/build/googletest-download
+CMAKE_BINARY_DIR = /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download
 
 # Utility rule file for googletest.
 
@@ -65,58 +65,58 @@ CMakeFiles/googletest-complete: googletest-prefix/src/googletest-stamp/googletes
 CMakeFiles/googletest-complete: googletest-prefix/src/googletest-stamp/googletest-build
 CMakeFiles/googletest-complete: googletest-prefix/src/googletest-stamp/googletest-install
 CMakeFiles/googletest-complete: googletest-prefix/src/googletest-stamp/googletest-test
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/linux/workspace/stl/homework/transform-containers/build/googletest-download/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Completed 'googletest'"
-	/usr/bin/cmake -E make_directory /home/linux/workspace/stl/homework/transform-containers/build/googletest-download/CMakeFiles
-	/usr/bin/cmake -E touch /home/linux/workspace/stl/homework/transform-containers/build/googletest-download/CMakeFiles/googletest-complete
-	/usr/bin/cmake -E touch /home/linux/workspace/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-done
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Completed 'googletest'"
+	/usr/bin/cmake -E make_directory /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/CMakeFiles
+	/usr/bin/cmake -E touch /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/CMakeFiles/googletest-complete
+	/usr/bin/cmake -E touch /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-done
 
 googletest-prefix/src/googletest-stamp/googletest-install: googletest-prefix/src/googletest-stamp/googletest-build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/linux/workspace/stl/homework/transform-containers/build/googletest-download/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "No install step for 'googletest'"
-	cd /home/linux/workspace/stl/homework/transform-containers/build/googletest-build && /usr/bin/cmake -E echo_append
-	cd /home/linux/workspace/stl/homework/transform-containers/build/googletest-build && /usr/bin/cmake -E touch /home/linux/workspace/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-install
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "No install step for 'googletest'"
+	cd /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-build && /usr/bin/cmake -E echo_append
+	cd /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-build && /usr/bin/cmake -E touch /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-install
 
 googletest-prefix/src/googletest-stamp/googletest-mkdir:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/linux/workspace/stl/homework/transform-containers/build/googletest-download/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Creating directories for 'googletest'"
-	/usr/bin/cmake -E make_directory /home/linux/workspace/stl/homework/transform-containers/build/googletest-src
-	/usr/bin/cmake -E make_directory /home/linux/workspace/stl/homework/transform-containers/build/googletest-build
-	/usr/bin/cmake -E make_directory /home/linux/workspace/stl/homework/transform-containers/build/googletest-download/googletest-prefix
-	/usr/bin/cmake -E make_directory /home/linux/workspace/stl/homework/transform-containers/build/googletest-download/googletest-prefix/tmp
-	/usr/bin/cmake -E make_directory /home/linux/workspace/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp
-	/usr/bin/cmake -E make_directory /home/linux/workspace/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src
-	/usr/bin/cmake -E make_directory /home/linux/workspace/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp
-	/usr/bin/cmake -E touch /home/linux/workspace/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-mkdir
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Creating directories for 'googletest'"
+	/usr/bin/cmake -E make_directory /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-src
+	/usr/bin/cmake -E make_directory /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-build
+	/usr/bin/cmake -E make_directory /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/googletest-prefix
+	/usr/bin/cmake -E make_directory /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/googletest-prefix/tmp
+	/usr/bin/cmake -E make_directory /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp
+	/usr/bin/cmake -E make_directory /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src
+	/usr/bin/cmake -E make_directory /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp
+	/usr/bin/cmake -E touch /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-mkdir
 
 googletest-prefix/src/googletest-stamp/googletest-download: googletest-prefix/src/googletest-stamp/googletest-gitinfo.txt
 googletest-prefix/src/googletest-stamp/googletest-download: googletest-prefix/src/googletest-stamp/googletest-mkdir
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/linux/workspace/stl/homework/transform-containers/build/googletest-download/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Performing download step (git clone) for 'googletest'"
-	cd /home/linux/workspace/stl/homework/transform-containers/build && /usr/bin/cmake -P /home/linux/workspace/stl/homework/transform-containers/build/googletest-download/googletest-prefix/tmp/googletest-gitclone.cmake
-	cd /home/linux/workspace/stl/homework/transform-containers/build && /usr/bin/cmake -E touch /home/linux/workspace/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-download
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Performing download step (git clone) for 'googletest'"
+	cd /home/nanautzin/coders_school/stl/homework/transform-containers/build && /usr/bin/cmake -P /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/googletest-prefix/tmp/googletest-gitclone.cmake
+	cd /home/nanautzin/coders_school/stl/homework/transform-containers/build && /usr/bin/cmake -E touch /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-download
 
 googletest-prefix/src/googletest-stamp/googletest-update: googletest-prefix/src/googletest-stamp/googletest-download
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/linux/workspace/stl/homework/transform-containers/build/googletest-download/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Performing update step for 'googletest'"
-	cd /home/linux/workspace/stl/homework/transform-containers/build/googletest-src && /usr/bin/cmake -P /home/linux/workspace/stl/homework/transform-containers/build/googletest-download/googletest-prefix/tmp/googletest-gitupdate.cmake
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Performing update step for 'googletest'"
+	cd /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-src && /usr/bin/cmake -P /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/googletest-prefix/tmp/googletest-gitupdate.cmake
 
 googletest-prefix/src/googletest-stamp/googletest-patch: googletest-prefix/src/googletest-stamp/googletest-download
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/linux/workspace/stl/homework/transform-containers/build/googletest-download/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "No patch step for 'googletest'"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "No patch step for 'googletest'"
 	/usr/bin/cmake -E echo_append
-	/usr/bin/cmake -E touch /home/linux/workspace/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-patch
+	/usr/bin/cmake -E touch /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-patch
 
 googletest-prefix/src/googletest-stamp/googletest-configure: googletest-prefix/tmp/googletest-cfgcmd.txt
 googletest-prefix/src/googletest-stamp/googletest-configure: googletest-prefix/src/googletest-stamp/googletest-update
 googletest-prefix/src/googletest-stamp/googletest-configure: googletest-prefix/src/googletest-stamp/googletest-patch
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/linux/workspace/stl/homework/transform-containers/build/googletest-download/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "No configure step for 'googletest'"
-	cd /home/linux/workspace/stl/homework/transform-containers/build/googletest-build && /usr/bin/cmake -E echo_append
-	cd /home/linux/workspace/stl/homework/transform-containers/build/googletest-build && /usr/bin/cmake -E touch /home/linux/workspace/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-configure
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "No configure step for 'googletest'"
+	cd /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-build && /usr/bin/cmake -E echo_append
+	cd /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-build && /usr/bin/cmake -E touch /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-configure
 
 googletest-prefix/src/googletest-stamp/googletest-build: googletest-prefix/src/googletest-stamp/googletest-configure
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/linux/workspace/stl/homework/transform-containers/build/googletest-download/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "No build step for 'googletest'"
-	cd /home/linux/workspace/stl/homework/transform-containers/build/googletest-build && /usr/bin/cmake -E echo_append
-	cd /home/linux/workspace/stl/homework/transform-containers/build/googletest-build && /usr/bin/cmake -E touch /home/linux/workspace/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "No build step for 'googletest'"
+	cd /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-build && /usr/bin/cmake -E echo_append
+	cd /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-build && /usr/bin/cmake -E touch /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-build
 
 googletest-prefix/src/googletest-stamp/googletest-test: googletest-prefix/src/googletest-stamp/googletest-install
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/linux/workspace/stl/homework/transform-containers/build/googletest-download/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "No test step for 'googletest'"
-	cd /home/linux/workspace/stl/homework/transform-containers/build/googletest-build && /usr/bin/cmake -E echo_append
-	cd /home/linux/workspace/stl/homework/transform-containers/build/googletest-build && /usr/bin/cmake -E touch /home/linux/workspace/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-test
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "No test step for 'googletest'"
+	cd /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-build && /usr/bin/cmake -E echo_append
+	cd /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-build && /usr/bin/cmake -E touch /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-test
 
 googletest: CMakeFiles/googletest
 googletest: CMakeFiles/googletest-complete
@@ -142,6 +142,6 @@ CMakeFiles/googletest.dir/clean:
 .PHONY : CMakeFiles/googletest.dir/clean
 
 CMakeFiles/googletest.dir/depend:
-	cd /home/linux/workspace/stl/homework/transform-containers/build/googletest-download && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/linux/workspace/stl/homework/transform-containers/build/googletest-download /home/linux/workspace/stl/homework/transform-containers/build/googletest-download /home/linux/workspace/stl/homework/transform-containers/build/googletest-download /home/linux/workspace/stl/homework/transform-containers/build/googletest-download /home/linux/workspace/stl/homework/transform-containers/build/googletest-download/CMakeFiles/googletest.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download /home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/CMakeFiles/googletest.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/googletest.dir/depend
 

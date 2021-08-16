@@ -4,8 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/linux/workspace/stl/homework/transform-containers/test.cpp" "/home/linux/workspace/stl/homework/transform-containers/build/CMakeFiles/transformContainers-ut.dir/test.cpp.o"
-  "/home/linux/workspace/stl/homework/transform-containers/transform.cpp" "/home/linux/workspace/stl/homework/transform-containers/build/CMakeFiles/transformContainers-ut.dir/transform.cpp.o"
+  "/home/nanautzin/coders_school/stl/homework/transform-containers/test.cpp" "/home/nanautzin/coders_school/stl/homework/transform-containers/build/CMakeFiles/transformContainers-ut.dir/test.cpp.o"
+  "/home/nanautzin/coders_school/stl/homework/transform-containers/transform.cpp" "/home/nanautzin/coders_school/stl/homework/transform-containers/build/CMakeFiles/transformContainers-ut.dir/transform.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -17,8 +17,8 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/linux/workspace/stl/homework/transform-containers/build/googletest-build/googletest/CMakeFiles/gtest_main.dir/DependInfo.cmake"
-  "/home/linux/workspace/stl/homework/transform-containers/build/googletest-build/googletest/CMakeFiles/gtest.dir/DependInfo.cmake"
+  "/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-build/googletest/CMakeFiles/gtest_main.dir/DependInfo.cmake"
+  "/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-build/googletest/CMakeFiles/gtest.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

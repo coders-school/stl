@@ -2,37 +2,37 @@
 	"sources" : 
 	[
 		{
-			"file" : "/home/linux/workspace/stl/homework/transform-containers/build/googletest-download/CMakeFiles/googletest"
+			"file" : "/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/CMakeFiles/googletest"
 		},
 		{
-			"file" : "/home/linux/workspace/stl/homework/transform-containers/build/googletest-download/CMakeFiles/googletest.rule"
+			"file" : "/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/CMakeFiles/googletest.rule"
 		},
 		{
-			"file" : "/home/linux/workspace/stl/homework/transform-containers/build/googletest-download/CMakeFiles/googletest-complete.rule"
+			"file" : "/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/CMakeFiles/googletest-complete.rule"
 		},
 		{
-			"file" : "/home/linux/workspace/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-install.rule"
+			"file" : "/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-install.rule"
 		},
 		{
-			"file" : "/home/linux/workspace/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-mkdir.rule"
+			"file" : "/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-mkdir.rule"
 		},
 		{
-			"file" : "/home/linux/workspace/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-download.rule"
+			"file" : "/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-download.rule"
 		},
 		{
-			"file" : "/home/linux/workspace/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-update.rule"
+			"file" : "/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-update.rule"
 		},
 		{
-			"file" : "/home/linux/workspace/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-patch.rule"
+			"file" : "/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-patch.rule"
 		},
 		{
-			"file" : "/home/linux/workspace/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-configure.rule"
+			"file" : "/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-configure.rule"
 		},
 		{
-			"file" : "/home/linux/workspace/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-build.rule"
+			"file" : "/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-build.rule"
 		},
 		{
-			"file" : "/home/linux/workspace/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-test.rule"
+			"file" : "/home/nanautzin/coders_school/stl/homework/transform-containers/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-test.rule"
 		}
 	],
 	"target" : 
