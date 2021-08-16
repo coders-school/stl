@@ -11,8 +11,11 @@ auto opchar = std::find_if(std::next(input.begin()),input.end(),[](auto& c) {
 return false;
 });
 
-if (opchar == input.end()) {setParsingFlag(false); return false;};
-
+if (opchar==input.end()) {setParsingFlag(false);
+Operand1_="";
+Operand2_="";
+Operation_='\n';
+  return false;};
 Operand1_=input.substr(0,std::distance(input.begin(),opchar));
 Operation_=*opchar;
 Operand2_=input.substr(std::distance(input.begin(),opchar)+1,input.size());

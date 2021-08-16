@@ -13,12 +13,15 @@ std::map<char, std::function<double(double a, double b)>> MapCommands_{
 ErrorCode process(std::string input, double* out) {
     ExpressionParser Expression(input);
     double d;
-    if (std::all_of(input.begin(), input.end(), [](char z) { return (isdigit(z)); })) {
+
+    if (Expression.getOperation() == '\n') {
         *out = 0;
-        return ErrorCode::BadCharacter;
+        return ErrorCode::BadFormat;
     };
+
     if (!Expression.getOperand2().empty()) {
         if (!isalnum(Expression.getOperand2()[0]) && !isalnum(Expression.getOperand2()[1])) {
+            *out = 0;
             return ErrorCode::BadCharacter;
         };
     };
