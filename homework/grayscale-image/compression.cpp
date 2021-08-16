@@ -5,7 +5,7 @@
 compressedGrayscaleImage compressGrayscale(const grayscaleImage& bitmap) {
     compressedGrayscaleImage compressed;
     compressed.reserve(width * height);
-    for (const auto& row : bitmap) {
+    std::for_each(bitmap.cbegin(), bitmap.cend(), [&compressed](const auto& row){
         for (auto it = row.begin(); it != row.end();) {
             auto found = std::adjacent_find(it, row.end(), std::not_equal_to<int>{});
             if (found != row.end()) {
@@ -14,7 +14,7 @@ compressedGrayscaleImage compressGrayscale(const grayscaleImage& bitmap) {
             compressed.emplace_back(*it, std::distance(it, found));
             it = found;
         }
-    }
+    });
     compressed.shrink_to_fit();
     return compressed;
 }
