@@ -7,7 +7,8 @@ bool ExpressionParser::slice(std::string input)
 input.erase(std::remove(input.begin(),input.end(),' '),input.end());
 
 auto opchar = std::find_if(std::next(input.begin()),input.end(),[](auto& c) {
-if (c=='+' || c=='-' || c=='*' || c=='/' || c=='%' || c=='!' || c=='^' || c=='$' ) {return true;};
+    if ((c!='.' && c!=',') && !isalnum(c)) return true;
+//if (c=='+' || c=='-' || c=='*' || c=='/' || c=='%' || c=='!' || c=='^' || c=='$' ) {return true;};
 return false;
 });
 

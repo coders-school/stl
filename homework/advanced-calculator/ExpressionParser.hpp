@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <algorithm>
+#include <iostream>
 
 class ExpressionParser
 {
