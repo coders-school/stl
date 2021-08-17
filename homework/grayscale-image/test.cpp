@@ -26,7 +26,8 @@ std::vector<std::pair<uint8_t, uint8_t>> getBitmap(size_t fraction) {
     return bitmap;
 }
 
-TEST(compressionTests, ShouldCompressWholeLines) {
+TEST(compressionTests, ShouldCompressWholeLines) 
+{
     std::array<std::array<uint8_t, width>, height> arr;
     for (int i = 0; i < height; ++i)
         for (int j = 0; j < width; ++j)

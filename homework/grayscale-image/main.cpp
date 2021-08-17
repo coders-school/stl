@@ -40,15 +40,59 @@ std::array<std::array<uint8_t, 32>, 32> generateNinja() {
     };
 }
 
-int main() {
-    auto ninja = generateNinja();
+std::vector<std::pair<uint8_t, uint8_t>> getBitmap(size_t fraction) 
+{
+    std::vector<std::pair<uint8_t, uint8_t>> bitmap;
+    bitmap.reserve(height * fraction);
+    for (size_t i = 0; i < height; ++i) {
+        for (size_t j = 0; j < fraction; ++j) {
+            bitmap.push_back({j, width / fraction});
+        }
+    }
+    return bitmap;
+}
+std::vector<std::pair<uint8_t, uint8_t>> example{{1,4},{2,4},{3,4},{4,4}};
+//std::array<std::array<uint8_t, width>, height> example2 = {std::array<uint8_t,4>{1,1,1,1},{2,2,2,2},
+//{3,3,3,3},{4,4,4,4}};
+int main()
+{
+    // auto picture = getBitmap(2);
+    // printMap(picture);
+    // printMap(example);
+
+    std::array<std::array<uint8_t, width>, height> arr;
+    for (int i = 0; i < height; ++i)
+        for (int j = 0; j < width; ++j)
+            arr[i][j] = 1;
+
+    std::array<std::array<uint8_t, width>, height> arr2;
+    for (int i = 0; i < height; ++i) {
+        for (int j = 0; j < width / 2; ++j)
+            arr2[i][j] = 0;
+        for (int j = width / 2; j < width; ++j)
+            arr2[i][j] = 1;
+    }    
+    printMap3(arr);
+    std::cout<<'\n';
+    printMap3(arr2);
+    std::cout<<'\n';
+    // printMap3(example2);
+    // std::cout<<'\n';
+    // printMap(compressGrayscale(example2));
+    // std::cout<<'\n';
+    // printPair(compressGrayscale(example2));
+    // std::cout<<'\n';
+    //printPair(compressGrayscale(arr2));
+    //std::cout<<'\n';
+    //auto ninja = generateNinja();
+    //std::cout<<(int)ninja[5][10]<<std::endl;
     //printMap(ninja);
-    auto compressed = compressGrayscale(ninja);
-    printMap(compressed);
-    auto decompressed = decompressGrayscale(compressed);
-    printMap(decompressed);
+    // auto compressed = compressGrayscale(ninja);
+    // printMap(compressed);
+    // auto decompressed = decompressGrayscale(compressed);
+    // printMap(decompressed);
 
     // if(ninja == decompressed)
-    //     std::cout<<"OK"<<std::endl;
+    //     std::cout<<"Function work good."<<std::endl;
     return 0;
 }
