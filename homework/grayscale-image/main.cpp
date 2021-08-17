@@ -1,5 +1,6 @@
 #include <array>
 #include <forward_list>
+#include <iostream>  
 #include "compression.hpp"
 
 std::array<std::array<uint8_t, 32>, 32> generateNinja() {
@@ -39,12 +40,39 @@ std::array<std::array<uint8_t, 32>, 32> generateNinja() {
     };
 }
 
+std::array<std::array<uint8_t, 32>, 32> generateTest() {
+    std::array<std::array<uint8_t, 32>, 32> arr;
+    for (int i = 0; i < height; ++i) {
+        for (int j = 0; j < width / 8; ++j)
+            arr[i][j] = 0;
+        for (int j = width / 8; j < width / 4; ++j)
+            arr[i][j] = 1;
+        for (int j = width / 4; j < width / (8.0 / 3.0); ++j)
+            arr[i][j] = 2;
+        for (int j = width / (8.0 / 3.0); j < width / 2; ++j)
+            arr[i][j] = 3;
+        for (int j = width / 2; j < width / (8.0 / 5.0); ++j)
+            arr[i][j] = 4;
+        for (int j = width / (8.0 / 5.0); j < width / (4.0 / 3.0); ++j)
+            arr[i][j] = 5;
+        for (int j = width / (4.0 / 3.0); j < width / (8.0 / 7.0); ++j)
+            arr[i][j] = 6;
+        for (int j = width / (8.0 / 7.0); j < width; ++j)
+            arr[i][j] = 7;
+
+        arr[i][0] = i + 1;
+    }
+    return arr;
+}
+
 int main() {
     auto ninja = generateNinja();
-    // printMap(ninja);
+    printMap(ninja);
+    std::cout << '\n';
+    std::cout << '\n';
     auto compressed = compressGrayscale(ninja);
-    // auto decompressed = decompressGrayscale(compressed);
-    // printMap(decompressed);
+    auto decompressed = decompressGrayscale(compressed);
+    printMap(decompressed);
 
     return 0;
 }
