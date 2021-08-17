@@ -3,11 +3,10 @@
 CompressedImage compressGrayscale(const Image& image)
 {
     CompressedImage compressedImage;
-    for(int i = 0; i < height; i++){
-        auto it = image[i].begin();
-        while (it != image[i].end())
-        {
-            auto el = std::find_if_not(it, image[i].end(), [&it](int x){return x == *it;});
+    for(const auto& iter : image) {
+        auto it = iter.begin();
+        while (it != iter.end()) {
+            auto el = std::find_if_not(it, iter.end(), [&it](int x){return x == *it;});
             auto count = std::distance(it, el);
             compressedImage.push_back({*it, count});
             it = el;
@@ -21,10 +20,9 @@ Image decompressGrayscale(const CompressedImage& image)
 {
     Image decompressedImage;
     auto itV = image.begin();
-    for(int i = 0; i < height; i++) {
-        auto it = decompressedImage[i].begin();
-        while (it != decompressedImage[i].end())
-        {
+    for(auto& iter : decompressedImage) {
+        auto it = iter.begin();
+        while (it != iter.end()) {
            std::fill_n(it, itV->second, itV->first);
            it = std::next(it, itV->second);
            itV = std::next(itV);
