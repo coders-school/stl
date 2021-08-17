@@ -1,6 +1,5 @@
-#include <algorithm>
 #include <cmath>
-#include <vector>
+#include <iostream>
 #include "arithmeticAverage.hpp"
 
 double ArithmeticAverage(const std::vector <int>& first, const std::vector <int>& second) {
@@ -16,8 +15,16 @@ double ArithmeticAverage(const std::vector <int>& first, const std::vector <int>
 
 double Distance(const std::vector <int>& first, const std::vector <int>& second) {
     int size = first.size();
-    float distA = 0;
-    distA = std::sqrt (std::pow (std::abs (first[0] - second[0]), 2) + 
+    if (first.size() != second.size()) {
+        std::cout << "The both vectors must heave same size" << '\n';
+        return 0;
+    }
+
+    if (first.size() == 1) {
+        return std::abs (first[0] - second [0]);
+    }
+
+    double distA = std::sqrt (std::pow (std::abs (first[0] - second[0]), 2) + 
                        std::pow (std::abs (first[1] - second[1]), 2));
     while (size > 2) {
         distA = std::sqrt (std::pow (distA, 2) +
