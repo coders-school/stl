@@ -1,7 +1,7 @@
+#include "transform_containers.hpp"
+
 #include <algorithm>
 #include <set>
-
-#include "transform_containers.hpp"
 
 Map removeDuplicateAndTranformToMap(
     const std::list<std::string>& strings,
