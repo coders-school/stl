@@ -1,46 +1,46 @@
 #include "compression.hpp"
+#include <iostream>
 
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, width>, height>& image_array) {
-    std::vector<std::pair<uint8_t, uint8_t>> amount_of_gray;
-    amount_of_gray.reserve(image_array.size());
-    std::for_each(image_array.begin(), image_array.end(), [&amount_of_gray](std::array<uint8_t, width> row){
-        uint8_t unique = 0;
-        uint8_t act_color = row[0];
-        int it = 1; 
-        for (auto color_in_row : row) {
-            if (act_color == color_in_row) {
-                ++unique;
+    std::vector<std::pair<uint8_t, uint8_t>> compressed;
+    compressed.reserve(width * height);
+    for (auto row : image_array) {
+        int number_of_color = 0;
+        uint8_t previous_color = 0;
+        for (auto it = row.begin(); it != row.end(); it++) {
+            if (!number_of_color) {
+                previous_color = *it;
             }
-            else {
-                amount_of_gray.push_back(std::make_pair(act_color, unique));
-                unique = 1;
+            if (previous_color == *it) {
+                number_of_color++;
+            } else {
+                compressed.push_back(std::make_pair(previous_color, number_of_color));
+                number_of_color = 1;
+                previous_color = *it;
             }
-            if (row.size() == it) {
-                amount_of_gray.push_back(std::make_pair(act_color, unique));
-                unique = 1;
+            if (it == row.end() - 1) {
+                compressed.push_back(std::make_pair(previous_color, number_of_color));
             }
-            act_color = color_in_row;
-            ++it;
-        }
+       }
     }
-    );
-    amount_of_gray.shrink_to_fit();
-    return amount_of_gray;
+    compressed.shrink_to_fit();
+    return compressed;
 }
 
 std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::vector<std::pair<uint8_t, uint8_t>>& image_vector) {
-    std::array<std::array<uint8_t, width>, height> image_array;
-    std::for_each(image_vector.begin(), image_vector.end(), [&image_array](std::pair<uint8_t, uint8_t> pairs){
-        static int inside_array_size = 0;
-        static int amount = 0;
-        std::fill_n(image_array[inside_array_size].begin() + amount, std::get<1>(pairs), std::get<0>(pairs));
-        amount += std::get<1>(pairs);
-        if (amount >= image_array[inside_array_size].size()) {
-            amount = 0;
-            ++inside_array_size;
+    std::array<std::array<uint8_t, width>, height> decompressed;
+    int position = 0;
+    int row = 0;
+    for (auto el : image_vector) {
+        for (int i = 0; i < el.second; i++) {
+            decompressed[row][i + position] = el.first;
+        }
+        position += el.second;
+        if (position == width) {
+            row++;
+            position = 0;
         }
     }
-    );
-    return image_array;
+    return decompressed;
 }
 
