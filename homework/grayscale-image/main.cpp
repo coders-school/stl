@@ -1,5 +1,7 @@
 #include <array>
 #include <forward_list>
+#include "compression.h"
+
 
 // TODO: include
 

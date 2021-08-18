@@ -2,6 +2,8 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#include <stdint.h>
+
 
 constexpr size_t width = 32;
 constexpr size_t height = 32;
