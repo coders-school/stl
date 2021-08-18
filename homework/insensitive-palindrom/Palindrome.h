@@ -1,0 +1,5 @@
+#include <algorithm>
+#include <cwctype>
+#include <string>
+
+bool is_palindrome(std::string word); 
