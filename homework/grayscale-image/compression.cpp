@@ -1,43 +1,32 @@
-#include "compression.hpp"
+ #include "compression.hpp"
 
-std::vector<std::pair<uint8_t, uint8_t>>compressGrayscale
-    (std::array<std::array<uint8_t, width>, height> ar){
-        std::vector<std::pair<uint8_t, uint8_t>>toReturn;
-        std::pair<uint8_t, uint8_t>temp;
-        for(int i = 0; i < ar.size(); ++i){
-            for(int j = 0; j < ar[i].size(); ++j){
-                temp.first = ar[i][j];
-                temp.second = 1;
-                while (temp.first == ar[i][j+1] && (j+1) < ar[i].size()){
-                    ++j;
-                    ++temp.second;
-                }
-                toReturn.push_back(temp);
-            }
+CompressedImage compressGrayscale(const Image& image)
+{
+    CompressedImage compressedImage;
+    for(const auto& iter : image) {
+        auto it = iter.begin();
+        while (it != iter.end()) {
+            auto el = std::find_if_not(it, iter.end(), [&it](int x){return x == *it;});
+            auto count = std::distance(it, el);
+            compressedImage.push_back({*it, count});
+            it = el;
         }
-        return toReturn;
     }
+    return compressedImage;
+}
 
 
-std::array<std::array<uint8_t, width>, height>decompressGrayscale(
-    std::vector<std::pair<uint8_t,uint8_t>>v) {
-        std::array<std::array<uint8_t, width>, height> toReturn;
-        
-        int w = 0;
-        int h = 0;
-        for(const auto &item : v){
-            int count = item.second;
-            while (count > 0){
-                toReturn[h][w] = item.first;
-                w++;
-                count--;
-                if(w == width){
-                    w = 0;
-                    h++;
-                }
-            }
+Image decompressGrayscale(const CompressedImage& image)
+{
+    Image decompressedImage;
+    auto itV = image.begin();
+    for(auto& iter : decompressedImage) {
+        auto it = iter.begin();
+        while (it != iter.end()) {
+           std::fill_n(it, itV->second, itV->first);
+           it = std::next(it, itV->second);
+           itV = std::next(itV);
         }
-        return toReturn;
     }
-    
-    
+    return decompressedImage;
+}

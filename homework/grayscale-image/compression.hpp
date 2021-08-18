@@ -1,14 +1,14 @@
 #pragma once
-#include<vector>
-#include<array>
+#include <algorithm>
+#include <array>
+#include <iterator>
+#include <vector>
 
 constexpr size_t width = 32;
 constexpr size_t height = 32;
 
-std::vector<std::pair<int, int>>compareTest(std::vector<int>v);
-std::vector<std::pair<uint8_t, uint8_t>>compressGrayscale
-    (std::array<std::array<uint8_t, width>, height>);
+using Image = std::array<std::array<uint8_t, width>, height>;
+using CompressedImage = std::vector<std::pair<uint8_t, uint8_t>>;
 
-
-std::array<std::array<uint8_t, width>, height>decompressGrayscale(
-    std::vector<std::pair<uint8_t,uint8_t>>v);
+CompressedImage compressGrayscale(const Image& image);
+Image decompressGrayscale(const CompressedImage& image);
