@@ -29,8 +29,7 @@ Złożoności:
 * <!-- .element: class="fragment fade-in" --> Stała <code>O(n)</code> - w każdym kroku redukujemy problem o stałą liczbę (1, 2, 3, ...). Standardowo jedna pętla.
 * <!-- .element: class="fragment fade-in" --> Kwadratowa <code>O(n^2)</code> - zagnieżdżona pętla w pętli
 * <!-- .element: class="fragment fade-in" --> Sześcienna <code>O(n^3)</code> - potrójnie zagnieżdżone pętle
-* <!-- .element: class="fragment fade-in" --> Wykładnicza <code>O(2^n)</code> - redukujemy problem na dwa mniejsze podproblemy. Zazwyczaj rekurencja.
-* <!-- .element: class="fragment fade-in" --> Wykładnicza <code>O(x^n)</code> - redukujemy problem na x mniejszych podproblemy. Zazwyczaj rekurencja.
+* <!-- .element: class="fragment fade-in" --> Wykładnicza <code>O(x^n)</code> - redukujemy problem na mniejsze podproblemy.
 
 ___
 

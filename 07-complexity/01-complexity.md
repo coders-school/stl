@@ -211,28 +211,27 @@ ___
 ## Przykład `O(n^2)`
 
 ```cpp
-using namespace std::chrono;
-constexpr size_t samples = 1'000'000;
+constexpr size_t samples = 1'000;
 std::vector<int> vec(samples);
 std::iota(begin(vec), end(vec), 0);
 auto start = high_resolution_clock::now();
-BubleSort(vec);
+bubbleSort(vec);
 auto stop = high_resolution_clock::now();
 std::cout << "O(n^2): " << duration_cast<nanoseconds>(stop - start).count() << " ns\n";
 
-constexpr size_t samples2 = 10'000'000;  // size is 10 times higher.
+constexpr size_t samples2 = 10'000;  // size is 10 times higher.
 std::vector<int> vec2(samples2);
 std::iota(begin(vec2), end(vec2), 0);
-start = high_resolution_clock::noaw();
-BubleSort(vec2);
+start = high_resolution_clock::now();
+bubbleSort(vec2);
 stop = high_resolution_clock::now();
 std::cout << "O(n^2): " << duration_cast<nanoseconds>(stop - start).count() << " ns\n";
 
-constexpr size_t samples3 = 100'000'000;  // size is 100 times higher.
+constexpr size_t samples3 = 100'000;  // size is 100 times higher.
 std::vector<int> vec3(samples3);
 std::iota(begin(vec3), end(vec3), 0);
 start = high_resolution_clock::now();
-BubleSort(vec3);
+bubbleSort(vec3);
 stop = high_resolution_clock::now();
 std::cout << "O(n^2): " << duration_cast<nanoseconds>(stop - start).count() << " ns\n";
 ```
@@ -242,9 +241,9 @@ Possible output:
 <!-- .element: class="fragment fade-in" -->
 
 ```cpp
-O(n^2): 9'974'800 ns
-O(n^2): 83'777'600 ns
-O(n^2): 810'269'600 ns
+O(n^2):      20'087'000 ns
+O(n^2):   1'552'821'000 ns
+O(n^2): 183'684'026'000 ns
 ```
 <!-- .element: class="fragment fade-in" -->
 
