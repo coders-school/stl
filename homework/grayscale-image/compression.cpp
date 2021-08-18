@@ -1,4 +1,5 @@
  #include "compression.hpp"
+ #include <algorithm>
 
 CompressedImage compressGrayscale(const Image& image)
 {
