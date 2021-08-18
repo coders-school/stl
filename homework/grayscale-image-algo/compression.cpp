@@ -30,3 +30,4 @@ Image decompressGrayscale(const CompressedImage& image)
     }
     return decompressedImage;
 }
+
