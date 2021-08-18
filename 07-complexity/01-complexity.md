@@ -202,7 +202,7 @@ ___
 Jej szczególnym i bardzo częstym przypadkiem jest złożoność kwadratowa - `O(n^2)`, której czas wykonania jest wprost proporcjonalny do kwadratu ilości danych wejściowych.
 <!-- .element: class="fragment fade-in" -->
 
-Wyobraźmy sobie teraz inną sytuację. Udało nam się znaleźć numer Andrzeja i postanawiamy również zrobić psikus naszemu koledze, ale chcemy odwdzięczyć się z nawiązką. Dlatego drukujemy nową książkę telefoniczną, ale do każdego numeru dodajemy cyferkę '8' na początku numeru. Teraz nasz kolega nie dość, że musi poprawić każdą stronę `n` to jeszcze sprawdzić i poprawić każdy numer na podstawie oryginalnej książki. Taka złożoność obliczeniowa to `O(n^2)`. Przykładem złożoności `O(n^2)` jest popularne sortowanie bąbelkowe.
+Wyobraźmy sobie teraz inną sytuację. Udało nam się znaleźć numer Andrzeja i postanawiamy również zrobić psikus naszemu koledze, ale chcemy odwdzięczyć się z nawiązką. Dlatego drukujemy nową książkę telefoniczną, ale do każdego numeru dodajemy cyferkę '8' na początku numeru. Teraz nasz kolega nie dość, że musi poprawić każdą stronę `n` to jeszcze sprawdzić i poprawić każdy numer na podstawie oryginalnej książki. Taka złożoność obliczeniowa to `O(n^2)`. Przykładem złożoności `O(n^2)` jest popularne [sortowanie bąbelkowe](https://en.wikipedia.org/wiki/Bubble_sort).
 <!-- .element: class="fragment fade-in" -->
 
 ___
@@ -211,29 +211,30 @@ ___
 ## Przykład `O(n^2)`
 
 ```cpp
+using namespace std::chrono;
 constexpr size_t samples = 1'000'000;
 std::vector<int> vec(samples);
 std::iota(begin(vec), end(vec), 0);
-auto start = std::chrono::high_resolution_clock::now();
+auto start = high_resolution_clock::now();
 BubleSort(vec);
-auto stop = std::chrono::high_resolution_clock::now();
-std::cout << "O(n^2): " << std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count() << " ns\n";
+auto stop = high_resolution_clock::now();
+std::cout << "O(n^2): " << duration_cast<nanoseconds>(stop - start).count() << " ns\n";
 
 constexpr size_t samples2 = 10'000'000;  // size is 10 times higher.
 std::vector<int> vec2(samples2);
 std::iota(begin(vec2), end(vec2), 0);
-start = std::chrono::high_resolution_clock::noaw();
+start = high_resolution_clock::noaw();
 BubleSort(vec2);
-stop = std::chrono::high_resolution_clock::now();
-std::cout << "O(n^2): " << std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count() << " ns\n";
+stop = high_resolution_clock::now();
+std::cout << "O(n^2): " << duration_cast<nanoseconds>(stop - start).count() << " ns\n";
 
 constexpr size_t samples3 = 100'000'000;  // size is 100 times higher.
 std::vector<int> vec3(samples3);
 std::iota(begin(vec3), end(vec3), 0);
-start = std::chrono::high_resolution_clock::now();
+start = high_resolution_clock::now();
 BubleSort(vec3);
-stop = std::chrono::high_resolution_clock::now();
-std::cout << "O(n^2): " << std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count() << " ns\n";
+stop = high_resolution_clock::now();
+std::cout << "O(n^2): " << duration_cast<nanoseconds>(stop - start).count() << " ns\n";
 ```
 <!-- .element: class="fragment fade-in" -->
 
@@ -249,15 +250,15 @@ O(n^2): 810'269'600 ns
 
 ___
 
-## Złożoność `O(x^n)`
+## Złożoność wykładnicza -  `O(x^n)`
 
-Jest to tzw. złożoność wykładnicza. Czas wykonania rośnie wykładniczo względem ilości danych wejściowych. Wyobraźmy sobie sytuację, w której nie dość, że książka zawiera błędy, które wcześniej celowo wprowadziliśmy, ale ktoś postanowił ją wydrukować w olbrzymim nakładzie i teraz musimy poprawić wszystkie książki, w których już czas poprawiania błędów wynosił `n^2`. Dla takiej kombinacji mówimy, że złożoność jest `n^n`. Czyli rośnie wykładniczo wraz ze wzrostem liczby książek (próbek). Przykładem może być algorytm przeszukiwania grafu DFS (deep-first search), jeżeli danymi wejściowymi będzie macierz. Ponieważ za każdym razem musimy przejść cały rząd, aż znajdziemy interesujący nas element, więc wykonamy `n^n` kroków. Rzadko spotykane, więc jest formą ciekawostki 🙂
+Wyobraźmy sobie sytuację, w której nie dość, że książka zawiera błędy, które wcześniej celowo wprowadziliśmy, ale ktoś postanowił ją wydrukować w olbrzymim nakładzie i teraz musimy poprawić wszystkie książki, w których już czas poprawiania błędów wynosi `n^2`. Dla takiej kombinacji mówimy, że złożoność jest `n^n`. Czyli rośnie wykładniczo wraz ze wzrostem liczby książek (próbek). Przykładem może być algorytm przeszukiwania grafu DFS (deep-first search), jeżeli danymi wejściowymi będzie macierz. Ponieważ za każdym razem musimy przejść cały rząd, aż znajdziemy interesujący nas element, więc wykonamy `n^n` kroków. Rzadko spotykane, więc jest formą ciekawostki 🙂
 
 ___
 
 ## Złożoność `O(n!)`
 
-Jest to złożoność typu silnia, czas wykonania rośnie z szybkością silni względem ilości danych wejściowych. Przykładem problemu jest problem komiwojażera z grupy algorytmów grafowych. Należy znaleźć najkrótszą trasę rozpoczynając od miasta A przechodzącą jednokrotnie przez wszystkie pozostałe miasta i wracając do miasta A. Od wielu lat analitycy głowią się, jak poprawić ten algorytm. Wciąż mamy pole do popisu 🙂. Nię będę tutaj wklejał kodu, ale zainteresowanych odsyłam do wyszukania sobie algorytmu komiwojażera.
+Przykładem problemu jest problem komiwojażera z grupy algorytmów grafowych. Należy znaleźć najkrótszą trasę rozpoczynając od miasta A przechodzącą jednokrotnie przez wszystkie pozostałe miasta i wracając do miasta A. Od wielu lat analitycy głowią się, jak poprawić ten algorytm. Wciąż mamy pole do popisu 🙂. Nię będę tutaj wklejał kodu, ale zainteresowanych odsyłam do wyszukania sobie problemu komiwojażera (ang. travelling salesman problem, TSP)
 
 ___
 
@@ -268,31 +269,30 @@ Jeden z najgorszych scenariuszy jaki możemy wykonać dla algorytmu. Wyobraźmy 
 W ten sposób napisaliśmy idealnie nieoptymalny algorytm sortowania o złożoności `O(n * n!)`. Przykładem takiego sortowania jest bogosort.
 
 ___
-<!-- .slide: style="font-size: 0.65em" -->
+<!-- .slide: style="font-size: 0.7em" -->
 
 ## Przykład `O(n * n!)`
 
 ```cpp
+using namespace std::chrono;
 std::random_device rd;
 std::mt19937 generator(rd());
 
-void BogoSort(std::vector<int>& vec) {
+void bogoSort(std::vector<int>& vec) {
     while (!std::is_sorted(vec.begin(), vec.end())) {
         std::shuffle(vec.begin(), vec.end(), generator);
     }
 }
 
 int main() {
-    constexpr size_t samples = 10;  // Only 10 elements! Try it for 100 :)
+    constexpr size_t samples = 10;  // Only 10 elements! Try it for 20 :)
     std::vector<int> vec(samples);
     std::iota(begin(vec), end(vec), 0);
     std::shuffle(vec.begin(), vec.end(), generator);
-    for (int i = 0; i < 5; ++i) {
-        auto start = std::chrono::high_resolution_clock::now();
-        BogoSort(vec);
-        auto stop = std::chrono::high_resolution_clock::now();
-        std::cout << "O(n * n!): " << std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count() << " ns\n";
-    }
+    auto start = high_resolution_clock::now();
+    bogoSort(vec);
+    auto stop = high_resolution_clock::now();
+    std::cout << "O(n * n!): " << duration_cast<nanoseconds>(stop - start).count() << " ns\n";
 
     return 0;
 }
@@ -302,7 +302,7 @@ int main() {
 Possible output:
 <!-- .element: class="fragment fade-in" -->
 
-```cpp
+```text
 O(n * n!): 35'938'300 ns
 O(n * n!): 85'772'000 ns
 O(n * n!): 899'885'600 ns
