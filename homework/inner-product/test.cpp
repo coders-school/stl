@@ -3,6 +3,7 @@
 #include "arithmeticAverage.hpp"
 #include "gtest/gtest.h"
 
+constexpr double epsilon = 0.001;
 
 TEST(arithmeticAverageTest, ShouldCalculateArithmeticAverage) {
     std::vector<int> first{-5, 4, 2, -5, 2, 4, 6, 7};
@@ -23,6 +24,6 @@ TEST(arithmeticAverageTest, ShouldCalculateDistance) {
     first = {7, 4, 3, 13};
     second = {17, 6, 2, -2};
     expected = 18.16590212458495;
-    EXPECT_NEAR(Distance(first, second), expected, 0.00001);
+    EXPECT_NEAR(Distance(first, second), expected, epsilon);
     // Write more test case
 }
