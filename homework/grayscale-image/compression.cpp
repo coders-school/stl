@@ -3,31 +3,30 @@
 #include <vector>
 #include "compression.hpp"
 
-void Show_arr(std::array<std::array<uint8_t, width>, height>  a_t_t);
-
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, width>, height>& a_T) {
-    std::vector<std::pair<uint8_t, uint8_t>> v_t;
-    std::pair<uint8_t, uint8_t> p_t;
-    for (const auto & el_height : a_T) {
-        p_t.first = el_height.front();
+std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, width>, height>& arrImage) {
+    std::vector<std::pair<uint8_t, uint8_t>> vecTemp;
+    std::pair<uint8_t, uint8_t> pairTemp;
+    vecTemp.reserve(height*width);
+    for (const auto & el_height : arrImage) {
+        pairTemp.first = el_height.front();
         for (const auto & el_width : el_height) {
-            if (el_width == p_t.first) {
-                ++p_t.second;
+            if (el_width == pairTemp.first) {
+                ++pairTemp.second;
             }
             else {
-                v_t.push_back(p_t);
-                p_t.first = el_width;
-                p_t.second = 1;
+                vecTemp.push_back(pairTemp);
+                pairTemp.first = el_width;
+                pairTemp.second = 1;
             }
         }
-        v_t.push_back(p_t);
-        p_t.second = 0;
+        vecTemp.push_back(pairTemp);
+        pairTemp.second = 0;
     }
-    v_t.shrink_to_fit();
-    return v_t;
+    vecTemp.shrink_to_fit();
+    return vecTemp;
 }
 
-std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::vector<std::pair<uint8_t, uint8_t>>& v_2) {
+std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::vector<std::pair<uint8_t, uint8_t>>& vecCompressed) {
     std::array<std::array<uint8_t, width>, height> arrTemp;
     int row = 0;
     int column = 0;
@@ -35,7 +34,7 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::ve
     while (row <= height){
         while(column <= width) {
             column = 0;
-            for(const auto & el : v_2){
+            for(const auto & el : vecCompressed){
                 for(int i = 0; i < el.second; ++i) {
                     arrTemp[row][column + i] = el.first;
                 }
