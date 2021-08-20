@@ -12,6 +12,5 @@ double Distance(const std::vector<int> &first, const std::vector<int> &second) {
                                                  std::plus<int>(), [](const auto &lhs, const auto &rhs) {
                                                      return std::pow(std::abs(lhs - rhs), 2);
                                                  }));
-    std::cout << std::ceil(result * 1000.0) / 1000.0 << '\n';
     return std::ceil(result * 1000.0) / 1000.0;
 }
