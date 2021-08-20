@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 2.8.2)
+cmake_minimum_required(VERSION 3.0.0)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Download and unpack googletest at configure time
@@ -38,7 +38,7 @@ endif()
 project(advancedCalculator)
 enable_testing()
 
-add_executable(${PROJECT_NAME} main.cpp advancedCalculator.cpp)
+# add_executable(${PROJECT_NAME} main.cpp advancedCalculator.cpp)
 add_executable(${PROJECT_NAME}-ut test.cpp advancedCalculator.cpp)
 
 target_link_libraries(${PROJECT_NAME}-ut gtest_main)
