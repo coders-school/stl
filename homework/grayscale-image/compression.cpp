@@ -7,8 +7,6 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std:
     std::vector<std::pair<uint8_t, uint8_t>> compressed;
     compressed.reserve(width * height);
 
-    //Two posibilities, only difference is that first is for_each and second is simple for row, so might say it's the same
-    //First
     std::for_each(image_array.begin(), image_array.end(),[&compressed](auto& row){
                     int vecPlace = 0;
                     for(auto It = row.begin(); It != row.end();) {
@@ -17,16 +15,6 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std:
                         vecPlace++;
                     }
     });
-
-    //Second
-   /* for (auto row : image_array) {
-        auto It = row.begin();
-        while (It != row.end()) {
-            auto amount = std::count_if(It, row.end(), [&It](auto& el1){ return el1 == *It;});
-            compressed.push_back(std::make_pair(*It, amount));
-            It += amount;
-        }
-    }*/
 
     compressed.shrink_to_fit();
     return compressed;
