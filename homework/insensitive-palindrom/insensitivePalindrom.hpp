@@ -1,3 +1,3 @@
 #pragma once
 
-void is_palindrome();
+bool is_palindrome(std::string palindrome);
