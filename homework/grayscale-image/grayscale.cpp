@@ -4,17 +4,17 @@ CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
     CompressedBitmap compressed{};
     compressed.reserve(width * height);
 
-    uint8_t currCount{1};
-    for (Bitmap::size_type i{0}; i < height; ++i) {
-        for (Bitmap::size_type j{1}; j <= width; ++j) {
-            if (j < width && bitmap[i][j] == bitmap[i][j - 1]) {
-                ++currCount;
-            } else {
-            	compressed.emplace_back(bitmap[i][j - 1], currCount);
-            	currCount = 1;
-	    }
-        }
-    }
+    std::for_each(bitmap.begin(), bitmap.end(), [&](auto& array) {
+		    					for ( auto it = array.begin(); it != array.end(); ) {
+								auto new_value_ptr = std::find_if(it,array.end(), [&](const auto& value){
+														return *it != value;
+														});
+								compressed.emplace_back(*it, std::distance(it, new_value_ptr));
+								it = new_value_ptr;
+							} 
+							return;	
+		    				});
+    
 
     compressed.shrink_to_fit();
     return compressed;
