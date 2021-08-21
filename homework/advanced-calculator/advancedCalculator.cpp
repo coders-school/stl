@@ -16,7 +16,7 @@ std::map<char, std::function<double(double, double)>> calculations{
     { '%', std::modulus<int>() },
     { '^', [](auto base, auto exponent) { return std::pow(base, exponent); } },
     { '$', [](auto base, auto root) { return std::pow(base, 1.0 / root);} },
-    { '!', [](auto n, [[maybe_unused]]auto x) {return n <= 0 ? 1.0 : std::tgamma(n + 1.0); } }
+    { '!', [](auto n, [[maybe_unused]]auto x) { return n <= 0 ? 1.0 : std::tgamma(n + 1.0); } }
 };
 } // namespace calc
 
