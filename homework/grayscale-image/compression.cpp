@@ -6,9 +6,10 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std:
     std::vector<std::pair<uint8_t, uint8_t>> compressedVector;
     compressedVector.reserve(width * height);
     auto nextCharacter = '0';
-    std::for_each(bitmap.begin(), bitmap.end(), [&](const auto& line) {
+    
+    std::for_each(bitmap.cbegin(), bitmap.cend(), [&](const auto& line) {
         nextCharacter = '0';
-        std::for_each(line.begin(), line.end(), [&](const auto character) {
+        std::for_each(line.cbegin(), line.cend(), [&](const auto character) {
             if(character != nextCharacter) {
                 compressedVector.push_back(std::make_pair(character, 1));
             }
