@@ -1,8 +1,6 @@
 #pragma once
-#include <algorithm>
+
 #include <array>
-#include <iostream>
-#include <utility>
 #include <vector>
 
 constexpr size_t width = 32;
