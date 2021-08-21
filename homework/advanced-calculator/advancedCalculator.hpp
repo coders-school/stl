@@ -10,8 +10,13 @@ enum class ErrorCode {
     SqrtOfNegativeNumber,
     ModuleOfNonIntegerValue
 };
+// Dodawanie, mnożenie, dzielenie, odejmowanie (+, * , / , -)
+// Modulo (%)
+// Obliczanie silni (!)
+// Podnoszenie liczby do potęgi (^)
+// Obliczanie pierwiastka ($)
 
-static std::map<char, std::function<ErrorCode(double first, double second, double* out)>> calculator_functions = {
+extern std::map<char, std::function<ErrorCode(double first, double second, double* out)>> calculator_functions = {
     {'+', [](double first, double second, double* out ) { *out = first + second; return ErrorCode::OK; }},
     {'-', [](double first, double second, double* out ) { *out = first - second; return ErrorCode::OK; }},
     {'*', [](double first, double second, double* out ) { *out = first * second; return ErrorCode::OK; }},
