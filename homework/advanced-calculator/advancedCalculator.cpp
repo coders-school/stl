@@ -29,26 +29,22 @@ ErrorCode process(std::string input, double* out) {
 }
 
 std::string parseValue(const std::string& input, std::string::const_iterator& it) {
-    std::string resultValue;
     bool separatorAllowed{true};
     auto first = it;
     if (*it == '-') {
-        resultValue += *it;
         ++it;
     }
     for (; it != input.cend(); ++it) {
         if (std::find(separators.cbegin(), separators.cend(), *it) != separators.cend() && separatorAllowed) {
             separatorAllowed = false;
-            resultValue += *it;
             continue;
         }
         if (std::isdigit(*it)) {
-            resultValue += *it;
             continue;
         }
         break;
     }
-    return resultValue;
+    return std::string(first, it);
 }
 
 char parseOperator(const std::string& input, std::string::const_iterator& it) {
