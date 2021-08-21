@@ -5,7 +5,7 @@ int main() {
     double output = 0;
     double* out = &output;
     std::cout << output << '\n';
-    double firstNumber = 3;
+    double firstNumber = 5;
     double secondNumber = 5;
     calculator_functions['+'](firstNumber, secondNumber, out);
     std::cout << output << '\n';
@@ -15,7 +15,13 @@ int main() {
     std::cout << output << '\n';
     calculator_functions['/'](firstNumber, secondNumber, out);
     std::cout << output << '\n';
-    calculator_functions['+'](firstNumber, secondNumber, out);
+    calculator_functions['%'](firstNumber, secondNumber, out);
+    std::cout << output << '\n';
+    calculator_functions['!'](firstNumber, secondNumber, out);
+    std::cout << output << '\n';
+    calculator_functions['^'](firstNumber, secondNumber, out);
+    std::cout << output << '\n';
+    calculator_functions['$'](firstNumber, secondNumber, out);
     std::cout << output << '\n';
 
     return 0;
