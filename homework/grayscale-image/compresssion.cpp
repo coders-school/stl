@@ -1,4 +1,4 @@
-#include "grayscale.hpp"
+#include "compression.hpp"
 
 CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
     CompressedBitmap compressed{};
