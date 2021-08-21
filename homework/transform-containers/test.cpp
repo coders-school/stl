@@ -1,4 +1,5 @@
 #include "gtest/gtest.h"
+#include "transform_containers.hpp"
 
 // TODO: add proper includes
 
@@ -12,9 +13,11 @@ TEST(transformContainerTests, ShouldReturnUniqueMap) {
     std::list<std::string> list{
         "Ala", "Kot", "Ma", "Rysia", "Ala",
         "Sierotka", "Kot", "Ma", "Ala"};
+    
     std::deque<int> deque{
         1, 2, 3, 4, 5, 3, 1, 2, 3, 4,
         5, 2, 3, 1, 1, 2, 3, 2, 1, 4};
+        
     auto result = removeDuplicateAndTranformToMap(list, deque);
 
     ASSERT_TRUE(expected_result.size() == result.size());
