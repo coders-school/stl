@@ -3,7 +3,7 @@
 #define COMPRESSION_CPP
 #include <array>
 #include <vector>
-#include <algorithm>
+
 
 constexpr size_t width = 32;
 constexpr size_t height = 32;
