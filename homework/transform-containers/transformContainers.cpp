@@ -1,9 +1,10 @@
 #pragma once
-#include <map>
 #include <string>
-#include <list>
 #include <deque>
-#include "transformContainters.hpp"
+#include <map>
+#include <list>
+#include <algorithm>
+#include "transformContainers.hpp"
 
 std::map<int, std::string> removeDuplicateAndTranformToMap(std::list<std::string> strList, std::deque<int> deq) {
 
