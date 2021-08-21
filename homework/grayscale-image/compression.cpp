@@ -2,23 +2,16 @@
 
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, width>, height>& pgmImage) {
     std::vector<std::pair<uint8_t, uint8_t>> compressedPGM;
-    for (auto& pixelRow : pgmImage) {
-        uint8_t numberOfOccurences{1};
-        uint8_t pixelGreyScale{0};
-        std::array<uint8_t, width>::const_iterator it;
-        for (it = pixelRow.begin(); it < pixelRow.end() - 1; it++) {
-            if (*it == *(it + 1)) {
-                numberOfOccurences++;
-            } else {
-                pixelGreyScale = *it;
-                compressedPGM.push_back({pixelGreyScale, numberOfOccurences});
-                numberOfOccurences = 1;
-            }
-        }
-        pixelGreyScale = *it;
-        compressedPGM.push_back({pixelGreyScale, numberOfOccurences});
-        numberOfOccurences = 1;
-    }
+     std::for_each(pgmImage.begin(), pgmImage.end(),[&compressedPGM](auto& PixelRow){
+                    int itCompressedPGM = 0;
+                    for(auto itPixelRow = PixelRow.begin(); itPixelRow != PixelRow.end();) {
+                        compressedPGM.push_back(std::make_pair(*itPixelRow, 
+                                                                std::count_if(itPixelRow, PixelRow.end(), 
+                                                                [&itPixelRow](auto& pixel){return pixel == *itPixelRow;})));
+                        itPixelRow += compressedPGM[itCompressedPGM].second;
+                        itCompressedPGM++;
+                    }
+    });
     return compressedPGM;
 }
 
