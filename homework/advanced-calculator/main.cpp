@@ -1,8 +1,22 @@
 #include <iostream>
 #include "advancedCalculator.hpp"
-#include <iostream>
 
 int main() {
-  std::cout << "hello ";
+    double output = 0;
+    double* out = &output;
+    std::cout << output << '\n';
+    double firstNumber = 3;
+    double secondNumber = 5;
+    calculator_functions['+'](firstNumber, secondNumber, out);
+    std::cout << output << '\n';
+    calculator_functions['-'](firstNumber, secondNumber, out);
+    std::cout << output << '\n';
+    calculator_functions['*'](firstNumber, secondNumber, out);
+    std::cout << output << '\n';
+    calculator_functions['/'](firstNumber, secondNumber, out);
+    std::cout << output << '\n';
+    calculator_functions['+'](firstNumber, secondNumber, out);
+    std::cout << output << '\n';
+
     return 0;
 }
