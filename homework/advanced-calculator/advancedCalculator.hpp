@@ -1,12 +1,10 @@
 #pragma once
 
-#include <string>
-#include <map>
-#include <array>
 #include <functional>
+#include <map>
+#include <string>
 
-using ArgsArray = std::array<double, 2>;
-using MapContainer = std::map<const char, const std::function<double(const ArgsArray&)>>;
+using MapContainer = const std::map<const char, const std::function<double(const double&, const double&)>>;
 
 enum class ErrorCode {
     OK,
@@ -17,5 +15,6 @@ enum class ErrorCode {
     ModuleOfNonIntegerValue,
 };
 
-ErrorCode parseStr(std::string& input, ArgsArray& arr, std::string::iterator& opr);
 ErrorCode process(std::string input, double* out);
+std::string parseValue(const std::string& input, std::string::const_iterator& it);
+char parseOperator(const std::string& input, std::string::const_iterator& it);

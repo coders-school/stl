@@ -4,44 +4,55 @@
 #include <iostream>  // tests
 #include <map>
 #include <string>
-#include <array>
 
 const MapContainer operations{
-    {'$', [](const ArgsArray& arr) { return arr[0] + arr[1]; }},
-    {'^', [](const ArgsArray& arr) { return arr[0] + arr[1]; }},
-    {'!', [](const ArgsArray& arr) { return arr[0] + arr[1]; }},
-    {'%', [](const ArgsArray& arr) { return arr[0] + arr[1]; }},
-    {'/', [](const ArgsArray& arr) { return arr[0] + arr[1]; }},
-    {'*', [](const ArgsArray& arr) { return arr[0] + arr[1]; }},
-    {'+', [](const ArgsArray& arr) { return arr[0] + arr[1]; }},
+    {'+', [](const double& a, const double& b) { return a + b; }},
+    {'-', [](const double& a, const double& b) { return a + b; }},
+    {'*', [](const double& a, const double& b) { return a + b; }},
+    {'/', [](const double& a, const double& b) { return a + b; }},
+    {'%', [](const double& a, const double& b) { return a + b; }},
+    {'!', [](const double& a, const double& b) { return a + b; }},
+    {'^', [](const double& a, const double& b) { return a + b; }},
+    {'$', [](const double& a, const double& b) { return a + b; }},
 };
 
-ErrorCode parseStr(std::string& input, ArgsArray& arr, std::string::iterator& opr) {
+constexpr std::array<char, 2> separators{'.', ','};
+
+ErrorCode process(std::string input, double* out) {
     input.erase(std::remove(input.begin(), input.end(), ' '), input.end());
-    std::cout << "Operation: " << input << '\n';
-    for (const auto& func : operations) {
-        opr = std::find(input.begin(), input.end(), func.first);
-        if (opr != input.end()) {
-            break;
-        }
-    }
-    if (opr == input.end()) {
-        opr = std::find(input.begin(), input.end(), '-');
-        if(opr == input.end()) {
-            return ErrorCode::BadCharacter;
-        }
-        input.insert(opr, '+'); // zle
-    }
+    auto it = input.cbegin();
+    std::cout << "Input: " << input << '\n';
+    std::cout << "First value: " << parseValue(input, it) << "\nOperator: " << parseOperator(input, it)
+              << "\nSecond value: " << parseValue(input, it) << '\n';
+
     return ErrorCode::OK;
 }
 
-ErrorCode process(std::string input, double* out) {
-    ArgsArray arr {0.0, 0.0};
-    std::string::iterator it;
-    parseStr(input, arr, it);
-    if(it != input.end()) {
-        std::cout << "Operator: " << *it << '\n';
-        std::cout << "Arg 1: " << arr[0] << ", arg 2: " << arr[1] << '\n';
+std::string parseValue(const std::string& input, std::string::const_iterator& it) {
+    std::string resultValue;
+    bool separatorAllowed{true};
+    auto first = it;
+    if (*it == '-') {
+        resultValue += *it;
+        ++it;
     }
-    return ErrorCode::OK;
+    for (; it != input.cend(); ++it) {
+        if (std::find(separators.cbegin(), separators.cend(), *it) != separators.cend() && separatorAllowed) {
+            separatorAllowed = false;
+            resultValue += *it;
+            continue;
+        }
+        if (std::isdigit(*it)) {
+            resultValue += *it;
+            continue;
+        }
+        break;
+    }
+    return resultValue;
+}
+
+char parseOperator(const std::string& input, std::string::const_iterator& it) {
+    char resultOperator = *it;
+    ++it;
+    return resultOperator;
 }
