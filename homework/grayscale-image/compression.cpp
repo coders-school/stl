@@ -28,7 +28,7 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::ve
     auto it = decompresedArray.begin();
     auto positionInArray = 0;
 
-    std::for_each(compressedVector.begin(), compressedVector.end(), [&](const auto& element) mutable {
+    std::for_each(compressedVector.cbegin(), compressedVector.cend(), [&](const auto& element) mutable {
         std::fill_n(it->begin() + positionInArray, element.second, element.first);
         if(positionInArray == width) {
             ++it;
