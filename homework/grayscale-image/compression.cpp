@@ -18,15 +18,15 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std:
 
 std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::vector<std::pair<uint8_t, uint8_t>>& compressedPgmImage) {
     std::array<std::array<uint8_t, width>, height> pgmImage;
-    auto itPixelPair = compressedPgmImage.begin();
-    for (auto& pixelRow : pgmImage) {
-        auto itPixelRow = pixelRow.begin();
-        while (itPixelRow != pixelRow.end()) {
-            std::fill(itPixelRow, itPixelRow + (*itPixelPair).second, (*itPixelPair).first);
-            std::advance(itPixelRow, (*itPixelPair).second);
-            itPixelPair++;
+    int itPixelRow = 0;
+    auto itPixel = pgmImage[itPixelRow].begin();
+    for_each(compressedPgmImage.begin(),compressedPgmImage.end(),[&itPixelRow, &itPixel, &pgmImage](const auto& pixelPair){
+        std::fill_n(itPixel, pixelPair.second, pixelPair.first);
+        std::advance(itPixel, pixelPair.second);
+        if (itPixel == pgmImage[itPixelRow].end() -1){
+            ++itPixelRow;
+            itPixel = pgmImage[itPixelRow].begin();
         }
-    }
-
+    });
     return pgmImage;
 }
