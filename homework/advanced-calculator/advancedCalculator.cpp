@@ -2,7 +2,6 @@
 #include <algorithm>
 #include <cmath>
 #include <functional>
-#include <iostream>  // tests
 #include <map>
 #include <string>
 
@@ -17,7 +16,6 @@ MapContainer operations{
     {'$', [](const double& a, const double& b) { return std::pow(a, 1 / b); }},
 };
 
-// To add comma in the future as I consider it as a valid separator
 constexpr std::array<char, 1> separators{'.'};
 
 double moduloOperation(const double& a, const double& b) {
@@ -45,8 +43,8 @@ ErrorCode process(std::string input, double* out) {
 
 ErrorCode validateOperation(const std::string& input, double& a, double& b, char& operationSign) {
     auto it = input.cbegin();
-    std::string firstArg;
     ErrorCode err;
+    std::string firstArg;
     err = parseValue(input, firstArg, it);
     if (err != ErrorCode::OK) {
         return err;
