@@ -1,7 +1,7 @@
 #include <algorithm>
 #include <cmath>
-#include <iomanip>
 #include <iostream>
+#include <numeric>
 
 #include "arithmeticAverage.hpp"
 

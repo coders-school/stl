@@ -1,5 +1,3 @@
-#include <algorithm>
-#include <cmath>
 #include <iomanip>
 #include <iostream>
 
