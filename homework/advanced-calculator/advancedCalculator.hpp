@@ -1,7 +1,5 @@
 #pragma once
-#include <functional>
-#include <iostream>
-#include <map>
+
 #include <string>
 
 enum class ErrorCode {
@@ -15,22 +13,10 @@ enum class ErrorCode {
 
 ErrorCode process(std::string input, double* out);
 
-std::function<ErrorCode(std::string, double*)> add;
-std::function<ErrorCode(std::string, double*)> subtract;
-std::function<ErrorCode(std::string, double*)> multiply;
-std::function<ErrorCode(std::string, double*)> divide;
-std::function<ErrorCode(std::string, double*)> modulo;
-std::function<ErrorCode(std::string, double*)> power;
-std::function<ErrorCode(std::string, double*)> root;
-std::function<ErrorCode(std::string, double*)> factorial;
+double calculateFactorial(double value);
 
-std::map<char, std::function<ErrorCode(std::string, double*)>> operations {{'+', add},
-                                            {'-', subtract},
-                                            {'*', multiply},
-                                            {'/', divide},
-                                            {'%', modulo},
-                                            {'^', power},
-                                            {'$', root},
-                                            {'!', factorial}
-};
+bool isAllowedOperation(char operation);
+bool isBadCharacter(std::string input);
+
+
 
