@@ -23,13 +23,28 @@ std::map<char, std::function<double(double, double)>> calculations{
 ErrorCode process(std::string input, double* out) {
     std::istringstream iss(input);
     std::vector<std::string> expressions{std::istream_iterator<std::string>(iss), {}};
+    
+    std::string LHS, RHS;
+    double lhs, rhs;
+    char operation;
 
     // parse vector (or string directly)
     // to operation type and its arguments (lhs & rhs or lhs for factorial)
+    for(const auto & letter : input) {
+        if(operation == '\0' && ((letter >= 48 && letter <= 57) || letter == '.')) {
+            LHS.push_back(letter);
+        } if(letter == '+' || letter == '-' || letter == '*' || letter == '/' || letter == '%' || letter == '^' || letter == '$' || letter == '!') {
+            operation = letter;
+        } if(operation != '\0' && ((letter >= 48 && letter <= 57) || letter == '.')) {
+            RHS.push_back(letter);
+        }
+    }
+    lhs = std::stod(LHS);
+    rhs = std::stod(RHS);
 
-    char operation{ '+' };      // example
-    double lhs{ 2 };            // example
-    double rhs{ 3 };            // example
+    // char operation{ '+' };      // example
+    // double lhs{ 2 };            // example
+    // double rhs{ 3 };            // example
 
     /* return error code if input cannot be parsed correctly
     return ErrorCodeBadFormat;
