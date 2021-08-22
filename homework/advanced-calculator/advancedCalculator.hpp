@@ -21,4 +21,4 @@ double factorialOperation(const double& a, const double& b);
 ErrorCode process(std::string input, double* out);
 ErrorCode validateOperation(const std::string& input, double& a, double& b, char& operationSign);
 ErrorCode parseValue(const std::string& input, std::string& output, std::string::const_iterator& it);
-char parseOperator(const std::string& input, std::string::const_iterator& it);
+char parseOperator(std::string::const_iterator& it);

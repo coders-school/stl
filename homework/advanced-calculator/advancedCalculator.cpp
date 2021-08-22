@@ -49,7 +49,7 @@ ErrorCode validateOperation(const std::string& input, double& a, double& b, char
     if (err != ErrorCode::OK) {
         return err;
     }
-    operationSign = parseOperator(input, it);
+    operationSign = parseOperator(it);
     std::string secondArg;
     err = parseValue(input, secondArg, it);
     if (err != ErrorCode::OK) {
@@ -125,7 +125,7 @@ ErrorCode parseValue(const std::string& input, std::string& output, std::string:
     return err;
 }
 
-char parseOperator(const std::string& input, std::string::const_iterator& it) {
+char parseOperator(std::string::const_iterator& it) {
     auto result = *it;
     ++it;
     return result;
