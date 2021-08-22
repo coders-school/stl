@@ -5,11 +5,10 @@
 #include <numeric>
 #include <stdexcept>
 
-double ArithmeticAverage(const std::vector<int> &first,
-                         const std::vector<int> &second) {
-  return (std::reduce(first.cbegin(), first.cend(), 0) +
-          std::reduce(second.cbegin(), second.cend(), 0)) / 
-          (first.size() + second.size());
+double ArithmeticAverage(const std::vector<int> &first, const std::vector<int> &second) {
+  double sum = std::reduce(first.cbegin(), first.cend(), 0) +
+               std::reduce(second.cbegin(), second.cend(), 0);
+  return sum / (first.size() + second.size());
 }
 
 double Distance(const std::vector<int> &first, const std::vector<int> &second) {
