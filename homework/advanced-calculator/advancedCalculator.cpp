@@ -1,35 +1,100 @@
 #include "advancedCalculator.hpp"
 #include <algorithm>
+#include <cmath>
 #include <functional>
 #include <iostream>  // tests
 #include <map>
 #include <string>
 
-const MapContainer operations{
+MapContainer operations{
     {'+', [](const double& a, const double& b) { return a + b; }},
-    {'-', [](const double& a, const double& b) { return a + b; }},
-    {'*', [](const double& a, const double& b) { return a + b; }},
-    {'/', [](const double& a, const double& b) { return a + b; }},
-    {'%', [](const double& a, const double& b) { return a + b; }},
-    {'!', [](const double& a, const double& b) { return a + b; }},
-    {'^', [](const double& a, const double& b) { return a + b; }},
-    {'$', [](const double& a, const double& b) { return a + b; }},
+    {'-', [](const double& a, const double& b) { return a - b; }},
+    {'*', [](const double& a, const double& b) { return a * b; }},
+    {'/', [](const double& a, const double& b) { return a / b; }},
+    {'%', moduloOperation},
+    {'!', factorialOperation},
+    {'^', [](const double& a, const double& b) { return std::pow(a, b); }},
+    {'$', [](const double& a, const double& b) { return std::pow(a, 1 / b); }},
 };
 
-constexpr std::array<char, 2> separators{'.', ','};
+// To add comma in the future as I consider it as a valid separator
+constexpr std::array<char, 1> separators{'.'};
+
+double moduloOperation(const double& a, const double& b) {
+    return static_cast<int>(a) % static_cast<int>(b);
+}
+
+double factorialOperation(const double& a, const double& b) {
+    if (a < 0) {
+        return std::tgamma((-a) + 1) * (-1);
+    }
+    return std::tgamma(a + 1);
+}
 
 ErrorCode process(std::string input, double* out) {
     input.erase(std::remove(input.begin(), input.end(), ' '), input.end());
-    auto it = input.cbegin();
-    std::cout << "Input: " << input << '\n';
-    std::cout << "First value: " << parseValue(input, it) << "\nOperator: " << parseOperator(input, it)
-              << "\nSecond value: " << parseValue(input, it) << '\n';
+    double a{0.0};
+    double b{0.0};
+    char operationSign{' '};
+    ErrorCode err{validateOperation(input, a, b, operationSign)};
+    if (err == ErrorCode::OK) {
+        *out = operations.at(operationSign)(a, b);
+    }
+    return err;
+}
 
+ErrorCode validateOperation(const std::string& input, double& a, double& b, char& operationSign) {
+    auto it = input.cbegin();
+    std::string firstArg;
+    ErrorCode err;
+    err = parseValue(input, firstArg, it);
+    if (err != ErrorCode::OK) {
+        return err;
+    }
+    operationSign = parseOperator(input, it);
+    std::string secondArg;
+    err = parseValue(input, secondArg, it);
+    if (err != ErrorCode::OK) {
+        return err;
+    }
+    std::string checkSum{firstArg + operationSign + secondArg};
+    if (checkSum != input) {
+        return ErrorCode::BadFormat;
+    }
+    if (operationSign == '%') {
+        for (const auto separator : separators) {
+            if (firstArg.find(separator) != std::string::npos || secondArg.find(separator) != std::string::npos) {
+                return ErrorCode::ModuleOfNonIntegerValue;
+            }
+        }
+    }
+    if (firstArg.empty()) {
+        return ErrorCode::BadFormat;
+    }
+    a = std::stod(firstArg);
+    if (operationSign != '!') {
+        if (secondArg.empty()) {
+            return ErrorCode::BadFormat;
+        }
+        b = std::stod(secondArg);
+    } else {
+        if (!secondArg.empty()) {
+            return ErrorCode::BadFormat;
+        }
+        b = 0;
+    }
+    if (operationSign == '/' && b == 0) {
+        return ErrorCode::DivideBy0;
+    }
+    if (operationSign == '$' && a < 0) {
+        return ErrorCode::SqrtOfNegativeNumber;
+    }
     return ErrorCode::OK;
 }
 
-std::string parseValue(const std::string& input, std::string::const_iterator& it) {
+ErrorCode parseValue(const std::string& input, std::string& output, std::string::const_iterator& it) {
     bool separatorAllowed{true};
+    ErrorCode err{ErrorCode::OK};
     auto first = it;
     if (*it == '-') {
         ++it;
@@ -39,16 +104,28 @@ std::string parseValue(const std::string& input, std::string::const_iterator& it
             separatorAllowed = false;
             continue;
         }
+        if (std::find(separators.cbegin(), separators.cend(), *it) != separators.cend() && !separatorAllowed) {
+            err = ErrorCode::BadFormat;
+            continue;
+        }
         if (std::isdigit(*it)) {
             continue;
         }
-        break;
+        if (*it == ',') {
+            err = ErrorCode::BadFormat;
+            continue;
+        }
+        if (operations.find(*it) != operations.end()) {
+            break;
+        }
+        return ErrorCode::BadCharacter;
     }
-    return std::string(first, it);
+    output = std::string(first, it);
+    return err;
 }
 
 char parseOperator(const std::string& input, std::string::const_iterator& it) {
-    char resultOperator = *it;
+    auto result = *it;
     ++it;
-    return resultOperator;
+    return result;
 }
