@@ -3,11 +3,11 @@
 #include <cmath>
 #include <iostream>
 
-double calculateFactorial(double value) {
-    if (value == 0 || value == 1) {
+double calculateFactorial(double first, double second) {
+    if (first == 0 || first == 1) {
         return 1;
     }
-    return std::tgamma(value + 1);
+    return std::tgamma(first + 1);
 }
 
 const std::map<const char, std::function<double(double, double)>> operations {
@@ -18,7 +18,7 @@ const std::map<const char, std::function<double(double, double)>> operations {
     {'%', std::modulus<int>()},
     {'^', [](const auto base, const auto nthPower) { return std::pow(base, nthPower); }},
     {'$', [](const auto base, const auto nthPower) { return std::pow(base, 1.0 / nthPower); }},
-    {'!', calculateFactorial},
+    // {'!', calculateFactorial}
 };
 
 bool isAllowedOperation(char operation) {

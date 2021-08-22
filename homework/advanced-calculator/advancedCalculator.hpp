@@ -12,7 +12,7 @@ enum class ErrorCode {
     ModuleOfNonIntegerValue     //Póba obliczenia % na liczbie niecałkowitej. 
 };
 
-const std::map<const char, std::function<double(double, double)>>operations;
+const extern std::map<const char, std::function<double(double, double)>>operations;
 
 ErrorCode process(std::string input, double* out);
 
@@ -20,6 +20,3 @@ double calculateFactorial(double value);
 
 bool isAllowedOperation(char operation);
 bool isBadCharacter(std::string input);
-
-
-
