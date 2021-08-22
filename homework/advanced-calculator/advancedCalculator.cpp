@@ -33,9 +33,13 @@ ErrorCode process(std::string input, double* out) {
     for(const auto & letter : input) {
         if(operation == '\0' && ((letter >= 48 && letter <= 57) || letter == '.')) {
             LHS.push_back(letter);
-        } if(letter == '+' || letter == '-' || letter == '*' || letter == '/' || letter == '%' || letter == '^' || letter == '$' || letter == '!') {
-            operation = letter;
-        } if(operation != '\0' && ((letter >= 48 && letter <= 57) || letter == '.')) {
+        }
+        for(const auto & iter : calc::calculations) {
+            if(letter == iter.first) {
+                operation = letter;
+            }
+        }
+        if(operation != '\0' && ((letter >= 48 && letter <= 57) || letter == '.')) {
             RHS.push_back(letter);
         }
     }
