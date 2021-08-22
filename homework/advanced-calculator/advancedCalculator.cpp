@@ -55,6 +55,8 @@ ErrorCode validateOperation(const std::string& input, double& a, double& b, char
     if (err != ErrorCode::OK) {
         return err;
     }
+
+    // In case of valid operation at the end like "2 + 2 +"
     std::string checkSum{firstArg + operationSign + secondArg};
     if (checkSum != input) {
         return ErrorCode::BadFormat;
@@ -113,6 +115,7 @@ ErrorCode parseValue(const std::string& input, std::string& output, std::string:
             err = ErrorCode::BadFormat;
             continue;
         }
+        // Intention: This checks char after valid value (if part of the string) if it is a valid operation
         if (operations.find(*it) != operations.end()) {
             break;
         }
