@@ -16,8 +16,6 @@ MapContainer operations{
     {'$', [](const double& a, const double& b) { return std::pow(a, 1 / b); }},
 };
 
-constexpr std::array<char, 1> separators{'.'};
-
 double moduloOperation(const double& a, const double& b) {
     return static_cast<int>(a) % static_cast<int>(b);
 }
@@ -28,6 +26,8 @@ double factorialOperation(const double& a, const double& b) {
     }
     return std::tgamma(a + 1);
 }
+
+constexpr std::array<char, 1> separators{'.'};
 
 ErrorCode process(std::string input, double* out) {
     input.erase(std::remove(input.begin(), input.end(), ' '), input.end());
