@@ -1,5 +1,6 @@
 #pragma once
-
+#include <functional>
+#include <map>
 #include <string>
 
 enum class ErrorCode {
@@ -10,6 +11,8 @@ enum class ErrorCode {
     SqrtOfNegativeNumber,       //pierwiastek z liczby ujemnej.
     ModuleOfNonIntegerValue     //Póba obliczenia % na liczbie niecałkowitej. 
 };
+
+const std::map<const char, std::function<double(double, double)>>operations;
 
 ErrorCode process(std::string input, double* out);
 

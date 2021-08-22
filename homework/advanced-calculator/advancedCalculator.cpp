@@ -1,9 +1,7 @@
 #include "advancedCalculator.hpp"
 #include <algorithm>
 #include <cmath>
-#include <functional>
 #include <iostream>
-#include <map>
 
 double calculateFactorial(double value) {
     if (value == 0 || value == 1) {
@@ -12,7 +10,7 @@ double calculateFactorial(double value) {
     return std::tgamma(value + 1);
 }
 
-const std::map<char, std::function<double(double, double)>> operations {
+const std::map<const char, std::function<double(double, double)>> operations {
     {'+', std::plus<double>()},
     {'-', std::minus<double>()},
     {'*', std::multiplies<double>()},
@@ -20,7 +18,7 @@ const std::map<char, std::function<double(double, double)>> operations {
     {'%', std::modulus<int>()},
     {'^', [](const auto base, const auto nthPower) { return std::pow(base, nthPower); }},
     {'$', [](const auto base, const auto nthPower) { return std::pow(base, 1.0 / nthPower); }},
-    {'!', calculateFactorial}
+    {'!', calculateFactorial},
 };
 
 bool isAllowedOperation(char operation) {
@@ -46,5 +44,5 @@ ErrorCode process(std::string input, double* out) {
     if (isBadCharacter(input)) {
         return ErrorCode::BadCharacter;
     }
-    return ErrorCode::OK;
+    // return ErrorCode::OK;
 }
