@@ -38,12 +38,12 @@ double Distance(const std::vector<int>& first, const std::vector<int>& second) {
     if (first.size() != second.size() && first.size() != 0) {
         return 0;
     }
-    return std::inner_product(first.begin(),
+    return std::sqrt(std::inner_product(first.begin(),
                               first.end(),
                               second.begin(),
                               0,
                               std::plus<>(),
                               [](const auto lhs, const auto rhs) {
                                   return std::pow(lhs - rhs, 2);
-                              });
+                              }));
 }
