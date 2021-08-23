@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <cmath>
 #include <numeric>
-#include <ranges>
+// #include <ranges> | if GH supported cpp 20
 #include <stdexcept>
 
 double ArithmeticAverage(std::vector<int> vec1, std::vector<int> vec2) {
@@ -24,6 +24,12 @@ double Distance(std::vector<int> vec1, std::vector<int> vec2) {
                    [](double el_vec1, double el_vec2) {
                        return el_vec1 - el_vec2;
                    });
-    auto result = vec1 | std::views::transform([](int i) { return pow(i, 2); });
-    return sqrt(std::accumulate(result.begin(), result.end(), 0));
+    // auto result = vec1 | std::views::transform([](int i) { return pow(i, 2); }); | if GH supported cpp 20
+    std::transform(begin(vec1),
+                   end(vec1),
+                   begin(vec1),
+                   [](int el_vec1) {
+                       return pow(el_vec1, 2);
+                   });
+    return sqrt(std::accumulate(begin(vec1), end(vec1), 0));
 }
