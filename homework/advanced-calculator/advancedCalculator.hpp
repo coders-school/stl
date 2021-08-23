@@ -12,6 +12,8 @@ enum class ErrorCode {
     ModuleOfNonIntegerValue
 };
 
+ErrorCode process(std::string input, double* out);
+
 static std::map<char, std::function<ErrorCode(double first, double second, double* out)>> calculator_functions = {
     {'+', [](double first, double second, auto* out ) { *out = first + second; return ErrorCode::OK; }},
     {'-', [](double first, double second, auto* out ) { *out = first - second; return ErrorCode::OK; }},
