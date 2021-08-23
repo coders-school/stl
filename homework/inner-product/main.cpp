@@ -11,5 +11,8 @@ int main() {
     first = {7, 4, 3, 13};
     second = {17, 6, 2, -2};
     std::cout << Distance(first, second);
+    first = {7, 4, 3, 13};
+    second = {17, 6, 2,};
+    std::cout << Distance(first, second);
     return 0;
 }

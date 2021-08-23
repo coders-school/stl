@@ -3,8 +3,10 @@
 #include <cmath>
 #include <numeric>
 #include <ranges>
+#include <stdexcept>
 
 double ArithmeticAverage(std::vector<int> vec1, std::vector<int> vec2) {
+    vec1.reserve(vec1.size() + vec2.size());
     std::copy(begin(vec2), end(vec2), std::back_inserter(vec1));
     double sum_of_all_items = std::accumulate(begin(vec1), end(vec1), 0);
     auto number_of_elements = vec1.size();
@@ -12,6 +14,9 @@ double ArithmeticAverage(std::vector<int> vec1, std::vector<int> vec2) {
 }
 
 double Distance(std::vector<int> vec1, std::vector<int> vec2) {
+    if (vec1.size() != vec2.size()) {
+        throw std::logic_error("points from different dimensional spaces.");
+    }
     std::transform(begin(vec1),
                    end(vec1),
                    begin(vec2),
