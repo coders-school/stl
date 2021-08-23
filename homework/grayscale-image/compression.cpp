@@ -1,40 +1,31 @@
 #include "compression.hpp"
+#include <iostream>
 
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array<uint8_t, width>, height> &uncompressed)
+
+
+std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, width>, height> &uncompressed)
 {
     std::vector<std::pair<uint8_t, uint8_t>> compressed;
     compressed.reserve(width * height);
-    for (const auto &row : uncompressed)
-    {
-        auto colour = row.front();
-        uint8_t counter = 0;
-        auto it = row.cbegin();
-        //for (auto it = row.cbegin(); it < row.cend(); it++) 
-        for(size_t i {0}; i < width; i++)
-        {
-            if(colour != *it)
-            {
-                compressed.push_back(std::make_pair(colour, counter));
-                colour = *it;
-                counter = 1;
-            }
-            else
-            {
-                counter++;
-            }
-            if(it + 1 == row.cend())
-            {
-                compressed.push_back(std::make_pair(colour, counter));
-            }
-            std::advance(it, 1);
-        }
-    }
-    compressed.shrink_to_fit();
+    std::for_each(uncompressed.begin(),
+                  uncompressed.end(), 
+                  [&compressed](auto row){
+                      for(auto uniqueElementIt = row.begin(); uniqueElementIt != row.end();) {
+                          auto nextUniqueElement = std::find_if(uniqueElementIt,
+                                                                row.end(),
+                                                                [&uniqueElementIt](auto x){ return x != *uniqueElementIt; });
+                          compressed.push_back(std::make_pair(*uniqueElementIt,
+                                                              std::count_if(uniqueElementIt, 
+                                                                            nextUniqueElement,
+                                                                            [&uniqueElementIt](auto x){ return x == *uniqueElementIt; })));
+                          uniqueElementIt = nextUniqueElement;
+                      }
+    });
     return compressed;
 }
 
 
-std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>> &compressed)
+std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::vector<std::pair<uint8_t, uint8_t>> &compressed)
 {
     std::array<std::array<uint8_t, width>, height> uncompressed;
 
@@ -56,4 +47,18 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<s
     }
 
     return uncompressed;
+}
+
+void printMap(const std::array<std::array<uint8_t, width>, height>& arr) {
+    const uint8_t lowestChar{31};
+    for (const auto& row : arr) {
+        for (const auto& character : row) {
+            if (character <= lowestChar) {
+                std::cout << ' ';
+            } else {
+                std::cout << character;
+            }
+        }
+        std::cout << '\n';
+    }
 }
