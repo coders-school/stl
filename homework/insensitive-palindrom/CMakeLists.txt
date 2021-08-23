@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.2)
+cmake_minimum_required(VERSION 3.13)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -38,7 +38,7 @@ endif()
 project(insensitivePalindrom)
 enable_testing()
 
-add_executable(${PROJECT_NAME}-ut test.cpp) # add your cpp file here after test.cpp
+add_executable(${PROJECT_NAME}-ut test.cpp palindrom.cpp) # add your cpp file here after test.cpp
 # if this is problematic take a look into CMakeLists.txt files in other exercises
 
 add_compile_options(${PROJECT_NAME}-ut -Wall -Wextra -Wconversion -pedantic -Werror)
