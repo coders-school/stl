@@ -1,4 +1,5 @@
 #include "compression.hpp"
+#include <algorithm>
 #include <iostream>
 
 
