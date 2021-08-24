@@ -11,7 +11,7 @@
 //PS. can use lambdas directly too but its less readable.
 
 const CommandsMap commands{
-    //feature1: Command will check is number of arguments parsed equal to number of lamba argument
+    //feature1: Command will check if number of arguments parsed is equal to number of lambda argument
     {'+', Command{[](auto lhs, auto rhs) { return lhs + rhs; }}},  //almost same as commented version
     // {'+', [](auto num, auto end) {
     //      if (std::distance(num, end) != 2) {
