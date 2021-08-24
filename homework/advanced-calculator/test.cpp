@@ -136,6 +136,8 @@ TEST(advancedCalculatorTest, ShouldFactorial) {
 TEST(advancedCalculatorTest, ShouldReturnBadFormat) {
     double result = 0;
 
+    EXPECT_EQ(process("5,1", &result), ErrorCode::BadFormat);  //added
+
     EXPECT_EQ(process("5,1!", &result), ErrorCode::BadFormat);
     EXPECT_EQ(process("11,3 + 12.4", &result), ErrorCode::BadFormat);
     EXPECT_EQ(process("13.4 ++ 12.43", &result), ErrorCode::BadFormat);

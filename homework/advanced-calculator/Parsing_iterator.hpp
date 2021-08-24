@@ -1,8 +1,9 @@
 #pragma once
 #include <string>
-#include "Commands.hpp"
+#include <vector>
 #include "Result.hpp"
 
+//will parse chars to numbers or operations containers
 struct Parsing_Iterator {
     using iterator_category = std::forward_iterator_tag;
     using difference_type = std::ptrdiff_t;
@@ -23,13 +24,10 @@ struct Parsing_Iterator {
     pointer operator->() { return this; }
     Parsing_Iterator& operator++() { return *this; }
 
-    Result getResult() {
-        return Result(num, op, result);
-    }
+    Result getResult();
 
 private:
     std::vector<std::string> num{};
     std::vector<char> op{};
-    ErrorCode result{ErrorCode::OK};
     State state{operation};
 };

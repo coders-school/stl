@@ -1,94 +1,51 @@
 #include "Commands.hpp"
 #include <algorithm>
 #include <cmath>
+#include "Command.hpp"
 
-struct Command{
-    Command(std::function<Value(Value lhs, Value rhs)> fun2, ErrorCode optionalError=ErrorCode::OK)
-    :optionalError(optionalError){
-        lambda2 = fun2;
-        requirements = 2;
-    }
-
-    Command(std::function<Value(Value lhs)> fun1, ErrorCode optionalError=ErrorCode::OK)
-    :optionalError(optionalError){
-        lambda1 = fun1;
-        requirements = 1;
-    }
-
-    CalculationResult operator()(Numbers::const_iterator num, Numbers::const_iterator end){
-        if (std::distance(num, end) != requirements){
-            return CalculationResult{ErrorCode::BadFormat, {}};
-        }
-
-        if(requirements == 2){
-            double par1 = *num;
-            double par2 = *++num;
-            auto result = lambda2(par1, par2);
-            if(std::isnan(result)){
-                return CalculationResult{optionalError, {}};
-            }
-            return CalculationResult{ErrorCode::OK, result};
-        }else{
-            double par1 = *num;
-            auto result = lambda1(par1);
-            if(std::isnan(result)){
-                return CalculationResult{optionalError, {}};
-            }
-            return CalculationResult{ErrorCode::OK, result};
-        }
-    }
-    std::function<Value(Value lhs)> lambda1;
-    std::function<Value(Value lhs, Value rhs)> lambda2;
-    ErrorCode optionalError = ErrorCode::OK;
-    size_t requirements = 2;
-};
+//Note:
+//CommandsMap is std::map<char, std::function<CalculationResult(std::vector<double>::const_iterator, std::vector<double>::const_iterator)>>
+//where CalculationResult is struct holding ErrorCode and std::optional<double> (its more readible than pair).
+//Command is wrapper for lambda. It gives conversion to use lambda with number of parameters rather than iterators range.
+//and also hide otherwise duplicated code for lambdas (ie. check range, error result).
+//PS. can use lambdas directly too but its less readible.
 
 CommandsMap commands{
-    {'+', //add
-        Command{[](auto lhs, auto rhs){ return lhs + rhs; }}
-    },
-    {'-', //substract
-        Command{[](auto lhs, auto rhs){ return lhs - rhs; }}
-    },
-    {'*', //multiply
-        Command{[](auto lhs, auto rhs){ return lhs * rhs; }}
-    },
-    {'/', //divide
-        Command{[](auto lhs, auto rhs){ 
-            if ((int)rhs == 0){
-                return std::numeric_limits<Value>::signaling_NaN();
-            }
-            return lhs / rhs; }, 
-            ErrorCode::DivideBy0
-        }
-    },
-    {'%', //modulo
-        Command{[](auto lhs, auto rhs){ 
-            if (rhs - static_cast<int>(rhs) > 0.0001 || static_cast<int>(rhs) == 0){
-                return std::numeric_limits<Value>::signaling_NaN();
-            }
-            return std::fmod(lhs, rhs); }, 
-            ErrorCode::ModuleOfNonIntegerValue
-        }
-    },
-    {'!', //factorial
-        Command{[](auto lhs){ 
-            if (lhs > 0.0){
-                return std::tgamma(lhs + 1);
-            }
-            return -std::tgamma(-lhs + 1);}
-        }
-    },
-    {'^', //power
-        Command{[](auto lhs, auto rhs){ return std::pow(lhs, rhs); }}
-    },
-    {'$', //nth root
-        Command{[](auto lhs, auto rhs){ 
-            if (lhs < 0){
-                return std::numeric_limits<Value>::signaling_NaN();
-            }
-            return std::pow(lhs, 1.0 / rhs);}, 
-            ErrorCode::SqrtOfNegativeNumber
-        }
-    }
-};
+    //feature1: Command will check is number of arguments parsed equal to number of lamba argument
+    {'+', Command{[](auto lhs, auto rhs) { return lhs + rhs; }}},  //almost same as commented version
+    // {'+', [](auto num, auto end) {
+    //      if (std::distance(num, end) != 2) {
+    //          return CalculationResult{ErrorCode::BadFormat, {}};
+    //      }
+    //      double par1 = *num;
+    //      double par2 = *++num;
+    //      return CalculationResult{ErrorCode::OK, par1 + par2};
+    //  }},
+    {'-', Command{[](auto lhs, auto rhs) { return lhs - rhs; }}},
+    {'*', Command{[](auto lhs, auto rhs) { return lhs * rhs; }}},
+    {'/', Command{[](auto lhs, auto rhs) -> CallbackVariants {  //feature2: lambda can return errors
+         if (rhs == 0.0) {
+             return ErrorCode::DivideBy0;
+         }
+         return lhs / rhs;
+     }}},
+    {'%', Command{[](auto lhs, auto rhs) -> CallbackVariants {
+         Value int_part;
+         if (std::modf(rhs, &int_part) != 0.0 or rhs == 0.0) {  //not integer or zero
+             return ErrorCode::ModuleOfNonIntegerValue;
+         }
+         return std::fmod(lhs, rhs);
+     }}},
+    {'!', Command{[](auto lhs) {  //feature3: can use one argument lambda too
+         if (lhs > 0.0) {
+             return std::tgamma(lhs + 1);
+         }
+         return -std::tgamma(-lhs + 1);
+     }}},
+    {'^', Command{[](auto lhs, auto rhs) { return std::pow(lhs, rhs); }}},
+    {'$', Command{[](auto lhs, auto rhs) -> CallbackVariants {
+         if (lhs < 0.0) {
+             return ErrorCode::SqrtOfNegativeNumber;
+         }
+         return std::pow(lhs, 1.0 / rhs);
+     }}}};

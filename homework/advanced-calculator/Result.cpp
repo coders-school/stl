@@ -1,28 +1,25 @@
 #include "Result.hpp"
 #include <iostream>
 
-Result::Result(const std::vector<std::string>& args, const std::vector<char>& op, ErrorCode err)
-    : op(op), errorCode(err) {
-    ErrorCode numFormat = ErrorCode::OK;
-    std::transform(
+Result::Result(const std::vector<std::string>& args, const std::vector<char>& op)
+    : op(op) {
+    std::transform(  //convert string numbers to double numbers and check correctness
         args.begin(),
         args.end(),
         std::back_inserter(numbers),
-        [&numFormat](const auto& text) {
-            if (std::count_if(text.begin(), text.end(),
-                              [](auto letter) {
-                                  return letter == SeparatorFormat::legal;
-                              }) > 1) {
-                numFormat = ErrorCode::BadFormat;
+        [this](const auto& text) {
+            if (std::count_if(
+                    text.begin(), text.end(),
+                    [](auto letter) {
+                        return letter == SeparatorFormat::legalOnce;
+                    }) > 1) {
+                this->errorCode = ErrorCode::BadFormat;
             }
             return std::stod(text);
         });
-    if (numFormat != ErrorCode::OK) {
-        errorCode = numFormat;
-    }
 }
 
-CalculationResult Result::invoke() {
+CalculationResult Result::invoke(const CommandsMap& commands) const {
     print_op();
     print_args();
 
@@ -32,16 +29,16 @@ CalculationResult Result::invoke() {
     }
 
     auto it = commands.begin();
-    for (auto o : op) {
-        it = commands.find(o);
-        if (it == commands.end() && o != SeparatorFormat::illegal) {
+    for (auto operation : op) {  // op have no existing operation in commands
+        it = commands.find(operation);
+        if (it == commands.end() && operation != SeparatorFormat::illegalFormat) {
             errorCode = ErrorCode::BadCharacter;
             print_error();
             return {errorCode, {}};
         }
     }
 
-    if (op.size() != 1) {
+    if (op.size() != 1 || op.front() == SeparatorFormat::illegalFormat) {  //more than one operation or illegalFormat separator
         errorCode = ErrorCode::BadFormat;
         print_error();
         return {errorCode, {}};
@@ -50,14 +47,19 @@ CalculationResult Result::invoke() {
     auto [error, value] = it->second(numbers.begin(), numbers.end());
     errorCode = error;
 
-    if (error == ErrorCode::OK) {
-        if (value) {
-            std::cout << value.value() << "\n\n";
-        }
-    } else {
+    if (error != ErrorCode::OK) {
         print_error();
+        return {errorCode, {}};
     }
-    return {error, value};
+
+    if (!value) {
+        errorCode = ErrorCode::OtherError;
+        print_error();
+        return {errorCode, {}};
+    }
+    std::cout << value.value() << "\n\n";
+
+    return {errorCode, value};
 }
 
 std::map<ErrorCode, std::string> errorText{
@@ -66,9 +68,10 @@ std::map<ErrorCode, std::string> errorText{
     {ErrorCode::BadFormat, "BadFormat"},
     {ErrorCode::DivideBy0, "DivideBy0"},
     {ErrorCode::ModuleOfNonIntegerValue, "ModuleOfNonIntegerValue"},
-    {ErrorCode::SqrtOfNegativeNumber, "SqrtOfNegativeNumber"}};
+    {ErrorCode::SqrtOfNegativeNumber, "SqrtOfNegativeNumber"},
+    {ErrorCode::OtherError, "OtherError"}};
 
-void Result::print_op() {
+void Result::print_op() const {
     std::cout << "operations: ";
     for (const auto& op : op) {
         std::cout << op << " ";
@@ -76,7 +79,7 @@ void Result::print_op() {
     std::cout << '\n';
 }
 
-void Result::print_args() {
+void Result::print_args() const {
     std::cout << "arguments: ";
     for (const auto& num : numbers) {
         std::cout << num << ", ";
@@ -84,6 +87,11 @@ void Result::print_args() {
     std::cout << '\n';
 }
 
-void Result::print_error() {
+void Result::print_error() const {
+    if (errorText.find(errorCode) == errorText.cend()) {
+        std::cout << "UnknownError"
+                  << "\n\n";
+        return;
+    }
     std::cout << errorText[errorCode] << "\n\n";
 }
