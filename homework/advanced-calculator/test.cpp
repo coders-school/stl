@@ -133,9 +133,18 @@ TEST(advancedCalculatorTest, ShouldFactorial) {
     EXPECT_TRUE(cmp(result, -1324024774.02));
 }
 
+TEST(advancedCalculatorTest, ShouldReturnOtherError) {
+    EXPECT_EQ(process("-12.4!", nullptr), ErrorCode::OtherError);
+    EXPECT_EQ(process("", nullptr), ErrorCode::OtherError);
+}
+
 TEST(advancedCalculatorTest, ShouldReturnBadFormat) {
     double result = 0;
 
+    EXPECT_EQ(process({}, &result), ErrorCode::BadFormat);     //added
+    EXPECT_EQ(process("", &result), ErrorCode::BadFormat);     //added
+    EXPECT_EQ(process(" ", &result), ErrorCode::BadFormat);    //added
+    EXPECT_EQ(process("-", &result), ErrorCode::BadFormat);    //added
     EXPECT_EQ(process("5,1", &result), ErrorCode::BadFormat);  //added
 
     EXPECT_EQ(process("5,1!", &result), ErrorCode::BadFormat);

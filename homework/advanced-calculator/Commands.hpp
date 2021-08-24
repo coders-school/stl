@@ -1,4 +1,4 @@
 #pragma once
 #include "Types.hpp"
 
-extern CommandsMap commands;
+extern const CommandsMap commands;

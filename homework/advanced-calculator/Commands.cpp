@@ -10,7 +10,7 @@
 //and also hide otherwise duplicated code for lambdas (ie. check range, error result).
 //PS. can use lambdas directly too but its less readable.
 
-CommandsMap commands{
+const CommandsMap commands{
     //feature1: Command will check is number of arguments parsed equal to number of lamba argument
     {'+', Command{[](auto lhs, auto rhs) { return lhs + rhs; }}},  //almost same as commented version
     // {'+', [](auto num, auto end) {

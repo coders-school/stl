@@ -4,16 +4,25 @@
 Result::Result(const std::vector<std::string>& args, const std::vector<char>& op)
     : op(op) {
     std::transform(  //convert string numbers to double numbers and check correctness
-        args.begin(),
-        args.end(),
+        args.cbegin(),
+        args.cend(),
         std::back_inserter(numbers),
         [this](const auto& text) {
             if (std::count_if(
-                    text.begin(), text.end(),
+                    text.cbegin(), text.cend(),
                     [](auto letter) {
                         return letter == SeparatorFormat::legalOnce;
                     }) > 1) {
                 this->errorCode = ErrorCode::BadFormat;
+            }
+            if (std::count_if(
+                text.cbegin(), 
+                text.cend(), 
+                [](auto letter) { 
+                    return std::isdigit(letter); 
+                    }) == 0) {
+                this->errorCode = ErrorCode::BadFormat;
+                return 0.0;
             }
             return std::stod(text);
         });
@@ -27,10 +36,10 @@ CalculationResult Result::invoke(const CommandsMap& commands) const {
         return print_error_and_get_result(errorCode);
     }
 
-    auto it = commands.begin();
-    for (auto operation : op) {  // operations container have character that don't exist as commands key
+    auto it = commands.cbegin();
+    for (const auto& operation : op) {  // operations container have character that don't exist as commands key
         it = commands.find(operation);
-        if (it == commands.end() && operation != SeparatorFormat::illegalFormat) {
+        if (it == commands.cend() && operation != SeparatorFormat::illegalFormat) {
             return print_error_and_get_result(ErrorCode::BadCharacter);
         }
     }
@@ -39,7 +48,7 @@ CalculationResult Result::invoke(const CommandsMap& commands) const {
         return print_error_and_get_result(ErrorCode::BadFormat);
     }
 
-    auto [error, value] = it->second(numbers.begin(), numbers.end());  //call operation
+    auto [error, value] = it->second(numbers.cbegin(), numbers.cend());  //call operation
 
     if (error != ErrorCode::OK) {
         return print_error_and_get_result(error);
@@ -53,7 +62,7 @@ CalculationResult Result::invoke(const CommandsMap& commands) const {
     return {ErrorCode::OK, value};
 }
 
-std::map<ErrorCode, std::string> errorText{
+const std::map<const ErrorCode, const std::string> errorText{
     {ErrorCode::OK, "OK"},
     {ErrorCode::BadCharacter, "BadCharacter"},
     {ErrorCode::BadFormat, "BadFormat"},
@@ -84,6 +93,6 @@ CalculationResult Result::print_error_and_get_result(ErrorCode error) const {
                   << "\n\n";
         return {error, {}};
     }
-    std::cout << errorText[error] << "\n\n";
+    std::cout << errorText.at(error) << "\n\n";
     return {error, {}};
 }

@@ -13,16 +13,14 @@ CalculationResult Command::operator()(Numbers::const_iterator num, Numbers::cons
 
     CallbackVariants result;
     Value par1 = *num;
-
     if (requirements == 2) {
         Value par2 = *++num;
-
         result = callback2(par1, par2);
-    } else if (requirements == 1) {
+    } else {
         result = callback1(par1);
     }
 
-    if (result.index()) {
+    if (result.index()) {// 0 - Value, 1 - ErrorCode
         return CalculationResult{std::get<ErrorCode>(result), {}};
     }
     return CalculationResult{ErrorCode::OK, std::get<Value>(result)};
