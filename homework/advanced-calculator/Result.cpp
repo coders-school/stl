@@ -23,43 +23,34 @@ CalculationResult Result::invoke(const CommandsMap& commands) const {
     print_op();
     print_args();
 
-    if (errorCode != ErrorCode::OK) {
-        print_error();
-        return {errorCode, {}};
+    if (errorCode != ErrorCode::OK) {  //conversion strings to numbers fail
+        return print_error_and_get_result(errorCode);
     }
 
     auto it = commands.begin();
-    for (auto operation : op) {  // op have no existing operation in commands
+    for (auto operation : op) {  // operations container have character that don't exist as commands key
         it = commands.find(operation);
         if (it == commands.end() && operation != SeparatorFormat::illegalFormat) {
-            errorCode = ErrorCode::BadCharacter;
-            print_error();
-            return {errorCode, {}};
+            return print_error_and_get_result(ErrorCode::BadCharacter);
         }
     }
 
     if (op.size() != 1 || op.front() == SeparatorFormat::illegalFormat) {  //more than one operation or illegalFormat separator
-        errorCode = ErrorCode::BadFormat;
-        print_error();
-        return {errorCode, {}};
+        return print_error_and_get_result(ErrorCode::BadFormat);
     }
 
-    auto [error, value] = it->second(numbers.begin(), numbers.end());
-    errorCode = error;
+    auto [error, value] = it->second(numbers.begin(), numbers.end());  //call operation
 
     if (error != ErrorCode::OK) {
-        print_error();
-        return {errorCode, {}};
+        return print_error_and_get_result(error);
     }
 
     if (!value) {
-        errorCode = ErrorCode::OtherError;
-        print_error();
-        return {errorCode, {}};
+        return print_error_and_get_result(ErrorCode::OtherError);
     }
-    std::cout << value.value() << "\n\n";
+    std::cout << "result: " << value.value() << "\n\n";
 
-    return {errorCode, value};
+    return {ErrorCode::OK, value};
 }
 
 std::map<ErrorCode, std::string> errorText{
@@ -87,11 +78,12 @@ void Result::print_args() const {
     std::cout << '\n';
 }
 
-void Result::print_error() const {
-    if (errorText.find(errorCode) == errorText.cend()) {
+CalculationResult Result::print_error_and_get_result(ErrorCode error) const {
+    if (errorText.find(error) == errorText.cend()) {
         std::cout << "UnknownError"
                   << "\n\n";
-        return;
+        return {error, {}};
     }
-    std::cout << errorText[errorCode] << "\n\n";
+    std::cout << errorText[error] << "\n\n";
+    return {error, {}};
 }

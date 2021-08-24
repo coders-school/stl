@@ -11,9 +11,9 @@ struct Result {
 private:
     void print_op() const;
     void print_args() const;
-    void print_error() const;
+    CalculationResult print_error_and_get_result(ErrorCode error) const;
 
     Numbers numbers;
     std::vector<char> op;
-    mutable ErrorCode errorCode = ErrorCode::OK;
+    ErrorCode errorCode = ErrorCode::OK;
 };
