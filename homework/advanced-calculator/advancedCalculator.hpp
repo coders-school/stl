@@ -2,4 +2,4 @@
 #include <string>
 #include "ErrorCode.hpp"
 
-ErrorCode process(std::string input, double* out);
+ErrorCode process(const std::string& input, double* const out);

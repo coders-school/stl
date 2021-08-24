@@ -1,16 +1,20 @@
 #pragma once
 
-#include <algorithm>
-#include <cmath>
-#include <functional>
-#include <iostream>
-#include <map>
-#include <optional>
-#include <set>
 #include "ErrorCode.hpp"
+#include <optional>
+#include <map>
+#include <vector>
+#include <functional>
 
-using CalculationResult = std::pair<ErrorCode, std::optional<double>>;
-using Numbers = std::vector<double>;
-using CommandsMap = std::map<char, std::function<CalculationResult(Numbers::const_iterator, Numbers::const_iterator)>>;
+using Value = double;
+struct CalculationResult{
+    ErrorCode errorCode;
+    std::optional<Value> value;
+};
+
+using CommandToken = char;
+using Numbers = std::vector<Value>;
+using CalculationFunction = std::function<CalculationResult(Numbers::const_iterator, Numbers::const_iterator)>;
+using CommandsMap = std::map<CommandToken, CalculationFunction>;
 
 extern CommandsMap commands;

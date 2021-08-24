@@ -7,4 +7,5 @@ enum class ErrorCode {
     DivideBy0,                //dzielenie przez 0
     SqrtOfNegativeNumber,     //pierwiastek z liczby ujemnej
     ModuleOfNonIntegerValue,  //próba obliczenia % na liczbie niecałkowitej
+    OtherError
 };
