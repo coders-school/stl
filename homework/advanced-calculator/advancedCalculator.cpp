@@ -37,8 +37,22 @@ bool isBadCharacter(std::string input) {
                        [&input](char character) {
                            return !isdigit(character) && !isAllowedOperation(character) && character != '.';
                        });
-}
 
+
+}
+void breaksStringToMembers (std::string input) {
+    std::string allowedOperations {"+-*/%^$!"};
+    for (auto& el : input) {
+        auto it = std::find_if (input.begin(),
+                                input.end(),
+                                [allowedOperations](auto el){
+                                    for (auto& allowed : allowedOperations) {
+                                        return el == allowed;
+                                    } 
+                                });
+        //return it;
+    }
+}
 
 ErrorCode process(std::string input, double* out) {
     if (isBadCharacter(input)) {

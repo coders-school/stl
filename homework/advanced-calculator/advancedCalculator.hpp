@@ -20,3 +20,4 @@ double calculateFactorial(double value);
 
 bool isAllowedOperation(char operation);
 bool isBadCharacter(std::string input);
+void breaksStringToMembers (std::string input);
