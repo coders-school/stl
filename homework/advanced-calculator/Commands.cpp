@@ -4,8 +4,8 @@
 #include "Command.hpp"
 
 //Note:
-//CommandsMap is std::map<char, std::function<CalculationResult(std::vector<double>::const_iterator, std::vector<double>::const_iterator)>>
-//where CalculationResult is struct holding ErrorCode and std::optional<double> (its more readable than pair).
+//CommandsMap is std::map<const char, const std::function<CalculationResult(std::vector<double>::const_iterator, std::vector<double>::const_iterator)>>
+//where CalculationResult is struct holding const ErrorCode and const std::optional<double> (its more readable than pair).
 //Command is wrapper for lambda. It gives conversion to use lambda with number of parameters rather than iterators range.
 //and also hide otherwise duplicated code for lambdas (ie. check range, error result).
 //PS. can use lambdas directly too but its less readable.
