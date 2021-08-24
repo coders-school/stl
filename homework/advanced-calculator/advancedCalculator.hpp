@@ -1,3 +1,7 @@
+#pragma once
+
+#include <functional>
+#include <map>
 #include <string>
 
 
@@ -11,3 +15,5 @@ enum class ErrorCode {
 };
 
 ErrorCode process(std::string input, double* out);
+extern std::map<const char, std::function<double(const double, const double)>> calculator;
+void calculatorStructureInit();
