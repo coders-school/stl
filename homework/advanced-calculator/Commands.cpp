@@ -5,10 +5,10 @@
 
 //Note:
 //CommandsMap is std::map<char, std::function<CalculationResult(std::vector<double>::const_iterator, std::vector<double>::const_iterator)>>
-//where CalculationResult is struct holding ErrorCode and std::optional<double> (its more readible than pair).
+//where CalculationResult is struct holding ErrorCode and std::optional<double> (its more readable than pair).
 //Command is wrapper for lambda. It gives conversion to use lambda with number of parameters rather than iterators range.
 //and also hide otherwise duplicated code for lambdas (ie. check range, error result).
-//PS. can use lambdas directly too but its less readible.
+//PS. can use lambdas directly too but its less readable.
 
 CommandsMap commands{
     //feature1: Command will check is number of arguments parsed equal to number of lamba argument
