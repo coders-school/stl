@@ -37,7 +37,7 @@ const CommandsMap commands{
          return std::fmod(lhs, rhs);
      }}},
     {'!', Command{[](auto lhs) {  //feature3: can use one argument lambda too
-         if (lhs > 0.0) {
+         if (lhs >= 0.0) {
              return std::tgamma(lhs + 1);
          }
          return -std::tgamma(-lhs + 1);

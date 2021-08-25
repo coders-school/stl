@@ -121,6 +121,11 @@ TEST(advancedCalculatorTest, ShouldModulo) {
 TEST(advancedCalculatorTest, ShouldFactorial) {
     double result = 0;
 
+    EXPECT_EQ(process("0!", &result), ErrorCode::OK);   //added
+    EXPECT_TRUE(cmp(result, 1));
+    EXPECT_EQ(process("1!", &result), ErrorCode::OK);   //added
+    EXPECT_TRUE(cmp(result, 1));
+
     EXPECT_EQ(process("5!", &result), ErrorCode::OK);
     EXPECT_TRUE(cmp(result, 120));
     EXPECT_EQ(process("6.7!", &result), ErrorCode::OK);
