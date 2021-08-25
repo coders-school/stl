@@ -24,7 +24,7 @@ bool isAllowedOperation(char operation) {
     return it != allowedOperations.end();
 }
 
-bool isBadCharacter(std::string input) {
+bool isBadCharacter(const std::string& input) {
     return std::any_of(input.begin(), 
                        input.end(),
                        [&input](char character) {
@@ -32,10 +32,20 @@ bool isBadCharacter(std::string input) {
                        });
 }
 
+// FINISH
+bool isGoodFormat(const std::string& input) {
+    if (input[0] != '-' || !isdigit(input[0])) {
+        return false;
+    }
+}
+
 
 ErrorCode process(std::string input, double* out) {
     if (isBadCharacter(input)) {
         return ErrorCode::BadCharacter;
+    }
+    if (!isGoodFormat(input)) {
+        return ErrorCode::BadFormat;
     }
     // return ErrorCode::OK;
 }
