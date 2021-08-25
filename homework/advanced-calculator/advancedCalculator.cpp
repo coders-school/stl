@@ -1,6 +1,5 @@
 #include "advancedCalculator.hpp"
 #include <algorithm>
-#include <cmath>
 #include <iostream>
 #include <stdexcept>
 
@@ -65,7 +64,7 @@ bool BadCharacter(const std::string& value) {
 
 bool characterCountTest(const std::string& value) {
     std::string characters = "+*/%!^$";
-    size_t sum = 0;
+    auto sum = 0;
     for (size_t i = 0; i < characters.size(); i++) {
         auto numberOfChar = std::count(begin(value), end(value), characters[i]);
         sum += numberOfChar;
@@ -113,30 +112,30 @@ bool BadFormat(std::string input, double& firstNumber, double& secondNumber, cha
 }
 
 ErrorCode process(std::string input, double* out) {
-    char sign;
+    char operation_symbol;
     double firstNumber = 0;
     double secondNumber = 0;
 
     if (BadCharacter(input)) {
         return ErrorCode::BadCharacter;
     }
-    if (BadFormat(input, firstNumber, secondNumber, sign)) {
+    if (BadFormat(input, firstNumber, secondNumber, operation_symbol)) {
         return ErrorCode::BadFormat;
     }
-    if ((sign == '/') && (secondNumber == 0)) {
+    if ((operation_symbol == '/') && (secondNumber == 0)) {
         return ErrorCode::DivideBy0;
     }
 
-    if (sign == '%') {
+    if (operation_symbol == '%') {
         if ((is_not_integer(firstNumber)) || (is_not_integer(secondNumber))) {
             return ErrorCode::ModuleOfNonIntegerValue;
         }
     }
-    if ((sign == '$') && (firstNumber < 0)) {
+    if ((operation_symbol == '$') && (firstNumber < 0)) {
         return ErrorCode::SqrtOfNegativeNumber;
     }
 
-    calculator_functions[sign](firstNumber, secondNumber, out);
+    calculator_functions[operation_symbol](firstNumber, secondNumber, out);
 
     return ErrorCode::OK;
 }
