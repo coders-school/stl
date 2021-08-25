@@ -33,10 +33,15 @@ bool isBadCharacter(const std::string& input) {
 }
 
 // FINISH
-bool isGoodFormat(const std::string& input) {
-    if (input[0] != '-' || !isdigit(input[0])) {
-        return false;
+bool isBadFormat(std::string& input) {
+    input.erase(std::remove(begin(input), end(input), ' '), end(input));
+    Data data = parseString(input);
+    if (input != std::to_string(data.firstValue_) +
+                 std::to_string(data.operation_) +
+                 std::to_string(data.secondValue_)) {
+        return true;
     }
+    return false;
 }
 
 void breaksStringToMembers (std::string input) {
@@ -53,22 +58,25 @@ void breaksStringToMembers (std::string input) {
     }
 }
 
-std::tuple<double, char, double> parseString(std::string& input) {
-    double firstValue = std::stod(input);
+Data parseString(std::string& input) {
+    Data data;
+    data.firstValue_ = std::stod(input);
     std::string allowedOperations {"+-*/%^$!"};
     auto it = std::find_first_of(input.begin(),
                                 input.end(),
                                 allowedOperations.begin(), 
                                 allowedOperations.end());
-    double secondValue = *it;
-    char operation{};
+    data.operation_ = *it;
+    input.erase(begin(input), it + 1);
+    data.secondValue_ = std::stod(input);
+    return data;
 }
 
 ErrorCode process(std::string input, double* out) {
     if (isBadCharacter(input)) {
         return ErrorCode::BadCharacter;
     }
-    if (!isGoodFormat(input)) {
+    if (isBadFormat(input)) {
         return ErrorCode::BadFormat;
     }
     // return ErrorCode::OK;
