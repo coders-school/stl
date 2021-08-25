@@ -17,10 +17,7 @@ extern const std::map<const char, std::function<double(double, double)>>operatio
 ErrorCode process(std::string input, double* out);
 
 bool isAllowedOperation(char operation);
-<<<<<<< HEAD
 bool isBadCharacter(const std::string& input);
 bool isGoodFormat (const std::string& input);
-=======
-bool isBadCharacter(std::string input);
 void breaksStringToMembers (std::string input);
->>>>>>> 135eea20f44146e60dcc210608e8aab3f1b78ed5
+
