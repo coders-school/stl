@@ -8,21 +8,21 @@ bool is_not_integer(double number) {
     return std::floor(number) != number;
 }
 
-bool loadNumber(std::string& value, double& number) {
-    size_t idx = 0;
-    std::string num = "1234567890";
+bool loadNumber(std::string& input, double& number) {
+    size_t correct_symbol_position = 0;
+    std::string set_of_numbers = "1234567890";
     size_t plusPosition = 0;
     size_t numberPosition = 0;
-    plusPosition = value.find_first_of('+');
+    plusPosition = input.find_first_of('+');
     if (plusPosition != std::string::npos) {
-        numberPosition = value.find_first_of(num);
+        numberPosition = input.find_first_of(set_of_numbers);
         if (plusPosition < numberPosition) {
             return true;
         }
     }
     try {
-        number = stod(value, &idx);
-        value.erase(0, idx);
+        number = stod(input, &correct_symbol_position);
+        input.erase(0, correct_symbol_position);
     } catch (std::invalid_argument& e) {
         return true;
     }
