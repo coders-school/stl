@@ -12,7 +12,7 @@
 
 const CommandsMap commands{
     //feature1: Command will check if number of arguments parsed is equal to number of lambda argument
-    {'+', Command{[](auto lhs, auto rhs) { return lhs + rhs; }}},  //almost same as commented version
+    {'+', Command{std::plus<double>{}}},  //almost same as commented version
     // {'+', [](auto num, auto end) {
     //      if (std::distance(num, end) != 2) {
     //          return CalculationResult{ErrorCode::BadFormat, {}};
@@ -21,13 +21,13 @@ const CommandsMap commands{
     //      double par2 = *++num;
     //      return CalculationResult{ErrorCode::OK, par1 + par2};
     //  }},
-    {'-', Command{[](auto lhs, auto rhs) { return lhs - rhs; }}},
-    {'*', Command{[](auto lhs, auto rhs) { return lhs * rhs; }}},
+    {'-', Command{std::minus<double>{}}},
+    {'*', Command{std::multiplies<double>{}}},
     {'/', Command{[](auto lhs, auto rhs) -> CallbackVariants {  //feature2: lambda can return errors
          if (rhs == 0.0) {
              return ErrorCode::DivideBy0;
          }
-         return lhs / rhs;
+         return std::divides{}(lhs, rhs);
      }}},
     {'%', Command{[](auto lhs, auto rhs) -> CallbackVariants {
          Value int_part;
