@@ -2,7 +2,6 @@
 #include <functional>
 #include <map>
 #include <string>
-#include <tuple>
 
 enum class ErrorCode {
     OK,
@@ -27,4 +26,4 @@ bool isAllowedOperation(char operation);
 bool isBadCharacter(const std::string& input);
 bool isBadFormat(std::string& input);
 void breaksStringToMembers(std::string input);
-Data parseString(std::string& input);
+Data parseString(std::string input);

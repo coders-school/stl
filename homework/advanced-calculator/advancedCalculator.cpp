@@ -1,7 +1,7 @@
 #include "advancedCalculator.hpp"
 #include <algorithm>
 #include <cmath>
-#include <iostream>
+#include <sstream>
 
 const std::map<const char, std::function<double(double, double)>> operations {
     {'+', std::plus<double>()},
@@ -36,6 +36,12 @@ bool isBadCharacter(const std::string& input) {
 bool isBadFormat(std::string& input) {
     input.erase(std::remove(begin(input), end(input), ' '), end(input));
     Data data = parseString(input);
+    if (data.operation_ == '!') {
+        if (input != std::to_string(data.firstValue_) +
+                     std::to_string(data.operation_)) {
+            return true;
+        }
+    }
     if (input != std::to_string(data.firstValue_) +
                  std::to_string(data.operation_) +
                  std::to_string(data.secondValue_)) {
@@ -58,17 +64,24 @@ void breaksStringToMembers (std::string input) {
     }
 }
 
-Data parseString(std::string& input) {
+Data parseString(std::string input) {
     Data data;
-    data.firstValue_ = std::stod(input);
+    std::string::size_type sz{};
+    std::stringstream ss;
+    ss << input;
+    ss >> data.firstValue_;
     std::string allowedOperations {"+-*/%^$!"};
     auto it = std::find_first_of(input.begin(),
                                 input.end(),
                                 allowedOperations.begin(), 
                                 allowedOperations.end());
     data.operation_ = *it;
+    if (data.operation_ == '!') {
+        return data;
+    }
     input.erase(begin(input), it + 1);
-    data.secondValue_ = std::stod(input);
+    ss << input;
+    ss >> data.secondValue_;
     return data;
 }
 
