@@ -20,4 +20,5 @@ bool isAllowedOperation(char operation);
 bool isBadCharacter(const std::string& input);
 bool isGoodFormat (const std::string& input);
 void breaksStringToMembers (std::string input);
+std::tuple<double, char, double> parseString(std::string& input);
 

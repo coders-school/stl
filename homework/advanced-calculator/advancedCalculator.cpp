@@ -53,6 +53,17 @@ void breaksStringToMembers (std::string input) {
     }
 }
 
+std::tuple<double, char, double> parseString(std::string& input) {
+    double firstValue = std::stod(input);
+    std::string allowedOperations {"+-*/%^$!"};
+    auto it = std::find_first_of(input.begin(),
+                                input.end(),
+                                allowedOperations.begin(), 
+                                allowedOperations.end());
+    double secondValue = *it;
+    char operation{};
+}
+
 ErrorCode process(std::string input, double* out) {
     if (isBadCharacter(input)) {
         return ErrorCode::BadCharacter;
