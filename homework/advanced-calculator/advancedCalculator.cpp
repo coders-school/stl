@@ -11,12 +11,12 @@ bool is_not_integer(double number) {
 bool loadNumber(std::string& input, double& number) {
     size_t correct_symbol_position = 0;
     std::string set_of_numbers = "1234567890";
-    size_t plusPosition = 0;
-    size_t numberPosition = 0;
-    plusPosition = input.find_first_of('+');
-    if (plusPosition != std::string::npos) {
-        numberPosition = input.find_first_of(set_of_numbers);
-        if (plusPosition < numberPosition) {
+    size_t plus_position = 0;
+    size_t number_position = 0;
+    plus_position = input.find_first_of('+');
+    if (plus_position != std::string::npos) {
+        number_position = input.find_first_of(set_of_numbers);
+        if (plus_position < number_position) {
             return true;
         }
     }
@@ -29,78 +29,79 @@ bool loadNumber(std::string& input, double& number) {
     return false;
 }
 
-bool loadCharacter(std::string& value, char& sign) {
-    std::string characters = "+-*/%!^$";
-    std::string num = "1234567890";
-    size_t charPosition = 0;
-    size_t numberPosition = 0;
-    charPosition = value.find_first_of(characters);
-    if (charPosition != std::string::npos) {
-        numberPosition = value.find_first_of(num);
-        if (numberPosition < charPosition) {
+bool loadCharacter(std::string& input_without_the_first_number, char& operation_symbol) {
+    std::string set_of_characters = "+-*/%!^$";
+    std::string set_of_numbers = "1234567890.";
+    size_t char_position = 0;
+    size_t number_position = 0;
+    char_position = input_without_the_first_number.find_first_of(set_of_characters);
+    if (char_position != std::string::npos) {
+        number_position = input_without_the_first_number.find_first_of(set_of_numbers);
+        if (number_position < char_position) {
             return true;
         } else {
-            sign = value[charPosition];
-            value.erase(0, charPosition + 1);
-            if ((sign == '!') && (value.size() > 0)) {
+            operation_symbol = input_without_the_first_number[char_position];
+            input_without_the_first_number.erase(0, char_position + 1);
+            if ((operation_symbol == '!') && (input_without_the_first_number.size() > 0)) {
                 return true;
             }
             return false;
         }
-    } else {
+    } 
+    // else {
         return true;
     }
-}
+// }
 
 bool BadCharacter(const std::string& value) {
-    std::string characters = "+-*/%!^$1234567890,. ";
+    std::string set_of_characters = "+-*/%!^$1234567890,. ";
     size_t it;
-    it = value.find_first_not_of(characters);
+    it = value.find_first_not_of(set_of_characters);
     if (it != std::string::npos) {
         return true;
     }
     return false;
 }
 
-bool characterCountTest(const std::string& value) {
-    std::string characters = "+*/%!^$";
-    auto sum = 0;
-    for (size_t i = 0; i < characters.size(); i++) {
-        auto numberOfChar = std::count(begin(value), end(value), characters[i]);
-        sum += numberOfChar;
-        if (numberOfChar > 1) {
+bool characterCountTest(const std::string& input) {
+    std::string set_of_characters = "+*/%!^$";
+    auto quantity_character = 0;
+    for (size_t i = 0; i < set_of_characters.size(); i++) {
+        auto character_counter = std::count(begin(input), end(input), set_of_characters[i]);
+        quantity_character += character_counter;
+        if (character_counter > 1) {
             return true;
         }
     }
-    if (sum > 1) {
+    if (quantity_character > 1) {
         return true;
     }
-    auto num = std::count(begin(value), end(value), '.');
-    if (num > 2) {
+    auto character_counter = std::count(begin(input), end(input), '.');
+    if (character_counter > 2) {
         return true;
     }
-    auto numChar = std::count(begin(value), end(value), ',');
-    if (numChar > 0) {
+    character_counter = std::count(begin(input), end(input), ',');
+    if (character_counter > 0) {
         return true;
     }
-    auto numberChar = std::count(begin(value), end(value), '-');
-    if (numberChar > 3) {
+    character_counter = std::count(begin(input), end(input), '-');
+    if (character_counter > 3) {
         return true;
     }
     return false;
 }
 
-bool BadFormat(std::string input, double& firstNumber, double& secondNumber, char& sign) {
+bool BadFormat(std::string input, double& firstNumber, double& secondNumber, char& operation_symbol) {
     if (characterCountTest(input)) {
         return true;
     }
     if (loadNumber(input, firstNumber)) {
         return true;
     }
-    if (loadCharacter(input, sign)) {
+    if (loadCharacter(input, operation_symbol)) {
         return true;
     }
-    if (sign == '!')
+    if (operation_symbol == '!')
         return false;
     if (loadNumber(input, secondNumber)) {
         return true;
