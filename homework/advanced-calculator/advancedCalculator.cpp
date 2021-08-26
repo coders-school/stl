@@ -3,27 +3,20 @@
 #include <iostream>
 #include <stdexcept>
 
-
 bool is_not_integer(double number) {
     return std::floor(number) != number;
 }
 
 bool loadNumber(std::string& input, double& number) {
-    size_t correct_symbol_position = 0;
+    size_t the_first_element_of_the_number = 0;
     std::string set_of_numbers = "1234567890";
-    size_t plus_position = 0;
-    size_t number_position = 0;
-    plus_position = input.find_first_of('+');
-    if (plus_position != std::string::npos) {
-        number_position = input.find_first_of(set_of_numbers);
-        if (plus_position < number_position) {
+    try {
+        if (input.at(0) == '+') {
             return true;
         }
-    }
-    try {
-        number = stod(input, &correct_symbol_position);
-        input.erase(0, correct_symbol_position);
-    } catch (std::invalid_argument& e) {
+        number = stod(input, &the_first_element_of_the_number);
+        input.erase(0, the_first_element_of_the_number);
+    } catch (std::invalid_argument& exception_type) {
         return true;
     }
     return false;
@@ -47,16 +40,13 @@ bool loadCharacter(std::string& input_without_the_first_number, char& operation_
             }
             return false;
         }
-    } 
-    // else {
-        return true;
     }
-// }
+    return true;
+}
 
 bool BadCharacter(const std::string& value) {
     std::string set_of_characters = "+-*/%!^$1234567890,. ";
-    size_t it;
-    it = value.find_first_not_of(set_of_characters);
+    size_t it = value.find_first_not_of(set_of_characters);
     if (it != std::string::npos) {
         return true;
     }
@@ -116,7 +106,10 @@ ErrorCode process(std::string input, double* out) {
     char operation_symbol;
     double firstNumber = 0;
     double secondNumber = 0;
-
+    input.erase(remove(input.begin(), input.end(), ' '), input.end());
+    if (input.empty()) {
+        return ErrorCode::BadFormat;
+    }
     if (BadCharacter(input)) {
         return ErrorCode::BadCharacter;
     }
