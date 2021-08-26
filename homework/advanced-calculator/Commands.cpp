@@ -27,7 +27,7 @@ const CommandsMap commands{
          if (rhs == 0.0) {
              return ErrorCode::DivideBy0;
          }
-         return std::divides{}(lhs, rhs);
+         return lhs / rhs;
      }}},
     {'%', Command{[](auto lhs, auto rhs) -> CallbackVariants {
          Value int_part;
