@@ -10,13 +10,13 @@ double ArithmeticAverage(const std::vector<int>& vector_first, const std::vector
     }
     double sum_of_the_first_set = std::reduce(begin(vector_first), end(vector_first));
     double the_sum_of_the_second_set = std::reduce(begin(vector_second), end(vector_second));
-    double amount_of_elements = (vector_first.size()) + (vector_second.size());
+    double amount_of_elements =static_cast<double>(vector_first.size()) +static_cast<double>(vector_second.size());
     return (sum_of_the_first_set + the_sum_of_the_second_set) / amount_of_elements;
 }
 
 double Distance(std::vector<int>& vec1, const std::vector<int>& vec2) {
-    if (vec1.size() != vec2.size()) {
-        throw std::logic_error("points from different dimensional spaces.");
+    if (vec1.size()==0 || (vec1.size() != vec2.size())) {
+        throw std::logic_error("collections of different sizes, or no items");
     }
     double sum = 0;
     std::transform(begin(vec1),
