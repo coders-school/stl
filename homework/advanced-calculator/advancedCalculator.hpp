@@ -28,3 +28,4 @@ bool isBadFormat(std::string& input);
 void breaksStringToMembers(std::string input);
 Data parseString(std::string input);
 double stringToDouble(std::string input);
+std::string doubleToString(double number);

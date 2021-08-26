@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <cmath>
 #include <sstream>
+// #include <strstream>
 
 const std::map<const char, std::function<double(double, double)>> operations {
     {'+', std::plus<double>()},
@@ -36,15 +37,14 @@ bool isBadCharacter(const std::string& input) {
 bool isBadFormat(std::string& input) {
     input.erase(std::remove(begin(input), end(input), ' '), end(input));
     Data data = parseString(input);
+    std::string firstNumber = doubleToString(data.firstValue_);
+    std::string secondNumber = doubleToString(data.secondValue_);
     if (data.operation_ == '!') {
-        if (input != std::to_string(data.firstValue_) +
-                     std::to_string(data.operation_)) {
+        if (input != firstNumber + data.operation_) {
             return true;
         }
     }
-    if (input != std::to_string(data.firstValue_) +
-                 std::to_string(data.operation_) +
-                 std::to_string(data.secondValue_)) {
+    if (input != firstNumber + data.operation_ + secondNumber) {
         return true;
     }
     return false;
@@ -70,6 +70,13 @@ double stringToDouble(std::string input) {
     double number{};
     ss >> number;
     return number;
+}
+
+std::string doubleToString(double number) {
+    std::ostringstream ss;
+    ss << number;
+    std::string output = ss.str();
+    return output;
 }
 
 Data parseString(std::string input) {
