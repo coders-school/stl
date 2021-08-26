@@ -64,12 +64,17 @@ void breaksStringToMembers (std::string input) {
     }
 }
 
-Data parseString(std::string input) {
-    Data data;
-    std::string::size_type sz{};
+double stringToDouble(std::string input) {
     std::stringstream ss;
     ss << input;
-    ss >> data.firstValue_;
+    double number{};
+    ss >> number;
+    return number;
+}
+
+Data parseString(std::string input) {
+    Data data;
+    data.firstValue_ = stringToDouble(input);
     std::string allowedOperations {"+-*/%^$!"};
     auto it = std::find_first_of(input.begin(),
                                 input.end(),
@@ -80,8 +85,7 @@ Data parseString(std::string input) {
         return data;
     }
     input.erase(begin(input), it + 1);
-    ss << input;
-    ss >> data.secondValue_;
+    data.secondValue_ = stringToDouble(input);
     return data;
 }
 
