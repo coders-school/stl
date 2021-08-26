@@ -1,6 +1,5 @@
 #include "advancedCalculator.hpp"
 #include <algorithm>
-#include <iostream>
 #include <stdexcept>
 
 bool is_not_integer(double number) {
