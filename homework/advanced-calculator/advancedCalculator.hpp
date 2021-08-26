@@ -25,7 +25,8 @@ struct Data {
 bool isAllowedOperation(char operation);
 bool isBadCharacter(const std::string& input);
 bool isBadFormat(std::string& input);
-void breaksStringToMembers(std::string input);
+// void breaksStringToMembers(std::string input);
 Data parseString(std::string input);
 double stringToDouble(std::string input);
 std::string doubleToString(double number);
+size_t getPrecision(std::string input);

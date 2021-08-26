@@ -40,28 +40,40 @@ bool isBadFormat(std::string& input) {
     std::string firstNumber = doubleToString(data.firstValue_);
     std::string secondNumber = doubleToString(data.secondValue_);
     if (data.operation_ == '!') {
-        if (input != firstNumber + data.operation_) {
+        if (input != (firstNumber + data.operation_)) {
             return true;
         }
     }
-    if (input != firstNumber + data.operation_ + secondNumber) {
+    else if (input != (firstNumber + data.operation_ + secondNumber)) {
         return true;
     }
     return false;
 }
 
-void breaksStringToMembers (std::string input) {
-    std::string allowedOperations {"+-*/%^$!"};
-    for (auto& el : input) {
-        auto it = std::find_if (input.begin(),
-                                input.end(),
-                                [allowedOperations](auto el){
-                                    for (auto& allowed : allowedOperations) {
-                                        return el == allowed;
-                                    } 
-                                });
-        //return it;
-    }
+// void breaksStringToMembers (std::string input) {
+//     std::string allowedOperations {"+-*/%^$!"};
+//     for (auto& el : input) {
+//         auto it = std::find_if (input.begin(),
+//                                 input.end(),
+//                                 [allowedOperations](auto el){
+//                                     for (auto& allowed : allowedOperations) {
+//                                         return el == allowed;
+//                                     } 
+//                                 });
+//         //return it;
+//     }
+// }
+
+size_t getPrecision(std::string input) {
+    auto is_significant = [](auto c) {
+        return std::isdigit(c);
+    };
+    auto found = std::find(begin(input), end(input), '.');
+    auto first = std::find_if(found, end(input), is_significant);
+    auto last  = std::find_if(rbegin(input), rend(input), is_significant).base();
+    return std::count_if(first, last, [](auto c) {
+        return std::isdigit(c);
+    });
 }
 
 double stringToDouble(std::string input) {
@@ -103,5 +115,5 @@ ErrorCode process(std::string input, double* out) {
     if (isBadFormat(input)) {
         return ErrorCode::BadFormat;
     }
-    // return ErrorCode::OK;
+    return ErrorCode::OK;
 }
