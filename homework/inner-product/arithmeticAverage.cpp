@@ -2,34 +2,32 @@
 #include <algorithm>
 #include <cmath>
 #include <numeric>
-// #include <ranges> | if GH supported cpp 20
 #include <stdexcept>
 
-double ArithmeticAverage(std::vector<int> vec1, std::vector<int> vec2) {
-    vec1.reserve(vec1.size() + vec2.size());
-    std::copy(begin(vec2), end(vec2), std::back_inserter(vec1));
-    double sum_of_all_items = std::accumulate(begin(vec1), end(vec1), 0);
-    auto number_of_elements = vec1.size();
-    return sum_of_all_items / number_of_elements;
+double ArithmeticAverage(const std::vector<int>& vector_first, const std::vector<int>& vector_second) {
+    if (vector_first.size() == 0 && vector_second.size() == 0) {
+        throw std::logic_error("no numbers in the sets ");
+    }
+    double sum_of_the_first_set = std::reduce(begin(vector_first), end(vector_first));
+    double the_sum_of_the_second_set = std::reduce(begin(vector_second), end(vector_second));
+    double amount_of_elements = (vector_first.size()) + (vector_second.size());
+    return (sum_of_the_first_set + the_sum_of_the_second_set) / amount_of_elements;
 }
 
-double Distance(std::vector<int> vec1, std::vector<int> vec2) {
+double Distance(std::vector<int>& vec1, const std::vector<int>& vec2) {
     if (vec1.size() != vec2.size()) {
         throw std::logic_error("points from different dimensional spaces.");
     }
+    double sum = 0;
     std::transform(begin(vec1),
                    end(vec1),
                    begin(vec2),
                    begin(vec1),
-                   [](double el_vec1, double el_vec2) {
-                       return el_vec1 - el_vec2;
+                   [&sum](double el_vec1, double el_vec2) {
+                       double result = pow((el_vec1 - el_vec2), 2);
+                       sum += result;
+                       return result;
                    });
-    // auto result = vec1 | std::views::transform([](int i) { return pow(i, 2); }); | if GH supported cpp 20
-    std::transform(begin(vec1),
-                   end(vec1),
-                   begin(vec1),
-                   [](int el_vec1) {
-                       return pow(el_vec1, 2);
-                   });
-    return sqrt(std::accumulate(begin(vec1), end(vec1), 0));
+
+    return sqrt(sum);
 }
