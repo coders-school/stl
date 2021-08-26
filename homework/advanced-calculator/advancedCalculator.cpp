@@ -10,13 +10,19 @@ bool is_not_integer(double number) {
 bool loadNumber(std::string& input, double& number) {
     size_t the_first_element_of_the_number = 0;
     std::string set_of_numbers = "1234567890";
-    try {
-        if (input.at(0) == '+') {
+    size_t plus_position = 0;
+    size_t number_position = 0;
+    plus_position = input.find_first_of('+');
+    if (plus_position != std::string::npos) {
+        number_position = input.find_first_of(set_of_numbers);
+        if (plus_position < number_position) {
             return true;
         }
+    }
+    try {
         number = stod(input, &the_first_element_of_the_number);
         input.erase(0, the_first_element_of_the_number);
-    } catch (std::invalid_argument& exception_type) {
+    } catch (std::invalid_argument& e) {
         return true;
     }
     return false;
@@ -106,10 +112,7 @@ ErrorCode process(std::string input, double* out) {
     char operation_symbol;
     double firstNumber = 0;
     double secondNumber = 0;
-    input.erase(remove(input.begin(), input.end(), ' '), input.end());
-    if (input.empty()) {
-        return ErrorCode::BadFormat;
-    }
+
     if (BadCharacter(input)) {
         return ErrorCode::BadCharacter;
     }
