@@ -13,7 +13,7 @@ const std::map<const char, std::function<double(double, double)>> operations {
     {'%', std::modulus<int>()},
     {'^', [](const auto base, const auto nthPower) { return std::pow(base, nthPower); }},
     {'$', [](const auto base, const auto nthPower) { return std::pow(base, 1.0 / nthPower); }},
-    {'!', [](auto value, auto zero) { return value <= 0 ? 1.0 : std::tgamma(value + 1.0); }}
+    {'!', [](auto value, [[maybe_unused]] auto unused) { return value <= 0 ? 1.0 : std::tgamma(value + 1.0); }}
 };
 
 bool isAllowedOperation(char operation) {
@@ -37,18 +37,24 @@ bool isBadCharacter(const std::string& input) {
 // FINISH
 bool isBadFormat(std::string& input) {
     input.erase(std::remove(begin(input), end(input), ' '), end(input));
-    Data data = parseString(input);
-    std::string firstNumber = doubleToString(data.firstValue_);
-    std::string secondNumber = doubleToString(data.secondValue_);
-    if (data.operation_ == '!') {
-        if (input != (firstNumber + data.operation_)) {
-            return true;
-        }
-    }
-    else if (input != (firstNumber + data.operation_ + secondNumber)) {
+    if (input.front() != '-' || !isdigit(input.front())) {
         return true;
     }
-    return false;
+    if (input.front() == '-' && !isdigit(input[1])) {
+        return true;
+    }
+    size_t minusCount = std::count(input.begin(), input.end(), '-');
+    if (minusCount > 3 ) {
+        return true;
+    }
+    size_t dotCount = std::count(input.begin(), input.end(), '.');
+    if (dotCount > 2) {
+        return true;
+    }
+    size_t commaCount = std::count(input.begin(), input.end(), ',');
+    if (commaCount > 0) {
+        return true;
+    }
 }
 
 // void breaksStringToMembers (std::string input) {
@@ -90,25 +96,6 @@ std::string doubleToString(double number) {
     ss << number;
     std::string output = ss.str();
     return output;
-}
-
-Data parseString(std::string input) {
-    Data data;
-    size_t precision = getPrecision(input);
-    data.firstValue_ = stringToDoubleWithPrecision(input, precision);
-    std::string allowedOperations {"+-*/%^$!"};
-    auto it = std::find_first_of(input.begin(),
-                                input.end(),
-                                allowedOperations.begin(), 
-                                allowedOperations.end());
-    data.operation_ = *it;
-    if (data.operation_ == '!') {
-        return data;
-    }
-    input.erase(begin(input), it + 1);
-    precision = getPrecision(input);
-    data.secondValue_ = stringToDoubleWithPrecision(input, precision);
-    return data;
 }
 
 ErrorCode process(std::string input, double* out) {

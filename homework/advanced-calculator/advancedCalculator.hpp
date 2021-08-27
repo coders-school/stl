@@ -17,16 +17,15 @@ extern const std::map<const char, std::function<double(double, double)>> operati
 ErrorCode process(std::string input, double* out);
 
 struct Data {
-    double firstValue_;
+    std::string firstValue_;
     char operation_;
-    double secondValue_;
+    std::string secondValue_;
 };
 
 bool isAllowedOperation(char operation);
 bool isBadCharacter(const std::string& input);
 bool isBadFormat(std::string& input);
 // void breaksStringToMembers(std::string input);
-Data parseString(std::string input);
 double stringToDoubleWithPrecision(std::string input, size_t precision);
 std::string doubleToString(double number);
 size_t getPrecision(std::string input);
