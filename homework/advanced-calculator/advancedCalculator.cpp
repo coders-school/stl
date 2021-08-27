@@ -1,5 +1,6 @@
 #include "advancedCalculator.hpp"
 #include <algorithm>
+#include <iomanip>
 #include <cmath>
 #include <sstream>
 // #include <strstream>
@@ -76,9 +77,9 @@ size_t getPrecision(std::string input) {
     });
 }
 
-double stringToDouble(std::string input) {
+double stringToDoubleWithPrecision(std::string input, size_t precision) {
     std::stringstream ss;
-    ss << input;
+    ss << std::setprecision(precision) << std::fixed << input;
     double number{};
     ss >> number;
     return number;
@@ -93,7 +94,8 @@ std::string doubleToString(double number) {
 
 Data parseString(std::string input) {
     Data data;
-    data.firstValue_ = stringToDouble(input);
+    size_t precision = getPrecision(input);
+    data.firstValue_ = stringToDoubleWithPrecision(input, precision);
     std::string allowedOperations {"+-*/%^$!"};
     auto it = std::find_first_of(input.begin(),
                                 input.end(),
@@ -104,7 +106,8 @@ Data parseString(std::string input) {
         return data;
     }
     input.erase(begin(input), it + 1);
-    data.secondValue_ = stringToDouble(input);
+    precision = getPrecision(input);
+    data.secondValue_ = stringToDoubleWithPrecision(input, precision);
     return data;
 }
 
