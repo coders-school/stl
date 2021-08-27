@@ -13,3 +13,4 @@ bool is_palindrome(std::string Text)
     ReversedText.resize(Text.size());
     std::reverse_copy(Text.begin(), Text.end(), ReversedText.begin());
     return Text == ReversedText;
+}
