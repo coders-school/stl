@@ -35,7 +35,8 @@ bool isBadCharacter(const std::string& input) {
 }
 
 // FINISH
-bool isBadFormat(std::string& input) {
+bool isBadFormat(std::string& input, Data& data) {
+  
     input.erase(std::remove(begin(input), end(input), ' '), end(input));
     if (input.front() != '-' || !isdigit(input.front())) {
         return true;
@@ -55,6 +56,21 @@ bool isBadFormat(std::string& input) {
     if (commaCount > 0) {
         return true;
     }
+    if (isBadNumber(data.firstValue_)) {
+        return true;
+    }
+
+    if (data.operation_ == '!') {
+       if (input.size() != data.firstValue_.size() + 1) {
+         return true;
+       }
+    }
+    else {
+      if (isBadNumber(data.secondValue_)) {
+        return true;
+      }
+    }
+    return false;
 }
 
 // void breaksStringToMembers (std::string input) {
@@ -95,6 +111,7 @@ Data divideInput(std::string& input) {
   if (input.empty()) {
     return {};
   }
+  input.erase(std::remove(begin(input), end(input), ' '), end(input));
     std::string allowedOperations {"+-*/%^$!"};
     auto it = std::find_first_of (input.begin() + 1,
                                   input.end(),
@@ -107,9 +124,37 @@ Data divideInput(std::string& input) {
    
     data.operation_ = *it;
     data.firstValue_ = input.substr(0, std::distance(input.begin(), it));
-    size_t sizeOfFirstValue = (data.firstValue_).size();
-    data.secondValue_ = input.substr(sizeOfFirstValue + 1, std::distance(it+1, input.end()));
+    if (data.operation_ == '!') {
+      data.secondValue_ = "";
+    }
+    else {
+      size_t sizeOfFirstValue = (data.firstValue_).size();
+      data.secondValue_ = input.substr(sizeOfFirstValue + 1, std::distance(it+1, input.end()));
+    }
     return data;
+}
+
+bool isBadNumber(std::string& input) {
+    input.erase(std::remove(begin(input), end(input), ' '), end(input));
+    if (!(input[0] == '-' || isdigit(input[0]))) {
+        return true;
+    }
+    if (input.front() == '-' && !isdigit(input[1])) {
+        return true;
+    }
+    size_t dotCount = std::count(input.begin(), input.end(), '.');
+    if (dotCount > 1) {
+        return true;
+    }
+    size_t minusCount = std::count(input.begin(), input.end(), '-');
+    if (minusCount > 1) {
+        return true;
+    }
+    size_t commaCount = std::count(input.begin(), input.end(), ',');
+    if (commaCount > 0) {
+        return true;
+    }
+    return false;
 }
 
 std::string doubleToString(double number) {
@@ -120,10 +165,12 @@ std::string doubleToString(double number) {
 }
 
 ErrorCode process(std::string input, double* out) {
+    Data data;
+    data = divideInput(input);
     if (isBadCharacter(input)) {
         return ErrorCode::BadCharacter;
     }
-    if (isBadFormat(input)) {
+    if (isBadFormat(input, data)) {
         return ErrorCode::BadFormat;
     }
     return ErrorCode::OK;

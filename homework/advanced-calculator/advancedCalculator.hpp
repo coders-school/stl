@@ -25,7 +25,9 @@ struct Data {
 Data divideInput(std::string& input);
 bool isAllowedOperation(char operation);
 bool isBadCharacter(const std::string& input);
-bool isBadFormat(std::string& input);
+bool isBadFormat(std::string& input, Data& data);
+bool isBadNumber(std::string& input);
+
 // void breaksStringToMembers(std::string input);
 double stringToDouble(std::string input, size_t precision);
 std::string doubleToString(double number);
