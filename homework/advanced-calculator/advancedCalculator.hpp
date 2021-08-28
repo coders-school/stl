@@ -23,6 +23,7 @@ struct Data {
 };
 
 Data divideInput(std::string& input);
+bool isInteger(double number);
 bool isAllowedOperation(char operation);
 bool isBadCharacter(const std::string& input);
 bool isBadFormat(std::string& input, Data& data);

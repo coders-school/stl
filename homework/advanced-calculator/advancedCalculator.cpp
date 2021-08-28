@@ -34,6 +34,10 @@ bool isBadCharacter(const std::string& input) {
                        });
 }
 
+bool isInteger(double number) {
+    return std::floor(number) == number;
+}
+
 // FINISH
 bool isBadFormat(std::string& input, Data& data) {
   
