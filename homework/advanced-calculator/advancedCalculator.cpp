@@ -171,6 +171,9 @@ ErrorCode process(std::string input, double* out) {
     if (data.operation_ == '/' &&  secondNumber == 0) {
         return ErrorCode::DivideBy0;
     }
+    if (data.operation_ == '%' && (!isInteger(firstNumber)) || !isInteger(secondNumber)) {
+        return ErrorCode::ModuleOfNonIntegerValue;
+    }
     if (data.operation_ == '$' && ((firstNumber <= 0) || (secondNumber <= 0))) {
         return ErrorCode::SqrtOfNegativeNumber;
     }
