@@ -13,7 +13,10 @@ const std::map<const char, std::function<double(double, double)>> operations {
     {'%', std::modulus<int>()},
     {'^', [](const auto base, const auto nthPower) { return std::pow(base, nthPower); }},
     {'$', [](const auto base, const auto nthPower) { return std::pow(base, 1.0 / nthPower); }},
-    {'!', [](auto value, [[maybe_unused]] auto unused) { return value <= 0 ? 1.0 : std::tgamma(value + 1.0); }}
+    {'!', [](auto value, [[maybe_unused]] auto unused) {if (value >= 0.0) {
+             return std::tgamma(value + 1);
+         }
+         return -std::tgamma(-value + 1);} }
 };
 
 bool isAllowedOperation(char operation) {
@@ -177,5 +180,7 @@ ErrorCode process(std::string input, double* out) {
     if (data.operation_ == '$' && ((firstNumber <= 0) || (secondNumber <= 0))) {
         return ErrorCode::SqrtOfNegativeNumber;
     }
+
+    *out = operations.at(data.operation_)(firstNumber, secondNumber);
     return ErrorCode::OK;
 }
