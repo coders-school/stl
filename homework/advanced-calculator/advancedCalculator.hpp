@@ -29,5 +29,3 @@ bool isBadCharacter(const std::string& input);
 bool isBadFormat(std::string& input, Data& data);
 bool isBadNumber(std::string& input);
 double stringToDouble(std::string input, size_t precision);
-std::string doubleToString(double number);
-size_t getPrecision(std::string input);

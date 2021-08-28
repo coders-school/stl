@@ -3,7 +3,6 @@
 #include <iomanip>
 #include <cmath>
 #include <sstream>
-// #include <strstream>
 
 const std::map<const char, std::function<double(double, double)>> operations {
     {'+', std::plus<double>()},
@@ -41,7 +40,6 @@ bool isInteger(double number) {
     return std::floor(number) == number;
 }
 
-// FINISH
 bool isBadFormat(std::string& input, Data& data) {
   
     input.erase(std::remove(begin(input), end(input), ' '), end(input));
@@ -80,18 +78,6 @@ bool isBadFormat(std::string& input, Data& data) {
       }
     }
     return false;
-}
-
-size_t getPrecision(std::string input) {
-    auto is_significant = [](auto c) {
-        return std::isdigit(c);
-    };
-    auto found = std::find(begin(input), end(input), '.');
-    auto first = std::find_if(found, end(input), is_significant);
-    auto last  = std::find_if(rbegin(input), rend(input), is_significant).base();
-    return std::count_if(first, last, [](auto c) {
-        return std::isdigit(c);
-    });
 }
 
 double stringToDouble(std::string input) {
@@ -150,13 +136,6 @@ bool isBadNumber(std::string& input) {
         return true;
     }
     return false;
-}
-
-std::string doubleToString(double number) {
-    std::ostringstream ss;
-    ss << number;
-    std::string output = ss.str();
-    return output;
 }
 
 ErrorCode process(std::string input, double* out) {
