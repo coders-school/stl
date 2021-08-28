@@ -22,10 +22,11 @@ struct Data {
     std::string secondValue_;
 };
 
+Data divideInput(std::string& input);
 bool isAllowedOperation(char operation);
 bool isBadCharacter(const std::string& input);
 bool isBadFormat(std::string& input);
 // void breaksStringToMembers(std::string input);
-double stringToDoubleWithPrecision(std::string input, size_t precision);
+double stringToDouble(std::string input, size_t precision);
 std::string doubleToString(double number);
 size_t getPrecision(std::string input);

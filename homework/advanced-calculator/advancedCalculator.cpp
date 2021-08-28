@@ -83,12 +83,33 @@ size_t getPrecision(std::string input) {
     });
 }
 
-double stringToDoubleWithPrecision(std::string input, size_t precision) {
+double stringToDouble(std::string input) {
     std::stringstream ss;
-    ss << std::setprecision(precision) << std::fixed << input;
+    ss << input;
     double number{};
     ss >> number;
     return number;
+}
+
+Data divideInput(std::string& input) {
+  if (input.empty()) {
+    return {};
+  }
+    std::string allowedOperations {"+-*/%^$!"};
+    auto it = std::find_first_of (input.begin() + 1,
+                                  input.end(),
+                                  allowedOperations.begin(), 
+                                  allowedOperations.end());
+    Data data;
+    if (it == input.end()) {
+       return {};   
+    }
+   
+    data.operation_ = *it;
+    data.firstValue_ = input.substr(0, std::distance(input.begin(), it));
+    size_t sizeOfFirstValue = (data.firstValue_).size();
+    data.secondValue_ = input.substr(sizeOfFirstValue + 1, std::distance(it+1, input.end()));
+    return data;
 }
 
 std::string doubleToString(double number) {
