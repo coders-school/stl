@@ -38,12 +38,6 @@ bool isBadCharacter(const std::string& input) {
 bool isBadFormat(std::string& input, Data& data) {
   
     input.erase(std::remove(begin(input), end(input), ' '), end(input));
-    if (input.front() != '-' || !isdigit(input.front())) {
-        return true;
-    }
-    if (input.front() == '-' && !isdigit(input[1])) {
-        return true;
-    }
     size_t minusCount = std::count(input.begin(), input.end(), '-');
     if (minusCount > 3 ) {
         return true;
@@ -55,6 +49,14 @@ bool isBadFormat(std::string& input, Data& data) {
     size_t commaCount = std::count(input.begin(), input.end(), ',');
     if (commaCount > 0) {
         return true;
+    }
+    const std::string operations{"+*/%^$!"};
+    size_t operationCount {0};
+    for(int i = 0; i < operations.size(); i++) {
+        operationCount += std::count(input.begin(), input.end(), operations[i]);
+    }
+    if (operationCount > 1) {
+      return true;
     }
     if (isBadNumber(data.firstValue_)) {
         return true;
@@ -72,20 +74,6 @@ bool isBadFormat(std::string& input, Data& data) {
     }
     return false;
 }
-
-// void breaksStringToMembers (std::string input) {
-//     std::string allowedOperations {"+-*/%^$!"};
-//     for (auto& el : input) {
-//         auto it = std::find_if (input.begin(),
-//                                 input.end(),
-//                                 [allowedOperations](auto el){
-//                                     for (auto& allowed : allowedOperations) {
-//                                         return el == allowed;
-//                                     } 
-//                                 });
-//         //return it;
-//     }
-// }
 
 size_t getPrecision(std::string input) {
     auto is_significant = [](auto c) {
@@ -167,11 +155,17 @@ std::string doubleToString(double number) {
 ErrorCode process(std::string input, double* out) {
     Data data;
     data = divideInput(input);
+    
     if (isBadCharacter(input)) {
         return ErrorCode::BadCharacter;
     }
     if (isBadFormat(input, data)) {
         return ErrorCode::BadFormat;
+    }
+    double firstNumber = stringToDouble(data.firstValue_);
+    double secondNumber = stringToDouble(data.secondValue_);
+    if (data.operation_ == '/' &&  secondNumber == 0) {
+        return ErrorCode::DivideBy0;
     }
     return ErrorCode::OK;
 }
