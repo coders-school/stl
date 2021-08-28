@@ -33,7 +33,7 @@ bool isBadCharacter(const std::string& input) {
     return std::any_of(input.begin(), 
                        input.end(),
                        [&input](char character) {
-                           return !isdigit(character) && !isAllowedOperation(character) && character != '.';
+                           return !isdigit(character) && !isAllowedOperation(character) && character != '.' && character != ' ' && character != ',' ;
                        });
 }
 
