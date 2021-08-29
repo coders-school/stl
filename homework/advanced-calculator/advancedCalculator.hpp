@@ -6,23 +6,23 @@
 
 enum class ErrorCode {
     OK,
-    BadCharacter,                             // Jeżeli użytkownik poda znak inny niż liczbę.
-    BadFormat,                                // Jeżeli użytkownik poda zły format komendy np. + 5 4, powinno być 4 + 5.
-    DivideBy0,                                // dzielenie przez 0.
-    SqrtOfNegativeNumber,                     // pierwiastek z liczby ujemnej.
-    ModuleOfNonIntegerValue                   // Póba obliczenia % na liczbie niecałkowitej.
+    BadCharacter,
+    BadFormat,
+    DivideBy0,                                
+    SqrtOfNegativeNumber,                     
+    ModuleOfNonIntegerValue                   
 };
 
-ErrorCode validationUserData(const std::string& userData);
-bool isBadCharacter(const std::string& UserData);
-bool isBadFormat(const std::string& UserData);
-bool isDivideBy0(const std::string& UserData);
-bool isSqrtOfNegativeNumber(const std::string& UserData);
-bool isModuleOfNonIntegerValue(const std::string& UserData);
-double getFirsValue(const std::string& UserData);
-char getSign(const std::string& UserData);
-double getSecondValue(const std::string& UserData);
-double coutingResults(double firstValue, char operation, double secondValue);
 ErrorCode process(std::string input, double* out);
-extern std::map<const char, std::function<double(const double, const double)>> operations;
 void operationsInit();
+ErrorCode validationAllData(const std::string & userData);
+ErrorCode generateErrorCode(const std::string::const_iterator & first, const std::string::const_iterator & betwen, const std::string::const_iterator & second, const std::string & userData);
+ErrorCode factorialValidation(const std::string & userData);
+bool isDivideBy0(const std::string& userData);
+bool isSqrtOfNegativeNumber(const std::string& userData);
+bool isModuleOfNonIntegerValue(const std::string& userData);
+ErrorCode validFirsValue(const std::string::const_iterator& first, const std::string & userData);
+ErrorCode validSign(const std::string::const_iterator& itBegin, const std::string::const_iterator& itEnd);
+ErrorCode validSecondValue(const std::string::const_iterator& beginIt, const std::string::const_iterator& endIt, const std::string & userData);
+void createCoutingData(const std::string::const_iterator & first, const std::string::const_iterator & betwen, const std::string::const_iterator & second, const std::string & userData);
+double coutingResults(double first, char oper, double second);
