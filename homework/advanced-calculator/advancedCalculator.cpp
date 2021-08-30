@@ -40,7 +40,13 @@ bool is_bad_character(const std::string& expression) {
 }
 
 bool is_too_long(const std::string& expression) {
-/*    std::stringstream stream{};
+    std::stringstream stream{ expression };
+    char temp{};
+    stream >> temp;
+
+    if(temp == '+') return true;
+    stream.putback(temp);
+
     double temp_value{};
     stream >> temp_value;
     if(!stream) return true;
@@ -54,7 +60,7 @@ bool is_too_long(const std::string& expression) {
     stream >> temp_value;
     stream >> std::ws;
     if(!stream.eof()) return true;
-    return false; */
+    return false; 
 }
 
 
