@@ -1,10 +1,12 @@
 #pragma once
-#include <functional>
+
 #include <cmath>
+#include <functional>
 #include <map>
+#include <string>
 
 enum ErrorCode {
-    Ok,
+    OK,
     BadCharacter,
     BadFormat,
     DivideBy0,
@@ -12,27 +14,18 @@ enum ErrorCode {
     ModuleOfNonIntegerValue
 };
 
-ErrorCode process(std::string input, double* out);
-
-std::function<int(int, int)> add = [](auto x, auto y){ return x + y; }; 
-std::function<int(int, int)> substract = [](auto x, auto y){ return x - y; }; 
-std::function<int(int, int)> divide = [](auto x, auto y){ return x / y; }; 
-std::function<int(int, int)> multiply = [](auto x, auto y){ return x * y; }; 
-std::function<int(int, int)> modulo = [](auto x, auto y){ return x % y; }; 
-std::function<int(int, int)> factorial = [](auto x, auto y){ return x + y; }; 
-std::function<int(int, int)> pow = [](auto x, auto y){ return std::pow(x, y); }; 
-std::function<int(int, int)> sqr = [](auto x, auto y){ return x + y; }; 
-
-std::map<char,  std::function<int(int, int)>> calculatorCommands = {
-    {'+', add },
-    {'-', substract },
-    {'/', divide },
-    {'*', multiply },
-    {'%', modulo },
-    {'!', factorial },
-    {'^', pow },
-    {'$', sqr }
+const std::map<char, std::function<double(double, double)>> commands {
+    {'+', [](auto x, auto y){ return std::plus<>{}(x, y); } },
+    {'-', [](auto x, auto y){ return std::minus<>{}(x, y); } },
+    {'/', [](auto x, auto y){ return std::divides<>{}(x, y); } },
+    {'*', [](auto x, auto y){ return std::multiplies<>{}(x, y); } },
+    {'%', [](auto x, auto y){ return (int)x % (int)y; } },
+    {'!', [](auto x, auto y){ return std::tgamma(x); } },
+    {'^', [](auto x, auto y){ return std::pow(x, y); } },
+    {'$', [](auto x, auto y){ return std::sqrt(x); } }
 };
 
-
-void checkUserInput (std::string input);
+void getUserInput ();
+bool checkUserInput (std::string &input);
+bool isPlayerChoiceValid(std::string &playerAnswer);
+ErrorCode process(std::string, double*);
