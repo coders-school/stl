@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <map>
 #include <functional>
+#include <cmath>
 
 enum class errorCode
 {
@@ -19,4 +20,5 @@ std::map<char, std::function<errorCode(double, double)>> kalkulator{
     {'*', [](double numOne, double numTwo){std::cout << numOne * numTwo << '\n'; return errorCode::Ok;}},
     {'/', [](double numOne, double numTwo){std::cout << numOne / numTwo << '\n'; return errorCode::Ok;}},
     {'-', [](double numOne, double numTwo){std::cout << numOne - numTwo << '\n'; return errorCode::Ok;}},
+    {'^', [](double numOne, double numTwo){std::cout << pow(numOne, numTwo) << '\n'; return errorCode::Ok;}},
     };

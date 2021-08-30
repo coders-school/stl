@@ -7,5 +7,6 @@ int main()
     kalkulator['*'](3,2);
     kalkulator['/'](1,2);
     kalkulator['-'](1,2);
+    kalkulator['^'](4,2);
 
 }
