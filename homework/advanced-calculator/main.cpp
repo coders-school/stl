@@ -8,5 +8,6 @@ int main()
     kalkulator['/'](1,2);
     kalkulator['-'](1,2);
     kalkulator['^'](4,2);
+    kalkulator['%'](9,2);
 
 }
