@@ -11,13 +11,12 @@ enum class errorCode
     BadFormat,
     DivideBy0,
     SqrtOfNagativeNumber,
-    ModuleOfNonIntegerValue 
+    ModuleOfNonIntegerValue
 };
 
-std::map<char, std::function<errorCode(double, double)>> kalkulator
-{
-    {'+', [](double numOne, double numTwo){
-            std::cout << numOne + numTwo;
-            return errorCode::Ok;
-        }}
-};
+std::map<char, std::function<errorCode(double, double)>> kalkulator{
+    {'+', [](double numOne, double numTwo){std::cout << numOne + numTwo << '\n'; return errorCode::Ok;}},
+    {'*', [](double numOne, double numTwo){std::cout << numOne * numTwo << '\n'; return errorCode::Ok;}},
+    {'/', [](double numOne, double numTwo){std::cout << numOne / numTwo << '\n'; return errorCode::Ok;}},
+    {'-', [](double numOne, double numTwo){std::cout << numOne - numTwo << '\n'; return errorCode::Ok;}},
+    };
