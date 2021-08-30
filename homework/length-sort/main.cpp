@@ -3,7 +3,6 @@
 #include <string>
 
 #include "sort.hpp"
-#include "sort.cpp"
 
 template <typename Container>
 void printCollection(const Container& collection) {
