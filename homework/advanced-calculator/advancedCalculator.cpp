@@ -5,9 +5,8 @@
 #include <iterator>
 #include <cctype>
 #include <cmath>
-#include <numeric>
-#include <vector>
 #include <functional>
+#include <sstream>
 
 std::map<const char, std::function<double(const double, const double)>> operations {
     { '+', std::plus<double>{} },
@@ -20,175 +19,121 @@ std::map<const char, std::function<double(const double, const double)>> operatio
     { '^', [](const auto base, const auto exp) { return std::pow(base, exp); }},
     { '$', [](const auto value, const auto n) { return std::pow(value, 1/n); }}
 };
-    
-std::string allOperations { "+-*/%!^$ " };
-double firstValue { };
-char operation { };
-double secondValue { };
-double secondMinus { 1 };
-bool oneValue { false };
-bool isFactorial { false };
 
-ErrorCode process(std::string input, double* out) {
-    auto codeError = validationAllData(input);
-    if (codeError == ErrorCode::OK) {
-        std::cout.precision(20);
-        *out = countingResults(firstValue, operation, secondValue);
-        
-    }
-    return codeError;
+namespace AdvancedCalculator {
+static constexpr std::array<char, 8> valid_operators {
+    '+', '-', '*', '/', '%', '!', '^', '$'
+};
+
+bool is_bad_format(const tuple_type& expression) {
+    auto [lhs, op, rhs] = expression;
+    return !(lhs.has_value() && op.has_value() && rhs.has_value())
+       && !(lhs.has_value() && op.has_value() && op.value() == '!'); 
 }
 
-ErrorCode validationAllData(const std::string & userData) {
-    if (std::any_of(cbegin(userData), 
-                    cend(userData), 
-                    [](const auto & ele){ 
-                        return ele != ',' && !std::isdigit(ele) && ele != '.' && std::all_of(cbegin(allOperations), 
-                                                                                             cend(allOperations), 
-                                                                                             [&](auto sign){ return ele != sign; });})) { 
-        return ErrorCode::BadCharacter;
-    }
-    if (1 < std::count_if(cbegin(userData), 
-                          cend(userData), 
-                          [](const auto & ele){ return std::any_of(cbegin(allOperations), 
-                                                           cend(allOperations), 
-                                                           [&](const auto & sign){ return ele == sign && ele != '-' && ele != ' '; });})) {
-        return ErrorCode::BadFormat;
-    }
-    auto startIterator = cbegin(userData);
-    if (*startIterator == '-') {
-        startIterator++;
-    }
-    auto first = std::find_if(startIterator, cend(userData), [](const unsigned char & ele){ return !std::isdigit(ele) && ele != '.' && ele != ','; });
-    auto betwen = std::find_if(first, cend(userData), [](const auto & ele){ return std::isdigit(ele); });
-    auto second = std::find_if(betwen + 1, cend(userData), [](const auto & ele){ return !std::isdigit(ele) && ele != '.' && ele != ','; });
-    return generateErrorCode(first, betwen,  second, userData);
+bool is_bad_character(const std::string& expression) {  
+    return !std::all_of(expression.cbegin(), expression.cend(), [](const auto ch) {
+            return std::isdigit(ch) || std::find(valid_operators.cbegin(),
+                    valid_operators.cend(), ch) != valid_operators.cend() 
+                    || std::isspace(ch) || ch == '.' || ch == ',';
+    });
 }
 
-ErrorCode generateErrorCode(const std::string::const_iterator & first, const std::string::const_iterator & betwen, const std::string::const_iterator & second, const std::string & userData) {
-    auto errorCode = factorialValidation(userData);
-    if (errorCode != ErrorCode::OK) {
-        return errorCode;
-    } 
-    errorCode = validFirstValue(first, userData);
-    if (errorCode != ErrorCode::OK) {
-        return errorCode;
+bool is_too_long(const std::string& expression) {
+/*    std::stringstream stream{};
+    double temp_value{};
+    stream >> temp_value;
+    if(!stream) return true;
+    char operation{};
+    stream >> operation;
+    if(!stream) return true;
+    if(operation == '!') {
+        stream >> std::ws;
+        return !stream.eof();
     }
-    errorCode = validSign(first, betwen);
-    if (errorCode != ErrorCode::OK) {
-        return errorCode;
-    }
-    errorCode = validSecondValue(betwen, second, userData);
-    if (errorCode != ErrorCode::OK && isFactorial == false) {
-        return errorCode;
-    }
-    createCountingData(first, betwen, second, userData);
-    if (isDivideBy0(userData) == true) {
-        return ErrorCode::DivideBy0;
-    }
-    if (isSqrtOfNegativeNumber(userData) == true) {
-        return ErrorCode::SqrtOfNegativeNumber;
-    }
-    if (isModuleOfNonIntegerValue(userData) == true) {
-        return ErrorCode::ModuleOfNonIntegerValue;
-    }
-    return ErrorCode::OK;
+    stream >> temp_value;
+    stream >> std::ws;
+    if(!stream.eof()) return true;
+    return false; */
 }
 
-ErrorCode factorialValidation(const std::string & userData) {
-    isFactorial = false;
-    if (1 == std::count_if(begin(userData), end(userData), [](const auto & ele){ return std::any_of(begin(allOperations), end(allOperations), [&](auto sign){ return  ele == '!'; });})) {
-        isFactorial = true;
-        if (*(end(userData) - 1) != '!') {
-            return ErrorCode::BadFormat;
-        }
-    }
-    return ErrorCode::OK;
+
+// MUST BE CALLED AFTER IS_BAD_FORMAT, OTHERWISE
+// MIGHT THROW AN EXCEPTION:
+
+bool is_division_by0(const tuple_type& expression) {
+    auto [lhs, op, rhs] = expression;
+    return op.value() == '/' && rhs.value() == 0;
 }
 
-bool isDivideBy0(const std::string& userData) {
-    if (operation == '/' && static_cast<int>(secondValue == 0)) {
-        return true;
-    }
-    return false;
+bool is_sqrt_of_negative_number(const tuple_type& expression) {
+    auto [lhs, op, rhs] = expression;
+    return op.value() == '$' && lhs.value() < 0;
 }
 
-bool isSqrtOfNegativeNumber(const std::string& userData) {
-    if (operation == '$' && firstValue < 0) {
-        return true;
-    }
-    return false;
+bool is_module_of_non_integer_value(const tuple_type& expression) {
+    auto [lhs, op, rhs] = expression;
+    return op.value() == '%' 
+        && (std::floor(lhs.value()) != lhs.value()
+        || std::floor(rhs.value()) != rhs.value());
 }
 
-bool isModuleOfNonIntegerValue(const std::string& userData) {
-    if (operation == '%' && (firstValue != static_cast<int>(firstValue) || secondValue != static_cast<int>(secondValue))) {
-        return true;
-    }
-    return false; 
+bool is_bad_operation(const tuple_type& expression) {
+    auto [lhs, op, rhs] = expression;
+    return std::find(valid_operators.cbegin(), valid_operators.cend(), op)
+        == valid_operators.cend();
 }
 
-ErrorCode validFirstValue(const std::string::const_iterator& first, const std::string & userData) {
-    if (first != begin(userData) && std::isdigit(*first)) {
-        return ErrorCode::BadCharacter;
-    }
-    if (std::count_if(begin(userData), first, [](const auto & ele){ return ele == '.'; }) > 1) {
-        return ErrorCode::BadFormat;
-    }
-    if (std::any_of(begin(userData), end(userData), [](const auto & ele){ return ele == ','; })) {
-        return ErrorCode::BadFormat;
-    }
-    return ErrorCode::OK;
+tuple_type get_values(const std::string& input) {
+    std::stringstream input_stream{ input };
+    double lhs{};
+    input_stream >> lhs;
+    if(!input_stream) return tuple_type{};
+    char operation{};
+    input_stream >> operation;
+    if(operation == '!') return tuple_type{ lhs, operation, std::optional<double>{} };
+    double rhs{};
+    input_stream >> rhs;
+    if(!input_stream) return tuple_type{ lhs, operation, std::optional<double>{} };
+    return tuple_type{ lhs, operation, rhs };
 }
 
-ErrorCode validSign(const std::string::const_iterator& itBegin, const std::string::const_iterator& itEnd) {
-    secondMinus = 1;
-    if (std::any_of(itBegin, itEnd, [](const auto & ele){ return std::all_of(begin(allOperations), end(allOperations), [&](auto sign){ return ele != sign; });})) {
-        return ErrorCode::BadFormat;
-    }
-    if (std::count_if(itBegin, itEnd, [](const auto & ele){ return std::any_of(begin(allOperations), end(allOperations), [&](auto sign){ return ele == sign && ele != ' '; }); }) == 2) {
-        secondMinus = -1;
-    }
-    return ErrorCode::OK;
+ErrorCode check_errors(const tuple_type& expression) {
+    using pair_type = std::pair<std::function<bool(const tuple_type&)>, ErrorCode>; 
+    static std::array<pair_type, 5> validation_functions {
+        pair_type{ is_bad_format, ErrorCode::BadFormat },
+        pair_type{ is_bad_operation, ErrorCode::BadFormat }, 
+        pair_type{ is_division_by0, ErrorCode::DivideBy0 }, 
+        pair_type{ is_sqrt_of_negative_number, ErrorCode::SqrtOfNegativeNumber },
+        pair_type{ is_module_of_non_integer_value, ErrorCode::ModuleOfNonIntegerValue }
+    };
+    auto error_pair_it = std::find_if(validation_functions.cbegin(), 
+            validation_functions.cend(), [&expression](const auto& pair) {
+            return pair.first(expression);
+    });
+    return error_pair_it == validation_functions.cend() ? 
+        ErrorCode::OK : error_pair_it->second;
 }
 
-ErrorCode validSecondValue(const std::string::const_iterator& beginIt, const std::string::const_iterator& endIt, const std::string & userData) {
-    oneValue = false;
-    if (std::any_of(begin(userData), endIt, [](const auto & ele){ return ele == '!';})) {
-        return ErrorCode::BadCharacter;
-    }
-    if(!std::all_of(beginIt, end(userData), [](const auto & ele){ return std::isdigit(ele) || ele == '.';})) {
-        return ErrorCode::BadFormat;
-    }
-    if (endIt != end(userData)) {
-        return ErrorCode::BadCharacter;
-    }
-    if (std::count_if(endIt, end(userData), [](const auto & ele){ return ele == '.'; }) > 1) {
-        return ErrorCode::BadFormat;
-    }
-    if (std::any_of(beginIt, endIt, [](const auto & ele){ return ele == ','; })) {
-        return ErrorCode::BadFormat;
-    }
-    return ErrorCode::OK;
+double calculate_result(const tuple_type& expression) {
+    auto [lhs, op, rhs] = expression;
+    if(op == '!') return operations.at(op.value())(lhs.value(), 1);
+    return operations.at(op.value())(lhs.value(), rhs.value());
 }
 
-void createCountingData(const std::string::const_iterator & first, const std::string::const_iterator & betwen, const std::string::const_iterator & second, const std::string & userData) {
-    secondValue = 0;
-    std::string tempString {};
-    std::copy(begin(userData), first, std::back_inserter(tempString));
-    firstValue = std::stod(tempString);
-    tempString.clear();
-    std::copy(first, betwen + 1, std::back_inserter(tempString));
-    tempString.erase(std::remove(begin(tempString), end(tempString), ' '), end(tempString));
-    operation = tempString[0];
-    if (!isFactorial) {
-        tempString.clear();
-        std::copy(betwen, end(userData), std::back_inserter(tempString));
-        secondValue = std::stod(tempString);
-        secondValue *= secondMinus;
-    }
+ErrorCode process(const std::string& input, double* out) {
+    if(is_bad_character(input)) return ErrorCode::BadCharacter;
+    if(is_too_long(input)) return ErrorCode::BadFormat;
+    tuple_type expression = get_values(input);
+    auto error = check_errors(expression); 
+    if(error != ErrorCode::OK) return error;
+
+    *out = calculate_result(expression);
+    return ErrorCode::OK;       
 }
 
-double countingResults(double first, char oper, double second) {
-    auto it = operations.find(oper);
-    return it->second(first, second);
+
+
+
+
 }
