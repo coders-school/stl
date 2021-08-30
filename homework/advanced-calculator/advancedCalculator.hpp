@@ -14,15 +14,14 @@ enum class ErrorCode {
 };
 
 ErrorCode process(std::string input, double* out);
-void operationsInit();
 ErrorCode validationAllData(const std::string & userData);
 ErrorCode generateErrorCode(const std::string::const_iterator & first, const std::string::const_iterator & betwen, const std::string::const_iterator & second, const std::string & userData);
 ErrorCode factorialValidation(const std::string & userData);
 bool isDivideBy0(const std::string& userData);
 bool isSqrtOfNegativeNumber(const std::string& userData);
 bool isModuleOfNonIntegerValue(const std::string& userData);
-ErrorCode validFirsValue(const std::string::const_iterator& first, const std::string & userData);
+ErrorCode validFirstValue(const std::string::const_iterator& first, const std::string & userData);
 ErrorCode validSign(const std::string::const_iterator& itBegin, const std::string::const_iterator& itEnd);
 ErrorCode validSecondValue(const std::string::const_iterator& beginIt, const std::string::const_iterator& endIt, const std::string & userData);
-void createCoutingData(const std::string::const_iterator & first, const std::string::const_iterator & betwen, const std::string::const_iterator & second, const std::string & userData);
-double coutingResults(double first, char oper, double second);
+void createCountingData(const std::string::const_iterator & first, const std::string::const_iterator & betwen, const std::string::const_iterator & second, const std::string & userData);
+double countingResults(double first, char oper, double second);

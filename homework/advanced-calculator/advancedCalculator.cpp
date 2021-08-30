@@ -7,8 +7,20 @@
 #include <cmath>
 #include <numeric>
 #include <vector>
+#include <functional>
 
-std::map<const char, std::function<double(const double, const double)>> operations;
+std::map<const char, std::function<double(const double, const double)>> operations {
+    { '+', std::plus<double>{} },
+    { '-', std::minus<double>{} },
+    { '*', std::multiplies<double>{} },
+    { '/', std::divides<double>{} },
+    { '%', std::modulus<int>{} },
+    { '!', [](const auto number, const auto temp = 1) { 
+            return number > 0 ? std::tgamma(number + 1) : std::tgamma(-number + 1) * -1; }},
+    { '^', [](const auto base, const auto exp) { return std::pow(base, exp); }},
+    { '$', [](const auto value, const auto n) { return std::pow(value, 1/n); }}
+};
+    
 std::string allOperations { "+-*/%!^$ " };
 double firstValue { };
 char operation { };
@@ -18,25 +30,13 @@ bool oneValue { false };
 bool isFactorial { false };
 
 ErrorCode process(std::string input, double* out) {
-    operationsInit();
     auto codeError = validationAllData(input);
     if (codeError == ErrorCode::OK) {
         std::cout.precision(20);
-        *out = coutingResults(firstValue, operation, secondValue);
+        *out = countingResults(firstValue, operation, secondValue);
         
     }
     return codeError;
-}
-
-void operationsInit() {
-    operations.insert(std::make_pair('+', std::plus<double>()));
-    operations.insert(std::make_pair('-', std::minus<double>()));
-    operations.insert(std::make_pair('*', std::multiplies<double>()));
-    operations.insert(std::make_pair('/', std::divides<double>()));
-    operations.insert(std::make_pair('%', std::modulus<int>()));
-    operations.insert(std::make_pair('!', [](const auto & ele, const auto & ele2){ return ele > 0 ? std::tgamma(ele + 1.0) : std::tgamma(-ele + 1) * (-1.0); }));
-    operations.insert(std::make_pair('^', [](const auto & variable, const auto & n){ return std::pow(variable, n); }));
-    operations.insert(std::make_pair('$', [](const auto & variable, const auto & n){ return std::pow(variable, (1/n)); }));
 }
 
 ErrorCode validationAllData(const std::string & userData) {
@@ -70,7 +70,7 @@ ErrorCode generateErrorCode(const std::string::const_iterator & first, const std
     if (errorCode != ErrorCode::OK) {
         return errorCode;
     } 
-    errorCode = validFirsValue(first, userData);
+    errorCode = validFirstValue(first, userData);
     if (errorCode != ErrorCode::OK) {
         return errorCode;
     }
@@ -82,7 +82,7 @@ ErrorCode generateErrorCode(const std::string::const_iterator & first, const std
     if (errorCode != ErrorCode::OK && isFactorial == false) {
         return errorCode;
     }
-    createCoutingData(first, betwen, second, userData);
+    createCountingData(first, betwen, second, userData);
     if (isDivideBy0(userData) == true) {
         return ErrorCode::DivideBy0;
     }
@@ -127,7 +127,7 @@ bool isModuleOfNonIntegerValue(const std::string& userData) {
     return false; 
 }
 
-ErrorCode validFirsValue(const std::string::const_iterator& first, const std::string & userData) {
+ErrorCode validFirstValue(const std::string::const_iterator& first, const std::string & userData) {
     if (first != begin(userData) && std::isdigit(*first)) {
         return ErrorCode::BadCharacter;
     }
@@ -171,7 +171,7 @@ ErrorCode validSecondValue(const std::string::const_iterator& beginIt, const std
     return ErrorCode::OK;
 }
 
-void createCoutingData(const std::string::const_iterator & first, const std::string::const_iterator & betwen, const std::string::const_iterator & second, const std::string & userData) {
+void createCountingData(const std::string::const_iterator & first, const std::string::const_iterator & betwen, const std::string::const_iterator & second, const std::string & userData) {
     secondValue = 0;
     std::string tempString {};
     std::copy(begin(userData), first, std::back_inserter(tempString));
@@ -188,7 +188,7 @@ void createCoutingData(const std::string::const_iterator & first, const std::str
     }
 }
 
-double coutingResults(double first, char oper, double second) {
+double countingResults(double first, char oper, double second) {
     auto it = operations.find(oper);
     return it->second(first, second);
 }
