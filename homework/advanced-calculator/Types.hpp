@@ -13,4 +13,4 @@ struct CalculationResult {
 
 using Numbers = std::vector<Value>;
 using CalculationFunction = std::function<CalculationResult(Numbers::const_iterator, Numbers::const_iterator)>;
-using CommandsMap = std::map<const char, const CalculationFunction>;
+using CommandsMap = std::map<char, const CalculationFunction>;

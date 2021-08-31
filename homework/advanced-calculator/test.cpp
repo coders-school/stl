@@ -121,9 +121,9 @@ TEST(advancedCalculatorTest, ShouldModulo) {
 TEST(advancedCalculatorTest, ShouldFactorial) {
     double result = 0;
 
-    EXPECT_EQ(process("0!", &result), ErrorCode::OK);   //added
+    EXPECT_EQ(process("0!", &result), ErrorCode::OK);
     EXPECT_TRUE(cmp(result, 1));
-    EXPECT_EQ(process("1!", &result), ErrorCode::OK);   //added
+    EXPECT_EQ(process("1!", &result), ErrorCode::OK);
     EXPECT_TRUE(cmp(result, 1));
 
     EXPECT_EQ(process("5!", &result), ErrorCode::OK);
@@ -146,11 +146,11 @@ TEST(advancedCalculatorTest, ShouldReturnOtherError) {
 TEST(advancedCalculatorTest, ShouldReturnBadFormat) {
     double result = 0;
 
-    EXPECT_EQ(process({}, &result), ErrorCode::BadFormat);     //added
-    EXPECT_EQ(process("", &result), ErrorCode::BadFormat);     //added
-    EXPECT_EQ(process(" ", &result), ErrorCode::BadFormat);    //added
-    EXPECT_EQ(process("-", &result), ErrorCode::BadFormat);    //added
-    EXPECT_EQ(process("5,1", &result), ErrorCode::BadFormat);  //added
+    EXPECT_EQ(process({}, &result), ErrorCode::BadFormat);
+    EXPECT_EQ(process("", &result), ErrorCode::BadFormat);
+    EXPECT_EQ(process(" ", &result), ErrorCode::BadFormat);
+    EXPECT_EQ(process("-", &result), ErrorCode::BadFormat);
+    EXPECT_EQ(process("5,1", &result), ErrorCode::BadFormat);
 
     EXPECT_EQ(process("5,1!", &result), ErrorCode::BadFormat);
     EXPECT_EQ(process("11,3 + 12.4", &result), ErrorCode::BadFormat);
