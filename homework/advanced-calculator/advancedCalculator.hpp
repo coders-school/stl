@@ -6,7 +6,7 @@
 #include <cmath>
 
 bool is_integer(double);
-bool badCharacter(std::string);
+bool badCharacter(const std::string &);
 bool badFormat(std::string);
 
 enum class ErrorCode
@@ -19,7 +19,7 @@ enum class ErrorCode
     ModuleOfNonIntegerValue
 };
 
-std::map<char, std::function<double(double, double)>> calculator{
+static std::map<char, std::function<double(double, double)>> advanced_calculator{
     {'+', std::plus<double>()},
     {'-', std::minus<double>()},
     {'*', std::multiplies<double>()},
@@ -35,3 +35,6 @@ std::map<char, std::function<double(double, double)>> calculator{
         return silnia;
         }},
     };
+
+
+ErrorCode process(const std::string &, double);
