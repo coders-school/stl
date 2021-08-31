@@ -4,10 +4,9 @@ double ArithmeticAverage(std::vector<int>& first, std::vector<int>& second)
 {
     double firstsSum = std::accumulate(first.begin(), first.end(), 0);
     double secondsum = std::accumulate(second.begin(), second.end(), 0);
-
-    double average = (firstsSum + secondsum) / (first.size() + second.size());
-    return average;
+    return (firstsSum + secondsum) / (first.size() + second.size());
 }
+
 
 double Distance(std::vector<int>& first, std::vector<int>& second)
 {
