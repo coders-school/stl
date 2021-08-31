@@ -20,13 +20,17 @@ const std::map<char, std::function<double(double, double)>> commands {
     {'/', std::divides<double>{} },
     {'*', std::multiplies<double>{} },
     {'%', std::modulus<int>{} },
-    {'!', [](auto x, auto y){ return x > 0 ? std::tgamma(x + 1) : std::tgamma(-x + 1)*-1; } },
-    {'^', [](auto x, auto y){ return std::pow(x, y); } },
-    {'$', [](auto x, auto y){ return std::pow(x, 1/y); } }
+    {'!', [](auto lhs, auto rhs){ return lhs > 0 ? std::tgamma(lhs + 1) : std::tgamma(-lhs + 1)*-1; } },
+    {'^', [](auto lhs, auto rhs){ return std::pow(lhs, rhs); } },
+    {'$', [](auto lhs, auto rhs){ return std::pow(lhs, 1.0/rhs); } }
 };
 
-std::string getUserInput ();
-bool validateCharacters (std::string &input);
-bool isInputValid (std::string &input);
+
+
+bool validateCharacters (const std::string & input);
 ErrorCode process (std::string, double*);
 bool validateFormat (std::string &input);
+char findCommand (std::string &input, std::string &allowedChars);
+// bool validateOperations (std::string &);
+
+bool isAllowedChar (char c);
