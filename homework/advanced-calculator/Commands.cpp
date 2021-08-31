@@ -44,6 +44,9 @@ const CommandsMap commands{
      }}},
     {'^', Command{[](auto lhs, auto rhs) { return std::pow(lhs, rhs); }}},
     {'$', Command{[](auto lhs, auto rhs) -> CallbackVariants {
+         if (rhs == 0.0) {
+             return ErrorCode::DivideBy0;
+         }
          if (lhs < 0.0) {
              return ErrorCode::SqrtOfNegativeNumber;
          }

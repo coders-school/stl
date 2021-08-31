@@ -184,6 +184,13 @@ TEST(advancedCalculatorTest, ShouldReturnBadCharacter) {
 TEST(advancedCalculatorTest, ShouldReturnDivideBy0) {
     double result = 0;
 
+    EXPECT_EQ(process("123 $ 0", &result), ErrorCode::DivideBy0);
+    EXPECT_EQ(process("123 $ 0.0", &result), ErrorCode::DivideBy0);
+    EXPECT_EQ(process("123 $ -0", &result), ErrorCode::DivideBy0);
+    EXPECT_EQ(process("123 $ -0.0", &result), ErrorCode::DivideBy0);
+    EXPECT_EQ(process("-123 $ -0.0", &result), ErrorCode::DivideBy0);
+    EXPECT_EQ(process("0.0 $ 0", &result), ErrorCode::DivideBy0);
+
     EXPECT_EQ(process("123 / 0", &result), ErrorCode::DivideBy0);
     EXPECT_EQ(process("123 / 0.0", &result), ErrorCode::DivideBy0);
     EXPECT_EQ(process("123 / -0", &result), ErrorCode::DivideBy0);

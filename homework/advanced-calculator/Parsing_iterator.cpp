@@ -1,5 +1,5 @@
 #include "Parsing_iterator.hpp"
-#include <iostream>
+#include <cwctype> //for iswspace
 
 Parsing_Iterator& Parsing_Iterator::operator=(const char& letter) {
     if (std::iswspace(letter)) {  //ignore white spaces
