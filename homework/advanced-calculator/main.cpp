@@ -5,8 +5,7 @@
 int main() {
     double result;
 
-    std::cout << std::boolalpha << forbidenCharacter("2 + 2") << "\n";
-    ErrorCode errorCode = process("2 + 2", &result);
+    ErrorCode errorCode = process("-13!", &result);
 
     switch (errorCode) {
         case ErrorCode::OK:
