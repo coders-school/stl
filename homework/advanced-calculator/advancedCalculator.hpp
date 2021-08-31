@@ -15,11 +15,12 @@ enum class errorCode
     ModuleOfNonIntegerValue
 };
 
-std::map<char, std::function<errorCode(double, double)>> kalkulator{
-    {'+', [](double numOne, double numTwo){std::cout << numOne + numTwo << '\n'; return errorCode::Ok;}},
-    {'*', [](double numOne, double numTwo){std::cout << numOne * numTwo << '\n'; return errorCode::Ok;}},
-    {'/', [](double numOne, double numTwo){std::cout << numOne / numTwo << '\n'; return errorCode::Ok;}},
-    {'-', [](double numOne, double numTwo){std::cout << numOne - numTwo << '\n'; return errorCode::Ok;}},
-    {'^', [](double numOne, double numTwo){std::cout << pow(numOne, numTwo) << '\n'; return errorCode::Ok;}},
-    {'$', [](double numOne, double numTwo){std::cout << pow(numOne, 1/numTwo) << '\n'; return errorCode::Ok;}},
+std::map<char, std::function<double(double, double)>> calculator{
+    {'+', std::plus<double>()},
+    {'-', std::minus<double>()},
+    {'*', std::multiplies<double>()},
+    {'/', std::divides<double>()},
+    {'%', std::modulus<int>()},
+    {'^', [](double numOne, double numTwo){return pow(numOne, numTwo);}},
+    {'$', [](double numOne, double numTwo){return pow(numOne, 1/numTwo); }},
     };
