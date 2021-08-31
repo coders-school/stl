@@ -15,17 +15,18 @@ enum ErrorCode {
 };
 
 const std::map<char, std::function<double(double, double)>> commands {
-    {'+', [](auto x, auto y){ return std::plus<>{}(x, y); } },
-    {'-', [](auto x, auto y){ return std::minus<>{}(x, y); } },
-    {'/', [](auto x, auto y){ return std::divides<>{}(x, y); } },
-    {'*', [](auto x, auto y){ return std::multiplies<>{}(x, y); } },
-    {'%', [](auto x, auto y){ return (int)x % (int)y; } },
-    {'!', [](auto x, auto y){ return std::tgamma(x); } },
+    {'+', std::plus<double>{} },
+    {'-', std::minus<double>{} },
+    {'/', std::divides<double>{} },
+    {'*', std::multiplies<double>{} },
+    {'%', std::modulus<int>{} },
+    {'!', [](auto x, auto y){ return x > 0 ? std::tgamma(x + 1) : std::tgamma(-x + 1)*-1; } },
     {'^', [](auto x, auto y){ return std::pow(x, y); } },
-    {'$', [](auto x, auto y){ return std::sqrt(x); } }
+    {'$', [](auto x, auto y){ return std::pow(x, 1/y); } }
 };
 
-void getUserInput ();
-bool checkUserInput (std::string &input);
-bool isPlayerChoiceValid(std::string &playerAnswer);
-ErrorCode process(std::string, double*);
+std::string getUserInput ();
+bool validateCharacters (std::string &input);
+bool isInputValid (std::string &input);
+ErrorCode process (std::string, double*);
+bool validateFormat (std::string &input);

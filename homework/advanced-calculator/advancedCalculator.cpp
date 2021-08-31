@@ -6,30 +6,32 @@
 #include <map>
 #include <vector>
 
-void getUserInput () {
-    std::string str;
-    std::cin >> str;
-    std::cout << str;
-}
+double result = 0;
+std::string allowedChars = { "+-/*%!^$" };
 
 ErrorCode process(std::string input, double* out) {
-    
+    if (!validateCharacters(input)) {
+        return ErrorCode::BadCharacter;
+    }
+
+}
+
+bool validateCharacters (std::string &input) {
+    input.erase(std::remove_if(input.begin(), input.end(), [](char c){ return isspace(c); }), input.end());
+    return std::any_of(input.begin(), input.end(), [&](char c){ return isdigit(c) && !std::any_of(allowedChars.begin(),
+                                                                                                   allowedChars.end(),
+                                                                                                   [&](char command){ return c != command;  }) ; });
 }
 
 
-// bool checkUserInput (std::string &input) {
-//     std::vector<char> allowedChars = { '+', '-', '/', '*', '%', '!', '^', '$' };
-//     return std::any_of(input.begin(), input.end(), [](char c){ return !isalnum(c); });
-// }
+bool validateFormat (std::string &input) {
 
-// bool isPlayerChoiceValid(std::string &playerAnswer)
-// {
-//     if(std::cin.fail() || !checkUserInput(playerAnswer))
-//     {
-//         std::cin.clear();
-//         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-//         return false;
-//     }
-//     return true;
-// }
+}
+
+char findCommand (std::string &input) {
+    char command;
+    
+
+    return command;
+}
 
