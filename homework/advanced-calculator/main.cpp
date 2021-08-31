@@ -2,7 +2,8 @@
 
 int main()
 {
-    process("kwik", 5.0);
-    process("567" , 5);
-    process("", 4);
+    double a = 5.0;
+    process("kwik", &a);
+    process("5+67" , &a);
+    process("", &a);
 }

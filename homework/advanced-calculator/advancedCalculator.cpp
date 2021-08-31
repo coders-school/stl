@@ -17,7 +17,7 @@ bool badFormat (std::string string)
     return true;
 }
 
-ErrorCode process (const std::string & input, double out)
+ErrorCode process (const std::string & input, double* out)
 {
     if(badCharacter(input))
     {

@@ -37,4 +37,4 @@ static std::map<char, std::function<double(double, double)>> advanced_calculator
     };
 
 
-ErrorCode process(const std::string &, double);
+ErrorCode process(const std::string &, double*);
