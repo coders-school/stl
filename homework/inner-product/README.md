@@ -1,11 +1,11 @@
 # `ArithmeticAverage() && Distance()`
 
-Implement a `ArithmeticAverage()` function, which takes `const std::vector<int>& first, const std::vector<int>& second` and calculate arithemetic average.
+Implement an `ArithmeticAverage()` function, which takes 2 vectors - `const std::vector<int>& first, const std::vector<int>& second` and calculates an arithemetic average of all values.
 
 Input: `{1, 2, 3, 4}` `{1, 2, 3, 4}`
 Output: `2.5`
 
-Implement a `Distance()` function, which takes `const std::vector<int>& first, const std::vector<int>& second` and calculate distance between 2 points.
+Implement a `Distance()` function, which takes 2 vectors `const std::vector<int>& first, const std::vector<int>& second` and calculates the distance between 2 points in n-dimentional space.
 
 Input: `{7, 4, 3}` `{17, 6, 2}`
 Output: `10.247`

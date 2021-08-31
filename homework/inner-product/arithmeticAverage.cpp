@@ -1,5 +1,6 @@
 #include "arithmeticAverage.hpp"
 
+
 double ArithmeticAverage(std::vector<int>& first, std::vector<int>& second)
 {
     double firstsSum = std::accumulate(first.begin(), first.end(), 0);
@@ -22,14 +23,5 @@ double Distance(std::vector<int>& first, std::vector<int>& second)
                        return std::pow(x-y, 2);
                        });
     double n = std::accumulate(temp.begin(), temp.end(), 0);
-    n = std::sqrt(n);
-    return myRound(n);
-}
-
-
-double myRound(double n)
-{
-    n *= 1000;
-    n = std::round(n);
-    return n / 1000;
+    return std::sqrt(n);
 }
