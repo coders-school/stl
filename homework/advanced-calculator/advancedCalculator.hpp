@@ -5,7 +5,11 @@
 #include <functional>
 #include <cmath>
 
-enum class errorCode
+bool is_integer(double);
+bool badCharacter(std::string);
+bool badFormat(std::string);
+
+enum class ErrorCode
 {
     Ok,
     BadCharacter,
@@ -22,5 +26,12 @@ std::map<char, std::function<double(double, double)>> calculator{
     {'/', std::divides<double>()},
     {'%', std::modulus<int>()},
     {'^', [](double numOne, double numTwo){return pow(numOne, numTwo);}},
-    {'$', [](double numOne, double numTwo){return pow(numOne, 1/numTwo); }},
+    {'$', [](double numOne, double numTwo){return pow(numOne, 1/numTwo);}},
+    {'!', [silnia = 1](double numOne, double numTwo) mutable{
+        for(int i = 1; i <= numOne; i++)
+        {
+            silnia *= i;
+        }
+        return silnia;
+        }},
     };
