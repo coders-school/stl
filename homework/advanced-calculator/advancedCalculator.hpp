@@ -1,5 +1,5 @@
-#ifndef ADVANCEDCALCULATOR.HPP
-#define ADVANCEDCALCULATOR.HPP
+#ifndef ADVANCEDCALCULATOR_HPP 
+#define ADVANCEDCALCULATOR_HPP 
 
 #include <cmath>
 #include <functional>
@@ -16,19 +16,15 @@ enum ErrorCode {
     Undefined
 };
 
-const std::map<char, std::function<double(double, double)>> commands {
-    {'+', std::plus<double>{} },
-    {'-', std::minus<double>{} },
-    {'/', std::divides<double>{} },
-    {'*', std::multiplies<double>{} },
-    {'%', [](auto lhs, auto rhs){ return (int)lhs % (int)rhs; } },
-    //{'%', std::modulus<int>()},
-    {'!', [](auto lhs, auto rhs){ return lhs > 0 ? std::tgamma(lhs + 1) : std::tgamma(-lhs + 1)*-1; } },
-    {'^', [](auto lhs, auto rhs){ return std::pow(lhs, rhs); } },
-    {'$', [](auto lhs, auto rhs){ return std::pow(lhs, 1.0/rhs); } }
-};
-
 
 ErrorCode process (std::string input, double* out );
+bool validateCharacters (const std::string & input);
+bool validateFormat (std::string &input);
+bool isAllowedChar (char c);
+char findCommand (std::string &input, std::string &allowedChars);
+double parseLhs (std::string &input, std::string::size_type &offset);
+double parseRhs (std::string &input, std::string::size_type &offset, char &operation);
+bool moreThanOperator (char &c);
+bool isInteger (double num);
 
 #endif
