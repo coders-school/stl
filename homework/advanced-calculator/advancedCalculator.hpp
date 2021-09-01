@@ -5,14 +5,11 @@
 #include <functional>
 #include <cmath>
 
-bool is_integer(double);
-bool badCharacter(const std::string &);
-bool badFormat(std::string);
-bool isAllowedChar(char);
+
 const std::string symbols = {"+-*/%^$!"};
 
 
-enum class ErrorCode
+enum ErrorCode
 {
     OK,
     BadCharacter,
@@ -22,7 +19,7 @@ enum class ErrorCode
     ModuleOfNonIntegerValue
 };
 
-static std::map<char, std::function<double(double, double)>> advanced_calculator{
+const std::map<char, std::function<double(double, double)>> advanced_calculator{
     {'+', std::plus<double>()},
     {'-', std::minus<double>()},
     {'*', std::multiplies<double>()},
@@ -39,4 +36,10 @@ static std::map<char, std::function<double(double, double)>> advanced_calculator
         }},
     };
     
-const
+ErrorCode process(std::string, double *);
+bool is_integer(double);
+bool badCharacter(const std::string &);
+bool badFormat(std::string);
+bool isAllowedChar(char);
+double parseFirst (std::string &, std::string::size_type &);
+double parseSecond (std::string &, std::string::size_type &, char &);

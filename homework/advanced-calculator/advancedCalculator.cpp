@@ -1,33 +1,38 @@
 #include "advancedCalculator.hpp"
 #include <cctype>
+#include <string>
 
 bool is_integer(double i)
 {
     return std::floor(i) == i;
 }
+
 bool badCharacter(const std::string &string)
 {
-    return std::any_of(string.begin(), string.end(), [string](char chars)
-                       { return !(isdigit(chars)) && !isAllowedChar(chars) && chars != '.' && chars != ' ' && chars != ','; });
+    return std::any_of(string.begin(), string.end(), [](char chars)
+                       { return !isdigit(chars) && !isAllowedChar(chars) && chars != '.' && chars != ' ' && chars != ','; });
 }
 char checkCommand(const std::string &string)
-{
-    auto result = std::find_first_of(string.begin(), string.end(), symbols.begin(), symbols.end());
-    return *result;
+{   
+    auto tmp = 0;
+    auto result = std::find_first_of(string.begin() + 1, string.end(), symbols.begin(), symbols.end());
+    return tmp = *result;
 }
 
 bool isAllowedChar(char operation)
 {
-    auto it = std::find_if(symbols.begin(),
-                           symbols.end(),
+    std::string symbolsx = "-+/*%!^$";
+    auto it = std::find_if(symbolsx.begin(),
+                           symbolsx.end(),
                            [&operation](auto el)
                            {
                                return el == operation;
                            });
-    return it != symbols.end();
+    return it != symbolsx.end();
 }
 bool badFormat(std::string string)
 {
+
     if (*begin(string) == '+')
     {
         return false;
@@ -59,21 +64,82 @@ bool badFormat(std::string string)
     return true;
 }
 
-ErrorCode process(const std::string &input, double *out)
+double parseFirst (std::string &input, std::string::size_type &str) {
+    return std::stod(input, &str);
+}
+
+double parseSecond (std::string &input, std::string::size_type &str, char &command) {
+    double rhs;
+    if (command == '!') {
+        return rhs = 0;
+    }
+    return rhs = std::stod(input.substr(str+1));
+}
+
+ErrorCode process(std::string input, double *out)
 {
-    // input.erase(std::remove(begin(input), end(input), ' '), end(input));
+    input.erase(std::remove(begin(input), end(input), ' '), end(input));
 
     if (badCharacter(input))
     {
-        std::cout << "Bad Character\n";
         return ErrorCode::BadCharacter;
     }
-    if (badFormat(input))
+    if (!badFormat(input))
     {
-        std::cout << "Bad Format\n";
         return ErrorCode::BadFormat;
     }
 
-    std::cout << "OK" << '\n';
+    auto command = checkCommand(input);
+
+    std::string::size_type str;
+    double lhs = parseFirst(input, str);
+    double rhs = parseSecond(input, str, command);
+
+    switch (command) {
+        case '+':
+            *out = advanced_calculator.find('+')->second(lhs, rhs);
+            return ErrorCode::OK;
+            break;
+        case '-':
+            *out = advanced_calculator.find('-')->second(lhs, rhs);
+            return ErrorCode::OK;
+            break;
+        case '*':
+            *out = advanced_calculator.find('*')->second(lhs, rhs);
+            return ErrorCode::OK;
+            break;
+        case '/':
+            if (lhs == 0 || rhs == 0) {
+                return ErrorCode::DivideBy0;
+            }
+            *out = advanced_calculator.find('/')->second(lhs, rhs);
+            return ErrorCode::OK;
+            break;
+        case '%':
+            if (!is_integer(lhs) || !is_integer(rhs)){
+                return ErrorCode::ModuleOfNonIntegerValue;
+            }
+            *out = advanced_calculator.find('%')->second(lhs, rhs);
+            return ErrorCode::OK;
+            break;
+        case '!':
+            *out = advanced_calculator.find('!')->second(lhs, rhs);
+            return ErrorCode::OK;
+            break;
+        case '^':
+            *out = advanced_calculator.find('^')->second(lhs, rhs);
+            return ErrorCode::OK;
+            break;
+        case '$':
+            if (lhs <= 0 || rhs == 0) {
+                return ErrorCode::SqrtOfNegativeNumber;
+            }
+            *out = advanced_calculator.find('$')->second(lhs, rhs);
+            std::cout << *out;
+            return ErrorCode::OK;
+            break;
+        default:
+            break;
+    }
     return ErrorCode::OK;
 }
