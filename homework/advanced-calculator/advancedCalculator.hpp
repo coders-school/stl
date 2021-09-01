@@ -8,6 +8,7 @@
 #include <vector>
 #include <iostream>
 #include <type_traits>
+#include <_ctype.h>
 
 enum ErrorCode{
     OK,
