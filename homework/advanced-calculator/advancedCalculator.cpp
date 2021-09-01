@@ -1,12 +1,10 @@
 #include "advancedCalculator.hpp"
 #include <algorithm>
 #include <iostream>
-#include <sstream>
 #include <functional>
 #include <map>
 #include <vector>
 
-// double result = 0;
 std::string allowedChars = { "+-/*%!^$" };
 
 ErrorCode process(std::string input, double* out) {
@@ -17,24 +15,14 @@ ErrorCode process(std::string input, double* out) {
     if (!validateFormat(input)) {
         return ErrorCode::BadFormat;
     }
-    char operation = findCommand(input, allowedChars);
 
-    auto it = std::find_first_of(input.begin() + 1,
-                                 input.end(),
-                                 allowedChars.begin(),
-                                 allowedChars.end());
-    std::string::size_type sz;
-    double lhs = std::stod(input, &sz);
-    double rhs;
-    if (operation == '!') {
-        rhs == 0;
-    }
-    else {
-        rhs = std::stod(input.substr(sz+1));
-    }
+    char symbol = findCommand(input, allowedChars);
     
+    std::string::size_type sz;
+    double lhs = parseLhs(input, sz);
+    double rhs = parseRhs(input, sz, symbol);
 
-    switch (operation) {
+    switch (symbol) {
         case '+':
             *out = commands.find('+')->second(lhs, rhs);
             return ErrorCode::OK;
@@ -55,29 +43,32 @@ ErrorCode process(std::string input, double* out) {
             return ErrorCode::OK;
             break;
         case '%':
+            if (!isInteger(lhs) || !isInteger(rhs)){
+                return ErrorCode::ModuleOfNonIntegerValue;
+            }
             *out = commands.find('%')->second(lhs, rhs);
             return ErrorCode::OK;
             break;
         case '!':
-
             *out = commands.find('!')->second(lhs, rhs);
             return ErrorCode::OK;
             break;
         case '^':
-
             *out = commands.find('^')->second(lhs, rhs);
             return ErrorCode::OK;
             break;
         case '$':
-            if (lhs < 0) {
+            if (lhs <= 0 || rhs == 0) {
                 return ErrorCode::SqrtOfNegativeNumber;
             }
             *out = commands.find('$')->second(lhs, rhs);
             std::cout << *out;
             return ErrorCode::OK;
             break;
+        default:
+            return ErrorCode::Undefined;
+            break;
     }
-
 }
 
 bool isAllowedChar (char c) {
@@ -85,12 +76,36 @@ bool isAllowedChar (char c) {
 }
 
 bool validateCharacters (const std::string & input) {
-    return std::any_of(input.begin(), input.end(), [](char c){ return !isdigit(c) && !isAllowedChar(c) && c != ' ' && c != '.'; }); 
+    return std::any_of(input.begin(),
+                       input.end(), 
+                       [](char c){ return !isdigit(c) && !isAllowedChar(c) && c != ' ' && c != '.' && c != ','; }); 
 }
 
-
 bool validateFormat (std::string &input) {
-    return true;
+
+        if (std::count(begin(input), end(input), ',') > 0) {
+            return false;
+        }
+        if (std::count (begin(input), end(input), '-') > 3) {
+            return false;
+        }
+        if (std::count_if(input.begin() + 1, input.end(), [](char c){ return checkFormatSymbols(c) ; }) > 1) {
+            return false;
+        }
+        if (*begin(input) == '+') {
+            return false;
+        }
+        if (std::count (begin(input), end(input), '.') > 2) {
+            return false;
+        }
+        if (findCommand(input, allowedChars) == '!') {
+            auto it = std::find(input.begin(), input.end(), '!');
+            if (it + 1 != input.end()) {
+                return false;
+            }
+        }
+        return true;
+
 }
 
 char findCommand (std::string &input, std::string &allowedChars) {
@@ -99,7 +114,26 @@ char findCommand (std::string &input, std::string &allowedChars) {
                                  input.end(),
                                  allowedChars.begin(),
                                  allowedChars.end());
-
     return command = *it;
 }
 
+double parseLhs (std::string &input, std::string::size_type &sz) {
+    return std::stod(input, &sz);
+}
+
+double parseRhs (std::string &input, std::string::size_type &sz, char &symbol) {
+    double rhs;
+    if (symbol == '!') {
+        return rhs = 0;
+    }
+    return rhs = std::stod(input.substr(sz+1));
+}
+
+bool checkFormatSymbols (char &c) {
+    std::string symbolsToCheck = "+/*%!^$";
+    return std::find_if(symbolsToCheck.begin(), symbolsToCheck.end(), [&c](char symbol){ return c == symbol; }) != symbolsToCheck.end();
+}
+
+bool isInteger (double num) {
+    return std::floor(num) == num;
+}

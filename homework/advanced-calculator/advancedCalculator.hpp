@@ -11,7 +11,8 @@ enum ErrorCode {
     BadFormat,
     DivideBy0,
     SqrtOfNegativeNumber,
-    ModuleOfNonIntegerValue
+    ModuleOfNonIntegerValue,
+    Undefined
 };
 
 const std::map<char, std::function<double(double, double)>> commands {
@@ -19,18 +20,19 @@ const std::map<char, std::function<double(double, double)>> commands {
     {'-', std::minus<double>{} },
     {'/', std::divides<double>{} },
     {'*', std::multiplies<double>{} },
-    {'%', std::modulus<int>{} },
+    {'%', [](auto lhs, auto rhs){ return (int)lhs % (int)rhs; } },
     {'!', [](auto lhs, auto rhs){ return lhs > 0 ? std::tgamma(lhs + 1) : std::tgamma(-lhs + 1)*-1; } },
     {'^', [](auto lhs, auto rhs){ return std::pow(lhs, rhs); } },
     {'$', [](auto lhs, auto rhs){ return std::pow(lhs, 1.0/rhs); } }
 };
 
 
-
-bool validateCharacters (const std::string & input);
 ErrorCode process (std::string, double*);
+bool validateCharacters (const std::string & input);
 bool validateFormat (std::string &input);
-char findCommand (std::string &input, std::string &allowedChars);
-// bool validateOperations (std::string &);
-
 bool isAllowedChar (char c);
+char findCommand (std::string &input, std::string &allowedChars);
+double parseLhs (std::string &input, std::string::size_type &sz);
+double parseRhs (std::string &input, std::string::size_type &sz, char &operation);
+bool checkFormatSymbols (char &c);
+bool isInteger (double num);
