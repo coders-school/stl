@@ -1,19 +1,19 @@
 #include "advancedCalculator.hpp"
-#include <cctype>
-#include <string>
+
+const std::string symbols = {"+-/*%!^$"};
 
 bool is_integer(double i)
 {
     return std::floor(i) == i;
 }
 
-bool badCharacter(const std::string &string)
+bool badCharacter(const std::string &input)
 {
-    return std::any_of(string.begin(), string.end(), [](char chars)
-                       { return !isdigit(chars) && !isAllowedChar(chars) && chars != '.' && chars != ' ' && chars != ','; });
+    return std::any_of(input.begin(), input.end(), [](char c) { return !isdigit(c) && !isAllowedChar(c) && c != ' ' && c != '.' && c != ','; });
 }
-char checkCommand(const std::string &string)
-{   
+
+char checkCommand(std::string &string)
+{
     auto tmp = 0;
     auto result = std::find_first_of(string.begin() + 1, string.end(), symbols.begin(), symbols.end());
     return tmp = *result;
@@ -21,70 +21,71 @@ char checkCommand(const std::string &string)
 
 bool isAllowedChar(char operation)
 {
-    std::string symbolsx = "-+/*%!^$";
-    auto it = std::find_if(symbolsx.begin(),
-                           symbolsx.end(),
-                           [&operation](auto el)
-                           {
-                               return el == operation;
-                           });
-    return it != symbolsx.end();
+    return std::find_if(symbols.begin(), symbols.end(), [&operation](char allowed) { return operation == allowed; }) != symbols.end();
 }
-bool badFormat(std::string string)
-{
 
+bool badFormat(std::string &string)
+{
     if (*begin(string) == '+')
     {
-        return false;
+        return true;
     }
-    if (std::count_if(string.begin() + 1, string.end(), [](char c) { return isAllowedChar(c);}) > 1)
+    if (std::count_if(string.begin() + 1, string.end(), [](char c) { return checkSymbols(c); }) > 1)
     {
-        return false;
+        return true;
     }
     if (std::count(begin(string), end(string), ',') > 0)
     {
-        return false;
+        return true;
     }
     if (std::count(begin(string), end(string), '-') > 3)
     {
-        return false;
+        return true;
     }
     if (std::count(begin(string), end(string), '.') > 2)
     {
-        return false;
+        return true;
     }
     if (checkCommand(string) == '!')
     {
         auto it = std::find(string.begin(), string.end(), '!');
         if (it + 1 != string.end())
         {
-            return false;
+            return true;
         }
     }
-    return true;
+    return false;
 }
 
-double parseFirst (std::string &input, std::string::size_type &str) {
+double parseFirst(std::string &input, std::string::size_type &str)
+{
     return std::stod(input, &str);
 }
 
-double parseSecond (std::string &input, std::string::size_type &str, char &command) {
+double parseSecound(std::string &input, std::string::size_type &str, char &symbol)
+{
     double rhs;
-    if (command == '!') {
+    if (symbol == '!')
+    {
         return rhs = 0;
     }
-    return rhs = std::stod(input.substr(str+1));
+    return rhs = std::stod(input.substr(str + 1));
+}
+
+bool checkSymbols(char &c)
+{
+    std::string symbolsToCheck = "+/*%!^$";
+    return std::find_if(symbolsToCheck.begin(), symbolsToCheck.end(), [&c](char symbol) { return c == symbol; }) != symbolsToCheck.end();
 }
 
 ErrorCode process(std::string input, double *out)
 {
     input.erase(std::remove(begin(input), end(input), ' '), end(input));
-
     if (badCharacter(input))
     {
         return ErrorCode::BadCharacter;
     }
-    if (!badFormat(input))
+    if (badFormat(input))
     {
         return ErrorCode::BadFormat;
     }
@@ -93,53 +94,57 @@ ErrorCode process(std::string input, double *out)
 
     std::string::size_type str;
     double lhs = parseFirst(input, str);
-    double rhs = parseSecond(input, str, command);
+    double rhs = parseSecound(input, str, command);
 
-    switch (command) {
-        case '+':
-            *out = advanced_calculator.find('+')->second(lhs, rhs);
-            return ErrorCode::OK;
-            break;
-        case '-':
-            *out = advanced_calculator.find('-')->second(lhs, rhs);
-            return ErrorCode::OK;
-            break;
-        case '*':
-            *out = advanced_calculator.find('*')->second(lhs, rhs);
-            return ErrorCode::OK;
-            break;
-        case '/':
-            if (lhs == 0 || rhs == 0) {
-                return ErrorCode::DivideBy0;
-            }
-            *out = advanced_calculator.find('/')->second(lhs, rhs);
-            return ErrorCode::OK;
-            break;
-        case '%':
-            if (!is_integer(lhs) || !is_integer(rhs)){
-                return ErrorCode::ModuleOfNonIntegerValue;
-            }
-            *out = advanced_calculator.find('%')->second(lhs, rhs);
-            return ErrorCode::OK;
-            break;
-        case '!':
-            *out = advanced_calculator.find('!')->second(lhs, rhs);
-            return ErrorCode::OK;
-            break;
-        case '^':
-            *out = advanced_calculator.find('^')->second(lhs, rhs);
-            return ErrorCode::OK;
-            break;
-        case '$':
-            if (lhs <= 0 || rhs == 0) {
-                return ErrorCode::SqrtOfNegativeNumber;
-            }
-            *out = advanced_calculator.find('$')->second(lhs, rhs);
-            std::cout << *out;
-            return ErrorCode::OK;
-            break;
-        default:
-            break;
+    switch (command)
+    {
+    case '+':
+        *out = advanced_calculator.find('+')->second(lhs, rhs);
+        return ErrorCode::OK;
+        break;
+    case '-':
+        *out = advanced_calculator.find('-')->second(lhs, rhs);
+        return ErrorCode::OK;
+        break;
+    case '*':
+        *out = advanced_calculator.find('*')->second(lhs, rhs);
+        return ErrorCode::OK;
+        break;
+    case '/':
+        if (lhs == 0 || rhs == 0)
+        {
+            return ErrorCode::DivideBy0;
+        }
+        *out = advanced_calculator.find('/')->second(lhs, rhs);
+        return ErrorCode::OK;
+        break;
+    case '%':
+        if (!is_integer(lhs) || !is_integer(rhs))
+        {
+            return ErrorCode::ModuleOfNonIntegerValue;
+        }
+        *out = advanced_calculator.find('%')->second(lhs, rhs);
+        return ErrorCode::OK;
+        break;
+    case '!':
+        *out = advanced_calculator.find('!')->second(lhs, rhs);
+        return ErrorCode::OK;
+        break;
+    case '^':
+        *out = advanced_calculator.find('^')->second(lhs, rhs);
+        return ErrorCode::OK;
+        break;
+    case '$':
+        if (lhs <= 0 || rhs == 0)
+        {
+            return ErrorCode::SqrtOfNegativeNumber;
+        }
+        *out = advanced_calculator.find('$')->second(lhs, rhs);
+        std::cout << *out;
+        return ErrorCode::OK;
+        break;
+    default:
+        return ErrorCode::END;
+        break;
     }
-    return ErrorCode::OK;
 }

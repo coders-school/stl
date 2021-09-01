@@ -1,45 +1,38 @@
 #pragma once
-#include <iostream>
 #include <algorithm>
-#include <map>
+#include <iostream>
 #include <functional>
+#include <map>
 #include <cmath>
+#include <string>
 
-
-const std::string symbols = {"+-*/%^$!"};
-
-
-enum ErrorCode
-{
+enum ErrorCode {
     OK,
     BadCharacter,
     BadFormat,
     DivideBy0,
     SqrtOfNegativeNumber,
-    ModuleOfNonIntegerValue
+    ModuleOfNonIntegerValue,
+    END
 };
 
-const std::map<char, std::function<double(double, double)>> advanced_calculator{
-    {'+', std::plus<double>()},
-    {'-', std::minus<double>()},
-    {'*', std::multiplies<double>()},
-    {'/', std::divides<double>()},
+const std::map<char, std::function<double(double, double)>> advanced_calculator {
+    {'+', std::plus<double>{} },
+    {'-', std::minus<double>{} },
+    {'/', std::divides<double>{} },
+    {'*', std::multiplies<double>{} },
     {'%', std::modulus<int>()},
-    {'^', [](double numOne, double numTwo){return pow(numOne, numTwo);}},
-    {'$', [](double numOne, double numTwo){return pow(numOne, 1/numTwo);}},
-    {'!', [factorial = 1](double numOne, double numTwo) mutable{
-        for(int i = 1; i <= numOne; i++)
-        {
-            factorial *= i;
-        }
-        return factorial;
-        }},
-    };
-    
-ErrorCode process(std::string, double *);
-bool is_integer(double);
-bool badCharacter(const std::string &);
-bool badFormat(std::string);
-bool isAllowedChar(char);
+    {'^', [](double numOne, double numTwo){ return std::pow(numOne, numTwo);}},
+    {'$', [](double numOne, double numTwo){ return std::pow(numOne, 1.0/numTwo);}},
+    {'!', [](double numOne, double numTwo){ return numOne > 0 ? std::tgamma(numOne + 1) : std::tgamma(-numOne + 1)*-1; } },
+};
+
+ErrorCode process (std::string, double*);
+bool is_integer (double); 
+bool badCharacter (const std::string &);
+bool badFormat (std::string &);
+bool isAllowedChar (char);
+char checkCommand (std::string &);
 double parseFirst (std::string &, std::string::size_type &);
-double parseSecond (std::string &, std::string::size_type &, char &);
+double parseSecound (std::string &, std::string::size_type &, char &);
+bool checkSymbols (char &);
