@@ -8,7 +8,7 @@ std::vector<double> getNumsFromInput(std::string input, int numOfMinuses) {
     std::string numS;
 
     for (int i = 0; i < input.length(); i++) {
-        while (isnumber(input[i])) {
+        while (isdigit(input[i])) {
             if (i != 0) {
                 if (input[i - 1] == '-') {
                     numS += '-';
@@ -32,7 +32,7 @@ std::vector<double> getNumsFromInput(std::string input, int numOfMinuses) {
 }
 ErrorCode process(std::string input, double* out) {
     for (auto& charac : input) {
-        if (!(isnumber(charac) || charac == '-' || charac == '/' || charac == '!' || charac == '+' || charac == '*' || charac == '%' || charac == '^' || charac == '$' || charac == ' ' || charac == '.' || charac == ',')) {
+        if (!(isdigit(charac) || charac == '-' || charac == '/' || charac == '!' || charac == '+' || charac == '*' || charac == '%' || charac == '^' || charac == '$' || charac == ' ' || charac == '.' || charac == ',')) {
             return ErrorCode::BadCharacter;
         }
     }
