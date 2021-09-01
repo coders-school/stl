@@ -8,14 +8,17 @@
 bool is_integer(double);
 bool badCharacter(const std::string &);
 bool badFormat(std::string);
+bool isAllowedChar(char);
+const std::string symbols = {"+-*/%^$!"};
+
 
 enum class ErrorCode
 {
-    Ok,
+    OK,
     BadCharacter,
     BadFormat,
     DivideBy0,
-    SqrtOfNagativeNumber,
+    SqrtOfNegativeNumber,
     ModuleOfNonIntegerValue
 };
 
@@ -27,14 +30,13 @@ static std::map<char, std::function<double(double, double)>> advanced_calculator
     {'%', std::modulus<int>()},
     {'^', [](double numOne, double numTwo){return pow(numOne, numTwo);}},
     {'$', [](double numOne, double numTwo){return pow(numOne, 1/numTwo);}},
-    {'!', [silnia = 1](double numOne, double numTwo) mutable{
+    {'!', [factorial = 1](double numOne, double numTwo) mutable{
         for(int i = 1; i <= numOne; i++)
         {
-            silnia *= i;
+            factorial *= i;
         }
-        return silnia;
+        return factorial;
         }},
     };
-
-
-ErrorCode process(const std::string &, double*);
+    
+const
