@@ -31,8 +31,8 @@ bool isOperation(char sign){
 }
 
 bool isBadFront(std::string str) {
-
-	if(!isdigit(str[0]) || (str[0] == '-' && str.size() == 1)) {
+	auto front = str.front();
+	if(!isdigit(front) || (front == '-')) {
 		std::cout << "jestem tu\n";
 			return true;
 	}
