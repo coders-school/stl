@@ -31,10 +31,11 @@ bool isOperation(char sign){
 }
 
 bool isBadFront(std::string str) {
-
-	if(!isdigit(str[0]) || (str[0] == '-' && str.size() == 1)) {
-		std::cout << "jestem tu\n";
+	auto front = str.front();
+	if (!isdigit(front)){
+	       if(!(front == '-' && str.size() > 1)) {
 			return true;
+		}
 	}
 	return false;
 }
@@ -66,6 +67,11 @@ double convertStringToDouble(const std::string& str) {
         }
         return std::stod(str);
 }
+void rewriteValues(const std::string& firstValue, const char sign, const std::string& secondValue, Data& data) {
+	data.first = convertStringToDouble(firstValue);
+	data.second = convertStringToDouble(secondValue);
+	data.sign = sign;
+}
 
 bool isBadFormat(const std::string& input, Data& data){
 	std::string allOperations{"+-/*!$%^"};
@@ -86,14 +92,11 @@ bool isBadFormat(const std::string& input, Data& data){
         std::string firstValue(input.begin(), itSign);
         std::string secondValue(itSign+1, input.end());
 
-	std ::cout << firstValue << " "  << sign << " " << secondValue << '\n';
         if (sign == '!') {
 		if (isBadValue(firstValue) || !secondValue.empty()) {
 			return true; 
-		} else {        
-			data.first = convertStringToDouble(firstValue);
-		        data.second = convertStringToDouble(secondValue);
-		        data.sign = sign;
+		} else { 
+		 	rewriteValues(firstValue, sign, secondValue, data);	
 			return false;
 	       	} 
 	}
@@ -102,24 +105,9 @@ bool isBadFormat(const std::string& input, Data& data){
 	       	return true;
         }
 
-        data.first = convertStringToDouble(firstValue);
-        data.second = convertStringToDouble(secondValue);
-        data.sign = sign;
-	
+	rewriteValues(firstValue, sign, secondValue, data);
 
         return false;
-}
-
-bool isDividedByZero(const Data& data){
-        return (data.sign == '/' &&  data.second == 0);
-}
-
-bool isModuleOfNonIntegerValue(const Data& data){
-        return data.sign == '%' &&  (static_cast<int>(data.second) != data.second || static_cast<int>(data.first) != data.first);
-}
-
-bool isSqrtOfNegativeNumber(const Data& data)  {
-        return (data.sign == '$' &&  data.first < 0);
 }
 
 ErrorCode process(std::string input, double* out)  {
@@ -136,20 +124,6 @@ ErrorCode process(std::string input, double* out)  {
                 return ErrorCode::BadFormat;
         }
 
-//        if (isSqrtOfNegativeNumber(data)) {
-  //              return ErrorCode::SqrtOfNegativeNumber;
-    //    }
-
- //       if (isDividedByZero(data)) {
-     //           return ErrorCode::DivideBy0;
-   //     }
-
-  //      if (isModuleOfNonIntegerValue(data)) {
-   //             return ErrorCode::ModuleOfNonIntegerValue;
-     //   }
-
-    //    *out = operations.at(data.sign)(data.first, data.second);
-    //
 	std::cout << "first:"<< data.first <<" second:"<<data.sign <<" second:" << data.second <<'\n';  
 
         return operations.at(data.sign)(data.first, data.second, out);
