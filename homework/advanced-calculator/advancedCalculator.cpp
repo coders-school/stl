@@ -14,7 +14,7 @@ void prepareInput(std::string& input){
 }
 
 bool isAllowedChar(char sign){
-    return allAllowedCharacters.find(sign) != std::string::npos;
+    return operations.find(sign) != operations.end();
 }
 
 bool isBadCharakter(const std::string& input) {
