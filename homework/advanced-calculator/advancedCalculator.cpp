@@ -1,6 +1,7 @@
 #include "advancedCalculator.hpp"
 #include <algorithm>
 #include <iostream>
+#include <regex>
 
 const std::map<char, std::function<double(double, double)>> commands {
     {'+', std::plus<double>{} },
@@ -17,104 +18,101 @@ const std::map<char, std::function<double(double, double)>> commands {
 std::string allowedChars = { "+-/*%!^$" };
 
 ErrorCode process(std::string input, double* out) {
+
     input.erase(std::remove(begin(input), end(input), ' '), end(input));
-    char operation = findCommand(input, allowedChars);
-    
-    std::string::size_type offset;
-    double lhs = parseLhs(input, offset);
-    std::cout<<lhs<<'\n';
-    double rhs = parseRhs(input, offset, operation);
-    std::cout<<rhs<<'\n';
-    
-    if (validateCharacters(input)) {
-        return ErrorCode::BadCharacter;
-    }
-    if (!validateFormat(input)) {
-        return ErrorCode::BadFormat;
-    }
 
-    if ((!isInteger(lhs) || !isInteger(rhs)) && operation == '%'){
+    if(validateInput(input)){
+        int offset = 0;
+        double lhs = parseLHS(input);
+        char operation = parseOperator(input, offset);
+        double rhs = parseRHS(input, offset);
+        std::cout<<lhs;
+        std::cout<<operation;
+        std::cout<<rhs<<'\n';
+
+        if ((!isInteger(lhs) || !isInteger(rhs)) && operation == '%'){
         return ErrorCode::ModuleOfNonIntegerValue;
-    }
+        }
 
-    if (rhs == 0 && operation == '/') {
+        if (rhs == 0 && operation == '/') {
         return ErrorCode::DivideBy0;
-    }
-    if (lhs <= 0 && operation == '$') {
+        }
+        
+        if (lhs <= 0 && operation == '$') {
         return ErrorCode::SqrtOfNegativeNumber;
         }
 
-    *out = commands.at(operation)(lhs,rhs);
-
-    return ErrorCode::OK;    
+        *out = commands.at(operation)(lhs,rhs);
+        return ErrorCode::OK;
     
-}
+    } else {
+        *out = 0.0;
+        if (hasBadCharacters(input)) {
+            return ErrorCode::BadCharacter;
+        }
 
-char findCommand (std::string &input, std::string &allowedChars) {
-    char command;
-    auto it = std::find_first_of(input.begin() + 1,
-                                 input.end(),
-                                 allowedChars.begin(),
-                                 allowedChars.end());
-    return command = *it;
-}
-
-double parseLhs (std::string &input, std::string::size_type &offset) {
-    return std::stod(input, &offset);
-}
-
-double parseRhs (std::string &input, std::string::size_type &offset, char &symbol) {
-    double rhs;
-    if (symbol == '!') {
-        return rhs = 0;
+        return ErrorCode::BadFormat;
     }
-    return rhs = std::stod(input.substr(offset+1));
+        
 }
 
-bool isInteger (double num) {
+bool hasBadCharacters(const std::string& input){
+    const std::vector<char> acceptedCharacters{'+', '-', '*', '/', '%', '!', '^', '$', '.', ',',
+                                               '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ' '};
+    return std::any_of(input.begin(),
+                       input.end(),
+                       [&acceptedCharacters](const char& character) {
+                           return std::find(acceptedCharacters.begin(),
+                                            acceptedCharacters.end(),
+                                            character) == acceptedCharacters.end();
+                       });
+}
+
+bool isInteger (const double& num) {
     return std::floor(num) == num;
 }
 
-bool isAllowedChar (char c) {
-    return std::find_if(allowedChars.begin(), allowedChars.end(), [&c](char allowed){ return c == allowed; }) != allowedChars.end();
+
+bool isFactorial(const std::string& input){
+    std::regex regexp("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?\\!$");
+    return std::regex_match (input,regexp);
 }
 
-bool validateCharacters (const std::string & input) {
-    return std::any_of(input.begin(),
-                       input.end(), 
-                       [](char c){ return !isdigit(c) && !isAllowedChar(c) && c != ' ' && c != '.' && c != ','; }); 
+bool hasDoubleMinus(const std::string& input){
+    std::regex regexp(".*\\-{2}.*");
+    return std::regex_match (input,regexp);
 }
 
-bool validateFormat (std::string &input) {
-
-        if (std::count(begin(input), end(input), ',') > 0) {
-            return false;
-        }
-        if (std::count(begin(input), end(input), '-') > 3) {
-            return false;
-        }
-        if (std::count_if(input.begin() + 1, input.end(), [](char c){ return moreThanOperator(c) ; }) > 1) {
-            return false;
-        }
-        if (*input.begin() == '+') {
-            return false;
-        }
-        if (std::count(begin(input), end(input), '.') > 2) {
-            return false;
-        }
-        if (findCommand(input, allowedChars) == '!') {
-            auto it = std::find(input.begin(), input.end(), '!');
-            if (it + 1 != input.end()) {
-                return false;
-            }
-        }
-        return true;
-
+bool validateInput(const std::string& input){
+    std::regex regexp("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?[\\%\\$\\^\\+\\-\\*\\/](-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$");
+    return (std::regex_match (input,regexp) || isFactorial(input));
 }
 
+double parseLHS(const std::string& input){
+    std::regex regexp("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?");
+    std::smatch m;
+    std::regex_search(input, m, regexp);
+    if(m[0].length()!=0){
+        return std::stod(m[0]);
+    }
+    return 0.0;
+}
 
+char parseOperator(const std::string& input, int& offset){
+    std::regex regexp("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?[\\%\\$\\^\\+\\-\\*\\/\\!]");
+    std::smatch m;
+    std::regex_search(input, m, regexp);
+    if(m[0].length()!=0){
+        std::string lhs = m[0];
+        offset = lhs.length();
+        return lhs.back();
+    }
+    return 0.0;
+}
 
-bool moreThanOperator (char &c) {
-    std::string symbolsToCheck = "+/*%!^$";
-    return std::find_if(symbolsToCheck.begin(), symbolsToCheck.end(), [&c](char symbol){ return c == symbol; }) != symbolsToCheck.end();
+double parseRHS(const std::string& input, const int& offset){
+    if(isFactorial(input)){
+        return 0.0;
+    }
+    return std::stod(input.substr(offset));
 }

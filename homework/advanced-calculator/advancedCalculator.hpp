@@ -13,18 +13,17 @@ enum ErrorCode {
     DivideBy0,
     SqrtOfNegativeNumber,
     ModuleOfNonIntegerValue,
-    Undefined
 };
 
 
 ErrorCode process (std::string input, double* out );
-bool validateCharacters (const std::string & input);
-bool validateFormat (std::string &input);
-bool isAllowedChar (char c);
-char findCommand (std::string &input, std::string &allowedChars);
-double parseLhs (std::string &input, std::string::size_type &offset);
-double parseRhs (std::string &input, std::string::size_type &offset, char &operation);
-bool moreThanOperator (char &c);
-bool isInteger (double num);
+bool validateInput(const std::string& input);
+bool isFactorial(const std::string& input);
+double parseLHS(const std::string& input);
+char parseOperator(const std::string& input, int& offset);
+double parseRHS(const std::string& input, const int&offset);
+bool hasBadCharacters(const std::string& input);
+bool isInteger (const double& num);
+bool hasDoubleMinus(const std::string& input);
 
 #endif
