@@ -1,6 +1,8 @@
+#include "compression.hpp"
 #include <array>
 #include <forward_list>
-#include "compression.hpp"
+#include <algorithm>
+#include <iostream>
 
 std::array<std::array<uint8_t, 32>, 32> generateNinja() {
     return {
@@ -40,11 +42,89 @@ std::array<std::array<uint8_t, 32>, 32> generateNinja() {
 }
 
 int main() {
-    auto ninja = generateNinja();
-    // printMap(ninja);
-    auto compressed = compressGrayscale(ninja);
-    auto decompressed = decompressGrayscale(compressed);
-    // printMap(decompressed);
+    // auto ninja = generateNinja();
+    // // printMap(ninja);
+    // auto compressed = compressGrayscale(ninja);
+    // auto decompressed = decompressGrayscale(compressed);
+    // // printMap(decompressed);
+
+    // auto vecIt = vec.begin();
+    // for (auto arrIt = arr.cbegin(); arrIt != arr.cend();) {
+    //     tempPair.first = *arrIt;
+    //     tempPair.second = std::count(arrIt, arr.cend(), *arrIt);
+    //     vec.push_back(tempPair);
+    //     std::advance(arrIt, tempPair.second);
+    // }
+
+    ///zleeeee
+    // auto arrIt = arr.begin();
+    // // std::transform(arr.begin(), arr.end(), std::back_inserter(vec), [arrIt, arr](auto first) mutable {
+    // std::transform(arr.begin(), arr.end(), std::back_inserter(vec), [arrIt, arr](auto element) mutable {
+    //                                                                 std::pair<int, int> tempPair;
+    //                                                                 tempPair.first = element;
+    //                                                                 std::cout << element << ' ';
+    //                                                                 // tempPair.second = std::count(arrIt, arr.end(), element;
+    //                                                                 // std::advance(arrIt, tempPair.second);
+    //                                                                 return tempPair;
+    //                                                            }
+    // );
+
+    std::array<int, 10> arr = {1, 1, 1, 4, 5, 5, 2, 8, 9, 9};
+    
+    std::vector<int> tempVec1;
+    std::vector<int> tempVec2(arr.size());
+    // std::pair<int, int> tempPair;
+    // tempVec2.push_back(1);
+    // tempVec2.push_back(1);
+
+    std::fill(tempVec2.begin(), tempVec2.end(), 1);
+    auto vec2It = tempVec2.begin();
+    std::unique_copy(arr.begin(), arr.end(), std::back_inserter(tempVec1), [&vec2It](int num1, int num2) mutable {
+        if (num1 == num2) {
+            std::cout << "@ ";
+            std::cout << *vec2It << "  ";
+            (*vec2It)++;
+            // vec2It++;
+            // std::advance(vec2It, 1);
+        } else {
+            std::cout << "% ";
+            // tempVec2.push_back(1);
+            // tempVec2.size();
+            std::advance(vec2It, 1);
+            // auto bckIt = std::back_inserter(tempVec2);
+            // *bckIt = 1;
+        }
+        return num1 == num2;
+    });
+    // std::cout << "\nkokoko";
+    std::vector<std::pair<int, int>> vec(tempVec1.size());
+    // std::transform(tempVec1.begin(), tempVec1.end(), tempVec2.begin(), vec.begin(), [](auto first, auto second){std::pair<int, int> {first, second}});
+    std::transform(tempVec1.begin(), tempVec1.end(), tempVec2.begin(), vec.begin(), [](auto first, auto second){std::pair<int, int> tempPair{first, second}; return tempPair;});
+
+    
+
+
+    // std::copy_if(arr.begin(),
+    //              arr.end(),
+    //              std::back_inserter(vec),
+    //              [](){}
+    //             );
+
+    std::cout << '\n';
+    for (auto& el : tempVec1) {
+        std::cout << el << '_';
+    }
+    std::cout << "\nsize: " << tempVec2.size() << '\n';
+    for (auto& el : tempVec2) {
+        std::cout << el << '-';
+    }
+
+    std::cout << '\n';
+    for (auto& el : vec) {
+        std::cout << el.first << " : " << el.second << '\n';
+    }
+    
+
 
     return 0;
 }
