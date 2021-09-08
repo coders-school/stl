@@ -10,8 +10,12 @@ std::map<int, std::string> removeDuplicateAndTranformToMap(std::list<std::string
 
     std::map<int, std::string> map;
 
-    auto zip = [](const int i, std::string& s) { return std::make_pair(i, s); };
-    std::transform(deque.begin(), deque.end(), list.begin(), std::inserter(map, map.end()), zip);
+    try {
+        auto zip = [](const int i, const std::string& s) { return std::make_pair(i, s); };
+        std::transform(deque.begin(), deque.end(), list.begin(), std::inserter(map, map.end()), zip);
+    } catch (const std::bad_alloc& e) {
+        std::cout << "Allocation failed: " << e.what() << '\n';
+    }
 
     return map;
 }
