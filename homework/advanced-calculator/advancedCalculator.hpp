@@ -11,7 +11,7 @@ enum class ErrorCode { OK,
 		       SqrtOfNegativeNumber, 
 		       ModuleOfNonIntegerValue};
 
-inline std::map<const char, std::function<ErrorCode(const double& a, const double& b, double* out)>> operations{
+inline std::map<const char, ErrorCode (*)(const double& a, const double& b, double* out)> operations{
     {'+', [](const double& a, const double b, double* out) { *out = a + b; return ErrorCode::OK; }},
 
     {'-', [](const double& a, const double b, double* out) { *out = a - b; return ErrorCode::OK; }},
