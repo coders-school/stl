@@ -11,7 +11,7 @@ enum class ErrorCode { OK,
 		       SqrtOfNegativeNumber, 
 		       ModuleOfNonIntegerValue};
 
-inline std::map<const char, ErrorCode (*)(const double& a, const double& b, double* out)> operations{
+inline std::map<const char, std::function<ErrorCode (const double& a, const double& b, double* out)>> operations{
     {'+', [](const double& a, const double b, double* out) { *out = a + b; return ErrorCode::OK; }},
 
     {'-', [](const double& a, const double b, double* out) { *out = a - b; return ErrorCode::OK; }},
@@ -44,21 +44,27 @@ struct Data {
 
 void prepareInput(std::string& input);
 
+bool isAllowedChar(char sign);
+
 bool isOperation(char sign);
 
 bool isBadCharakter(const std::string& input);
+
+bool isBadFront(std::string str);
+
+bool isToManyDots(std::string str);
+
+bool isPresentComma(std::string str);
+
+bool inPresentOperationSign(std::string str);
 
 bool isBadValue(const std::string& value);
 
 double convertStringToDouble(const std::string& str);
 
+void rewriteValues(const std::string& firstValue, const char sign, const std::string& secondValue, Data& data);
+
 bool isBadFormat(const std::string& input, Data& data);
-
-bool isDividedByZero(const Data& data);
-
-bool isModuleOfNonIntegerValue(const Data& data); 
-
-bool isSqrtOfNegativeNumber(const Data& data);
 
 ErrorCode process(std::string input, double* out);
 
