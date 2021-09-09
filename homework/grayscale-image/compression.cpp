@@ -4,12 +4,12 @@
 
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, width>, height>& image) {
 	std::vector<std::pair<uint8_t, uint8_t>> compressedImage;
-
-	// std::pair<uint8_t, uint8_t> tempPair{image.front().front(), 0};
+	compressedImage.reserve(width * height);
 
 	for (auto verticalIter = image.cbegin(); verticalIter != image.cend(); verticalIter++) {
 		std::array<uint8_t, width> imageRow = *verticalIter;
 		std::vector<uint8_t> elements;
+		elements.reserve(width);
 		std::vector<uint8_t> amounts(width);
 		std::fill(amounts.begin(), amounts.end(), 1);
 		auto amountsIt = amounts.begin();
@@ -17,7 +17,7 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std:
 				 		 imageRow.cend(),
 						 std::back_inserter(elements),
 						 [&amountsIt](auto current, auto next) mutable {
-							 std::cout << (int)current << "|";     // uuuuuuuuu
+							//  std::cout << (int)current << "|";     // uuuuuuuuu
 							 if (current == next) {
 								 (*amountsIt)++;
 							 } else {
@@ -25,41 +25,47 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std:
 							 }
 						 return current == next;
 						 });
-		std::cout << '\n';     /// uuuuuuuuuuuuuuuuuuu
+		// std::cout << '\n';     /// uuuuuuuuuuuuuuuuuuu
 		std::vector<std::pair<uint8_t, uint8_t>> compressedRow(elements.size());
-		// std::cout << " comprEEEE size:  " << elements.size() << '\n';	
-		// std::cout << "compr row size: " << compressedRow.size() << ", compr size:  " << compressedImage.size() << '\n';	
 		std::transform(elements.cbegin(),
 					   elements.cend(),
 					   amounts.cbegin(),
-					//    std::back_inserter(compressedRow),
 					   std::back_inserter(compressedImage),
 					   [](auto first, auto second) -> std::pair<uint8_t, uint8_t> {
 						   return {first, second};
 					   });
-		// compressedImage.insert(compressedImage.end(), compressedRow.cbegin(), compressedRow.cend());
-		std::cout << "compr row size: " << compressedRow.size() << ", compr size:  " << compressedImage.size() << '\n';	
+		// std::cout << "compr row size: " << compressedRow.size() << ", compr size:  " << compressedImage.size() << '\n';	
 	}
-
-	// for (const auto& verticalElement : image) {
-	// 	for (const auto& horizontalElement : verticalElement) {
-	// 		if (horizontalElement == tempPair.first) {
-	// 			++tempPair.second;
-	// 		} else { 
-	// 			compressedImage.push_back(tempPair);
-	// 			tempPair.first = horizontalElement;
-	// 			tempPair.second = 1;
-	// 		}
-	// 	}
-	// 	compressedImage.push_back(tempPair);
-	// 	tempPair.first = verticalElement.front();
-	// 	tempPair.second = 0;
-	// }
+	compressedImage.shrink_to_fit();
 	return compressedImage;
 }
 
 std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::vector<std::pair<uint8_t, uint8_t>>& compressedImage) {
 	std::array<std::array<uint8_t, width>, height> image;
+
+	// auto compressedImageIt = compressedImage.begin();
+	auto imageRowIt = image.begin();
+	auto imageElemIt = (*imageRowIt).begin();
+
+	// std::transform(compressedImage.begin(),
+	//  			   compressedImage.end(),
+	// 			   imageElemIt,
+	// 			   [](){});
+
+
+	for (auto compressedImageIt = compressedImage.begin(); compressedImageIt != compressedImage.end(); compressedImageIt++) {
+		std::pair<uint8_t, uint8_t> tempPair = *compressedImageIt;
+		auto tempImageIt = std::fill_n(imageElemIt, tempPair.second, tempPair.first);
+		// std::cout << (int)tempPair.first << " : " << (int)tempPair.second << " | ";
+		if (tempImageIt == (*imageRowIt).end()) {
+			imageRowIt++;
+			imageElemIt = (*imageRowIt).begin();
+		} else {
+			imageElemIt = tempImageIt;
+		}
+		// std::cout << '\n';
+	}
+
 	// auto compressedImageIt = compressedImage.begin();
 	// std::pair<uint8_t, uint8_t> tempPair = *compressedImageIt++;
 	

@@ -43,7 +43,7 @@ std::array<std::array<uint8_t, 32>, 32> generateNinja() {
 
 int main() {
 
-    //----------------
+    // //----------------
 
     // std::array<uint8_t, 10> ar1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 9};
     // std::array<uint8_t, 10> ar2 = {0, 0, 0, 0, 0, 1, 1, 1, 1, 1};
@@ -64,7 +64,21 @@ int main() {
     //     std:: cout << (int)el.first << " : " << (int)el.second << '\n';
     // }
     // std::cout << "size: " << compressed.size() << '\n';
-    //----------------
+    // // ----------------
+
+
+    // auto decompressed = decompressGrayscale(compressed);
+
+    // std::cout << "decompression:\n\n";
+    // for (size_t i = 0; i < decompressed.size(); i++){
+    //     for (size_t j = 0; j < decompressed[i].size(); j++) {
+    //         std::cout << (int)decompressed[i][j] << "_";
+    //     }
+    //     std::cout << '\n';
+    // }
+
+    // //=---------------
+
 
     // auto ninja = generateNinja();
     // // printMap(ninja);
