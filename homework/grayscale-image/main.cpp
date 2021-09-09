@@ -1,8 +1,4 @@
 #include "compression.hpp"
-#include <array>
-#include <forward_list>
-#include <algorithm>
-#include <iostream>
 
 std::array<std::array<uint8_t, 32>, 32> generateNinja() {
     return {
@@ -42,95 +38,10 @@ std::array<std::array<uint8_t, 32>, 32> generateNinja() {
 }
 
 int main() {
-
-    // //----------------
-
-    // std::array<uint8_t, 10> ar1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 9};
-    // std::array<uint8_t, 10> ar2 = {0, 0, 0, 0, 0, 1, 1, 1, 1, 1};
-    // std::array<uint8_t, 10> ar3 = {2, 2, 3, 3, 4, 4, 5, 5, 6, 6};
-    // std::array<std::array<uint8_t, 10>, 3> myArray = {ar1, ar2, ar3};
-
-
-    // for (size_t i = 0; i < myArray.size(); i++){
-    //     for (size_t j = 0; j < myArray[i].size(); j++) {
-    //         std::cout << (int)myArray[i][j] << "_";
-    //     }
-    //     std::cout << '\n';
-    // }
-
-    // auto compressed = compressGrayscale(myArray);
-
-    // for (auto el : compressed) {
-    //     std:: cout << (int)el.first << " : " << (int)el.second << '\n';
-    // }
-    // std::cout << "size: " << compressed.size() << '\n';
-    // // ----------------
-
-
-    // auto decompressed = decompressGrayscale(compressed);
-
-    // std::cout << "decompression:\n\n";
-    // for (size_t i = 0; i < decompressed.size(); i++){
-    //     for (size_t j = 0; j < decompressed[i].size(); j++) {
-    //         std::cout << (int)decompressed[i][j] << "_";
-    //     }
-    //     std::cout << '\n';
-    // }
-
-    // //=---------------
-
-
-    // auto ninja = generateNinja();
-    // // printMap(ninja);
-    // auto compressed = compressGrayscale(ninja);
-    // auto decompressed = decompressGrayscale(compressed);
-    // // printMap(decompressed);
-
-    // std::array<int, 10> arr = {1, 1, 1, 4, 5, 5, 2, 8, 9, 9};
-    // std::vector<int> tempVec1;
-    // std::vector<int> tempVec2(arr.size());
-    
-    // std::fill(tempVec2.begin(), tempVec2.end(), 1);
-    // auto vec2It = tempVec2.begin();
-    // std::unique_copy(arr.begin(), arr.end(), std::back_inserter(tempVec1), [&vec2It](int num1, int num2) mutable {
-    //     if (num1 == num2) {
-    //         std::cout << "@ ";
-    //         std::cout << *vec2It << "  ";
-    //         (*vec2It)++;
-    
-    //     } else {
-    //         std::cout << "% ";
-    //         std::advance(vec2It, 1);
-    //     }
-    //     return num1 == num2;
-    // });
-    // std::vector<std::pair<int, int>> vec(tempVec1.size());
-    // std::transform(tempVec1.begin(),
-    //                tempVec1.end(),
-    //                tempVec2.begin(),
-    //                vec.begin(),
-    //                [](auto first, auto second) -> std::pair<int, int> {
-    //                 //    std::pair<int, int> tempPair{first, second};
-    //                 //    return tempPair;
-    //                    return {first, second};
-    //                 });
-    
-
-    // std::cout << '\n';
-    // for (auto& el : tempVec1) {
-    //     std::cout << el << '_';
-    // }
-    // std::cout << "\nsize: " << tempVec2.size() << '\n';
-    // for (auto& el : tempVec2) {
-    //     std::cout << el << '-';
-    // }
-
-    // std::cout << '\n';
-    // for (auto& el : vec) {
-    //     std::cout << el.first << " : " << el.second << '\n';
-    // }
-    
-
-
+    auto ninja = generateNinja();
+    // printMap(ninja);
+    auto compressed = compressGrayscale(ninja);
+    auto decompressed = decompressGrayscale(compressed);
+    // printMap(decompressed);
     return 0;
 }
