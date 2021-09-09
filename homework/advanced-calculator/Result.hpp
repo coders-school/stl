@@ -4,16 +4,13 @@
 #include "Types.hpp"
 
 struct Result {
+public:
     Result(const std::vector<std::string>& args, const std::vector<char>& op);
 
     CalculationResult invoke(const CommandsMap& commands) const;
 
 private:
-    void print_op() const;
-    void print_args() const;
-    CalculationResult print_error_and_get_result(ErrorCode error) const;
-
-    Numbers numbers;
-    std::vector<char> op;
-    ErrorCode errorCode = ErrorCode::OK;
+    Numbers numbers_;
+    std::vector<char> op_;
+    ErrorCode errorCode_ = ErrorCode::OK;
 };

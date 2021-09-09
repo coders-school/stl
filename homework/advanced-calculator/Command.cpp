@@ -1,23 +1,23 @@
 #include "Command.hpp"
 
 Command::Command(TwoArgsCallback callback)
-    : callback2(callback), requirements(2) {}
+    : callback2_(callback), requirements_(2) {}
 
 Command::Command(OneArgCallback callback)
-    : callback1(callback), requirements(1) {}
+    : callback1_(callback), requirements_(1) {}
 
 CalculationResult Command::operator()(Numbers::const_iterator num, Numbers::const_iterator end) {
-    if (std::distance(num, end) != requirements) {
+    if (std::distance(num, end) != requirements_) {
         return CalculationResult{ErrorCode::BadFormat, {}};
     }
 
     CallbackVariants result;
     Value par1 = *num;
-    if (requirements == 2) {
+    if (requirements_ == 2) {
         Value par2 = *++num;
-        result = callback2(par1, par2);
+        result = callback2_(par1, par2);
     } else {
-        result = callback1(par1);
+        result = callback1_(par1);
     }
 
     if (result.index()) {// 0 - Value, 1 - ErrorCode

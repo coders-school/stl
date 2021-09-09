@@ -13,11 +13,6 @@ struct Parsing_Iterator {
 
     Parsing_Iterator() = default;
 
-    enum State {
-        number,
-        operation,
-    };
-
     Parsing_Iterator& operator=(const char& letter);
 
     reference operator*() { return *this; }
@@ -27,7 +22,12 @@ struct Parsing_Iterator {
     Result getResult();
 
 private:
-    std::vector<std::string> num{};
-    std::vector<char> op{};
-    State state{operation};
+    enum State {
+        number,
+        operation,
+    };
+
+    std::vector<std::string> num_{};
+    std::vector<char> op_{};
+    State state_{operation};
 };

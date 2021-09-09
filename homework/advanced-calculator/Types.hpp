@@ -6,6 +6,7 @@
 #include "ErrorCode.hpp"
 
 using Value = double;
+
 struct CalculationResult {
     const ErrorCode errorCode;
     const std::optional<Value> value;

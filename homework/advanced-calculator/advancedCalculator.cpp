@@ -4,11 +4,12 @@
 #include "Parsing_iterator.hpp"
 
 ErrorCode process(const std::string& input, double* const out) {
+    std::cout << "input: " << input << '\n';
     if (!out) {
+        std::cout << "No output.\n";
         return ErrorCode::OtherError;
     }
-    std::cout << "input: " << input << '\n';
-
+    
     Parsing_Iterator it{};
     it = std::copy(input.cbegin(), input.cend(), it);
 

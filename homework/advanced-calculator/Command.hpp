@@ -14,7 +14,7 @@ public:
     CalculationResult operator()(Numbers::const_iterator num, Numbers::const_iterator end);
 
 private:
-    OneArgCallback callback1;
-    TwoArgsCallback callback2;
-    size_t requirements;
+    OneArgCallback callback1_;
+    TwoArgsCallback callback2_;
+    const size_t requirements_;
 };
