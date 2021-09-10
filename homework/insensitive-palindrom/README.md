@@ -12,5 +12,6 @@ Dodaj swój plik źródłowy cpp do pliku `CMakeLists.txt`, aby również był o
 
 ```cmake
 add_executable(${PROJECT_NAME}-ut test.cpp) # add your cpp file here after test.cpp
-# it this is problematic take a look into CMakeLists.txt files in other exercises
+# it this is 
+problematic take a look into CMakeLists.txt files in other exercises
 ```

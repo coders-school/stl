@@ -2,6 +2,8 @@
 
 // TODO: Includes
 
+#include "insensitivePalindrom.hpp"
+
 class InsensitivePalindromFixture : public ::testing::TestWithParam<std::pair<std::string, bool>> {
 };
 
