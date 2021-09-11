@@ -9,48 +9,73 @@
 
 FractionVector compressGrayscale(const FractionArray& arr)
 {   
-    uint8_t ActualColor;
-    uint8_t counter;
+    //uint8_t ActualColor;
+  //  uint8_t counter;
     FractionVector result;
     result.reserve(width * height);
 
-    for (size_t i = 0; i < height; i++)
+    for (const auto& el : arr)
     {
-        if (i > 0 )
+        uint8_t colorActual = el.front();
+        auto counter = 0;
+        for (auto it = el.cbegin(); it != el.cend(); it++)
         {
-            result.push_back(std::make_pair(ActualColor, counter));
-            counter = 0;
-        }
-        for (size_t j = 0; j < width; j++)
-        {
-            if (j == 0)
+            if (colorActual != *it)
             {
-                ActualColor = arr[i][j];
+                result.push_back(std::make_pair(colorActual, counter));
+                colorActual = *it;
+                counter = 1;
+            }
+            else{
                 counter++;
             }
-            else
+            if(it + 1== el.cend())
             {
-                if (ActualColor == arr[i][j])
-                {
-                   counter++;
-                }
-                else
-                {
-                    result.push_back(std::make_pair(ActualColor, counter));
-                    ActualColor = arr[i][j];
-                    counter = 1;
-                }
+                result.push_back(std::make_pair(colorActual, counter));
             }
-            if ((i == width -1 ) && (j == height -1) )
-            {
-                result.push_back(std::make_pair(ActualColor, counter));
-            }
-            
         }
+        
     }
     result.shrink_to_fit();
     return result;
 }
+//     for (size_t i = 0; i < height; i++)
+//     {
+//         if (i > 0 )
+//         {
+//             result.push_back(std::make_pair(ActualColor, counter));
+//             counter = 0;
+//         }
+//         for (size_t j = 0; j < width; j++)
+//         {
+//             if (j == 0)
+//             {
+//                 ActualColor = arr[i][j];
+//                 counter++;
+//             }
+//             else
+//             {
+//                 if (ActualColor == arr[i][j])
+//                 {
+//                    counter++;
+//                 }
+//                 else
+//                 {
+//                     result.push_back(std::make_pair(ActualColor, counter));
+//                     ActualColor = arr[i][j];
+//                     counter = 1;
+//                 }
+//             }
+//             if ((i == width -1 ) && (j == height -1) )
+//             {
+//                 result.push_back(std::make_pair(ActualColor, counter));
+//             }
+            
+//         }
+//     }
+//     result.shrink_to_fit();
+//     return result;
+// }
 // std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, width>, height> &uncompressed)
 // {
 //     std::vector<std::pair<uint8_t, uint8_t>> compressed;
@@ -87,12 +112,36 @@ void printMap(const std::array<std::array<uint8_t, width>, height>& arr) {
 }
 
 
+// FractionArray decompressGrayscale(const FractionVector &compressed)
+// {
+//     std::array<std::array<uint8_t, width>, height> decompressed;
+//     auto it = begin(decompressed)->begin();
+//     std::for_each(compressed.begin(), compressed.end(), [&it](auto pair) {
+//                                                                 std::fill_n(it, pair.second, pair.first);
+//                                                                 it = std::next(it, pair.second); });
+//     return decompressed;
+// }
+
 FractionArray decompressGrayscale(const FractionVector &compressed)
 {
-    std::array<std::array<uint8_t, width>, height> decompressed;
-    auto it = begin(decompressed)->begin();
-    std::for_each(compressed.begin(), compressed.end(), [&it](auto pair) {
-                                                                std::fill_n(it, pair.second, pair.first);
-                                                                it = std::next(it, pair.second); });
-    return decompressed;
+    FractionArray arr {};
+    
+    auto x = 0;
+    auto y = 0;
+
+    for (auto& row : compressed)
+    {
+        for (uint8_t i = 0 ; i < row.second ; i++)
+        {
+          arr.at(y).at(x) = row.first;
+          x++;
+        }
+        if (x == width)
+        {
+            y++;
+            x=0;
+        }   
+    }
+    
+    return arr;
 }
