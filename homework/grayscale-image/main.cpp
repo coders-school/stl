@@ -1,7 +1,7 @@
 #include <array>
-#include "grayscale.hpp"
+#include "compression.hpp"
 
-std::array<std::array<uint8_t, 32>, 32> generateNinja() {
+constexpr std::array<std::array<uint8_t, width>, height> generateNinja() {
     return {
         std::array<uint8_t, 32>{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
         {0, 0, 0, 0, 0, 0, 0, 0, 11, 29, 52, 56, 56, 56, 56, 56, 56, 56, 56, 56, 56, 51, 29, 10, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -44,6 +44,5 @@ int main() {
     auto compressed = compressGrayscale(ninja);
     auto decompressed = decompressGrayscale(compressed);
     printMap(decompressed);
-
     return 0;
 }
