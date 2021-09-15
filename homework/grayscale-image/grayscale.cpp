@@ -1,21 +1,40 @@
 #include "grayscale.hpp"
 
+// old version without STL
+// CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
+//     CompressedBitmap compressed{};
+//     compressed.reserve(width * height);
+
+//     uint8_t currCount{1};
+//     for (Bitmap::size_type i{0}; i < height; ++i) {
+//         for (Bitmap::size_type j{1}; j < width + 1; ++j) {
+//             while (j < width && bitmap[i][j] == bitmap[i][j - 1]) {
+//                 ++currCount;
+//                 ++j;
+//             }
+//             compressed.emplace_back(bitmap[i][j - 1], currCount);
+//             currCount = 1;
+//         }
+//     }
+
+//     compressed.shrink_to_fit();
+//     return compressed;
+// }
+
 CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
     CompressedBitmap compressed{};
-    compressed.reserve(width * height);
-
-    uint8_t currCount{1};
-    for (Bitmap::size_type i{0}; i < height; ++i) {
-        for (Bitmap::size_type j{1}; j < width + 1; ++j) {
-            while (j < width && bitmap[i][j] == bitmap[i][j - 1]) {
-                ++currCount;
-                ++j;
-            }
-            compressed.emplace_back(bitmap[i][j - 1], currCount);
-            currCount = 1;
+    compressed.reserve(height * width);
+    for (auto row : bitmap) {
+        for (auto currentElement = begin(row), newElement = begin(row); currentElement != end(row); ) {
+            newElement = std::find_if(currentElement,
+                                      end(row),
+                                      [&](auto value) {
+                                          return value != *currentElement;
+                                      });
+            compressed.emplace_back(*currentElement, std::distance(currentElement, newElement));
+            currentElement = newElement;
         }
     }
-
     compressed.shrink_to_fit();
     return compressed;
 }
