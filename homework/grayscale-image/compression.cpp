@@ -1,49 +1,36 @@
 #include "compression.hpp"
 
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array<uint8_t, width>, height>& array) {
-    std::vector<std::pair<uint8_t, uint8_t>> ret;
-    ret.reserve(width * height);
+    
+    std::vector<std::pair<uint8_t, uint8_t>> res;
 
-    for (auto& row : array) {
-        for (auto it = std::next(row.begin()); it != row.end(); ++it) {
-            auto& value = *it;
-            static unsigned int samePrevValueCount = 1;
-
-            if (*std::prev(it) == value) {
-                samePrevValueCount++;
-            } else {
-                ret.push_back({*std::prev(it), samePrevValueCount});
-                samePrevValueCount = 1;
-            }
-
-            if (it == std::prev(row.end())) {
-                ret.push_back({*std::prev(it), samePrevValueCount});
-                samePrevValueCount = 1;
-            }
+    auto count = [&res](const auto& row) {
+        for (auto it = row.begin(), e = row.end(); it != e; /*Empty*/) {
+            const auto it2 = std::find_if(it, e, [&it](const auto& val) { return val != *it; });
+            res.emplace_back(*it, std::distance(it, it2));
+            it = it2;
         }
-    }
+    };
 
-    ret.shrink_to_fit();
-    return ret;
+    std::for_each(array.cbegin(), array.cend(), count);
+
+    return res;
 }
 
 std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>>& pair) {
     std::array<std::array<uint8_t, width>, height> ret;
-    size_t value_idx = 0;
-    size_t row = 0;
 
-    for (const auto& it : pair) {
-        for (size_t insert_count = 0; insert_count < it.second; insert_count++) {
-            
-            ret.at(row).at(value_idx) = it.first;
-            value_idx++;
-
-            if (value_idx == width) {
-                row++;
-                value_idx = 0;
-            }
+    auto fill = [&pair](auto& row){
+        auto it = row.begin();
+        size_t i = 0;
+        while(it != row.end())
+        {   
+            it = std::fill_n(it, pair.at(i).second, pair.at(i).first);
+            if (i < pair.size()) ++i;
         }
-    }
+    };
+
+    std::for_each(ret.begin(), ret.end(), fill);
 
     return ret;
 }
