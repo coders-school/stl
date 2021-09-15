@@ -1,7 +1,7 @@
 #include "compression.hpp"
+#include <algorithm>
 
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array<uint8_t, width>, height>& array) {
-    
     std::vector<std::pair<uint8_t, uint8_t>> res;
 
     auto count = [&res](const auto& row) {
@@ -20,13 +20,10 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array
 std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>>& pair) {
     std::array<std::array<uint8_t, width>, height> ret;
 
-    auto fill = [&pair](auto& row){
-        auto it = row.begin();
+    auto fill = [&pair](auto& row) {
         size_t i = 0;
-        while(it != row.end())
-        {   
+        for (auto it = row.begin(), i = 0; it != row.end(); i++) {
             it = std::fill_n(it, pair.at(i).second, pair.at(i).first);
-            if (i < pair.size()) ++i;
         }
     };
 
