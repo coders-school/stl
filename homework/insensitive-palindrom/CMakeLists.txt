@@ -39,7 +39,7 @@ project(insensitivePalindrom)
 enable_testing()
 
 add_executable(${PROJECT_NAME}-ut test.cpp)
-add_executable(${PROJECT_NAME}-ut insensitivePalindrom.cpp)
+add_executable(${PROJECT_NAME} palindrome.cpp)
 
 add_compile_options(${PROJECT_NAME}-ut -Wall -Wextra -Wconversion -pedantic -Werror)
 
