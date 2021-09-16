@@ -1,4 +1,6 @@
 #include "compression.hpp"
+#include <algorithm>
+#include <iostream>
 
 // old version without STL
 // CompressedBitmap compressGrayscale(const Bitmap& bitmap) {
