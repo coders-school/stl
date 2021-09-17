@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 2.8.2)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(FILES palindrome.cpp)
+set(FLAGS -Wall -Wextra -Wconversion -pedantic -Werror)
 
 # Download and unpack googletest at configure time
 configure_file(CMakeLists.txt.in googletest-download/CMakeLists.txt)
@@ -36,12 +38,15 @@ if (CMAKE_VERSION VERSION_LESS 2.8.11)
 endif()
 
 project(insensitivePalindrom)
-enable_testing()
 
+add_library(${PROJECT_NAME}-lib STATIC ${FILES})
+add_executable(${PROJECT_NAME} main.cpp)
 add_executable(${PROJECT_NAME}-ut test.cpp)
-add_executable(${PROJECT_NAME} palindrome.cpp)
 
-add_compile_options(${PROJECT_NAME}-ut -Wall -Wextra -Wconversion -pedantic -Werror)
+add_compile_options(${PROJECT_NAME}-ut ${FLAGS})
 
-target_link_libraries(${PROJECT_NAME}-ut gtest_main)
+target_link_libraries(${PROJECT_NAME} ${PROJECT_NAME}-lib)
+target_link_libraries(${PROJECT_NAME}-ut gtest_main ${PROJECT_NAME}-lib)
+
+enable_testing()
 add_test(NAME ${PROJECT_NAME}_test COMMAND ${PROJECT_NAME}-ut)
