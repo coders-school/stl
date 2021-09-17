@@ -1,3 +1,8 @@
+#include <deque>
+#include <list>
+#include <map>
+#include <string>
+#include "transformContainers.hpp"
 #include "gtest/gtest.h"
 
 // TODO: add proper includes
