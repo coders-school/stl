@@ -5,8 +5,6 @@
 #include "transformContainers.hpp"
 #include "gtest/gtest.h"
 
-// TODO: add proper includes
-
 TEST(transformContainerTests, ShouldReturnUniqueMap) {
     std::map<int, std::string> expected_result{
         {1, "Ala"},
