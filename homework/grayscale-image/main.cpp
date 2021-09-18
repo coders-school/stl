@@ -1,8 +1,9 @@
 #include <array>
 #include <forward_list>
 
-// TODO: include
-
+#include "compression.hpp"
+#include <algorithm>
+#include <iterator>
 std::array<std::array<uint8_t, 32>, 32> generateNinja() {
     return {
         std::array<uint8_t, 32>{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -40,12 +41,48 @@ std::array<std::array<uint8_t, 32>, 32> generateNinja() {
     };
 }
 
-int main() {
-    auto ninja = generateNinja();
-    // printMap(ninja);
-    auto compressed = compressGrayscale(ninja);
-    auto decompressed = decompressGrayscale(compressed);
-    // printMap(decompressed);
 
+
+int main() 
+{
+    std::vector<uint8_t> numbers{0,0,0,0, 1,1, 2,2,2, 3,3,3,3, 4,4,4,4,4, 5,5, 6,2, 3,3,3,1,2,1,2,9,0,0,};
+
+    std::vector<std::pair<uint8_t, uint8_t>> pairs;
+
+    
+    auto lama =  [counter{0}, &pairs, &numbers, i{0}] (auto & value) mutable 
+    {
+        i++;
+        static int prevValue = value;
+        if(value == prevValue){
+            counter++;
+        }else{
+            pairs.push_back(std::pair<int, int>(prevValue,counter));
+            counter = 1;
+            prevValue = value;
+        }
+        if(i == numbers.size()){
+            pairs.push_back(std::pair<int, int>(prevValue,counter));
+        }
+        
+    };
+    
+    std::for_each(numbers.begin(),numbers.end(),lama);
+
+    printPair(pairs);
+
+    auto ninja = generateNinja();
+    //printMap(ninja);
+    auto compressedSTL = compressGrayscale2(ninja);
+    auto compressed = compressGrayscale(ninja);
+    //printPair(compressed,compressedSTL);
+
+    std::cout << std::boolalpha << ( compressedSTL == compressed ) <<'\n';  
+    std::cout << equal(compressed,compressedSTL)<<'\n';  
+    whatDiffrent(compressed,compressedSTL);
+    //auto decompressed = decompressGrayscale(compressed);
+    //printMap3(decompressed);
+    //std::cout << std::boolalpha << ( ninja == decompressed ) <<'\n';
+    
     return 0;
 }
