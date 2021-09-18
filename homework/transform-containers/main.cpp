@@ -2,5 +2,4 @@
 #include "removeDuplicateAndTranformToMap.hpp"
 
 int main() {
-    
 }
