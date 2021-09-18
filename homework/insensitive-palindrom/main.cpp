@@ -2,14 +2,11 @@
 #include "palindrome.hpp"
 
 int main() {
-    // std::cout << "Enter word to check: ";
-    // std::string word = "{}a 2bbbIUFYTCa618734eywr9pywe(*&%(&^$*%#(";
-    // std::string word = "Eva, can I see bees in a cave?";
-    std::string word = "Are we not pure? “No, sir!” Panama’s moody Noriega brags."
-                       "It is garbage!” Irony dooms a man—a prisoner up to new era.";
-    std::cout << "Word: " << word << '\n';
-    // std::cin >> word;
-    word = clean_word(word);
-    std::cout << "Cleaned word: " << word << '\n';
-    std::cout << "Is palindrome?\n" << std::boolalpha << is_palindrome(word) << '\n';
+    std::string string =
+        "Are we not pure? “No, sir!” Panama’s moody Noriega brags."
+        "It is garbage!” Irony dooms a man—a prisoner up to new era.";
+    std::cout << "String: " << string << '\n';
+    string = clean_string(string);
+    std::cout << "Cleaned string: " << string << '\n';
+    std::cout << "Is the string palindrome? " << std::boolalpha << is_palindrome(string) << '\n';
 }

@@ -4,31 +4,28 @@
 #include <iostream>
 #include <iterator>
 
-bool is_palindrome(const std::string& word) {
-    int length = word.size();
-    int middle = length / 2;
-    std::string firstPart = word.substr(0, middle);
-    std::cout << "firstPart: " << firstPart << '\n';
-    std::string secondPart = word.substr(length - middle, length);
-    std::reverse(begin(secondPart), end(secondPart));
-    std::cout << "secondPart: " << secondPart << '\n';
-    return firstPart == secondPart;
-}
-
-std::string clean_word(const std::string& word) {
-    std::string cleanedWord;
-    std::copy_if(begin(word),
-                 end(word),
-                 std::back_inserter(cleanedWord),
+std::string clean_string(const std::string& string) {
+    std::string cleaned;
+    std::copy_if(begin(string),
+                 end(string),
+                 std::back_inserter(cleaned),
                  [](auto sign) {
-                     return (64 < sign && sign < 91) || (96 < sign && sign < 123);
+                     return ('A' <= sign && sign <= 'Z') || ('a' <= sign && sign <= 'z');
                  });
-    std::transform(begin(cleanedWord),
-                   end(cleanedWord),
-                   begin(cleanedWord),
-                   [](unsigned char sign) {
+    std::transform(begin(cleaned),
+                   end(cleaned),
+                   begin(cleaned),
+                   [](auto sign) {
                        return std::tolower(sign);
                    });
-    return cleanedWord;
+    return cleaned;
 }
 
+bool is_palindrome(const std::string& string) {
+    int length = string.size();
+    int middle = length / 2;
+    std::string first = string.substr(0, middle);
+    std::string second = string.substr(length - middle, length);
+    std::reverse(begin(second), end(second));
+    return first == second;
+}

@@ -2,5 +2,5 @@
 
 #include <string>
 
+std::string clean_string(const std::string&);
 bool is_palindrome(const std::string&);
-std::string clean_word(const std::string&);
