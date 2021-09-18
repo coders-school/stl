@@ -1,6 +1,6 @@
 #include "removeDuplicateAndTranformToMap.hpp"
 #include <algorithm>
 
-void removeDuplicateAndTranformToMap(std::list<std::string>, std::deque<int>) {
-
+std::map<int, std::string> removeDuplicateAndTranformToMap(std::list<std::string>, std::deque<int>) {
+    
 }
