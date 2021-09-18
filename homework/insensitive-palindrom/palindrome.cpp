@@ -22,10 +22,11 @@ std::string clean_string(const std::string& string) {
 }
 
 bool is_palindrome(const std::string& string) {
-    int length = string.size();
+    std::string cleaned = clean_string(string);
+    int length = cleaned.size();
     int middle = length / 2;
-    std::string first = string.substr(0, middle);
-    std::string second = string.substr(length - middle, length);
+    std::string first = cleaned.substr(0, middle);
+    std::string second = cleaned.substr(length - middle, length);
     std::reverse(begin(second), end(second));
     return first == second;
 }
