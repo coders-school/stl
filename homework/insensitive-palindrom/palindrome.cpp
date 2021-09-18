@@ -1,5 +1,6 @@
 #include "palindrome.hpp"
 #include <algorithm>
+#include <cctype>
 #include <iostream>
 #include <iterator>
 
@@ -20,8 +21,14 @@ std::string clean_word(const std::string& word) {
                  end(word),
                  std::back_inserter(cleanedWord),
                  [](auto sign) {
-                     return 96 < sign && sign < 123;
+                     return (64 < sign && sign < 91) || (96 < sign && sign < 123);
                  });
+    std::transform(begin(cleanedWord),
+                   end(cleanedWord),
+                   begin(cleanedWord),
+                   [](unsigned char sign) {
+                       return std::tolower(sign);
+                   });
     return cleanedWord;
 }
 
