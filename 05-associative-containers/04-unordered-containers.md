@@ -16,8 +16,8 @@ ___
 * <!-- .element: class="fragment fade-in" --> Może, ale nie musi być cache friendly.
   * Hash table, często są tworzone w formie hybrydy <code>std::vector&lt;T&gt;</code> i <code>std::list&lt;T&gt;</code>.
 * <!-- .element: class="fragment fade-in" --> Wartości nie są posortowane
-* <!-- .element: class="fragment fade-in" --> <code>std::multiset</code> może mieć wiele takich samych wartości
-* <!-- .element: class="fragment fade-in" --> <code>std::set</code> ma unikatowe wartości
+* <!-- .element: class="fragment fade-in" --> <code>std::unordered_multiset</code> może mieć wiele takich samych wartości
+* <!-- .element: class="fragment fade-in" --> <code>std::unordered_set</code> ma unikatowe wartości
 
 
 ___
