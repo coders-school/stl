@@ -97,9 +97,8 @@ void printMap(const std::array<std::array<uint8_t, width>, height> &map) {
 int main() {
   auto ninja = generateNinja();
   // printMap(ninja);
-  auto compressed = (ninja);
-  //compressGrayscale(ninja);
-  // auto decompressed = decompressGrayscale(compressed);
+  auto compressed = compressGrayscale(ninja);
+  auto decompressed = decompressGrayscale(compressed);
   // printMap(decompressed);
   std::cout << "max uint8_t = " << int(std::numeric_limits<uint8_t>::max())
             << '\n';
