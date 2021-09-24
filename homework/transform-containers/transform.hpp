@@ -6,7 +6,7 @@
 #include <deque>
 #include <map>
 
-std::map<int, std::string> transformContainers(std::list<std::string> cities, std::deque<int> numbers)
+std::map<int, std::string> removeDuplicateAndTranformToMap(std::list<std::string> cities, std::deque<int> numbers)
 {
     cities.sort();
     cities.erase(std::unique(cities.begin(), cities.end()), cities.end());
