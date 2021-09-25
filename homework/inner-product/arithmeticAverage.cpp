@@ -12,3 +12,15 @@ double ArithmeticAverage(const std::vector<int>& first, const std::vector<int>& 
 
     return product / result.size();
 }
+double Distance(const std::vector<int>& first, const std::vector<int>& second) {
+    
+    if(first.size() != second.size()) {
+        return -1.0;
+    }
+    std::vector<double> result(first.size(), 0);
+    std::transform(begin(first), end(first), begin(second),begin(result),
+                    [](auto lhs, auto rhs){ return (rhs - lhs) * (rhs - lhs);});
+
+    double distance = std::sqrt(std::accumulate(begin(result),end(result),0.0,std::plus<double>()));
+    return distance;
+}
