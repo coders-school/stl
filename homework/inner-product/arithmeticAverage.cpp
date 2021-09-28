@@ -1,6 +1,5 @@
 #include "arithmeticAverage.hpp"
-// #include <algorithm>
-#include <iostream>
+#include <cmath>
 #include <numeric>
 
 double ArithmeticAverage(const std::vector<int>& first, const std::vector<int>& second) {
@@ -10,5 +9,20 @@ double ArithmeticAverage(const std::vector<int>& first, const std::vector<int>& 
 }
 
 double Distance(const std::vector<int>& first, const std::vector<int>& second) {
-    return 0;
+    int n = first.size();
+    double temporary{0};
+    for (int i{0}; i < n; i++) {
+        temporary = sqrt(std::pow(first[i] - second[i], 2) + std::pow(temporary, 2));
+    }
+    return temporary;
+}
+
+double DistanceRecurrent(const std::vector<int>& first, const std::vector<int>& second) {
+    int n = first.size();
+    if (n == 0) {
+        return 0;
+    }
+    auto newFirst = std::vector<int> {begin(first), end(first) - 1};
+    auto newSecond = std::vector<int> {begin(second), end(second) - 1};
+    return sqrt(std::pow(first[n - 1] - second[n - 1], 2) + std::pow(DistanceRecurrent(newFirst, newSecond), 2));
 }
