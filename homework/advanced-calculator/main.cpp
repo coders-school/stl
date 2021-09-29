@@ -8,7 +8,7 @@ int main() {
     double* pointer = nullptr;
     while (input != "exit" && input != "quit" && input != "q") {
         std::cout << "Enter query: ";
-        std::cin >> input;
+        std::getline(std::cin, input);
         error = process(input, pointer);
         switch (error) {
             case ErrorCode::OK:

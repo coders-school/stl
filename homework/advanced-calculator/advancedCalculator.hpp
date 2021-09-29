@@ -10,4 +10,11 @@ enum class ErrorCode {
     ModuleOfNonIntegerValue
 };
 
+struct Operation {
+    double a;
+    char sign;
+    double b;
+};
+
 ErrorCode process(std::string, double*);
+Operation parse(const std::string &);
