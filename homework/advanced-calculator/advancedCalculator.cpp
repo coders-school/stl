@@ -1,5 +1,6 @@
 #include "advancedCalculator.hpp"
 
 ErrorCode process(std::string input, double* out) {
-    return ErrorCode::Ok;
+    out = nullptr;
+    return ErrorCode::OK;
 }
