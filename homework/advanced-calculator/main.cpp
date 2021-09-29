@@ -12,10 +12,17 @@ int main() {
         error = process(input, pointer);
         switch (error) {
             case ErrorCode::OK:
-                std::cout << *pointer << '\n';
+                std::cout << "= " << *pointer << '\n';
                 break;
-            default:
-                std::cout << "Something went wrong. Try again.\n";
+            case ErrorCode::BadCharacter:
+                std::cout << "Error: contains alphabetic characters\n";
+                break;
+            case ErrorCode::BadFormat:
+                std::cout << "Error: Bad command formatting\n";
+                break;
+            case ErrorCode::Undefined:
+                std::cout << "Error: Something went wrong\n";
+                break;
         }
     }
 }

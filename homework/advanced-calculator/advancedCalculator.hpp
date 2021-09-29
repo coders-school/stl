@@ -1,6 +1,6 @@
 #pragma once
-#include <functional>
-#include <map>
+// #include <functional>
+// #include <map>
 #include <string>
 
 enum class ErrorCode {
@@ -20,4 +20,4 @@ struct Operation {
 };
 
 ErrorCode process(std::string, double*);
-Operation parse(const std::string &);
+ErrorCode parse(const std::string &, Operation &);
