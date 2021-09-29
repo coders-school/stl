@@ -1,4 +1,6 @@
 #pragma once
+#include <functional>
+#include <map>
 #include <string>
 
 enum class ErrorCode {
@@ -7,7 +9,8 @@ enum class ErrorCode {
     BadFormat,
     DivideBy0,
     SqrtOfNegativeNumber,
-    ModuleOfNonIntegerValue
+    ModuleOfNonIntegerValue,
+    Undefined
 };
 
 struct Operation {

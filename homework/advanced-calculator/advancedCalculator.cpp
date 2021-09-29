@@ -1,29 +1,28 @@
 #include "advancedCalculator.hpp"
 #include <algorithm>
 #include <cctype>
-#include <functional>
+// #include <functional>
 #include <iostream>
-#include <map>
+// #include <map>
 #include <string>
-
-ErrorCode process(std::string input, double* out) {
-    Operation operation = parse(input);
-    switch (operation.sign) {
-    case '+':
-        std::cout << "Test\n";
-        *out = operation.a + operation.b;
-        std::cout << *out << '\n';
-        return ErrorCode::OK;
-    }
-    out = nullptr;
-    return ErrorCode::BadFormat;
-}
 
 auto sum = [](double a, double b) -> double {
     return a + b;
 };
 
-std::map<char, std::function<double(double, double)>> operations = { {'+', sum} };
+std::map<char, std::function<double(double, double)>> operationsMap = { {'+', sum} };
+
+ErrorCode process(std::string input, double* out) {
+    Operation operation = parse(input);
+    switch (operation.sign) {
+    case '+':
+        auto lambda = operationsMap['+'];
+        *out = lambda(operation.a, operation.b);
+        return ErrorCode::OK;
+    }
+    out = nullptr;
+    return ErrorCode::Undefined;
+}
 
 Operation parse(const std::string & string) {
     Operation operation{};

@@ -3,7 +3,7 @@
 #include "advancedCalculator.hpp"
 
 int main() {
-    ErrorCode error{ErrorCode::BadFormat};
+    ErrorCode error{ErrorCode::Undefined};
     std::string input{};
     double* pointer = new double;
     while (input != "exit" && input != "quit" && input != "q") {
