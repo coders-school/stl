@@ -48,10 +48,8 @@ TEST(arithmeticAverageTest, ShouldCalculateDistance) {
     expected = 0;
     EXPECT_NEAR(Distance(first, second), expected, epsilon);
 
-    first.clear();
     first.resize(1000);
     std::fill(begin(first), end(first), -10);
-    second.clear();
     second.resize(1000);
     std::fill(begin(second), end(second), 10);
     expected = 632.456;

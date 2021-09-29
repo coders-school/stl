@@ -7,14 +7,14 @@ int main() {
     std::vector<int> second(1000, 10);
 
     auto start = std::chrono::high_resolution_clock::now();
-    std::cout << Distance(first, second) << '\n';
+    std::cout << "Distance(): " << Distance(first, second) << '\n';
     auto stop = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed = stop - start;
-    std::cout << "Distance(): " << elapsed.count() << " s\n";
+    std::cout << elapsed.count() << " s\n";
     
     start = std::chrono::high_resolution_clock::now();
-    std::cout << DistanceRecurrent(first, second) << '\n';
+    std::cout << "DistanceRecurrent(): " << DistanceRecurrent(first, second) << '\n';
     stop = std::chrono::high_resolution_clock::now();
     elapsed = stop - start;
-    std::cout << "DistanceRecurrent(): " << elapsed.count() << " s\n";
+    std::cout << elapsed.count() << " s\n";
 }
