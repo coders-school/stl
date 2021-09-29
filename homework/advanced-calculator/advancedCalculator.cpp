@@ -2,5 +2,5 @@
 
 ErrorCode process(std::string input, double* out) {
     out = nullptr;
-    return ErrorCode::OK;
+    return ErrorCode::BadFormat;
 }
