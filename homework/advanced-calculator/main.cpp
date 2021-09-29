@@ -5,7 +5,7 @@
 int main() {
     ErrorCode error{ErrorCode::BadFormat};
     std::string input{};
-    double* pointer = nullptr;
+    double* pointer = new double;
     while (input != "exit" && input != "quit" && input != "q") {
         std::cout << "Enter query: ";
         std::getline(std::cin, input);

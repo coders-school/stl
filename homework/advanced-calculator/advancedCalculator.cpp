@@ -8,6 +8,13 @@
 
 ErrorCode process(std::string input, double* out) {
     Operation operation = parse(input);
+    switch (operation.sign) {
+    case '+':
+        std::cout << "Test\n";
+        *out = operation.a + operation.b;
+        std::cout << *out << '\n';
+        return ErrorCode::OK;
+    }
     out = nullptr;
     return ErrorCode::BadFormat;
 }
