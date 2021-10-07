@@ -1,59 +1,78 @@
 #include "compression.hpp"
+#include <algorithm>
+#include <iostream>
+#include <iterator>
 
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array<uint8_t, width>, height> image){
-    std::vector<std::pair<uint8_t, uint8_t>> vec_pair;
-    for(size_t i=0; i<height; ++i){
-        uint8_t counter = 1;
-        uint8_t  color = 0;
-        for(size_t j=1; j<=width; ++j){
-            if(j == width || image.at(i).at(j-1) != image.at(i).at(j) ){
-                if(counter == 1){
-                    color = image.at(i).at(j-1);
-                    vec_pair.push_back(std::make_pair(color,counter));
-                }else{
-                    color = image.at(i).at(j-1);
-                    vec_pair.push_back(std::make_pair(color,counter));
-                    counter = 1;
-                }
-            }else{
-                ++counter;
-            }
-            
-        }
-    }
-    return vec_pair;
-};
-
-std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>> vec) {
-    std::array<std::array<uint8_t, width>, height> array_out;
-    uint8_t x = 0;
-    uint8_t y = 0;
-    for (auto& pair : vec) {
-        uint8_t color = pair.first;
-        uint8_t count = pair.second;
-        for (size_t i = 0; i < count; ++i) {
-            if (x < width) {
-                array_out[y][x] = color;
-                ++x;
-                if (x == width) {
-                    ++y;
-                    x = 0;
-                }
-            }
-        }
-    }
-    return array_out;
+compressedBitmap compressGrayscale(const bitmap& bitmap) {
+    compressedBitmap compressed(width * height, std::make_pair(0, 0));
+    uint8_t counter = 0;
+    uint8_t counterLine = 0;
+    auto iter = begin(bitmap)->begin();
+    std::transform(iter,
+                   (end(bitmap) - 1)->end(),
+                   begin(compressed),
+                   [&](auto pixel) {
+                       if (counterLine == height) {
+                           counterLine = 0;
+                           counter = 0;
+                       }
+                       if (pixel != *std::prev(iter)) {
+                           counter = 1;
+                       } else {
+                           counter++;
+                       }
+                       counterLine++;
+                       iter++;
+                       return std::make_pair(pixel, counter);
+                   });
+    auto it = begin(compressed);
+    compressed.erase(std::remove_if(begin(compressed),
+                                    end(compressed),
+                                    [&](auto el) { 
+                                        it++; 
+                                        return el.first == (*it).first && el.second == (*it).second - 1; }),
+                     end(compressed));
+    return compressed;
 }
 
-void printMap(const std::array<std::array<uint8_t, width>, height>& ninja) {
-    for (const auto& elem : ninja) {
-        for (const auto& el : elem) {
-            if (el < ' ') {
-                std::cout << ' ';
-            } else {
-                std::cout << el;
-            }
-        }
-        std::cout << '\n';
-    }
+bitmap decompressGrayscale(const compressedBitmap& compressed) {
+    uint8_t pixelsAmount = 0;
+    bitmap bitmap{};
+    auto it = begin(compressed);
+    std::transform(begin(bitmap)->begin(),
+                   (end(bitmap) - 1)->end(),
+                   begin(bitmap)->begin(),
+                   [&](auto pixel) { 
+                       if (it->second - pixelsAmount == 0) {
+                           pixelsAmount = 0;
+                           it++;
+                       }
+                       pixelsAmount++;
+                       return it->first; });
+    return bitmap;
+}
+
+void printMap(const bitmap& bitmapp) {
+    uint8_t pixelCounter = 1;
+    bitmap bitmapPrint{};
+    std::transform(begin(bitmapp)->begin(),
+                   (end(bitmapp) - 1)->begin(),
+                   begin(bitmapPrint)->begin(),
+                   [&](auto pixel) { 
+                       static_cast<char>(pixel < printable_ascii_min ||
+                                           pixel > printable_ascii_max
+                                           ? pixel = ' '
+                                           : pixel);
+                       return pixel; });
+    std::copy_if(begin(bitmapPrint)->begin(),
+                 (end(bitmapPrint) - 1)->end(),
+                 std::ostream_iterator<char>(std::cout, ""),
+                 [&](auto pixel) { 
+                  if (pixelCounter > height) {
+                      pixelCounter = 1;
+                      std::cout << "\n";
+                  }
+                  pixelCounter++;
+                  return true; });
+    std::cout << '\n';
 }

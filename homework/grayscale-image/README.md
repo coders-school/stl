@@ -25,7 +25,7 @@ Powinna ona przyjąć jeden argument typu `std::array<std::array<uint8_t, 240>, 
 
 Kompresja powinna przebiegać w następujący sposób:
 
-* Bitmapę rysujemy od górnego lewego rogu przechodząc w prawo, następnie poziom niżej.
+* bitmapę rysujemy od górnego lewego rogu przechodząc w prawo, następnie poziom niżej.
 * Jeżeli obok siebie występuje ten sam kolor więcej niż 1 raz, funkcja powinna wrzucić do  `std::vector<>` wartość tego koloru (liczba z przedziału 0 – 255) jako pierwszy element pary oraz ilość jego powtórzeń jako drugi element pary.
 * Jeżeli obok siebie występują różne odcienie to funkcja powinna wypełnić `std::vector<> ` wartością odcienia oraz liczbą wystąpień równą 1 (w tym przypadku pogarszamy optymalizację, gdyż przechowujemy 2x tyle danych, jednak najczęściej te same kolory są położone obok siebie).
 
@@ -144,5 +144,5 @@ for (int i = 0; i < height; ++i) {
 
 Wystarczy zauważyć zależność, że w zależności od tego, jaka część linii jest wypełniania to pętle przyjmują określoną strukturę.
 Ma to być jedna uniwersalna funkcja, która będzie używa w testach `ShouldCompressWholeLine`, `ShouldCompressHalfLine`, `ShouldCompressQuaterLine`, itd.
-Ma to działać podobnie jak funkcja `getBitmap()`.
+Ma to działać podobnie jak funkcja `getbitmap()`.
 Po wydzieleniu i refaktoringu (czyli upiększeniu, aby kod był czytelniejszy i lepszy do ponownego użycia) funkcji generującej, postaraj się dopisać także przypadki dla 1/16, 1/32 i 1/64 mapy.
