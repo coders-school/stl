@@ -9,3 +9,4 @@ using CompressedImage = std::vector<std::pair<uint8_t, uint8_t>>;
 
 CompressedImage compressGrayscale(const Image&);
 Image decompressGrayscale(const CompressedImage&);
+void printMap(const Image& imgMap);

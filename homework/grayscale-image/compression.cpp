@@ -40,3 +40,17 @@ Image decompressGrayscale(const CompressedImage& compressedImage)
     }
     return decompressedImage;
 }
+
+void printMap(const Image& imgMap)
+{
+    for (const auto& row : imgMap) {
+        for (const auto& character : row) {
+            if (std::isprint(character)) {
+                std::cout << character;
+            } else {
+                std::cout << ' ';
+            }
+        }
+        std::cout << '\n';
+    }
+}
