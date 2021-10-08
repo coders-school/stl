@@ -1,11 +1,13 @@
 #include <array>
 #include <forward_list>
 #include "compression.hpp"
+#include <iostream>
 // TODO: include
 
 std::array<std::array<uint8_t, 32>, 32> generateNinja() {
     return {
-        std::array<uint8_t, 32>{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        std::array<uint8_t, 32>
+        {2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 36, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
         {0, 0, 0, 0, 0, 0, 0, 0, 11, 29, 52, 56, 56, 56, 56, 56, 56, 56, 56, 56, 56, 51, 29, 10, 0, 0, 0, 0, 0, 0, 0, 0},
         {0, 0, 0, 0, 0, 2, 12, 6, 21, 43, 64, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 64, 47, 25, 8, 0, 0, 0, 0, 0, 0, 0},
         {0, 0, 0, 0, 0, 33, 93, 61, 46, 57, 87, 93, 93, 93, 93, 93, 93, 93, 93, 93, 93, 93, 93, 93, 76, 0, 0, 0, 0, 0, 0, 0},
@@ -41,11 +43,20 @@ std::array<std::array<uint8_t, 32>, 32> generateNinja() {
 }
 
 int main() {
-    auto ninja = generateNinja();
-    // printMap(ninja);
-    auto compressed = compressGrayscale(ninja);
-    auto decompressed = decompressGrayscale(compressed);
-    // printMap(decompressed);
 
+
+    auto ninja = generateNinja();
+    printMap(ninja);
+    auto compressed = compressGrayscale(ninja);   
+    std::cout << '\n';
+
+    auto decompressed = decompressGrayscale(compressed);
+    printMap(decompressed);
+    std::cout << '\n';
+
+    auto compressed2 = compressGrayscale(decompressed);
+    auto decompressed2 = decompressGrayscale(compressed2);
+    printMap(decompressed2);
+    
     return 0;
 }
