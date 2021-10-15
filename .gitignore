@@ -49,3 +49,5 @@ googletest/
 *.exe
 *.out
 *.app
+homework/advanced-calculator/.vs/
+homework/advanced-calculator/cmake-build-debug/
