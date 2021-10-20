@@ -5,16 +5,36 @@
 #include <map>
 // #include <string>
 
+bool isValidOperation(char c) {
+    return c == '+' ||  c == '-' || c == '*' || c == '/' || c == '%' || c == '^' || c == '$' || c == '!';
+}
+
 ErrorCode process(std::string input, double* out) {
+
+    if (std::any_of(input.begin(), input.end(), [](auto x){return !(isdigit(x) || isValidOperation(x) || isspace(x)|| x == '.');}) ) {
+        return ErrorCode::BadCharacter;
+    }
+
+    if (isValidOperation(*input.begin()) && *input.begin() != '-' ) {
+
+    }
+
+
 
     size_t position;
     double firstNumber = std::stod(input, &position);
     input.erase(0, position);
     // std::cout << "after first " << input << '\n';
 
-    // std::erase_if(input, std::isspace);
+    std::erase_if(input, isspace);
 
-    std::erase(input, ' ');
+
+
+    // for (auto it = input.begin(); it != input.end();) {
+    // }
+
+
+    // std::erase(input, ' ');
     // std::cout << input << "after erase \n";
     // input.erase()
     char operation = input[0];  // wczesniej 1
@@ -25,10 +45,6 @@ ErrorCode process(std::string input, double* out) {
     }
 
     // std::cout << firstNumber << '_' << operation << '_' << secondNumber << '\n';
-    // std::function<int(int, int)> factorial = [&factorial](int a, int b) -> int {return a < 2 ? 1 : (a * factorial(a - 1, a));};
-    std::function<double(double, double)> factorial = [&factorial](double a, double b) -> double {return a < 2 ? 1 : (a * factorial(a - 1, a));};
-
-    // std::cout << "uuuuu \n\n   : " << factorial(2, 3) << "\n----\n";
 
     // std::map<char, std::function<double(double, double)>> operations {
     std::map<char, std::function<double(double, double)>> operations {
@@ -39,7 +55,7 @@ ErrorCode process(std::string input, double* out) {
         {'%', [](int a, int b){return a % b;}},
         {'^', [](double a, double b){return std::pow(a, b);}},
         {'$', [](double a, double b){return std::pow(a, 1/b);}},
-        {'!', factorial}
+        {'!', [](double a, double b){return a < 0 ? -std::tgamma(-a + 1) : std::tgamma(a + 1);}}
 
     };
 
