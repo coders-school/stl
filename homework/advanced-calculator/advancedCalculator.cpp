@@ -1,12 +1,13 @@
 #include "advancedCalculator.hpp"
 #include <algorithm>
 #include <cctype>
+#include <cmath>
 #include <functional>
 #include <iostream>
 #include <map>
 #include <string>
 
-auto sum = [](double a, double b) -> double {
+auto add = [](double a, double b) -> double {
     return a + b;
 };
 
@@ -14,8 +15,39 @@ auto subtract = [](double a, double b) -> double {
     return a - b;
 };
 
+auto multiply = [](double a, double b) -> double {
+    return a * b;
+};
+
+auto divide = [](double a, double b) -> double {
+    return a / b;
+};
+
+auto modulo = [](double a, double b) -> double {
+    return int(a) % int(b);
+};
+
+auto power = [](double a, double b) -> double {
+    return int(a) ^ int(b);
+};
+
+auto squareRoot = [](double a, double b) -> double {
+    return sqrt(a);
+};
+
+auto factorial = [](double a, double b) -> double {
+    return tgamma(a + 1);
+};
+
 std::map<char, std::function<double(double, double)>> operationsMap = {
-    {'+', sum}, {'-', subtract}
+    {'+', add},
+    {'-', subtract},
+    {'*', multiply},
+    {'/', divide},
+    {'%', modulo},
+    {'^', power},
+    {'$', squareRoot},
+    {'!', factorial}
 };
 
 ErrorCode process(std::string input, double* out) {
@@ -29,6 +61,30 @@ ErrorCode process(std::string input, double* out) {
         return ErrorCode::OK;
     case '-':
         lambda = operationsMap['-'];
+        *out = lambda(operation.a, operation.b);
+        return ErrorCode::OK;
+    case '*':
+        lambda = operationsMap['*'];
+        *out = lambda(operation.a, operation.b);
+        return ErrorCode::OK;
+    case '/':
+        lambda = operationsMap['/'];
+        *out = lambda(operation.a, operation.b);
+        return ErrorCode::OK;
+    case '%':
+        lambda = operationsMap['%'];
+        *out = lambda(operation.a, operation.b);
+        return ErrorCode::OK;
+    case '^':
+        lambda = operationsMap['^'];
+        *out = lambda(operation.a, operation.b);
+        return ErrorCode::OK;
+    case '$':
+        lambda = operationsMap['$'];
+        *out = lambda(operation.a, operation.b);
+        return ErrorCode::OK;
+    case '!':
+        lambda = operationsMap['!'];
         *out = lambda(operation.a, operation.b);
         return ErrorCode::OK;
     }
