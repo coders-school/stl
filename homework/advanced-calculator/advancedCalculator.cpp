@@ -50,7 +50,7 @@ std::map<char, std::function<double(double, double)>> operationsMap = {
     {'!', factorial}
 };
 
-ErrorCode process(std::string input, double* out) {
+ErrorCode process(const std::string & input, double* out) {
     Operation operation{};
     ErrorCode errorCode = parse(input, operation);
     std::function<double(double, double)> lambda;
