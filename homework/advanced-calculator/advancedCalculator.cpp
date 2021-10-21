@@ -107,19 +107,25 @@ ErrorCode parse(const std::string & string, Operation & operation) {
                     return std::isalpha(sign);
                 });
     if (containsCharacters) {
-        std::cout << "Contains characters!\n";
+        std::cout << "Contains wrong characters!\n";
         return ErrorCode::BadCharacter;
     }
     int indexSign = stringClean.find_first_of("+*/-%!^$");
     int indexNumber = stringClean.find_first_of("1234567890");
-    if (indexSign < indexNumber) {
+    if (indexSign < indexNumber && stringClean[indexSign] != '-') {
         std::cout << "Bad formatting!\n";
         return ErrorCode::BadFormat;
     }
-    operation.a = std::stoi(stringClean.substr(0, indexSign));
+    // TO DO: accept negative numbers
+    // TO DO: detect second operation sign
+    operation.a = std::stod(stringClean.substr(0, indexSign));
     operation.sign = stringClean[indexSign];
-    operation.b = std::stoi(stringClean.substr(indexSign + 1));
-    
+    if (operation.sign != '!') {
+        operation.b = std::stod(stringClean.substr(indexSign + 1));
+    } else {
+        operation.b = 0;
+    }
+
     // std::cout << string << '\n';
     // std::cout << stringClean << '\n';
     // std::cout << "Number A: " << operation.a << '\n';
