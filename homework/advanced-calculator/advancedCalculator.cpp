@@ -10,14 +10,25 @@ auto sum = [](double a, double b) -> double {
     return a + b;
 };
 
-std::map<char, std::function<double(double, double)>> operationsMap = { {'+', sum} };
+auto subtract = [](double a, double b) -> double {
+    return a - b;
+};
+
+std::map<char, std::function<double(double, double)>> operationsMap = {
+    {'+', sum}, {'-', subtract}
+};
 
 ErrorCode process(std::string input, double* out) {
     Operation operation{};
     ErrorCode errorCode = parse(input, operation);
+    std::function<double(double, double)> lambda;
     switch (operation.sign) {
     case '+':
-        auto lambda = operationsMap['+'];
+        lambda = operationsMap['+'];
+        *out = lambda(operation.a, operation.b);
+        return ErrorCode::OK;
+    case '-':
+        lambda = operationsMap['-'];
         *out = lambda(operation.a, operation.b);
         return ErrorCode::OK;
     }
