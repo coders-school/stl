@@ -11,48 +11,60 @@ bool isValidOperation(char c) {
 
 ErrorCode process(std::string input, double* out) {
 
-    if (std::any_of(input.begin(), input.end(), [](auto c){return !(isdigit(c) || isValidOperation(c) || isspace(c)|| c == '.');}) ) {
+    auto isOperationButNotMinus = [](auto c){ return isValidOperation(c) && c != '-';};
+
+    if (std::any_of(input.begin(), input.end(), [](auto c){return !(isdigit(c) || isValidOperation(c) || isspace(c) || c == '.' || c == ',');}) ) {
         return ErrorCode::BadCharacter;
     }
 
-    bool badFormat = false;
-
-    auto isOperationButNotMinus = [](auto c){ return isValidOperation(c) && c != '-';};
-    auto operationCounter = std::count_if(input.begin(), input.end(), isOperationButNotMinus);
+    int operationCounter = 0;
+    int minusCounter = 0;
+    int dotCounter = 0;
+    for (auto it = input.begin(); it != input.end(); it++) {
+        if (isOperationButNotMinus(*it)) {
+            ++operationCounter;
+        }
+        if (*it == '-') {
+            ++minusCounter;
+        }
+        if (*it == '!' && !input.ends_with(*it)) {
+            return ErrorCode::BadFormat;
+        }
+        if (*it == '.') {
+            ++dotCounter;
+        }
+        if (*it == ',') {
+            return ErrorCode::BadFormat;
+        }
+        
+    }
 
     if (isOperationButNotMinus(*input.begin())          // has operation sign at the beginning
-        || operationCounter > 2
-        ||  ) {
-
-    }
-
-    // if (isValidOperation(*input.begin()) && *input.begin() != '-' ) {
-    if (isValidOperation(*input.begin()) && *input.begin() != '-' ) {
-
-    }
-
-
-    for (auto it = input.begin(); it != input.end(); it++) {
-        
+        || operationCounter > 1
+        || dotCounter > 2
+        || minusCounter > 3) {
+            return ErrorCode::BadFormat;
     }
 
     size_t position;
     double firstNumber = std::stod(input, &position);
     input.erase(0, position);
-    // std::cout << "after first " << input << '\n';
-
     std::erase_if(input, isspace);
-
-    // std::erase(input, ' ');
-    // std::cout << input << "after erase \n";
     char operation = input[0];  // wczesniej 1
     input.erase(0, 1); // wczensiej 0, 2
     double secondNumber = 1.0; 
     if (operation != '!') {
         secondNumber = std::stod(input);
     }
-
-    // std::cout << firstNumber << '_' << operation << '_' << secondNumber << '\n';
+    if (operation == '/' && secondNumber == 0.0) {
+        return ErrorCode::DivideBy0;
+    }
+    if (operation == '%' && dotCounter > 0) {
+        return ErrorCode::ModuleOfNonIntegerValue;
+    }
+    if (operation == '$' && firstNumber < 0) {
+        return ErrorCode::SqrtOfNegativeNumber;
+    }
 
     std::map<char, std::function<double(double, double)>> operations {
         {'+', [](double a, double b){return a + b;}},
@@ -65,8 +77,6 @@ ErrorCode process(std::string input, double* out) {
         {'!', [](double a, double b){return a < 0 ? -std::tgamma(-a + 1) : std::tgamma(a + 1);}}
 
     };
-
     *out = operations[operation](firstNumber, secondNumber);
-
     return ErrorCode::OK;
 }
