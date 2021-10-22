@@ -9,6 +9,26 @@ bool isValidOperation(char c) {
     return c == '+' ||  c == '-' || c == '*' || c == '/' || c == '%' || c == '^' || c == '$' || c == '!';
 }
 
+template <typename... arguments>
+double calculate(char operation, arguments ...args) {
+
+    std::map<char, std::function<double(arguments ...args)>> operations {
+        {'+', [](double a, double b){return a + b;}},
+        {'-', [](double a, double b){return a - b;}},
+        {'*', [](double a, double b){return a * b;}},
+        {'/', [](double a, double b){return a / b;}},
+        {'%', [](int a, int b){return a % b;}},
+        {'^', [](double a, double b){return std::pow(a, b);}},
+        {'$', [](double a, double b){return std::pow(a, 1/b);}},
+        {'!', [](double a){return a < 0 ? -std::tgamma(-a + 1) : std::tgamma(a + 1);}}
+
+    };
+    // return operations[operation](a, b);
+    return operations[operation](args...);
+}
+
+
+
 ErrorCode process(std::string input, double* out) {
 
     auto isOperationButNotMinus = [](auto c){ return isValidOperation(c) && c != '-';};
@@ -66,17 +86,20 @@ ErrorCode process(std::string input, double* out) {
         return ErrorCode::SqrtOfNegativeNumber;
     }
 
-    std::map<char, std::function<double(double, double)>> operations {
-        {'+', [](double a, double b){return a + b;}},
-        {'-', [](double a, double b){return a - b;}},
-        {'*', [](double a, double b){return a * b;}},
-        {'/', [](double a, double b){return a / b;}},
-        {'%', [](int a, int b){return a % b;}},
-        {'^', [](double a, double b){return std::pow(a, b);}},
-        {'$', [](double a, double b){return std::pow(a, 1/b);}},
-        {'!', [](double a, double b){return a < 0 ? -std::tgamma(-a + 1) : std::tgamma(a + 1);}}
+    // std::map<char, std::function<double(double, double)>> operations {
+    //     {'+', [](double a, double b){return a + b;}},
+    //     {'-', [](double a, double b){return a - b;}},
+    //     {'*', [](double a, double b){return a * b;}},
+    //     {'/', [](double a, double b){return a / b;}},
+    //     {'%', [](int a, int b){return a % b;}},
+    //     {'^', [](double a, double b){return std::pow(a, b);}},
+    //     {'$', [](double a, double b){return std::pow(a, 1/b);}},
+    //     {'!', [](double a, double b){return a < 0 ? -std::tgamma(-a + 1) : std::tgamma(a + 1);}}
 
-    };
-    *out = operations[operation](firstNumber, secondNumber);
+    // };
+    // *out = operations[operation](firstNumber, secondNumber);
+
+    *out = calculate(operation, firstNumber, secondNumber);
+
     return ErrorCode::OK;
 }
