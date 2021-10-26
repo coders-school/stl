@@ -9,10 +9,8 @@ bool isValidOperation(char c) {
     return c == '+' ||  c == '-' || c == '*' || c == '/' || c == '%' || c == '^' || c == '$' || c == '!';
 }
 
-template <typename... arguments>
-double calculate(char operation, arguments ...args) {
-
-    std::map<char, std::function<double(arguments ...args)>> operations {
+double calculate(char operation, auto first, auto second) {
+    std::map<char, std::function<double(double, double)>> operations {
         {'+', [](double a, double b){return a + b;}},
         {'-', [](double a, double b){return a - b;}},
         {'*', [](double a, double b){return a * b;}},
@@ -20,11 +18,9 @@ double calculate(char operation, arguments ...args) {
         {'%', [](int a, int b){return a % b;}},
         {'^', [](double a, double b){return std::pow(a, b);}},
         {'$', [](double a, double b){return std::pow(a, 1/b);}},
-        {'!', [](double a){return a < 0 ? -std::tgamma(-a + 1) : std::tgamma(a + 1);}}
-
+        {'!', [](double a, double b){return a < 0 ? -std::tgamma(-a + 1) : std::tgamma(a + 1);}}
     };
-    // return operations[operation](a, b);
-    return operations[operation](args...);
+    return operations[operation](first, second);
 }
 
 
@@ -98,6 +94,12 @@ ErrorCode process(std::string input, double* out) {
 
     // };
     // *out = operations[operation](firstNumber, secondNumber);
+
+    // if (operation == '!') {
+    //     *out = calculate(operation, firstNumber);
+    // } else {
+    //     *out = calculate(operation, firstNumber, secondNumber);
+    // }
 
     *out = calculate(operation, firstNumber, secondNumber);
 
