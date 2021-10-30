@@ -38,7 +38,7 @@ endif()
 project(arithmeticAverage)
 enable_testing()
 
-add_executable(${PROJECT_NAME} main.cpp arithmeticAverage.cpp)
+add_executable(${PROJECT_NAME} )
 add_executable(${PROJECT_NAME}-ut test.cpp arithmeticAverage.cpp)
 
 target_link_libraries(${PROJECT_NAME}-ut gtest_main)
