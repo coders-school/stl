@@ -1,5 +1,9 @@
 #pragma once
 #include "arithmeticAverage.hpp"
+#include <algorithm>
+#include <cmath>
+#include <numeric>
+#include <vector>
 
 double ArithmeticAverage(const std::vector<int>& first, const std::vector<int>& second) {
     double sum = std::accumulate(first.begin(), first.end(),0) + std::accumulate(second.begin(), second.end(),0);
