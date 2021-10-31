@@ -38,8 +38,8 @@ endif()
 project(advancedCalculator)
 enable_testing()
 
-add_executable(${PROJECT_NAME} main.cpp advancedCalculator.cpp)
-add_executable(${PROJECT_NAME}-ut test.cpp advancedCalculator.cpp)
+add_executable(${PROJECT_NAME} main.cpp advancedCalculator.cpp advancedCalculator.hpp)
+add_executable(${PROJECT_NAME}-ut test.cpp advancedCalculator.cpp advancedCalculator.hpp)
 
 target_link_libraries(${PROJECT_NAME}-ut gtest_main)
 add_test(NAME ${PROJECT_NAME}_test COMMAND ${PROJECT_NAME}-ut)
