@@ -104,21 +104,28 @@ ErrorCode parse(const std::string & string, Operation & operation) {
                  [](auto sign) {
                      return (!isspace(sign));
                  });
-    bool containsCharacters = std::any_of(
+    bool containsAlphabeticCharacters = std::any_of(
                 cbegin(stringClean),
                 cend(stringClean),
                 [](auto sign) {
                     return std::isalpha(sign);
                 });
-    if (containsCharacters) {
-        std::cout << "Contains wrong characters!\n";
+    if (containsAlphabeticCharacters) {
         return ErrorCode::BadCharacter;
+    }
+    bool containsComma = std::any_of(
+                cbegin(stringClean),
+                cend(stringClean),
+                [](auto sign) {
+                    return sign == ',';
+                });
+    if (containsComma) {
+        return ErrorCode::BadFormat;
     }
     int indexSign = stringClean.find_first_of("+*/-%!^$");
     int indexNumber = stringClean.find_first_of("1234567890");
     if (indexSign < indexNumber) {
         if (stringClean[indexSign] != '-') {
-            std::cout << "Bad formatting!\n";
             return ErrorCode::BadFormat;
         }
         else {

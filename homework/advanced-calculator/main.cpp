@@ -15,7 +15,7 @@ int main() {
                 std::cout << "= " << result << '\n';
                 break;
             case ErrorCode::BadCharacter:
-                std::cout << "Error: contains alphabetic characters\n";
+                std::cout << "Error: Contains wrong characters\n";
                 break;
             case ErrorCode::BadFormat:
                 std::cout << "Error: Bad command formatting\n";
