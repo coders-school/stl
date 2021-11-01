@@ -93,7 +93,7 @@ ErrorCode process(const std::string & input, double* out) {
 }
 
 ErrorCode parse(const std::string & string, Operation & operation) {
-    std::string stringClean{};
+    std::string stringClean{};  // string without spaces
     std::copy_if(cbegin(string),
                  cend(string),
                  std::back_inserter(stringClean),
@@ -112,12 +112,18 @@ ErrorCode parse(const std::string & string, Operation & operation) {
     }
     int indexSign = stringClean.find_first_of("+*/-%!^$");
     int indexNumber = stringClean.find_first_of("1234567890");
-    if (indexSign < indexNumber && stringClean[indexSign] != '-') {
-        std::cout << "Bad formatting!\n";
-        return ErrorCode::BadFormat;
+    if (indexSign < indexNumber) {
+        if (stringClean[indexSign] != '-') {
+            std::cout << "Bad formatting!\n";
+            return ErrorCode::BadFormat;
+        }
+        else {
+            indexSign = stringClean.find_first_of("+*/-%!^$", indexSign + 1);
+        }
     }
-    // TO DO: accept negative numbers
-    // TO DO: detect second operation sign
+
+    // TO DO: disallow operator at the end if other than '!'
+
     operation.a = std::stod(stringClean.substr(0, indexSign));
     operation.sign = stringClean[indexSign];
     if (operation.sign != '!') {
@@ -132,5 +138,5 @@ ErrorCode parse(const std::string & string, Operation & operation) {
     // std::cout << "Sign: " << operation.sign << '\n';
     // std::cout << "Number B: " << operation.b << '\n';
 
-    return ErrorCode::Undefined;
+    return ErrorCode::OK;
 }
