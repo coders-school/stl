@@ -31,12 +31,16 @@ auto power = [](double a, double b) -> double {
     return std::pow(a, b);
 };
 
-auto squareRoot = [](double a, double b) -> double {
-    return sqrt(a);
+auto root = [](double a, double b) -> double {
+    return std::pow(a, 1 / b);
 };
 
 auto factorial = [](double a, double b) -> double {
-    return tgamma(a + 1);
+    if (a >= 0) {
+        return tgamma(a + 1);
+    } else {
+        return - tgamma(- a + 1);
+    }
 };
 
 std::map<char, std::function<double(double, double)>> operationsMap = {
@@ -46,7 +50,7 @@ std::map<char, std::function<double(double, double)>> operationsMap = {
     {'/', divide},
     {'%', modulo},
     {'^', power},
-    {'$', squareRoot},
+    {'$', root},
     {'!', factorial}
 };
 
