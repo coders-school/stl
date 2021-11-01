@@ -28,7 +28,7 @@ auto modulo = [](double a, double b) -> double {
 };
 
 auto power = [](double a, double b) -> double {
-    return int(a) ^ int(b);
+    return std::pow(a, b);
 };
 
 auto squareRoot = [](double a, double b) -> double {
