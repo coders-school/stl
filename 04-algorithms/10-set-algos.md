@@ -45,7 +45,7 @@ std::vector<int> union;
 std::set_union(v1.begin(), v1.end(),
                v2.begin(), v2.end(),
                std::back_inserter(union));
-// union = {1, 2, 2, 5, 5, 5, 5, 7, 9}
+// union = {1, 2, 5, 5, 5, 7, 9}
 ```
 <!-- .element: class="fragment fade-in" -->
 
