@@ -97,26 +97,27 @@ ErrorCode process(const std::string & input, double* out) {
     case '!':
         lambda = operationsMap['!'];
         *out = lambda(operation.a, operation.b);
-        return ErrorCode::OK;
+        return errorCode;
     }
     // out = nullptr;
     return errorCode;
 }
 
-ErrorCode parse(const std::string & string, Operation & operation) {
+ErrorCode parse(const std::string& string, Operation& operation) {
     std::string stringClean{};  // string without spaces
-    std::copy_if(cbegin(string),
-                 cend(string),
-                 std::back_inserter(stringClean),
-                 [](auto sign) {
-                     return (!isspace(sign));
-                 });
+    std::copy_if(
+        cbegin(string),
+        cend(string),
+        std::back_inserter(stringClean),
+        [](auto sign) {
+            return (!isspace(sign));
+        });
     bool containsAlphabeticCharacters = std::any_of(
-                cbegin(stringClean),
-                cend(stringClean),
-                [](auto sign) {
-                    return std::isalpha(sign);
-                });
+        cbegin(stringClean),
+        cend(stringClean),
+        [](auto sign) {
+            return std::isalpha(sign);
+        });
     if (containsAlphabeticCharacters) {
         return ErrorCode::BadCharacter;
     }
@@ -126,12 +127,20 @@ ErrorCode parse(const std::string & string, Operation & operation) {
     }
 
     bool containsComma = std::any_of(
-                cbegin(stringClean),
-                cend(stringClean),
-                [](auto sign) {
-                    return sign == ',';
-                });
+        cbegin(stringClean),
+        cend(stringClean),
+        [](auto sign) {
+            return sign == ',';
+        });
     if (containsComma) {
+        return ErrorCode::BadFormat;
+    }
+
+    size_t commaCounter = std::count(
+        cbegin(stringClean),
+        cend(stringClean),
+        '.');
+    if (commaCounter > 2) {
         return ErrorCode::BadFormat;
     }
 
@@ -159,8 +168,8 @@ ErrorCode parse(const std::string & string, Operation & operation) {
             std::cout << "Second operation sign behind last number\n";
             return ErrorCode::BadFormat;
         }
-        else if (stringClean[indexFurtherSign] == '+') {
-            std::cout << "'+' sign before last number\n";
+        else if (stringClean[indexFurtherSign] != '-') {
+            std::cout << "Unalowed sign before last number\n";
             return ErrorCode::BadFormat;
         }
     }
@@ -170,7 +179,14 @@ ErrorCode parse(const std::string & string, Operation & operation) {
     if (operation.sign != '!') {
         operation.b = std::stod(stringClean.substr(indexOperationSign + 1));
     } else {
-        operation.b = 0;
+        auto string = stringClean.substr(indexOperationSign + 1);
+        if (string.length() > 0) {
+            std::cout << "string size: " << string.length() << '\n';
+            std::cout << "Unalowed number after '!' \n";
+            return ErrorCode::BadFormat;
+        } else {
+            operation.b = 0;
+        }
     }
 
     return ErrorCode::OK;
