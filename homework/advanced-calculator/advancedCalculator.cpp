@@ -7,6 +7,9 @@
 #include <map>
 #include <string>
 
+std::string operationSigns = "+*/-%!^$";
+std::string digits = "1234567890";
+
 auto add = [](double a, double b) -> double {
     return a + b;
 };
@@ -113,6 +116,7 @@ ErrorCode parse(const std::string & string, Operation & operation) {
     if (containsAlphabeticCharacters) {
         return ErrorCode::BadCharacter;
     }
+
     bool containsComma = std::any_of(
                 cbegin(stringClean),
                 cend(stringClean),
@@ -122,32 +126,50 @@ ErrorCode parse(const std::string & string, Operation & operation) {
     if (containsComma) {
         return ErrorCode::BadFormat;
     }
-    int indexSign = stringClean.find_first_of("+*/-%!^$");
-    int indexNumber = stringClean.find_first_of("1234567890");
-    if (indexSign < indexNumber) {
-        if (stringClean[indexSign] != '-') {
+
+    auto indexFirstNumber = stringClean.find_first_of(digits);
+    auto indexFirstSign = stringClean.find_first_of(operationSigns);
+    auto indexOperationSign{std::string::npos};
+    if (indexFirstSign < indexFirstNumber) {
+        if (stringClean[indexFirstSign] != '-') {
             return ErrorCode::BadFormat;
+            std::cout << "Wrong operation sign in beginning detected\n";
+        } else {
+            indexOperationSign = stringClean.find_first_of(operationSigns, indexFirstSign + 1);
         }
-        else {
-            indexSign = stringClean.find_first_of("+*/-%!^$", indexSign + 1);
+    } else {
+        indexOperationSign = indexFirstSign;
+    }
+    std::cout << "Operation sign:" << stringClean[indexOperationSign] << "\n";
+
+    auto indexSecondNumber = stringClean.find_first_of(digits, indexOperationSign + 1);
+    auto indexFurtherSign = stringClean.find_first_of(operationSigns, indexOperationSign + 1);
+
+    // if ((indexFurtherSign != std::string::npos) || (!((indexFurtherSign < indexSecondNumber) && (stringClean[indexFurtherSign] == '-')))) {
+    //     std::cout << "Second operation sign detected\n";
+    //     return ErrorCode::BadFormat;
+    // }
+
+    // if ((indexFurtherSign != std::string::npos)) {
+    //     std::cout << "Second operation sign detected\n";
+    //     std::cout << "Further operation sign:" << stringClean[indexFurtherSign] << "\n";
+    //     return ErrorCode::BadFormat;
+    // }
+
+    if ((indexFurtherSign != std::string::npos)) {
+        std::cout << "Second operation sign detected\n";
+        if (!(indexFurtherSign < indexSecondNumber) && (stringClean[indexFurtherSign] == '-')) {
+            return ErrorCode::BadFormat;
         }
     }
 
-    // TO DO: disallow operator at the end if other than '!'
-
-    operation.a = std::stod(stringClean.substr(0, indexSign));
-    operation.sign = stringClean[indexSign];
+    operation.a = std::stod(stringClean.substr(0, indexOperationSign));
+    operation.sign = stringClean[indexOperationSign];
     if (operation.sign != '!') {
-        operation.b = std::stod(stringClean.substr(indexSign + 1));
+        operation.b = std::stod(stringClean.substr(indexOperationSign + 1));
     } else {
         operation.b = 0;
     }
-
-    // std::cout << string << '\n';
-    // std::cout << stringClean << '\n';
-    // std::cout << "Number A: " << operation.a << '\n';
-    // std::cout << "Sign: " << operation.sign << '\n';
-    // std::cout << "Number B: " << operation.b << '\n';
 
     return ErrorCode::OK;
 }
