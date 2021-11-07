@@ -8,6 +8,7 @@
 #include <string>
 
 std::string operationSigns = "+*/-%!^$";
+std::string unalowedOperationSigns = "\"#&'():;<=>?@[\\]_`";
 std::string digits = "1234567890";
 
 auto add = [](double a, double b) -> double {
@@ -75,6 +76,9 @@ ErrorCode process(const std::string & input, double* out) {
         *out = lambda(operation.a, operation.b);
         return ErrorCode::OK;
     case '/':
+        if (operation.b == 0) {
+            return ErrorCode::DivideBy0;
+        }
         lambda = operationsMap['/'];
         *out = lambda(operation.a, operation.b);
         return ErrorCode::OK;
@@ -117,6 +121,10 @@ ErrorCode parse(const std::string & string, Operation & operation) {
         return ErrorCode::BadCharacter;
     }
 
+    if (stringClean.find_first_of(unalowedOperationSigns) != std::string::npos) {
+        return ErrorCode::BadCharacter;
+    }
+
     bool containsComma = std::any_of(
                 cbegin(stringClean),
                 cend(stringClean),
@@ -145,20 +153,14 @@ ErrorCode parse(const std::string & string, Operation & operation) {
     auto indexSecondNumber = stringClean.find_first_of(digits, indexOperationSign + 1);
     auto indexFurtherSign = stringClean.find_first_of(operationSigns, indexOperationSign + 1);
 
-    // if ((indexFurtherSign != std::string::npos) || (!((indexFurtherSign < indexSecondNumber) && (stringClean[indexFurtherSign] == '-')))) {
-    //     std::cout << "Second operation sign detected\n";
-    //     return ErrorCode::BadFormat;
-    // }
-
-    // if ((indexFurtherSign != std::string::npos)) {
-    //     std::cout << "Second operation sign detected\n";
-    //     std::cout << "Further operation sign:" << stringClean[indexFurtherSign] << "\n";
-    //     return ErrorCode::BadFormat;
-    // }
-
     if ((indexFurtherSign != std::string::npos)) {
-        std::cout << "Second operation sign detected\n";
-        if (!(indexFurtherSign < indexSecondNumber) && (stringClean[indexFurtherSign] == '-')) {
+        std::cout << "Second sign detected\n";
+        if (indexFurtherSign > indexSecondNumber) {
+            std::cout << "Second operation sign behind last number\n";
+            return ErrorCode::BadFormat;
+        }
+        else if (stringClean[indexFurtherSign] == '+') {
+            std::cout << "'+' sign before last number\n";
             return ErrorCode::BadFormat;
         }
     }
