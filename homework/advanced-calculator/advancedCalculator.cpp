@@ -91,6 +91,9 @@ ErrorCode process(const std::string & input, double* out) {
         *out = lambda(operation.a, operation.b);
         return ErrorCode::OK;
     case '$':
+        if (operation.a < 0) {
+            return ErrorCode::SqrtOfNegativeNumber;
+        }
         lambda = operationsMap['$'];
         *out = lambda(operation.a, operation.b);
         return ErrorCode::OK;
@@ -99,7 +102,6 @@ ErrorCode process(const std::string & input, double* out) {
         *out = lambda(operation.a, operation.b);
         return errorCode;
     }
-    // out = nullptr;
     return errorCode;
 }
 
@@ -144,6 +146,7 @@ ErrorCode parse(const std::string& string, Operation& operation) {
         return ErrorCode::BadFormat;
     }
 
+
     auto indexFirstNumber = stringClean.find_first_of(digits);
     auto indexFirstSign = stringClean.find_first_of(operationSigns);
     auto indexOperationSign{std::string::npos};
@@ -157,7 +160,10 @@ ErrorCode parse(const std::string& string, Operation& operation) {
     } else {
         indexOperationSign = indexFirstSign;
     }
-    std::cout << "Operation sign:" << stringClean[indexOperationSign] << "\n";
+
+    if (commaCounter && (stringClean[indexOperationSign] == '%')) {
+        return ErrorCode::ModuleOfNonIntegerValue;
+    }
 
     auto indexSecondNumber = stringClean.find_first_of(digits, indexOperationSign + 1);
     auto indexFurtherSign = stringClean.find_first_of(operationSigns, indexOperationSign + 1);
@@ -188,6 +194,9 @@ ErrorCode parse(const std::string& string, Operation& operation) {
             operation.b = 0;
         }
     }
+    // std::cout << "operation.a: " << operation.a << '\n';
+    // std::cout << "operation.sign: " << operation.sign << '\n';
+    // std::cout << "operation.b: " << operation.b << '\n';
 
     return ErrorCode::OK;
 }
