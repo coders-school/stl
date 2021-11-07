@@ -1,8 +1,6 @@
 #include "advancedCalculator.hpp"
 #include <algorithm>
-#include <cctype>
 #include <cmath>
-#include <functional>
 #include <iostream>
 #include <map>
 #include <string>
