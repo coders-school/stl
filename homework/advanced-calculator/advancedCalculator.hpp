@@ -19,5 +19,5 @@ struct Operation {
     double b;
 };
 
-ErrorCode process(const std::string&, double*);
 ErrorCode parse(const std::string&, Operation&);
+ErrorCode process(const std::string&, double*);
