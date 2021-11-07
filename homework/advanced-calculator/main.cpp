@@ -11,18 +11,18 @@ int main() {
         std::getline(std::cin, input);
         error = process(input, &result);
         switch (error) {
-            case ErrorCode::OK:
-                std::cout << "= " << result << '\n';
-                break;
-            case ErrorCode::BadCharacter:
-                std::cout << "Error: Contains wrong characters\n";
-                break;
-            case ErrorCode::BadFormat:
-                std::cout << "Error: Bad command formatting\n";
-                break;
-            case ErrorCode::Undefined:
-                std::cout << "Error: Something went wrong\n";
-                break;
+        case ErrorCode::OK:
+            std::cout << "= " << result << '\n';
+            break;
+        case ErrorCode::BadCharacter:
+            std::cout << "Error: Contains wrong characters\n";
+            break;
+        case ErrorCode::BadFormat:
+            std::cout << "Error: Bad command formatting\n";
+            break;
+        case ErrorCode::Undefined:
+            std::cout << "Error: Something went wrong\n";
+            break;
         }
     }
 }

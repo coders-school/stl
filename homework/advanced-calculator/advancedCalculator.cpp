@@ -43,7 +43,7 @@ auto factorial = [](double a, double b) -> double {
     if (a >= 0) {
         return tgamma(a + 1);
     } else {
-        return - tgamma(- a + 1);
+        return -tgamma(-a + 1);
     }
 };
 
@@ -55,10 +55,9 @@ std::map<char, std::function<double(double, double)>> operationsMap = {
     {'%', modulo},
     {'^', power},
     {'$', root},
-    {'!', factorial}
-};
+    {'!', factorial}};
 
-ErrorCode process(const std::string & input, double* out) {
+ErrorCode process(const std::string& input, double* out) {
     Operation operation{};
     ErrorCode errorCode = parse(input, operation);
     std::function<double(double, double)> lambda;
@@ -146,7 +145,6 @@ ErrorCode parse(const std::string& string, Operation& operation) {
         return ErrorCode::BadFormat;
     }
 
-
     auto indexFirstNumber = stringClean.find_first_of(digits);
     auto indexFirstSign = stringClean.find_first_of(operationSigns);
     auto indexOperationSign{std::string::npos};
@@ -173,8 +171,7 @@ ErrorCode parse(const std::string& string, Operation& operation) {
         if (indexFurtherSign > indexSecondNumber) {
             std::cout << "Second operation sign behind last number\n";
             return ErrorCode::BadFormat;
-        }
-        else if (stringClean[indexFurtherSign] != '-') {
+        } else if (stringClean[indexFurtherSign] != '-') {
             std::cout << "Unalowed sign before last number\n";
             return ErrorCode::BadFormat;
         }
