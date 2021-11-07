@@ -134,6 +134,7 @@ ErrorCode parse(const std::string& string, Operation& operation) {
             return sign == ',';
         });
     if (containsComma) {
+        std::cout << "Error: Wrong comma format. Should be '.' instead of '''\n";
         return ErrorCode::BadFormat;
     }
 
@@ -142,6 +143,7 @@ ErrorCode parse(const std::string& string, Operation& operation) {
         cend(stringClean),
         '.');
     if (commaCounter > 2) {
+        std::cout << "Error: Too many commas\n";
         return ErrorCode::BadFormat;
     }
 
@@ -150,8 +152,8 @@ ErrorCode parse(const std::string& string, Operation& operation) {
     auto indexOperationSign{std::string::npos};
     if (indexFirstSign < indexFirstNumber) {
         if (stringClean[indexFirstSign] != '-') {
+            std::cout << "Error: Wrong operation sign in beginning detected\n";
             return ErrorCode::BadFormat;
-            std::cout << "Wrong operation sign in beginning detected\n";
         } else {
             indexOperationSign = stringClean.find_first_of(operationSigns, indexFirstSign + 1);
         }
@@ -167,12 +169,11 @@ ErrorCode parse(const std::string& string, Operation& operation) {
     auto indexFurtherSign = stringClean.find_first_of(operationSigns, indexOperationSign + 1);
 
     if ((indexFurtherSign != std::string::npos)) {
-        std::cout << "Second sign detected\n";
         if (indexFurtherSign > indexSecondNumber) {
-            std::cout << "Second operation sign behind last number\n";
+            std::cout << "Error: Second operation sign behind last number\n";
             return ErrorCode::BadFormat;
         } else if (stringClean[indexFurtherSign] != '-') {
-            std::cout << "Unalowed sign before last number\n";
+            std::cout << "Error: Unalowed sign before last number\n";
             return ErrorCode::BadFormat;
         }
     }
@@ -184,8 +185,7 @@ ErrorCode parse(const std::string& string, Operation& operation) {
     } else {
         auto string = stringClean.substr(indexOperationSign + 1);
         if (string.length() > 0) {
-            std::cout << "string size: " << string.length() << '\n';
-            std::cout << "Unalowed number after '!' \n";
+            std::cout << "Error: Unalowed number after '!' \n";
             return ErrorCode::BadFormat;
         } else {
             operation.b = 0;
