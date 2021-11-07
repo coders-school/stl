@@ -1,13 +1,14 @@
 #include "advancedCalculator.hpp"
 #include <algorithm>
 #include <cmath>
+#include <functional>
 #include <iostream>
 #include <map>
 #include <string>
 
-std::string operationSigns = "+*/-%!^$";
-std::string unalowedOperationSigns = "\"#&'():;<=>?@[\\]_`";
-std::string digits = "1234567890";
+const std::string operationSigns = "+*/-%!^$";
+const std::string unalowedOperationSigns = "\"#&'():;<=>?@[\\]_`";
+const std::string digits = "1234567890";
 
 auto add = [](double a, double b) -> double {
     return a + b;
