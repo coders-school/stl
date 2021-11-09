@@ -1,59 +1,34 @@
 #include "compression.hpp"
 #include <algorithm>
+#include <utility>
+#include <iterator>
 
+//std::vector<std::pair<uint8_t, uint8_t>> compressGrayscaleSTL(std::array<std::array<uint8_t, width>, height> & bitmap)
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array<uint8_t, width>, height> & bitmap)
 {
     std::vector<std::pair<uint8_t, uint8_t>> compressed;
-    
-
-    for(size_t rowNumber = 0; rowNumber < height; rowNumber++)
-    {
-        for(size_t columnNumber = 0; columnNumber < width; columnNumber++)
+    std::for_each(bitmap.begin(), bitmap.end(), 
+        [&compressed](const auto & row)
         {
-            uint8_t number = bitmap[rowNumber][columnNumber];
-            uint8_t quantity{1};
-            while(number == bitmap[rowNumber][columnNumber+1])
-            {
-                columnNumber++;
-                quantity++;
-                if(columnNumber == width -1 )
+            uint8_t sign = row[0];
+            uint8_t qty{0};
+            std::for_each(row.begin(), row.end(), 
+                [&sign, &qty, &compressed, &row](const auto & elem) mutable
                 {
-                    break;
+                    if(sign == elem)
+                    {
+                        qty++;
+                    }
+                    if(sign != elem || &elem == std::prev(row.end()))
+                    {
+                        compressed.push_back(std::make_pair(sign, qty));
+                        sign = elem;
+                        qty = 1;
+                    }
                 }
-            }
-            auto p = std::make_pair(number,quantity);
-            compressed.push_back(p);
+            );
         }
-    }
-    return compressed;
-
-
-    
-
-}
-
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale2(std::array<std::array<uint8_t, width>, height> & bitmap)
-{
-    std::vector<std::pair<uint8_t, uint8_t>> compressed;
-    auto lama =  [counter{0U}, &compressed,  i{0U}] ( uint8_t & value) mutable 
-    {
-        i++;
-        static uint8_t prevValue = value;
-        if(value == prevValue){
-            counter++;
-        }else{
-            compressed.push_back(std::make_pair(prevValue,counter));
-            counter = 1U;
-            prevValue = value;
-        }
-        if(i == width){
-            compressed.push_back(std::make_pair(prevValue,counter));
-        }
-        
-    };
-    auto takeArray = [&lama](auto & array){std::for_each(array.begin(),array.end(),lama);};
-    std::for_each(bitmap.begin(),bitmap.end(),takeArray);
-
+    );
     return compressed;
 }
 
@@ -123,33 +98,6 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<s
 } 
 
 //***********************************************************************************************
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale2(std::array<std::array<uint8_t, width>, height> bitmap)
-{
-    std::vector<std::pair<uint8_t, uint8_t>> compressed;
-    
-    int row{};
-    for(size_t columnNumber = 0; columnNumber < width; columnNumber++) // column
-    {
-        uint8_t number = bitmap[row][columnNumber];
-        uint8_t quantity{1};
-        while(number == bitmap[row][columnNumber+1])
-        {
-            columnNumber++;
-            quantity++;
-            if(columnNumber == width)
-            {
-                row++;
-                columnNumber=0;
-            }
-        }
-        auto p = std::make_pair(number,quantity);
-        compressed.push_back(p);
-    }
-    
-    //for(int i =0; i<10; i++)
-     //   std::cout<<(int)compressed[i].first<<" "<<(int)compressed[i].second<<'\n';
-    return compressed;
-}
 
 void printMap2(std::vector<std::pair<uint8_t, uint8_t>> bitmap)
 {
@@ -175,24 +123,7 @@ void printMap2(std::vector<std::pair<uint8_t, uint8_t>> bitmap)
     }
 }
 
-void printMap3(std::array<std::array<uint8_t, width>, height> array)
-{
-    for(int i = 0; i < height; i++)
-    {
-        for(int j = 0; j < height; j++)
-        {
-            // char sign = array.at(i).at(j); 
-            // if(!std::isprint(sign)  || std::isspace(sign))
-            //     std::cout<<' ';
-            // else
-            //     std::cout<<sign;
-            uint8_t sign = array.at(i).at(j); 
-            std::cout<<static_cast<int>(sign)<<' ';
-            
-        }
-        std::cout<<'\n';
-    }
-}
+
 
 void printPair(std::vector<std::pair<uint8_t, uint8_t>> &bitmap)
 {
@@ -247,4 +178,31 @@ void whatDiffrent(std::vector<std::pair<uint8_t, uint8_t>> &bitmap1,
     }
        
     std::cout<<std::endl;
+}
+
+
+
+std::array<std::array<uint8_t, width>, height> decompressGrayscaleSTL(std::vector<std::pair<uint8_t, uint8_t>> vector)
+{
+    std::array<std::array<uint8_t, width>, height> decompressed;
+    uint8_t row{};
+    uint8_t column{};
+    for(int i = 0; i < vector.size(); ++i)
+    {
+        auto pair = vector[i];
+        for(int j = 0; j < pair.second; j++)
+        {
+            decompressed[row][column] = pair.first;
+            column++; 
+            if(column == width )
+            {
+                column = 0;
+                row++;
+            }
+        }
+    }
+
+    //std::for_each()
+
+    return decompressed;
 }

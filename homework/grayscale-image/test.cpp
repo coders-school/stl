@@ -96,96 +96,96 @@ TEST(compressionTests, ShouldCompressOneEighthLines) {
     expectBitmap(bitmap, 8);
 }
 
-TEST(compressionTests, ShouldDecompressWholeLines) {
-    constexpr size_t fraction = 1;
-    auto bitmap = getBitmap(fraction);
+// TEST(compressionTests, ShouldDecompressWholeLines) {
+//     constexpr size_t fraction = 1;
+//     auto bitmap = getBitmap(fraction);
 
-    auto map = decompressGrayscale(bitmap);
-    ASSERT_EQ(bitmap.size(), height);
-    for (const auto& row : map) {
-        for (const uint8_t color : row) {
-            EXPECT_EQ(color, 0);
-        }
-    }
-}
+//     auto map = decompressGrayscale(bitmap);
+//     ASSERT_EQ(bitmap.size(), height);
+//     for (const auto& row : map) {
+//         for (const uint8_t color : row) {
+//             EXPECT_EQ(color, 0);
+//         }
+//     }
+// }
 
-TEST(compressionTests, ShouldDecompressHalfLines) {
-    constexpr size_t fraction = 2;
-    auto bitmap = getBitmap(fraction);
+// TEST(compressionTests, ShouldDecompressHalfLines) {
+//     constexpr size_t fraction = 2;
+//     auto bitmap = getBitmap(fraction);
 
-    auto map = decompressGrayscale(bitmap);
-    ASSERT_EQ(map.size(), height);
-    for (const auto& row : map) {
-        for (size_t i = 0; i < row.size() / fraction; ++i) {
-            EXPECT_EQ(row[i], 0);
-        }
-        for (size_t i = row.size() / fraction; i < row.size(); ++i) {
-            EXPECT_EQ(row[i], 1);
-        }
-    }
-}
+//     auto map = decompressGrayscale(bitmap);
+//     ASSERT_EQ(map.size(), height);
+//     for (const auto& row : map) {
+//         for (size_t i = 0; i < row.size() / fraction; ++i) {
+//             EXPECT_EQ(row[i], 0);
+//         }
+//         for (size_t i = row.size() / fraction; i < row.size(); ++i) {
+//             EXPECT_EQ(row[i], 1);
+//         }
+//     }
+// }
 
-TEST(compressionTests, ShouldDecompressQuaterLines) {
-    constexpr size_t fraction = 4;
-    auto bitmap = getBitmap(fraction);
+// TEST(compressionTests, ShouldDecompressQuaterLines) {
+//     constexpr size_t fraction = 4;
+//     auto bitmap = getBitmap(fraction);
 
-    auto map = decompressGrayscale(bitmap);
-    ASSERT_EQ(map.size(), height);
-    for (const auto& row : map) {
-        for (size_t i = 0; i < row.size() / fraction; ++i) {
-            EXPECT_EQ(row[i], 0);
-        }
-        for (size_t i = row.size() / fraction; i < row.size() / fraction * 2; ++i) {
-            EXPECT_EQ(row[i], 1);
-        }
-        for (size_t i = row.size() / fraction * 2; i < row.size() / (fraction / 3.0); ++i) {
-            EXPECT_EQ(row[i], 2);
-        }
-        for (size_t i = row.size() / (fraction / 3.0); i < row.size(); ++i) {
-            EXPECT_EQ(row[i], 3);
-        }
-    }
-}
+//     auto map = decompressGrayscale(bitmap);
+//     ASSERT_EQ(map.size(), height);
+//     for (const auto& row : map) {
+//         for (size_t i = 0; i < row.size() / fraction; ++i) {
+//             EXPECT_EQ(row[i], 0);
+//         }
+//         for (size_t i = row.size() / fraction; i < row.size() / fraction * 2; ++i) {
+//             EXPECT_EQ(row[i], 1);
+//         }
+//         for (size_t i = row.size() / fraction * 2; i < row.size() / (fraction / 3.0); ++i) {
+//             EXPECT_EQ(row[i], 2);
+//         }
+//         for (size_t i = row.size() / (fraction / 3.0); i < row.size(); ++i) {
+//             EXPECT_EQ(row[i], 3);
+//         }
+//     }
+// }
 
-TEST(compressionTests, ShouldDecompressOneEighthLines) {
-    constexpr size_t fraction = 8;
-    auto bitmap = getBitmap(fraction);
+// TEST(compressionTests, ShouldDecompressOneEighthLines) {
+//     constexpr size_t fraction = 8;
+//     auto bitmap = getBitmap(fraction);
 
-    auto map = decompressGrayscale(bitmap);
-    ASSERT_EQ(map.size(), height);
-    for (const auto& row : map) {
-        for (size_t i = 0; i < row.size() / fraction; ++i) {
-            EXPECT_EQ(row[i], 0);
-        }
-        for (size_t i = row.size() / (fraction / 1.0); i < row.size() / (fraction / 2.0); ++i) {
-            EXPECT_EQ(row[i], 1);
-        }
-        for (size_t i = row.size() / (fraction / 2.0); i < row.size() / (fraction / 3.0); ++i) {
-            EXPECT_EQ(row[i], 2);
-        }
-        for (size_t i = row.size() / (fraction / 3.0); i < row.size() / (fraction / 4.0); ++i) {
-            EXPECT_EQ(row[i], 3);
-        }
-        for (size_t i = row.size() / (fraction / 4.0); i < row.size() / (fraction / 5.0); ++i) {
-            EXPECT_EQ(row[i], 4);
-        }
-        for (size_t i = row.size() / (fraction / 5.0); i < row.size() / (fraction / 6.0); ++i) {
-            EXPECT_EQ(row[i], 5);
-        }
-        for (size_t i = row.size() / (fraction / 6.0); i < row.size() / (fraction / 7.0); ++i) {
-            EXPECT_EQ(row[i], 6);
-        }
-        for (size_t i = row.size() / (fraction / 7.0); i < row.size(); ++i) {
-            EXPECT_EQ(row[i], 7);
-        }
-    }
-}
+//     auto map = decompressGrayscale(bitmap);
+//     ASSERT_EQ(map.size(), height);
+//     for (const auto& row : map) {
+//         for (size_t i = 0; i < row.size() / fraction; ++i) {
+//             EXPECT_EQ(row[i], 0);
+//         }
+//         for (size_t i = row.size() / (fraction / 1.0); i < row.size() / (fraction / 2.0); ++i) {
+//             EXPECT_EQ(row[i], 1);
+//         }
+//         for (size_t i = row.size() / (fraction / 2.0); i < row.size() / (fraction / 3.0); ++i) {
+//             EXPECT_EQ(row[i], 2);
+//         }
+//         for (size_t i = row.size() / (fraction / 3.0); i < row.size() / (fraction / 4.0); ++i) {
+//             EXPECT_EQ(row[i], 3);
+//         }
+//         for (size_t i = row.size() / (fraction / 4.0); i < row.size() / (fraction / 5.0); ++i) {
+//             EXPECT_EQ(row[i], 4);
+//         }
+//         for (size_t i = row.size() / (fraction / 5.0); i < row.size() / (fraction / 6.0); ++i) {
+//             EXPECT_EQ(row[i], 5);
+//         }
+//         for (size_t i = row.size() / (fraction / 6.0); i < row.size() / (fraction / 7.0); ++i) {
+//             EXPECT_EQ(row[i], 6);
+//         }
+//         for (size_t i = row.size() / (fraction / 7.0); i < row.size(); ++i) {
+//             EXPECT_EQ(row[i], 7);
+//         }
+//     }
+// }
 
-TEST(compressionTests, ShouldCompressAndDecompress) {
-    constexpr size_t fraction = 16;
-    auto input = getBitmap(fraction);
-    auto map = decompressGrayscale(input);
-    auto bitmap = compressGrayscale(map);
-    ASSERT_TRUE(bitmap.size() == input.size());
-    EXPECT_EQ(bitmap, input);
-}
+// TEST(compressionTests, ShouldCompressAndDecompress) {
+//     constexpr size_t fraction = 16;
+//     auto input = getBitmap(fraction);
+//     auto map = decompressGrayscale(input);
+//     auto bitmap = compressGrayscale(map);
+//     ASSERT_TRUE(bitmap.size() == input.size());
+//     EXPECT_EQ(bitmap, input);
+// }
