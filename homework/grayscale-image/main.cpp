@@ -40,20 +40,64 @@ std::array<std::array<uint8_t, 32>, 32> generateNinja() {
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 41, 41, 41, 28, 0, 0, 29, 41, 41, 41, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     };
 }
+std::array<std::array<uint8_t, width>, height> decompressGrayscaleSTL(std::vector<std::pair<uint8_t, uint8_t>> vector)
+{
+    std::array<std::array<uint8_t, width>, height> decompressed;
+    uint8_t row{};
+    uint8_t column{};
 
+    // for(int i = 0; i < vector.size(); ++i)
+    // {
+    //     auto pair = vector[i];
+    //     for(int j = 0; j < pair.second; j++)
+    //     {
+    //         decompressed[row][column] = pair.first;
+    //         column++; 
+    //         if(column == width )
+    //         {
+    //             column = 0;
+    //             row++;
+    //         }
+    //     }
+    // }
+
+    std::vector<uint8_t> temp;
+    std::for_each(vector.begin(), vector.end(), 
+            [&column, &decompressed, &row, &temp](const auto & pair) mutable
+            {
+                std::fill_n(std::back_inserter(temp), pair.second, pair.first);
+                column += pair.second;
+                if(column == width)
+                {
+                    std::copy(temp.begin(), temp.end(), decompressed[row].begin());
+                    temp.clear();
+                    row++;
+                    column = 0;
+                }
+            }
+    );
+    return decompressed;
+}
 
 int main() 
 {
-    
+    // std::vector<int> temp{1,2,3,4};
+    // std::fill_n(std::back_inserter(temp), 3, -1);
+    // std::fill_n(std::back_inserter(temp), 3, 7);
+    // std::copy(temp.begin(), temp.end(), std::ostream_iterator<int>(std::cout, " "));
+
 
     auto ninja = generateNinja();
     //testForEach(ninja);
     printMap(ninja);
-    auto compressedSTL = compressGrayscaleSTL(ninja);
     auto compressed = compressGrayscale(ninja);
-    printMap2(compressed);
-    std::cout << "*******************************************************************************\n";
-    printMap2(compressedSTL);
+    //printMap2(compressed);
+    auto decompSTL = decompressGrayscaleSTL(compressed);
+    //auto decompSTL = decompressGrayscale(compressed);
+    std::cout << "\n*******************************************************************************\n";
+
+    printMap(decompSTL);
+
 
 
     
