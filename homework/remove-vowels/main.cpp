@@ -1,7 +1,4 @@
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
+#include "vowels.hpp"
 
 template <typename T>
 void printVector(const std::vector<T>& collection) {
@@ -10,15 +7,6 @@ void printVector(const std::vector<T>& collection) {
 			        }
 	        std::cout << '\n';
 }
-void removeVowels(std::vector<std::string>& words) {
-	char vowels [] = {"aeiouyAEIOUY"};
-	for(auto& word : words) {
-		for(const auto& mark : vowels) {
-		  word.erase(std::remove(word.begin(), word.end(), mark), word.end());		
-		}
-	}
-}
-
 int main() {
    std::vector<std::string> words = {
             "Somebody once told me the world is gonna roll me",
