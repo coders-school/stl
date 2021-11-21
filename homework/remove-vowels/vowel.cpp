@@ -1,5 +1,5 @@
 #include <algorithm>
-#include "vowels.hpp"
+#include "vowel.hpp"
 
 void removeVowels(std::vector<std::string>& words) {
     const char vowels [] = {"aeiouyAEIOUY"};
