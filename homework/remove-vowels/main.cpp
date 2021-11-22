@@ -19,7 +19,7 @@ int main() {
         "In the shape of an L on her forehead"
     };
 
-    std::vector<std::string> words {"abcde", "aabbccabc", "qwerty"};
+    //std::vector<std::string> words {"abcde", "aabbccabc", "qwerty"};
     
     printVector(words);
     removeVowels(words);
