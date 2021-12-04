@@ -21,7 +21,7 @@ const std::map<char, std::function<double(double, double)>> operations {
 
 ErrorCode process(std::string input, double* out)
 {
-    std::array<char, 10> correctCharacters { '+', '*', '/', '-', '%', '!', '^', '$', '.', ',' };
+    const std::array<char, 10> correctCharacters { '+', '*', '/', '-', '%', '!', '^', '$', '.', ',' };
 
     auto isBadCharacterInInput = [&correctCharacters](const auto& character) {
         auto isInvalidCharacter = std::ispunct(character)
@@ -35,8 +35,8 @@ ErrorCode process(std::string input, double* out)
         return ErrorCode::BadFormat;
     }
 
-    std::regex operationPattern(R"(([\-]?\d+([\.]\d*)?)\s*([+*\/\-%^$])\s*([\-]?\d+([\.]\d*)?))");
-    std::regex factorialPattern(R"(([\-]?\d+([\.]\d*)?)\s*[!])");
+    const std::regex operationPattern(R"(([\-]?\d+([\.]\d*)?)\s*([+*\/\-%^$])\s*([\-]?\d+([\.]\d*)?))");
+    const std::regex factorialPattern(R"(([\-]?\d+([\.]\d*)?)\s*[!])");
     std::smatch matches;
 
     if (std::regex_match(input, matches, operationPattern)) {
