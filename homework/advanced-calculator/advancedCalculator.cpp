@@ -3,59 +3,59 @@
 #include <functional>
 #include <map>
 #include <string>
-#include <iterator>
 #include <cmath>
 
-#include <iostream>
-
-auto returnOperation(std::string & str1) {
-    for(auto it = str1.begin(); it != str1.end(); ++it) {
-        if((((*it == '+') || (*it == '-') || (*it == '*') || (*it == '/') || (*it == '^') || (*it == '%') || (*it == '$') || (*it == '!')) && (it != str1.begin()))) {
-        return it;
-        }
-    }
-    return str1.end();
-}
-
-bool checkOperation(const std::string & str1) {
-    for(auto it = str1.begin(); it != str1.end(); ++it) {
-        if((((*it == '+') || (*it == '-') || (*it == '*') || (*it == '/') || (*it == '^') || (*it == '%') || (*it == '$') || (*it == '!')) && (it != str1.begin()))) {
+bool checkOperation(const char & operation) {
+    if(operation == '+' || operation == '-' || operation == '*' || operation == '/' || operation == '^' || operation == '%' || operation == '$' || operation == '!') {
         return true;
-        }
     }
     return false;
 }
 
-bool isNumber(const std::string & str2) {
-    for (auto it = str2.begin(); it != str2.end();++it){
-        if (!std::isdigit(*it) && (*it != '.') && (*it != '-')) {
+auto returnOperation(std::string & str1) {
+    for(auto it = str1.begin(); it != str1.end(); ++it) {
+        if(checkOperation(*it) && (it != str1.begin())) {
+            return it;
+        }
+    }
+    return str1.end() - 1;
+}
+
+bool checkCharacter (const std::string & str2) {
+    if (std::any_of(str2.begin(), str2.end(), [](const auto & c){
+        return !checkOperation(c) && !isdigit(c) && !isspace(c) && c != '.' && c != ',';
+        })) {
+            return true;
+        }
+    return false;
+}
+
+bool isNumber(const std::string & str3) {
+    int dotCounter = 0;
+    for (auto it = str3.begin(); it != str3.end();++it){
+        if (checkOperation(*it) && *it != '-') {
             return false;
+        }
+        if (*it == ',') {
+            return false;
+        }
+        if (*it == '.') {
+            ++dotCounter;
+            if(dotCounter > 1) {
+                return false;
+            }
         }
     }
     return true;
 }
 
-bool checkInputFormat(const std::string & str3, const char & c, const std::string & nFirst, const std::string & nSecond) {
-    int operationCounter = 0;
-    int minusCounter = 0;
-    int duplicateOperation = 0;
-    for (auto it = str3.begin(); it != str3.end(); ++it) {
-        if (*it == ',') {
-            return false;
-        }
-        if (it == str3.begin() && !isdigit(*it) && *it != '-') {
-            return false;
-        }
-        if (*it == c && *std::next(it) == c && *std::next(it) != '-') {
-            return false;
-        }
-        // if((*it == '+') || (*it == '-') || (*it == '*') || (*it == '/') || (*it == '^') || (*it == '%') || (*it == '$') || (*it == '!')) {
-        //     ++operationCounter;
-        // }
+bool checkFormat(const char & c, const std::string & firstNum, const std::string & secondNum) {
+    if (c == '!' && secondNum !="") {
+        return false;
     }
-    // if (operationCounter > 3) {
-    //     return false;
-    // }
+    if(!isNumber(firstNum) || !isNumber(secondNum)) {
+        return false;
+    }
     return true;
 }
 
@@ -68,7 +68,7 @@ bool isInteger(const std::string & str4) {
     return true;
 }
 
-double doMath (const char & c,const auto & first,const auto & second) {
+double doMath (const char & c,const double & first,const double & second) {
     std::map<char, std::function<double(double, double)>> mathMap {
         {'+', [](const double & x, const double & y){ return x + y;}},
         {'-', [](const double & x, const double & y){ return x - y;}},
@@ -88,19 +88,19 @@ double doMath (const char & c,const auto & first,const auto & second) {
 }
 
 ErrorCode process(std::string input, double * out) {
-    std::string first;
-    std::string second;
+    std::string first ="";
+    std::string second ="";
 
     auto isSpace = [](unsigned char x){ return std::isspace(x);};
     auto operation = returnOperation(input);
     std::remove_copy_if(input.begin(), operation, std::back_inserter(first),isSpace);
     std::remove_copy_if(std::next(operation), input.end(), std::back_inserter(second),isSpace);
-    std::cout << second << '\n';
-    if (!checkInputFormat(input, *operation, first, second)){
-        return ErrorCode::BadFormat;
-    }
-    if(!isNumber(first) || !isNumber(second)){
+
+    if (checkCharacter(input)) {
         return ErrorCode::BadCharacter;
+    }
+    if (!checkFormat(*operation, first, second)){
+        return ErrorCode::BadFormat;
     }
     if((*operation == '/') && (std::stod(second) == 0)) {
         return ErrorCode::DivideBy0;
@@ -114,7 +114,6 @@ ErrorCode process(std::string input, double * out) {
     if(*operation == '!') {
         second = "0.0";
     }
-
-    *out = doMath(*operation,std::stod(first),std::stod(second));    
+    *out = doMath(*operation,std::stod(first),std::stod(second));
     return ErrorCode::OK;
 }

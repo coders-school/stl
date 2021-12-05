@@ -10,15 +10,11 @@ enum class ErrorCode {
     ModuleOfNonIntegerValue
 };
 
-bool checkInputFormat(const std::string & ,const char & ,const std::string &, const std::string &);
-bool checkOperation(const std::string & );
+bool checkOperation(const char & );
 auto returnOperation(std::string & );
+bool checkCharacter(const std::string &);
 bool isNumber(const std::string & );
+bool checkFormat(const char & , const std::string & , const std::string & );
 bool isInteger(const std::string & );
-double doMath (const char & ,const auto & ,const auto & );
+double doMath (const char & ,const double & ,const double & );
 ErrorCode process(std::string , double * );
-
-
-
-
-//1. pierwszy znak operacji 
