@@ -2,9 +2,10 @@
 #include <array>
 #include <utility>  // for std::pair<>
 #include <vector>
-
+#include "compression.hpp"
 // TODO: include
 #include "gtest/gtest.h"
+
 
 void expectBitmap(const std::vector<std::pair<uint8_t, uint8_t>>& bitmap, size_t fraction) {
     for (int j = 0; j < fraction; j++) {
