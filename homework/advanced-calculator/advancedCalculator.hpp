@@ -7,7 +7,7 @@
 #include <algorithm>
 #include <memory>
 
-enum class ErrorCode {
+enum ErrorCode {
     OK,
     BadCharacter,
     BadFormat,
