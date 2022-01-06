@@ -1,12 +1,13 @@
 #include <algorithm>
 #include <array>
-#include <utility>  // for std::pair<>
+#include <utility>   // for std::pair<>
 #include <vector>
 
-// TODO: include
+#include "compression.hpp"
 #include "gtest/gtest.h"
 
-void expectBitmap(const std::vector<std::pair<uint8_t, uint8_t>>& bitmap, size_t fraction) {
+void expectBitmap(const std::vector<std::pair<uint8_t, uint8_t>>& bitmap, size_t fraction)
+{
     for (int j = 0; j < fraction; j++) {
         for (int i = j; i < height * fraction; i += fraction) {
             EXPECT_EQ(bitmap[i].first, j);
@@ -15,19 +16,21 @@ void expectBitmap(const std::vector<std::pair<uint8_t, uint8_t>>& bitmap, size_t
     }
 }
 
-std::vector<std::pair<uint8_t, uint8_t>> getBitmap(size_t fraction) {
+std::vector<std::pair<uint8_t, uint8_t>> getBitmap(size_t fraction)
+{
     std::vector<std::pair<uint8_t, uint8_t>> bitmap;
     bitmap.reserve(height * fraction);
     for (size_t i = 0; i < height; ++i) {
         for (size_t j = 0; j < fraction; ++j) {
-            bitmap.push_back({j, width / fraction});
+            bitmap.push_back({ j, width / fraction });
         }
     }
 
     return bitmap;
 }
 
-TEST(compressionTests, ShouldCompressWholeLines) {
+TEST(compressionTests, ShouldCompressWholeLines)
+{
     std::array<std::array<uint8_t, width>, height> arr;
     for (int i = 0; i < height; ++i)
         for (int j = 0; j < width; ++j)
@@ -38,7 +41,8 @@ TEST(compressionTests, ShouldCompressWholeLines) {
     expectBitmap(bitmap, 1);
 }
 
-TEST(compressionTests, ShouldCompressHalfLines) {
+TEST(compressionTests, ShouldCompressHalfLines)
+{
     std::array<std::array<uint8_t, width>, height> arr;
     for (int i = 0; i < height; ++i) {
         for (int j = 0; j < width / 2; ++j)
@@ -51,7 +55,8 @@ TEST(compressionTests, ShouldCompressHalfLines) {
     expectBitmap(bitmap, 2);
 }
 
-TEST(compressionTests, ShouldCompressQuaterLines) {
+TEST(compressionTests, ShouldCompressQuaterLines)
+{
     std::array<std::array<uint8_t, width>, height> arr;
     for (int i = 0; i < height; ++i) {
         for (int j = 0; j < width / 4; ++j)
@@ -69,7 +74,8 @@ TEST(compressionTests, ShouldCompressQuaterLines) {
     expectBitmap(bitmap, 4);
 }
 
-TEST(compressionTests, ShouldCompressOneEighthLines) {
+TEST(compressionTests, ShouldCompressOneEighthLines)
+{
     std::array<std::array<uint8_t, width>, height> arr;
     for (int i = 0; i < height; ++i) {
         for (int j = 0; j < width / 8; ++j)
@@ -95,7 +101,8 @@ TEST(compressionTests, ShouldCompressOneEighthLines) {
     expectBitmap(bitmap, 8);
 }
 
-TEST(compressionTests, ShouldDecompressWholeLines) {
+TEST(compressionTests, ShouldDecompressWholeLines)
+{
     constexpr size_t fraction = 1;
     auto bitmap = getBitmap(fraction);
 
@@ -108,7 +115,8 @@ TEST(compressionTests, ShouldDecompressWholeLines) {
     }
 }
 
-TEST(compressionTests, ShouldDecompressHalfLines) {
+TEST(compressionTests, ShouldDecompressHalfLines)
+{
     constexpr size_t fraction = 2;
     auto bitmap = getBitmap(fraction);
 
@@ -124,7 +132,8 @@ TEST(compressionTests, ShouldDecompressHalfLines) {
     }
 }
 
-TEST(compressionTests, ShouldDecompressQuaterLines) {
+TEST(compressionTests, ShouldDecompressQuaterLines)
+{
     constexpr size_t fraction = 4;
     auto bitmap = getBitmap(fraction);
 
@@ -146,7 +155,8 @@ TEST(compressionTests, ShouldDecompressQuaterLines) {
     }
 }
 
-TEST(compressionTests, ShouldDecompressOneEighthLines) {
+TEST(compressionTests, ShouldDecompressOneEighthLines)
+{
     constexpr size_t fraction = 8;
     auto bitmap = getBitmap(fraction);
 
@@ -180,7 +190,8 @@ TEST(compressionTests, ShouldDecompressOneEighthLines) {
     }
 }
 
-TEST(compressionTests, ShouldCompressAndDecompress) {
+TEST(compressionTests, ShouldCompressAndDecompress)
+{
     constexpr size_t fraction = 16;
     auto input = getBitmap(fraction);
     auto map = decompressGrayscale(input);
