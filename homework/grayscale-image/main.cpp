@@ -1,7 +1,4 @@
-#include <array>
-#include <forward_list>
-
-// TODO: include
+#include "sort.hpp"
 
 std::array<std::array<uint8_t, 32>, 32> generateNinja() {
     return {
