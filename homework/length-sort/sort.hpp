@@ -6,6 +6,6 @@
 #include <forward_list>
 #include <deque>
 
-std::deque<std::string> length_sort(std::forward_list<std::string> & word_list);
+std::deque<std::string> lengthSort(std::forward_list<std::string> & word_list);
 
 #endif
