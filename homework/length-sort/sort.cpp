@@ -3,7 +3,7 @@
 #include <vector>
 #include <utility>
 
-std::deque<std::string> length_sort(std::forward_list<std::string> & word_list)
+std::deque<std::string> lengthSort(std::forward_list<std::string> & word_list)
 {
     std::vector< std::pair<size_t, std::string> > pairs;
     for (auto word : word_list)
