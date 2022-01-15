@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <string_view>
 
-std::vector<std::string> removeVowels(std::vector<std::string> input)
+std::vector<std::string>& removeVowels(std::vector<std::string> &input)
 {
     constexpr std::string_view vowels = "aAeEiIoOuUyY";
     for (auto& str : input)
