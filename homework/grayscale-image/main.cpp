@@ -1,7 +1,10 @@
 #include <array>
 #include <forward_list>
+#include <iostream>
 
-// TODO: include
+#include "compression.hpp"
+
+using namespace std;
 
 std::array<std::array<uint8_t, 32>, 32> generateNinja() {
     return {
@@ -40,12 +43,30 @@ std::array<std::array<uint8_t, 32>, 32> generateNinja() {
     };
 }
 
+void printMap(std::array<std::array<uint8_t, 32>, 32> map)
+{
+    for (auto i : map)
+    {
+        for (int j=0; j<i.size(); j++)
+            cout<<(char)i[j];
+        cout<<endl;
+    }
+    cout<<endl;
+}
+
+void printCompressed(vector<pair<uint8_t, uint8_t>> pairvec)
+{
+    for (auto p : pairvec)
+        cout<<"{"<<(int)p.first<<", "<<(int)p.second<<"}";
+    cout<<endl;
+}
+
 int main() {
     auto ninja = generateNinja();
-    // printMap(ninja);
+    printMap(ninja);
     auto compressed = compressGrayscale(ninja);
+    //printCompressed(compressed);
     auto decompressed = decompressGrayscale(compressed);
-    // printMap(decompressed);
-
+    printMap(decompressed);
     return 0;
 }
