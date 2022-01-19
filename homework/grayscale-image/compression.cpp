@@ -32,31 +32,6 @@ std::vector<std::pair<uint8_t, uint8_t>> compressRow(std::array<uint8_t,width> r
     return ans;
 }
 
-std::vector<std::pair<uint8_t, uint8_t>> compressRow(std::array<uint8_t,width2> row)
-{
-    std::vector<std::pair<uint8_t, uint8_t>> ans;
-    ans.reserve(width2);
-    uint8_t previous_val=row[0], counter=1;
-    
-    for (int col=1; col<width2; col++)
-    {
-        if (previous_val == row[col])
-        {
-            counter++;
-        }
-        else
-        {
-            ans.emplace_back(previous_val, counter);
-            counter=1;
-            previous_val = row[col];        
-        }
-    }
-    ans.emplace_back(previous_val, counter);
-    ans.shrink_to_fit();
-    return ans;
-}
-
-
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array<uint8_t, width>, height> to_compress)
 {
     std::vector<std::pair<uint8_t, uint8_t>> ans;
@@ -65,29 +40,14 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array
     for (auto& row : to_compress)
     {
         auto compressed_row = compressRow(row);
-        printCompressedRow(compressed_row);
+        //printCompressedRow(compressed_row);
         ans.insert(std::end(ans), std::begin(compressed_row), std::end(compressed_row));
     }
     ans.shrink_to_fit();
     return ans;
 }
 
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array<uint8_t, width2>, height2> to_compress)
-{
-    std::vector<std::pair<uint8_t, uint8_t>> ans;
-    ans.reserve(width2*height2);
-    uint8_t previous_val;
-    for (auto& row : to_compress)
-    {
-        auto compressed_row = compressRow(row);
-        printCompressedRow(compressed_row);
-        ans.insert(std::end(ans), std::begin(compressed_row), std::end(compressed_row));
-    }
-    ans.shrink_to_fit();
-    return ans;
-}
-
-std::array<std::array<uint8_t, width>, height> decompressGrayscale (std::vector<std::pair<uint8_t, uint8_t>> to_decompress)
+std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>> to_decompress)
 {
     std::array<std::array<uint8_t, width>, height> ans;
     int row, col, counter=0;
@@ -97,22 +57,6 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale (std::vector<
         {
             row = counter/height; //only integer part is saved;
             col = counter % width;
-            ans[row][col] = pair.first;
-            counter++;
-        }
-    return ans;
-}
-
-std::array<std::array<uint8_t, width2>, height2> decompressGrayscale2 (std::vector<std::pair<uint8_t, uint8_t>> to_decompress)
-{
-    std::array<std::array<uint8_t, width2>, height2> ans;
-    int row, col, counter=0;
-
-    for (auto& pair : to_decompress)
-        for (int i=0; i<pair.second; i++)
-        {
-            row = counter/height2; //only integer part is saved;
-            col = counter % width2;
             ans[row][col] = pair.first;
             counter++;
         }
