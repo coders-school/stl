@@ -9,19 +9,18 @@ CompressedImage compressGrayscale(const Image& bitmap)
 {
     CompressedImage result;
     result.reserve(width * height);
-    auto parse_row = [&result](const auto& row) {
-        auto it = row.begin();
-        while (it != row.end()) {
+    auto compress_row = [&result](const auto& row) {
+        for (auto it = row.begin(); it != row.end();) {
             auto pixel_color = *it;
             auto repeat_count { 1 };
-            // check next element for same color occurences
+            //  check next element for same color occurences
             while (++it != row.end() && *it == pixel_color) {
                 ++repeat_count;
             }
             result.emplace_back(pixel_color, repeat_count);
         }
     };
-    std::for_each(begin(bitmap), end(bitmap), parse_row);
+    std::for_each(begin(bitmap), end(bitmap), compress_row);
     result.shrink_to_fit();
     return result;
 }
@@ -31,7 +30,6 @@ Image decompressGrayscale(const CompressedImage& compressed_bitmap)
 {
     Image result;
     auto it_insert = result.begin()->begin();
-
     std::for_each(begin(compressed_bitmap),
                   end(compressed_bitmap),
                   [&](const auto& color_pair) {
