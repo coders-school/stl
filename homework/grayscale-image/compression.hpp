@@ -1,6 +1,8 @@
 #pragma once
 
 #include <array>
+#include <cstddef>
+#include <cstdint>
 #include <vector>
 
 constexpr size_t width = 32;
@@ -15,16 +17,6 @@ CompressedImage compressGrayscale(const Image& bitmap);
 
 // decompresses a compressed image into a grayscale bitmap
 Image decompressGrayscale(const CompressedImage& compressed_bitmap);
-
-// Helper function for compressGrayscale. Parses single row of a bitmap
-// and inserts compressed data into passed compressed_bitmap
-void compressRow(const BitmapRow& row, CompressedImage& compressed_bitmap);
-
-// Helper function for decompressGrayscale.
-// Decompresses a single row from the compressed bitmap.
-// Takes target row for the decompressed data and iterator pointing where to start
-// reading from compressed image
-void decompressRow(BitmapRow& row, CompressedImage::const_iterator& iterator);
 
 // prints an uncompressed bitmap
 void printMap(const Image& bitmap);
