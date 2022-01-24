@@ -14,7 +14,7 @@ CompressedImage compressGrayscale(const Image& bitmap)
             auto pixel_color = *it;
             auto repeat_count { 1 };
             //  check next element for same color occurences
-            while (++it != row.end() && *it == pixel_color) {
+            for (; ++it != row.end() && *it == pixel_color;) {
                 ++repeat_count;
             }
             result.emplace_back(pixel_color, repeat_count);
