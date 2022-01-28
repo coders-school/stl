@@ -7,10 +7,10 @@
 bool is_palindrome(const std::string& text)
 {
     // get a string ready for comparison
-    // (select only alpha chars and make them lower case)
+    // (containing only alpha chars and lower case)
     std::string normalized = normalize(text);
-    // actual palindrome test
 
+    // actual palindrome test
     return std::equal(begin(normalized),
                       begin(normalized) + normalized.size() / 2,
                       rbegin(normalized));
@@ -28,5 +28,6 @@ std::string normalize(const std::string& text)
         }
     });
     result.shrink_to_fit();
+
     return result;
 }
