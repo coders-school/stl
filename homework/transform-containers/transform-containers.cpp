@@ -18,13 +18,14 @@ intStringMap removeDuplicateAndTranformToMap(const stringList& strings, const in
 
     intStringMap result;
 
-    // std::transform(strings.begin(),
-    //                strings.end(),
-    //                ints.begin(),
-    //                std::inserter(result, result.end()),
-    //                [](const auto& text, const auto& num) {
-    //                    return std::make_pair(num, text);
-    //                });
+    std::transform(unique_strings.begin(),
+                   unique_strings.end(),
+                   unique_ints.begin(),
+                   std::inserter(result, result.end()),
+                   [](const auto& text, const auto& num) {
+                       return std::make_pair(num, text);
+                   });
+
     return std::move(result);
 }
 
