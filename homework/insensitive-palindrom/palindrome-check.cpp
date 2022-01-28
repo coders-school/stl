@@ -1,7 +1,6 @@
 #include "palindrome-check.hpp"
 
 #include <algorithm>
-#include <iostream>   // REMOVE
 
 // checks if the given text is a palindrome
 // Is case insensitive, ignores special chars, like ,.?()[] and white spaces
@@ -10,10 +9,11 @@ bool is_palindrome(const std::string& text)
     // get a string ready for comparison
     // (select only alpha chars and make them lower case)
     std::string normalized = normalize(text);
-    std::cout << "text:\t" << text << 'n'
-              << "alpha only: " << normalized
-              << "\n---------------------\n";
-    return false;
+    // actual palindrome test
+
+    return std::equal(begin(normalized),
+                      begin(normalized) + normalized.size() / 2,
+                      rbegin(normalized));
 }
 
 // returns string stripped of chars other than alphabethical
