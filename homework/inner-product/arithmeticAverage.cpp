@@ -1,5 +1,7 @@
 #include "arithmeticAverage.hpp"
 
+#include <algorithm>
+
 // calculates an arithemetic average of all values stored in two vectores
 long double ArithmeticAverage(const std::vector<int>& first, const std::vector<int>& second)
 {
