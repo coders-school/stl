@@ -18,6 +18,8 @@ FetchContent_MakeAvailable(googletest)
 project(arithmeticAverage)
 enable_testing()
 
+add_compile_options(-Wall -Wextra -Wpedantic)
+
 add_executable(${PROJECT_NAME} main.cpp arithmeticAverage.cpp)
 add_executable(${PROJECT_NAME}-ut test.cpp arithmeticAverage.cpp)
 
