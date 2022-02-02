@@ -16,6 +16,8 @@ FetchContent_MakeAvailable(googletest)
 project(advancedCalculator)
 enable_testing()
 
+add_compile_options(-Wall -Wextra -Wpedantic)
+
 add_executable(${PROJECT_NAME} main.cpp advancedCalculator.cpp)
 add_executable(${PROJECT_NAME}-ut test.cpp advancedCalculator.cpp)
 
