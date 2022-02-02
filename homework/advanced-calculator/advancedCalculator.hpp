@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <utility>
 
 enum class ErrorCode
 {
@@ -11,4 +12,12 @@ enum class ErrorCode
     ModuleOfNonIntegerValue   // attempt of getting modulo of non integer value
 };
 
+using FormatedInput = std::tuple<ErrorCode, double, std::string, double>;
+
 ErrorCode process(std::string input, double* out);
+
+FormatedInput formatInput(const std::string& line);
+
+bool quitRequested(std::string line);
+
+void printInstructions();
