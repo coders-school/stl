@@ -52,7 +52,17 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<s
 {
     std::array<std::array<uint8_t, width>, height> ans;
     auto it = begin(*begin(ans)); //we can use it as 1D array pointer, since memory is contigous
-    std::for_each(begin(to_decompress), end(to_decompress), [&it](auto pair){it = std::ranges::fill_n(it, pair.second, pair.first);} );
-
+    
+    //std::for_each(begin(to_decompress), end(to_decompress), [&it](auto pair){it = std::ranges::fill_n(it, pair.second, pair.first);} );
+    //^ despite 'set(CMAKE_CXX_STANDARD 20)' in CMakeList.txt  std::ranges::fill_n() is not recognized.
+    // Therefore I have to implement it in a slightly less elegant way:
+    
+    std::for_each(begin(to_decompress), end(to_decompress), [&it](auto pair)
+                  {
+                      std::fill(it, it+pair.second, pair.first);
+                      std::advance(it, pair.second);
+                  });
+    
+    
     return ans;
 }
