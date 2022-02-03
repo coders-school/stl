@@ -61,20 +61,30 @@ FormatedInput formatInput(const std::string& line)
 //      return tokens_vec;
 //  }
 
+bool isAllowedOperator(const char oper)
+{
+    static constexpr std::array<char, 8> allowed = { '+', '*', '/', '-', '%', '!', '^', '$' };
+    return std::any_of(begin(allowed),
+                       end(allowed),
+                       [oper](auto ch) {
+                           return ch == oper;
+                       });
+}
+
 bool hasUnallowedChars(const std::string& line)
 {
-    constexpr std::array<char, 8> allowed = { '+', '*', '/', '-', '%', '!', '^', '$' };
-    auto is_allowed_operator = [&allowed](auto ch) -> bool {
-        return std::any_of(begin(allowed), end(allowed), [ch](auto oper) {
-            return ch == oper;
-        });
-    };
+    // constexpr std::array<char, 8> allowed = { '+', '*', '/', '-', '%', '!', '^', '$' };
+    // auto is_allowed_operator = [&allowed](auto ch) -> bool {
+    //     return std::any_of(begin(allowed), end(allowed), [ch](auto oper) {
+    //         return ch == oper;
+    //     });
+    // };
 
-    return !std::all_of(begin(line),
-                        end(line),
-                        [&is_allowed_operator](auto ch) {
-                            return isdigit(ch) || is_allowed_operator(ch);
-                        });
+    return std::any_of(begin(line),
+                       end(line),
+                       [](auto ch) {
+                           return !(isdigit(ch) || isAllowedOperator(ch));
+                       });
 }
 
 FormatedInput checkFormatErrors(const std::string& line)
