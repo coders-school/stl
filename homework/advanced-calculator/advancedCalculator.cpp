@@ -95,9 +95,12 @@ FormatedInput checkFormatErrors(const std::string& line)
     }
 
     double lhs {};
-    double rhs {};
     char operation {};
-    ErrorCode state { ErrorCode::OK };
+
+    if (!(line_stream >> lhs >> operation) || !isAllowedOperator(operation)) {
+        std::cout << "Returning bad-format here (after checking lhs and operator)\n";
+    }
+    // ErrorCode state { ErrorCode::OK };
     //
     // else if (!(line_stream >> lhs >> operation >> rhs)) {
     //     if (operation == '!' /* && rhs != 0*/) {
