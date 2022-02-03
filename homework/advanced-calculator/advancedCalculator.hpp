@@ -28,9 +28,16 @@ bool quitRequested(std::string line);
 
 void printInstructions();
 
-TokensVector getTokens(const std::string& line);
+// REMOVE INU
+// TokensVector getTokens(const std::string& line);
 
 bool hasUnallowedChars(const std::string& line);
+
+// bool hasBadFormat(const TokensVector& tokens);
+
+FormatedInput checkFormatErrors(const std::string& line);
+
+bool firstCharIllegal(std::istringstream& stream);
 
 //   * Dodawanie, mnożenie, dzielenie, odejmowanie (`+`,  `*` , `/` , `-`)
 // * Modulo (`%`)
