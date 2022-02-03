@@ -32,9 +32,33 @@ FormatedInput formatInput(const std::string& line)
     // * Podnoszenie liczby do potęgi (`^`)
     // * Obliczanie pierwiastka (`$`)
     static constexpr std::array<char, 8> allowed_operations { '+', '*' };
-    std::istringstream(line);
+    std::istringstream line_stream(line);
     std::string lhs_operand;
     std::string rhs_operand;
     std::string operation;
-    line >> lhs_operand >> operation >> rhs_operand;
+    line_stream >> lhs_operand >> operation >> rhs_operand;
 }
+
+// constexpr OperationsMap getAllowedOperations()
+// {
+//     // return OperationsMap {
+//     //     {
+//     //         '+',
+//     //     },
+//     //     { '*', [](auto lhs, auto rhs) {
+//     //          return lhs * rhs;
+//     //      } },
+//     //     { '/', [](auto lhs, auto rhs) {
+//     //          return lhs / rhs;
+//     //      } },
+//     //     { '-', [](auto lhs, auto rhs) {
+//     //          return lhs - rhs;
+//     //      } },
+//     //     { '%', [](auto lhs, auto rhs) {
+//     //          return lhs % rhs;
+//     //      } },
+//     //     { '!', [](auto lhs, auto rhs) {
+//     //          return lhs * rhs;
+//     //      } },
+//     // };
+// }

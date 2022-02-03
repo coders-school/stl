@@ -1,4 +1,6 @@
 #pragma once
+#include <functional>
+#include <map>
 #include <string>
 #include <utility>
 
@@ -14,6 +16,8 @@ enum class ErrorCode
 
 using FormatedInput = std::tuple<ErrorCode, double, std::string, double>;
 
+using OperationsMap = std::map<char, std::function<std::pair<ErrorCode, double>(double, double)>>;
+
 ErrorCode process(std::string input, double* out);
 
 FormatedInput formatInput(const std::string& line);
@@ -21,3 +25,13 @@ FormatedInput formatInput(const std::string& line);
 bool quitRequested(std::string line);
 
 void printInstructions();
+
+//   * Dodawanie, mnożenie, dzielenie, odejmowanie (`+`,  `*` , `/` , `-`)
+// * Modulo (`%`)
+// * Obliczanie silni (`!`)
+// * Podnoszenie liczby do potęgi (`^`)
+// * Obliczanie pierwiastka (`$`)
+
+// auto add = [](auto lhs, auto rhs) { return lhs + rhs; };
+
+// auto multiply = []
