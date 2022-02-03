@@ -83,43 +83,42 @@ FormatedInput checkFormatErrors(const std::string& line)
     double lhs {};
     double rhs {};
     char operation {};
-    // std::string garbage_left;
     ErrorCode state { ErrorCode::OK };
     if (firstCharIllegal(line_stream)) {
         std::cout << "First char not '-' or digit - FORMAT ERROR!;";
     }
-    else if (!(line_stream >> lhs >> operation >> rhs)) {
-        if (operation == '!' /* && rhs != 0*/) {
-            std::cout << "OK - factorial!\n";
-        }
-        else {
-            // std::cout << "lhs: " << lhs
-            //           << " operator: " << operation
-            //           << " rhs" << rhs << '\n';
-            std::cout << "Format error!\n";
-        }
-    }
-    else if (line_stream >> garbage_left) {
-        std::cout << "lhs: " << lhs
-                  << " operator: " << operation
-                  << " rhs: " << rhs << '\n';
-        std::cout << "Garbage left! - FORMAT error\n";
-    }
-    else {
-        if (operation == '!' && rhs != 0) {
-            std::cout << "wrong factorial - FORMAT error\n";
-        }
-        else {
-            std::cout << "OK\n";
-        }
-    }
-    else
-    {
-        std::cout << "lhs: " << lhs
-                  << " operator: " << operation
-                  << " rhs" << rhs << '\n';
-        std::cout << "Correct format!\n";
-    }
+    // else if (!(line_stream >> lhs >> operation >> rhs)) {
+    //     if (operation == '!' /* && rhs != 0*/) {
+    //         std::cout << "OK - factorial!\n";
+    //     }
+    //     else {
+    //         // std::cout << "lhs: " << lhs
+    //         //           << " operator: " << operation
+    //         //           << " rhs" << rhs << '\n';
+    //         std::cout << "Format error!\n";
+    //     }
+    // }
+    // else if (line_stream >> garbage_left) {
+    //     std::cout << "lhs: " << lhs
+    //               << " operator: " << operation
+    //               << " rhs: " << rhs << '\n';
+    //     std::cout << "Garbage left! - FORMAT error\n";
+    // }
+    // else {
+    //     if (operation == '!' && rhs != 0) {
+    //         std::cout << "wrong factorial - FORMAT error\n";
+    //     }
+    //     else {
+    //         std::cout << "OK\n";
+    //     }
+    // }
+    // else
+    // {
+    //     std::cout << "lhs: " << lhs
+    //               << " operator: " << operation
+    //               << " rhs" << rhs << '\n';
+    //     std::cout << "Correct format!\n";
+    // }
     std::cout << "-------\n";
     return FormatedInput {};
 }
