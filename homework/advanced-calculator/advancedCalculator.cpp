@@ -79,18 +79,16 @@ bool hasUnallowedChars(const std::string& line)
 
 FormatedInput checkFormatErrors(const std::string& line)
 {
-    if (invalidDecimalSeperator(line)) {
+    std::istringstream line_stream(line);
+    if (invalidDecimalSeperator(line) || firstCharIllegal(line_stream)) {
         std::cout << "Returning bad-format here\n";
     }
 
-    std::istringstream line_stream(line);
     double lhs {};
     double rhs {};
     char operation {};
     ErrorCode state { ErrorCode::OK };
-    if (firstCharIllegal(line_stream)) {
-        std::cout << "First char not '-' or digit - FORMAT ERROR!;";
-    }
+    //
     // else if (!(line_stream >> lhs >> operation >> rhs)) {
     //     if (operation == '!' /* && rhs != 0*/) {
     //         std::cout << "OK - factorial!\n";
