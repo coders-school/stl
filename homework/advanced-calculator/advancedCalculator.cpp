@@ -4,6 +4,7 @@
 #include <array>
 #include <cctype>
 #include <iostream>
+#include <limits>   // REMOVE INU
 #include <sstream>
 
 ErrorCode process(std::string input, double* out)
@@ -94,25 +95,27 @@ FormatedInput checkFormatErrors(const std::string& line)
     char operation {};
     std::string rh_string;
     std::string stream_garbage;
-    double rhs;
+    double rhs {};
     if (invalidDecimalSeperator(line) || firstCharIllegal(line_stream)) {
         std::cout << "Returning bad-format here\n";
     }
-
-    if (!(line_stream >> lhs >> operation) || !isAllowedOperator(operation)) {
+    else if (!(line_stream >> lhs >> operation) || !isAllowedOperator(operation)) {
         std::cout << "Returning bad-format here (after checking lhs and operator)\n";
     }
     // didn't manage to read anything after binary operation (other than factorial)
-    if (!(line_stream >> rhs) && operation != '!') {
+    else if (!(line_stream >> rhs) && operation != '!') {
         std::cout << "Returning bad-format here - invalid binary operation\n";
     }
     // operation is factorial and we got something which souldn't got there
-    if (operation == '!' && rhs != 0) {
+    else if (operation == '!' && rhs != 0) {
         std::cout << "Returning bad-format here - invalid factorial operation\n";
     }
     // there where leftover in the stream after taking to operands and operator
-    if (line_stream >> stream_garbage) {
+    else if (line_stream >> stream_garbage) {
         std::cout << "Returning bad-format here - garbage in the stream\n";
+    }
+    else {
+        std::cout << "OK!!!!!\n";
     }
     // if ()
     // ErrorCode state { ErrorCode::OK };
@@ -150,6 +153,8 @@ FormatedInput checkFormatErrors(const std::string& line)
     //     std::cout << "Correct format!\n";
     // }
     std::cout << "-------\n";
+    line_stream.clear();
+    line_stream.ignore(std::numeric_limits<std::streamsize>::max());
     return FormatedInput {};
 }
 
