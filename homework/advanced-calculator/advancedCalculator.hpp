@@ -39,6 +39,8 @@ FormatedInput checkFormatErrors(const std::string& line);
 
 bool firstCharIllegal(std::istringstream& stream);
 
+bool invalidDecimalSeperator(const std::string& line, const char invalidSep = ',');
+
 //   * Dodawanie, mnożenie, dzielenie, odejmowanie (`+`,  `*` , `/` , `-`)
 // * Modulo (`%`)
 // * Obliczanie silni (`!`)

@@ -79,6 +79,10 @@ bool hasUnallowedChars(const std::string& line)
 
 FormatedInput checkFormatErrors(const std::string& line)
 {
+    if (invalidDecimalSeperator(line)) {
+        std::cout << "Returning bad-format here\n";
+    }
+
     std::istringstream line_stream(line);
     double lhs {};
     double rhs {};
@@ -127,6 +131,12 @@ bool firstCharIllegal(std::istringstream& stream)
 {
     char first_char = stream.peek();
     return !isdigit(first_char) && first_char != '-';
+}
+
+bool invalidDecimalSeperator(const std::string& line, const char invalidSep)
+{
+    auto pos = line.find(invalidSep);
+    return pos != std::string::npos;
 }
 
 // constexpr OperationsMap getAllowedOperations()
