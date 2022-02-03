@@ -31,7 +31,7 @@ void printInstructions();
 // REMOVE INU
 // TokensVector getTokens(const std::string& line);
 
-bool isAllowedOperator(const char oper);
+bool isAllowedChar(const char oper);
 
 bool hasUnallowedChars(const std::string& line);
 
