@@ -31,12 +31,22 @@ FormatedInput formatInput(const std::string& line)
     // * Obliczanie silni (`!`)
     // * Podnoszenie liczby do potęgi (`^`)
     // * Obliczanie pierwiastka (`$`)
-    static constexpr std::array<char, 8> allowed_operations { '+', '*' };
+}
+
+std::vector<std::string> getTokens(const std::string& line)
+{
+    std::vector<std::string> tokens_vec;
     std::istringstream line_stream(line);
-    std::string lhs_operand;
-    std::string rhs_operand;
-    std::string operation;
-    line_stream >> lhs_operand >> operation >> rhs_operand;
+    std::string token;
+    while (line_stream >> token) {
+        tokens_vec.emplace_back(token);
+    }
+    return tokens_vec;
+}
+
+bool hasUnallowedChars(const std::string& line)
+{
+    // static constexpr
 }
 
 // constexpr OperationsMap getAllowedOperations()

@@ -26,6 +26,10 @@ bool quitRequested(std::string line);
 
 void printInstructions();
 
+std::vector<std::string> getTokens(const std::string& line);
+
+bool hasUnallowedChars(const std::string& line);
+
 //   * Dodawanie, mnożenie, dzielenie, odejmowanie (`+`,  `*` , `/` , `-`)
 // * Modulo (`%`)
 // * Obliczanie silni (`!`)
