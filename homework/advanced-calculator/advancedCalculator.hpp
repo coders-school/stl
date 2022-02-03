@@ -18,6 +18,8 @@ using FormatedInput = std::tuple<ErrorCode, double, std::string, double>;
 
 using OperationsMap = std::map<char, std::function<std::pair<ErrorCode, double>(double, double)>>;
 
+using TokensVector = std::vector<std::string>;
+
 ErrorCode process(std::string input, double* out);
 
 FormatedInput formatInput(const std::string& line);
@@ -26,7 +28,7 @@ bool quitRequested(std::string line);
 
 void printInstructions();
 
-std::vector<std::string> getTokens(const std::string& line);
+TokensVector getTokens(const std::string& line);
 
 bool hasUnallowedChars(const std::string& line);
 

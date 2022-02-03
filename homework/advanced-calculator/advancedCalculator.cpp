@@ -33,7 +33,7 @@ FormatedInput formatInput(const std::string& line)
     // * Obliczanie pierwiastka (`$`)
 }
 
-std::vector<std::string> getTokens(const std::string& line)
+TokensVector getTokens(const std::string& line)
 {
     std::vector<std::string> tokens_vec;
     std::istringstream line_stream(line);
