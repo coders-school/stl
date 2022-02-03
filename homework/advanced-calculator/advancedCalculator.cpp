@@ -90,16 +90,31 @@ bool hasUnallowedChars(const std::string& line)
 FormatedInput checkFormatErrors(const std::string& line)
 {
     std::istringstream line_stream(line);
+    double lhs {};
+    char operation {};
+    std::string rh_string;
+    std::string stream_garbage;
+    double rhs;
     if (invalidDecimalSeperator(line) || firstCharIllegal(line_stream)) {
         std::cout << "Returning bad-format here\n";
     }
 
-    double lhs {};
-    char operation {};
-
     if (!(line_stream >> lhs >> operation) || !isAllowedOperator(operation)) {
         std::cout << "Returning bad-format here (after checking lhs and operator)\n";
     }
+    // didn't manage to read anything after binary operation (other than factorial)
+    if (!(line_stream >> rhs) && operation != '!') {
+        std::cout << "Returning bad-format here - invalid binary operation\n";
+    }
+    // operation is factorial and we got something which souldn't got there
+    if (operation == '!' && rhs != 0) {
+        std::cout << "Returning bad-format here - invalid factorial operation\n";
+    }
+    // there where leftover in the stream after taking to operands and operator
+    if (line_stream >> stream_garbage) {
+        std::cout << "Returning bad-format here - garbage in the stream\n";
+    }
+    // if ()
     // ErrorCode state { ErrorCode::OK };
     //
     // else if (!(line_stream >> lhs >> operation >> rhs)) {
