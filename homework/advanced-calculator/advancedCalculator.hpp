@@ -14,7 +14,7 @@ enum class ErrorCode
     ModuleOfNonIntegerValue   // attempt of getting modulo of non integer value
 };
 
-using FormatedInput = std::tuple<ErrorCode, double, std::string, double>;
+using FormatedInput = std::tuple<ErrorCode, double, char, double>;
 
 using OperationsMap = std::map<char, std::function<std::pair<ErrorCode, double>(double, double)>>;
 

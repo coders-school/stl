@@ -8,6 +8,16 @@
 
 ErrorCode process(std::string input, double* out)
 {
+    // get formated input // NOTE: consider better function name
+    auto [state, lhs, operation, rhs] = formatInput(input);
+    if (state == ErrorCode::BadCharacter
+        || state == ErrorCode::BadFormat
+        || state == ErrorCode::DivideBy0
+        || state == ErrorCode::ModuleOfNonIntegerValue
+        || state == ErrorCode::SqrtOfNegativeNumber) {
+        return state;
+    }
+
     return ErrorCode::OK;
 }
 
@@ -31,6 +41,10 @@ FormatedInput formatInput(const std::string& line)
     // * Obliczanie silni (`!`)
     // * Podnoszenie liczby do potęgi (`^`)
     // * Obliczanie pierwiastka (`$`)
+    // ErrorCode result_code = ErrorCode::OK;
+    if (hasUnallowedChars(line)) {
+        return { ErrorCode::BadCharacter, 0, ' ', 0 };
+    }
 }
 
 TokensVector getTokens(const std::string& line)
@@ -46,7 +60,18 @@ TokensVector getTokens(const std::string& line)
 
 bool hasUnallowedChars(const std::string& line)
 {
-    // static constexpr
+    constexpr std::array<char, 8> allowed = { '+', '*', '/', '-', '%', '!', '^', '$' };
+    auto is_allowed_operator = [&allowed](auto ch) -> bool {
+        std::any_of(begin(allowed), end(allowed), [ch](auto oper) {
+            return ch == oper;
+        });
+    };
+
+    return !std::all_of(begin(line),
+                        end(line),
+                        [&is_allowed_operator](auto ch) {
+                            return isdigit(ch) || is_allowed_operator(ch);
+                        });
 }
 
 // constexpr OperationsMap getAllowedOperations()
