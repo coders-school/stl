@@ -3,22 +3,23 @@
 #include <algorithm>
 #include <array>
 #include <cctype>
+#include <cmath>
 #include <iostream>
 #include <limits>   // REMOVE INU
 #include <sstream>
 
 ErrorCode process(std::string input, double* out)
 {
+    const auto operations_map = getAllowedOperations();
     // get formated input // NOTE: consider better function name
     auto [state, lhs, operation, rhs] = formatInput(input);
-    if (state == ErrorCode::BadCharacter
-        || state == ErrorCode::BadFormat
-        || state == ErrorCode::DivideBy0
-        || state == ErrorCode::ModuleOfNonIntegerValue
-        || state == ErrorCode::SqrtOfNegativeNumber) {
-        return state;
+    if (state == ErrorCode::OK) {
+        const auto& it = operations_map.find(operation);
+        if (it != operations_map.end()) {
+            const auto& calculate = it->second;
+            *out = calculate(lhs, rhs);
+        }
     }
-
     return state;
 }
 
@@ -152,26 +153,21 @@ bool invalidDecimalSeperator(const std::string& line, const char invalidSep)
     return pos != std::string::npos;
 }
 
-// constexpr OperationsMap getAllowedOperations()
-// {
-//     // return OperationsMap {
-//     //     {
-//     //         '+',
-//     //     },
-//     //     { '*', [](auto lhs, auto rhs) {
-//     //          return lhs * rhs;
-//     //      } },
-//     //     { '/', [](auto lhs, auto rhs) {
-//     //          return lhs / rhs;
-//     //      } },
-//     //     { '-', [](auto lhs, auto rhs) {
-//     //          return lhs - rhs;
-//     //      } },
-//     //     { '%', [](auto lhs, auto rhs) {
-//     //          return lhs % rhs;
-//     //      } },
-//     //     { '!', [](auto lhs, auto rhs) {
-//     //          return lhs * rhs;
-//     //      } },
-//     // };
-// }
+// * Dodawanie, mnożenie, dzielenie, odejmowanie (`+`,  `*` , `/` , `-`)
+// * Modulo (`%`)
+// * Obliczanie silni (`!`)
+// * Podnoszenie liczby do potęgi (`^`)
+// * Obliczanie pierwiastka (`$`)
+OperationsMap getAllowedOperations()
+{
+    return OperationsMap {
+        { '+', [](auto lhs, auto rhs) { return lhs - rhs; } },
+        { '*', [](auto lhs, auto rhs) { return lhs * rhs; } },
+        { '/', [](auto lhs, auto rhs) { return lhs / rhs; } },
+        { '-', [](auto lhs, auto rhs) { return lhs - rhs; } },
+        { '%', [](auto lhs, auto rhs) { return static_cast<int>(lhs)
+                                               % static_cast<int>(rhs); } },
+        { '^', [](auto lhs, auto rhs) { return pow(lhs, rhs); } },
+        { '$', [](auto lhs, auto rhs) { return pow(lhs, 1 / rhs); } }
+    };
+}
