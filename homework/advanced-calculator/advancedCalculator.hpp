@@ -39,6 +39,11 @@ bool hasUnallowedChars(const std::string& line);
 
 FormatedInput checkFormatErrors(const std::string& line);
 
+ErrorCode parseCheckRightSide(ErrorCode current_state,
+                              const char oper,
+                              double& rhs,
+                              std::istringstream& stream);
+
 bool firstCharIllegal(std::istringstream& stream);
 
 bool invalidDecimalSeperator(const std::string& line, const char invalidSep = ',');
