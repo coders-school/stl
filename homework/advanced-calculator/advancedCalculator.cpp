@@ -163,9 +163,9 @@ OperationsMap getAllowedOperations()
 {
     return OperationsMap {
         { '+', std::plus<> {} },
-        { '*', std::minus<> {} },
+        { '*', std::multiplies<> {} },
         { '/', [](auto lhs, auto rhs) { return lhs / rhs; } },
-        { '-', [](auto lhs, auto rhs) { return lhs - rhs; } },
+        { '-', std::minus<> {} },
         { '%', [](auto lhs, auto rhs) { return static_cast<int>(lhs)
                                                % static_cast<int>(rhs); } },
         { '^', [](auto lhs, auto rhs) { return pow(lhs, rhs); } },
