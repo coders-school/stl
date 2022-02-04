@@ -2,7 +2,6 @@
 #include <functional>
 #include <map>
 #include <string>
-#include <utility>
 
 enum class ErrorCode
 {
@@ -31,54 +30,58 @@ using FormatedInput = std::tuple<ErrorCode, double, char, double>;
 // allias for map assigning matematical operations to operations
 using OperationsMap = std::map<const char, std::function<double(double, double)>>;
 
-using TokensVector = std::vector<std::string>;
-
+// main function proccessing user input
+// stores result in out and returns operations state
 ErrorCode process(std::string input, double* out);
 
+// returns  map assigning matematical operations to operations
 OperationsMap getAllowedOperations();
 
+// main user input formatting function
 FormatedInput formatInput(const std::string& line);
 
+// helper for format Input. Parses input for format errors
+FormatedInput parseCheckFormatErrors(const std::string& line);
+
+// helper for input formatting
+// checks if user has used invalid decimal seperator in the input
+bool invalidDecimalSeperator(const std::string& line, const char invalidSep = ',');
+
+// helper for input formatting
+// checks if the user inserted wrong character at the start of input
+bool firstCharIllegal(std::istringstream& stream);
+
+// helper for input formatting
+// checks if a nondigit character bellongs to allowed special characters
+bool isAllowedChar(const char oper);
+
+// helper for parsing and checking format of input
+// on the right side of mathematical operation symbol
+ErrorCode parseCheckRightSide(ErrorCode current_state,
+                              const char oper,
+                              double& rhs,
+                              std::istringstream& stream);
+
+// helper for input formatting
+// maps special cases of user input into ErrorCodes
 ErrorCode checkSpecialCases(ErrorCode current_state,
                             double lhs,
                             char operation,
                             double rhs,
                             const std::string& line);
 
-ErrorCode checkForNonIntigerModulo(ErrorCode current_state, const std::string& line);
-
-bool quitRequested(std::string line);
-
-void printInstructions();
-
-void printResult(ErrorCode state, double result);
-
-// REMOVE INU
-// TokensVector getTokens(const std::string& line);
-
-bool isAllowedChar(const char oper);
-
+// helper for input formatting
+// checks if input provided by the user contains unnalowed characters
 bool hasUnallowedChars(const std::string& line);
 
-// bool hasBadFormat(const TokensVector& tokens);
+// helper for dettecting non-integer modulo operation in the user input
+ErrorCode checkForNonIntigerModulo(ErrorCode current_state, const std::string& line);
 
-FormatedInput parseCheckFormatErrors(const std::string& line);
+// prints usage instructions to the console
+void printInstructions();
 
-ErrorCode parseCheckRightSide(ErrorCode current_state,
-                              const char oper,
-                              double& rhs,
-                              std::istringstream& stream);
+// prints the result of user requested calculations to the console
+void printResult(ErrorCode state, double result);
 
-bool firstCharIllegal(std::istringstream& stream);
-
-bool invalidDecimalSeperator(const std::string& line, const char invalidSep = ',');
-
-//   * Dodawanie, mnożenie, dzielenie, odejmowanie (`+`,  `*` , `/` , `-`)
-// * Modulo (`%`)
-// * Obliczanie silni (`!`)
-// * Podnoszenie liczby do potęgi (`^`)
-// * Obliczanie pierwiastka (`$`)
-
-// auto add = [](auto lhs, auto rhs) { return lhs + rhs; };
-
-// auto multiply = []
+// helper for checking if user requested to quit
+bool quitRequested(std::string line);
