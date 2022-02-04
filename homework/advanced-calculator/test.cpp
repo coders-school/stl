@@ -5,11 +5,13 @@
 #include "advancedCalculator.hpp"
 #include "gtest/gtest.h"
 
-bool cmp(double first, double second, double epsilon = 0.5) {
+bool cmp(double first, double second, double epsilon = 0.5)
+{
     return (fabs(first - second) < epsilon);
 }
 
-TEST(advancedCalculatorTest, ShouldAdd) {
+TEST(advancedCalculatorTest, ShouldAdd)
+{
     double result = 0;
 
     ASSERT_EQ(process("5+ 11", &result), ErrorCode::OK);
@@ -24,7 +26,8 @@ TEST(advancedCalculatorTest, ShouldAdd) {
     EXPECT_TRUE(cmp(result, -88.551));
 }
 
-TEST(advancedCalculatorTest, ShouldSubstract) {
+TEST(advancedCalculatorTest, ShouldSubstract)
+{
     double result = 0;
 
     ASSERT_EQ(process("5- 11", &result), ErrorCode::OK);
@@ -39,7 +42,8 @@ TEST(advancedCalculatorTest, ShouldSubstract) {
     EXPECT_TRUE(cmp(result, 66.091));
 }
 
-TEST(advancedCalculatorTest, ShouldMultiply) {
+TEST(advancedCalculatorTest, ShouldMultiply)
+{
     double result = 0;
 
     ASSERT_EQ(process("5 * 11", &result), ErrorCode::OK);
@@ -54,7 +58,8 @@ TEST(advancedCalculatorTest, ShouldMultiply) {
     EXPECT_TRUE(cmp(result, 868.315));
 }
 
-TEST(advancedCalculatorTest, ShouldDivide) {
+TEST(advancedCalculatorTest, ShouldDivide)
+{
     double result = 0;
 
     ASSERT_EQ(process("5 /11", &result), ErrorCode::OK);
@@ -69,7 +74,8 @@ TEST(advancedCalculatorTest, ShouldDivide) {
     EXPECT_TRUE(cmp(result, 0.145239));
 }
 
-TEST(advancedCalculatorTest, ShouldPower) {
+TEST(advancedCalculatorTest, ShouldPower)
+{
     double result = 0;
 
     ASSERT_EQ(process("5 ^2", &result), ErrorCode::OK);
@@ -84,7 +90,8 @@ TEST(advancedCalculatorTest, ShouldPower) {
     EXPECT_TRUE(cmp(result, 0.000976562));
 }
 
-TEST(advancedCalculatorTest, ShouldCalculateRoot) {
+TEST(advancedCalculatorTest, ShouldCalculateRoot)
+{
     double result = 0;
 
     ASSERT_EQ(process("225 $3", &result), ErrorCode::OK);
@@ -99,7 +106,8 @@ TEST(advancedCalculatorTest, ShouldCalculateRoot) {
     EXPECT_TRUE(cmp(result, 1.4427));
 }
 
-TEST(advancedCalculatorTest, ShouldModulo) {
+TEST(advancedCalculatorTest, ShouldModulo)
+{
     double result = 0;
 
     ASSERT_EQ(process("225 %1000", &result), ErrorCode::OK);
@@ -118,7 +126,8 @@ TEST(advancedCalculatorTest, ShouldModulo) {
     EXPECT_TRUE(cmp(result, 14.0));
 }
 
-TEST(advancedCalculatorTest, ShouldFactorial) {
+TEST(advancedCalculatorTest, ShouldFactorial)
+{
     double result = 0;
 
     ASSERT_EQ(process("5!", &result), ErrorCode::OK);
@@ -133,7 +142,8 @@ TEST(advancedCalculatorTest, ShouldFactorial) {
     EXPECT_TRUE(cmp(result, -1324024774.02));
 }
 
-TEST(advancedCalculatorTest, ShouldReturnBadFormat) {
+TEST(advancedCalculatorTest, ShouldReturnBadFormat)
+{
     double result = 0;
 
     ASSERT_EQ(process("5,1!", &result), ErrorCode::BadFormat);
@@ -149,7 +159,8 @@ TEST(advancedCalculatorTest, ShouldReturnBadFormat) {
     ASSERT_EQ(process("123.4 ! 345", &result), ErrorCode::BadFormat);
 }
 
-TEST(advancedCalculatorTest, ShouldReturnBadCharacter) {
+TEST(advancedCalculatorTest, ShouldReturnBadCharacter)
+{
     double result = 0;
 
     ASSERT_EQ(process("123 #- 123", &result), ErrorCode::BadCharacter);
@@ -165,7 +176,8 @@ TEST(advancedCalculatorTest, ShouldReturnBadCharacter) {
     ASSERT_EQ(process("123,4 ; 345", &result), ErrorCode::BadCharacter);
 }
 
-TEST(advancedCalculatorTest, ShouldReturnDivideBy0) {
+TEST(advancedCalculatorTest, ShouldReturnDivideBy0)
+{
     double result = 0;
 
     ASSERT_EQ(process("123 / 0", &result), ErrorCode::DivideBy0);
@@ -176,7 +188,8 @@ TEST(advancedCalculatorTest, ShouldReturnDivideBy0) {
     ASSERT_EQ(process("0.0 / 0", &result), ErrorCode::DivideBy0);
 }
 
-TEST(advancedCalculatorTest, ShouldReturnModuleOfNonIntegerValue) {
+TEST(advancedCalculatorTest, ShouldReturnModuleOfNonIntegerValue)
+{
     double result = 0;
 
     ASSERT_EQ(process("123 % 0.1", &result), ErrorCode::ModuleOfNonIntegerValue);
@@ -185,7 +198,8 @@ TEST(advancedCalculatorTest, ShouldReturnModuleOfNonIntegerValue) {
     ASSERT_EQ(process("123.1 % 0.1", &result), ErrorCode::ModuleOfNonIntegerValue);
 }
 
-TEST(advancedCalculatorTest, ShouldReturnRootOfNegativeNumber) {
+TEST(advancedCalculatorTest, ShouldReturnRootOfNegativeNumber)
+{
     double result = 0;
 
     ASSERT_EQ(process("-123 $ -1", &result), ErrorCode::SqrtOfNegativeNumber);
