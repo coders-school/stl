@@ -70,6 +70,9 @@ ErrorCode checkSpecialCases(ErrorCode current_state,
     else if (operation == '%') {
         current_state = checkForNonIntigerModulo(current_state, line);
     }
+    else if (operation == '$' && lhs < 0) {
+        current_state = ErrorCode::SqrtOfNegativeNumber;
+    }
 
     return current_state;
 }
