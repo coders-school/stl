@@ -37,7 +37,7 @@ bool hasUnallowedChars(const std::string& line);
 
 // bool hasBadFormat(const TokensVector& tokens);
 
-FormatedInput checkFormatErrors(const std::string& line);
+FormatedInput parseCheckFormatErrors(const std::string& line);
 
 ErrorCode parseCheckRightSide(ErrorCode current_state,
                               const char oper,

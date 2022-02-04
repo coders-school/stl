@@ -47,7 +47,7 @@ FormatedInput formatInput(const std::string& line)
         return { ErrorCode::BadCharacter, 0, ' ', 0 };
     }
 
-    auto [state, lhs, oper, rhs] = checkFormatErrors(line);
+    auto [state, lhs, oper, rhs] = parseCheckFormatErrors(line);
     if (state == ErrorCode::BadFormat) {
         return { ErrorCode::BadFormat, 0, ' ', 0 };
     }
@@ -81,7 +81,7 @@ bool hasUnallowedChars(const std::string& line)
                        });
 }
 
-FormatedInput checkFormatErrors(const std::string& line)
+FormatedInput parseCheckFormatErrors(const std::string& line)
 {
     ErrorCode state = ErrorCode::OK;
     double lhs {};

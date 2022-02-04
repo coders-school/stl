@@ -8,7 +8,7 @@ int main()
     printInstructions();
     while (std::getline(std::cin, user_input) && !quitRequested(user_input)) {
         // REMOVE
-        checkFormatErrors(user_input);
+        parseCheckFormatErrors(user_input);
     }
 
     return 0;
