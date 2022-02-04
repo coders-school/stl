@@ -169,6 +169,8 @@ OperationsMap getAllowedOperations()
         { '%', [](auto lhs, auto rhs) { return static_cast<int>(lhs)
                                                % static_cast<int>(rhs); } },
         { '^', [](auto lhs, auto rhs) { return pow(lhs, rhs); } },
-        { '$', [](auto lhs, auto rhs) { return pow(lhs, 1 / rhs); } }
+        { '$', [](auto lhs, auto rhs) { return pow(lhs, 1 / rhs); } },
+        { '!', [](auto lhs, [[maybe_unused]] auto) { return lhs >= 0 ? tgamma(lhs + 1)
+                                                                     : -tgamma(fabs(lhs) + 1); } }
     };
 }
