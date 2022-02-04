@@ -33,8 +33,38 @@ bool quitRequested(std::string line)
 
 void printInstructions()
 {
-    std::cout << "-----Simple calculator-----\n"
-              << "type 'quit' or enter a calculation to be performed\n";
+    std::cout << "============== Simple calculator =================\n"
+              << "==> adding ('-')\n"
+              << "==> substracting ('+')\n"
+              << "==> multiplying ('*')\n"
+              << "==> division ('/')\n"
+              << "==> factorial ( <number>!)\n"
+              << "==> modulo ('%')\n"
+              << "==> computing power ( <number> ^ <exponent> )\n"
+              << "==> computing root(<number> $ <root-base> )\n"
+              << "### Type 'quit' to finish working with calculator.\n"
+              << "---------------------------\n";
+}
+
+void printResult(ErrorCode state, double result)
+{
+    std::map<ErrorCode, std::string> messages {
+        { ErrorCode::OK, "RESULT: " },
+        { ErrorCode::BadCharacter, "Bad character included! Try again...\n\n" },
+        { ErrorCode::BadFormat, "Bad format of user input! Try again...\n\n" },
+        { ErrorCode::DivideBy0, "Cannot divide by 0! Try again...\n\n" },
+        { ErrorCode::ModuleOfNonIntegerValue,
+          "Cannot calculate module of a floating point! Try again...\n\n" },
+        { ErrorCode::SqrtOfNegativeNumber,
+          "Cannot calculate root of a negative number! Try again...\n\n" }
+    };
+
+    std::cout << "*************\n"
+              << messages[state];
+    if (state == ErrorCode::OK) {
+        std::cout << result << "\n-------------\n"
+                  << std::endl;
+    }
 }
 
 FormatedInput formatInput(const std::string& line)

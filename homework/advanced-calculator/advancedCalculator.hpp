@@ -38,6 +38,8 @@ bool quitRequested(std::string line);
 
 void printInstructions();
 
+void printResult(ErrorCode state, double result);
+
 // REMOVE INU
 // TokensVector getTokens(const std::string& line);
 
