@@ -37,20 +37,11 @@ void printInstructions()
 
 FormatedInput formatInput(const std::string& line)
 {
-    //   * Dodawanie, mnożenie, dzielenie, odejmowanie (`+`,  `*` , `/` , `-`)
-    // * Modulo (`%`)
-    // * Obliczanie silni (`!`)
-    // * Podnoszenie liczby do potęgi (`^`)
-    // * Obliczanie pierwiastka (`$`)
-    // ErrorCode result_code = ErrorCode::OK;
     if (hasUnallowedChars(line)) {
         return { ErrorCode::BadCharacter, 0, ' ', 0 };
     }
 
     auto [state, lhs, oper, rhs] = parseCheckFormatErrors(line);
-    // if (state == ErrorCode::BadFormat) {
-    //     return { ErrorCode::BadFormat, 0, ' ', 0 };
-    // }
     if (state != ErrorCode::BadFormat) {
         state = checkSpecialCases(state, lhs, oper, rhs, line);
     }
@@ -98,13 +89,6 @@ bool isAllowedChar(const char oper)
 
 bool hasUnallowedChars(const std::string& line)
 {
-    // constexpr std::array<char, 8> allowed = { '+', '*', '/', '-', '%', '!', '^', '$' };
-    // auto is_allowed_operator = [&allowed](auto ch) -> bool {
-    //     return std::any_of(begin(allowed), end(allowed), [ch](auto oper) {
-    //         return ch == oper;
-    //     });
-    // };
-
     return std::any_of(begin(line),
                        end(line),
                        [](auto ch) {
