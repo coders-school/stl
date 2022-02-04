@@ -26,21 +26,21 @@ TEST(advancedCalculatorTest, ShouldAdd)
     EXPECT_TRUE(cmp(result, -88.551));
 }
 
-// TEST(advancedCalculatorTest, ShouldSubstract)
-// {
-//     double result = 0;
+TEST(advancedCalculatorTest, ShouldSubstract)
+{
+    double result = 0;
 
-//     ASSERT_EQ(process("5- 11", &result), ErrorCode::OK);
-//     EXPECT_TRUE(cmp(result, -6));
-//     ASSERT_EQ(process("43.21 -11.54", &result), ErrorCode::OK);
-//     EXPECT_TRUE(cmp(result, 31.67));
-//     ASSERT_EQ(process("-54.31-11", &result), ErrorCode::OK);
-//     EXPECT_TRUE(cmp(result, -65.31));
-//     ASSERT_EQ(process("28.43 - -810.43", &result), ErrorCode::OK);
-//     EXPECT_TRUE(cmp(result, 838.86));
-//     ASSERT_EQ(process("-11.230 --77.321", &result), ErrorCode::OK);
-//     EXPECT_TRUE(cmp(result, 66.091));
-// }
+    ASSERT_EQ(process("5- 11", &result), ErrorCode::OK);
+    EXPECT_TRUE(cmp(result, -6));
+    ASSERT_EQ(process("43.21 -11.54", &result), ErrorCode::OK);
+    EXPECT_TRUE(cmp(result, 31.67));
+    ASSERT_EQ(process("-54.31-11", &result), ErrorCode::OK);
+    EXPECT_TRUE(cmp(result, -65.31));
+    ASSERT_EQ(process("28.43 - -810.43", &result), ErrorCode::OK);
+    EXPECT_TRUE(cmp(result, 838.86));
+    ASSERT_EQ(process("-11.230 --77.321", &result), ErrorCode::OK);
+    EXPECT_TRUE(cmp(result, 66.091));
+}
 
 // TEST(advancedCalculatorTest, ShouldMultiply)
 // {
