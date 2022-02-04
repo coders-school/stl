@@ -14,8 +14,21 @@ enum class ErrorCode
     ModuleOfNonIntegerValue   // attempt of getting modulo of non integer value
 };
 
-using FormatedInput = std::tuple<ErrorCode, double, char, double>;
+// namespace for assigning operation symbols to mathematical operations
+namespace calc {
+constexpr char add = { '+' };
+constexpr char substr = { '-' };
+constexpr char multiply = { '*' };
+constexpr char div = { '/' };
+constexpr char mod = { '%' };
+constexpr char pwr = { '^' };
+constexpr char root = { '$' };
+constexpr char factorial = { '!' };
+}   // namespace calc
 
+// allias for grouping errorcode and operation components
+using FormatedInput = std::tuple<ErrorCode, double, char, double>;
+// allias for map assigning matematical operations to operations
 using OperationsMap = std::map<const char, std::function<double(double, double)>>;
 
 using TokensVector = std::vector<std::string>;

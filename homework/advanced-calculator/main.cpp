@@ -1,4 +1,4 @@
-#include <iostream>   //REMOVE
+#include <iostream>
 
 #include "advancedCalculator.hpp"
 
@@ -14,6 +14,5 @@ int main()
     }
     std::cout << "!!!!!! Thank you for trying out my calculator !!!!!!!!"
               << std::endl;
-
     return 0;
 }
