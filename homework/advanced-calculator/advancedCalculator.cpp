@@ -161,7 +161,7 @@ bool invalidDecimalSeperator(const std::string& line, const char invalidSep)
 OperationsMap getAllowedOperations()
 {
     return OperationsMap {
-        { '+', [](auto lhs, auto rhs) { return lhs - rhs; } },
+        { '+', [](auto lhs, auto rhs) { return lhs + rhs; } },
         { '*', [](auto lhs, auto rhs) { return lhs * rhs; } },
         { '/', [](auto lhs, auto rhs) { return lhs / rhs; } },
         { '-', [](auto lhs, auto rhs) { return lhs - rhs; } },
