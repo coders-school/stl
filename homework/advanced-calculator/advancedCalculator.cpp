@@ -4,6 +4,7 @@
 #include <array>
 #include <cctype>
 #include <cmath>
+#include <functional>
 #include <iostream>
 #include <limits>   // REMOVE INU
 #include <sstream>
@@ -161,7 +162,8 @@ bool invalidDecimalSeperator(const std::string& line, const char invalidSep)
 OperationsMap getAllowedOperations()
 {
     return OperationsMap {
-        { '+', [](auto lhs, auto rhs) { return lhs + rhs; } },
+        // { '+', [](auto lhs, auto rhs) { return lhs + rhs; } },
+        { '+', std::plus<> {} },
         { '*', [](auto lhs, auto rhs) { return lhs * rhs; } },
         { '/', [](auto lhs, auto rhs) { return lhs / rhs; } },
         { '-', [](auto lhs, auto rhs) { return lhs - rhs; } },
