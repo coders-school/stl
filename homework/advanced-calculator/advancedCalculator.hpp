@@ -28,9 +28,25 @@ bool quitRequested(std::string line);
 
 void printInstructions();
 
-TokensVector getTokens(const std::string& line);
+// REMOVE INU
+// TokensVector getTokens(const std::string& line);
+
+bool isAllowedChar(const char oper);
 
 bool hasUnallowedChars(const std::string& line);
+
+// bool hasBadFormat(const TokensVector& tokens);
+
+FormatedInput parseCheckFormatErrors(const std::string& line);
+
+ErrorCode parseCheckRightSide(ErrorCode current_state,
+                              const char oper,
+                              double& rhs,
+                              std::istringstream& stream);
+
+bool firstCharIllegal(std::istringstream& stream);
+
+bool invalidDecimalSeperator(const std::string& line, const char invalidSep = ',');
 
 //   * Dodawanie, mnożenie, dzielenie, odejmowanie (`+`,  `*` , `/` , `-`)
 // * Modulo (`%`)

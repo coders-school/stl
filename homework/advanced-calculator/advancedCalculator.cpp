@@ -4,6 +4,7 @@
 #include <array>
 #include <cctype>
 #include <iostream>
+#include <limits>   // REMOVE INU
 #include <sstream>
 
 ErrorCode process(std::string input, double* out)
@@ -18,7 +19,7 @@ ErrorCode process(std::string input, double* out)
         return state;
     }
 
-    return ErrorCode::OK;
+    return state;
 }
 
 bool quitRequested(std::string line)
@@ -45,33 +46,95 @@ FormatedInput formatInput(const std::string& line)
     if (hasUnallowedChars(line)) {
         return { ErrorCode::BadCharacter, 0, ' ', 0 };
     }
+
+    auto [state, lhs, oper, rhs] = parseCheckFormatErrors(line);
+    if (state == ErrorCode::BadFormat) {
+        return { ErrorCode::BadFormat, 0, ' ', 0 };
+    }
+
+    return FormatedInput { state, lhs, oper, rhs };
 }
 
-TokensVector getTokens(const std::string& line)
+bool isAllowedChar(const char oper)
 {
-    std::vector<std::string> tokens_vec;
-    std::istringstream line_stream(line);
-    std::string token;
-    while (line_stream >> token) {
-        tokens_vec.emplace_back(token);
-    }
-    return tokens_vec;
+    static constexpr std::array<char, 11> allowed = { '+', '*', '/', '-', '%', '!', '^', '$', ',', ' ', '.' };
+    return std::any_of(begin(allowed),
+                       end(allowed),
+                       [oper](auto ch) {
+                           return ch == oper;
+                       });
 }
 
 bool hasUnallowedChars(const std::string& line)
 {
-    constexpr std::array<char, 8> allowed = { '+', '*', '/', '-', '%', '!', '^', '$' };
-    auto is_allowed_operator = [&allowed](auto ch) -> bool {
-        std::any_of(begin(allowed), end(allowed), [ch](auto oper) {
-            return ch == oper;
-        });
-    };
+    // constexpr std::array<char, 8> allowed = { '+', '*', '/', '-', '%', '!', '^', '$' };
+    // auto is_allowed_operator = [&allowed](auto ch) -> bool {
+    //     return std::any_of(begin(allowed), end(allowed), [ch](auto oper) {
+    //         return ch == oper;
+    //     });
+    // };
 
-    return !std::all_of(begin(line),
-                        end(line),
-                        [&is_allowed_operator](auto ch) {
-                            return isdigit(ch) || is_allowed_operator(ch);
-                        });
+    return std::any_of(begin(line),
+                       end(line),
+                       [](auto ch) {
+                           return !isdigit(ch) && !isAllowedChar(ch);
+                       });
+}
+
+FormatedInput parseCheckFormatErrors(const std::string& line)
+{
+    ErrorCode state = ErrorCode::OK;
+    double lhs {};
+    double rhs {};
+    char operation {};
+    std::istringstream line_stream(line);
+    if (invalidDecimalSeperator(line)
+        || firstCharIllegal(line_stream)
+        // check if retrieving left hand operand and operator succeds
+        || (!(line_stream >> lhs >> operation))) {
+        state = ErrorCode::BadFormat;
+    }
+    state = parseCheckRightSide(state, operation, rhs, line_stream);
+
+    return FormatedInput { state, lhs, operation, rhs };
+}
+
+ErrorCode parseCheckRightSide(ErrorCode current_state,
+                              const char operation,
+                              double& rhs,
+                              std::istringstream& stream)
+{
+    // copy what's left in the stream
+    std::string all_after_operator;
+    std::getline(stream, all_after_operator);
+    // and reaload it to the stream with resetting state
+    stream.clear();
+    stream.str(all_after_operator);
+    // try to read the right hand side operand
+    bool rhs_read_wrong = !(stream >> rhs);
+    std::string garbage_left;
+    // in the factorial operation there should be nothing to the right of operator
+    // in other operations right hand side operand should be read without error
+    // there should be no garbage left after reading the right hand side opperand
+    if ((operation == '!' && !all_after_operator.empty())
+        || (operation != '!' && rhs_read_wrong)
+        || (stream >> garbage_left)) {
+        current_state = ErrorCode::BadFormat;
+    }
+
+    return current_state;
+}
+
+bool firstCharIllegal(std::istringstream& stream)
+{
+    char first_char = stream.peek();
+    return !isdigit(first_char) && first_char != '-';
+}
+
+bool invalidDecimalSeperator(const std::string& line, const char invalidSep)
+{
+    auto pos = line.find(invalidSep);
+    return pos != std::string::npos;
 }
 
 // constexpr OperationsMap getAllowedOperations()
