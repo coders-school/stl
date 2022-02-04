@@ -1,7 +1,7 @@
 #include <array>
 #include <forward_list>
-
-// TODO: include
+#include <iostream>
+#include "compression.hpp"
 
 std::array<std::array<uint8_t, 32>, 32> generateNinja() {
     return {
@@ -41,6 +41,18 @@ std::array<std::array<uint8_t, 32>, 32> generateNinja() {
 }
 
 int main() {
+    // Test
+/*     arrayPicture aTest = {0, 0 ,0, 1, 1, 2, 3, 0, 0, 0,
+                          0, 0, 4, 4, 4, 1, 1, 1, 1, 1,
+                          2, 2, 2, 2, 2, 1, 2, 2, 2, 2};
+
+    auto compTest = compressGrayscale(aTest);
+
+    for(auto e: compTest){
+        std::cout << '{' << static_cast<unsigned>(e.first) << ", " 
+                         << static_cast<unsigned>(e.second) << "}, ";
+    } */
+
     auto ninja = generateNinja();
     // printMap(ninja);
     auto compressed = compressGrayscale(ninja);
