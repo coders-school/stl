@@ -94,19 +94,6 @@ FormatedInput checkFormatErrors(const std::string& line)
         || (!(line_stream >> lhs >> operation))) {
         state = ErrorCode::BadFormat;
     }
-    // std::string all_after_operator;
-    // std::getline(line_stream, all_after_operator);
-    // line_stream.clear();
-    // line_stream.str(all_after_operator);
-    // bool rhs_read_wrong = !(line_stream >> rhs);
-    // std::string garbage_left;
-    // if (operation == '!' && !all_after_operator.empty()
-    //     || operation != '!' && rhs_read_wrong) {
-    //     state = ErrorCode::BadFormat;
-    // }
-    // if (line_stream >> garbage_left) {
-    //     state = ErrorCode::BadFormat;
-    // }
     state = parseCheckRightSide(state, operation, rhs, line_stream);
 
     return FormatedInput { state, lhs, operation, rhs };
@@ -134,9 +121,6 @@ ErrorCode parseCheckRightSide(ErrorCode current_state,
         || (stream >> garbage_left)) {
         current_state = ErrorCode::BadFormat;
     }
-    // if (stream >> garbage_left) {
-    //     current_state = ErrorCode::BadFormat;
-    // }
 
     return current_state;
 }
