@@ -4,16 +4,17 @@
 #include <array>
 #include <cctype>
 #include <cmath>
+#include <iomanip>
 #include <iostream>
 #include <sstream>
 
 // main function proccessing user input
 // stores result in out and returns operations state
-ErrorCode process(std::string input, double* out)
+ErrorCode process(const std::string& input, double* out)
 {
     const auto operations_map = getAllowedOperations();
     // get formated input // NOTE: consider better function name
-    auto [state, lhs, operation, rhs] = formatInput(input);
+    auto [state, lhs, operation, rhs] = parseAndformatInput(input);
     if (state == ErrorCode::OK) {
         const auto& it = operations_map.find(operation);
         if (it != operations_map.end()) {
@@ -28,21 +29,20 @@ ErrorCode process(std::string input, double* out)
 OperationsMap getAllowedOperations()
 {
     return OperationsMap {
-        { '+', std::plus<> {} },
-        { '*', std::multiplies<> {} },
-        { '/', std::divides<> {} },
-        { '-', std::minus<> {} },
-        { '%', [](auto lhs, auto rhs) {
-             return static_cast<int>(lhs)
-                    % static_cast<int>(rhs);
+        { calc::add, std::plus<> {} },
+        { calc::multiply, std::multiplies<> {} },
+        { calc::div, std::divides<> {} },
+        { calc::sub, std::minus<> {} },
+        { calc::mod, [](auto lhs, auto rhs) {
+             return static_cast<int>(lhs) % static_cast<int>(rhs);
          } },
-        { '^', [](auto lhs, auto rhs) {
+        { calc::pwr, [](auto lhs, auto rhs) {
              return pow(lhs, rhs);
          } },
-        { '$', [](auto lhs, auto rhs) {
+        { calc::root, [](auto lhs, auto rhs) {
              return pow(lhs, 1 / rhs);
          } },
-        { '!', [](auto lhs, [[maybe_unused]] auto) {
+        { calc::factorial, [](auto lhs, [[maybe_unused]] auto) {
              return lhs >= 0 ? tgamma(lhs + 1)
                              : -tgamma(fabs(lhs) + 1);
          } }
@@ -50,12 +50,11 @@ OperationsMap getAllowedOperations()
 }
 
 // main user input formatting function
-FormatedInput formatInput(const std::string& line)
+FormatedInput parseAndformatInput(const std::string& line)
 {
     if (hasUnallowedChars(line)) {
         return { ErrorCode::BadCharacter, 0, ' ', 0 };
     }
-
     auto [state, lhs, oper, rhs] = parseCheckFormatErrors(line);
     if (state != ErrorCode::BadFormat) {
         state = checkSpecialCases(state, lhs, oper, rhs, line);
@@ -96,14 +95,27 @@ bool invalidDecimalSeperator(const std::string& line, const char invalidSep)
 bool firstCharIllegal(std::istringstream& stream)
 {
     char first_char = stream.peek();
-    return !isdigit(first_char) && first_char != '-';
+    return !isdigit(first_char) && first_char != calc::sub;
 }
 
 // helper for input formatting
 // checks if a nondigit character bellongs to allowed special characters
 bool isAllowedChar(const char oper)
 {
-    static constexpr std::array<char, 11> allowed = { '+', '*', '/', '-', '%', '!', '^', '$', ',', ' ', '.' };
+    static constexpr std::array<char, 11> allowed {
+        calc::add,
+        calc::multiply,
+        calc::div,
+        calc::sub,
+        calc::mod,
+        calc::factorial,
+        calc::pwr,
+        calc::root,
+        calc::comma,
+        calc::punct,
+        calc::space
+    };
+
     return std::any_of(begin(allowed),
                        end(allowed),
                        [oper](auto ch) {
@@ -130,8 +142,8 @@ ErrorCode parseCheckRightSide(ErrorCode current_state,
     // in the factorial operation there should be nothing to the right of operator
     // in other operations right hand side operand should be read without error
     // there should be no garbage left after reading the right hand side opperand
-    if ((operation == '!' && !all_after_operator.empty())
-        || (operation != '!' && rhs_read_wrong)
+    if ((operation == calc::factorial && !all_after_operator.empty())
+        || (operation != calc::factorial && rhs_read_wrong)
         || (stream >> garbage_left)) {
         current_state = ErrorCode::BadFormat;
     }
@@ -147,13 +159,13 @@ ErrorCode checkSpecialCases(ErrorCode current_state,
                             double rhs,
                             const std::string& line)
 {
-    if (operation == '/' && (rhs == 0)) {
+    if (operation == calc::div && (rhs == 0)) {
         current_state = ErrorCode::DivideBy0;
     }
-    else if (operation == '%') {
+    else if (operation == calc::mod) {
         current_state = checkForNonIntigerModulo(current_state, line);
     }
-    else if (operation == '$' && lhs < 0) {
+    else if (operation == calc::root && lhs < 0) {
         current_state = ErrorCode::SqrtOfNegativeNumber;
     }
 
@@ -185,14 +197,14 @@ ErrorCode checkForNonIntigerModulo(ErrorCode current_state, const std::string& l
 void printInstructions()
 {
     std::cout << "============== Simple calculator =================\n"
-              << "==> adding ('-')\n"
-              << "==> substracting ('+')\n"
-              << "==> multiplying ('*')\n"
-              << "==> division ('/')\n"
-              << "==> factorial ( <number>!)\n"
-              << "==> modulo ('%')\n"
-              << "==> computing power ( <number> ^ <exponent> )\n"
-              << "==> computing root(<number> $ <root-base> )\n"
+              << "==> adding ( " << calc::add << " )\n"
+              << "==> substracting ( " << calc::sub << " )\n"
+              << "==> multiplying ( " << calc::multiply << " )\n"
+              << "==> division ( " << calc::div << " )\n"
+              << "==> factorial ( <number>" << calc::factorial << " )\n"
+              << "==> modulo ( " << calc::mod << " )\n"
+              << "==> computing power ( <number> " << calc::pwr << " <exponent> )\n"
+              << "==> computing root (<number> " << calc::root << " <root-base> )\n"
               << "### Type 'quit' to finish working with calculator.\n"
               << "---------------------------\n";
 }
@@ -214,8 +226,7 @@ void printResult(ErrorCode state, double result)
     std::cout << "*************\n"
               << messages[state];
     if (state == ErrorCode::OK) {
-        std::cout << result << "\n-------------\n"
-                  << std::endl;
+        std::cout << std::setprecision(32) << result << "\n-------------\n\n";
     }
 }
 

@@ -13,16 +13,19 @@ enum class ErrorCode
     ModuleOfNonIntegerValue   // attempt of getting modulo of non integer value
 };
 
-// namespace for assigning operation symbols to mathematical operations
+// namespace for constants
 namespace calc {
 constexpr char add = { '+' };
-constexpr char substr = { '-' };
+constexpr char sub = { '-' };
 constexpr char multiply = { '*' };
 constexpr char div = { '/' };
 constexpr char mod = { '%' };
 constexpr char pwr = { '^' };
 constexpr char root = { '$' };
 constexpr char factorial = { '!' };
+constexpr char punct = { '.' };
+constexpr char comma = { ',' };
+constexpr char space = { ' ' };
 }   // namespace calc
 
 // allias for grouping errorcode and operation components
@@ -32,20 +35,20 @@ using OperationsMap = std::map<const char, std::function<double(double, double)>
 
 // main function proccessing user input
 // stores result in out and returns operations state
-ErrorCode process(std::string input, double* out);
+ErrorCode process(const std::string& input, double* out);
 
 // returns  map assigning matematical operations to operations
 OperationsMap getAllowedOperations();
 
 // main user input formatting function
-FormatedInput formatInput(const std::string& line);
+FormatedInput parseAndformatInput(const std::string& line);
 
 // helper for format Input. Parses input for format errors
 FormatedInput parseCheckFormatErrors(const std::string& line);
 
 // helper for input formatting
 // checks if user has used invalid decimal seperator in the input
-bool invalidDecimalSeperator(const std::string& line, const char invalidSep = ',');
+bool invalidDecimalSeperator(const std::string& line, const char invalidSep = calc::comma);
 
 // helper for input formatting
 // checks if the user inserted wrong character at the start of input
