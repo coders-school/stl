@@ -52,16 +52,32 @@ FormatedInput formatInput(const std::string& line)
     //     return { ErrorCode::BadFormat, 0, ' ', 0 };
     // }
     if (state != ErrorCode::BadFormat) {
-        state = checkSpecialCases(state, lhs, oper, rhs);
+        state = checkSpecialCases(state, lhs, oper, rhs, line);
     }
 
     return FormatedInput { state, lhs, oper, rhs };
 }
 
-ErrorCode checkSpecialCases(ErrorCode current_state, double lhs, char operation, double rhs)
+ErrorCode checkSpecialCases(ErrorCode current_state,
+                            double lhs,
+                            char operation,
+                            double rhs,
+                            const std::string& line)
 {
     if (operation == '/' && (rhs == 0)) {
-        return ErrorCode::DivideBy0;
+        current_state = ErrorCode::DivideBy0;
+    }
+    else if (operation == '%') {
+        current_state = checkForNonIntigerModulo(current_state, line);
+    }
+
+    return current_state;
+}
+
+ErrorCode checkForNonIntigerModulo(ErrorCode current_state, const std::string& line)
+{
+    if (line.find('.') != std::string::npos) {
+        current_state = ErrorCode::ModuleOfNonIntegerValue;
     }
 
     return current_state;

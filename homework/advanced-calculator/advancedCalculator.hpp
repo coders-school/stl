@@ -24,7 +24,13 @@ ErrorCode process(std::string input, double* out);
 
 FormatedInput formatInput(const std::string& line);
 
-ErrorCode checkSpecialCases(ErrorCode current_state, double lhs, char operation, double rhs);
+ErrorCode checkSpecialCases(ErrorCode current_state,
+                            double lhs,
+                            char operation,
+                            double rhs,
+                            const std::string& line);
+
+ErrorCode checkForNonIntigerModulo(ErrorCode current_state, const std::string& line);
 
 bool quitRequested(std::string line);
 

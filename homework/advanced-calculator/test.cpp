@@ -188,15 +188,15 @@ TEST(advancedCalculatorTest, ShouldReturnDivideBy0)
     ASSERT_EQ(process("0.0 / 0", &result), ErrorCode::DivideBy0);
 }
 
-// TEST(advancedCalculatorTest, ShouldReturnModuleOfNonIntegerValue)
-// {
-//     double result = 0;
+TEST(advancedCalculatorTest, ShouldReturnModuleOfNonIntegerValue)
+{
+    double result = 0;
 
-//     ASSERT_EQ(process("123 % 0.1", &result), ErrorCode::ModuleOfNonIntegerValue);
-//     ASSERT_EQ(process("123 % 0.0005", &result), ErrorCode::ModuleOfNonIntegerValue);
-//     ASSERT_EQ(process("123.1 % 0", &result), ErrorCode::ModuleOfNonIntegerValue);
-//     ASSERT_EQ(process("123.1 % 0.1", &result), ErrorCode::ModuleOfNonIntegerValue);
-// }
+    ASSERT_EQ(process("123 % 0.1", &result), ErrorCode::ModuleOfNonIntegerValue);
+    ASSERT_EQ(process("123 % 0.0005", &result), ErrorCode::ModuleOfNonIntegerValue);
+    ASSERT_EQ(process("123.1 % 0", &result), ErrorCode::ModuleOfNonIntegerValue);
+    ASSERT_EQ(process("123.1 % 0.1", &result), ErrorCode::ModuleOfNonIntegerValue);
+}
 
 // TEST(advancedCalculatorTest, ShouldReturnRootOfNegativeNumber)
 // {
