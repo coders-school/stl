@@ -48,11 +48,23 @@ FormatedInput formatInput(const std::string& line)
     }
 
     auto [state, lhs, oper, rhs] = parseCheckFormatErrors(line);
-    if (state == ErrorCode::BadFormat) {
-        return { ErrorCode::BadFormat, 0, ' ', 0 };
+    // if (state == ErrorCode::BadFormat) {
+    //     return { ErrorCode::BadFormat, 0, ' ', 0 };
+    // }
+    if (state != ErrorCode::BadFormat) {
+        state = checkSpecialCases(state, lhs, oper, rhs);
     }
 
     return FormatedInput { state, lhs, oper, rhs };
+}
+
+ErrorCode checkSpecialCases(ErrorCode current_state, double lhs, char operation, double rhs)
+{
+    if (operation == '/' && (rhs == 0)) {
+        return ErrorCode::DivideBy0;
+    }
+
+    return current_state;
 }
 
 bool isAllowedChar(const char oper)

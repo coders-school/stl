@@ -176,17 +176,17 @@ TEST(advancedCalculatorTest, ShouldReturnBadCharacter)
     ASSERT_EQ(process("123,4 ; 345", &result), ErrorCode::BadCharacter);
 }
 
-// TEST(advancedCalculatorTest, ShouldReturnDivideBy0)
-// {
-//     double result = 0;
+TEST(advancedCalculatorTest, ShouldReturnDivideBy0)
+{
+    double result = 0;
 
-//     ASSERT_EQ(process("123 / 0", &result), ErrorCode::DivideBy0);
-//     ASSERT_EQ(process("123 / 0.0", &result), ErrorCode::DivideBy0);
-//     ASSERT_EQ(process("123 / -0", &result), ErrorCode::DivideBy0);
-//     ASSERT_EQ(process("123 / -0.0", &result), ErrorCode::DivideBy0);
-//     ASSERT_EQ(process("-123 / -0.0", &result), ErrorCode::DivideBy0);
-//     ASSERT_EQ(process("0.0 / 0", &result), ErrorCode::DivideBy0);
-// }
+    ASSERT_EQ(process("123 / 0", &result), ErrorCode::DivideBy0);
+    ASSERT_EQ(process("123 / 0.0", &result), ErrorCode::DivideBy0);
+    ASSERT_EQ(process("123 / -0", &result), ErrorCode::DivideBy0);
+    ASSERT_EQ(process("123 / -0.0", &result), ErrorCode::DivideBy0);
+    ASSERT_EQ(process("-123 / -0.0", &result), ErrorCode::DivideBy0);
+    ASSERT_EQ(process("0.0 / 0", &result), ErrorCode::DivideBy0);
+}
 
 // TEST(advancedCalculatorTest, ShouldReturnModuleOfNonIntegerValue)
 // {
