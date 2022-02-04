@@ -47,7 +47,7 @@ FormatedInput formatInput(const std::string& line)
         return { ErrorCode::BadCharacter, 0, ' ', 0 };
     }
 
-    auto [state, lhs, oper, rhs] = checkFormatErrors(line);
+    auto [state, lhs, oper, rhs] = parseCheckFormatErrors(line);
     if (state == ErrorCode::BadFormat) {
         return { ErrorCode::BadFormat, 0, ' ', 0 };
     }
@@ -81,60 +81,48 @@ bool hasUnallowedChars(const std::string& line)
                        });
 }
 
-FormatedInput checkFormatErrors(const std::string& line)
+FormatedInput parseCheckFormatErrors(const std::string& line)
 {
-    FormatedInput result;
-    auto& [state, lhs, operation, rhs] = result;
+    ErrorCode state = ErrorCode::OK;
+    double lhs {};
+    double rhs {};
+    char operation {};
     std::istringstream line_stream(line);
-    std::string stream_garbage;
     if (invalidDecimalSeperator(line)
         || firstCharIllegal(line_stream)
         // check if retrieving left hand operand and operator succeds
         || (!(line_stream >> lhs >> operation))) {
         state = ErrorCode::BadFormat;
     }
-    // check if right hand side operand retreives succesfuly
-    bool rhs_not_read = !(line_stream >> rhs);
-    if (rhs_not_read && operation == '!') {
-        state = ErrorCode::OK;
-    }
-    // if (!(line_stream >> rhs))
-    // for factorial rhs should not read
-    else if (rhs_not_read && operation != '!'
-             // operation is factorial and we got something which shouldn't got there
-             || (operation == '!' && rhs != 0)
-             // there where leftovers in the stream after taking 2 operands and operator
-             || (line_stream >> stream_garbage)) {
-        state = ErrorCode::BadFormat;
-    }
-    else {
-        state = ErrorCode::OK;
-    }
-
-    // if (invalidDecimalSeperator(line) || firstCharIllegal(line_stream)) {
-    //     state = ErrorCode::BadFormat;
-    // }
-    // // check if retrieving left hand operand and operator succeds
-    // else if (!(line_stream >> lhs >> operation)) {
-    //     state = ErrorCode::BadFormat;
-    // }
-    // // check if right hand side operand retreives succesfuly
-    // else if (!(line_stream >> rhs)) {
-    //     state = ErrorCode::BadFormat;
-    // }
-    // // operation is factorial and we got something which souldn't got there
-    // else if (operation == '!' && rhs != 0) {
-    //     state = ErrorCode::BadFormat;
-    // }
-    // // there where leftovers in the stream after taking 2 operands and operator
-    // else if (line_stream >> stream_garbage) {
-    //     state = ErrorCode::BadFormat;
-    // }
-    // else {
-    //     state = ErrorCode::OK;
-    // }
+    state = parseCheckRightSide(state, operation, rhs, line_stream);
 
     return FormatedInput { state, lhs, operation, rhs };
+}
+
+ErrorCode parseCheckRightSide(ErrorCode current_state,
+                              const char operation,
+                              double& rhs,
+                              std::istringstream& stream)
+{
+    // copy what's left in the stream
+    std::string all_after_operator;
+    std::getline(stream, all_after_operator);
+    // and reaload it to the stream with resetting state
+    stream.clear();
+    stream.str(all_after_operator);
+    // try to read the right hand side operand
+    bool rhs_read_wrong = !(stream >> rhs);
+    std::string garbage_left;
+    // in the factorial operation there should be nothing to the right of operator
+    // in other operations right hand side operand should be read without error
+    // there should be no garbage left after reading the right hand side opperand
+    if ((operation == '!' && !all_after_operator.empty())
+        || (operation != '!' && rhs_read_wrong)
+        || (stream >> garbage_left)) {
+        current_state = ErrorCode::BadFormat;
+    }
+
+    return current_state;
 }
 
 bool firstCharIllegal(std::istringstream& stream)
