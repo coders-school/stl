@@ -1,7 +1,7 @@
 #include <cmath>
 #include <functional>
 #include <numeric>
-
+#include "arithmeticAverage.hpp"
 double ArithmeticAverage(const std::vector<int>& lhs, const std::vector<int>& rhs)
 {
     auto sumOfVectors = std::accumulate(lhs.cbegin(), lhs.cend(), 0) + std::accumulate(rhs.cbegin(), rhs.cend(), 0.0);
