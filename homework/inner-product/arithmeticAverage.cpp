@@ -16,7 +16,4 @@ double Distance(const std::vector<int>& lhs, const std::vector<int>& rhs)
 }
 
 
-int main()
-{
-    return 0;
-}
+
