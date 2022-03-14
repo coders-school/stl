@@ -133,6 +133,7 @@ TEST(advancedCalculatorTest, ShouldFactorial) {
     EXPECT_TRUE(cmp(result, -1324024774.02));
 }
 
+
 TEST(advancedCalculatorTest, ShouldReturnBadFormat) {
     double result = 0;
 
@@ -193,3 +194,4 @@ TEST(advancedCalculatorTest, ShouldReturnRootOfNegativeNumber) {
     ASSERT_EQ(process("-123.2 $ 1", &result), ErrorCode::SqrtOfNegativeNumber);
     ASSERT_EQ(process("-123 $ 1", &result), ErrorCode::SqrtOfNegativeNumber);
 }
+
