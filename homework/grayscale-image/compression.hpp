@@ -1,0 +1,15 @@
+#pragma once
+#include <array>
+#include <utility>
+#include <vector>
+#include <stdint.h>
+
+constexpr size_t width = 32;
+constexpr size_t height = 32;
+
+using compressedType = std::vector<std::pair<uint8_t, uint8_t>>;
+using bitmapType = std::array<std::array<uint8_t, width>, height>;
+
+
+compressedType compressGrayscale(bitmapType& pgm);
+bitmapType decompressGrayscale(compressedType& compressedImage);
