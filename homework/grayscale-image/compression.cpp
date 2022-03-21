@@ -1,4 +1,5 @@
 #include "compression.hpp"
+#include <algorithm>
 
 compressedType compressGrayscale(bitmapType& pgm) {
     compressedType output(width * height);
