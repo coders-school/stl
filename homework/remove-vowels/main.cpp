@@ -19,7 +19,9 @@ int main() {
     };
     printVector(words);
     removeVowels(words);
-    printVector(words);
+     for (auto elem : removeVowels(words)){
+        std::cout << elem << '\n';
+    }
 
     return 0;
 }
