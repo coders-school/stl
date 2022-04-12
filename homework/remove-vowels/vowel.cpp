@@ -4,7 +4,7 @@
 #include <vector> 
 
 
-std::vector <std::string> removeVowels (std::vector<std::string> word){
+std::vector <std::string> removeVowels (std::vector<std::string> &word){
 
     std::vector<std::string> newVector;
     
@@ -18,5 +18,5 @@ std::vector <std::string> removeVowels (std::vector<std::string> word){
     }
     newVector.push_back(newString);
    }
-    return newVector;
+    return word = newVector;
 }
