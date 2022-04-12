@@ -18,7 +18,7 @@ int main() {
         "In the shape of an L on her forehead"
     };
     printVector(words);
-    words = removeVowels(words);
+    removeVowels(words);
     printVector(words);
 
     return 0;
