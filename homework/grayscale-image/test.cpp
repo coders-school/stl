@@ -3,6 +3,7 @@
 #include <utility>  // for std::pair<>
 #include <vector>
 
+#include "compression.hpp"
 // TODO: include
 #include "gtest/gtest.h"
 
