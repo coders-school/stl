@@ -1,6 +1,10 @@
 #pragma once
 #include <algorithm>
+#include <cmath>
+#include <functional>
 #include <string>
+#include <map>
+#include <iostream> //delete l8r
 
 enum class ErrorCode {
     OK,
@@ -11,14 +15,33 @@ enum class ErrorCode {
     ModuleOfNonIntegerValue
 };
 
+enum class Operations {
+    Add,
+    Substract,
+    Multiplicate,
+    Divide,
+    Modulus,
+    Exponentiate,
+    Root,
+    Factor,
+    Error
+};
+
 ErrorCode process(std::string input, double* out);
 ErrorCode checkFormat(const std::string& str);
+ErrorCode checkValues(const double& lhs, const double& rhs, const Operations& operation);
+bool checkBeforeLhs(const std::string& str);
 bool checkForMultipleOperators(const std::string& str);
 bool checkForCommas (const std::string& str);
 bool checkForForbiddenCharacters(const std::string& str);
 bool checkForAdjacentOperands(const std::string& str);
 bool checkForTwoOperandsWithUnaryOp(const std::string& str);
 bool checkForMultipleDotSeparators(const std::string& str);
+std::pair<size_t, Operations> detectOperator(const std::string& str);
+double getLhs(const std::string& str, size_t operatorPos);
+double getRhs(const std::string& str, size_t operatorPos);
+void calculate(const double& lhs, const double& rhs, const Operations& operation, double* out);
+double factorial(const double& value);
 
 /*
 Napisz program advanced_calculator. Ma on posiadać pętle główną, która będzie przyjmować dane od użytkownika i wyświetlać wynik, np. dla 5 % 3 ma zwrócić wynik 2. Wszystkie komendy kalkulatora powinny być przechowywane w mapie, która jako klucz przechowuje znak char odwołujący się do konkretnej komendy (np. + -> dodaj , % -> modulo), a jako wartości std::function<> będące wraperem na wyrażenia lambda dokonujące określonej kalkulacji.
