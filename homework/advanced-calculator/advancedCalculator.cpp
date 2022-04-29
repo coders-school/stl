@@ -20,13 +20,13 @@ ErrorCode process(std::string input, double* out) {
     return ErrorCode::OK;
 }
 ErrorCode checkFormat(const std::string& str) {
-    if(checkForForbiddenCharacters(str)) {std::cout << "ForbiddenChar\n"; return ErrorCode::BadCharacter;}
-    if(checkBeforeLhs(str)) {std::cout << "WrongBeginning\n"; return ErrorCode::BadFormat;}
-    if(checkForCommas(str)) {std::cout << "Commas\n"; return ErrorCode::BadFormat;}
-    if(checkForMultipleOperators(str)) {std::cout << "MultipleOperators\n"; return ErrorCode::BadFormat;}
-    if(checkForAdjacentOperands(str)) {std::cout << "AdjacentOperators\n"; return ErrorCode::BadFormat;}
-    if(checkForTwoOperandsWithUnaryOp(str)) {std::cout << "TwoWithUnary\n"; return ErrorCode::BadFormat;}
-    if(checkForMultipleDotSeparators(str)) {std::cout << "MultipleSeparators\n"; return ErrorCode::BadFormat;}
+    if(checkForForbiddenCharacters(str)) {return ErrorCode::BadCharacter;}
+    if(checkBeforeLhs(str)) {return ErrorCode::BadFormat;}
+    if(checkForCommas(str)) {return ErrorCode::BadFormat;}
+    if(checkForMultipleOperators(str)) {return ErrorCode::BadFormat;}
+    if(checkForAdjacentOperands(str)) {return ErrorCode::BadFormat;}
+    if(checkForTwoOperandsWithUnaryOp(str)) {return ErrorCode::BadFormat;}
+    if(checkForMultipleDotSeparators(str)) {return ErrorCode::BadFormat;}
     return ErrorCode::OK;
 }
 ErrorCode checkValues(const double& lhs, const double& rhs, const Operations& operation) {
@@ -71,15 +71,10 @@ bool checkForCommas(const std::string& str) {
     );
 }
 bool checkForForbiddenCharacters(const std::string& str) {
-    return std::any_of(str.begin(), str.end(), [](const char& c){
-        return (
-            (c == '[') || (c == ']') || (c == '{') || (c == '}') ||
-            (c == '<') || (c == '>') || (c == '`') || (c == '~') ||  
-            (c == '&') || (c == '@') || (c == '?') || (c == '\\') ||
-            (c == '|') || (c == '#') || (c == ';') || (c == ']') ||
-            (c == '=') || (std::isalpha(c))
-        );
-    });
+    if(str.find_first_of("[]{}<>~`&@?\\|#;=") != std::string::npos) {
+        return true;
+    }
+    return std::any_of(str.begin(), str.end(), [](const char& c){return std::isalpha(c);});
 }
 bool checkForAdjacentOperands(const std::string& str) {
     size_t pos = 0;
@@ -103,9 +98,6 @@ bool checkForAdjacentOperands(const std::string& str) {
     return false;
 }
 bool checkForTwoOperandsWithUnaryOp(const std::string& str) {
-    // if ! detected AND ! is not the last char in string
-        // if subrange from ! to end() contains non-white characters - return true
-    // return false
     auto pos = str.find('!');
     if(pos != std::string::npos && pos != str.length()) {
         auto it = str.begin();
@@ -114,8 +106,7 @@ bool checkForTwoOperandsWithUnaryOp(const std::string& str) {
     }
     return false;
 }
-bool checkForMultipleDotSeparators(const std::string& str) {
-    
+bool checkForMultipleDotSeparators(const std::string& str) { 
     if(str.at(0) == '.') {return true;}
     auto prevPos = 0;
     auto nextPos = 0;
@@ -145,7 +136,6 @@ std::pair<size_t, Operations> detectOperator(const std::string& str) {
         {'$', Operations::Root},
         {'!', Operations::Factor}
     };
-
 
     auto pos = str.find_first_of("+*/%!^$");
     if(pos != std::string::npos) {
