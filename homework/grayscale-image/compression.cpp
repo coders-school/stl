@@ -3,7 +3,8 @@
 
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array<uint8_t, width>, height>& arr) {
     std::vector<std::pair<uint8_t, uint8_t>> vec{};
-    size_t counter{1};
+    vec.reserve(height * width);
+    size_t counter = 1;
 
     for (size_t i = 0; i < height; ++i) {
         for (size_t j = 0, k = j + 1; j < width, k < width; j++, k++) {
@@ -20,6 +21,7 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array
         }
         counter = 1;
     }
+    vec.shrink_to_fit();
     return vec;
 }
 
@@ -50,4 +52,17 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<s
     }
 
     return arr;
+}
+
+void printMap(const std::array<std::array<uint8_t, width>, height>& arr) {
+    for (size_t i = 0; i < height; i++) {
+        for (size_t j = 0; j < width; j++) {
+            if (arr[i][j] < 32) {
+                std::cout << ' ';
+            } else {
+                std::cout << arr[i][j];
+            }
+        }
+        std::cout << '\n';
+    }
 }
