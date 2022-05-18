@@ -48,10 +48,21 @@ void printMap(std::array<std::array<uint8_t, 32>, 32> map)
     {
         for (size_t j = 0; j < 32; j++)
         {
-            std::cout << (char)map[i][j];
+            if (map[i][j] == 0)
+            {
+                std::cout << " ";
+            }
+            else if (map[i][j] == 10 || map[i][j] == 27)
+            {
+                continue;
+            }
+            else
+            {
+                std::cout << map[i][j];
+            }
         }
+        std::cout << std::endl;
     }
-    
 }
 
 int main() {
