@@ -1,5 +1,4 @@
-#include "compress.hpp"
-#include "properties.hpp"
+#include "compression.hpp"
 
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array<uint8_t, width>, height> input)
 {
@@ -45,4 +44,34 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array
         
     }
     return vec;
+}
+
+std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>> vec)
+{
+    std::array<std::array<uint8_t, width>, height> arr;
+    int start = 0;
+    int stop = 0;
+    int sum = 0;
+    for (size_t k = 0; k < arr.size(); k++)
+    {
+        while (sum < width)
+        {
+            sum += vec[stop].second;
+            stop++;
+        }
+        std::array<uint8_t, width> tmp;
+        int begin = 0;
+        for (int i = start; i < stop; i++)
+        {
+            for (size_t j = begin; j < begin + vec[i].second; j++)
+            {
+                tmp[j] = vec[i].first;
+            }
+            begin += vec[i].second;
+        }
+        arr[k] = tmp;
+        sum = 0;
+        start = stop;
+    }
+    return arr;
 }
