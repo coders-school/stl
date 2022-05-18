@@ -32,7 +32,16 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array
                 }
             }
         }
-        vec.push_back(std::pair<uint8_t, uint8_t>{val, count});
+        if (start == 31 && count == 0)
+        {
+            val = input[i][start];
+            vec.push_back(std::pair<uint8_t, uint8_t>{val, 1});
+        }
+        else
+        {
+            vec.push_back(std::pair<uint8_t, uint8_t>{val, count});
+        }
+        
     }
     return vec;
 }
