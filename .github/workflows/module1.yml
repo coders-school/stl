@@ -19,9 +19,7 @@ jobs:
         make
     - name: Run tests
       working-directory: ${{ env.path }}
-      run: |
-        ../../../.github/workflows/check.sh ../compression.cpp
-        ctest -V
+      run: ctest -V
 
   formatting_check:
     runs-on: ubuntu-latest
