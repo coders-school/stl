@@ -25,9 +25,9 @@ constexpr const char kFileName[] = "recipes.txt";
 
 class Test : public testing::Test {
 public:
-  void SetUp() override {
-    remove(kFileName);
-  }
+    void SetUp() override {
+        remove(kFileName);
+    }
 };
 
 TEST_F(Test, ShoudlFormatIngredients) {
