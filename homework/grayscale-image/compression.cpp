@@ -47,13 +47,15 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array
 
     std::vector<std::pair<uint8_t, uint8_t>> vec;
 
-    std::for_each(input.begin(), input.end(), [vec](std::array<uint8_t, width> tab) mutable
+    std::for_each(input.begin(), 
+                  input.end(), 
+                  [vec](std::array<uint8_t, width> tab) mutable
                                                 {
                                                     int count = 0;
                                                     int val = *tab.begin();
                                                     std::for_each(tab.begin(), tab.end(), [count, val, vec](uint8_t var) mutable 
                                                                                             {
-                                                                                                if(var == val)
+                                                                                                if(var != val)
                                                                                                 {
                                                                                                     count++;
                                                                                                 }
