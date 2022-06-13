@@ -47,17 +47,26 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array
 
     std::vector<std::pair<uint8_t, uint8_t>> vec;
 
-    auto aa = [](std::array<uint8_t, width> tab) mutable
-    {
-        auto start = 0;
-        int count = 0;
-        int val = *tab.begin();
-        int tmp = 0;
-        std::for_each(tab.begin(), tab.end(), [start, count, val, tmp](uint8_t var) mutable {
-
-        };);
-    };
-    std::for_each(input.begin(), input.end(), aa);
+    std::for_each(input.begin(), input.end(), [vec](std::array<uint8_t, width> tab) mutable
+                                                {
+                                                    int count = 0;
+                                                    int val = *tab.begin();
+                                                    std::for_each(tab.begin(), tab.end(), [count, val, vec](uint8_t var) mutable 
+                                                                                            {
+                                                                                                if(var == val)
+                                                                                                {
+                                                                                                    count++;
+                                                                                                }
+                                                                                                else
+                                                                                                {
+                                                                                                    vec.push_back(std::pair<uint8_t, uint8_t>{val, count});
+                                                                                                    val = var;
+                                                                                                    count = 1;
+                                                                                                }
+                                                                                            }
+                                                    );
+                                                }
+    );
     return vec;
 }
 
