@@ -72,30 +72,51 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array
 
 std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>> vec)
 {
+    // std::array<std::array<uint8_t, width>, height> arr;
+    // int start = 0;
+    // int stop = 0;
+    // int sum = 0;
+    // for (size_t k = 0; k < arr.size(); k++)
+    // {
+    //     while (sum < width)
+    //     {
+    //         sum += vec[stop].second;
+    //         stop++;
+    //     }
+    //     std::array<uint8_t, width> tmp;
+    //     int begin = 0;
+    //     for (int i = start; i < stop; i++)
+    //     {
+    //         for (size_t j = begin; j < begin + vec[i].second; j++)
+    //         {
+    //             tmp[j] = vec[i].first;
+    //         }
+    //         begin += vec[i].second;
+    //     }
+    //     arr[k] = tmp;
+    //     sum = 0;
+    //     start = stop;
+    // }
+    // return arr;
+
     std::array<std::array<uint8_t, width>, height> arr;
-    int start = 0;
-    int stop = 0;
-    int sum = 0;
-    for (size_t k = 0; k < arr.size(); k++)
-    {
-        while (sum < width)
+
+    auto it_vec = vec.begin();
+
+    std::for_each(arr.begin(), arr.end(),
+        [&it_vec](auto& tab) mutable
         {
-            sum += vec[stop].second;
-            stop++;
-        }
-        std::array<uint8_t, width> tmp;
-        int begin = 0;
-        for (int i = start; i < stop; i++)
-        {
-            for (size_t j = begin; j < begin + vec[i].second; j++)
+            auto it1_arr = tab.begin();
+            auto it2_arr = tab.begin();
+            while(it2_arr != tab.end())
             {
-                tmp[j] = vec[i].first;
+                std::advance(it2_arr, it_vec->second);
+                std::fill(it1_arr, it2_arr, it_vec->first);
+                it_vec++;
+                it1_arr = it2_arr;
             }
-            begin += vec[i].second;
+            return tab;
         }
-        arr[k] = tmp;
-        sum = 0;
-        start = stop;
-    }
+    );
     return arr;
 }
