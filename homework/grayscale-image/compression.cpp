@@ -52,36 +52,51 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array
     std::for_each(input.begin(), input.end(),
         [it, vec](auto tab) mutable
         {
-            auto start = 0;
+            auto position = input.begin();
             int count = 0;
-            int val = 0;
-            int tmp = 0;
-            std::for_each(tab.begin(), tab.end(), 
-                [it, start, count, val, tmp, vec, tab](auto a) mutable
-                {
-                    val = tab[start];
-                    count++;
-                    while (start < width - 1)
-                    {
-                        start++;
-                        if (tab[start] == val)
-                        {
-                            count++;
-                            if (start == tab.size() - 1)
-                            {
-                                break;
-                            }
-                        }
-                        else
-                        {
-                            std::fill_n(std::back_inserter(vec), 1, std::pair<uint8_t, uint8_t>{val, count});
-                            //vec.push_back(std::pair<uint8_t, uint8_t>{val, count});
-                            count = 0;
-                            break;
-                        }
-                    }
-                }
-            );
+            //int val = 0;
+            //int tmp = 0;
+
+            while (position != input.end())
+            {
+                auto upper = std::upper_bound(position, data.end(), *position);
+                count = std::distance(position, upper);
+                vec.push_back(std::pair<uint8_t, uint8_t>{*position, count});
+                count = 0;
+                position = upper;
+            }
+
+
+            // std::for_each(tab.begin(), tab.end(), 
+            //     [it, position, count, val, tmp, vec, tab](auto a) mutable
+            //     {
+            //         val = tab[position];
+            //         count++;
+            //         while (position < width - 1)
+            //         {
+            //             position++;
+            //             if (tab[position] == val)
+            //             {
+            //                 count++;
+            //                 if (position == tab.size() - 1)
+            //                 {
+            //                     break;
+            //                 }
+            //             }
+            //             else
+            //             {
+            //                 std::fill_n(std::back_inserter(vec), 1, std::pair<uint8_t, uint8_t>{val, count});
+            //                 //vec.push_back(std::pair<uint8_t, uint8_t>{val, count});
+            //                 count = 0;
+            //                 break;
+            //             }
+            //         }
+            //     }
+            // );
+
+
+
+
             // if (start == width -1 && count == 0)
             // {
             //     val = tab[start];
