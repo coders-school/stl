@@ -47,28 +47,53 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array
 
     std::vector<std::pair<uint8_t, uint8_t>> vec;
 
-    std::for_each(input.begin(), 
-                  input.end(), 
-                  [vec](std::array<uint8_t, width> tab) mutable
-                                                {
-                                                    int count = 0;
-                                                    int val = *tab.begin();
-                                                    std::for_each(tab.begin(), tab.end(), [count, val, vec](uint8_t var) mutable 
-                                                                                            {
-                                                                                                if(var != val)
-                                                                                                {
-                                                                                                    count++;
-                                                                                                }
-                                                                                                else
-                                                                                                {
-                                                                                                    vec.push_back(std::pair<uint8_t, uint8_t>{val, count});
-                                                                                                    val = var;
-                                                                                                    count = 1;
-                                                                                                }
-                                                                                            }
-                                                    );
-                                                }
-    );
+    auto it = input.begin();
+
+    std::for_each(input.begin(), input.end(),
+        [it, vec](auto tab) mutable
+        {
+            auto start = 0;
+            int count = 0;
+            int val = 0;
+            int tmp = 0;
+            std::for_each(tab.begin(), tab.end(), 
+                [it, start, count, val, tmp, vec, tab](auto a) mutable
+                {
+                    val = tab[start];
+                    count++;
+                    while (start < width - 1)
+                    {
+                        start++;
+                        if (tab[start] == val)
+                        {
+                            count++;
+                            if (start == tab.size() - 1)
+                            {
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            std::fill_n(std::back_inserter(vec), 1, std::pair<uint8_t, uint8_t>{val, count});
+                            //vec.push_back(std::pair<uint8_t, uint8_t>{val, count});
+                            count = 0;
+                            break;
+                        }
+                    }
+                }
+            );
+            // if (start == width -1 && count == 0)
+            // {
+            //     val = tab[start];
+            //     vec.push_back(std::pair<uint8_t, uint8_t>{val, 1});
+            // }
+            // else
+            // {
+            //     vec.push_back(std::pair<uint8_t, uint8_t>{val, count});
+            // }
+        }
+    ); 
+
     return vec;
 }
 
