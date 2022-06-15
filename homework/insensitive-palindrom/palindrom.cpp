@@ -2,7 +2,8 @@
 
 bool is_high_letter(char a)
 {
-
+    if(a >= 65 && a <= 90) return true;
+    else return false;
 }
 
 bool is_low_letter(char a)
