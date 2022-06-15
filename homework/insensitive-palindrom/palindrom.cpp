@@ -52,7 +52,14 @@ bool is_palindrome(std::string str)
         }
     }
 
-    
-    
+    if(p == -1 && q != str.size())
+    {
+        if(is_letter(str[q])) return false;
+    }
+    if(p != -1 && q == str.size())
+    {
+        if(is_letter(str[p])) return false;
+    }
+
     return true;
 }
