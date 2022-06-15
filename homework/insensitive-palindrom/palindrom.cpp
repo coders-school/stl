@@ -8,7 +8,8 @@ bool is_high_letter(char a)
 
 bool is_low_letter(char a)
 {
-    
+    if(a >= 97 && a <= 122) return true;
+    else return false;
 }
 
 bool is_palindrome(std::string str)
