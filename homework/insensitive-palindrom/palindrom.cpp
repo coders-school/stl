@@ -26,40 +26,50 @@ bool is_letter(char a)
     return is_high_letter(a) || is_low_letter(a);
 }
 
-bool is_palindrome(std::string str)
+std::string::iterator setLastIterator(std::string::iterator it, std::string str)
 {
-    auto p = str.size() / 2;
-    auto q = str.size() / 2;
-    if (str.size() % 2 == 0)
-        q++;
-    while (p != -1 && q == str.size())
+    if(is_letter(*it))
     {
-        if (is_letter(str[p]) && is_letter(str[q]))
+        return it;
+    }
+    else
+    {
+        if(it == str.begin())
         {
-            if (str[p] != str[q])
-            {
-                if (is_high_letter(str[p]) && is_low_letter(str[q]))
-                {
-                    if (!isSame(str[q], str[p]))
-                        return false;
-                }
-                else if (is_high_letter(str[q]) && is_low_letter(str[p]))
-                {
-                    if (!isSame(str[p], str[q]))
-                        return false;
-                }
-            }
+            return it;
+        }
+        else
+        {
+            it--;
+            return setLastIterator(it, str);
         }
     }
+}
 
-    if(p == -1 && q != str.size())
+std::string::iterator setBeginIterator(std::string::iterator it, std::string str)
+{
+    if(is_letter(*it))
     {
-        if(is_letter(str[q])) return false;
+        return it;
     }
-    if(p != -1 && q == str.size())
+    else
     {
-        if(is_letter(str[p])) return false;
+        if(it == str.end())
+        {
+            return it;
+        }
+        else
+        {
+            it++;
+            return setBeginIterator(it, str);
+        }
     }
+}
+
+bool is_palindrome(std::string str)
+{
+    auto it_begin = setBeginIterator(str.begin(), str);
+    auto it_end = setLastIterator(str.end(), str);
 
     return true;
 }
