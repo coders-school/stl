@@ -21,7 +21,7 @@ jobs:
       working-directory: ${{ env.path }}
       run: ctest -V
 
-formatting_check:
+  formatting_check:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
