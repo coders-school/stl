@@ -1,9 +1,9 @@
-#include<map>
-#include<string>
-#include<list>
-#include<deque>
-#include<vector>
 #include <algorithm>
+#include <deque>
 #include <iostream>
+#include <list>
+#include <map>
+#include <string>
+#include <vector>
 
 std::map<int, std::string> removeDuplicateAndTranformToMap(std::list<std::string>, std::deque<int>);
