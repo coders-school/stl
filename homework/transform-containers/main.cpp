@@ -15,6 +15,6 @@ int main(int argc, char const *argv[])
         1, 2, 3, 4, 5, 3, 1, 2, 3, 4,
         5, 2, 3, 1, 1, 2, 3, 2, 1, 4};
 
-    removeDuplicateAndTranformToMap(list, deque);
+    auto a = removeDuplicateAndTranformToMap(list, deque);
     return 0;
 }

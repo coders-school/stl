@@ -4,7 +4,6 @@ std::map<int, std::string>
 removeDuplicateAndTranformToMap(std::list<std::string> list_str,
                                 std::deque<int> deq_int) {
   std::map<int, std::string> mp;
-  std::vector<std::pair<int, std::string>> tmp_vec;
 
   auto print_list = [&](int id) {
     std::cout << "@" << id << ": ";
@@ -12,8 +11,6 @@ removeDuplicateAndTranformToMap(std::list<std::string> list_str,
       std::cout << i << ' ';
     std::cout << '\n';
   };
-
-  print_list(1);
 
   // std::sort(list_str.begin(), list_str.end());
   std::sort(deq_int.begin(), deq_int.end());
@@ -25,11 +22,9 @@ removeDuplicateAndTranformToMap(std::list<std::string> list_str,
   list_str.erase(last_list, list_str.end());
   deq_int.erase(last_deq, deq_int.end());
 
-  tmp_vec.reserve(list_str.size());
-  print_list(2);
-
-  std::transform(list_str.begin(), list_str.end(), deq_int.begin(), tmp_vec.begin(),
-                 [](std::string first, int second) { return std::pair<int, std::string>{second, first}; });
-
+  std::transform(
+      list_str.begin(), list_str.end(), deq_int.begin(),
+      std::inserter(mp, mp.end()),
+      [&](const auto &a, const auto &b) { return std::make_pair(b, a); });
   return mp;
 }
