@@ -1,13 +1,12 @@
-#include<map>
-#include<string>
-#include<list>
-#include<deque>
 #include <algorithm>
+#include <deque>
 #include <iostream>
+#include <list>
+#include <map>
+#include <string>
 #include "transformContainers.hpp"
 
-int main(int argc, char const *argv[])
-{
+int main(int argc, char const* argv[]) {
     std::list<std::string> list{
         "Ala", "Kot", "Ma", "Rysia", "Ala",
         "Sierotka", "Kot", "Ma", "Ala"};
