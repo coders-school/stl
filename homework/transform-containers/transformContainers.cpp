@@ -5,12 +5,12 @@ removeDuplicateAndTranformToMap(std::list<std::string> list_str,
                                 std::deque<int> deq_int) {
   std::map<int, std::string> mp;
 
-  auto print_list = [&](int id) {
-    std::cout << "@" << id << ": ";
-    for (auto i : list_str)
-      std::cout << i << ' ';
-    std::cout << '\n';
-  };
+  // auto print_list = [&](int id) {
+  //   std::cout << "@" << id << ": ";
+  //   for (auto i : list_str)
+  //     std::cout << i << ' ';
+  //   std::cout << '\n';
+  // };
 
   // std::sort(list_str.begin(), list_str.end());
   std::sort(deq_int.begin(), deq_int.end());
