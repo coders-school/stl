@@ -2,6 +2,7 @@
 #include<string>
 #include<list>
 #include<deque>
+#include<vector>
 #include <algorithm>
 #include <iostream>
 
