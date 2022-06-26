@@ -17,7 +17,7 @@ TEST(arithmeticAverageTest, ShouldCalculateDistance) {
     std::vector<int> second{17, 6, 2};
     double expected = 10.247;
     EXPECT_NEAR(Distance(first, second), expected, epsilon);
-    
+
     first = {7, 4, 3, 13};
     second = {17, 6, 2, -2};
     expected = 18.16590212458495;
