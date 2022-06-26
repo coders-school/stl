@@ -1,5 +1,8 @@
-#include<iostream>
-#include<vector>
-#include<algorithm>
+#include <algorithm>
+#include <cmath>
+#include <iostream>
+#include <numeric>
+#include <vector>
 
-double arithmeticAverage(const std::vector<int>&, const std::vector<int>&);
+double ArithmeticAverage(const std::vector<int> &, const std::vector<int> &);
+double Distance(const std::vector<int> &, const std::vector<int> &);
