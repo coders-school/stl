@@ -12,7 +12,7 @@ double ArithmeticAverage(const std::vector<int> &first,
   AB.insert(AB.end(), first.begin(), first.end());
   AB.insert(AB.end(), second.begin(), second.end());
   Sum sum = std::for_each(AB.begin(), AB.end(), Sum());
-  return sum.sum / AB.size();
+  return (double)sum.sum / (double)AB.size();
 }
 
 double Distance(const std::vector<int> &first, const std::vector<int> &second) {
