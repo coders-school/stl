@@ -40,12 +40,25 @@ bool isDigit(char a) {
     return false;
 }
 
+bool isOtherCharacter(char a) {
+  if (!isDigit(a) && !isComma(a) && !isOperator(a))
+    return true;
+  else
+    return false;
+}
+
 ErrorCode isValidInput(std::string input, double &first, double &second,
                        char &op) {
   if (input.empty())
     return ErrorCode::BadFormat;
   auto it = remove(input.begin(), input.end(), ' ');
   input.erase(it, input.end());
+
+  for (size_t i = 0; i < input.size(); i++)
+  {
+    if(isOtherCharacter(input[i])) return ErrorCode::BadCharacter;
+  }
+  
   std::string a;
   std::string b;
   // char operation;
@@ -63,7 +76,8 @@ ErrorCode isValidInput(std::string input, double &first, double &second,
     if (!isDigit(input[i])) {
       if (isComma(input[i])) {
         comma++;
-        if(comma > 1) return ErrorCode::BadFormat;
+        if (comma > 1)
+          return ErrorCode::BadFormat;
         continue;
       } else if (isOperator(input[i])) {
         position = i;
@@ -88,11 +102,10 @@ ErrorCode isValidInput(std::string input, double &first, double &second,
     if (!isDigit(input[position])) {
       if (isComma(input[position])) {
         comma++;
-        if(comma > 1) return ErrorCode::BadFormat;
+        if (comma > 1)
+          return ErrorCode::BadFormat;
         continue;
-      }
-      else
-      {
+      } else {
         return ErrorCode::BadFormat;
       }
     }
@@ -105,7 +118,8 @@ ErrorCode isValidInput(std::string input, double &first, double &second,
   first = stod(a);
   second = stod(b);
 
-  if(b != "" && op == '!') return ErrorCode::BadFormat;
+  if (b != "" && op == '!')
+    return ErrorCode::BadFormat;
 
   return ErrorCode::OK;
 }

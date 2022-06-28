@@ -22,5 +22,18 @@ int main(int argc, char const *argv[])
     ErrorCode result3 = isValidInput("12.4.3 + 12.3",a ,b , operation);
     ErrorCode result4 = isValidInput("123.4 ! 345",a ,b , operation);
     
+    ErrorCode result11 = isValidInput("123 #- 123",a ,b , operation);
+    ErrorCode result12 = isValidInput("123 @- 123",a ,b , operation);
+    ErrorCode result13 = isValidInput("123 &- 123",a ,b , operation);
+    ErrorCode result14 = isValidInput("123 ? 123",a ,b , operation);
+    ErrorCode result15 = isValidInput("123 \\ 123",a ,b , operation);
+    ErrorCode result16 = isValidInput("-123 [ -123",a ,b , operation);
+    ErrorCode result17 = isValidInput("-123 ] 123",a ,b , operation);
+    ErrorCode result18 = isValidInput("-98 + 12.3 =",a ,b , operation);
+    ErrorCode result19 = isValidInput("123 -#- 4",a ,b , operation);
+    ErrorCode result20 = isValidInput("qwert + 123",a ,b , operation);
+    ErrorCode result21 = isValidInput("123,4 ; 345",a ,b , operation);
+
+
     return 0;
 }
