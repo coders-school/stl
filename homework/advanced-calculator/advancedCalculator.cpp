@@ -1,13 +1,15 @@
 #include "advancedCalculator.hpp"
 
-std::map<char, std::function<double(double, double)>> MathOperations{
+std::map<char, std::function<long double(double, double)>> MathOperations{
     {'+', [](double a, double b) { return a + b; }},
     {'-', [](double a, double b) { return a - b; }},
     {'*', [](double a, double b) { return a * b; }},
     {'/', [](double a, double b) { return a / b; }},
     {'%', [](double a, double b) { return (int)a % (int)b; }},
     {'!',
-     [](double a, double b) { return (sqrt(2 * PI * a)) * pow(a / E, a); }},
+     //[](double a, double b) { return (sqrt(2 * PI * a)) * pow(a / E, a); }},
+     [](double a, double b) { return tgamma(a + 1);}},
+     //[](double a, double b) { if(a > 0) return tgamma(a + 1); else return (sqrt(2 * PI * a)) * pow(a / E, a); }},
     {'^', [](double a, double b) { return pow(a, b); }},
     {'$', [](double a, double b) { return pow(a, 1 / double(b)); }}};
 
@@ -113,32 +115,34 @@ ErrorCode isValidInput(std::string input, double &first, double &second,
   b = input.substr(start, position);
   if (a == "")
     return ErrorCode::BadFormat;
-  if (b == "")
+  if (b == "" && op != '!')
     return ErrorCode::BadFormat;
-  first = stod(a);
-  second = stod(b);
 
-  if(op == '%')
-  {
-    for (size_t i = 0; i < a.size(); i++)
-    {
-      if(isComma(a[i])) return ErrorCode::ModuleOfNonIntegerValue;
+  first = stod(a);
+  if (op != '!')
+    second = stod(b);
+  else
+    second = 0;
+
+  if (op == '%') {
+    for (size_t i = 0; i < a.size(); i++) {
+      if (isComma(a[i]))
+        return ErrorCode::ModuleOfNonIntegerValue;
     }
-    for (size_t i = 0; i < b.size(); i++)
-    {
-      if(isComma(b[i])) return ErrorCode::ModuleOfNonIntegerValue;
+    for (size_t i = 0; i < b.size(); i++) {
+      if (isComma(b[i]))
+        return ErrorCode::ModuleOfNonIntegerValue;
     }
   }
 
-  if(op == '$')
-  {
-    for (size_t i = 0; i < a.size(); i++)
-    {
-      if(isMinus(a[i])) return ErrorCode::SqrtOfNegativeNumber;
+  if (op == '$') {
+    for (size_t i = 0; i < a.size(); i++) {
+      if (isMinus(a[i]))
+        return ErrorCode::SqrtOfNegativeNumber;
     }
-    for (size_t i = 0; i < b.size(); i++)
-    {
-      if(isMinus(b[i])) return ErrorCode::SqrtOfNegativeNumber;
+    for (size_t i = 0; i < b.size(); i++) {
+      if (isMinus(b[i]))
+        return ErrorCode::SqrtOfNegativeNumber;
     }
   }
 
@@ -151,13 +155,14 @@ ErrorCode isValidInput(std::string input, double &first, double &second,
   return ErrorCode::OK;
 }
 
-ErrorCode process(std::string input, double *out) 
-{
+ErrorCode process(std::string input, double *out) {
   double a;
   double b;
   char op;
+  long double output;
   auto err = isValidInput(input, a, b, op);
   auto tmp = MathOperations.find(op);
-  *out = tmp->second(a,b);
+  output = tmp->second(a, b);
+  *out = output;
   return err;
 }
