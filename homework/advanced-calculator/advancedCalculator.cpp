@@ -54,11 +54,11 @@ ErrorCode isValidInput(std::string input, double &first, double &second,
   auto it = remove(input.begin(), input.end(), ' ');
   input.erase(it, input.end());
 
-  for (size_t i = 0; i < input.size(); i++)
-  {
-    if(isOtherCharacter(input[i])) return ErrorCode::BadCharacter;
+  for (size_t i = 0; i < input.size(); i++) {
+    if (isOtherCharacter(input[i]))
+      return ErrorCode::BadCharacter;
   }
-  
+
   std::string a;
   std::string b;
   // char operation;
@@ -117,6 +117,9 @@ ErrorCode isValidInput(std::string input, double &first, double &second,
     return ErrorCode::BadFormat;
   first = stod(a);
   second = stod(b);
+
+  if (second == 0 && op == '/')
+    return ErrorCode::DivideBy0;
 
   if (b != "" && op == '!')
     return ErrorCode::BadFormat;

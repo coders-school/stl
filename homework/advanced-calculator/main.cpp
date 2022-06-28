@@ -34,6 +34,12 @@ int main(int argc, char const *argv[])
     ErrorCode result20 = isValidInput("qwert + 123",a ,b , operation);
     ErrorCode result21 = isValidInput("123,4 ; 345",a ,b , operation);
 
+    ErrorCode result22 = isValidInput("123 / 0",a ,b , operation);
+    ErrorCode result23 = isValidInput("123 / 0.0",a ,b , operation);
+    ErrorCode result24 = isValidInput("123 / -0",a ,b , operation);
+    ErrorCode result25 = isValidInput("123 / -0.0",a ,b , operation);
+    ErrorCode result26 = isValidInput("-123 / -0.0",a ,b , operation);
+    ErrorCode result27 = isValidInput("0.0 / 0",a ,b , operation);
 
     return 0;
 }
