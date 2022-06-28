@@ -2,18 +2,18 @@
 #include <iostream>
 
 int main(int argc, char const *argv[]) {
-  std::map<char, std::function<long double(double, double)>> MathOperations{
-      {'+', [](double a, double b) { return a + b; }},
-      {'-', [](double a, double b) { return a - b; }},
-      {'*', [](double a, double b) { return a * b; }},
-      {'/', [](double a, double b) { return a / b; }},
-      {'%', [](double a, double b) { return (int)a % (int)b; }},
-      {'!',
-       //[](double a, double b) { return (sqrt(2 * PI * a)) * pow(a / E, a); }},
-       [](double a, double b) { return tgamma(a + 1);}},
-       //[](double a, double b) { if(a > 0) return tgamma(a + 1); else return (sqrt(2 * PI * a)) * pow(a / E, a); }},
-      {'^', [](double a, double b) { return pow(a, b); }},
-      {'$', [](double a, double b) { return pow(a, 1 / double(b)); }}};
+//   std::map<char, std::function<double(double, double)>> MathOperations{
+//       {'+', [](double a, double b) { return a + b; }},
+//       {'-', [](double a, double b) { return a - b; }},
+//       {'*', [](double a, double b) { return a * b; }},
+//       {'/', [](double a, double b) { return a / b; }},
+//       {'%', [](double a, double b) { return (int)a % (int)b; }},
+//       {'!',
+//        //[](double a, double b) { return (sqrt(2 * PI * a)) * pow(a / E, a); }},
+//        //[](double a, double b) { return tgamma(a + 1);}},
+//        [](double a, double b) { if(a > 0) return tgamma(a + 1); else return tgamma((a * -1) + 1) * -1; }},
+//       {'^', [](double a, double b) { return pow(a, b); }},
+//       {'$', [](double a, double b) { return pow(a, 1 / double(b)); }}};
 
   //   std::for_each(MathOperations.begin(), MathOperations.end(), [](auto a){
   //   std::cout << a.first << " | " << a.second(6.7, 6.7) << std::endl;});
@@ -22,6 +22,7 @@ int main(int argc, char const *argv[]) {
   char operation;
   double out;
   std::cout << sizeof(long double) << " | " << sizeof(double) << std::endl;
+  std::cout << tgamma(14) << std::endl;
   // ErrorCode result = isValidInput("5!",a ,b , operation);
   // ErrorCode result2 = isValidInput("+ 3 4",a ,b , operation);
   // ErrorCode result3 = isValidInput("12.4.3 + 12.3",a ,b , operation);
@@ -55,6 +56,6 @@ int main(int argc, char const *argv[]) {
   // ErrorCode result33 = isValidInput("-123.4 $ -1",a ,b , operation);
   // ErrorCode result34 = isValidInput("-123.2 $ 1",a ,b , operation);
   // ErrorCode result35 = isValidInput("-123 $ 1",a ,b , operation);
-  process("5!", &out);
+  process("-13!", &out);
   return 0;
 }

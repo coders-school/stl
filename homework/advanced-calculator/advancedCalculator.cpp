@@ -1,6 +1,6 @@
 #include "advancedCalculator.hpp"
 
-std::map<char, std::function<long double(double, double)>> MathOperations{
+std::map<char, std::function<double(double, double)>> MathOperations{
     {'+', [](double a, double b) { return a + b; }},
     {'-', [](double a, double b) { return a - b; }},
     {'*', [](double a, double b) { return a * b; }},
@@ -8,8 +8,8 @@ std::map<char, std::function<long double(double, double)>> MathOperations{
     {'%', [](double a, double b) { return (int)a % (int)b; }},
     {'!',
      //[](double a, double b) { return (sqrt(2 * PI * a)) * pow(a / E, a); }},
-     [](double a, double b) { return tgamma(a + 1);}},
-     //[](double a, double b) { if(a > 0) return tgamma(a + 1); else return (sqrt(2 * PI * a)) * pow(a / E, a); }},
+     //[](double a, double b) { return tgamma(a + 1);}},
+     [](double a, double b) { if(a > 0) return tgamma(a + 1); else return tgamma((a * -1) + 1) * -1; }},
     {'^', [](double a, double b) { return pow(a, b); }},
     {'$', [](double a, double b) { return pow(a, 1 / double(b)); }}};
 
