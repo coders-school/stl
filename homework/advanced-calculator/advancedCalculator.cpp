@@ -130,6 +130,18 @@ ErrorCode isValidInput(std::string input, double &first, double &second,
     }
   }
 
+  if(op == '$')
+  {
+    for (size_t i = 0; i < a.size(); i++)
+    {
+      if(isMinus(a[i])) return ErrorCode::SqrtOfNegativeNumber;
+    }
+    for (size_t i = 0; i < b.size(); i++)
+    {
+      if(isMinus(b[i])) return ErrorCode::SqrtOfNegativeNumber;
+    }
+  }
+
   if (second == 0 && op == '/')
     return ErrorCode::DivideBy0;
 
@@ -139,4 +151,13 @@ ErrorCode isValidInput(std::string input, double &first, double &second,
   return ErrorCode::OK;
 }
 
-ErrorCode process(std::string input, double *out) {}
+ErrorCode process(std::string input, double *out) 
+{
+  double a;
+  double b;
+  char op;
+  auto err = isValidInput(input, a, b, op);
+  auto tmp = MathOperations.find(op);
+  *out = tmp->second(a,b);
+  return err;
+}
