@@ -41,5 +41,11 @@ int main(int argc, char const *argv[])
     ErrorCode result26 = isValidInput("-123 / -0.0",a ,b , operation);
     ErrorCode result27 = isValidInput("0.0 / 0",a ,b , operation);
 
+    ErrorCode result28 = isValidInput("123 % 0.1",a ,b , operation);
+    ErrorCode result29 = isValidInput("123 % 0.0005",a ,b , operation);
+    ErrorCode result30 = isValidInput("123.1 % 0",a ,b , operation);
+    ErrorCode result31 = isValidInput("123.1 % 0.1",a ,b , operation);
+
+
     return 0;
 }

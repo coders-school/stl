@@ -118,6 +118,18 @@ ErrorCode isValidInput(std::string input, double &first, double &second,
   first = stod(a);
   second = stod(b);
 
+  if(op == '%')
+  {
+    for (size_t i = 0; i < a.size(); i++)
+    {
+      if(isComma(a[i])) return ErrorCode::ModuleOfNonIntegerValue;
+    }
+    for (size_t i = 0; i < b.size(); i++)
+    {
+      if(isComma(b[i])) return ErrorCode::ModuleOfNonIntegerValue;
+    }
+  }
+
   if (second == 0 && op == '/')
     return ErrorCode::DivideBy0;
 
