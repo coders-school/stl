@@ -140,10 +140,10 @@ ErrorCode isValidInput(std::string input, double &first, double &second,
       if (isMinus(a[i]))
         return ErrorCode::SqrtOfNegativeNumber;
     }
-    for (size_t i = 0; i < b.size(); i++) {
-      if (isMinus(b[i]))
-        return ErrorCode::SqrtOfNegativeNumber;
-    }
+    // for (size_t i = 0; i < b.size(); i++) {
+    //   if (isMinus(b[i]))
+    //     return ErrorCode::SqrtOfNegativeNumber;
+    // }
   }
 
   if (second == 0 && op == '/')
