@@ -2,21 +2,14 @@
 #include <iostream>
 #include <string> 
 #include <vector> 
+#include <algorithm>
 
-
-std::vector <std::string> removeVowels (std::vector<std::string> &word){
-
-    std::vector<std::string> newVector;
-    
-    for (int i = 0; i < word.size(); i++){
-       std::string newString;
-        std::string newWord = word.at(i);
-        for (auto ele : newWord){
-        if (ele != 'a' && ele != 'e' && ele != 'i' && ele != 'o' && ele != 'u' && ele != 'y' && ele != 'A' && ele != 'E' && ele != 'I' && ele != 'O' && ele != 'U' && ele != 'Y'){
-        newString += ele;
+std::vector<std::string> removeVowels (std::vector<std::string> &word) {
+    std::vector<char> vowels {'A', 'E', 'I', 'O', 'U', 'Y', 'a', 'e', 'i', 'o', 'u', 'y'};
+    for (auto& el : word) {
+        for (const auto& ele : vowels) {
+            el.erase(std::remove(el.begin(), el.end(), ele), el.end());
+            }
         }
+    return word;
     }
-    newVector.push_back(newString);
-   }
-    return word = newVector;
-}
