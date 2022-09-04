@@ -5,7 +5,8 @@ void removeVowels(std::vector<std::string>& words) {
 
     for (std::string& sentence : words) {
         sentence.erase(std::remove_if(sentence.begin(), sentence.end(), [&vowels](const char letter) {
-            return std::find(std::begin(vowels), std::end(vowels), std::tolower(letter)) != std::end(vowels);
-        }),sentence.end());
+                           return std::find(std::begin(vowels), std::end(vowels), std::tolower(letter)) != std::end(vowels);
+                       }),
+                       sentence.end());
     }
 }
