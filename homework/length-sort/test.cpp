@@ -49,6 +49,9 @@ TEST(lengthSortTests, ShouldSortByLength) {
         {"alamakot"},
         {"alamakota"}};
     auto result = lengthSort(list);
+    #include <iostream>
+    std::cout << result.size() << std::endl;
+    std::cout << expected_result.size() << std::endl;
     ASSERT_TRUE(result.size() == expected_result.size());
     EXPECT_EQ(result, expected_result);
 }
