@@ -1,34 +1,24 @@
 #include "sort.hpp"
-#include <iostream>
 #include <algorithm>
 #include <functional>
+#include <iostream>
+#include <set>
 
-std::ostream& operator<<(std::ostream& ostr, const std::forward_list<std::string>& list)
-{
-    for (auto &i : list) {
-        ostr << " " << i;
+struct StringLengthComparer {
+    bool operator()(std::string left, std::string right) const {
+        return left.length() < right.length();
     }
-    return ostr;
+};
+
+using StringMultiset = std::multiset<std::string, StringLengthComparer>;
+
+StringMultiset sort_by_lenght(std::forward_list<std::string> arr) {
+    return StringMultiset{arr.begin(), arr.end()};
 }
 
-std::string sort_lexo(std::string& s)
-{
-    return s;
-}
-
-std::deque<std::string> lengthSort(std::forward_list<std::string> fwdL)
-{
-    std::cout << "before:     " << fwdL << "\n";
-    fwdL.sort(std::greater<std::string>());
-    std::cout << "after :     " << fwdL << "\n";
-    fwdL.reverse();
-    
-    std::deque<std::string> ds{};
-    std::for_each(fwdL.begin(), fwdL.end(), [&](auto s){
-        s = sort_lexo(s);
-        ds.push_back(s);
-    });
-
+std::deque<std::string> lengthSort(std::forward_list<std::string> fwdL) {
+    fwdL.sort();
+    auto ms = sort_by_lenght(fwdL);
+    std::deque<std::string> ds(ms.begin(), ms.end());
     return ds;
 }
-
