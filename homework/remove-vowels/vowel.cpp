@@ -11,10 +11,7 @@ bool checkCharacterIfVowel(const char& c) {
         {'U', true},
         {'Y', true},
     };
-    if (vowels.find(static_cast<char>(toupper(c)))->second) {
-        return true;
-    }
-    return false;
+    return vowels.find(static_cast<char>(toupper(c)))->second;
 }
 
 void removeVowels(std::vector<std::string>& words) {
