@@ -28,6 +28,19 @@ std::vector<std::pair<uint8_t, uint8_t>> getBitmap(size_t fraction) {
     return bitmap;
 }
 
+TEST(compressionTests, testOneLine_AllZeros)
+{
+    std::array<uint8_t, 32> input;
+    std::fill(input.begin(), input.end(), 0);
+    std::vector<std::pair<uint8_t, uint8_t>>  output;
+
+    output = process_line(input);
+    
+    auto output_pair = output[0];
+    ASSERT_EQ(output_pair.first, 0);
+    ASSERT_EQ(output_pair.second, 32);
+}
+
 TEST(compressionTests, ShouldCompressWholeLines) {
     std::array<std::array<uint8_t, width>, height> arr;
     for (int i = 0; i < height; ++i)
