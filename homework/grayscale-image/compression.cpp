@@ -1,9 +1,5 @@
 #include "compression.hpp"
 
-[[deprecated("No longer needed")]] void pasteToVector(std::vector<std::pair<uint8_t, uint8_t>>& vector, int count, int number) {
-    vector.emplace_back(number, count);
-}
-
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, width>, height>& arr) {
     std::vector<std::pair<uint8_t, uint8_t>> vector;
     vector.reserve(width * height);
@@ -23,5 +19,13 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std:
 }
 
 std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::vector<std::pair<uint8_t, uint8_t>>& bitmap) {
-    return std::array<std::array<uint8_t, width>, height>();
+    std::array<std::array<uint8_t, width>, height> arr{};
+    int index = 0;
+    for (const std::pair<uint8_t, uint8_t>& pair : bitmap) {
+        for (int i = 0; i < pair.second; i++) {
+            arr[index / width][index % height] = pair.first;
+            ++index;
+        }
+    }
+    return arr;
 }
