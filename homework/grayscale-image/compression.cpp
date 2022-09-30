@@ -2,13 +2,25 @@
 #include <iostream>
 
 
+void print_compressed_line_output(const std::vector<std::pair<uint8_t, uint8_t>>& v)
+{
+    std::cout << "[";
+    for(const auto& compressed_line_chunk : v)
+    {
+        std::cout << "{" << unsigned(compressed_line_chunk.first) << ", " << unsigned(compressed_line_chunk.second) << "}";
+    }
+    std::cout << "]\n";
+
+}
+
 void print_line(const std::array<uint8_t, width>& v)
 {
-     for (size_t i = 0; i < std::size(v); ++i) {
-           std::cout << unsigned(v.at(i)) << " ";
-    }
-    std::cout << std::endl;
+   for (size_t i = 0; i < std::size(v); ++i) {
+        std::cout << unsigned(v.at(i)) << " ";
+   }
+   std::cout << std::endl;
 }
+
 
 std::vector<std::pair<uint8_t, uint8_t>> process_line(const std::array<uint8_t, width>& v)
 {
@@ -53,8 +65,15 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array
     std::vector<std::pair<uint8_t, uint8_t>> pp;
 
     for (size_t h = 0; h < height; ++h) {
-        print_line(input[h]);
-        process_line(input[h]);
+        auto line = input[h];
+        print_line(line);
+        auto compressed_line = process_line(line);
+        print_compressed_line_output(compressed_line);
+
+        for(const auto& chunk : compressed_line)
+        {
+            pp.push_back(chunk);
+        }
     }
 
 
