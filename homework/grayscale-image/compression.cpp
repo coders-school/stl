@@ -29,17 +29,21 @@ std::vector<std::pair<uint8_t, uint8_t>> process_line(const std::array<uint8_t, 
            {
                 output.push_back({old_value, same_value_cnt});
                 old_value = current_value;
-                same_value_cnt = 0;
+                same_value_cnt = 1;
            }
     }
 
-    auto all_values_are_the_same = [&](const std::vector<std::pair<uint8_t, uint8_t>>& output){
+    auto all_output_values_are_the_same = [&](){
         return output.empty();
     };
 
-    if(all_values_are_the_same(output) or same_value_cnt > 0)
+    auto are_still_unsaved_values = [&](){
+        return same_value_cnt != 1;
+    };
+
+    if(all_output_values_are_the_same() or are_still_unsaved_values())
     {
-        output.push_back({old_value, ++same_value_cnt});
+        output.push_back({old_value, same_value_cnt});
     }
     std::cout << output.size() << std::endl;
     return output;

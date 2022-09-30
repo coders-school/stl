@@ -57,7 +57,6 @@ TEST(compressionTests, testOneLine_HalfZerosHalfOnes)
     output_pair = output[1];
     ASSERT_EQ(output_pair.first,  1);
     ASSERT_EQ(output_pair.second, 16);
-
 }
 
 
