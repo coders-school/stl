@@ -22,7 +22,7 @@ void print_line(const std::array<uint8_t, width>& v)
 }
 
 
-std::vector<std::pair<uint8_t, uint8_t>> process_line(const std::array<uint8_t, width>& v)
+std::vector<std::pair<uint8_t, uint8_t>> compress_single_line(const std::array<uint8_t, width>& v)
 {
     std::vector<std::pair<uint8_t, uint8_t>>  output;
     uint8_t current_value = v[0];
@@ -67,7 +67,7 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array
     for (size_t h = 0; h < height; ++h) {
         auto line = input[h];
         print_line(line);
-        auto compressed_line = process_line(line);
+        auto compressed_line = compress_single_line(line);
         print_compressed_line_output(compressed_line);
 
         for(const auto& chunk : compressed_line)

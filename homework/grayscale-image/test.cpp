@@ -34,7 +34,7 @@ TEST(compressionTests, testOneLine_AllZeros)
     std::fill(input.begin(), input.end(), 0);
     std::vector<std::pair<uint8_t, uint8_t>>  output;
 
-    output = process_line(input);
+    output = compress_single_line(input);
     
     auto output_pair = output[0];
     ASSERT_EQ(output_pair.first, 0);
@@ -49,7 +49,7 @@ TEST(compressionTests, testOneLine_HalfZerosHalfOnes)
     std::fill(input.end()-16, input.end(), 1);
     std::vector<std::pair<uint8_t, uint8_t>>  output;
 
-    output = process_line(input);
+    output = compress_single_line(input);
     
     auto output_pair = output[0];
     ASSERT_EQ(output_pair.first, 0);
@@ -69,7 +69,7 @@ TEST(compressionTests, testOneLine_ZerosOnesZerosOnes)
     std::fill(input.end()-8, input.end(), 1);
     std::vector<std::pair<uint8_t, uint8_t>>  output;
 
-    output = process_line(input);
+    output = compress_single_line(input);
     
     auto output_pair = output[0];
     ASSERT_EQ(output_pair.first, 0);
@@ -101,7 +101,7 @@ TEST(compressionTests, testOneLine_DividedToEightParts)
 
     std::vector<std::pair<uint8_t, uint8_t>>  output;
 
-    output = process_line(input);
+    output = compress_single_line(input);
     
     auto output_pair = output[0];
     ASSERT_EQ(output_pair.first, 0);
