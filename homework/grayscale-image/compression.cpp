@@ -1,5 +1,7 @@
 #include "compression.hpp"
 
+#include <iostream>
+
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, width>, height>& arr) {
     std::vector<std::pair<uint8_t, uint8_t>> vector;
     vector.reserve(width * height);
@@ -29,3 +31,24 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(const std::ve
     }
     return arr;
 }
+void printMap(const std::array<std::array<uint8_t, width>, height>& map) {
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            std::cout << static_cast<char>(map[i][j]);
+        }
+        std::cout << '\n';
+    }
+}
+
+class Joke {
+public:
+    Joke(int d, int e, int f)
+        : a(d),
+          b(e),
+          c(f) {}
+
+private:
+    int a;
+    double b;
+    long c;
+};
