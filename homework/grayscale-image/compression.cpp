@@ -15,7 +15,7 @@ std::vector<std::pair<uint8_t, uint8_t>> process_line(const std::array<uint8_t, 
     std::vector<std::pair<uint8_t, uint8_t>>  output;
     uint8_t current_value = v[0];
     uint8_t old_value = v[0];
-    int cnt = 0;
+    int same_value_cnt = 0;
     std::cout << " s " << std::endl;
     for (size_t i = 0; i < std::size(v); ++i) {
            current_value = v[i];
@@ -23,19 +23,23 @@ std::vector<std::pair<uint8_t, uint8_t>> process_line(const std::array<uint8_t, 
            std::cout << " i = " << i << std::endl;
            if(current_value == old_value)
            {
-                ++cnt;
+                ++same_value_cnt;
            }
            else
            {
-                output.push_back({old_value, cnt});
+                output.push_back({old_value, same_value_cnt});
                 old_value = current_value;
-                cnt = 0;
+                same_value_cnt = 0;
            }
     }
 
-    if(output.empty() or cnt > 0)
+    auto all_values_are_the_same = [&](const std::vector<std::pair<uint8_t, uint8_t>>& output){
+        return output.empty();
+    };
+
+    if(all_values_are_the_same(output) or same_value_cnt > 0)
     {
-        output.push_back({old_value, ++cnt});
+        output.push_back({old_value, ++same_value_cnt});
     }
     std::cout << output.size() << std::endl;
     return output;
