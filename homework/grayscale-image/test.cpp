@@ -41,6 +41,26 @@ TEST(compressionTests, testOneLine_AllZeros)
     ASSERT_EQ(output_pair.second, 32);
 }
 
+
+TEST(compressionTests, testOneLine_HalfZerosHalfOnes)
+{
+    std::array<uint8_t, 32> input;
+    std::fill(input.begin(), input.end()-16, 0);
+    std::fill(input.end()-16, input.end(), 1);
+    std::vector<std::pair<uint8_t, uint8_t>>  output;
+
+    output = process_line(input);
+    
+    auto output_pair = output[0];
+    ASSERT_EQ(output_pair.first, 0);
+    ASSERT_EQ(output_pair.second, 16);
+    output_pair = output[1];
+    ASSERT_EQ(output_pair.first,  1);
+    ASSERT_EQ(output_pair.second, 16);
+
+}
+
+
 TEST(compressionTests, ShouldCompressWholeLines) {
     std::array<std::array<uint8_t, width>, height> arr;
     for (int i = 0; i < height; ++i)

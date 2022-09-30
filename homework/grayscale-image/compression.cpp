@@ -13,14 +13,14 @@ void print_line(const std::array<uint8_t, width>& v)
 std::vector<std::pair<uint8_t, uint8_t>> process_line(const std::array<uint8_t, width>& v)
 {
     std::vector<std::pair<uint8_t, uint8_t>>  output;
-    uint8_t current_value = unsigned(v[0]);
-    uint8_t old_value = unsigned(v[0]);
+    uint8_t current_value = v[0];
+    uint8_t old_value = v[0];
     int cnt = 0;
     std::cout << " s " << std::endl;
     for (size_t i = 0; i < std::size(v); ++i) {
            current_value = v[i];
-           //std::cout << " c = " << unsigned(current_value) << std::endl;
-           //std::cout << " c = " << unsigned(i) << std::endl;
+           std::cout << " c = " << unsigned(current_value) << "\t";
+           std::cout << " i = " << i << std::endl;
            if(current_value == old_value)
            {
                 ++cnt;
@@ -33,10 +33,11 @@ std::vector<std::pair<uint8_t, uint8_t>> process_line(const std::array<uint8_t, 
            }
     }
 
-    if(output.empty())
+    if(output.empty() or cnt > 0)
     {
-        output.push_back({old_value, cnt});
+        output.push_back({old_value, ++cnt});
     }
+    std::cout << output.size() << std::endl;
     return output;
 }
 
