@@ -85,6 +85,50 @@ TEST(compressionTests, testOneLine_ZerosOnesZerosOnes)
     ASSERT_EQ(output_pair.second, 8);
 }
 
+
+
+TEST(compressionTests, testOneLine_DividedToEightParts)
+{
+    std::array<uint8_t, 32> input;
+    std::fill(input.begin(), input.end()-28, 0);
+    std::fill(input.end()-28, input.end()-24, 1);
+    std::fill(input.end()-24, input.end()-20, 0);
+    std::fill(input.end()-20, input.end()-16, 1);
+    std::fill(input.end()-16, input.end()-12, 0);
+    std::fill(input.end()-12, input.end()-8, 1);
+    std::fill(input.end()-8, input.end()-4, 0);
+    std::fill(input.end()-4, input.end(), 1);
+
+    std::vector<std::pair<uint8_t, uint8_t>>  output;
+
+    output = process_line(input);
+    
+    auto output_pair = output[0];
+    ASSERT_EQ(output_pair.first, 0);
+    ASSERT_EQ(output_pair.second, 4);
+    output_pair = output[1];
+    ASSERT_EQ(output_pair.first,  1);
+    ASSERT_EQ(output_pair.second, 4);
+    output_pair = output[2];
+    ASSERT_EQ(output_pair.first,  0);
+    ASSERT_EQ(output_pair.second, 4);
+    output_pair = output[3];
+    ASSERT_EQ(output_pair.first,  1);
+    ASSERT_EQ(output_pair.second, 4);
+    output_pair = output[4];
+    ASSERT_EQ(output_pair.first,  0);
+    ASSERT_EQ(output_pair.second, 4);
+    output_pair = output[5];
+    ASSERT_EQ(output_pair.first,  1);
+    ASSERT_EQ(output_pair.second, 4);
+    output_pair = output[6];
+    ASSERT_EQ(output_pair.first,  0);
+    ASSERT_EQ(output_pair.second, 4);
+    output_pair = output[7];
+    ASSERT_EQ(output_pair.first,  1);
+    ASSERT_EQ(output_pair.second, 4);
+}
+
 TEST(compressionTests, ShouldCompressWholeLines) {
     std::array<std::array<uint8_t, width>, height> arr;
     for (int i = 0; i < height; ++i)
