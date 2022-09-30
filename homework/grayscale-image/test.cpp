@@ -1,4 +1,3 @@
-#include <algorithm>
 #include <array>
 #include <utility>  // for std::pair<>
 #include <vector>
