@@ -273,6 +273,41 @@ TEST(compressionTests, get_char_from_input_2)
 }
 
 
+TEST(compressionTests, get_char_from_input_3)
+{
+    const std::vector<std::pair<uint8_t, uint8_t>> input = 
+    {{'A', 1}, {'B', 2}};
+    bool isInputProcessed;
+    uint8_t character;
+    int chunk_number = 0;
+
+    std::tie(isInputProcessed, character, chunk_number) = get_char_from_input(input, chunk_number);
+
+    ASSERT_EQ(isInputProcessed, false);
+    ASSERT_EQ(character, 'A');
+
+    std::tie(isInputProcessed, character, chunk_number) = get_char_from_input(input, chunk_number);
+
+    ASSERT_EQ(isInputProcessed, false);
+    ASSERT_EQ(character, ' ');
+
+    std::tie(isInputProcessed, character, chunk_number) = get_char_from_input(input, chunk_number);
+
+    ASSERT_EQ(isInputProcessed, false);
+    ASSERT_EQ(character, 'B');
+    
+    std::tie(isInputProcessed, character, chunk_number) = get_char_from_input(input, chunk_number);
+
+    ASSERT_EQ(isInputProcessed, false);
+    ASSERT_EQ(character, 'B');
+
+    std::tie(isInputProcessed, character, chunk_number) = get_char_from_input(input, chunk_number);
+
+    ASSERT_EQ(isInputProcessed, true);
+    ASSERT_EQ(character, ' ');
+   
+}
+
 
 TEST(compressionTests, ShouldCompressWholeLines) {
     std::array<std::array<uint8_t, width>, height> arr;

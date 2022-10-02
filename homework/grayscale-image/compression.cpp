@@ -143,6 +143,24 @@ std::tuple<bool, uint8_t, int> get_char_from_input(const std::vector<std::pair<u
         else
         {
             std::cout << "get_char_from_input: isChunkProcessed true" << std::endl;
+            std::cout << "get_char_from_chunk: chunk_number " << chunk_number << std::endl;
+            auto areAnyChunksNeededToProcess = [&](){
+                std::cout << "get_char_from_input: areAnyChunksNeededToProcess?" << std::endl;
+                return ++chunk_number < number_of_chunks;
+            };
+            std::cout << "get_char_from_chunk: chunk_number1 " << chunk_number << std::endl;
+
+            if(areAnyChunksNeededToProcess())
+            {
+                std::cout << "get_char_from_chunk: chunk_number2 " << chunk_number << std::endl;
+                std::cout << "get_char_from_chunk: character " << character << std::endl;
+                character_counter = 0;
+                return std::make_tuple(isInputProcessed = false, character, chunk_number);
+            }
+            else
+            {
+                std::cout << "get_char_from_input: areAnyChunksNeededToProcess: no" << std::endl;    
+            }
         }
     }
     std::cout << "get_char_from_input: goto default state" << std::endl;
