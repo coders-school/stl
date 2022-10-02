@@ -1,6 +1,6 @@
 #include "compression.hpp"
 #include <iostream>
-
+#include <tuple>
 
 void print_compressed_line_output(const std::vector<std::pair<uint8_t, uint8_t>>& v)
 {
@@ -80,7 +80,55 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array
     return pp;
 }
 
+std::tuple<bool, uint8_t, int> get_char_from_chunk(const std::pair<uint8_t, uint8_t>& chunk, int character_counter)
+{
+    bool end = false; 
+    auto character = chunk.first;
+    auto chunk_num = chunk.second;
+
+    auto isEmptyChunk = [&](){ return chunk_num == 0;};
+    auto wholeChunkIsAlreadyProcessed = [&](){ return character_counter == chunk_num;};
+
+    if(isEmptyChunk() or wholeChunkIsAlreadyProcessed())
+    {
+        std::cout << "Chunk empty or already processed" << std::endl;
+        end = true;
+        character = ' ';
+        return std::make_tuple(end, character, character_counter);
+    }
+    else
+    {
+        std::cout << "Chunk needs to be process" << std::endl;
+        if(character_counter++ < chunk_num)
+            return std::make_tuple(end, character, character_counter);
+    }
+
+    return std::make_tuple(false, character, character_counter);
+}
+
+std::optional<uint8_t> get_char_from_input(const std::vector<std::pair<uint8_t, uint8_t>>& input)
+{
+    
+    return std::nullopt;
+}
+
 std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>> input) {
     std::array<std::array<uint8_t, width>, height> output{};
+
+    //print_compressed_line_output(input);
+
+    uint8_t char_num = 0;
+    size_t chunk_num = 0;
+    uint8_t character = 0;
+    for(size_t w = 0; w < width; ++w)
+    {
+        for(size_t h = 0;  h < height; ++h)
+        {
+            //std::tie(character, char_num, chunk_num) = get_char_from_input(input);
+            //std::cout << "[" << w << "][" << h << "]= " << unsigned(character) << std::endl;
+            //output[w][h] = character;
+        }
+    }
+
     return output;
 }

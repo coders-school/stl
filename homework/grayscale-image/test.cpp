@@ -129,6 +129,65 @@ TEST(compressionTests, testOneLine_DividedToEightParts)
     ASSERT_EQ(output_pair.second, 4);
 }
 
+
+TEST(compressionTests, get_char_from_input_0)
+{
+    const std::pair<uint8_t, uint8_t> chunk = 
+    {'A',0};
+    bool end;
+    int character_counter = 0;
+    uint8_t character;
+
+    std::tie(end, character, character_counter) =  get_char_from_chunk(chunk, character_counter);
+
+    ASSERT_EQ(end, true);
+    ASSERT_EQ(character, ' ');
+} 
+
+TEST(compressionTests, get_char_from_input_1)
+{
+    const std::pair<uint8_t, uint8_t> chunk = 
+    {'A',1};
+    bool end;
+    int character_counter = 0;
+    uint8_t character;
+
+    std::tie(end, character, character_counter) =  get_char_from_chunk(chunk, character_counter);
+
+    ASSERT_EQ(end, false);
+    ASSERT_EQ(character, 'A');
+
+    std::tie(end, character, character_counter) =  get_char_from_chunk(chunk, character_counter);
+
+    ASSERT_EQ(end, true);
+    ASSERT_EQ(character, ' ');
+} 
+
+TEST(compressionTests, get_char_from_input_2)
+{
+    const std::pair<uint8_t, uint8_t> chunk = 
+    {'A',2};
+    bool end;
+    int character_counter = 0;
+    uint8_t character;
+
+    std::tie(end, character, character_counter) =  get_char_from_chunk(chunk, character_counter);
+
+    ASSERT_EQ(end, false);
+    ASSERT_EQ(character, 'A');
+
+    std::tie(end, character, character_counter) =  get_char_from_chunk(chunk, character_counter);
+
+    ASSERT_EQ(end, false);
+    ASSERT_EQ(character, 'A');
+
+    std::tie(end, character, character_counter) =  get_char_from_chunk(chunk, character_counter);
+
+    ASSERT_EQ(end, true);
+    ASSERT_EQ(character, ' ');
+} 
+
+
 TEST(compressionTests, ShouldCompressWholeLines) {
     std::array<std::array<uint8_t, width>, height> arr;
     for (int i = 0; i < height; ++i)
