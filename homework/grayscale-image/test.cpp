@@ -130,7 +130,7 @@ TEST(compressionTests, testOneLine_DividedToEightParts)
 }
 
 
-TEST(compressionTests, get_char_from_input_0)
+TEST(compressionTests, get_char_from_chunk_0)
 {
     const std::pair<uint8_t, uint8_t> chunk = 
     {'A',0};
@@ -144,7 +144,7 @@ TEST(compressionTests, get_char_from_input_0)
     ASSERT_EQ(character, ' ');
 } 
 
-TEST(compressionTests, get_char_from_input_1)
+TEST(compressionTests, get_char_from_chunk_1)
 {
     const std::pair<uint8_t, uint8_t> chunk = 
     {'A',1};
@@ -163,7 +163,7 @@ TEST(compressionTests, get_char_from_input_1)
     ASSERT_EQ(character, ' ');
 } 
 
-TEST(compressionTests, get_char_from_input_2)
+TEST(compressionTests, get_char_from_chunk_2)
 {
     const std::pair<uint8_t, uint8_t> chunk = 
     {'A',2};
@@ -186,6 +186,92 @@ TEST(compressionTests, get_char_from_input_2)
     ASSERT_EQ(end, true);
     ASSERT_EQ(character, ' ');
 } 
+
+
+TEST(compressionTests, get_char_from_chunk_3)
+{
+    const std::pair<uint8_t, uint8_t> chunk = 
+    {'A',2};
+    bool end;
+    int character_counter = 0;
+    uint8_t character;
+
+    std::tie(end, character, character_counter) =  get_char_from_chunk(chunk, character_counter);
+
+    ASSERT_EQ(end, false);
+    ASSERT_EQ(character, 'A');
+
+    std::tie(end, character, character_counter) =  get_char_from_chunk(chunk, character_counter);
+
+    ASSERT_EQ(end, false);
+    ASSERT_EQ(character, 'A');
+
+    std::tie(end, character, character_counter) =  get_char_from_chunk(chunk, character_counter);
+
+    ASSERT_EQ(end, true);
+    ASSERT_EQ(character, ' ');
+} 
+
+TEST(compressionTests, get_char_from_input_0)
+{
+    const std::vector<std::pair<uint8_t, uint8_t>> input = 
+    {{'A', 0}};
+    bool isInputProcessed;
+    uint8_t character;
+    int chunk_number = 0;
+
+    std::tie(isInputProcessed, character, chunk_number) = get_char_from_input(input, chunk_number);
+
+    ASSERT_EQ(isInputProcessed, true);
+    ASSERT_EQ(character, ' ');
+}
+
+
+TEST(compressionTests, get_char_from_input_1)
+{
+    const std::vector<std::pair<uint8_t, uint8_t>> input = 
+    {{'A', 1}};
+    bool isInputProcessed;
+    uint8_t character;
+    int chunk_number = 0;
+
+    std::tie(isInputProcessed, character, chunk_number) = get_char_from_input(input, chunk_number);
+
+    ASSERT_EQ(isInputProcessed, false);
+    ASSERT_EQ(character, 'A');
+
+    std::tie(isInputProcessed, character, chunk_number) = get_char_from_input(input, chunk_number);
+
+    ASSERT_EQ(isInputProcessed, true);
+    ASSERT_EQ(character, ' ');
+}
+
+
+TEST(compressionTests, get_char_from_input_2)
+{
+    const std::vector<std::pair<uint8_t, uint8_t>> input = 
+    {{'A', 1}, {'B', 0}};
+    bool isInputProcessed;
+    uint8_t character;
+    int chunk_number = 0;
+
+    std::tie(isInputProcessed, character, chunk_number) = get_char_from_input(input, chunk_number);
+
+    ASSERT_EQ(isInputProcessed, false);
+    ASSERT_EQ(character, 'A');
+
+    std::tie(isInputProcessed, character, chunk_number) = get_char_from_input(input, chunk_number);
+
+    ASSERT_EQ(isInputProcessed, false);
+    ASSERT_EQ(character, ' ');
+
+    std::tie(isInputProcessed, character, chunk_number) = get_char_from_input(input, chunk_number);
+
+    ASSERT_EQ(isInputProcessed, true);
+    ASSERT_EQ(character, ' ');
+   
+}
+
 
 
 TEST(compressionTests, ShouldCompressWholeLines) {

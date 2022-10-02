@@ -89,27 +89,65 @@ std::tuple<bool, uint8_t, int> get_char_from_chunk(const std::pair<uint8_t, uint
     auto isEmptyChunk = [&](){ return chunk_num == 0;};
     auto wholeChunkIsAlreadyProcessed = [&](){ return character_counter == chunk_num;};
 
+    auto print_values = [&](){
+        std::cout << "get_char_from_chunk: end " << end << std::endl;
+        std::cout << "get_char_from_chunk: character " << unsigned(character) << std::endl;
+        std::cout << "get_char_from_chunk: character_counter " << character_counter << std::endl;
+    };
+
     if(isEmptyChunk() or wholeChunkIsAlreadyProcessed())
     {
-        std::cout << "Chunk empty or already processed" << std::endl;
+        std::cout << "get_char_from_chunk: Chunk empty or already processed" << std::endl;
         end = true;
         character = ' ';
+        print_values();
         return std::make_tuple(end, character, character_counter);
     }
     else
     {
         std::cout << "Chunk needs to be process" << std::endl;
         if(character_counter++ < chunk_num)
+        {
+            std::cout << "get_char_from_chunk: Return next character" << std::endl;
+            print_values();
             return std::make_tuple(end, character, character_counter);
+        }
+            
     }
 
+    std::cout << "get_char_from_chunk: goto default state" << std::endl;
     return std::make_tuple(false, character, character_counter);
 }
 
-std::optional<uint8_t> get_char_from_input(const std::vector<std::pair<uint8_t, uint8_t>>& input)
+std::tuple<bool, uint8_t, int> get_char_from_input(const std::vector<std::pair<uint8_t, uint8_t>>& input, int chunk_number)
 {
-    
-    return std::nullopt;
+    bool isInputProcessed = true;
+    auto number_of_chunks = input.size();
+    static int character_counter = 0;
+
+    std::cout << "get_char_from_input: number_of_chunks = " << number_of_chunks << std::endl;
+    if(number_of_chunks > 0)
+    {
+        auto chunk = input[chunk_number];
+        
+        bool isChunkProcessed;
+        uint8_t character;
+
+        std::tie(isChunkProcessed, character, character_counter) =  get_char_from_chunk(chunk, character_counter);
+
+        if(not isChunkProcessed)
+        {
+            std::cout << "get_char_from_input: not isChunkProcessed" << std::endl;
+            return std::make_tuple(isInputProcessed = false, character, chunk_number);
+        }
+        else
+        {
+            std::cout << "get_char_from_input: isChunkProcessed true" << std::endl;
+        }
+    }
+    std::cout << "get_char_from_input: goto default state" << std::endl;
+    character_counter = 0;
+    return std::make_tuple(isInputProcessed = true, ' ', chunk_number);
 }
 
 std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>> input) {
