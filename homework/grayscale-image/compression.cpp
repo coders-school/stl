@@ -1,21 +1,27 @@
 #include "compression.hpp"
 
+#include <algorithm>
 #include <iostream>
 
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, width>, height>& arr) {
     std::vector<std::pair<uint8_t, uint8_t>> vector;
     vector.reserve(width * height);
-    for (int i = 0; i < height; ++i) {
-        int count = 1;
-        for (int j = 1; j < width; ++j) {
-            if (arr[i][j] != arr[i][j - 1]) {
-                vector.emplace_back(arr[i][j - 1], count);
-                count = 0;
+
+    std::for_each(arr.cbegin(), arr.cend(), [&vector](const std::array<uint8_t, width>& widthArr) {
+        auto it = widthArr.cbegin();
+        while (it != widthArr.cend()) {
+            int count = -1;
+            uint8_t numL = *it;
+            it = std::find_if(it, widthArr.cend(), [&count, numL](const uint8_t numR) {
+                ++count;
+                return numL != numR;
+            });
+            if (it == widthArr.cend()) {
+                count++;
             }
-            ++count;
+            vector.emplace_back(numL, count);
         }
-        vector.emplace_back(arr[i][width - 1], count);
-    }
+    });
     vector.shrink_to_fit();
     return vector;
 }
