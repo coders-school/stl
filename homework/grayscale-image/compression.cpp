@@ -8,7 +8,7 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std:
     vector.reserve(width * height);
     std::for_each(arr.cbegin(), arr.cend(), [&vector](const std::array<uint8_t, width>& widthArr) {
         auto it = widthArr.cbegin();
-        while (it != widthArr.cend()) {
+        for (; it != widthArr.cend();) {
             int count = -1;
             uint8_t numL = *it;
             it = std::find_if(it, widthArr.cend(), [&count, numL](const uint8_t numR) {
