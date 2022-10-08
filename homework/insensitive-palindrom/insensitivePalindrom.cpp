@@ -4,6 +4,7 @@
 
 bool is_palindrome(const std::string& word) {
     std::string wordAlphabetic;
+    wordAlphabetic.reserve(word.size());
     std::copy_if(word.cbegin(), word.cend(), std::back_inserter(wordAlphabetic), [](char c) {
         return isalpha(c);
     });
