@@ -10,5 +10,9 @@ bool is_palindrome(const std::string& word) {
     std::transform(wordAlphabetic.begin(), wordAlphabetic.end(), wordAlphabetic.begin(), [](char c) {
         return tolower(c);
     });
-    return std::equal(wordAlphabetic.cbegin(), wordAlphabetic.cend(), wordAlphabetic.crbegin());
+    auto itMiddle = std::next(wordAlphabetic.cbegin(), (wordAlphabetic.size() + 1) / 2);
+    auto revMiddle = std::make_reverse_iterator(std::next(wordAlphabetic.cbegin(), wordAlphabetic.size() / 2));
+    auto it = std::search(wordAlphabetic.cbegin(), itMiddle, wordAlphabetic.crbegin(), revMiddle);
+
+    return it != itMiddle;
 }
