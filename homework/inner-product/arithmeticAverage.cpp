@@ -1,3 +1,4 @@
+#include <cmath>
 #include <numeric>
 #include "arithmeticAverage.hpp"
 
@@ -12,5 +13,14 @@ double ArithmeticAverage(const std::vector<int>& first, const std::vector<int>& 
 }
 
 double Distance(const std::vector<int>& first, const std::vector<int>& second) {
-    return 0;
+    if (first.size() != second.size()) {
+        return 0.0;
+    }
+
+    double squaredSumValue = std::transform_reduce(first.cbegin(), first.cend(), second.cbegin(), 0.0, std::plus{},
+                                                   [](const auto& lhs, const auto& rhs) {
+                                                       auto diff = lhs - rhs;
+                                                       return diff * diff;
+                                                   });
+    return std::sqrt(squaredSumValue);
 }
