@@ -1,3 +1,4 @@
+#include <numeric>
 #include "arithmeticAverage.hpp"
 
 double ArithmeticAverage(const std::vector<int>& first, const std::vector<int>& second) {
@@ -6,12 +7,8 @@ double ArithmeticAverage(const std::vector<int>& first, const std::vector<int>& 
     }
     int size = first.size() + second.size();
     double average = 0.0;
-    for (auto num: first) {
-        average += num;
-    }
-    for (auto num: second) {
-        average += num;
-    }
+    average += std::reduce(first.cbegin(), first.cend(), 0);
+    average += std::reduce(second.cbegin(), second.cend(), 0);
     return average / size;
 }
 
