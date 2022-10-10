@@ -1,6 +1,7 @@
+#include "arithmeticAverage.hpp"
+
 #include <cmath>
 #include <numeric>
-#include "arithmeticAverage.hpp"
 
 double ArithmeticAverage(const std::vector<int>& first, const std::vector<int>& second) {
     if (first.empty() && second.empty()) {
