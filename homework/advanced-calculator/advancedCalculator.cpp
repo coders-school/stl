@@ -64,7 +64,7 @@ bool checkIfCharIsACommand(const char com) {
 }
 
 bool checkIfInputDataGotBadCharacter(const std::string& inputData) {
-    return std::any_of(inputData.cbegin(), inputData.cend(), [](char c) -> bool {
+    return std::any_of(inputData.cbegin(), inputData.cend(), [](char c) {
         return !isdigit(c) && !checkIfCharIsACommand(c) && c != ',' && c != '.';
     });
 }
@@ -93,7 +93,7 @@ ErrorCode findFunction(const std::string& inputData, char& command) {
 }
 
 ErrorCode checkIfFunctionHasBadCommand(const std::string& inputData, char command, double& lhs, double& rhs) {
-    size_t distance = inputData.find_first_of(command);;
+    size_t distance = inputData.find_first_of(command);
     if (inputData[0] == '-' && command == '-') {
         distance = inputData.find_first_of('-', 1);
     }
@@ -113,7 +113,7 @@ ErrorCode checkIfFunctionHasBadCommand(const std::string& inputData, char comman
     return ErrorCode::OK;
 }
 
-ErrorCode checkIfNumberCanBeUsedByCommand(char command, double lhs, double rhs) {
+ErrorCode checkIfNumbersCanBeUsedByCommand(char command, double lhs, double rhs) {
     if (command == '/' && rhs == 0) {
         return ErrorCode::DivideBy0;
     }
@@ -139,7 +139,7 @@ bool isErrorCodeDifferentThanOK(ErrorCode& errorCode, std::string inputData, cha
         return true;
     }
 
-    errorCode = checkIfNumberCanBeUsedByCommand(command, lhs, rhs);
+    errorCode = checkIfNumbersCanBeUsedByCommand(command, lhs, rhs);
     if (errorCode != ErrorCode::OK) {
         return true;
     }
@@ -154,7 +154,6 @@ ErrorCode process(const std::string& inputData, double* result) {
     if (isErrorCodeDifferentThanOK(errorCode, inputData, command, lhs, rhs)) {
         return errorCode;
     }
-
     *result = calculator::commands[command](lhs, rhs);
     return errorCode;
 }
