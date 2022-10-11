@@ -92,7 +92,7 @@ ErrorCode findFunction(const std::string& inputData, char& command) {
     return ErrorCode::OK;
 }
 
-bool checkIfFunctionHasBadCommand(const std::string& inputData, char command, double& lhs, double& rhs) {
+ErrorCode checkIfFunctionHasBadCommand(const std::string& inputData, char command, double& lhs, double& rhs) {
     size_t distance = inputData.find_first_of(command);;
     if (inputData[0] == '-' && command == '-') {
         distance = inputData.find_first_of('-', 1);
@@ -100,7 +100,7 @@ bool checkIfFunctionHasBadCommand(const std::string& inputData, char command, do
     std::string lValue = inputData.substr(0, distance);
     std::string rValue = inputData.substr(distance + 1, inputData.size());
     if (std::count(lValue.cbegin(), lValue.cend(), '.') > 1 || std::count(rValue.cbegin(), rValue.cend(), '.') > 1) {
-        return true;
+        return ErrorCode::BadFormat;
     }
     try {
         lhs = std::stod(lValue);
@@ -108,9 +108,9 @@ bool checkIfFunctionHasBadCommand(const std::string& inputData, char command, do
             rhs = std::stod(rValue);
         }
     } catch (...) {
-        return true;
+        return ErrorCode::BadFormat;
     }
-    return false;
+    return ErrorCode::OK;
 }
 
 ErrorCode checkIfNumberCanBeUsedByCommand(char command, double lhs, double rhs) {
@@ -132,16 +132,17 @@ ErrorCode process(const std::string& inputData, double* result) {
     std::string inputDataWithoutSpaces = inputData;
     auto it = std::remove(inputDataWithoutSpaces.begin(), inputDataWithoutSpaces.end(), ' ');
     inputDataWithoutSpaces.erase(it, inputDataWithoutSpaces.end());
+    double lhs = 0.0;
+    double rhs = 0.0;
     errorCode = findFunction(inputDataWithoutSpaces, command);
     if (errorCode != ErrorCode::OK) {
         return errorCode;
     }
-    double lhs = 0.0;
-    double rhs = 0.0;
-    // TODO replace by error code
-    if (checkIfFunctionHasBadCommand(inputDataWithoutSpaces, command, lhs, rhs)) {
-        return ErrorCode::BadFormat;
+    errorCode = checkIfFunctionHasBadCommand(inputDataWithoutSpaces, command, lhs, rhs);
+    if (errorCode != ErrorCode::OK) {
+        return errorCode;
     }
+
     errorCode = checkIfNumberCanBeUsedByCommand(command, lhs, rhs);
     if (errorCode != ErrorCode::OK) {
         return errorCode;
