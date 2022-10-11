@@ -1,17 +1,15 @@
 #include "advancedCalculator.hpp"
 
-#include <algorithm>
 #include <cmath>
 #include <numbers>
-#include <ranges>
 #include <string>
 #include <string_view>
 
 namespace calculator {
-    using std::numbers::pi_v;
+    using std::abs;
     using std::pow;
     using std::sqrt;
-    using std::abs;
+    using std::numbers::pi_v;
 
     double addiction(const double lhs, const double rhs) {
         return lhs + rhs;
@@ -53,9 +51,8 @@ namespace calculator {
             {'%', modulo},
             {'!', factorial},
             {'^', power},
-            {'$', sqrtRoot}
-    };
-}
+            {'$', sqrtRoot}};
+}  // namespace calculator
 
 bool checkIfCharIsACommand(const char com) {
     return std::any_of(calculator::commands.cbegin(), calculator::commands.cend(), [com](auto c) {
@@ -73,21 +70,30 @@ ErrorCode findFunction(const std::string& inputData, char& command) {
     if (checkIfInputDataGotBadCharacter(inputData)) {
         return ErrorCode::BadCharacter;
     }
+
     auto beginInputData = inputData.cbegin();
     if (inputData[0] == '-') {
         beginInputData++;
     }
+    auto itComma = std::find(beginInputData, inputData.cend(), ',');
+    if (itComma != inputData.cend()) {
+        return ErrorCode::BadFormat;
+    }
+
     auto it = std::find_first_of(beginInputData, inputData.cend(),
                                  calculator::commands.cbegin(), calculator::commands.cend(),
                                  [](auto inputChar, auto commandChar) {
                                      return inputChar == commandChar.first;
                                  });
-    auto itComma = std::find(beginInputData, inputData.cend(), ',');
-    int countPluses = std::count(beginInputData, inputData.cend(), '+');
-    if (it == inputData.cend() || it == inputData.cbegin() && *it != '-' || itComma != inputData.cend() ||
-        *it == '+' && countPluses > 1 || *it != '+' && countPluses > 0 || *it == '!' && it + 1 != inputData.cend()) {
+    if (it == inputData.cend() || it == inputData.cbegin() || *it == '!' && it + 1 != inputData.cend()) {
         return ErrorCode::BadFormat;
     }
+
+    int countPluses = static_cast<int>(std::count(beginInputData, inputData.cend(), '+'));
+    if (countPluses > 0 && *it != '+' || countPluses > 1) {
+        return ErrorCode::BadFormat;
+    }
+
     command = *it;
     return ErrorCode::OK;
 }
