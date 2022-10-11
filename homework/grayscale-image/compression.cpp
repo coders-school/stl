@@ -80,31 +80,37 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array
 std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>> input) {
     std::array<std::array<uint8_t, width>, height> output{};
 
-    //print_compressed_line_output(input);
+    auto chunkIt = input.begin();
+    std::for_each_n(output.begin(), height, [&](auto& row){
+        
+        std::cout << "git3" << std::endl;
+        auto rowIt = row.begin();
+        std::cout << "git4" << std::endl;
 
-    using input_t = std::vector<std::pair<uint8_t, uint8_t>>;
-    std::queue<uint8_t> q;
+        do{
+        uint8_t character;
+        uint8_t number_of_same_characters;
+        auto chunk = *chunkIt;
+        std::tie(character, number_of_same_characters) = chunk;
+        std::cout << std::to_string(character) << " ; " << std::to_string(number_of_same_characters) << std::endl;
+        std::fill_n(rowIt, number_of_same_characters, character); 
+        std::advance(rowIt, number_of_same_characters);
+        std::advance(chunkIt, 1);
+        }while(rowIt != row.end());
 
-    for(size_t iter = 0; iter < input.size(); ++iter)
-    {
-        std::pair<uint8_t, uint8_t> x = input.at(iter);
-        auto character = x.first;
-        auto howmany = x.second;
-        for(int i = 0; i < howmany; ++i)
-            q.push(character);
-    }
-
-    for(size_t w = 0; w < width; ++w)
-    {
-        for(size_t h = 0;  h < height; ++h)
-        {
-            //std::tie(character, char_num, chunk_num) = get_char_from_input(input);
-            uint8_t character = q.front();
-            q.pop();
-            //std::cout << "[" << w << "][" << h << "]= " << unsigned(character) << std::endl;
-            output[w][h] = unsigned(character);
-        }
-    }
-
+        std::cout << "git1" << std::endl;
+        std::for_each(row.begin(), row.end(), [&](auto x) {std::cout << std::to_string(x) << " ";}); std::cout << std::endl;
+        std::cout << "git2" << std::endl;
+        std::cout << "git2" << std::endl;
+        std::cout << "git2" << std::endl;
+    });       
+    std::cout << "git5" << std::endl;
+    std::cout <<  output.size() << std::endl;
+    std::for_each(output.begin(), output.end(), [&](auto row){
+        std::for_each(row.begin(), row.end(), [&](auto character){
+            std::cout << std::to_string(character) << " ";
+        });
+        std::cout << std::endl;
+    });
     return output;
 }
