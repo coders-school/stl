@@ -33,21 +33,8 @@ namespace calculator {
         return static_cast<int>(lhs) % static_cast<int>(rhs);
     }
 
-    // TODO Add calculation for negative values and integer values and change pattern
     double factorial(double lhs, const double) {
-        bool negative = false;
-        if (lhs < 0) {
-            negative = true;
-            lhs = abs(lhs);
-        }
-        double result = 1.0;
-        for (double i = lhs - static_cast<int>(lhs) + 1.0 ; i <= lhs ; ++i) {
-            result *= i;
-        }
-        if (negative) {
-            return -(result * sqrt(pi_v<double>) / 2);
-        }
-        return result * sqrt(pi_v<double>) / 2;
+        return std::tgamma(abs(lhs)) * lhs;
     }
 
     double power(const double lhs, const double rhs) {
