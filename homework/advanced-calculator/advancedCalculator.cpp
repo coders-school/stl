@@ -93,9 +93,7 @@ ErrorCode findFunction(const std::string& inputData, char& command) {
         *it == '+' && countPluses > 1 || *it != '+' && countPluses > 0 || *it == '!' && it + 1 != inputData.cend()) {
         return ErrorCode::BadFormat;
     }
-
     command = *it;
-
     return ErrorCode::OK;
 }
 
@@ -115,6 +113,11 @@ bool checkIfFunctionHasBadCommand(const std::string& inputData, char command, do
     return false;
 }
 
+ErrorCode checkIfNumberCanBeUsedByCommand(char command, double lhs, double rhs) {
+    if (command == '/' && rhs == 0) {
+        return ErrorCode::DivideBy0;
+    }
+}
 
 ErrorCode process(const std::string& inputData, double* result) {
     ErrorCode errorCode = ErrorCode::OK;
@@ -131,6 +134,7 @@ ErrorCode process(const std::string& inputData, double* result) {
     if (checkIfFunctionHasBadCommand(inputDataWithoutSpaces, command, lhs, rhs)) {
         return ErrorCode::BadFormat;
     }
+    errorCode = checkIfNumberCanBeUsedByCommand(command, lhs, rhs);
 
 //    *result = calculator::commands[command](5.0, 11.0);
     return errorCode;
