@@ -78,17 +78,24 @@ bool isTooMuchPluses(const std::string& inputdata, auto& beginIterator, char com
     return false;
 }
 
+bool isFactiorialSingleNumber(auto commandIterator, const std::string& inputData) {
+    return *commandIterator == '!' && commandIterator + 1 != inputData.cend();
+}
+
 char findCommand(const std::string& inputData, auto& beginIterator) {
-    auto it = std::find_first_of(beginIterator, inputData.cend(),
-                                 calculator::commands.cbegin(), calculator::commands.cend(),
-                                 [](auto inputChar, auto commandChar) {
-                                     return inputChar == commandChar.first;
-                                 });
-    if (it == inputData.cend() || it == inputData.cbegin()) {
+    auto commandIterator =
+            std::find_first_of(beginIterator, inputData.cend(),
+                               calculator::commands.cbegin(), calculator::commands.cend(),
+                               [](auto inputChar, auto commandChar) {
+                                   return inputChar == commandChar.first;
+                               });
+    if (commandIterator == inputData.cend() || commandIterator == inputData.cbegin()) {
         return 0;
     }
-    char command = *it;
-    if (command == '!' && it + 1 != inputData.cend()) {
+    char command = *commandIterator;
+    if (isFactiorialSingleNumber(commandIterator, inputData) ||
+        isAComma(inputData, beginIterator) ||
+        isTooMuchPluses(inputData, beginIterator, command)) {
         return 0;
     }
 
@@ -104,13 +111,9 @@ ErrorCode findFunction(const std::string& inputData, char& command) {
     if (inputData[0] == '-') {
         beginInputData++;
     }
-    if (isAComma(inputData, beginInputData)) {
-        return ErrorCode::BadFormat;
-    }
 
     command = findCommand(inputData, beginInputData);
-
-    if (command == 0 || isTooMuchPluses(inputData, beginInputData, command)) {
+    if (command == 0) {
         return ErrorCode::BadFormat;
     }
 
