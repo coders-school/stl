@@ -66,6 +66,35 @@ bool checkIfInputDataGotBadCharacter(const std::string& inputData) {
     });
 }
 
+bool isAComma(const std::string& inputData, auto& beginIterator) {
+    return std::find(beginIterator, inputData.cend(), ',') != inputData.cend();
+}
+
+bool isTooMuchPluses(const std::string& inputdata, auto& beginIterator, char command) {
+    int countPluses = static_cast<int>(std::count(beginIterator, inputdata.cend(), '+'));
+    if (countPluses > 0 && command != '+' || countPluses > 1) {
+        return true;
+    }
+    return false;
+}
+
+char findCommand(const std::string& inputData, auto& beginIterator) {
+    auto it = std::find_first_of(beginIterator, inputData.cend(),
+                                 calculator::commands.cbegin(), calculator::commands.cend(),
+                                 [](auto inputChar, auto commandChar) {
+                                     return inputChar == commandChar.first;
+                                 });
+    if (it == inputData.cend() || it == inputData.cbegin()) {
+        return 0;
+    }
+    char command = *it;
+    if (command == '!' && it + 1 != inputData.cend()) {
+        return 0;
+    }
+
+    return command;
+}
+
 ErrorCode findFunction(const std::string& inputData, char& command) {
     if (checkIfInputDataGotBadCharacter(inputData)) {
         return ErrorCode::BadCharacter;
@@ -75,26 +104,16 @@ ErrorCode findFunction(const std::string& inputData, char& command) {
     if (inputData[0] == '-') {
         beginInputData++;
     }
-    auto itComma = std::find(beginInputData, inputData.cend(), ',');
-    if (itComma != inputData.cend()) {
+    if (isAComma(inputData, beginInputData)) {
         return ErrorCode::BadFormat;
     }
 
-    auto it = std::find_first_of(beginInputData, inputData.cend(),
-                                 calculator::commands.cbegin(), calculator::commands.cend(),
-                                 [](auto inputChar, auto commandChar) {
-                                     return inputChar == commandChar.first;
-                                 });
-    if (it == inputData.cend() || it == inputData.cbegin() || *it == '!' && it + 1 != inputData.cend()) {
+    command = findCommand(inputData, beginInputData);
+
+    if (command == 0 || isTooMuchPluses(inputData, beginInputData, command)) {
         return ErrorCode::BadFormat;
     }
 
-    int countPluses = static_cast<int>(std::count(beginInputData, inputData.cend(), '+'));
-    if (countPluses > 0 && *it != '+' || countPluses > 1) {
-        return ErrorCode::BadFormat;
-    }
-
-    command = *it;
     return ErrorCode::OK;
 }
 
