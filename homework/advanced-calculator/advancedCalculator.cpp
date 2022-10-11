@@ -126,25 +126,32 @@ ErrorCode checkIfNumberCanBeUsedByCommand(char command, double lhs, double rhs) 
     return ErrorCode::OK;
 }
 
-ErrorCode process(const std::string& inputData, double* result) {
-    ErrorCode errorCode = ErrorCode::OK;
-    char command = '\0';
-    std::string inputDataWithoutSpaces = inputData;
-    auto it = std::remove(inputDataWithoutSpaces.begin(), inputDataWithoutSpaces.end(), ' ');
-    inputDataWithoutSpaces.erase(it, inputDataWithoutSpaces.end());
-    double lhs = 0.0;
-    double rhs = 0.0;
-    errorCode = findFunction(inputDataWithoutSpaces, command);
+bool isErrorCodeDifferentThanOK(ErrorCode& errorCode, std::string inputData, char& command, double& lhs, double& rhs) {
+    inputData.erase(std::remove(inputData.begin(), inputData.end(), ' '), inputData.end());
+
+    errorCode = findFunction(inputData, command);
     if (errorCode != ErrorCode::OK) {
-        return errorCode;
+        return true;
     }
-    errorCode = checkIfFunctionHasBadCommand(inputDataWithoutSpaces, command, lhs, rhs);
+
+    errorCode = checkIfFunctionHasBadCommand(inputData, command, lhs, rhs);
     if (errorCode != ErrorCode::OK) {
-        return errorCode;
+        return true;
     }
 
     errorCode = checkIfNumberCanBeUsedByCommand(command, lhs, rhs);
     if (errorCode != ErrorCode::OK) {
+        return true;
+    }
+    return false;
+}
+
+ErrorCode process(const std::string& inputData, double* result) {
+    ErrorCode errorCode = ErrorCode::OK;
+    char command = '\0';
+    double lhs = 0.0;
+    double rhs = 0.0;
+    if (isErrorCodeDifferentThanOK(errorCode, inputData, command, lhs, rhs)) {
         return errorCode;
     }
 
