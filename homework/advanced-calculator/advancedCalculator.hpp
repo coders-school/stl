@@ -13,4 +13,4 @@ enum class ErrorCode {
     ModuleOfNonIntegerValue
 };
 
-ErrorCode process(const std::string& command, double* result);
+ErrorCode process(const std::string& inputData, double* result);
