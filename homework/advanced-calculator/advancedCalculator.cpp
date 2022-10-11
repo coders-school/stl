@@ -11,6 +11,7 @@ namespace calculator {
     using std::numbers::pi_v;
     using std::pow;
     using std::sqrt;
+    using std::abs;
 
     double addiction(const double lhs, const double rhs) {
         return lhs + rhs;
@@ -32,11 +33,19 @@ namespace calculator {
         return static_cast<int>(lhs) % static_cast<int>(rhs);
     }
 
-    // TODO Add calculation for negative values
-    double factorial(const double lhs, const double) {
+    // TODO Add calculation for negative values and integer values and change pattern
+    double factorial(double lhs, const double) {
+        bool negative = false;
+        if (lhs < 0) {
+            negative = true;
+            lhs = abs(lhs);
+        }
         double result = 1.0;
         for (double i = lhs - static_cast<int>(lhs) + 1.0 ; i <= lhs ; ++i) {
             result *= i;
+        }
+        if (negative) {
+            return -(result * sqrt(pi_v<double>) / 2);
         }
         return result * sqrt(pi_v<double>) / 2;
     }
@@ -45,7 +54,6 @@ namespace calculator {
         return pow(lhs, rhs);
     }
 
-    // TODO Add option for negative rhs or think if it can work (probably YES)
     double sqrtRoot(const double lhs, const double rhs) {
         return pow(lhs, 1.0 / rhs);
     }
@@ -109,7 +117,9 @@ bool checkIfFunctionHasBadCommand(const std::string& inputData, char command, do
     }
     try {
         lhs = std::stod(lValue);
-        rhs = std::stod(rValue);
+        if (command != '!') {
+            rhs = std::stod(rValue);
+        }
     } catch (...) {
         return true;
     }
