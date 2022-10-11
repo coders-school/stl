@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <numbers>
+#include <stdexcept>
 #include <string>
 #include <string_view>
 
@@ -135,7 +136,7 @@ ErrorCode checkIfFunctionHasBadCommand(const std::string& inputData, char comman
         if (command != '!') {
             rhs = std::stod(rValue);
         }
-    } catch (...) {
+    } catch (std::invalid_argument&) {
         return ErrorCode::BadFormat;
     }
     return ErrorCode::OK;
