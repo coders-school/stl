@@ -123,6 +123,7 @@ ErrorCode checkIfNumberCanBeUsedByCommand(char command, double lhs, double rhs) 
     if (command == '$' && lhs < 0) {
         return ErrorCode::SqrtOfNegativeNumber;
     }
+    return ErrorCode::OK;
 }
 
 ErrorCode process(const std::string& inputData, double* result) {
@@ -137,11 +138,15 @@ ErrorCode process(const std::string& inputData, double* result) {
     }
     double lhs = 0.0;
     double rhs = 0.0;
+    // TODO replace by error code
     if (checkIfFunctionHasBadCommand(inputDataWithoutSpaces, command, lhs, rhs)) {
         return ErrorCode::BadFormat;
     }
     errorCode = checkIfNumberCanBeUsedByCommand(command, lhs, rhs);
+    if (errorCode != ErrorCode::OK) {
+        return errorCode;
+    }
 
-//    *result = calculator::commands[command](5.0, 11.0);
+    *result = calculator::commands[command](lhs, rhs);
     return errorCode;
 }
