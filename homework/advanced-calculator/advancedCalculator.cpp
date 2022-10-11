@@ -98,7 +98,10 @@ ErrorCode findFunction(const std::string& inputData, char& command) {
 }
 
 bool checkIfFunctionHasBadCommand(const std::string& inputData, char command, double& lhs, double& rhs) {
-    size_t distance = inputData.find_first_of(command);
+    size_t distance = inputData.find_first_of(command);;
+    if (inputData[0] == '-' && command == '-') {
+        distance = inputData.find_first_of('-', 1);
+    }
     std::string lValue = inputData.substr(0, distance);
     std::string rValue = inputData.substr(distance + 1, inputData.size());
     if (std::count(lValue.cbegin(), lValue.cend(), '.') > 1 || std::count(rValue.cbegin(), rValue.cend(), '.') > 1) {
