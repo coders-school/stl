@@ -70,42 +70,67 @@ bool checkIfCharIsACommand(const char com) {
 
 bool checkIfInputDataGotBadCharacter(const std::string& inputData) {
     return std::any_of(inputData.cbegin(), inputData.cend(), [](char c) -> bool {
-        return !isdigit(c) && !checkIfCharIsACommand(c);
+        return !isdigit(c) && !checkIfCharIsACommand(c) && c != ',' && c != '.';
     });
 }
 
-//TODO Implement bad format - change find first of if first number is negative
 ErrorCode findFunction(const std::string& inputData, char& command) {
     if (checkIfInputDataGotBadCharacter(inputData)) {
         return ErrorCode::BadCharacter;
     }
-
-    if (inputData[0] == '+') {
-        return ErrorCode::BadFormat;
+    auto beginInputData = inputData.cbegin();
+    if (inputData[0] == '-') {
+        beginInputData++;
     }
-
-    auto it = std::find_first_of(inputData.cbegin(), inputData.cend(), calculator::commands.cbegin(),
-                                 calculator::commands.cend(),
+    auto it = std::find_first_of(beginInputData, inputData.cend(),
+                                 calculator::commands.cbegin(), calculator::commands.cend(),
                                  [](auto inputChar, auto commandChar) {
                                      return inputChar == commandChar.first;
                                  });
-    if (it == inputData.cend()) {
-        return ErrorCode::BadCharacter;
+    auto itComma = std::find(beginInputData, inputData.cend(), ',');
+    int countPluses = std::count(beginInputData, inputData.cend(), '+');
+    if (it == inputData.cend() || it == inputData.cbegin() && *it != '-' || itComma != inputData.cend() ||
+        *it == '+' && countPluses > 1 || *it != '+' && countPluses > 0 || *it == '!' && it + 1 != inputData.cend()) {
+        return ErrorCode::BadFormat;
     }
+
     command = *it;
 
     return ErrorCode::OK;
 }
 
+bool checkIfFunctionHasBadCommand(const std::string& inputData, char command, double& lhs, double& rhs) {
+    size_t distance = inputData.find_first_of(command);
+    std::string lValue = inputData.substr(0, distance);
+    std::string rValue = inputData.substr(distance + 1, inputData.size());
+    if (std::count(lValue.cbegin(), lValue.cend(), '.') > 1 || std::count(rValue.cbegin(), rValue.cend(), '.') > 1) {
+        return true;
+    }
+    try {
+        lhs = std::stod(lValue);
+        rhs = std::stod(rValue);
+    } catch (...) {
+        return true;
+    }
+    return false;
+}
+
+
 ErrorCode process(const std::string& inputData, double* result) {
-    ErrorCode errorCode = ErrorCode::BadFormat;
+    ErrorCode errorCode = ErrorCode::OK;
     char command = '\0';
     std::string inputDataWithoutSpaces = inputData;
     auto it = std::remove(inputDataWithoutSpaces.begin(), inputDataWithoutSpaces.end(), ' ');
     inputDataWithoutSpaces.erase(it, inputDataWithoutSpaces.end());
     errorCode = findFunction(inputDataWithoutSpaces, command);
+    if (errorCode != ErrorCode::OK) {
+        return errorCode;
+    }
     double lhs = 0.0;
     double rhs = 0.0;
+    if (checkIfFunctionHasBadCommand(inputDataWithoutSpaces, command, lhs, rhs)) {
+        return ErrorCode::BadFormat;
+    }
 
 //    *result = calculator::commands[command](5.0, 11.0);
     return errorCode;
