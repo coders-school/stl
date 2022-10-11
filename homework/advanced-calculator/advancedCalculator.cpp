@@ -120,6 +120,9 @@ ErrorCode checkIfNumberCanBeUsedByCommand(char command, double lhs, double rhs) 
     if (command == '%' && (static_cast<int>(lhs) != lhs || static_cast<int>(rhs) != rhs)) {
         return ErrorCode::ModuleOfNonIntegerValue;
     }
+    if (command == '$' && lhs < 0) {
+        return ErrorCode::SqrtOfNegativeNumber;
+    }
 }
 
 ErrorCode process(const std::string& inputData, double* result) {
