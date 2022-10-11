@@ -11,7 +11,6 @@ namespace calculator {
 using std::abs;
 using std::pow;
 using std::sqrt;
-using std::numbers::pi_v;
 
 double addiction(const double lhs, const double rhs) {
     return lhs + rhs;
@@ -80,7 +79,7 @@ bool isTooMuchPluses(const std::string& inputdata, auto& beginIterator, char com
     return false;
 }
 
-bool isFactiorialSingleNumber(auto commandIterator, const std::string& inputData) {
+bool isFactiorialSingleNumber(const std::string& inputData, auto& commandIterator) {
     return *commandIterator == '!' && commandIterator + 1 != inputData.cend();
 }
 
@@ -95,7 +94,7 @@ char findCommand(const std::string& inputData, auto& beginIterator) {
         return 0;
     }
     char command = *commandIterator;
-    if (isFactiorialSingleNumber(commandIterator, inputData) ||
+    if (isFactiorialSingleNumber(inputData, commandIterator) ||
         isAComma(inputData, beginIterator) ||
         isTooMuchPluses(inputData, beginIterator, command)) {
         return 0;
@@ -123,7 +122,7 @@ ErrorCode findFunction(const std::string& inputData, char& command) {
 }
 
 bool isMoreThanOneDotInNumber(const std::string& number) {
-    return std::ranges::count(number, '.') > 1;
+    return std::count(number.cbegin(), number.cend(), '.') > 1;
 }
 
 bool trySplitInputDataToTwoStringOfNumbers(const std::string& inputData, char command, std::string& leftSide, std::string& rightSide) {
