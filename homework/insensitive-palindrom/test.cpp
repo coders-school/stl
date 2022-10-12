@@ -20,6 +20,7 @@ INSTANTIATE_TEST_SUITE_P(
         std::make_pair("caac", true),
         std::make_pair("caab", false),
         std::make_pair("abba", true),
+        std::make_pair("abba?", true),
         std::make_pair("Eva, can I see bees in a cave?", true),
         std::make_pair("No lemon, no melon", true),
         std::make_pair("Was it a cat I saw?", true),

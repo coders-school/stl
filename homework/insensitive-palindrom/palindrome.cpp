@@ -1,10 +1,28 @@
 #include "palindrome.hpp"
+#include <vector>
+#include <algorithm>
+#include <iostream>
+#include <cwctype>
 
 bool is_palindrome(const std::string input)
 {
     if(input.size() == 1) return true;
-    auto first_char = input.front();
-    auto last_char = input.back();
+    
+    std::string input_str;
+    std::copy(input.begin(), input.end(), std::back_inserter(input_str));
+    
+    input_str.erase(std::remove_if(input_str.begin(), 
+                              input_str.end(),
+                              [](unsigned char x){return std::ispunct(x);}),
+               input_str.end());
+               
+    
+
+    auto first_char = input_str.front();
+    auto last_char = input_str.back();
+    std::cout << input_str << std::endl;
+    std::cout << first_char << std::endl;
+    std::cout << last_char << std::endl;
     if(first_char == last_char)
     {
         return true;
