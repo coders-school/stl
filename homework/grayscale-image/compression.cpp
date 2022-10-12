@@ -80,37 +80,20 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array
 std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>> input) {
     std::array<std::array<uint8_t, width>, height> output{};
 
-    auto chunkIt = input.begin();
+    auto chunk_Iter = input.begin();
     std::for_each_n(output.begin(), height, [&](auto& row){
         
-        std::cout << "git3" << std::endl;
-        auto rowIt = row.begin();
-        std::cout << "git4" << std::endl;
+        auto character_position_Iter = row.begin();
 
-        do{
-        uint8_t character;
-        uint8_t number_of_same_characters;
-        auto chunk = *chunkIt;
-        std::tie(character, number_of_same_characters) = chunk;
-        std::cout << std::to_string(character) << " ; " << std::to_string(number_of_same_characters) << std::endl;
-        std::fill_n(rowIt, number_of_same_characters, character); 
-        std::advance(rowIt, number_of_same_characters);
-        std::advance(chunkIt, 1);
-        }while(rowIt != row.end());
+        while(character_position_Iter != row.end())
+        {
+            auto [character, number_of_same_characters] = *chunk_Iter;
+            std::fill_n(character_position_Iter, number_of_same_characters, character); 
+            std::advance(character_position_Iter, number_of_same_characters);
+            std::advance(chunk_Iter, 1);
+        };
 
-        std::cout << "git1" << std::endl;
-        std::for_each(row.begin(), row.end(), [&](auto x) {std::cout << std::to_string(x) << " ";}); std::cout << std::endl;
-        std::cout << "git2" << std::endl;
-        std::cout << "git2" << std::endl;
-        std::cout << "git2" << std::endl;
     });       
-    std::cout << "git5" << std::endl;
-    std::cout <<  output.size() << std::endl;
-    std::for_each(output.begin(), output.end(), [&](auto row){
-        std::for_each(row.begin(), row.end(), [&](auto character){
-            std::cout << std::to_string(character) << " ";
-        });
-        std::cout << std::endl;
-    });
+
     return output;
 }
