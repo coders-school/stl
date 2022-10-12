@@ -14,7 +14,11 @@ INSTANTIATE_TEST_SUITE_P(
     InsensitivePalindromFixture,
     ::testing::Values(
         std::make_pair("a", true),
+        std::make_pair("b", true),
         std::make_pair("aba", true),
+        std::make_pair("bab", true),
+        std::make_pair("caac", true),
+        std::make_pair("caab", false),
         std::make_pair("abba", true),
         std::make_pair("Eva, can I see bees in a cave?", true),
         std::make_pair("No lemon, no melon", true),

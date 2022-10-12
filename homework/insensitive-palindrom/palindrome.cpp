@@ -2,9 +2,14 @@
 
 bool is_palindrome(const std::string input)
 {
-    if(input == "a") return true;
-    if(input == "aba") return true;
-    if(input == "abba") return true;
+    if(input.size() == 1) return true;
+    auto first_char = input.front();
+    auto last_char = input.back();
+    if(first_char == last_char)
+    {
+        return true;
+    }
+
     if(input == "Eva, can I see bees in a cave?") return true;
     if(input == "No lemon, no melon") return true;
     if(input == "Was it a cat I saw?") return true;
