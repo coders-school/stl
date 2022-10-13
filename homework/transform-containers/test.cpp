@@ -1,6 +1,11 @@
 #include "gtest/gtest.h"
 
-// TODO: add proper includes
+#include <list>
+#include <deque>
+#include <map> 
+#include <string>
+
+#include "removeDuplicateAndTranformToMap.hpp"
 
 TEST(transformContainerTests, ShouldReturnUniqueMap) {
     std::map<int, std::string> expected_result{
