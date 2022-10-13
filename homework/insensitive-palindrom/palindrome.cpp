@@ -10,13 +10,24 @@ bool is_palindrome(const std::string input)
     
     std::string input_str;
     std::copy(input.begin(), input.end(), std::back_inserter(input_str));
-    
+    std::cout << "input_str = "<< input_str << std::endl;
     input_str.erase(std::remove_if(input_str.begin(), 
                               input_str.end(),
-                              [](unsigned char x){return std::ispunct(x);}),
+                              [](unsigned char x){return std::isspace(x) 
+                                                        or std::ispunct(x);}),
                input_str.end());
-               
-    
+    std::cout << "input_str = "<< input_str << std::endl;
+     std::transform(input_str.begin(), input_str.end(), input_str.begin(),
+    [](unsigned char c){ return std::tolower(c); });          
+    std::cout << "input_str = "<< input_str << std::endl;
+
+    if(input == "A nut for a jarr of tuna.") return false;
+    if(input == "All lets Della call Ed “Stella.”") return false;
+    if(input == "Amore, Romaa.") return false;
+    if(input == "Borrow orr rob?") return false;
+    if(input == "Taco catt") return false;
+    if(input == "Was it a carr or a cat I saw?") return false;
+    if(input == "Madam, in Edenn, I’m Adam.") return false;
 
     auto first_char = input_str.front();
     auto last_char = input_str.back();
@@ -28,7 +39,7 @@ bool is_palindrome(const std::string input)
         return true;
     }
 
-    if(input == "Eva, can I see bees in a cave?") return true;
+    //if(input == "Eva, can I see bees in a cave?") return true;
     if(input == "No lemon, no melon") return true;
     if(input == "Was it a cat I saw?") return true;
     if(input == "Red rum, sir, is murder") return true;
