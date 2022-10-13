@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <iostream>
 #include <cwctype>
+#include <locale>
+#include <codecvt>
 
 bool is_palindrome(const std::string input)
 {
@@ -13,15 +15,13 @@ bool is_palindrome(const std::string input)
     std::cout << "input_str1 = "<< input_str << std::endl;
     input_str.erase(std::remove_if(input_str.begin(), 
                               input_str.end(),
-                              [](char x){
+                              [](unsigned char x){
                                 std::cout << "x = " << "\t" << std::to_string(x) << "\t" << x << "\t" << std::boolalpha << int(x == '\"') << "\t" << int('\"') << std::endl;
-                                return int(x == '\'') 
-                                                        or int(x == '\"')
-                                                        or int(x == '-') 
+                                return x >= 127 
                                                         or std::ispunct(x) 
                                                         or std::isspace(x);}),
                input_str.end());
-
+    
     std::cout << "input_str2 = "<< input_str << std::endl;
     std::transform(input_str.begin(), input_str.end(), input_str.begin(),
     [](unsigned char c){ return std::tolower(c); });          
