@@ -1,8 +1,8 @@
 #include "gtest/gtest.h"
 
-#include <list>
 #include <deque>
-#include <map> 
+#include <list>
+#include <map>
 #include <string>
 
 #include "removeDuplicateAndTranformToMap.hpp"
