@@ -1,5 +1,6 @@
 #include "vowel.hpp"
 #include "array"
+#include "vector"
 
 std::vector<std::string> removeVowels(std::vector<std::string>& vec) {
     std::array<char, 12> vowels{'a', 'A', 'e', 'E', 'i', 'I', 'o', 'O', 'u', 'U', 'y', 'Y'};
