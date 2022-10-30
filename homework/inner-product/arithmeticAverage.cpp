@@ -1,28 +1,26 @@
 #include "arithmeticAverage.hpp"
+#include <cmath>
+#include <functional>
 #include <iostream>
 #include <numeric>
-#include <functional>
-#include <cmath>
 
-double ArithmeticAverage(std::vector<int>& first, std::vector<int>& second)
-{
-    auto r1 = std::accumulate(first.begin(), first.end(), 0.0);
-    auto sum = std::accumulate(second.begin(), second.end(), r1);
+double ArithmeticAverage(std::vector<int>& first, std::vector<int>& second) {
+    auto sum = std::accumulate(first.begin(), first.end(), 0.0);
+    sum = std::accumulate(second.begin(), second.end(), sum);
     auto result = sum / (second.size() + first.size());
     return result;
 }
 
-double Distance(std::vector<int>& first, std::vector<int>& second)
-{
-    std::vector<double> factors;
-    auto first_it = first.begin();
-    auto second_it = second.begin();
-    for(; first_it != first.end(); ++first_it, ++second_it)
-    {
-        auto factor = pow(*second_it - *first_it, 2);      
-        factors.push_back(factor);
+template <class T>
+struct Factor {
+    constexpr T operator()(const T& lhs, const T& rhs) const {
+        return pow(rhs - lhs, 2);
     }
-    auto sum = std::accumulate(factors.begin(), factors.end(), 0.0); 
-    auto result = sqrt(sum); 
+};
+
+double Distance(std::vector<int>& first, std::vector<int>& second) {
+    int sum = std::inner_product(first.begin(), first.end(), second.begin(), 0,
+                                 std::plus<>(), Factor<double>());
+    auto result = sqrt(sum);
     return result;
 }
