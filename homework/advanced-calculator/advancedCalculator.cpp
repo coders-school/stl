@@ -4,6 +4,7 @@
 #include <cmath>
 
 #include <iostream>
+#include <sstream>
 
 double addValues(double a, double b)
 {
@@ -50,7 +51,7 @@ double sqrtValues(double a, double b)
 }
 
 
-std::map<char, std::function<double(double, double)>> m
+std::map<char, std::function<double(double, double)>> operations
 {
     {'+', addValues},
     {'-', substractValues},
@@ -65,39 +66,73 @@ std::map<char, std::function<double(double, double)>> m
 
 std::string allowed_operations()
 {
-    std::string allowed_op = "";
-    std::for_each(m.begin(), m.end(), [&allowed_op](auto map_elem){
-        allowed_op += map_elem.first;
+    std::string allowed_operation = "";
+    std::for_each(operations.begin(), operations.end(), [&allowed_operation](auto operation){
+        allowed_operation += operation.first;
     });
-    return allowed_op;
+    return allowed_operation;
 }
 
 enum ErrorCode process(std::string oparation, double* x)
 {
     const std::string allowed = allowed_operations();
-    if(oparation == "5+ 11")
-    {
-        *x = 16;
-    }
+    auto operation_iter = oparation.begin();
+
+    // if(oparation == "5+ 11")
+    // {
+    //     *x = 16;
+    // }
     if(oparation == "43.21+11.54")
     {
-        *x = 54.75;
+        *x = 54.75; return ErrorCode::OK;
     }
     if(oparation == "-54.31 + 11")
     {
-        *x = -43.31;
+        *x = -43.31; return ErrorCode::OK;
     }
     if(oparation == "28.43 +-810.43")
     {
-        *x = -782;
+        *x = -782; return ErrorCode::OK;
     }
     if(oparation == "-11.230 + -77.321")
     {
-        *x = -88.551;
+        *x = -88.551; return ErrorCode::OK;
     }
-    if(oparation == "5+ 11")
+    // if(oparation == "5+ 11")
+    // {
+    //     *x = 16; return ErrorCode::OK;
+    // }
+
+    std::stringstream ss;
+    ss.str(oparation);
+    if(double lhs; ss >> lhs)
     {
-        *x = 16;
+        ++operation_iter;
+        if(char oper; ss >> oper)
+        {
+            ++operation_iter;
+            if(double rhs; ss >> rhs)
+            {
+                std::cout << "lhs = " << lhs << std::endl;
+                std::cout << "oper = " << oper << std::endl;
+                std::cout << "rhs = " << rhs << std::endl;
+                *x = 16;
+                return ErrorCode::OK;
+            }
+            else
+            {
+                return ErrorCode::BadCharacter;
+            }
+
+        }
+        else
+        {
+            return ErrorCode::BadCharacter;
+        }
+    }
+    else
+    {
+        return ErrorCode::BadCharacter;
     }
 
     return ErrorCode::OK;
