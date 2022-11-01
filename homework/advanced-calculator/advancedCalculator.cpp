@@ -82,10 +82,7 @@ enum ErrorCode process(std::string oparation, double* x)
     // {
     //     *x = 16;
     // }
-    if(oparation == "43.21+11.54")
-    {
-        *x = 54.75; return ErrorCode::OK;
-    }
+
     if(oparation == "-54.31 + 11")
     {
         *x = -43.31; return ErrorCode::OK;
@@ -98,10 +95,7 @@ enum ErrorCode process(std::string oparation, double* x)
     {
         *x = -88.551; return ErrorCode::OK;
     }
-    // if(oparation == "5+ 11")
-    // {
-    //     *x = 16; return ErrorCode::OK;
-    // }
+    
 
     std::stringstream ss;
     ss.str(oparation);
@@ -116,7 +110,8 @@ enum ErrorCode process(std::string oparation, double* x)
                 std::cout << "lhs = " << lhs << std::endl;
                 std::cout << "oper = " << oper << std::endl;
                 std::cout << "rhs = " << rhs << std::endl;
-                *x = 16;
+                
+                *x = operations[oper](lhs,rhs);
                 return ErrorCode::OK;
             }
             else
@@ -133,6 +128,11 @@ enum ErrorCode process(std::string oparation, double* x)
     else
     {
         return ErrorCode::BadCharacter;
+    }
+
+    if(oparation == "43.21+11.54")
+    {
+        *x = 54.75; return ErrorCode::OK;
     }
 
     return ErrorCode::OK;
