@@ -47,7 +47,7 @@ double factorialValues(double a, double b)
 
 double sqrtValues(double a, double b)
 {
-    return sqrt(a);
+    return std::pow(a, 1.0/b);
 }
 
 
