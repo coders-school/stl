@@ -73,6 +73,7 @@ std::string allowed_operations()
     return allowed_operation;
 }
 
+
 enum ErrorCode process(std::string oparation, double* x)
 {
     const std::string allowed = allowed_operations();
@@ -86,8 +87,8 @@ enum ErrorCode process(std::string oparation, double* x)
         if(char operation_character; ss >> operation_character)
         {
             ++operation_iterator;
-            if(double rhs; ss >> rhs)
-            {
+
+            auto calculate_values = [&](auto lhs, auto rhs){
                 std::cout << "-------------" << std::endl;
                 std::cout << "lhs = " << lhs << std::endl;
                 std::cout << "operation_character = " << operation_character << std::endl;
@@ -95,21 +96,21 @@ enum ErrorCode process(std::string oparation, double* x)
                 
                 auto calculate = operations[operation_character];
                 std::cout << "result = " << calculate(lhs, rhs) << std::endl;
-                *x = calculate(lhs, rhs);
+                return calculate(lhs, rhs);
+            };            
+
+            if(double rhs; ss >> rhs)
+            {
+                *x = calculate_values(lhs, rhs);
                 return ErrorCode::OK;
             }
             else
             {
                 //Unary operations processing
+                rhs = lhs;
                 if(operation_character == '!')
                 {
-                    std::cout << "-------------" << std::endl;
-                    std::cout << "lhs = " << lhs << std::endl;
-                    std::cout << "operation_character = " << operation_character << std::endl;
-                    
-                    auto calculate = operations[operation_character];
-                    std::cout << "result = " << calculate(lhs, lhs) << std::endl;
-                    *x = calculate(lhs, rhs);
+                    *x = calculate_values(lhs, rhs);
                     return ErrorCode::OK;
                 }
 
