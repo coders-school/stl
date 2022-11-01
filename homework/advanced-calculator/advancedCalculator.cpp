@@ -73,52 +73,109 @@ std::string allowed_operations()
     return allowed_operation;
 }
 
-
 enum ErrorCode process(std::string oparation, double* x)
 {
     const std::string allowed = allowed_operations();
     auto operation_iterator = oparation.begin();
 
+    std::cout << "\noparation = "<< oparation << std::endl;
     std::stringstream ss;
     ss.str(oparation);
-    if(double lhs; ss >> lhs)
+    double lhs;
+    char oper;
+    double rhs;
+    std::string anything_more;
+    ss >> lhs >> oper >> rhs >> anything_more;
+    std::cout << "----------------\n";
+    std::cout << "lhs = " << lhs << std::endl;
+    std::cout << "oper = " << oper << std::endl;
+    std::cout << "rhs = " << rhs << std::endl;
+    std::cout << "anything_more = " << anything_more << std::endl;
+    auto disallowed_operator = std::none_of(allowed.begin(), allowed.end(), [&oper](auto allowed_operator){ return oper == allowed_operator;});
+    if(disallowed_operator)
     {
-        ++operation_iterator;
-        if(char operation_character; ss >> operation_character)
-        {
-            ++operation_iterator;
-
-            auto calculate_values = [&](auto lhs, auto rhs){
-                std::cout << "-------------" << std::endl;
-                std::cout << "lhs = " << lhs << std::endl;
-                std::cout << "operation_character = " << operation_character << std::endl;
-                std::cout << "rhs = " << rhs << std::endl;
-                
-                auto calculate = operations[operation_character];
-                std::cout << "result = " << calculate(lhs, rhs) << std::endl;
-                return calculate(lhs, rhs);
-            };            
-
-            if(double rhs; ss >> rhs)
-            {
-                *x = calculate_values(lhs, rhs);
-                return ErrorCode::OK;
-            }
-            else
-            {
-                //Unary operations processing
-                rhs = lhs;
-                if(operation_character == '!')
-                {
-                    *x = calculate_values(lhs, rhs);
-                    return ErrorCode::OK;
-                }
-
-                return ErrorCode::BadCharacter;
-            }
-        }
+        std::cout << "ErrorCode::BadCharacter\n";
+        return ErrorCode::BadCharacter;
+    }
+    if(not anything_more.empty())
+    {
+        std::cout << "not anything_more.empty\n";
+        std::cout << "ErrorCode::BadCharacter\n";
+        return ErrorCode::BadCharacter;
+    }
+    if(rhs == 0.0)
+    {
+        std::cout << "rhs == 0.0\n";
+        std::cout << "ErrorCode::BadCharacter\n";
+        return ErrorCode::BadCharacter;
     }
 
+    // std::cout << "\noparation = "<< oparation << std::endl;
+    // std::stringstream ss;
+    // ss.str(oparation);
+    // if(double lhs; ss >> lhs)
+    // {
+    //     std::cout << "lhs = " << lhs << std::endl;
+    //     //++operation_iterator;
+    //     if(char operation_character; ss >> operation_character)
+    //     {
+    //         std::cout << "operation_character = " << operation_character << std::endl;
+    //         //++operation_iterator;
 
-    return ErrorCode::BadCharacter;
+                      
+
+    //         try
+    //         {
+    //             //++operation_iterator;
+    //             if(double rhs; ss >> rhs)
+    //             {
+    //                 std::cout << "\tBinary operations processing" << std::endl;
+    //                 std::cout << "rhs = " << rhs << std::endl;
+    //                 std::cout << "operation_iterator = " << *operation_iterator << std::endl;
+
+    //                 *x = calculate_values(lhs, rhs);
+    //                 return ErrorCode::OK;
+    //             }
+    //             else
+    //             {
+    //                 std::cout << "\tUnary operations processing" << std::endl;
+    //                 std::cout << "rhs = " << rhs << std::endl;
+    //                 if(rhs != 0.0)
+    //                 {
+    //                     rhs = lhs;
+    //                     if(operation_character == '!')
+    //                     {
+    //                         *x = calculate_values(lhs, rhs);
+    //                         return ErrorCode::OK;
+    //                     }
+    //                 }
+    //                 else
+    //                 {
+    //                     return ErrorCode::BadFormat;
+    //                 }
+                    
+
+    //                 return ErrorCode::BadCharacter;
+    //             }
+    //         }
+    //         catch(const std::bad_function_call& e){
+    //             std::cerr << e.what() << '\n';
+    //             return ErrorCode::BadFormat;
+    //         }
+    //         catch(const std::exception& e)
+    //         {
+    //             std::cerr << e.what() << '\n';
+    //         }
+            
+            
+    //     }
+    //      else 
+    //     {
+    //         return ErrorCode::BadFormat;
+    //     }
+    // }
+   
+
+
+    return ErrorCode::BadFormat;
 }
