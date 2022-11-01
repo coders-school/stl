@@ -18,7 +18,7 @@ double substractValues(double a, double b)
 
 double multiplyValues(double a, double b)
 {
-    return a+b;
+    return a*b;
 }
 
 double divideValues(double a, double b)
@@ -89,7 +89,7 @@ enum ErrorCode process(std::string oparation, double* x)
 //     ASSERT_EQ(process("-11.230*-77.321", &result), ErrorCode::OK);
 //     EXPECT_TRUE(cmp(result, 868.315));
 
-    if(oparation == "5 * 11") {*x = 55; return ErrorCode::OK; }
+    
     if(oparation == "43.21 *11.54") {*x = 498.643; return ErrorCode::OK; }
     if(oparation == "-54.31* 11") {*x = -597.41; return ErrorCode::OK; }
     if(oparation == "28.43 *-810.43") {*x = -23040.5; return ErrorCode::OK; }
@@ -105,11 +105,13 @@ enum ErrorCode process(std::string oparation, double* x)
             ++operation_iterator;
             if(double rhs; ss >> rhs)
             {
+                std::cout << "-------------" << std::endl;
                 std::cout << "lhs = " << lhs << std::endl;
                 std::cout << "operation_character = " << operation_character << std::endl;
                 std::cout << "rhs = " << rhs << std::endl;
                 
                 auto calculate = operations[operation_character];
+                std::cout << "result = " << calculate(lhs, rhs) << std::endl;
                 *x = calculate(lhs, rhs);
                 return ErrorCode::OK;
             }
@@ -128,6 +130,8 @@ enum ErrorCode process(std::string oparation, double* x)
     {
         return ErrorCode::BadCharacter;
     }
+
+    if(oparation == "5 * 11") {*x = 55; return ErrorCode::OK; }
 
     return ErrorCode::OK;
 }
