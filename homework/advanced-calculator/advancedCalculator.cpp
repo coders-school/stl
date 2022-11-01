@@ -100,19 +100,24 @@ enum ErrorCode process(std::string oparation, double* x)
             }
             else
             {
+                //Unary operations processing
+                if(operation_character == '!')
+                {
+                    std::cout << "-------------" << std::endl;
+                    std::cout << "lhs = " << lhs << std::endl;
+                    std::cout << "operation_character = " << operation_character << std::endl;
+                    
+                    auto calculate = operations[operation_character];
+                    std::cout << "result = " << calculate(lhs, lhs) << std::endl;
+                    *x = calculate(lhs, rhs);
+                    return ErrorCode::OK;
+                }
+
                 return ErrorCode::BadCharacter;
             }
-
-        }
-        else
-        {
-            return ErrorCode::BadCharacter;
         }
     }
-    else
-    {
-        return ErrorCode::BadCharacter;
-    }
 
-    return ErrorCode::OK;
+
+    return ErrorCode::BadCharacter;
 }
