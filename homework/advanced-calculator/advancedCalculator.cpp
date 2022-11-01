@@ -76,7 +76,7 @@ std::string allowed_operations()
 enum ErrorCode process(std::string oparation, double* x)
 {
     const std::string allowed = allowed_operations();
-    auto operation_iter = oparation.begin();
+    auto operation_iterator = oparation.begin();
 
     // if(oparation == "5+ 11")
     // {
@@ -101,17 +101,18 @@ enum ErrorCode process(std::string oparation, double* x)
     ss.str(oparation);
     if(double lhs; ss >> lhs)
     {
-        ++operation_iter;
-        if(char oper; ss >> oper)
+        ++operation_iterator;
+        if(char operation_character; ss >> operation_character)
         {
-            ++operation_iter;
+            ++operation_iterator;
             if(double rhs; ss >> rhs)
             {
                 std::cout << "lhs = " << lhs << std::endl;
-                std::cout << "oper = " << oper << std::endl;
+                std::cout << "operation_character = " << operation_character << std::endl;
                 std::cout << "rhs = " << rhs << std::endl;
                 
-                *x = operations[oper](lhs,rhs);
+                auto calculate = operations[operation_character];
+                *x = calculate(lhs, rhs);
                 return ErrorCode::OK;
             }
             else
@@ -130,10 +131,6 @@ enum ErrorCode process(std::string oparation, double* x)
         return ErrorCode::BadCharacter;
     }
 
-    if(oparation == "43.21+11.54")
-    {
-        *x = 54.75; return ErrorCode::OK;
-    }
 
     return ErrorCode::OK;
 }
