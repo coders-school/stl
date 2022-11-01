@@ -78,23 +78,6 @@ enum ErrorCode process(std::string oparation, double* x)
     const std::string allowed = allowed_operations();
     auto operation_iterator = oparation.begin();
 
-// ASSERT_EQ(process("5 * 11", &result), ErrorCode::OK);
-//     EXPECT_TRUE(cmp(result, 55));
-//     ASSERT_EQ(process("43.21 *11.54", &result), ErrorCode::OK);
-//     EXPECT_TRUE(cmp(result, 498.643));
-//     ASSERT_EQ(process("-54.31* 11", &result), ErrorCode::OK);
-//     EXPECT_TRUE(cmp(result, -597.41));
-//     ASSERT_EQ(process("28.43 *-810.43", &result), ErrorCode::OK);
-//     EXPECT_TRUE(cmp(result, -23040.5));
-//     ASSERT_EQ(process("-11.230*-77.321", &result), ErrorCode::OK);
-//     EXPECT_TRUE(cmp(result, 868.315));
-
-    
-    if(oparation == "43.21 *11.54") {*x = 498.643; return ErrorCode::OK; }
-    if(oparation == "-54.31* 11") {*x = -597.41; return ErrorCode::OK; }
-    if(oparation == "28.43 *-810.43") {*x = -23040.5; return ErrorCode::OK; }
-    if(oparation == "-11.230*-77.321") {*x = 868.315; return ErrorCode::OK; }
-
     std::stringstream ss;
     ss.str(oparation);
     if(double lhs; ss >> lhs)
@@ -130,8 +113,6 @@ enum ErrorCode process(std::string oparation, double* x)
     {
         return ErrorCode::BadCharacter;
     }
-
-    if(oparation == "5 * 11") {*x = 55; return ErrorCode::OK; }
 
     return ErrorCode::OK;
 }
