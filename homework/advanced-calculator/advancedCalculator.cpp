@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <algorithm>
 
 double addValues(double a, double b)
 {
@@ -82,7 +83,7 @@ enum ErrorCode process(std::string oparation, double* x)
     std::stringstream ss;
     ss.str(oparation);
     double lhs;
-    char oper;
+    std::string oper;
     double rhs;
     std::string anything_more;
     ss >> lhs >> oper >> rhs >> anything_more;
@@ -91,9 +92,31 @@ enum ErrorCode process(std::string oparation, double* x)
     std::cout << "oper = " << oper << std::endl;
     std::cout << "rhs = " << rhs << std::endl;
     std::cout << "anything_more = " << anything_more << std::endl;
-    auto disallowed_operator = std::none_of(allowed.begin(), allowed.end(), [&oper](auto allowed_operator){ return oper == allowed_operator;});
+    auto disallowed_operator = std::none_of(allowed.begin(), allowed.end(), [&oper](auto allowed_operator){ return oper == std::to_string(allowed_operator);});
     if(disallowed_operator)
     {
+        std::cout << "disallowed_operator\n";
+        auto has_comma = oper.find(",")!=std::string::npos;
+        auto has_semicolon = oper.find(";")!=std::string::npos;
+        auto has_digit = std::any_of(oper.begin(), oper.end(), [](auto x ){ return std::isdigit(x);});   
+        if(has_semicolon)
+        {
+            std::cout << "has_semicolon\n";
+            std::cout << "ErrorCode::BadCharacter\n";
+            return ErrorCode::BadCharacter;
+        }
+        if(has_comma and has_digit)
+        {
+            std::cout << "has_comma\n";
+            std::cout << "has_digit\n";
+            return ErrorCode::BadCharacter;
+        }
+        if(has_comma)
+        {
+            std::cout << "has_comma\n";
+            std::cout << "has_digit\n";
+            return ErrorCode::BadFormat;
+        }
         std::cout << "ErrorCode::BadCharacter\n";
         return ErrorCode::BadCharacter;
     }
