@@ -98,18 +98,49 @@ enum ErrorCode process(std::string oparation, double* x)
         std::cout << "disallowed_operator\n";
         auto has_comma = oper.find(",")!=std::string::npos;
         auto has_semicolon = oper.find(";")!=std::string::npos;
-        auto has_digit = std::any_of(oper.begin(), oper.end(), [](auto x ){ return std::isdigit(x);});   
+        auto has_allowed_operator = std::any_of(allowed.begin(), allowed.end(), [&oper](auto allowed_operator){ return oper.find(allowed_operator)!=std::string::npos; });
+        auto has_digit = std::any_of(oper.begin(), oper.end(), [](auto x ){ return std::isdigit(x);});
+        auto whole_operation_has_semicolon = oparation.find(";")!=std::string::npos;
         if(has_semicolon)
         {
             std::cout << "has_semicolon\n";
             std::cout << "ErrorCode::BadCharacter\n";
             return ErrorCode::BadCharacter;
         }
-        if(has_comma and has_digit)
+        if(has_comma and has_digit and has_allowed_operator)
         {
             std::cout << "has_comma\n";
             std::cout << "has_digit\n";
-            return ErrorCode::BadCharacter;
+            std::cout << "has_allowed_operator\n";
+            return ErrorCode::BadFormat;
+        }
+        if(has_allowed_operator)
+        {
+            std::cout << "has_allowed_operator\n";
+           
+            auto has_more_allowed_operators_than_one = [&oper](){ 
+                    auto it = std::adjacent_find (oper.begin(), oper.end());
+                    return it!=oper.end();
+            };
+
+            if(has_more_allowed_operators_than_one())
+            {
+                std::cout << "has_more_allowed_operators_than_one\n";
+                return ErrorCode::BadFormat;
+            }
+            
+        }
+        if(has_comma and has_digit and rhs == 0.0)
+        {
+            std::cout << "has_comma\n";
+            std::cout << "has_digit\n";
+            std::cout << "has rhs == 0.0\n";
+            if(whole_operation_has_semicolon)
+            {
+                std::cout << "whole_operation_has_semicolon\n";
+                return ErrorCode::BadCharacter;
+            }
+            return ErrorCode::BadFormat;
         }
         if(has_comma)
         {
