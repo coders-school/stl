@@ -7,61 +7,16 @@
 #include <sstream>
 #include <algorithm>
 
-double addValues(double a, double b)
-{
-    return a+b;
-}
-
-double substractValues(double a, double b)
-{
-    return a-b;
-}
-
-double multiplyValues(double a, double b)
-{
-    return a*b;
-}
-
-double divideValues(double a, double b)
-{
-    return a/b;
-}
-
-double moduloValues(double a, double b)
-{
-    return (int)a % (int)b;
-}
-
-double powerValues(double a, double b)
-{
-    return pow(a,b);
-}
-
-double factorialValues(double a, double b)
-{
-    if (a >= 0) {
-        return tgamma(a + 1);
-    } else {
-        return -tgamma(-a + 1);
-    }
-}
-
-double sqrtValues(double a, double b)
-{
-    return std::pow(a, 1.0/b);
-}
-
-
 std::map<char, std::function<double(double, double)>> operations
 {
-    {'+', addValues},
-    {'-', substractValues},
-    {'*', multiplyValues},
-    {'/', divideValues},
-    {'%', moduloValues},
-    {'^', powerValues},
-    {'!', factorialValues},
-    {'$', sqrtValues}
+    {'+', [](double a, double b){return a+b;}},
+    {'-', [](double a, double b){return a-b;}},
+    {'*', [](double a, double b){return a*b;}},
+    {'/', [](double a, double b){return a/b;}},
+    {'%', [](double a, double b){return (int)a % (int)b;}},
+    {'^', [](double a, double b){return pow(a,b);}},
+    {'!', [](double a, double b){ if (a >= 0) { return tgamma(a + 1); } else { return -tgamma(-a + 1);}   }},
+    {'$', [](double a, double b){return std::pow(a, 1.0/b);}}
 };
 
 
@@ -170,71 +125,6 @@ enum ErrorCode process(std::string oparation, double* x)
         return ErrorCode::BadCharacter;
     }
 
-    // std::cout << "\noparation = "<< oparation << std::endl;
-    // std::stringstream ss;
-    // ss.str(oparation);
-    // if(double lhs; ss >> lhs)
-    // {
-    //     std::cout << "lhs = " << lhs << std::endl;
-    //     //++operation_iterator;
-    //     if(char operation_character; ss >> operation_character)
-    //     {
-    //         std::cout << "operation_character = " << operation_character << std::endl;
-    //         //++operation_iterator;
-
-                      
-
-    //         try
-    //         {
-    //             //++operation_iterator;
-    //             if(double rhs; ss >> rhs)
-    //             {
-    //                 std::cout << "\tBinary operations processing" << std::endl;
-    //                 std::cout << "rhs = " << rhs << std::endl;
-    //                 std::cout << "operation_iterator = " << *operation_iterator << std::endl;
-
-    //                 *x = calculate_values(lhs, rhs);
-    //                 return ErrorCode::OK;
-    //             }
-    //             else
-    //             {
-    //                 std::cout << "\tUnary operations processing" << std::endl;
-    //                 std::cout << "rhs = " << rhs << std::endl;
-    //                 if(rhs != 0.0)
-    //                 {
-    //                     rhs = lhs;
-    //                     if(operation_character == '!')
-    //                     {
-    //                         *x = calculate_values(lhs, rhs);
-    //                         return ErrorCode::OK;
-    //                     }
-    //                 }
-    //                 else
-    //                 {
-    //                     return ErrorCode::BadFormat;
-    //                 }
-                    
-
-    //                 return ErrorCode::BadCharacter;
-    //             }
-    //         }
-    //         catch(const std::bad_function_call& e){
-    //             std::cerr << e.what() << '\n';
-    //             return ErrorCode::BadFormat;
-    //         }
-    //         catch(const std::exception& e)
-    //         {
-    //             std::cerr << e.what() << '\n';
-    //         }
-            
-            
-    //     }
-    //      else 
-    //     {
-    //         return ErrorCode::BadFormat;
-    //     }
-    // }
-   
 
 
     return ErrorCode::BadFormat;
