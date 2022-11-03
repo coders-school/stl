@@ -101,6 +101,12 @@ enum ErrorCode process(std::string oparation, double* x)
         auto has_allowed_operator = std::any_of(allowed.begin(), allowed.end(), [&oper](auto allowed_operator){ return oper.find(allowed_operator)!=std::string::npos; });
         auto has_digit = std::any_of(oper.begin(), oper.end(), [](auto x ){ return std::isdigit(x);});
         auto whole_operation_has_semicolon = oparation.find(";")!=std::string::npos;
+        auto anything_more_has_correct_operator = std::any_of(allowed.begin(), allowed.end(), [&anything_more](auto allowed_operator){ return anything_more.find(allowed_operator)!=std::string::npos; });
+        if(anything_more_has_correct_operator)
+        {
+            std::cout << "anything_more_has_correct_operator\n";
+            return ErrorCode::BadFormat;
+        }
         if(has_semicolon)
         {
             std::cout << "has_semicolon\n";
