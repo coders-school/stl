@@ -39,6 +39,26 @@ bool badCharacterIsIn(std::string input)
     return (result != std::end(input));
 }
 
+//   ASSERT_EQ(process("5,1!", &result), ErrorCode::BadFormat);
+//     ASSERT_EQ(process("11,3 + 12.4", &result), ErrorCode::BadFormat);
+//     ASSERT_EQ(process("13.4 ++ 12.43", &result), ErrorCode::BadFormat);
+//     ASSERT_EQ(process("13.2 + 12.3 + 13.0", &result), ErrorCode::BadFormat);
+//     ASSERT_EQ(process("-12.4! + 2", &result), ErrorCode::BadFormat);
+//     ASSERT_EQ(process("11 / 13.4+", &result), ErrorCode::BadFormat);
+//     ASSERT_EQ(process("+8 - 32.1", &result), ErrorCode::BadFormat);
+//     ASSERT_EQ(process("12 ^% 3", &result), ErrorCode::BadFormat);
+//     ASSERT_EQ(process("+ 3 4", &result), ErrorCode::BadFormat);
+//     ASSERT_EQ(process("12.4.3 + 12.3", &result), ErrorCode::BadFormat);
+//     ASSERT_EQ(process("123.4 ! 345", &result), ErrorCode::BadFormat);
+
+bool badFormatIsIn(std::string input)
+{
+    
+
+    return true;
+}
+
+
 enum ErrorCode process(std::string oparation, double* x)
 {
     
@@ -50,6 +70,7 @@ enum ErrorCode process(std::string oparation, double* x)
     std::cout << "\noparation = "<< oparation << std::endl;
     
     if(badCharacterIsIn(oparation)) return  ErrorCode::BadCharacter;
+    if(badFormatIsIn(oparation)) return  ErrorCode::BadFormat;
 
     return ErrorCode::BadFormat;
 }
