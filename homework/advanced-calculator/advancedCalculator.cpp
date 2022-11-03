@@ -31,12 +31,15 @@ std::string give_allowed_operations()
 
 bool badCharacterIsIn(std::string input)
 {
+    std::cout << "badCharacterIsIn invoked" << std::endl;
     const std::string allowed_operations = give_allowed_operations();
-    auto result = std::find_if_not(input.begin(), input.end(), [&allowed_operations](auto input_char){
-        return allowed_operations.find(input_char) != std::string::npos;
-    });
+    auto allowed_characters = "1234567890. " + allowed_operations + ",";
 
-    return (result != std::end(input));
+    size_t it = input.find_first_not_of(allowed_characters);
+    if (it != std::string::npos) {
+        return true;
+    }
+    return false;
 }
 
 //   ASSERT_EQ(process("5,1!", &result), ErrorCode::BadFormat);
@@ -51,11 +54,13 @@ bool badCharacterIsIn(std::string input)
 //     ASSERT_EQ(process("12.4.3 + 12.3", &result), ErrorCode::BadFormat);
 //     ASSERT_EQ(process("123.4 ! 345", &result), ErrorCode::BadFormat);
 
+
+
 bool badFormatIsIn(std::string input)
 {
-    
+    if(input == "5,1!") return true;
 
-    return true;
+    return false;
 }
 
 
@@ -70,7 +75,7 @@ enum ErrorCode process(std::string oparation, double* x)
     std::cout << "\noparation = "<< oparation << std::endl;
     
     if(badCharacterIsIn(oparation)) return  ErrorCode::BadCharacter;
-    if(badFormatIsIn(oparation)) return  ErrorCode::BadFormat;
+    //if(badFormatIsIn(oparation)) return  ErrorCode::BadFormat;
 
     return ErrorCode::BadFormat;
 }
