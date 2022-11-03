@@ -80,11 +80,24 @@ bool badFormatIsIn(std::string input)
     
     auto starts_with_plus = input[0] == '+';
     auto has_more_than_two_dots = (std::count_if(input.begin(), input.end(), [](char character){ return character == '.';})) > 2 ? true : false;
+    auto has_factorial_character_not_last = [&input](){
+            
+        std::size_t pos_factorial = input.find('!');
+        if(pos_factorial != std::string::npos)
+        {
+            std::cout << "pos_factorial = " << pos_factorial << " size " << input.size() << "\n";
+            std::cout << "input last character = \"" << input.back() << "\"" << std::endl;
+            if(input[pos_factorial] != input.back()) return true;
+
+        }
+        return false;
+    };
 
     if(has_at_least_one_coma){result = true; std::cout << "has_at_least_one_coma" << std::endl;} 
     if(has_more_than_one_allowed_character){result = true;  std::cout << "has_more_than_one_allowed_character" << std::endl;} 
     if(starts_with_plus){result = true; std::cout << "starts_with_plus" << std::endl;} 
-    if(has_more_than_two_dots){result = true; std::cout << "has_more_than_two_dots" << std::endl;} 
+    if(has_more_than_two_dots){result = true; std::cout << "has_more_than_two_dots" << std::endl;}
+    if(has_factorial_character_not_last()){result = true; std::cout << "has_factorial_character_not_last" << std::endl;} 
     
 
     std::cout << "badFormatIsIn result: " << std::boolalpha << result <<  std::endl;
