@@ -58,9 +58,37 @@ bool badCharacterIsIn(std::string input)
 
 bool badFormatIsIn(std::string input)
 {
-    if(input == "5,1!") return true;
+    std::cout << "badFormatIsIn invoked" << std::endl;
+    bool result = false;
 
-    return false;
+    const std::string allowed_operations = give_allowed_operations();
+    auto has_at_least_one_coma = (std::count(input.begin(), input.end(), ',') > 0) ? true : false;
+    
+    auto has_more_than_one_allowed_character = (
+            std::count_if(
+                input.begin(), 
+                input.end(), 
+                [&allowed_operations](char character) { 
+                    return std::any_of(
+                        allowed_operations.begin(), 
+                        allowed_operations.end(), 
+                        [&character](auto all_char){ 
+                            return all_char == character;
+                            }
+                        )
+                    ;})   > 1  ) ? true : false;
+    
+    auto starts_with_plus = input[0] == '+';
+    auto has_more_than_two_dots = (std::count_if(input.begin(), input.end(), [](char character){ return character == '.';})) > 2 ? true : false;
+
+    if(has_at_least_one_coma){result = true; std::cout << "has_at_least_one_coma" << std::endl;} 
+    if(has_more_than_one_allowed_character){result = true;  std::cout << "has_more_than_one_allowed_character" << std::endl;} 
+    if(starts_with_plus){result = true; std::cout << "starts_with_plus" << std::endl;} 
+    if(has_more_than_two_dots){result = true; std::cout << "has_more_than_two_dots" << std::endl;} 
+    
+
+    std::cout << "badFormatIsIn result: " << std::boolalpha << result <<  std::endl;
+    return result;
 }
 
 
@@ -72,10 +100,10 @@ enum ErrorCode process(std::string oparation, double* x)
     oparation.erase(std::remove_if(oparation.begin(), 
                               oparation.end(),
                               [](unsigned char x){return std::isspace(x);}), oparation.end());
-    std::cout << "\noparation = "<< oparation << std::endl;
+    std::cout << "\noparation = \""<< oparation << "\"" << std::endl;
     
     if(badCharacterIsIn(oparation)) return  ErrorCode::BadCharacter;
-    //if(badFormatIsIn(oparation)) return  ErrorCode::BadFormat;
+    if(badFormatIsIn(oparation)) return  ErrorCode::BadFormat;
 
-    return ErrorCode::BadFormat;
+    return ErrorCode::OK;
 }
