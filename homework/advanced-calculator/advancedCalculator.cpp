@@ -123,7 +123,7 @@ bool ModuleOfNonIntegerValueIsIn(std::string input)
         std::cout << "module_character_position: " << module_character_position << std::endl;
         auto give_lhs_and_rhs = [&input, &module_character_position](){
             std::string lhs = input.substr(0, module_character_position);
-            std::string rhs = input.substr(module_character_position+1, *(input.end()-1));
+            std::string rhs = input.substr(module_character_position+1, *input.rbegin());
             
             std::cout << "lhs: " << lhs << std::endl;
             std::cout << "rhs: " << rhs << std::endl;
@@ -151,7 +151,7 @@ bool hasRootOfNegativeNumber(std::string input)
         std::cout << "root_character_position: " << root_character_position << std::endl;
         auto give_lhs_and_rhs = [&input, &root_character_position](){
             std::string lhs = input.substr(0, root_character_position);
-            std::string rhs = input.substr(root_character_position+1, *(input.end()-1));
+            std::string rhs = input.substr(root_character_position+1, *input.rbegin());
             
             std::cout << "lhs: " << lhs << std::endl;
             std::cout << "rhs: " << rhs << std::endl;
@@ -163,7 +163,6 @@ bool hasRootOfNegativeNumber(std::string input)
         std::cout << "lhs: " << lhs << std::endl;
         std::cout << "rhs: " << rhs << std::endl;
         return (has_minus_character(lhs) or has_minus_character(rhs));
-        
     }
 
     return false;
