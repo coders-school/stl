@@ -64,20 +64,15 @@ bool badFormatIsIn(std::string input)
     const std::string allowed_operations = give_allowed_operations();
     auto has_at_least_one_coma = (std::count(input.begin(), input.end(), ',') > 0) ? true : false;
     
-    auto has_more_than_one_allowed_character = (
-            std::count_if(
-                input.begin(), 
-                input.end(), 
-                [&allowed_operations](char character) { 
-                    return std::any_of(
-                        allowed_operations.begin(), 
-                        allowed_operations.end(), 
-                        [&character](auto all_char){ 
-                            return all_char == character;
-                            }
-                        )
-                    ;})   > 1  ) ? true : false;
-    
+    auto has_doubled_plus_characters = [&input](){
+        auto first_adjacent = std::adjacent_find(input.begin(), 
+                                                    input.end()); 
+        auto second_adjacent = first_adjacent + 1;
+        if (*first_adjacent == '+' && *second_adjacent == '+') return true;
+        return false; 
+    };
+            
+
     auto starts_with_plus = input[0] == '+';
     auto has_more_than_two_dots = (std::count_if(input.begin(), input.end(), [](char character){ return character == '.';})) > 2 ? true : false;
     auto has_factorial_character_not_last = [&input](){
@@ -93,12 +88,24 @@ bool badFormatIsIn(std::string input)
         return false;
     };
 
+    auto has_last_character_plus = (input.back() == '+') ? true : false;
+    
+    auto has_adjacent_power_and_modulo_characters = [&input](){
+        auto contains = [](const auto& cont, std::string_view s)
+        {
+            // str.find() (or str.contains(), since C++23) can be used as well
+            return std::search(cont.begin(), cont.end(), s.begin(), s.end()) != cont.end();
+        };
+        return contains(input, "^%");
+    };
+
     if(has_at_least_one_coma){result = true; std::cout << "has_at_least_one_coma" << std::endl;} 
-    if(has_more_than_one_allowed_character){result = true;  std::cout << "has_more_than_one_allowed_character" << std::endl;} 
+    if(has_doubled_plus_characters()){result = true;  std::cout << "has_doubled_plus_characters" << std::endl;} 
     if(starts_with_plus){result = true; std::cout << "starts_with_plus" << std::endl;} 
     if(has_more_than_two_dots){result = true; std::cout << "has_more_than_two_dots" << std::endl;}
     if(has_factorial_character_not_last()){result = true; std::cout << "has_factorial_character_not_last" << std::endl;} 
-    
+    if(has_last_character_plus){result = true; std::cout << "has_last_character_plus" << std::endl;}
+    if(has_adjacent_power_and_modulo_characters()){result = true; std::cout << "has_adjacent_power_and_modulo_characters" << std::endl;} 
 
     std::cout << "badFormatIsIn result: " << std::boolalpha << result <<  std::endl;
     return result;
@@ -118,7 +125,7 @@ bool DivideBy0IsIn(std::string input)
                                                         if(pos_zero != std::string::npos)
                                                         {
                                                             std::cout << "if(pos_zero != std::string::npos): " << std::endl;
-                                                            return (pos_zero > pos_divide ? true : false);
+                                                            return ((pos_zero > pos_divide) or (input.back() == '0')) ? true : false;
 
                                                         }
                                                         std::cout << "result false: " << std::endl;
