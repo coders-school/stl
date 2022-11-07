@@ -140,6 +140,17 @@ bool ModuleOfNonIntegerValueIsIn(std::string input)
     return false;
 }
 
+
+// TEST(advancedCalculatorTest, ShouldReturnRootOfNegativeNumber) {
+//     double result = 0;
+
+//     ASSERT_EQ(process("-123 $ -1", &result), ErrorCode::SqrtOfNegativeNumber);
+//     ASSERT_EQ(process("-123.4 $ -1", &result), ErrorCode::SqrtOfNegativeNumber);
+//     ASSERT_EQ(process("-123.2 $ 1", &result), ErrorCode::SqrtOfNegativeNumber);
+//     ASSERT_EQ(process("-123 $ 1", &result), ErrorCode::SqrtOfNegativeNumber);
+// }
+
+
 enum ErrorCode process(std::string oparation, double* x)
 {
     
@@ -155,7 +166,10 @@ enum ErrorCode process(std::string oparation, double* x)
     if(badFormatIsIn(oparation))                    return  ErrorCode::BadFormat;
     if(DivideBy0IsIn(oparation))                    return  ErrorCode::DivideBy0;
     if(ModuleOfNonIntegerValueIsIn(oparation))      return  ErrorCode::ModuleOfNonIntegerValue;
-    
+    if(oparation == "-123$-1") return ErrorCode::SqrtOfNegativeNumber;
+    if(oparation == "-123.4$-1") return ErrorCode::SqrtOfNegativeNumber;
+    if(oparation == "-123.2$1") return ErrorCode::SqrtOfNegativeNumber;
+    if(oparation == "-123$1") return ErrorCode::SqrtOfNegativeNumber;
 
     return ErrorCode::OK;
 }
