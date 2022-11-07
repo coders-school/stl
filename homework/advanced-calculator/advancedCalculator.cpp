@@ -114,7 +114,6 @@ bool DivideBy0IsIn(std::string input)
 
 bool ModuleOfNonIntegerValueIsIn(std::string input)
 {
-    bool module_of_non_integer_value = false;
     auto module_character_position =  input.find('%');
 
     auto has_module_character =   module_character_position != std::string::npos;
@@ -135,10 +134,10 @@ bool ModuleOfNonIntegerValueIsIn(std::string input)
         auto has_dot_character = [](const auto str){ return std::count(str.begin(), str.end(), '.') > 0;};
         std::cout << "lhs: " << lhs << std::endl;
         std::cout << "rhs: " << rhs << std::endl;
-        (has_dot_character(lhs) or has_dot_character(rhs)) ? module_of_non_integer_value = true : module_of_non_integer_value = false;
+        return (has_dot_character(lhs) or has_dot_character(rhs));
     }
 
-    return module_of_non_integer_value;
+    return false;
 }
 
 enum ErrorCode process(std::string oparation, double* x)
