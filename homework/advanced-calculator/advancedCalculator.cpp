@@ -140,15 +140,35 @@ bool ModuleOfNonIntegerValueIsIn(std::string input)
     return false;
 }
 
+bool hasRootOfNegativeNumber(std::string input)
+{
+    auto root_character_position =  input.find('$');
 
-// TEST(advancedCalculatorTest, ShouldReturnRootOfNegativeNumber) {
-//     double result = 0;
+    auto has_root_character =   root_character_position != std::string::npos;
+    if(has_root_character)
+    {
+        std::cout << "has_root_character" << std::endl;
+        std::cout << "root_character_position: " << root_character_position << std::endl;
+        auto give_lhs_and_rhs = [&input, &root_character_position](){
+            std::string lhs = input.substr(0, root_character_position);
+            std::string rhs = input.substr(root_character_position+1, *(input.end()-1));
+            
+            std::cout << "lhs: " << lhs << std::endl;
+            std::cout << "rhs: " << rhs << std::endl;
+            return std::make_tuple(lhs, rhs);
+        };
+        auto [lhs, rhs] = give_lhs_and_rhs();
+        
+        auto has_minus_character = [](const auto str){ return std::count(str.begin(), str.end(), '-') > 0;};
+        std::cout << "lhs: " << lhs << std::endl;
+        std::cout << "rhs: " << rhs << std::endl;
+        return (has_minus_character(lhs) or has_minus_character(rhs));
+        
+    }
 
-//     ASSERT_EQ(process("-123 $ -1", &result), ErrorCode::SqrtOfNegativeNumber);
-//     ASSERT_EQ(process("-123.4 $ -1", &result), ErrorCode::SqrtOfNegativeNumber);
-//     ASSERT_EQ(process("-123.2 $ 1", &result), ErrorCode::SqrtOfNegativeNumber);
-//     ASSERT_EQ(process("-123 $ 1", &result), ErrorCode::SqrtOfNegativeNumber);
-// }
+    return false;
+}
+
 
 
 enum ErrorCode process(std::string oparation, double* x)
@@ -166,10 +186,8 @@ enum ErrorCode process(std::string oparation, double* x)
     if(badFormatIsIn(oparation))                    return  ErrorCode::BadFormat;
     if(DivideBy0IsIn(oparation))                    return  ErrorCode::DivideBy0;
     if(ModuleOfNonIntegerValueIsIn(oparation))      return  ErrorCode::ModuleOfNonIntegerValue;
-    if(oparation == "-123$-1") return ErrorCode::SqrtOfNegativeNumber;
-    if(oparation == "-123.4$-1") return ErrorCode::SqrtOfNegativeNumber;
-    if(oparation == "-123.2$1") return ErrorCode::SqrtOfNegativeNumber;
-    if(oparation == "-123$1") return ErrorCode::SqrtOfNegativeNumber;
+    if(hasRootOfNegativeNumber(oparation))          return  ErrorCode::SqrtOfNegativeNumber;
+
 
     return ErrorCode::OK;
 }
