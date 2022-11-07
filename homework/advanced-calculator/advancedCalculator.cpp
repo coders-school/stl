@@ -104,6 +104,32 @@ bool badFormatIsIn(std::string input)
     return result;
 }
 
+bool DivideBy0IsIn(std::string input)
+{
+    auto has_divide_character = (std::count_if(input.begin(), input.end(), [](char character){ return character == '/';})) > 0 ? true : false;
+    if(has_divide_character)
+    {
+        auto has_zero_after_divide_character = [&input](){
+            
+                                                        std::size_t pos_divide = input.find('/');
+                                                        std::size_t pos_zero = input.find('0');
+                                                        std::cout << "pos_divide: " << pos_divide << std::endl;
+                                                        std::cout << "pos_zero: " << pos_zero << std::endl;
+                                                        if(pos_zero != std::string::npos)
+                                                        {
+                                                            std::cout << "if(pos_zero != std::string::npos): " << std::endl;
+                                                            return (pos_zero > pos_divide ? true : false);
+
+                                                        }
+                                                        std::cout << "result false: " << std::endl;
+                                                        return false;
+                                                        };
+
+        return has_zero_after_divide_character();
+    }
+    return false;
+
+}
 
 enum ErrorCode process(std::string oparation, double* x)
 {
@@ -116,7 +142,8 @@ enum ErrorCode process(std::string oparation, double* x)
     std::cout << "\noparation = \""<< oparation << "\"" << std::endl;
     
     if(badCharacterIsIn(oparation)) return  ErrorCode::BadCharacter;
-    if(badFormatIsIn(oparation)) return  ErrorCode::BadFormat;
+    if(badFormatIsIn(oparation))    return  ErrorCode::BadFormat;
+    if(DivideBy0IsIn(oparation))    return  ErrorCode::DivideBy0;
 
     return ErrorCode::OK;
 }
