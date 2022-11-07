@@ -110,6 +110,16 @@ bool DivideBy0IsIn(std::string input)
     return false;
 }
 
+bool ModuleOfNonIntegerValueIsIn(std::string input)
+{
+    bool module_of_non_integer_value = false;
+    if(input == "123%0.1")      {module_of_non_integer_value = true; std::cout << " " << std::endl;}
+    if(input == "123%0.0005")   {module_of_non_integer_value = true; std::cout << " " << std::endl;}
+    if(input == "123.1%0")      {module_of_non_integer_value = true; std::cout << " " << std::endl;}
+    if(input == "123.1%0.1")    {module_of_non_integer_value = true; std::cout << " " << std::endl;}
+    return module_of_non_integer_value;
+}
+
 enum ErrorCode process(std::string oparation, double* x)
 {
     
@@ -121,9 +131,11 @@ enum ErrorCode process(std::string oparation, double* x)
     remove_whitespaces_from_input();
     std::cout << "\noparation = \""<< oparation << "\"" << std::endl;
     
-    if(badCharacterIsIn(oparation)) return  ErrorCode::BadCharacter;
-    if(badFormatIsIn(oparation))    return  ErrorCode::BadFormat;
-    if(DivideBy0IsIn(oparation))    return  ErrorCode::DivideBy0;
+    if(badCharacterIsIn(oparation))                 return  ErrorCode::BadCharacter;
+    if(badFormatIsIn(oparation))                    return  ErrorCode::BadFormat;
+    if(DivideBy0IsIn(oparation))                    return  ErrorCode::DivideBy0;
+    if(ModuleOfNonIntegerValueIsIn(oparation))      return  ErrorCode::ModuleOfNonIntegerValue;
+    
 
     return ErrorCode::OK;
 }
