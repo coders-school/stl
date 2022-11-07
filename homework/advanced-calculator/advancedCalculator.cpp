@@ -6,6 +6,8 @@
 #include <iostream>
 #include <sstream>
 #include <algorithm>
+#include <charconv>
+#include <iomanip>
 
 std::map<char, std::function<double(double, double)>> operations
 {
@@ -113,10 +115,29 @@ bool DivideBy0IsIn(std::string input)
 bool ModuleOfNonIntegerValueIsIn(std::string input)
 {
     bool module_of_non_integer_value = false;
-    if(input == "123%0.1")      {module_of_non_integer_value = true; std::cout << " " << std::endl;}
-    if(input == "123%0.0005")   {module_of_non_integer_value = true; std::cout << " " << std::endl;}
-    if(input == "123.1%0")      {module_of_non_integer_value = true; std::cout << " " << std::endl;}
-    if(input == "123.1%0.1")    {module_of_non_integer_value = true; std::cout << " " << std::endl;}
+    auto module_character_position =  input.find('%');
+
+    auto has_module_character =   module_character_position != std::string::npos;
+    if(has_module_character)
+    {
+        std::cout << "has_module_character" << std::endl;
+        std::cout << "module_character_position: " << module_character_position << std::endl;
+        auto give_lhs_and_rhs = [&input, &module_character_position](){
+            std::string lhs = input.substr(0, module_character_position);
+            std::string rhs = input.substr(module_character_position+1, *(input.end()-1));
+            
+            std::cout << "lhs: " << lhs << std::endl;
+            std::cout << "rhs: " << rhs << std::endl;
+            return std::make_tuple(lhs, rhs);
+        };
+        auto [lhs, rhs] = give_lhs_and_rhs();
+        
+        auto has_dot_character = [](const auto str){ return std::count(str.begin(), str.end(), '.') > 0;};
+        std::cout << "lhs: " << lhs << std::endl;
+        std::cout << "rhs: " << rhs << std::endl;
+        (has_dot_character(lhs) or has_dot_character(rhs)) ? module_of_non_integer_value = true : module_of_non_integer_value = false;
+    }
+
     return module_of_non_integer_value;
 }
 
