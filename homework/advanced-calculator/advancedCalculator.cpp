@@ -168,28 +168,18 @@ bool hasRootOfNegativeNumber(std::string input)
     return false;
 }
 
-// TEST(advancedCalculatorTest, ShouldFactorial) {
-//     double result = 0;
-
-//     ASSERT_EQ(process("5!", &result), ErrorCode::OK);
-//     EXPECT_TRUE(cmp(result, 120));
-//     ASSERT_EQ(process("6.7!", &result), ErrorCode::OK);
-//     EXPECT_TRUE(cmp(result, 2769.83));
-//     ASSERT_EQ(process("3.435!", &result), ErrorCode::OK);
-//     EXPECT_TRUE(cmp(result, 10.63327));
-//     ASSERT_EQ(process("-13!", &result), ErrorCode::OK);
-//     EXPECT_TRUE(cmp(result, -6227020800));
-//     ASSERT_EQ(process("-12.4!", &result), ErrorCode::OK);
-//     EXPECT_TRUE(cmp(result, -1324024774.02));
 
 bool is_factorial(const std::string& operation, double& number)
 {
     std::cout << "is_factorial = \""<< operation << "\"" << std::endl;
+    auto calculate_factorial = [](auto number){ return operations['!'](number, number);};
+    auto give_number_from_substr = [](auto operation){ return std::stod(operation.substr(0, *operation.rbegin()));};
+    
     if(*operation.rbegin() == '!')
     {
         std::cout << "is_factorial = \""<< operation << "\"" << std::endl;
-        number  = std::stod(operation.substr(0, *operation.rbegin()));
-        number = operations['!'](number, number);
+        auto converted_number  = give_number_from_substr(operation);
+        number = calculate_factorial(converted_number);
         std::cout << "number = \""<< number << "\"" << std::endl;
         return true;
     }
