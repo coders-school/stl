@@ -168,24 +168,57 @@ bool hasRootOfNegativeNumber(std::string input)
     return false;
 }
 
+// TEST(advancedCalculatorTest, ShouldFactorial) {
+//     double result = 0;
+
+//     ASSERT_EQ(process("5!", &result), ErrorCode::OK);
+//     EXPECT_TRUE(cmp(result, 120));
+//     ASSERT_EQ(process("6.7!", &result), ErrorCode::OK);
+//     EXPECT_TRUE(cmp(result, 2769.83));
+//     ASSERT_EQ(process("3.435!", &result), ErrorCode::OK);
+//     EXPECT_TRUE(cmp(result, 10.63327));
+//     ASSERT_EQ(process("-13!", &result), ErrorCode::OK);
+//     EXPECT_TRUE(cmp(result, -6227020800));
+//     ASSERT_EQ(process("-12.4!", &result), ErrorCode::OK);
+//     EXPECT_TRUE(cmp(result, -1324024774.02));
+
+bool is_factorial(const std::string& operation, double& number)
+{
+    std::cout << "is_factorial = \""<< operation << "\"" << std::endl;
+    if(*operation.rbegin() == '!')
+    {
+        std::cout << "is_factorial = \""<< operation << "\"" << std::endl;
+        number  = std::stod(operation.substr(0, *operation.rbegin()));
+        number = operations['!'](number, number);
+        std::cout << "number = \""<< number << "\"" << std::endl;
+        return true;
+    }
+    return false;
+}
 
 
-enum ErrorCode process(std::string oparation, double* x)
+enum ErrorCode process(std::string operation, double* x)
 {
     
-    auto remove_whitespaces_from_input = [&oparation](){oparation.erase(std::remove_if(oparation.begin(), 
-                              oparation.end(),
-                              [](unsigned char x){return std::isspace(x);}), oparation.end());
+    auto remove_whitespaces_from_input = [&operation](){operation.erase(std::remove_if(operation.begin(), 
+                              operation.end(),
+                              [](unsigned char x){return std::isspace(x);}), operation.end());
                               };
 
     remove_whitespaces_from_input();
-    std::cout << "\noparation = \""<< oparation << "\"" << std::endl;
+    std::cout << "\noperation = \""<< operation << "\"" << std::endl;
     
-    if(badCharacterIsIn(oparation))                 return  ErrorCode::BadCharacter;
-    if(badFormatIsIn(oparation))                    return  ErrorCode::BadFormat;
-    if(DivideBy0IsIn(oparation))                    return  ErrorCode::DivideBy0;
-    if(ModuleOfNonIntegerValueIsIn(oparation))      return  ErrorCode::ModuleOfNonIntegerValue;
-    if(hasRootOfNegativeNumber(oparation))          return  ErrorCode::SqrtOfNegativeNumber;
+    if(badCharacterIsIn(operation))                 return  ErrorCode::BadCharacter;
+    if(badFormatIsIn(operation))                    return  ErrorCode::BadFormat;
+    if(DivideBy0IsIn(operation))                    return  ErrorCode::DivideBy0;
+    if(ModuleOfNonIntegerValueIsIn(operation))      return  ErrorCode::ModuleOfNonIntegerValue;
+    if(hasRootOfNegativeNumber(operation))          return  ErrorCode::SqrtOfNegativeNumber;
+
+    double lhs = 0;
+    if(is_factorial(operation, lhs))
+    {
+        *x = lhs;
+    }
 
 
     return ErrorCode::OK;
