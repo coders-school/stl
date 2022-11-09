@@ -164,7 +164,7 @@ bool hasRootOfNegativeNumber(std::string input)
         auto has_minus_character = [](const auto str){ return std::count(str.begin(), str.end(), '-') > 0;};
         std::cout << "lhs: " << lhs << std::endl;
         std::cout << "rhs: " << rhs << std::endl;
-        return (has_minus_character(lhs) or has_minus_character(rhs));
+        return has_minus_character(lhs);
     }
 
     return false;
