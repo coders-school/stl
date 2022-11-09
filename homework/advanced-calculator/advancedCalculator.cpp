@@ -9,6 +9,8 @@
 #include <charconv>
 #include <iomanip>
 
+#include <tuple>
+
 std::map<char, std::function<double(double, double)>> operations
 {
     {'+', [](double a, double b){return a+b;}},
@@ -187,6 +189,59 @@ bool is_factorial(const std::string& operation, double& number)
 }
 
 
+using lhs_t = double;
+using operation_t = char;
+using rhs_t = double;
+
+
+//  std::tuple<lhs_t, operation_t, rhs_t>
+std::tuple<lhs_t, operation_t, rhs_t>  give_elements_for_binary_operations(std::string& input)
+{
+    std::cout << "give_elements_for_binary_operations" << std::endl;
+    std::cout << "\ninput: " << input << std::endl;
+    //for each operation character find  any of except + and -
+    for(auto input_character : input)
+    {
+        auto allowed = give_allowed_operations();
+        if(std::any_of(allowed.begin(), allowed.end(), [&](auto allowed_oper){
+            return (allowed_oper == input_character)
+            and input_character != '+' and input_character != '-';}))
+        {
+            std::cout << "if: " << input_character << std::endl;
+            auto root_character_position = input.find(input_character);
+            std::cout << "root_character_position: " << root_character_position << std::endl;
+            auto give_lhs_and_rhs = [&input, &root_character_position](){
+                std::string lhs_str = input.substr(0, root_character_position);
+                std::string rhs_str = input.substr(root_character_position+1, *input.rbegin());
+                
+                
+                auto give_number_from_substr = [](auto input){ return std::stod(input.substr(0, *input.rbegin()));};
+                double lhs = give_number_from_substr(lhs_str);
+                double rhs = give_number_from_substr(rhs_str);
+                std::cout << "lhs: " << lhs << std::endl;
+                std::cout << "rhs: " << rhs << std::endl;
+                return std::make_tuple(lhs, rhs);
+            };
+            auto [lhs, rhs] = give_lhs_and_rhs();
+
+            std::cout << "lhs: " << lhs << std::endl;
+            std::cout << "input.at(root_character_position): " << input.at(root_character_position) << std::endl;
+            std::cout << "rhs: " << rhs << std::endl;
+            return std::make_tuple(lhs, input.at(root_character_position), rhs);
+        }
+        else
+        {
+            std::cout << "else: " << input_character << std::endl;
+        }
+    }
+    // auto root_character_position =  input.find('%');
+
+  
+    
+
+    return std::make_tuple(0, '+', 0);
+}
+
 enum ErrorCode process(std::string operation, double* x)
 {
     
@@ -208,6 +263,15 @@ enum ErrorCode process(std::string operation, double* x)
     if(is_factorial(operation, lhs))
     {
         *x = lhs;
+    }
+    else
+    {
+        auto [lhs, operation_character, rhs] = give_elements_for_binary_operations(operation);
+        std::cout << "\nmain\n" << std::endl;
+        std::cout << "lhs: " << lhs << std::endl;
+        std::cout << "operation_character: " << operation_character << std::endl;
+        std::cout << "rhs: " << rhs << std::endl;
+        *x = operations[operation_character](lhs, rhs);
     }
 
 
