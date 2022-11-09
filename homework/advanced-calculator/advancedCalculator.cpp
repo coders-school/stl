@@ -203,16 +203,20 @@ std::tuple<lhs_t, operation_t, rhs_t>  give_elements_for_binary_operations(std::
     for(auto input_character : input)
     {
         auto allowed = give_allowed_operations();
-        if(std::any_of(allowed.begin(), allowed.end(), [&](auto allowed_oper){
+        auto has_any_allowed_operator_except_plus_and_minus = std::any_of(allowed.begin(), allowed.end(), [&](auto allowed_oper){
             return (allowed_oper == input_character)
-            and input_character != '+' and input_character != '-';}))
+            and input_character != '+' and input_character != '-';});
+        auto has_plus_or_minus_operator = input_character == '+' or input_character == '-';
+        
+        if(has_any_allowed_operator_except_plus_and_minus)
         {
-            std::cout << "if: " << input_character << std::endl;
-            auto root_character_position = input.find(input_character);
-            std::cout << "root_character_position: " << root_character_position << std::endl;
-            auto give_lhs_and_rhs = [&input, &root_character_position](){
-                std::string lhs_str = input.substr(0, root_character_position);
-                std::string rhs_str = input.substr(root_character_position+1, *input.rbegin());
+            std::cout << "has_any_allowed_operator_except_plus_and_minus" << input_character << std::endl;
+            auto operator_character = input_character;
+            auto operator_character_position = input.find(operator_character);
+            std::cout << "operator_character_position: " << operator_character_position << std::endl;
+            auto give_lhs_and_rhs = [&input, &operator_character_position](){
+                std::string lhs_str = input.substr(0, operator_character_position);
+                std::string rhs_str = input.substr(operator_character_position+1, *input.rbegin());
                 
                 
                 auto give_number_from_substr = [](auto input){ return std::stod(input.substr(0, *input.rbegin()));};
@@ -225,13 +229,19 @@ std::tuple<lhs_t, operation_t, rhs_t>  give_elements_for_binary_operations(std::
             auto [lhs, rhs] = give_lhs_and_rhs();
 
             std::cout << "lhs: " << lhs << std::endl;
-            std::cout << "input.at(root_character_position): " << input.at(root_character_position) << std::endl;
+            std::cout << "operator_character: " << operator_character << std::endl;
             std::cout << "rhs: " << rhs << std::endl;
-            return std::make_tuple(lhs, input.at(root_character_position), rhs);
+            return std::make_tuple(lhs, operator_character, rhs);
         }
         else
         {
             std::cout << "else: " << input_character << std::endl;
+            if(has_plus_or_minus_operator)
+            {
+                std::cout << "has_plus_or_minus_operator" << std::endl;
+
+
+            }
         }
     }
     // auto root_character_position =  input.find('%');
