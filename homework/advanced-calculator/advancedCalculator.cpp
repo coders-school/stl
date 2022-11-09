@@ -193,6 +193,32 @@ using lhs_t = double;
 using operation_t = char;
 using rhs_t = double;
 
+std::tuple<lhs_t, operation_t, rhs_t> give_elements_for_binary_operations_when_is_allowed_operator_except_plus_and_minus(std::string input, char input_character)
+{
+    std::cout << "has_any_allowed_operator_except_plus_and_minus" << std::endl;
+    auto operator_character = input_character;
+    auto operator_character_position = input.find(operator_character);
+    std::cout << "operator_character_position: " << operator_character_position << std::endl;
+    auto give_lhs_and_rhs = [&input, &operator_character_position](){
+        std::string lhs_str = input.substr(0, operator_character_position);
+        std::string rhs_str = input.substr(operator_character_position+1, *input.rbegin());
+        
+        
+        auto give_number_from_substr = [](auto input){ return std::stod(input.substr(0, *input.rbegin()));};
+        double lhs = give_number_from_substr(lhs_str);
+        double rhs = give_number_from_substr(rhs_str);
+        std::cout << "lhs: " << lhs << std::endl;
+        std::cout << "rhs: " << rhs << std::endl;
+        return std::make_tuple(lhs, rhs);
+    };
+    auto [lhs, rhs] = give_lhs_and_rhs();
+
+    std::cout << "lhs: " << lhs << std::endl;
+    std::cout << "operator_character: " << operator_character << std::endl;
+    std::cout << "rhs: " << rhs << std::endl;
+    return  std::make_tuple(lhs, operator_character, rhs);
+}
+
 
 //  std::tuple<lhs_t, operation_t, rhs_t>
 std::tuple<lhs_t, operation_t, rhs_t>  give_elements_for_binary_operations(std::string& input)
@@ -210,27 +236,7 @@ std::tuple<lhs_t, operation_t, rhs_t>  give_elements_for_binary_operations(std::
         
         if(has_any_allowed_operator_except_plus_and_minus)
         {
-            std::cout << "has_any_allowed_operator_except_plus_and_minus" << input_character << std::endl;
-            auto operator_character = input_character;
-            auto operator_character_position = input.find(operator_character);
-            std::cout << "operator_character_position: " << operator_character_position << std::endl;
-            auto give_lhs_and_rhs = [&input, &operator_character_position](){
-                std::string lhs_str = input.substr(0, operator_character_position);
-                std::string rhs_str = input.substr(operator_character_position+1, *input.rbegin());
-                
-                
-                auto give_number_from_substr = [](auto input){ return std::stod(input.substr(0, *input.rbegin()));};
-                double lhs = give_number_from_substr(lhs_str);
-                double rhs = give_number_from_substr(rhs_str);
-                std::cout << "lhs: " << lhs << std::endl;
-                std::cout << "rhs: " << rhs << std::endl;
-                return std::make_tuple(lhs, rhs);
-            };
-            auto [lhs, rhs] = give_lhs_and_rhs();
-
-            std::cout << "lhs: " << lhs << std::endl;
-            std::cout << "operator_character: " << operator_character << std::endl;
-            std::cout << "rhs: " << rhs << std::endl;
+            auto [lhs, operator_character, rhs ] = give_elements_for_binary_operations_when_is_allowed_operator_except_plus_and_minus(input, input_character);
             return std::make_tuple(lhs, operator_character, rhs);
         }
         else
