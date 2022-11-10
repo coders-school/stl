@@ -10,6 +10,7 @@
 #include <iomanip>
 
 #include <tuple>
+#include <optional>
 
 std::map<char, std::function<double(double, double)>> operations
 {
@@ -277,31 +278,36 @@ std::tuple<lhs_t, operation_t, rhs_t> give_elements_for_minus_operation(std::str
     }
     else if(minuses_counter == 2)
     {
+        auto give_operator_character_position_when_input_requires_reversion = [&](){
+            std::string reversed_input;
+            std::reverse_copy(std::begin(input), std::end(input), std::back_inserter(reversed_input));
+            auto last_minus_iter = std::find(reversed_input.begin(), reversed_input.end(), '-');
+            std::cout << "last_minus_iter: " << *last_minus_iter << std::endl;
+            auto operator_character_position = reversed_input.size() - 1 - std::distance(reversed_input.begin(), last_minus_iter);
+            std::cout << "operator_character_position: " << operator_character_position << std::endl;
+            return operator_character_position;
+        };
+        auto operator_character_position = give_operator_character_position_when_input_requires_reversion();
+        auto [lhs, rhs] = give_lhs_and_rhs(operator_character_position);
+
+        std::cout << "lhs: " << lhs << std::endl;
+        std::cout << "operator_character: " << operator_character << std::endl;
+        std::cout << "rhs: " << rhs << std::endl;
+        
         if(input.at(0) == '-')
         {
-            std::cout << "przed wyjebko input: " << input << std::endl;
-            auto give_operator_character_position_when_input_requires_reversion = [&](){
-                std::string reversed_input;
-                std::reverse_copy(std::begin(input), std::end(input), std::back_inserter(reversed_input));
-                auto last_minus_iter = std::find(reversed_input.begin(), reversed_input.end(), '-');
-                std::cout << "last_minus_iter: " << *last_minus_iter << std::endl;
-                auto operator_character_position = reversed_input.size() - 1 - std::distance(reversed_input.begin(), last_minus_iter);
-                std::cout << "operator_character_position: " << operator_character_position << std::endl;
-                return operator_character_position;
-            };
-            auto operator_character_position = give_operator_character_position_when_input_requires_reversion();
-            auto [lhs, rhs] = give_lhs_and_rhs(operator_character_position);
-
-            std::cout << "lhs: " << lhs << std::endl;
-            std::cout << "operator_character: " << operator_character << std::endl;
-            std::cout << "rhs: " << rhs << std::endl;
+            
             return  std::make_tuple(lhs, operator_character, rhs);
+        }
+        else
+        {
+             return  std::make_tuple(lhs, operator_character, -rhs);
         }
     }
     // if(input == "5-11") return std::make_tuple(5, '-', 11);
     // if(input == "43.21-11.54") return std::make_tuple(43.21, '-', 11.54);
     // if(input == "-54.31-11") return std::make_tuple(-54.31, '-', 11);
-    if(input == "28.43--810.43") return std::make_tuple(28.43, '-', -810.43);
+    // if(input == "28.43--810.43") return std::make_tuple(28.43, '-', -810.43);
     if(input == "-11.230--77.321") return std::make_tuple(-11.230, '-', -77.321);
 
 
@@ -309,7 +315,7 @@ std::tuple<lhs_t, operation_t, rhs_t> give_elements_for_minus_operation(std::str
     return  std::make_tuple(0, operator_character, 0);
 }
 
-#include <optional>
+
 std::optional<elements_t> check_if_any_allowed_operator_except_plus_and_minus(std::string& input)
 {
     bool has_any_allowed_operator_except_plus_and_minus = false;
