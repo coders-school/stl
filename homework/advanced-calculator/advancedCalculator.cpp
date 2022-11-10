@@ -333,13 +333,6 @@ std::tuple<lhs_t, operation_t, rhs_t> give_elements_for_minus_operation(std::str
         std::cout << "rhs: " << rhs << std::endl;
         return  std::make_tuple(lhs, operator_character, rhs);
     }
-    // if(input == "5-11") return std::make_tuple(5, '-', 11);
-    // if(input == "43.21-11.54") return std::make_tuple(43.21, '-', 11.54);
-    // if(input == "-54.31-11") return std::make_tuple(-54.31, '-', 11);
-    // if(input == "28.43--810.43") return std::make_tuple(28.43, '-', -810.43);
-    // if(input == "-11.230--77.321") return std::make_tuple(-11.230, '-', -77.321);
-
-
 
     return  std::make_tuple(0, operator_character, 0);
 }
