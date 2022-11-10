@@ -12,6 +12,11 @@
 #include <tuple>
 #include <optional>
 
+using lhs_t = double;
+using operation_t = char;
+using rhs_t = double;
+using elements_t = std::tuple<lhs_t, operation_t, rhs_t>;
+
 std::map<char, std::function<double(double, double)>> operations
 {
     {'+', [](double a, double b){return a+b;}},
@@ -189,12 +194,6 @@ bool is_factorial(const std::string& operation, double& number)
     return false;
 }
 
-
-using lhs_t = double;
-using operation_t = char;
-using rhs_t = double;
-using elements_t = std::tuple<lhs_t, operation_t, rhs_t>;
-
 std::tuple<lhs_t, operation_t, rhs_t> give_elements_for_binary_operations_when_is_allowed_operator_except_plus_and_minus(std::string input, char input_character)
 {
     std::cout << "has_any_allowed_operator_except_plus_and_minus" << std::endl;
@@ -247,6 +246,7 @@ std::tuple<lhs_t, operation_t, rhs_t> give_elements_for_plus_operation(std::stri
     return  std::make_tuple(lhs, operator_character, rhs);
 }
 
+
 std::tuple<lhs_t, operation_t, rhs_t> give_elements_for_minus_operation(std::string input)
 {
     std::cout << "give_elements_for_minus_operation" << std::endl;
@@ -296,19 +296,48 @@ std::tuple<lhs_t, operation_t, rhs_t> give_elements_for_minus_operation(std::str
         
         if(input.at(0) == '-')
         {
-            
             return  std::make_tuple(lhs, operator_character, rhs);
         }
         else
         {
-             return  std::make_tuple(lhs, operator_character, -rhs);
+            rhs = -rhs;
+            return  std::make_tuple(lhs, operator_character, rhs);
         }
+    }
+    else if(minuses_counter == 3)
+    {
+        auto operator_character_position = 0;
+        auto give_second_minus_position = [&input](auto& operator_character_position){
+
+            int counter=0, position=0;
+            for(auto character : input)
+            {
+                if(character == '-')
+                {
+                    if(++counter >=2)
+                    {
+                        operator_character_position = position;
+                        break;
+                    }
+                }
+            
+                ++position;
+            }
+            return operator_character_position;
+        };
+        
+        operator_character_position = give_second_minus_position(operator_character_position);
+        auto [lhs, rhs] = give_lhs_and_rhs(operator_character_position);
+        std::cout << "lhs: " << lhs << std::endl;
+        std::cout << "operator_character: " << operator_character << std::endl;
+        std::cout << "rhs: " << rhs << std::endl;
+        return  std::make_tuple(lhs, operator_character, rhs);
     }
     // if(input == "5-11") return std::make_tuple(5, '-', 11);
     // if(input == "43.21-11.54") return std::make_tuple(43.21, '-', 11.54);
     // if(input == "-54.31-11") return std::make_tuple(-54.31, '-', 11);
     // if(input == "28.43--810.43") return std::make_tuple(28.43, '-', -810.43);
-    if(input == "-11.230--77.321") return std::make_tuple(-11.230, '-', -77.321);
+    // if(input == "-11.230--77.321") return std::make_tuple(-11.230, '-', -77.321);
 
 
 
@@ -384,11 +413,6 @@ std::tuple<lhs_t, operation_t, rhs_t>  give_elements_for_binary_operations(std::
 {
     std::cout << "give_elements_for_binary_operations" << std::endl;
     std::cout << "\ninput: " << input << std::endl;
-    //for each operation character find  any of except + and -
-    
-    bool has_plus_operator = false;
-    bool has_minus_operator = false;
-    char operation_character = ' ';
 
     if(auto result = check_if_any_allowed_operator_except_plus_and_minus(input))
     {
