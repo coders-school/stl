@@ -266,7 +266,12 @@ std::tuple<lhs_t, operation_t, rhs_t>  give_elements_for_binary_operations(std::
         auto has_any_allowed_operator_except_plus_and_minus = std::any_of(allowed.begin(), allowed.end(), [&](auto allowed_oper){
             return (allowed_oper == input_character)
             and input_character != '+' and input_character != '-';});
-        auto has_plus_or_minus_operator = input_character == '+' or input_character == '-';
+        auto has_plus_operator = std::any_of(allowed.begin(), allowed.end(), [&](auto allowed_oper){
+            return (allowed_oper == input_character)
+            and input_character == '+';});
+        auto has_minus_operator = std::any_of(allowed.begin(), allowed.end(), [&](auto allowed_oper){
+            return (allowed_oper == input_character)
+            and input_character == '-';});
         
         if(has_any_allowed_operator_except_plus_and_minus)
         {
@@ -276,10 +281,10 @@ std::tuple<lhs_t, operation_t, rhs_t>  give_elements_for_binary_operations(std::
         else
         {
             std::cout << "else: " << input_character << std::endl;
-            if(has_plus_or_minus_operator)
+            if(has_plus_operator or has_minus_operator)
             {
                 std::cout << "has_plus_or_minus_operator" << std::endl;
-                if(input_character == '+')
+                if(has_plus_operator)
                 {
                     auto [lhs, operator_character, rhs ] = give_elements_for_plus_operation(input);
                     return std::make_tuple(lhs, operator_character, rhs);
