@@ -260,44 +260,56 @@ std::tuple<lhs_t, operation_t, rhs_t>  give_elements_for_binary_operations(std::
     std::cout << "give_elements_for_binary_operations" << std::endl;
     std::cout << "\ninput: " << input << std::endl;
     //for each operation character find  any of except + and -
+    bool has_any_allowed_operator_except_plus_and_minus = false;
+    bool has_plus_operator = false;
+    bool has_minus_operator = false;
+    char operation_character = ' ';
+
     for(auto input_character : input)
     {
         auto allowed = give_allowed_operations();
-        auto has_any_allowed_operator_except_plus_and_minus = std::any_of(allowed.begin(), allowed.end(), [&](auto allowed_oper){
+        has_any_allowed_operator_except_plus_and_minus = std::any_of(allowed.begin(), allowed.end(), [&](auto allowed_oper){
             return (allowed_oper == input_character)
-            and input_character != '+' and input_character != '-';});
-        auto has_plus_operator = std::any_of(allowed.begin(), allowed.end(), [&](auto allowed_oper){
+            and (input_character != '+') and (input_character != '-');});
+        if(has_any_allowed_operator_except_plus_and_minus){  operation_character = input_character; break;}
+    } 
+
+    if(has_any_allowed_operator_except_plus_and_minus)
+    {
+        auto [lhs, operator_character, rhs ] = give_elements_for_binary_operations_when_is_allowed_operator_except_plus_and_minus(input, operation_character);
+        return std::make_tuple(lhs, operator_character, rhs);
+    }
+
+    for(auto input_character : input)
+    {
+        auto allowed = give_allowed_operations();
+        has_plus_operator = std::any_of(allowed.begin(), allowed.end(), [&](auto allowed_oper){
             return (allowed_oper == input_character)
             and input_character == '+';});
-        auto has_minus_operator = std::any_of(allowed.begin(), allowed.end(), [&](auto allowed_oper){
+        if(has_plus_operator){  operation_character = input_character; break;}
+    } 
+
+    if(has_plus_operator)
+    {
+        auto [lhs, operator_character, rhs ] = give_elements_for_plus_operation(input);
+        return std::make_tuple(lhs, operator_character, rhs);
+    }
+
+    for(auto input_character : input)
+    {
+        auto allowed = give_allowed_operations();
+        has_minus_operator = std::any_of(allowed.begin(), allowed.end(), [&](auto allowed_oper){
             return (allowed_oper == input_character)
             and input_character == '-';});
-        
-        if(has_any_allowed_operator_except_plus_and_minus)
-        {
-            auto [lhs, operator_character, rhs ] = give_elements_for_binary_operations_when_is_allowed_operator_except_plus_and_minus(input, input_character);
-            return std::make_tuple(lhs, operator_character, rhs);
-        }
-        else
-        {
-            std::cout << "else: " << input_character << std::endl;
-            if(has_plus_operator or has_minus_operator)
-            {
-                std::cout << "has_plus_or_minus_operator" << std::endl;
-                if(has_plus_operator)
-                {
-                    auto [lhs, operator_character, rhs ] = give_elements_for_plus_operation(input);
-                    return std::make_tuple(lhs, operator_character, rhs);
-                }
-                else{
-                    // //has minus?
-                    // auto count_minus_characters = std::count(input.begin(), input.end(), '-');
-                    // if()
-                }
+        if(has_minus_operator){  operation_character = input_character; break;}
+    } 
 
-            }
-        }
+    if(has_minus_operator)
+    {
+        auto [lhs, operator_character, rhs ] = give_elements_for_minus_operation(input);
+        return std::make_tuple(lhs, operator_character, rhs);
     }
+    
     // auto root_character_position =  input.find('%');
 
   
