@@ -120,6 +120,29 @@ bool divideBy0IsIn(std::string input)
     return false;
 }
 
+std::tuple<std::string, std::string> give_lhs_and_rhs_str(std::string input, std::size_t operator_character_position)
+{
+    std::string lhs_str = input.substr(0, operator_character_position);
+    std::string rhs_str = input.substr(operator_character_position+1, *input.rbegin());
+    
+    std::cout << "lhs_str: " << lhs_str << std::endl;
+    std::cout << "rhs_str: " << rhs_str << std::endl;
+    return std::make_tuple(lhs_str, rhs_str);
+}
+
+std::tuple<lhs_t, rhs_t> give_lhs_and_rhs_numbers(std::string input, std::size_t operator_character_position)
+{
+    std::string lhs_str = input.substr(0, operator_character_position);
+    std::string rhs_str = input.substr(operator_character_position+1, *input.rbegin());
+     
+    auto give_number_from_substr = [](auto input){ return std::stod(input.substr(0, *input.rbegin()));};
+    double lhs = give_number_from_substr(lhs_str);
+    double rhs = give_number_from_substr(rhs_str);
+    std::cout << "lhs: " << lhs << std::endl;
+    std::cout << "rhs: " << rhs << std::endl;
+    return std::make_tuple(lhs, rhs);
+}
+
 bool moduleOfNonIntegerValueIsIn(std::string input)
 {
     auto module_character_position =  input.find('%');
@@ -129,15 +152,8 @@ bool moduleOfNonIntegerValueIsIn(std::string input)
     {
         std::cout << "has_module_character" << std::endl;
         std::cout << "module_character_position: " << module_character_position << std::endl;
-        auto give_lhs_and_rhs = [&input, &module_character_position](){
-            std::string lhs = input.substr(0, module_character_position);
-            std::string rhs = input.substr(module_character_position+1, *input.rbegin());
-            
-            std::cout << "lhs: " << lhs << std::endl;
-            std::cout << "rhs: " << rhs << std::endl;
-            return std::make_tuple(lhs, rhs);
-        };
-        auto [lhs, rhs] = give_lhs_and_rhs();
+
+        auto [lhs, rhs] = give_lhs_and_rhs_str(input, module_character_position);
         
         auto has_dot_character = [](const auto str){ return std::count(str.begin(), str.end(), '.') > 0;};
         std::cout << "lhs: " << lhs << std::endl;
@@ -148,29 +164,7 @@ bool moduleOfNonIntegerValueIsIn(std::string input)
     return false;
 }
 
-std::tuple<std::string, std::string> give_lhs_and_rhs(std::string input, std::size_t operator_character_position)
-{
-    std::string lhs = input.substr(0, operator_character_position);
-    std::string rhs = input.substr(operator_character_position+1, *input.rbegin());
-    
-    std::cout << "lhs: " << lhs << std::endl;
-    std::cout << "rhs: " << rhs << std::endl;
-    return std::make_tuple(lhs, rhs);
-}
 
-std::tuple<lhs_t, rhs_t> give_lhs_and_rhs_numbers(std::string input, std::size_t operator_character_position)
-{
-    std::string lhs_str = input.substr(0, operator_character_position);
-    std::string rhs_str = input.substr(operator_character_position+1, *input.rbegin());
-    
-    
-    auto give_number_from_substr = [](auto input){ return std::stod(input.substr(0, *input.rbegin()));};
-    double lhs = give_number_from_substr(lhs_str);
-    double rhs = give_number_from_substr(rhs_str);
-    std::cout << "lhs: " << lhs << std::endl;
-    std::cout << "rhs: " << rhs << std::endl;
-    return std::make_tuple(lhs, rhs);
-}
 
 bool hasRootOfNegativeNumber(std::string input)
 {
@@ -181,7 +175,7 @@ bool hasRootOfNegativeNumber(std::string input)
     {
         std::cout << "has_root_character" << std::endl;
         std::cout << "operator_character_position: " << root_character_position << std::endl;
-        auto [lhs, rhs] = give_lhs_and_rhs(input, root_character_position);
+        auto [lhs, rhs] = give_lhs_and_rhs_str(input, root_character_position);
         
         auto has_minus_character = [](const auto str){ return std::count(str.begin(), str.end(), '-') > 0;};
         std::cout << "lhs: " << lhs << std::endl;
