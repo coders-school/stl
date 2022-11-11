@@ -105,7 +105,7 @@ bool badFormatIsIn(std::string input)
     return bad_format;
 }
 
-bool DivideBy0IsIn(std::string input)
+bool divideBy0IsIn(std::string input)
 {
     auto has_divide_character = (std::count_if(input.begin(), input.end(), [](char character){ return character == '/';})) > 0 ? true : false;
     if(has_divide_character)
@@ -120,7 +120,7 @@ bool DivideBy0IsIn(std::string input)
     return false;
 }
 
-bool ModuleOfNonIntegerValueIsIn(std::string input)
+bool moduleOfNonIntegerValueIsIn(std::string input)
 {
     auto module_character_position =  input.find('%');
 
@@ -438,8 +438,8 @@ enum ErrorCode process(std::string operation, double* x)
     
     if(badCharacterIsIn(operation))                 return  ErrorCode::BadCharacter;
     if(badFormatIsIn(operation))                    return  ErrorCode::BadFormat;
-    if(DivideBy0IsIn(operation))                    return  ErrorCode::DivideBy0;
-    if(ModuleOfNonIntegerValueIsIn(operation))      return  ErrorCode::ModuleOfNonIntegerValue;
+    if(divideBy0IsIn(operation))                    return  ErrorCode::DivideBy0;
+    if(moduleOfNonIntegerValueIsIn(operation))      return  ErrorCode::ModuleOfNonIntegerValue;
     if(hasRootOfNegativeNumber(operation))          return  ErrorCode::SqrtOfNegativeNumber;
 
     double lhs = 0;
@@ -456,7 +456,6 @@ enum ErrorCode process(std::string operation, double* x)
         std::cout << "rhs: " << rhs << std::endl;
         *x = operations[operation_character](lhs, rhs);
     }
-
 
     return ErrorCode::OK;
 }
