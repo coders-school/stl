@@ -1,46 +1,41 @@
 #include "advancedCalculator.hpp"
-#include <map>
-#include <functional>
 #include <cmath>
+#include <functional>
+#include <map>
 
-#include <iostream>
-#include <sstream>
 #include <algorithm>
 #include <charconv>
 #include <iomanip>
+#include <iostream>
+#include <sstream>
 
-#include <tuple>
 #include <optional>
+#include <tuple>
 
 using lhs_t = double;
 using operation_t = char;
 using rhs_t = double;
 using elements_t = std::tuple<lhs_t, operation_t, rhs_t>;
 
-std::map<char, std::function<double(double, double)>> operations
-{
-    {'+', [](double a, double b){return a+b;}},
-    {'-', [](double a, double b){return a-b;}},
-    {'*', [](double a, double b){return a*b;}},
-    {'/', [](double a, double b){return a/b;}},
-    {'%', [](double a, double b){return (int)a % (int)b;}},
-    {'^', [](double a, double b){return pow(a,b);}},
-    {'!', [](double a, double b){ if (a >= 0) { return tgamma(a + 1); } else { return -tgamma(-a + 1);}   }},
-    {'$', [](double a, double b){return std::pow(a, 1.0/b);}}
-};
+std::map<char, std::function<double(double, double)>> operations{
+    {'+', [](double a, double b) { return a + b; }},
+    {'-', [](double a, double b) { return a - b; }},
+    {'*', [](double a, double b) { return a * b; }},
+    {'/', [](double a, double b) { return a / b; }},
+    {'%', [](double a, double b) { return (int)a % (int)b; }},
+    {'^', [](double a, double b) { return pow(a, b); }},
+    {'!', [](double a, double b) { if (a >= 0) { return tgamma(a + 1); } else { return -tgamma(-a + 1);} }},
+    {'$', [](double a, double b) { return std::pow(a, 1.0 / b); }}};
 
-
-std::string give_allowed_operations()
-{
+std::string give_allowed_operations() {
     std::string allowed_operation = "";
-    std::for_each(operations.begin(), operations.end(), [&allowed_operation](auto operation){
+    std::for_each(operations.begin(), operations.end(), [&allowed_operation](auto operation) {
         allowed_operation += operation.first;
     });
     return allowed_operation;
 }
 
-bool badCharacterIsIn(std::string input)
-{
+bool badCharacterIsIn(std::string input) {
     std::cerr << "badCharacterIsIn invoked" << std::endl;
     const std::string allowed_operations = give_allowed_operations();
     auto allowed_characters = "1234567890. " + allowed_operations + ",";
@@ -52,67 +47,75 @@ bool badCharacterIsIn(std::string input)
     return false;
 }
 
-bool badFormatIsIn(std::string input)
-{
+bool badFormatIsIn(std::string input) {
     std::cerr << "badFormatIsIn invoked" << std::endl;
     bool bad_format = false;
 
     auto has_at_least_one_coma = (std::count(input.begin(), input.end(), ',') > 0) ? true : false;
-    
-    auto has_doubled_plus_characters = [&input](){
-        auto first_adjacent = std::adjacent_find(input.begin(), 
-                                                 input.end()); 
+
+    auto has_doubled_plus_characters = [&input]() {
+        auto first_adjacent = std::adjacent_find(input.begin(),
+                                                 input.end());
         auto second_adjacent = first_adjacent + 1;
-        if (*first_adjacent == '+' && *second_adjacent == '+') return true;
-        return false; 
+        if (*first_adjacent == '+' && *second_adjacent == '+')
+            return true;
+        return false;
     };
-            
 
     auto starts_with_plus = input[0] == '+';
-    auto has_more_than_two_dots = (std::count_if(input.begin(), input.end(), [](char character){ return character == '.';})) > 2 ? true : false;
-    auto has_factorial_character_not_last = [&input](){
-            
+    auto has_more_than_two_dots = (std::count_if(input.begin(), input.end(), [](char character) { return character == '.'; })) > 2 ? true : false;
+    auto has_factorial_character_not_last = [&input]() {
         std::size_t pos_factorial = input.find('!');
-        if(pos_factorial != std::string::npos)
-        {
+        if (pos_factorial != std::string::npos) {
             std::cerr << "pos_factorial = " << pos_factorial << " size " << input.size() << "\n";
             std::cerr << "input last character = \"" << input.back() << "\"" << std::endl;
-            if(input[pos_factorial] != input.back()) return true;
-
+            if (input[pos_factorial] != input.back())
+                return true;
         }
         return false;
     };
 
     auto has_last_character_plus = (input.back() == '+') ? true : false;
-    
-    auto has_adjacent_power_and_modulo_characters = [&input](){
-        auto contains = [](const auto& cont, std::string_view s)
-        {
+
+    auto has_adjacent_power_and_modulo_characters = [&input]() {
+        auto contains = [](const auto& cont, std::string_view s) {
             return std::search(cont.begin(), cont.end(), s.begin(), s.end()) != cont.end();
         };
         return contains(input, "^%");
     };
 
-    if(has_at_least_one_coma)                                    {bad_format = true; std::cerr << "has_at_least_one_coma" << std::endl;} 
-    else if(has_doubled_plus_characters())                       {bad_format = true; std::cerr << "has_doubled_plus_characters" << std::endl;} 
-    else if(starts_with_plus)                                    {bad_format = true; std::cerr << "starts_with_plus" << std::endl;} 
-    else if(has_more_than_two_dots)                              {bad_format = true; std::cerr << "has_more_than_two_dots" << std::endl;}
-    else if(has_factorial_character_not_last())                  {bad_format = true; std::cerr << "has_factorial_character_not_last" << std::endl;} 
-    else if(has_last_character_plus)                             {bad_format = true; std::cerr << "has_last_character_plus" << std::endl;}
-    else if(has_adjacent_power_and_modulo_characters())          {bad_format = true; std::cerr << "has_adjacent_power_and_modulo_characters" << std::endl;} 
+    if (has_at_least_one_coma) {
+        bad_format = true;
+        std::cerr << "has_at_least_one_coma" << std::endl;
+    } else if (has_doubled_plus_characters()) {
+        bad_format = true;
+        std::cerr << "has_doubled_plus_characters" << std::endl;
+    } else if (starts_with_plus) {
+        bad_format = true;
+        std::cerr << "starts_with_plus" << std::endl;
+    } else if (has_more_than_two_dots) {
+        bad_format = true;
+        std::cerr << "has_more_than_two_dots" << std::endl;
+    } else if (has_factorial_character_not_last()) {
+        bad_format = true;
+        std::cerr << "has_factorial_character_not_last" << std::endl;
+    } else if (has_last_character_plus) {
+        bad_format = true;
+        std::cerr << "has_last_character_plus" << std::endl;
+    } else if (has_adjacent_power_and_modulo_characters()) {
+        bad_format = true;
+        std::cerr << "has_adjacent_power_and_modulo_characters" << std::endl;
+    }
 
-    std::cerr << "badFormatIsIn result: " << std::boolalpha << bad_format <<  std::endl;
+    std::cerr << "badFormatIsIn result: " << std::boolalpha << bad_format << std::endl;
     return bad_format;
 }
 
-bool divideBy0IsIn(std::string input)
-{
-    auto has_divide_character = (std::count_if(input.begin(), input.end(), [](char character){ return character == '/';})) > 0 ? true : false;
-    if(has_divide_character)
-    {
+bool divideBy0IsIn(std::string input) {
+    auto has_divide_character = (std::count_if(input.begin(), input.end(), [](char character) { return character == '/'; })) > 0 ? true : false;
+    if (has_divide_character) {
         auto has_zero_as_last_character = input.back() == '0';
-        if(has_zero_as_last_character)
-        {
+        if (has_zero_as_last_character) {
             std::cerr << "has_zero_as_last_character" << std::endl;
             return true;
         }
@@ -120,21 +123,19 @@ bool divideBy0IsIn(std::string input)
     return false;
 }
 
-std::tuple<std::string, std::string> give_lhs_and_rhs_str(std::string input, std::size_t operator_character_position)
-{
+std::tuple<std::string, std::string> give_lhs_and_rhs_str(std::string input, std::size_t operator_character_position) {
     std::string lhs_str = input.substr(0, operator_character_position);
-    std::string rhs_str = input.substr(operator_character_position+1, *input.rbegin());
-    
+    std::string rhs_str = input.substr(operator_character_position + 1, *input.rbegin());
+
     std::cerr << "lhs_str: " << lhs_str << std::endl;
     std::cerr << "rhs_str: " << rhs_str << std::endl;
     return std::make_tuple(lhs_str, rhs_str);
 }
 
-std::tuple<lhs_t, rhs_t> give_lhs_and_rhs_numbers(std::string input, std::size_t operator_character_position)
-{
+std::tuple<lhs_t, rhs_t> give_lhs_and_rhs_numbers(std::string input, std::size_t operator_character_position) {
     auto [lhs_str, rhs_str] = give_lhs_and_rhs_str(input, operator_character_position);
-     
-    auto give_number_from_substr = [](auto input){ return std::stod(input.substr(0, *input.rbegin()));};
+
+    auto give_number_from_substr = [](auto input) { return std::stod(input.substr(0, *input.rbegin())); };
     double lhs = give_number_from_substr(lhs_str);
     double rhs = give_number_from_substr(rhs_str);
     std::cerr << "lhs: " << lhs << std::endl;
@@ -142,19 +143,17 @@ std::tuple<lhs_t, rhs_t> give_lhs_and_rhs_numbers(std::string input, std::size_t
     return std::make_tuple(lhs, rhs);
 }
 
-bool moduleOfNonIntegerValueIsIn(std::string input)
-{
-    auto module_character_position =  input.find('%');
+bool moduleOfNonIntegerValueIsIn(std::string input) {
+    auto module_character_position = input.find('%');
 
-    auto has_module_character =   module_character_position != std::string::npos;
-    if(has_module_character)
-    {
+    auto has_module_character = module_character_position != std::string::npos;
+    if (has_module_character) {
         std::cerr << "has_module_character" << std::endl;
         std::cerr << "module_character_position: " << module_character_position << std::endl;
 
         auto [lhs, rhs] = give_lhs_and_rhs_str(input, module_character_position);
-        
-        auto has_dot_character = [](const auto str){ return std::count(str.begin(), str.end(), '.') > 0;};
+
+        auto has_dot_character = [](const auto str) { return std::count(str.begin(), str.end(), '.') > 0; };
         std::cerr << "lhs: " << lhs << std::endl;
         std::cerr << "rhs: " << rhs << std::endl;
         return (has_dot_character(lhs) or has_dot_character(rhs));
@@ -163,20 +162,16 @@ bool moduleOfNonIntegerValueIsIn(std::string input)
     return false;
 }
 
+bool hasRootOfNegativeNumber(std::string input) {
+    auto root_character_position = input.find('$');
 
-
-bool hasRootOfNegativeNumber(std::string input)
-{
-    auto root_character_position =  input.find('$');
-
-    auto has_root_character =   root_character_position != std::string::npos;
-    if(has_root_character)
-    {
+    auto has_root_character = root_character_position != std::string::npos;
+    if (has_root_character) {
         std::cerr << "has_root_character" << std::endl;
         std::cerr << "operator_character_position: " << root_character_position << std::endl;
         auto [lhs, rhs] = give_lhs_and_rhs_str(input, root_character_position);
-        
-        auto has_minus_character = [](const auto str){ return std::count(str.begin(), str.end(), '-') > 0;};
+
+        auto has_minus_character = [](const auto str) { return std::count(str.begin(), str.end(), '-') > 0; };
         std::cerr << "lhs: " << lhs << std::endl;
         std::cerr << "rhs: " << rhs << std::endl;
         return has_minus_character(lhs);
@@ -185,28 +180,22 @@ bool hasRootOfNegativeNumber(std::string input)
     return false;
 }
 
+bool is_factorial(const std::string& operation, double& number) {
+    std::cerr << "is_factorial = \"" << operation << "\"" << std::endl;
+    auto calculate_factorial = [](auto number) { return operations['!'](number, number); };
+    auto give_number_from_substr = [](auto operation) { return std::stod(operation.substr(0, *operation.rbegin())); };
 
-bool is_factorial(const std::string& operation, double& number)
-{
-    std::cerr << "is_factorial = \""<< operation << "\"" << std::endl;
-    auto calculate_factorial = [](auto number){ return operations['!'](number, number);};
-    auto give_number_from_substr = [](auto operation){ return std::stod(operation.substr(0, *operation.rbegin()));};
-    
-    if(*operation.rbegin() == '!')
-    {
-        std::cerr << "is_factorial = \""<< operation << "\"" << std::endl;
-        auto converted_number  = give_number_from_substr(operation);
+    if (*operation.rbegin() == '!') {
+        std::cerr << "is_factorial = \"" << operation << "\"" << std::endl;
+        auto converted_number = give_number_from_substr(operation);
         number = calculate_factorial(converted_number);
-        std::cerr << "number = \""<< number << "\"" << std::endl;
+        std::cerr << "number = \"" << number << "\"" << std::endl;
         return true;
     }
     return false;
 }
 
-
-
-std::tuple<lhs_t, operation_t, rhs_t> give_elements_for_binary_operations_when_is_allowed_operator_except_plus_and_minus(std::string input, char input_character)
-{
+std::tuple<lhs_t, operation_t, rhs_t> give_elements_for_binary_operations_when_is_allowed_operator_except_plus_and_minus(std::string input, char input_character) {
     std::cerr << "has_any_allowed_operator_except_plus_and_minus" << std::endl;
     auto operator_character = input_character;
     auto operator_character_position = input.find(operator_character);
@@ -217,11 +206,10 @@ std::tuple<lhs_t, operation_t, rhs_t> give_elements_for_binary_operations_when_i
     std::cerr << "lhs: " << lhs << std::endl;
     std::cerr << "operator_character: " << operator_character << std::endl;
     std::cerr << "rhs: " << rhs << std::endl;
-    return  std::make_tuple(lhs, operator_character, rhs);
+    return std::make_tuple(lhs, operator_character, rhs);
 }
 
-std::tuple<lhs_t, operation_t, rhs_t> give_elements_for_plus_operation(std::string input)
-{
+std::tuple<lhs_t, operation_t, rhs_t> give_elements_for_plus_operation(std::string input) {
     std::cerr << "give_elements_for_plus_operation" << std::endl;
     auto operator_character = '+';
     auto operator_character_position = input.find(operator_character);
@@ -232,28 +220,23 @@ std::tuple<lhs_t, operation_t, rhs_t> give_elements_for_plus_operation(std::stri
     std::cerr << "lhs: " << lhs << std::endl;
     std::cerr << "operator_character: " << operator_character << std::endl;
     std::cerr << "rhs: " << rhs << std::endl;
-    return  std::make_tuple(lhs, operator_character, rhs);
+    return std::make_tuple(lhs, operator_character, rhs);
 }
 
-
-std::tuple<lhs_t, operation_t, rhs_t> give_elements_for_minus_operation(std::string input)
-{
+std::tuple<lhs_t, operation_t, rhs_t> give_elements_for_minus_operation(std::string input) {
     std::cerr << "give_elements_for_minus_operation" << std::endl;
     auto operator_character = '-';
 
     auto minuses_counter = std::count(input.begin(), input.end(), operator_character);
-    if(minuses_counter == 1)
-    {
+    if (minuses_counter == 1) {
         auto operator_character_position = input.find(operator_character);
         auto [lhs, rhs] = give_lhs_and_rhs_numbers(input, operator_character_position);
         std::cerr << "lhs: " << lhs << std::endl;
         std::cerr << "operator_character: " << operator_character << std::endl;
         std::cerr << "rhs: " << rhs << std::endl;
-        return  std::make_tuple(lhs, operator_character, rhs);
-    }
-    else if(minuses_counter == 2)
-    {
-        auto give_operator_character_position_when_input_requires_reversion = [&](){
+        return std::make_tuple(lhs, operator_character, rhs);
+    } else if (minuses_counter == 2) {
+        auto give_operator_character_position_when_input_requires_reversion = [&]() {
             std::string reversed_input;
             std::reverse_copy(std::begin(input), std::end(input), std::back_inserter(reversed_input));
             auto last_minus_iter = std::find(reversed_input.begin(), reversed_input.end(), '-');
@@ -268,163 +251,146 @@ std::tuple<lhs_t, operation_t, rhs_t> give_elements_for_minus_operation(std::str
         std::cerr << "lhs: " << lhs << std::endl;
         std::cerr << "operator_character: " << operator_character << std::endl;
         std::cerr << "rhs: " << rhs << std::endl;
-        
-        if(input.at(0) == '-')
-        {
-            return  std::make_tuple(lhs, operator_character, rhs);
-        }
-        else
-        {
-            rhs = -rhs;
-            return  std::make_tuple(lhs, operator_character, rhs);
-        }
-    }
-    else if(minuses_counter == 3)
-    {
-        auto operator_character_position = 0;
-        auto give_second_minus_position = [&input](auto& operator_character_position){
 
-            int counter=0, position=0;
-            for(auto character : input)
-            {
-                if(character == '-')
-                {
-                    if(++counter >=2)
-                    {
+        if (input.at(0) == '-') {
+            return std::make_tuple(lhs, operator_character, rhs);
+        } else {
+            rhs = -rhs;
+            return std::make_tuple(lhs, operator_character, rhs);
+        }
+    } else if (minuses_counter == 3) {
+        auto operator_character_position = 0;
+        auto give_second_minus_position = [&input](auto& operator_character_position) {
+            int counter = 0, position = 0;
+            for (auto character : input) {
+                if (character == '-') {
+                    if (++counter >= 2) {
                         operator_character_position = position;
                         break;
                     }
                 }
-            
+
                 ++position;
             }
             return operator_character_position;
         };
-        
+
         operator_character_position = give_second_minus_position(operator_character_position);
         auto [lhs, rhs] = give_lhs_and_rhs_numbers(input, operator_character_position);
         std::cerr << "lhs: " << lhs << std::endl;
         std::cerr << "operator_character: " << operator_character << std::endl;
         std::cerr << "rhs: " << rhs << std::endl;
-        return  std::make_tuple(lhs, operator_character, rhs);
+        return std::make_tuple(lhs, operator_character, rhs);
     }
 
-    return  std::make_tuple(0, operator_character, 0);
+    return std::make_tuple(0, operator_character, 0);
 }
 
-
-std::optional<elements_t> check_if_any_allowed_operator_except_plus_and_minus(std::string& input)
-{
+std::optional<elements_t> check_if_any_allowed_operator_except_plus_and_minus(std::string& input) {
     bool has_any_allowed_operator_except_plus_and_minus = false;
     char operation_character = ' ';
-    for(auto input_character : input)
-    {
+    for (auto input_character : input) {
         auto allowed = give_allowed_operations();
-        has_any_allowed_operator_except_plus_and_minus = std::any_of(allowed.begin(), allowed.end(), [&](auto allowed_oper){
-            return ((allowed_oper == input_character)
-            and (input_character != '+') and (input_character != '-'));});
-        if(has_any_allowed_operator_except_plus_and_minus){  operation_character = input_character; break;}
-    } 
+        has_any_allowed_operator_except_plus_and_minus = std::any_of(allowed.begin(), allowed.end(), [&](auto allowed_oper) { return ((allowed_oper == input_character) and (input_character != '+') and (input_character != '-')); });
+        if (has_any_allowed_operator_except_plus_and_minus) {
+            operation_character = input_character;
+            break;
+        }
+    }
 
-    if(has_any_allowed_operator_except_plus_and_minus)
-    {
-        auto [lhs, operator_character, rhs ] = give_elements_for_binary_operations_when_is_allowed_operator_except_plus_and_minus(input, operation_character);
+    if (has_any_allowed_operator_except_plus_and_minus) {
+        auto [lhs, operator_character, rhs] = give_elements_for_binary_operations_when_is_allowed_operator_except_plus_and_minus(input, operation_character);
         return std::make_tuple(lhs, operator_character, rhs);
     }
     return {};
 }
 
-std::optional<elements_t> check_if_any_minus_character(std::string& input)
-{
+std::optional<elements_t> check_if_any_minus_character(std::string& input) {
     bool has_minus_operator = false;
     char operation_character = ' ';
-    for(auto input_character : input)
-    {
+    for (auto input_character : input) {
         auto allowed = give_allowed_operations();
-        has_minus_operator = std::any_of(allowed.begin(), allowed.end(), [&](auto allowed_oper){
-            return ((allowed_oper == input_character)
-            and input_character == '-');});
-        if(has_minus_operator){  operation_character = input_character; break;}
-    } 
+        has_minus_operator = std::any_of(allowed.begin(), allowed.end(), [&](auto allowed_oper) { return ((allowed_oper == input_character) and input_character == '-'); });
+        if (has_minus_operator) {
+            operation_character = input_character;
+            break;
+        }
+    }
 
-    if(has_minus_operator)
-    {
-        auto [lhs, operator_character, rhs ] = give_elements_for_minus_operation(input);
+    if (has_minus_operator) {
+        auto [lhs, operator_character, rhs] = give_elements_for_minus_operation(input);
         return std::make_tuple(lhs, operator_character, rhs);
     }
     return {};
 }
 
-std::optional<elements_t> check_if_any_plus_character(std::string& input)
-{
+std::optional<elements_t> check_if_any_plus_character(std::string& input) {
     bool has_plus_operator = false;
     char operation_character = ' ';
-    for(auto input_character : input)
-    {
+    for (auto input_character : input) {
         auto allowed = give_allowed_operations();
-        has_plus_operator = std::any_of(allowed.begin(), allowed.end(), [&](auto allowed_oper){
-            return ((allowed_oper == input_character)
-            and input_character == '+');});
-        if(has_plus_operator){  operation_character = input_character; break;}
-    } 
+        has_plus_operator = std::any_of(allowed.begin(), allowed.end(), [&](auto allowed_oper) { return ((allowed_oper == input_character) and input_character == '+'); });
+        if (has_plus_operator) {
+            operation_character = input_character;
+            break;
+        }
+    }
 
-    if(has_plus_operator)
-    {
-        auto [lhs, operator_character, rhs ] = give_elements_for_plus_operation(input);
+    if (has_plus_operator) {
+        auto [lhs, operator_character, rhs] = give_elements_for_plus_operation(input);
         return std::make_tuple(lhs, operator_character, rhs);
     }
     return {};
 }
 
-std::tuple<lhs_t, operation_t, rhs_t>  give_elements_for_binary_operations(std::string& input)
-{
+std::tuple<lhs_t, operation_t, rhs_t> give_elements_for_binary_operations(std::string& input) {
     std::cerr << "give_elements_for_binary_operations" << std::endl;
     std::cerr << "\ninput: " << input << std::endl;
 
-    if(auto result = check_if_any_allowed_operator_except_plus_and_minus(input))
-    {
+    if (auto result = check_if_any_allowed_operator_except_plus_and_minus(input)) {
         return result.value();
     }
 
-    if(auto result = check_if_any_plus_character(input))
-    {
+    if (auto result = check_if_any_plus_character(input)) {
         return result.value();
     }
 
-    if(auto result = check_if_any_minus_character(input))
-    {
+    if (auto result = check_if_any_minus_character(input)) {
         return result.value();
     }
 
     return std::make_tuple(0, '+', 0);
 }
 
-enum ErrorCode process(std::string operation, double* x)
-{
-    
-    auto remove_whitespaces_from_input = [&operation](){operation.erase(std::remove_if(operation.begin(), 
-                              operation.end(),
-                              [](unsigned char x){return std::isspace(x);}), operation.end());
-                              };
+enum ErrorCode process(std::string operation, double* x) {
+    auto remove_whitespaces_from_input = [&operation]() {
+        operation.erase(std::remove_if(operation.begin(),
+                                       operation.end(),
+                                       [](unsigned char x) { return std::isspace(x); }),
+                        operation.end());
+    };
 
     remove_whitespaces_from_input();
-    std::cerr << "\noperation = \""<< operation << "\"" << std::endl;
-    
-    if(badCharacterIsIn(operation))                 return  ErrorCode::BadCharacter;
-    if(badFormatIsIn(operation))                    return  ErrorCode::BadFormat;
-    if(divideBy0IsIn(operation))                    return  ErrorCode::DivideBy0;
-    if(moduleOfNonIntegerValueIsIn(operation))      return  ErrorCode::ModuleOfNonIntegerValue;
-    if(hasRootOfNegativeNumber(operation))          return  ErrorCode::SqrtOfNegativeNumber;
+    std::cerr << "\noperation = \"" << operation << "\"" << std::endl;
+
+    if (badCharacterIsIn(operation))
+        return ErrorCode::BadCharacter;
+    if (badFormatIsIn(operation))
+        return ErrorCode::BadFormat;
+    if (divideBy0IsIn(operation))
+        return ErrorCode::DivideBy0;
+    if (moduleOfNonIntegerValueIsIn(operation))
+        return ErrorCode::ModuleOfNonIntegerValue;
+    if (hasRootOfNegativeNumber(operation))
+        return ErrorCode::SqrtOfNegativeNumber;
 
     double lhs = 0;
-    if(is_factorial(operation, lhs))
-    {
+    if (is_factorial(operation, lhs)) {
         *x = lhs;
-    }
-    else
-    {
+    } else {
         auto [lhs, operation_character, rhs] = give_elements_for_binary_operations(operation);
-        std::cerr << "\nmain\n" << std::endl;
+        std::cerr << "\nmain\n"
+                  << std::endl;
         std::cerr << "lhs: " << lhs << std::endl;
         std::cerr << "operation_character: " << operation_character << std::endl;
         std::cerr << "rhs: " << rhs << std::endl;

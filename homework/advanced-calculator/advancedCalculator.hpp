@@ -10,5 +10,4 @@ enum ErrorCode {
     ModuleOfNonIntegerValue,
 };
 
-
 enum ErrorCode process(std::string oparation, double* x);
