@@ -148,6 +148,16 @@ bool moduleOfNonIntegerValueIsIn(std::string input)
     return false;
 }
 
+std::tuple<std::string, std::string> give_lhs_and_rhs(std::string input, std::size_t operator_character_position)
+{
+    std::string lhs = input.substr(0, operator_character_position);
+    std::string rhs = input.substr(operator_character_position+1, *input.rbegin());
+    
+    std::cout << "lhs: " << lhs << std::endl;
+    std::cout << "rhs: " << rhs << std::endl;
+    return std::make_tuple(lhs, rhs);
+}
+
 bool hasRootOfNegativeNumber(std::string input)
 {
     auto root_character_position =  input.find('$');
@@ -156,16 +166,8 @@ bool hasRootOfNegativeNumber(std::string input)
     if(has_root_character)
     {
         std::cout << "has_root_character" << std::endl;
-        std::cout << "root_character_position: " << root_character_position << std::endl;
-        auto give_lhs_and_rhs = [&input, &root_character_position](){
-            std::string lhs = input.substr(0, root_character_position);
-            std::string rhs = input.substr(root_character_position+1, *input.rbegin());
-            
-            std::cout << "lhs: " << lhs << std::endl;
-            std::cout << "rhs: " << rhs << std::endl;
-            return std::make_tuple(lhs, rhs);
-        };
-        auto [lhs, rhs] = give_lhs_and_rhs();
+        std::cout << "operator_character_position: " << root_character_position << std::endl;
+        auto [lhs, rhs] = give_lhs_and_rhs(input, root_character_position);
         
         auto has_minus_character = [](const auto str){ return std::count(str.begin(), str.end(), '-') > 0;};
         std::cout << "lhs: " << lhs << std::endl;
@@ -194,25 +196,36 @@ bool is_factorial(const std::string& operation, double& number)
     return false;
 }
 
+// std::string lhs = input.substr(0, operator_character_position);
+// std::string rhs = input.substr(operator_character_position+1, *input.rbegin());
+
+// std::cout << "lhs: " << lhs << std::endl;
+// std::cout << "rhs: " << rhs << std::endl;
+// return std::make_tuple(lhs, rhs);
+
+
+std::tuple<lhs_t, rhs_t> give_lhs_and_rhs_numbers(std::string input, std::size_t operator_character_position)
+{
+    std::string lhs_str = input.substr(0, operator_character_position);
+    std::string rhs_str = input.substr(operator_character_position+1, *input.rbegin());
+    
+    
+    auto give_number_from_substr = [](auto input){ return std::stod(input.substr(0, *input.rbegin()));};
+    double lhs = give_number_from_substr(lhs_str);
+    double rhs = give_number_from_substr(rhs_str);
+    std::cout << "lhs: " << lhs << std::endl;
+    std::cout << "rhs: " << rhs << std::endl;
+    return std::make_tuple(lhs, rhs);
+}
+
 std::tuple<lhs_t, operation_t, rhs_t> give_elements_for_binary_operations_when_is_allowed_operator_except_plus_and_minus(std::string input, char input_character)
 {
     std::cout << "has_any_allowed_operator_except_plus_and_minus" << std::endl;
     auto operator_character = input_character;
     auto operator_character_position = input.find(operator_character);
     std::cout << "operator_character_position: " << operator_character_position << std::endl;
-    auto give_lhs_and_rhs = [&input, &operator_character_position](){
-        std::string lhs_str = input.substr(0, operator_character_position);
-        std::string rhs_str = input.substr(operator_character_position+1, *input.rbegin());
-        
-        
-        auto give_number_from_substr = [](auto input){ return std::stod(input.substr(0, *input.rbegin()));};
-        double lhs = give_number_from_substr(lhs_str);
-        double rhs = give_number_from_substr(rhs_str);
-        std::cout << "lhs: " << lhs << std::endl;
-        std::cout << "rhs: " << rhs << std::endl;
-        return std::make_tuple(lhs, rhs);
-    };
-    auto [lhs, rhs] = give_lhs_and_rhs();
+
+    auto [lhs, rhs] = give_lhs_and_rhs_numbers(input, operator_character_position);
 
     std::cout << "lhs: " << lhs << std::endl;
     std::cout << "operator_character: " << operator_character << std::endl;
