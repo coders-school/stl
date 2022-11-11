@@ -196,14 +196,6 @@ bool is_factorial(const std::string& operation, double& number)
     return false;
 }
 
-// std::string lhs = input.substr(0, operator_character_position);
-// std::string rhs = input.substr(operator_character_position+1, *input.rbegin());
-
-// std::cout << "lhs: " << lhs << std::endl;
-// std::cout << "rhs: " << rhs << std::endl;
-// return std::make_tuple(lhs, rhs);
-
-
 std::tuple<lhs_t, rhs_t> give_lhs_and_rhs_numbers(std::string input, std::size_t operator_character_position)
 {
     std::string lhs_str = input.substr(0, operator_character_position);
@@ -239,19 +231,8 @@ std::tuple<lhs_t, operation_t, rhs_t> give_elements_for_plus_operation(std::stri
     auto operator_character = '+';
     auto operator_character_position = input.find(operator_character);
     std::cout << "operator_character_position: " << operator_character_position << std::endl;
-    auto give_lhs_and_rhs = [&input, &operator_character_position](){
-        std::string lhs_str = input.substr(0, operator_character_position);
-        std::string rhs_str = input.substr(operator_character_position+1, *input.rbegin());
-        
-        
-        auto give_number_from_substr = [](auto input){ return std::stod(input.substr(0, *input.rbegin()));};
-        double lhs = give_number_from_substr(lhs_str);
-        double rhs = give_number_from_substr(rhs_str);
-        std::cout << "lhs: " << lhs << std::endl;
-        std::cout << "rhs: " << rhs << std::endl;
-        return std::make_tuple(lhs, rhs);
-    };
-    auto [lhs, rhs] = give_lhs_and_rhs();
+
+    auto [lhs, rhs] = give_lhs_and_rhs_numbers(input, operator_character_position);
 
     std::cout << "lhs: " << lhs << std::endl;
     std::cout << "operator_character: " << operator_character << std::endl;
@@ -264,26 +245,12 @@ std::tuple<lhs_t, operation_t, rhs_t> give_elements_for_minus_operation(std::str
 {
     std::cout << "give_elements_for_minus_operation" << std::endl;
     auto operator_character = '-';
-    
-    auto give_lhs_and_rhs = [&input](auto operator_character_position){
-            
-            std::string lhs_str = input.substr(0, operator_character_position);
-            std::string rhs_str = input.substr(operator_character_position+1, *input.rbegin());
-            
-            
-            auto give_number_from_substr = [](auto input){ return std::stod(input.substr(0, *input.rbegin()));};
-            double lhs = give_number_from_substr(lhs_str);
-            double rhs = give_number_from_substr(rhs_str);
-            std::cout << "lhs: " << lhs << std::endl;
-            std::cout << "rhs: " << rhs << std::endl;
-            return std::make_tuple(lhs, rhs);
-        };
 
     auto minuses_counter = std::count(input.begin(), input.end(), operator_character);
     if(minuses_counter == 1)
     {
         auto operator_character_position = input.find(operator_character);
-        auto [lhs, rhs] = give_lhs_and_rhs(operator_character_position);
+        auto [lhs, rhs] = give_lhs_and_rhs_numbers(input, operator_character_position);
         std::cout << "lhs: " << lhs << std::endl;
         std::cout << "operator_character: " << operator_character << std::endl;
         std::cout << "rhs: " << rhs << std::endl;
@@ -301,7 +268,7 @@ std::tuple<lhs_t, operation_t, rhs_t> give_elements_for_minus_operation(std::str
             return operator_character_position;
         };
         auto operator_character_position = give_operator_character_position_when_input_requires_reversion();
-        auto [lhs, rhs] = give_lhs_and_rhs(operator_character_position);
+        auto [lhs, rhs] = give_lhs_and_rhs_numbers(input, operator_character_position);
 
         std::cout << "lhs: " << lhs << std::endl;
         std::cout << "operator_character: " << operator_character << std::endl;
@@ -340,7 +307,7 @@ std::tuple<lhs_t, operation_t, rhs_t> give_elements_for_minus_operation(std::str
         };
         
         operator_character_position = give_second_minus_position(operator_character_position);
-        auto [lhs, rhs] = give_lhs_and_rhs(operator_character_position);
+        auto [lhs, rhs] = give_lhs_and_rhs_numbers(input, operator_character_position);
         std::cout << "lhs: " << lhs << std::endl;
         std::cout << "operator_character: " << operator_character << std::endl;
         std::cout << "rhs: " << rhs << std::endl;
