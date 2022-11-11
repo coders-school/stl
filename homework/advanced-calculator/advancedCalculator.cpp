@@ -132,8 +132,7 @@ std::tuple<std::string, std::string> give_lhs_and_rhs_str(std::string input, std
 
 std::tuple<lhs_t, rhs_t> give_lhs_and_rhs_numbers(std::string input, std::size_t operator_character_position)
 {
-    std::string lhs_str = input.substr(0, operator_character_position);
-    std::string rhs_str = input.substr(operator_character_position+1, *input.rbegin());
+    auto [lhs_str, rhs_str] = give_lhs_and_rhs_str(input, operator_character_position);
      
     auto give_number_from_substr = [](auto input){ return std::stod(input.substr(0, *input.rbegin()));};
     double lhs = give_number_from_substr(lhs_str);
