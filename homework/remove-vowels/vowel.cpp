@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 void removeVowels(std::vector<std::string>& vec) {
     std::string vowels = "aAeEiIoOuUyY";
