@@ -376,7 +376,6 @@ std::optional<elements_t> check_if_any_plus_character(std::string& input)
     return {};
 }
 
-//  std::tuple<lhs_t, operation_t, rhs_t>
 std::tuple<lhs_t, operation_t, rhs_t>  give_elements_for_binary_operations(std::string& input)
 {
     std::cout << "give_elements_for_binary_operations" << std::endl;
