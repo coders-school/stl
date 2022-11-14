@@ -36,7 +36,7 @@ ___
 ### Funkcja, która będzie testowana
 
 ```cpp
-ErrorCode process(std::string input, double* out)
+
 ```
 
 * Funkcja ta powinna przyjmować dane od użytkownika oraz dokonywać odpowiedniej kalkulacji
