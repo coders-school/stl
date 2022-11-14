@@ -8,3 +8,4 @@ ErrorCode process(std::string input, double* out);
 
 void removeWhiteSpaces(std::string &input);
 bool checkIfCharIsInCommands(const char com);
+std::pair<double,double> splitStringIntoTwoNumbers(std::string& input);
