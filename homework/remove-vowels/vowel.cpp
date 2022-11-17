@@ -1,6 +1,5 @@
 #include "vowel.hpp"
 
-
 void printVector(const std::vector<std::string>& vec) {
     for (auto& n : vec) {
         std::cout << n << '\n';
