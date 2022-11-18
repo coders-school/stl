@@ -5,13 +5,10 @@
 #include <map>
 #include <vector>
 
+
 #include "advancedCalculator.hpp"
 
-ErrorCode process(std::string input, double* out){
-    std::pair<double,double> splitted = splitStringIntoTwoNumbers(input);
-    *out = splitted.second;
-    return ErrorCode::OK;
-}
+
 
 double addition(const double a, const double b){
     return a + b;
@@ -33,8 +30,14 @@ int modulo(const double a, const double b){
     return static_cast<int>(a) % static_cast<int>(b);
 }
 
-int factorial(double a, const double){
-    return std::tgamma(static_cast<int>(a))*a;
+long double factorial(double a, const double){
+    if(a>=0)
+        return std::tgamma(a)*a;
+    
+    a*=-1;
+    return -std::tgamma(a)*a;
+
+
 }
 
 int power(const double a, const double b){
@@ -69,29 +72,53 @@ bool checkIfCharIsInCommands(const char com){
     return commands.find(com) != commands.end();
 }
 
-std::pair<double,double> splitStringIntoTwoNumbers(std::string& input){
+ErrorCode process(std::string input, double* out){
+    std::tuple<double,double,char> splitted = splitStringIntoTwoNumbers(input);
+
+    if (auto search = commands.find(std::get<2>(splitted)); search != commands.end())
+        *out = search->second(std::get<0>(splitted),std::get<1>(splitted));
+    else
+        std::cout << "Not found\n";
+
+
+   // std::cout<<*out<<"\n";
+    return ErrorCode::OK;
+}
+
+std::tuple<double,double,char> splitStringIntoTwoNumbers(std::string& input){
 
     
     std::string lhs, rhs;
+    double lhss=0 ,rhss=0;
     removeWhiteSpaces(input);
-    int counter = std::count_if(input.begin(),input.end(),[](char zn){return zn == '-';});
-
-
-    auto Command = std::find_first_of(input.begin(),input.end(),
+   
+        if(input[0]=='-')
+        {
+            auto Command = std::find_first_of(input.begin()+1,input.end(),
                                       availableCharacters.begin(),availableCharacters.end());
+            std::for_each(input.begin()+1,Command,[&](char zn){ lhs.push_back(zn);});
+            std::for_each(Command+1,input.end(),[&](char zn){ rhs.push_back(zn);});
+           
+            lhss = std::stod(lhs);
+            if(rhs != ""){ 
+                 rhss = std::stod(rhs);
+            }
+            //std::cout<<"lhs: "<<-lhss<<"     "<<"rhs: "<<rhss<<"\n";
+
+             return {-lhss,rhss,*Command};
+        }else{
+            auto Command = std::find_first_of(input.begin(),input.end(),
+                                      availableCharacters.begin(),availableCharacters.end());
+            std::for_each(input.begin(),Command,[&](char zn){ lhs.push_back(zn);});
+            std::for_each(Command+1,input.end(),[&](char zn){ rhs.push_back(zn);});
 
 
-    std::for_each(input.begin(),Command,[&](char zn){ lhs.push_back(zn);});
-    std::for_each(Command+1,input.end(),[&](char zn){ rhs.push_back(zn);});
-
-    double lhss = std::stod(lhs);
-    double rhss = std::stod(rhs);
-    
-    auto example = commands.find(*Command);
-    double wynik = example->second(lhss,rhss);
-    std::pair<double,double> ParaNumerow{lhss,wynik};
-
-    return ParaNumerow;
-
+            lhss = std::stod(lhs);
+             if(rhs != ""){
+                 rhss = std::stod(rhs);
+            }
+            //std::cout<<"lhs: "<<lhss<<"     "<<"rhs: "<<rhss<<"\n";
+            return {lhss,rhss,*Command};
+        }
 
 }

@@ -12,16 +12,16 @@ bool cmp(double first, double second, double epsilon = 0.5) {
 TEST(advancedCalculatorTest, ShouldAdd) {
     double result = 0;
 
-    ASSERT_EQ(process("5+ 11", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 16));
-    ASSERT_EQ(process("43.21+11.54", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, 54.75));
-    ASSERT_EQ(process("-54.31 + 11", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, -43.31));
-    ASSERT_EQ(process("28.43 +-810.43", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, -782));
-    ASSERT_EQ(process("-11.230 + -77.321", &result), ErrorCode::OK);
-    EXPECT_TRUE(cmp(result, -88.551));
+        ASSERT_EQ(process("5+ 11", &result), ErrorCode::OK);
+        EXPECT_TRUE(cmp(result, 16));
+        ASSERT_EQ(process("43.21+11.54", &result), ErrorCode::OK);
+        EXPECT_TRUE(cmp(result, 54.75));
+        ASSERT_EQ(process("-54.31 + 11", &result), ErrorCode::OK);
+        EXPECT_TRUE(cmp(result, -43.31));
+        ASSERT_EQ(process("28.43 +-810.43", &result), ErrorCode::OK);
+        EXPECT_TRUE(cmp(result, -782));
+        ASSERT_EQ(process("-11.230 + -77.321", &result), ErrorCode::OK);
+        EXPECT_TRUE(cmp(result, -88.551));
 }
 
 TEST(advancedCalculatorTest, ShouldSubstract) {
