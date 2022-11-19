@@ -12,4 +12,5 @@ bool checkIfSqrtOfNegativeNumber(std::string input,std::tuple<double,double,char
 bool checkIfDouble(const double a);
 bool checkIfModuleOfNonIntegerValue(std::string input,std::tuple<double,double,char> splitted);
 bool checkIfDivideBy0(std::string input,std::tuple<double,double,char> splitted);
+bool checkIfBadCharacter(std::string input);
 std::tuple<double,double,char> splitStringIntoTwoNumbers(std::string& input);

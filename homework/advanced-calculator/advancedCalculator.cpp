@@ -5,9 +5,7 @@
 #include <map>
 #include <vector>
 
-
 #include "advancedCalculator.hpp"
-
 
 
 double addition(const double a, const double b){
@@ -36,8 +34,6 @@ long double factorial(double a, const double){
     
     a*=-1;
     return -std::tgamma(a)*a;
-
-
 }
 
 int power(const double a, const double b){
@@ -92,6 +88,21 @@ bool checkIfDivideBy0(std::string input,std::tuple<double,double,char> splitted)
     return false;
 }
 
+bool checkIfBadCharacter(std::string input){
+    std::vector<char> BadCharacters{'\\','@','#','&','(',')','[',']','?',';',':',',','=','<','>'};
+
+    auto Command = std::find_first_of(input.begin(),input.end(),
+                                      BadCharacters.begin(),BadCharacters.end());
+    
+    auto letter = std::find_if(input.begin(),input.end(),[](const char zn){return (zn >='A' && zn<='Z') || (zn>='a' && zn <='z'); });
+
+    if(Command!=input.end() || letter!=input.end())
+        return true;
+    return false;
+
+
+}
+
 
 bool checkIfDouble(const double a){
 
@@ -103,6 +114,12 @@ bool checkIfDouble(const double a){
 
 
 ErrorCode process(std::string input, double* out){
+    
+
+    if(checkIfBadCharacter(input) == true){
+        return ErrorCode::BadCharacter;
+    }
+
     std::tuple<double,double,char> splitted = splitStringIntoTwoNumbers(input);
 
     if(checkIfSqrtOfNegativeNumber(input,splitted) == true){
@@ -114,6 +131,8 @@ ErrorCode process(std::string input, double* out){
     if(checkIfDivideBy0(input,splitted) == true){
         return ErrorCode::DivideBy0;
     }
+    
+    
 
     if (auto search = commands.find(std::get<2>(splitted)); search != commands.end())
         *out = search->second(std::get<0>(splitted),std::get<1>(splitted));
@@ -143,7 +162,6 @@ std::tuple<double,double,char> splitStringIntoTwoNumbers(std::string& input){
             if(rhs != ""){ 
                  rhss = std::stod(rhs);
             }
-            //std::cout<<"lhs: "<<-lhss<<"     "<<"rhs: "<<rhss<<"\n";
 
              return {-lhss,rhss,*Command};
         }else{
@@ -157,7 +175,6 @@ std::tuple<double,double,char> splitStringIntoTwoNumbers(std::string& input){
              if(rhs != ""){
                  rhss = std::stod(rhs);
             }
-            //std::cout<<"lhs: "<<lhss<<"     "<<"rhs: "<<rhss<<"\n";
             return {lhss,rhss,*Command};
         }
 
