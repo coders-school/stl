@@ -26,8 +26,8 @@ double divide(const double a, const double b){
     return a / b;
 }
 
-int modulo(const double a, const double b){
-    return static_cast<int>(a) % static_cast<int>(b);
+int modulo(const int a, const int b){
+    return a % b;
 }
 
 long double factorial(double a, const double){
@@ -72,8 +72,20 @@ bool checkIfCharIsInCommands(const char com){
     return commands.find(com) != commands.end();
 }
 
+bool checkIfSqrtOfNegativeNumber(std::string input,std::tuple<double,double,char> splitted){
+
+    if(std::get<2>(splitted) == '$' && std::get<0>(splitted) <=0)
+        return true;
+    return false;
+}
+
+
 ErrorCode process(std::string input, double* out){
     std::tuple<double,double,char> splitted = splitStringIntoTwoNumbers(input);
+
+    if(checkIfSqrtOfNegativeNumber(input,splitted) == true){
+        return ErrorCode::SqrtOfNegativeNumber;
+    }
 
     if (auto search = commands.find(std::get<2>(splitted)); search != commands.end())
         *out = search->second(std::get<0>(splitted),std::get<1>(splitted));
