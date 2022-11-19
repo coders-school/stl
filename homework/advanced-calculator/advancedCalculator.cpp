@@ -61,32 +61,38 @@ void removeWhiteSpaces(std::string &input){
                                 [](char zn){ return zn == ' ';}),input.end());
 }
 
+//Function shall returns true if there is sqrt of Negative Number
 bool checkIfSqrtOfNegativeNumber(std::string input,std::tuple<double,double,char> splitted){
 
     return std::get<2>(splitted) == '$' && std::get<0>(splitted) <=0;
 }
 
+//Function shall returns true if there is Module of non integer value
 bool checkIfModuleOfNonIntegerValue(std::string input,std::tuple<double,double,char> splitted){
 
     return std::get<2>(splitted) == '%' && (checkIfDouble(std::get<0>(splitted)) || checkIfDouble(std::get<1>(splitted)));
 }
 
+//Function shall returns true if there is divide by 0
 bool checkIfDivideBy0(std::string input,std::tuple<double,double,char> splitted){
     
      return std::get<2>(splitted) == '/' && std::get<1>(splitted) == 0;
 }
 
+//Function shall returns true if there is a Bad Character
 bool checkIfBadCharacter(std::string input){
-    std::vector<char> BadCharacters{'\\','@','#','&','(',')','[',']','?',';',':',',','=','<','>'};
+    std::vector<char> BadCharacters{'\\','@','#','&','(',')','[',']','?',';',':',',','=','<','>','{','}','~'};
 
     auto Command = std::find_first_of(input.begin(),input.end(),
                                       BadCharacters.begin(),BadCharacters.end());
     
-    auto letter = std::find_if(input.begin(),input.end(),[](const char zn){return (zn >='A' && zn<='Z') || (zn>='a' && zn <='z'); });
+    auto letter = std::find_if(input.begin(),input.end(),[](const char zn)
+                                                        {return (zn >='A' && zn<='Z') || (zn>='a' && zn <='z'); });
 
     return Command!=input.end() || letter!=input.end();
 }
 
+//Function shall returns true if there is a Bad format
 bool checkIfBadFormat(std::string input){
     std::vector<char> UniqueCharacters{'+','*','/','%','!','^','$'};
     int counter = 0;
@@ -114,16 +120,14 @@ bool checkIfBadFormat(std::string input){
     return false;
 }
 
+//Function shall returns true if given number is type double
 bool checkIfDouble(const double a){
 
-    if(static_cast<int>(a * 10000) % 10000 == 0)
-        return false;
-    return true;
+    return static_cast<int>(a * 10000) % 10000 != 0;
 }
 
 ErrorCode process(std::string input, double* out){
     
-
     if(checkIfBadCharacter(input) == true){
         return ErrorCode::BadCharacter;
     }
@@ -145,18 +149,19 @@ ErrorCode process(std::string input, double* out){
     
     if (auto search = commands.find(std::get<2>(splitted)); search != commands.end())
         *out = search->second(std::get<0>(splitted),std::get<1>(splitted));
-    else
-        std::cout << "Not found\n";
-
+    else{
+        std::cout << "You should not get there. weird ;/\n";
+        return ErrorCode::ERROR404;
+    }
     return ErrorCode::OK;
 }
-
+//Function Shall return tuple of given string by user <FirstNumber(double),SecondNumber(double),Operation(char)>
 std::tuple<double,double,char> splitStringIntoTwoNumbers(std::string& input){
 
     std::string lhs, rhs;
     double lhss=0 ,rhss=0;
     removeWhiteSpaces(input);
-   
+
         if(input[0]=='-')
         {
             auto Command = std::find_first_of(input.begin()+1,input.end(),
@@ -176,12 +181,10 @@ std::tuple<double,double,char> splitStringIntoTwoNumbers(std::string& input){
             std::for_each(input.begin(),Command,[&](char zn){ lhs.push_back(zn);});
             std::for_each(Command+1,input.end(),[&](char zn){ rhs.push_back(zn);});
 
-
             lhss = std::stod(lhs);
              if(rhs != ""){
                  rhss = std::stod(rhs);
             }
             return {lhss,rhss,*Command};
         }
-
 }
