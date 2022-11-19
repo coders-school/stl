@@ -132,24 +132,20 @@ TEST(advancedCalculatorTest, ShouldFactorial) {
     ASSERT_EQ(process("-12.4!", &result), ErrorCode::OK);
     EXPECT_TRUE(cmp(result, -1324024774.02));
 }
-// Count kropek >=3 wypad
-//Gdy jest '!' nie ma drugiej liczby czyli np gdy druga jest różna !=0 
-//+ jako pierwszy znak lub jakos ostani  
-// dwa lub wiecej znakow z unikalnych (czyli wszystkie bez -)
-//
-// TEST(advancedCalculatorTest, ShouldReturnBadFormat) {
-//     double result = 0;
 
-//     ASSERT_EQ(process("13.4 ++ 12.43", &result), ErrorCode::BadFormat);
-//     ASSERT_EQ(process("13.2 + 12.3 + 13.0", &result), ErrorCode::BadFormat);
-//     ASSERT_EQ(process("-12.4! + 2", &result), ErrorCode::BadFormat);
-//     ASSERT_EQ(process("11 / 13.4+", &result), ErrorCode::BadFormat);
-//     ASSERT_EQ(process("+8 - 32.1", &result), ErrorCode::BadFormat);
-//     ASSERT_EQ(process("12 ^% 3", &result), ErrorCode::BadFormat);
-//     ASSERT_EQ(process("+ 3 4", &result), ErrorCode::BadFormat);
-//     ASSERT_EQ(process("12.4.3 + 12.3", &result), ErrorCode::BadFormat);
-//     ASSERT_EQ(process("123.4 ! 345", &result), ErrorCode::BadFormat);
-// }
+TEST(advancedCalculatorTest, ShouldReturnBadFormat) {
+    double result = 0;
+
+    ASSERT_EQ(process("13.4 ++ 12.43", &result), ErrorCode::BadFormat);
+    ASSERT_EQ(process("13.2 + 12.3 + 13.0", &result), ErrorCode::BadFormat);
+    ASSERT_EQ(process("-12.4! + 2", &result), ErrorCode::BadFormat);
+    ASSERT_EQ(process("11 / 13.4+", &result), ErrorCode::BadFormat);
+    ASSERT_EQ(process("+8 - 32.1", &result), ErrorCode::BadFormat);
+    ASSERT_EQ(process("12 ^% 3", &result), ErrorCode::BadFormat);
+    ASSERT_EQ(process("+ 3 4", &result), ErrorCode::BadFormat);
+    ASSERT_EQ(process("12.4.3 + 12.3", &result), ErrorCode::BadFormat);
+    ASSERT_EQ(process("123.4 ! 345", &result), ErrorCode::BadFormat);
+}
 
 TEST(advancedCalculatorTest, ShouldReturnBadCharacter) {
     double result = 0;

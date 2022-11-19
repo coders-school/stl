@@ -61,10 +61,6 @@ void removeWhiteSpaces(std::string &input){
                                 [](char zn){ return zn == ' ';}),input.end());
 }
 
-bool checkIfCharIsInCommands(const char com){
-    return commands.find(com) != commands.end();
-}
-
 bool checkIfSqrtOfNegativeNumber(std::string input,std::tuple<double,double,char> splitted){
 
     return std::get<2>(splitted) == '$' && std::get<0>(splitted) <=0;
@@ -91,6 +87,33 @@ bool checkIfBadCharacter(std::string input){
     return Command!=input.end() || letter!=input.end();
 }
 
+bool checkIfBadFormat(std::string input){
+    std::vector<char> UniqueCharacters{'+','*','/','%','!','^','$'};
+    int counter = 0;
+    removeWhiteSpaces(input);
+
+    std::for_each(UniqueCharacters.begin(),UniqueCharacters.end(),[&counter,input](char UniqueCharactersCHAR){
+        counter+=std::count(input.begin(),input.end(),UniqueCharactersCHAR);      
+    });
+    if(counter>=2)
+        return true;
+
+    if(std::count(input.begin(),input.end(),'.') >= 3)
+        return true;
+    
+    auto FirstPostion = std::find(UniqueCharacters.begin(),UniqueCharacters.end(),input[0]);
+    auto lastPostion = std::find(UniqueCharacters.begin(),UniqueCharacters.end(),input.back());
+    if(FirstPostion != UniqueCharacters.end() || (lastPostion != UniqueCharacters.end() && *lastPostion != '!') )
+        return true;
+
+    auto findChar = std::find(input.begin(),input.end(),'!');
+
+    if(findChar!= input.end() && input.back()!='!')
+        return true;
+   
+    return false;
+}
+
 bool checkIfDouble(const double a){
 
     if(static_cast<int>(a * 10000) % 10000 == 0)
@@ -103,6 +126,9 @@ ErrorCode process(std::string input, double* out){
 
     if(checkIfBadCharacter(input) == true){
         return ErrorCode::BadCharacter;
+    }
+    if(checkIfBadFormat(input) == true){
+        return ErrorCode::BadFormat;
     }
 
     std::tuple<double,double,char> splitted = splitStringIntoTwoNumbers(input);
