@@ -7,7 +7,6 @@
 
 #include "advancedCalculator.hpp"
 
-
 double addition(const double a, const double b){
     return a + b;
 }
@@ -45,7 +44,6 @@ double sqrtRoot(const double a, const double b){
 }
 
 std::vector<char> availableCharacters{'+','-','*','/','%','!','^','$'};
-
 std::map<char,std::function<double(const double, const double)>> commands{
     {'+' , addition},
     {'-' , substract},
@@ -63,29 +61,23 @@ void removeWhiteSpaces(std::string &input){
                                 [](char zn){ return zn == ' ';}),input.end());
 }
 
-//Function shall return true if given char is in commands
 bool checkIfCharIsInCommands(const char com){
     return commands.find(com) != commands.end();
 }
 
 bool checkIfSqrtOfNegativeNumber(std::string input,std::tuple<double,double,char> splitted){
 
-    if(std::get<2>(splitted) == '$' && std::get<0>(splitted) <=0)
-        return true;
-    return false;
+    return std::get<2>(splitted) == '$' && std::get<0>(splitted) <=0;
 }
 
 bool checkIfModuleOfNonIntegerValue(std::string input,std::tuple<double,double,char> splitted){
 
-    if(std::get<2>(splitted) == '%' && (checkIfDouble(std::get<0>(splitted)) || checkIfDouble(std::get<1>(splitted))))
-        return true;
-    return false;
+    return std::get<2>(splitted) == '%' && (checkIfDouble(std::get<0>(splitted)) || checkIfDouble(std::get<1>(splitted)));
 }
 
 bool checkIfDivideBy0(std::string input,std::tuple<double,double,char> splitted){
-     if(std::get<2>(splitted) == '/' && std::get<1>(splitted) == 0)
-        return true;
-    return false;
+    
+     return std::get<2>(splitted) == '/' && std::get<1>(splitted) == 0;
 }
 
 bool checkIfBadCharacter(std::string input){
@@ -96,13 +88,8 @@ bool checkIfBadCharacter(std::string input){
     
     auto letter = std::find_if(input.begin(),input.end(),[](const char zn){return (zn >='A' && zn<='Z') || (zn>='a' && zn <='z'); });
 
-    if(Command!=input.end() || letter!=input.end())
-        return true;
-    return false;
-
-
+    return Command!=input.end() || letter!=input.end();
 }
-
 
 bool checkIfDouble(const double a){
 
@@ -110,8 +97,6 @@ bool checkIfDouble(const double a){
         return false;
     return true;
 }
-
-
 
 ErrorCode process(std::string input, double* out){
     
@@ -132,21 +117,16 @@ ErrorCode process(std::string input, double* out){
         return ErrorCode::DivideBy0;
     }
     
-    
-
     if (auto search = commands.find(std::get<2>(splitted)); search != commands.end())
         *out = search->second(std::get<0>(splitted),std::get<1>(splitted));
     else
         std::cout << "Not found\n";
 
-
-   // std::cout<<*out<<"\n";
     return ErrorCode::OK;
 }
 
 std::tuple<double,double,char> splitStringIntoTwoNumbers(std::string& input){
 
-    
     std::string lhs, rhs;
     double lhss=0 ,rhss=0;
     removeWhiteSpaces(input);
