@@ -79,12 +79,30 @@ bool checkIfSqrtOfNegativeNumber(std::string input,std::tuple<double,double,char
     return false;
 }
 
+bool checkIfModuleOfNonIntegerValue(std::string input,std::tuple<double,double,char> splitted){
+
+    if(std::get<2>(splitted) == '%' && (checkIfDouble(std::get<0>(splitted) || checkIfDouble(std::get<1>(splitted)))))
+        return true;
+    return false;
+}
+
+bool checkIfDouble(const double a){
+
+    if(static_cast<int>(a * 100) % 100 == 0)
+        return false;
+    return true;
+}
+
+
 
 ErrorCode process(std::string input, double* out){
     std::tuple<double,double,char> splitted = splitStringIntoTwoNumbers(input);
 
     if(checkIfSqrtOfNegativeNumber(input,splitted) == true){
         return ErrorCode::SqrtOfNegativeNumber;
+    }
+    if(checkIfModuleOfNonIntegerValue(input,splitted) == true){
+        return ErrorCode::ModuleOfNonIntegerValue;
     }
 
     if (auto search = commands.find(std::get<2>(splitted)); search != commands.end())
