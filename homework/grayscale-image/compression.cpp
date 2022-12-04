@@ -16,11 +16,28 @@ compressGrayscale(const std::array<std::array<uint8_t, width>, height>& image) {
                     prevColor = image[i][j];
                 } else {
                     count++;
-
                 }
             }
         }
         result.push_back(std::make_pair(prevColor, count));
+    }
+    return result;
+}
+
+std::array<std::array<uint8_t, width>, height>
+decompressGrayscale(const std::vector<std::pair<uint8_t, uint8_t>>& compressed) {
+    std::array<std::array<uint8_t, width>, height> result;
+    uint8_t lineLength = 0;
+    size_t i = 0;
+    for (const auto& elem : compressed) {
+        for (size_t j = lineLength; j < lineLength + elem.second; j++) {
+            result[i][j] = elem.first;
+        }
+        lineLength += elem.second;
+        if (lineLength == width) {
+            i++;
+            lineLength = 0;
+        }
     }
     return result;
 }
