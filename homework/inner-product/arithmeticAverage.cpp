@@ -10,10 +10,9 @@ double ArithmeticAverage(const std::vector<int>& first, const std::vector<int>& 
     // for(auto el : Union) {
     //     std::cout << el << ' ';
     // }
-    double sum = std::accumulate(Union.begin(), Union. end(), 0);
-    return sum / Union.size();       
+    double sum = std::accumulate(Union.begin(), Union.end(), 0);
+    return sum / Union.size();
 }
-
 double Distance(const std::vector<int>& first, const std::vector<int>& second) {
     std::vector<int> vec;
 
@@ -24,7 +23,6 @@ double Distance(const std::vector<int>& first, const std::vector<int>& second) {
                    [](auto first, auto second) {
                     return  pow((first - second),2);
                    });
-        
-    double sum = std::accumulate(vec.begin(), vec. end(), 0);
+    double sum = std::accumulate(vec.begin(), vec.end(), 0);
     return sqrt(sum);
 }
