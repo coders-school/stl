@@ -3,7 +3,7 @@
 double ArithmeticAverage(const std::vector<int>& first, const std::vector<int>& second) {
     std::vector<int> Union;
 
-    std::merge(first.begin(), first.end(), 
+    std::merge(first.begin(), first.end(),
                second.begin(), second.end(),
                std::back_inserter(Union));
     // std::cout.precision(4);
