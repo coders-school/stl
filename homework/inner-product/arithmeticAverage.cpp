@@ -22,8 +22,8 @@ double Distance(const std::vector<int>& first, const std::vector<int>& second) {
     std::transform(begin(vec), end(vec),
                    begin(second), begin(vec),
                    [](auto first, auto second) {
-                        return pow((first - second), 2);
-                    });
+                       return pow((first - second), 2);
+                   });
     double sum = std::accumulate(vec.begin(), vec.end(), 0);
     return sqrt(sum);
 }
