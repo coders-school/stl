@@ -1,17 +1,5 @@
 #include "vowel.hpp"
 
-bool isVowel(char c) {
-    std::string vowels = "aeiouyAEIOUY";
-
-    for (std::size_t i = 0; i < vowels.size(); ++i) {
-        if (vowels[i] == c) {
-            return true;
-        }
-    }
-
-    return false;
-}
-
 void removeVowels(std::vector<std::string>& s) {
     for (auto& el : s) {
         el.erase(std::remove(el.begin(), el.end(), 'a'), el.end());
