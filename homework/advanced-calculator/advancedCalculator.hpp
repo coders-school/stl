@@ -1,6 +1,8 @@
 #pragma once
 
+#include <functional>
 #include <string>
+#include <unordered_map>
 
 enum class ErrorCode {
     OK,
