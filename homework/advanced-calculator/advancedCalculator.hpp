@@ -11,4 +11,10 @@ enum class ErrorCode {
     ModuleOfNonIntegerValue
 };
 
+struct HashForErrorCode {
+    std::size_t operator()(ErrorCode const& s) const noexcept {
+        return static_cast<std::size_t>(s);
+    }
+};
+
 ErrorCode process(std::string, double*);
