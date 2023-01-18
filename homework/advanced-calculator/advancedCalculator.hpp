@@ -23,4 +23,6 @@ struct Command {
     ErrorCode status;
 };
 
-ErrorCode process(std::string, double*);
+ErrorCode parseSingleArgument(const std::string&, double&);
+Command stringToCmd(const std::string&);
+ErrorCode process(const std::string, double*);
