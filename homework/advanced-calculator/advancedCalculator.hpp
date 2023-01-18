@@ -16,6 +16,11 @@ enum class ErrorCode {
     SqrtOfNegativeNumber,
     ModuleOfNonIntegerValue
 };
+struct Command {
+    char operation;
+    double firstArg;
+    double secondArg;
+    ErrorCode status;
 };
 
 ErrorCode process(std::string, double*);
