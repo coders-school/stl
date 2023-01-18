@@ -1,8 +1,14 @@
 #include "advancedCalculator.hpp"
 
-#include <iostream>
+// #include <iostream>
 
-std::unordered_map<ErrorCode, std::string, HashForErrorCode> errorMsg = {
+struct HashForErrorCode {
+    std::size_t operator()(ErrorCode const& s) const noexcept {
+        return static_cast<std::size_t>(s);
+    }
+};
+
+static std::unordered_map<ErrorCode, std::string, HashForErrorCode> errorMsg = {
     {ErrorCode::OK, "OK"},
     {ErrorCode::BadCharacter, "BadCharacter"},
     {ErrorCode::BadFormat, "BadFormat"},
