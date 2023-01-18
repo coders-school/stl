@@ -17,13 +17,15 @@ int main() {
 
     while (command != "q") {
         std::cout << "Read command" << std::endl;
-        std::cin >> command;
+
+        // get line without leading whitespaces
+        std::getline(std::cin >> std::ws, command);
+
         status = process(command, &result);
 
         if (status == ErrorCode::OK) {
             std::cout << "Result: " << std::scientific << result << std::endl;
         } else {
-            // add unordered map for binding enum with string
             std::cout << errorMsg[status] << std::endl;
         }
     }
