@@ -24,5 +24,4 @@ struct Command {
 };
 
 ErrorCode parseSingleArgument(const std::string&, double&);
-Command stringToCmd(const std::string&);
 ErrorCode process(const std::string, double*);
