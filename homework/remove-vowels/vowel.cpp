@@ -1,11 +1,13 @@
 #include "vowel.hpp"
 
-void removeVowels(std::vector<std::string> &words)
-    {
-    for (auto &word : words) 
-    {
-        word.erase(std::remove_if(word.begin(), word.end(), [](char c) {
-            return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' || c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U';
-        }), word.end());
+void removeVowels(std::vector<std::string>& words) {
+    const std::array<char, 12> arr = {'A', 'E', 'I', 'O', 'U', 'Y',
+                                      'a', 'e', 'i', 'o', 'u', 'y'};
+
+    for (auto& word : words) {
+        word.erase(std::remove_if(word.begin(), word.end(), [&arr](char c) {
+                       return std::find(arr.begin(), arr.end(), c) != arr.end();
+                   }),
+                   word.end());
     }
 }
