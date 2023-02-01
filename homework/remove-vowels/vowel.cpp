@@ -5,7 +5,7 @@ void removeVowels(std::vector<std::string>& vec) {
         for (size_t i = 0; i < el.size(); i++) {
             for (size_t j = 0; j < vowels.size(); j++) {
                 if (el[i] == vowels[j]) {
-                    el.erase(i,1);
+                    el.erase(i, 1);
                     i--;
                 }
             }
