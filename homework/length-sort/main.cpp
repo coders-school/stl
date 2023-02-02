@@ -1,6 +1,6 @@
 #include <forward_list>
-#include <iostream>
 #include <string>
+#include <iostream>
 
 #include "sort.hpp"
 
