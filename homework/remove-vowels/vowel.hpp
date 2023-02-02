@@ -1,5 +1,5 @@
 #pragma once
-#include<string>
-#include<vector>
+#include <string>
+#include <vector>
 
-void removeVowels(std::vector<std::string> vs);
+void removeVowels(std::vector<std::string>& vs);
