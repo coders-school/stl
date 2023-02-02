@@ -4,8 +4,8 @@ std::deque<std::string> lengthSort(std::forward_list<std::string>& list) {
     for (auto& el : list) {
         output.push_back(el);
     }
-    std::sort(output.begin(), output.end(), [](std::string a, std::string b) {return a.size() < b.size(); });
-    for (auto it = output.begin(); it != output.cend()-1; ++it) {
+    std::sort(output.begin(), output.end(), [](std::string a, std::string b) { return a.size() < b.size(); });
+    for (auto it = output.begin(); it != output.cend() - 1; ++it) {
         auto it2 = it;
         auto str1 = *it;
         auto str2 = *it2;
