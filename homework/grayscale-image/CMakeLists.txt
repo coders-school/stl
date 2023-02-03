@@ -18,8 +18,8 @@ FetchContent_MakeAvailable(googletest)
 project(grayscaleImages)
 enable_testing()
 
-add_executable(${PROJECT_NAME} main.cpp compression.cpp)
-add_executable(${PROJECT_NAME}-ut test.cpp compression.cpp)
+add_executable(${PROJECT_NAME} main.cpp compressGrayscale.cpp decompressGrayscale.cpp)
+add_executable(${PROJECT_NAME}-ut test.cpp compressGrayscale.cpp decompressGrayscale.cpp)
 
 add_compile_options(${PROJECT_NAME} -Wall -Wextra -Wconversion -pedantic -Werror)
 
