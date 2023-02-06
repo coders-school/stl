@@ -13,8 +13,9 @@ void printCollection(const Container& collection) {
 }
 
 int main() {
-    std::forward_list<std::string> words = {
-        "Somebody", "once", "told", "me", "the", "world", "is", "gonna", "roll", "me"};
+    std::forward_list<std::string> words = {"Somebody", "once", "told", "me",
+                                            "the", "world", "is", "gonna",
+                                            "roll", "me"};
     printCollection(words);
     auto sorted = lengthSort(words);
     printCollection(sorted);
