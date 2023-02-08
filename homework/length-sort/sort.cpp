@@ -1,29 +1,23 @@
 #include "sort.hpp"
-#include <algorithm>
-#include <functional>
 #include <iostream>
-#include <iterator>
 #include <string>
+
+bool wordsSort(std::string s1, std::string s2);
 
 std::deque<std::string> lengthSort(std::forward_list<std::string> fli) {
     std::deque<std::string> deq;
     fli.sort();
+    fli.sort(wordsSort);
 
-    int i{0};
-
-    for (auto it = fli.begin(); it != fli.end(); ++it, i++) {
-        for (int j = 0; j < (*it).length() - 1; j++) {
-            auto it1 = fli.begin();
-            auto it2 = next(fli.begin(), j);
-
-            std::cout << " it1: " << *it1 << "it2: " << *it2 << " ";
-        }
+    for (auto it = fli.begin(); it != fli.end(); ++it) {
         std::cout << (*it).size() << " ";
-
-        // if(*it < *(it).be )
 
         deq.emplace_back(*it);
     }
-
+    std::cout << " \n";
     return deq;
+}
+
+bool wordsSort(std::string s1, std::string s2) {
+    return (s1.length() < s2.length());
 }
