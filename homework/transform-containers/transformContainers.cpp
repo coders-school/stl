@@ -8,4 +8,5 @@ std::map<int, std::string> removeDuplicateAndTranformToMap(std::list<std::string
 
     std::transform(list.begin(), list.end(), deque.begin(), std::back_inserter(finalMap),
                    [](const auto& listArg, const auto& dequeArg) { return dequeArg, listArg; });
+    return finalMap;
 }
