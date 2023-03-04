@@ -13,7 +13,7 @@ auto lengthSort(std::forward_list<std::string> &list) -> std::deque<std::string>
         else 
         {
             auto it = result.begin();
-            while(it != result.end() && word.size() > it->size())
+            while(it != result.end() && (word.size() > it->size() || (word.size() == it->size() && word > *it)))
             {
                 ++it;
             }
