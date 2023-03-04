@@ -6,7 +6,7 @@ auto isVowel (char c, const std::array<char, 6>& vowels){
     return std::find(vowels.begin(), vowels.end(), c) != vowels.end();
 }
 
-void removeVowels(std::vector<std::string> &list){
+auto removeVowels(std::vector<std::string> &list) -> void {
 
   std::array<char, 6> arr = {'a', 'e', 'i', 'o', 'u', 'y'};
 
