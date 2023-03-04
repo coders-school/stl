@@ -1,9 +1,24 @@
 #include "sort.hpp"
-#include <string>
-#include <forward_list>
 
 auto lengthSort(std::forward_list<std::string> &list) -> std::deque<std::string>
 {
     std::deque<std::string> result;
 
+    for(auto &word : list)
+    {
+        if(result.empty())
+        {
+            result.push_back(word);
+        }
+        else 
+        {
+            auto it = result.begin();
+            while(it != result.end() && word.size() > it->size())
+            {
+                ++it;
+            }
+            result.insert(it, word);
+        }
+    }
+    return result;
 }
