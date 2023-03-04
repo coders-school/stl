@@ -7,6 +7,8 @@ double ArithmeticAverage(const std::vector<int>& first, const std::vector<int>& 
     return result;
 }
 double Distance(const std::vector<int>& first, const std::vector<int>& second) {
-    double result = std::inner_product(first.begin(), first.end(), second.begin(), 0, std::plus<>{}, [](const auto& a, const auto& b) { return sqrt(a * a + b * b); });
+    double result = std::inner_product(first.begin(), first.end(), second.begin(), 0, std::plus<>{},
+                                       [](const auto& a, const auto& b) { return (a - b) * (a - b); });
+    result = sqrt(result);
     return result;
 }
