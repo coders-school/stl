@@ -18,7 +18,7 @@ FetchContent_MakeAvailable(googletest)
 project(transformContainers)
 enable_testing()
 
-add_executable(${PROJECT_NAME}-ut test.cpp) # add your cpp file here after test.cpp
+add_executable(${PROJECT_NAME}-ut test.cpp transformContainers.cpp) # add your cpp file here after test.cpp
 # if this is problematic take a look into CMakeLists.txt files in other exercises
 
 add_compile_options(${PROJECT_NAME}-ut -Wall -Wextra -Wconversion -pedantic -Werror)
