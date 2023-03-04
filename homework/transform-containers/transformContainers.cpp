@@ -6,7 +6,7 @@ std::map<int, std::string> removeDuplicateAndTranformToMap(std::list<std::string
     std::unique(list.begin(), list.end());
     std::unique(deque.begin(), deque.end());
 
-    std::transform(list.begin(), list.end(), deque.begin(), std::back_inserter(finalMap),
-                   [](const auto& listArg, const auto& dequeArg) { return dequeArg, listArg; });
+    std::transform(list.begin(), list.end(), deque.begin(), std::inserter(finalMap, finalMap.end()),
+                   [](const auto& listArg, const auto& dequeArg) { return std::make_pair(dequeArg, listArg); });
     return finalMap;
 }
