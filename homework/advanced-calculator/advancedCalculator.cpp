@@ -17,7 +17,8 @@ ErrorCode process(std::string input, double* out) {
     double a;
     double b;
 
-    auto find_string_it = input.find_first_of("+-/*%$!^");
+    auto find_string_it = input.find_first_of("+-/*%$!^", 1);
+
     if (find_string_it != std::string::npos) {
         type = input[find_string_it];
         std::string a_string = input.substr(0, find_string_it);
