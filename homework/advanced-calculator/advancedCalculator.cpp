@@ -22,10 +22,11 @@ ErrorCode process(std::string input, double* out) {
     if (find_string_it != std::string::npos) {
         type = input[find_string_it];
         std::string a_string = input.substr(0, find_string_it);
-        std::string b_string = input.substr(find_string_it, input.size());
+        std::string b_string = input.substr(find_string_it + 1, input.size());
         try {
             a = std::stod(a_string);
             b = std::stod(b_string);
+            std::cout << a << b;
         } catch (std::invalid_argument) {
             return ErrorCode::BadCharacter;
         }
