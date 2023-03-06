@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <cmath>
 #include <functional>
+#include <iostream>
 #include <map>
 #include <string>
 
@@ -15,16 +16,6 @@ enum class ErrorCode {
     ModuleOfNonIntegerValue
 };
 
-std::map<char, std::function<double(const double&, const double&)>>
-    mapOfType = {
-        {'+', [](const auto& a, const auto& b) -> double { return a + b; }},
-        {'*', [](const auto& a, const auto& b) -> double { return a * b; }},
-        {'/', [](const auto& a, const auto& b) -> double { return a / b; }},
-        {'-', [](const auto& a, const auto& b) -> double { return a - b; }},
-        {'%', [](const auto& a, const auto& b) -> double { return a % b; }},
-        {'!', [](const auto& a, const auto& b) -> double { return std::tgamma(a + 1); }},
-        {'^', [](const auto& a, const auto& b) -> double { return std::pow(a, b); }},
-        {'$', [](const auto& a, const auto& b) -> double { return std::pow(a, 1.0 / b); }},
-};
+extern std::map<char, std::function<double(const double&, const double&)>> mapOfType;
 
 ErrorCode process(std::string input, double* out);

@@ -1,5 +1,17 @@
 #include "advancedCalculator.hpp"
 
+std::map<char, std::function<double(const double&, const double&)>>
+    mapOfType = {
+        {'+', [](const auto& a, const auto& b) -> double { return a + b; }},
+        {'*', [](const auto& a, const auto& b) -> double { return a * b; }},
+        {'/', [](const auto& a, const auto& b) -> double { return a / b; }},
+        {'-', [](const auto& a, const auto& b) -> double { return a - b; }},
+        {'%', [](const auto& a, const auto& b) -> double { return std::fmod(a, b); }},
+        {'!', [](const auto& a, const auto& b) -> double { return std::tgamma(a + 1); }},
+        {'^', [](const auto& a, const auto& b) -> double { return std::pow(a, b); }},
+        {'$', [](const auto& a, const auto& b) -> double { return std::pow(a, 1.0 / b); }},
+};
+
 ErrorCode process(std::string input, double* out) {
     char type;
     double a;
@@ -37,7 +49,7 @@ ErrorCode process(std::string input, double* out) {
 
     std::for_each(mapOfType.begin(), mapOfType.end(), [&](const auto& el) {
         if (el.first == type) 
-        { el.second(a, b);
-        return ErrorCode::OK;
+        { *out = el.second(a, b);
      } });
+    return ErrorCode::OK;
 }
