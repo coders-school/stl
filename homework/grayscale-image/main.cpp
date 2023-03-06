@@ -1,5 +1,8 @@
 #include <array>
 #include <forward_list>
+#include <string>
+#include "compression.hpp"
+#include <iomanip>
 
 // TODO: include
 
@@ -40,11 +43,26 @@ std::array<std::array<uint8_t, 32>, 32> generateNinja() {
     };
 }
 
+auto printCompressedVectorPAir(std::vector<std::pair<uint8_t, uint8_t>> compressed) {
+    int count = 0;
+    for (auto pair : compressed) {
+        std::cout << "{ " << (int)pair.first << ", " << (int)pair.second << "}";
+        count++;
+        if (count > 10){
+            std::cout << std::endl;
+            count = 0;
+        }
+    }
+}
+
+
+
 int main() {
     auto ninja = generateNinja();
     // printMap(ninja);
     auto compressed = compressGrayscale(ninja);
-    auto decompressed = decompressGrayscale(compressed);
+    printCompressedVectorPAir(compressed);
+    //auto decompressed = decompressGrayscale(compressed);
     // printMap(decompressed);
 
     return 0;
