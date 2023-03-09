@@ -43,6 +43,7 @@ std::array<std::array<uint8_t, 32>, 32> generateNinja() {
     };
 }
 
+
 auto printCompressedVectorPAir(std::vector<std::pair<uint8_t, uint8_t>> compressed) {
     int count = 0;
     for (auto pair : compressed) {
@@ -55,14 +56,24 @@ auto printCompressedVectorPAir(std::vector<std::pair<uint8_t, uint8_t>> compress
     }
 }
 
+void printMap(std::array<std::array<uint8_t, 32>, 32> map)
+{
+    for (auto row : map) {
+        for (auto pixel : row) {
+            std::cout << (int)pixel << " ";
+        }
+        std::cout << std::endl;
+    }
+    
+}
 
 
 int main() {
     auto ninja = generateNinja();
-    // printMap(ninja);
+   //  printMap(ninja);
     auto compressed = compressGrayscale(ninja);
     printCompressedVectorPAir(compressed);
-    //auto decompressed = decompressGrayscale(compressed);
+    auto decompressed = decompressGrayscale(compressed);
     // printMap(decompressed);
 
     return 0;
