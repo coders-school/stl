@@ -40,3 +40,12 @@ INSTANTIATE_TEST_SUITE_P(
         std::make_pair("Taco catt", false),
         std::make_pair("Was it a carr or a cat I saw?", false),
         std::make_pair("Madam, in Edenn, I’m Adam.", false)));
+
+// D:\Projekty\Coders_School\STL\stl\homework\insensitive-palindrom\test.cpp:9: Failure
+// Expected equality of these values:
+//   is_palindrome(GetParam().first)
+//     Which is: false
+//   GetParam().second
+//     Which is: true
+// [  FAILED  ] InsensitivePalindromTests/InsensitivePalindromFixture.CheckPalindrome/7, where GetParam() = ("Are we not pure? \xE2\x80\x9CNo, sir!\xE2\x80\x9D Panama\xE2\x80\x99s moody Noriega brags.It is garbage!\xE2\x80\x9D Irony dooms a man\xE2\x80\x94" "a prisoner up to new era."
+//     As Text: "Are we not pure? ΓÇ£No, sir!ΓÇ¥ PanamaΓÇÖs moody Noriega brags.It is garbage!ΓÇ¥ Irony dooms a manΓÇöa prisoner up to new era.", true) (12 ms)

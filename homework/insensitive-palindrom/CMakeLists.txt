@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.11.0)
 
+project(insensitivePalindrom)
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -13,9 +15,9 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-project(insensitivePalindrom)
 enable_testing()
 
+add_executable(${PROJECT_NAME} main.cpp PalindromTest.cpp)
 add_executable(${PROJECT_NAME}-ut test.cpp PalindromTest.cpp) # add your cpp file here after test.cpp
 # if this is problematic take a look into CMakeLists.txt files in other exercises
 
