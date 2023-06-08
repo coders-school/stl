@@ -1,12 +1,13 @@
 #include <array>
+#include <cstdint>
 #include <iostream>
 #include <utility>
 #include <vector>
 
 #include "compression.hpp"
 
-std::vector<std::pair<std::uint8_t, std::uint8_t>> compressGrayscale(std::array<std::array<std::uint8_t, width>, height> picture) {
-    std::vector<std::pair<std::uint8_t, std::uint8_t>> compressedPicutre;
+std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array<uint8_t, width>, height> picture) {
+    std::vector<std::pair<uint8_t, uint8_t>> compressedPicutre;
 
     for (const auto& row : picture) {
         auto it = row.begin();
@@ -24,8 +25,8 @@ std::vector<std::pair<std::uint8_t, std::uint8_t>> compressGrayscale(std::array<
     return compressedPicutre;
 }
 
-std::array<std::array<std::uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<std::uint8_t, std::uint8_t>> picture) {
-    std::array<std::array<std::uint8_t, width>, height> decompressedPicture;
+std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>> picture) {
+    std::array<std::array<uint8_t, width>, height> decompressedPicture;
     std::size_t rowNumber = 0;
     std::size_t columnNumber = 0;
     for (const auto& vectorPair : picture) {
@@ -41,7 +42,7 @@ std::array<std::array<std::uint8_t, width>, height> decompressGrayscale(std::vec
     return decompressedPicture;
 }
 
-void printMap(std::array<std::array<std::uint8_t, width>, height> picture) {
+void printMap(std::array<std::array<uint8_t, width>, height> picture) {
     for (const auto& row : picture) {
         for (const auto& el : row) {
             std::cout << el;
