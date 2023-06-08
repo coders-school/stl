@@ -22,3 +22,20 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array
     }
     return compressedPicutre;
 }
+
+std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>> picture) {
+    std::array<std::array<uint8_t, width>, height> decompressedPicture;
+    size_t rowNumber = 0;
+    size_t columnNumber = 0;
+    for (const auto& vectorPair : picture) {
+        for (int i = vectorPair.second; i > 0; i--) {
+            decompressedPicture[rowNumber][columnNumber] = vectorPair.first;
+            ++columnNumber;
+        }
+        if (columnNumber == width) {
+            columnNumber = 0;
+            ++rowNumber;
+        }
+    }
+    return decompressedPicture;
+}
