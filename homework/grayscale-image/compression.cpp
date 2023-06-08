@@ -1,4 +1,5 @@
 #include <array>
+#include <iostream>
 #include <utility>
 #include <vector>
 
@@ -38,4 +39,13 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<s
         }
     }
     return decompressedPicture;
+}
+
+void printMap(std::array<std::array<uint8_t, width>, height> picture) {
+    for (const auto& row : picture) {
+        for (const auto& el : row) {
+            std::cout << el;
+        }
+        std::cout << '\n';
+    }
 }
