@@ -7,7 +7,7 @@ bool is_palindrome(std::string text) {
     std::reverse(temp.begin(), temp.end());
 
     if (temp == text) {
-    	 return true;
+        return true;
     }
 
     return false;
