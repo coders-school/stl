@@ -15,13 +15,13 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 # Now simply link against gtest or gtest_main as needed. Eg
-project(grayscaleImages)
+project(grayscale-Image)
 enable_testing()
 
 add_executable(${PROJECT_NAME} main.cpp compression.cpp)
 add_executable(${PROJECT_NAME}-ut test.cpp compression.cpp)
 
-add_compile_options(${PROJECT_NAME} -Wall -Wextra -Werror)
+add_compile_options(${PROJECT_NAME} -Wall -Wextra -Wconversion -Werror)
 
 target_link_libraries(${PROJECT_NAME}-ut gtest_main)
 
