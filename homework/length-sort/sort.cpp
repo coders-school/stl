@@ -1,6 +1,6 @@
 #include "sort.hpp"
 
-std::deque<std::string> lengthSort (const std::forward_list<std::string> fl) {
+std::deque<std::string> lengthSort(const std::forward_list<std::string> fl) {
     std::deque<std::string> deq;
 
     for (const auto& el : fl) {
