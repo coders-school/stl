@@ -1,9 +1,9 @@
 #pragma once
 
-#include <vector>
-#include <string>
 #include <algorithm>
+#include <string>
+#include <vector>
 
-bool isVowel (char c);
+bool isVowel(char c);
 
-void removeVowels (std::vector<std::string>& vec);
+void removeVowels(std::vector<std::string>& vec);
