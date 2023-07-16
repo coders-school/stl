@@ -1,7 +1,7 @@
-#include <vector>
+#include <algorithm>
+#include <array>
 #include <iostream>
 #include <string>
-#include <array>
-#include <algorithm>
+#include <vector>
 
 void removeVowels(std::vector<std::string>&);
