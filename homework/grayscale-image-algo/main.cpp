@@ -1,7 +1,12 @@
+#include <algorithm>
 #include <array>
 #include <forward_list>
+#include <iostream>
+#include <iterator>
+#include "compression.hpp"
 
 // TODO: include
+void printMap(std::array<std::array<uint8_t, 32ULL>, 32ULL> decompressed);
 
 std::array<std::array<uint8_t, 32>, 32> generateNinja() {
     return {
@@ -44,8 +49,21 @@ int main() {
     auto ninja = generateNinja();
     // printMap(ninja);
     auto compressed = compressGrayscale(ninja);
+
+    for (auto& p : compressed) {
+        std::cout << "{" << static_cast<int>(p.first) << ", " << static_cast<int>(p.second) << "}, ";
+    }
+    std::cout << "\n"
+              << std::endl;
+
     auto decompressed = decompressGrayscale(compressed);
     // printMap(decompressed);
+    std::for_each(decompressed.begin(), decompressed.end(), [](const auto& row) {
+        std::copy(row.begin(), row.end(), std::ostream_iterator<int>(std::cout, " "));
+        std::cout << std::endl;
+    });
+
+    std::cout << std::endl;
 
     return 0;
 }
