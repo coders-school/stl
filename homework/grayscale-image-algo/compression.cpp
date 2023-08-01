@@ -1,13 +1,12 @@
 #include <algorithm>
-#include <iostream>
 #include "compression.hpp"
 
-/*
+
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, height>, width>& bitmap)
 {
     std::vector<std::pair<uint8_t, uint8_t>> vec_c;
     uint8_t last_color = bitmap[0][0];
-    uint8_t count = 1;
+    uint8_t count = 0;
     int temp = 0;
 
     for (int row = 0; row < width; row++) {
@@ -58,7 +57,7 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale1(const std::array<std
     }
     return vec_c;
 }
-*/
+
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale2(const std::array<std::array<uint8_t, height>, width>& bitmap)
 {
     std::vector<std::pair<uint8_t, uint8_t>> vec_c;
@@ -87,7 +86,7 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale2(const std::array<std
 
     return vec_c;
 }
-/*
+
 std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>> &vec) {
     std::array<std::array<uint8_t, width>, height> decompression;
     std::size_t k = 0;
@@ -104,7 +103,7 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<s
     }
     return decompression;
 }
-*/
+
 /*bitmap = { { { 0, 0, 0, 1, 1, 2, 3, 0, 0, 0 },
                      { 0, 0, 4, 4, 4, 1, 1, 1, 1, 1 },
                      { 2, 2, 2, 2, 2, 1, 2, 2, 2, 2 } } };*/
