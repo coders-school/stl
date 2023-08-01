@@ -2,7 +2,7 @@
 #include "compression.hpp"
 
 
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, height>, width>& bitmap)
+std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale1(const std::array<std::array<uint8_t, height>, width>& bitmap)
 {
     std::vector<std::pair<uint8_t, uint8_t>> vec_c;
     uint8_t last_color = bitmap[0][0];
@@ -26,7 +26,7 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std:
     return vec_c;
 }
 
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale1(const std::array<std::array<uint8_t, height>, width>& bitmap)
+std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale2(const std::array<std::array<uint8_t, height>, width>& bitmap)
 {
     std::vector<std::pair<uint8_t, uint8_t>> vec_c;
     vec_c.reserve(width * height);
@@ -58,7 +58,7 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale1(const std::array<std
     return vec_c;
 }
 
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale2(const std::array<std::array<uint8_t, height>, width>& bitmap)
+std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(const std::array<std::array<uint8_t, height>, width>& bitmap)
 {
     std::vector<std::pair<uint8_t, uint8_t>> vec_c;
     vec_c.reserve(width * height);
