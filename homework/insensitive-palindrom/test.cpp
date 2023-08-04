@@ -1,10 +1,7 @@
 
-#include <utility> //std::make_pair
-#include "palindrome.hpp"
+#include <utility>  //std::make_pair
 #include "gtest/gtest.h"
-
-// TODO: Includes
-
+#include "palindrome.hpp"
 class InsensitivePalindromFixture : public ::testing::TestWithParam<std::pair<std::string, bool>> {
 };
 

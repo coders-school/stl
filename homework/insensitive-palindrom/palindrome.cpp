@@ -16,7 +16,7 @@ bool is_palindrome(std::string word_to_check) {
             w.end());
     std::string r_w = w;
     std::ranges::reverse(r_w);
-    // std::cout<<"w  : " << w << std::endl;
-    // std::cout<<"r-w: " << r_w << std::endl;
+    std::cout<<"w  : " << w << std::endl;
+    std::cout<<"r-w: " << r_w << std::endl;
     return w == r_w;
 }
