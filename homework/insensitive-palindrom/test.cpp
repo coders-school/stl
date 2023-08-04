@@ -1,3 +1,6 @@
+
+#include <utility> //std::make_pair
+#include "palindrome.hpp"
 #include "gtest/gtest.h"
 
 // TODO: Includes
