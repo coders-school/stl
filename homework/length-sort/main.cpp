@@ -18,6 +18,5 @@ int main() {
     printCollection(words);
     auto sorted = lengthSort(words);
     printCollection(sorted);
-
     return 0;
 }
