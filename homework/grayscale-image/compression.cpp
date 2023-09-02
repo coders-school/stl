@@ -1,8 +1,10 @@
 #include "compression.hpp"
 #include <array>
 #include <cstdint>
+#include <iostream>
 #include <utility>
 #include <vector>
+
 std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array<uint8_t, width>, height> arr) {
     std::vector<std::pair<uint8_t, uint8_t>> res;
     for (auto const row : arr) {
@@ -49,4 +51,17 @@ std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<s
         }
     }
     return res;
+}
+void printMap(std::array<std::array<uint8_t, width>, height> arr) {
+    for (auto const row : arr) {
+        for (auto const col : row) {
+            if (col <= ' ') {
+                std::cout << " "
+                          << " ";
+            } else {
+                std::cout << col << " ";
+            }
+        }
+        std::cout << "\n";
+    }
 }
