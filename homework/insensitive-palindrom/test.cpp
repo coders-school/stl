@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-
+#include "palindrome.hpp"
 // TODO: Includes
 
 class InsensitivePalindromFixture : public ::testing::TestWithParam<std::pair<std::string, bool>> {
