@@ -58,7 +58,6 @@ TEST_F(Test, ShouldFormatWholeRecipe) {
         {20, 'g'},
         {1, 's'},
         {40, 'm'}};
-
     EXPECT_EQ(FormatRecipit(steps, ingredients, amount).str(), kExpected);
 }
 

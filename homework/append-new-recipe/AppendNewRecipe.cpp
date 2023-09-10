@@ -1,10 +1,34 @@
 #include "AppendNewRecipe.hpp"
 
-std::ofstream recipes("recipes.txt");
+std::ofstream recipes("recipes.txt", std::ios::out | std::ios::app);
 
+std::stringstream FormatRecipit(std::vector<std::string> steps,
+                                const std::list<std::string>& ingredients,
+                                const std::deque<std::pair<size_t, char>>& amount) {
+    std::string result{};
+    std::stringstream ss{};
+    ss << "Skladniki:\n";
+    auto items = FormatIngredients(ingredients, amount);
+    for (auto const item : items) {
+        ss << item << ",\n";
+    }
+    ss << "\nKroki:\n";
+    for (size_t i = 0; i < steps.size(); ++i) {
+        ss << i + 1 << ") " << steps[i] << ".\n";
+    }
+    ss << "___________________________________\n";
+    return ss;
+}
 bool AppendNewRecipe(std::vector<std::string> steps,
                      const std::list<std::string>& ingredients,
                      const std::deque<std::pair<size_t, char>>& amount) {
+    if (recipes.is_open()) {
+        recipes << FormatRecipit(steps, ingredients, amount).str();
+        recipes.close();
+        return true;
+    } else {
+        return false;
+    }
 }
 
 std::vector<std::string> FormatIngredients(const std::list<std::string>& ingredients,
@@ -26,19 +50,13 @@ std::vector<std::string> FormatIngredients(const std::list<std::string>& ingredi
             break;
         }
         case 'm': {
-            row += "ml";
+            row += " mililitrow";
             break;
         }
         }
+        row += " " + x;
         ++itr;
         res.push_back(row);
     }
-    for (auto x : res) {
-        std::cout << x << "\n";
-    }
+    return res;
 }
-/*
-20 gram cukru,
-1 szklanka(i) mąki,
-40ml rumu,
-*/
