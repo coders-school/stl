@@ -3,6 +3,8 @@
 #include "AppendNewRecipe.hpp"
 
 int main() {
+    recipes << "";
+    recipes.close();
     std::list<std::string> ingredients{"cukru", "maki", "rumu"};
     std::deque<std::pair<size_t, char>> amount{
         {20, 'g'},
