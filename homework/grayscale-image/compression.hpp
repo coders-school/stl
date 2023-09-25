@@ -1,5 +1,5 @@
-#include <iostream>
 #include <array>
+#include <iostream>
 #include <vector>
 
 constexpr size_t width = 240;
