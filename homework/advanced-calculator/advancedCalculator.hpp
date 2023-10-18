@@ -3,8 +3,9 @@
 #include <cmath>
 #include <functional>
 #include <map>
-#include <string>
 #include <regex>
+#include <string>
+
 enum class ErrorCode {
     OK,
     BadCharacter,
@@ -20,8 +21,8 @@ inline std::function<double(double, double)> multipl;
 inline std::function<double(double, double)> divide;
 inline std::function<int(int, int)> modulo;
 inline std::function<double(double)> factorial;
-inline std::function<double(double,double)> power;
-inline std::function<double(double,double)> root;
+inline std::function<double(double, double)> power;
+inline std::function<double(double, double)> root;
 
 template <typename T>
 using FunctionType = std::function<T(T)>;

@@ -15,7 +15,7 @@ int main() {
 
     double* result = new double;
 
-    std::cout << std::fixed << process("5,1!", result);
+    std::cout << std::fixed << process("3.435!", result);
     // std::cout << 255%1000 << std::endl;
     return 0;
 }

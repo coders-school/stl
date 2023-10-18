@@ -14,8 +14,8 @@ std::map<char, std::any>
         {'!', std::function<double(double)>([](double x) -> double {
             std::string b=std::to_string(abs(x));
            double result = std::tgamma(std::stod(b) + 1.0);
-           if (x<0.0){
-            result*=-1.0;
+           if (x<0.0f){
+            result*=-1.0f;
            }
     return result; })}};
 
@@ -97,5 +97,6 @@ ErrorCode process(std::string input, double* out) {
         break;
     }
     }
+    std::cout << *out << std::endl;
     return ErrorCode::OK;
 }
