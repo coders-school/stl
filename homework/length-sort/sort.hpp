@@ -1,8 +1,8 @@
 #pragma once
-#include <iostream>
+#include <algorithm>
 #include <deque>
 #include <forward_list>
-#include <algorithm>
+#include <iostream>
 
 bool setOrder(const std::string& a, const std::string& b);
 bool myCompare(const std::string& a, const std::string& b);
