@@ -3,7 +3,7 @@
 
 bool isVowel(const char& ch){
     char c = static_cast<char>(std::tolower(ch));
-    if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u')
+    if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u', c == 'y)
         return true;
     return false;
 }
