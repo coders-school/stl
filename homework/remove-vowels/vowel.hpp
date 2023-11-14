@@ -7,4 +7,4 @@
 bool isVowel(const char& c);
 void removeVowels(std::vector<std::string>& vec);
 
-#endif // VOWEL_HPP
+#endif
