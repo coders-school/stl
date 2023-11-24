@@ -1,5 +1,5 @@
-#include "palindrome.hpp"
 #include <iostream>
+#include "palindrome.hpp"
 
 int main() {
     std::string s{"helleh"};
