@@ -1,9 +1,7 @@
 #include "palindrome.hpp"
 #include <iostream>
 
-int main()
-{
-
+int main() {
     std::string s{"helleh"};
 
     if (is_palindrome(s)) {
