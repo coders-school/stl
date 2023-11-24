@@ -6,7 +6,7 @@ std::map<int, std::string> removeDuplicateAndTranformToMap(std::list<std::string
     std::set<std::string> s2{l.begin(), l.end()};
 
     std::transform(s1.begin(), s1.end(), s2.begin(), std::inserter(m, m.begin()), [](const auto &key, const auto &value) {
-                       return std::make_pair(key, value);
-                   });
+        return std::make_pair(key, value);
+    });
     return m;
 }
