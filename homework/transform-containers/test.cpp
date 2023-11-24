@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 
 // TODO: add proper includes
-#include "transform.h"
+#include "transform.hpp"
 
 TEST(transformContainerTests, ShouldReturnUniqueMap) {
     std::map<int, std::string> expected_result{
