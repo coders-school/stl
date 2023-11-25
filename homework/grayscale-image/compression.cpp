@@ -1,29 +1,25 @@
 #include <algorithm>
 #include "compression.hpp"
 
-std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array<uint8_t, 32>, 32> &img) {
-    std::vector<std::pair<uint8_t, uint8_t>> res;
+std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array<uint8_t, width>, height> input) {
+    std::vector<std::pair<uint8_t, uint8_t>> vec;
 
-    for (size_t i = 0; i < img.size(); ++i) {
-        auto& row = img[i];
-
-        for (auto it = row.begin(); it != row.end();) {
-            auto next = std::adjacent_find(it, row.end(), std::not_equal_to<uint8_t>());
-
-            uint8_t value = *it;
-            uint8_t count = std::distance(it, next);
-
-            res.emplace_back(value, count + 1);
-
-            if (next == row.end()) {
-                break;
-            }
-
-            it = next + 1;
+    std::for_each(input.begin(), input.end(), [&vec](auto tab) mutable {
+        auto position = tab.begin();
+        int count = 0;
+        int val = 0;
+        
+        for (; position != tab.end();) {
+            val = *position;
+            auto upper = std::find_if(position, tab.end(), [i{*position}](auto a) { return a != i; });
+            count = std::distance(position, upper);
+            // std::fill_n(std::back_inserter(vec), 1, std::pair<uint8_t, uint8_t>{val, count});
+            vec.push_back(std::pair<uint8_t, uint8_t>{val, count});
+            count = 0;
+            position = upper;
         }
-    }
-
-    return res;
+    });
+    return vec;
 }
 
 std::array<std::array<uint8_t, 32>, 32> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>> &compress) {
