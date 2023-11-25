@@ -22,8 +22,8 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array
     return vec;
 }
 
-std::array<std::array<uint8_t, 32>, 32> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>> &compress) {
-    std::array<std::array<uint8_t, 32>, 32> res;
+std::array<std::array<uint8_t, width>, height> decompressGrayscale(std::vector<std::pair<uint8_t, uint8_t>> &compress) {
+    std::array<std::array<uint8_t, height>, height> res;
 
     size_t i = 0;
     size_t j = 0;
