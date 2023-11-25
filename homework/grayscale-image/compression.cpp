@@ -5,24 +5,21 @@ std::vector<std::pair<uint8_t, uint8_t>> compressGrayscale(std::array<std::array
     std::vector<std::pair<uint8_t, uint8_t>> res;
 
     for (size_t i = 0; i < img.size(); ++i) {
-        auto &row = img[i];
+        auto& row = img[i];
 
-        auto begin = row.begin();
-        auto end = row.end();
+        for (auto it = row.begin(); it != row.end();) {
+            auto next = std::adjacent_find(it, row.end(), std::not_equal_to<uint8_t>());
 
-        while (begin != end) {
-            auto next = std::adjacent_find(begin, end, std::not_equal_to<uint8_t>());
-
-            uint8_t value = *begin;
-            uint8_t count = std::distance(begin, next);
+            uint8_t value = *it;
+            uint8_t count = std::distance(it, next);
 
             res.emplace_back(value, count + 1);
 
-            if (next == end) {
+            if (next == row.end()) {
                 break;
             }
 
-            begin = next + 1;
+            it = next + 1;
         }
     }
 
