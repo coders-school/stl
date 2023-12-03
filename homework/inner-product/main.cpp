@@ -1,6 +1,6 @@
-#include "arithmeticAverage.hpp"
 #include <iostream>
 #include <vector>
+#include "arithmeticAverage.hpp"
 
 int main() {
     auto a = Distance({7, 4, 3}, {17, 6, 2});
