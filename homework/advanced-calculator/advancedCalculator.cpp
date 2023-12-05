@@ -1,4 +1,3 @@
-#include "advancedCalculator.hpp"
 #include <algorithm>
 #include <cmath>
 #include <functional>
@@ -6,6 +5,8 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <sstream>
+
+#include "advancedCalculator.hpp"
 
 double add(double x, double y) {
     return x + y;
