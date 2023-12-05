@@ -4,7 +4,7 @@
 #include <string>
 
 enum ErrorCode{
-    Ok,
+    OK,
     BadCharacter,
     BadFormat,
     DivideBy0,
