@@ -2,9 +2,9 @@
 #include <cmath>
 #include <functional>
 #include <limits>
+#include <sstream>
 #include <unordered_map>
 #include <unordered_set>
-#include <sstream>
 
 #include "advancedCalculator.hpp"
 
@@ -40,11 +40,11 @@ double my_pow(double x, double y) {
 }
 
 double nth_root(double x, double y) {
-    return std::pow(x, (1/y));
+    return std::pow(x, (1 / y));
 }
 
 bool checkOperator(const char& op) {
-    std::unordered_set<char> ops{'+', '*' , '/' , '-', '%', '!', '^', '$'};
+    std::unordered_set<char> ops{'+', '*' , '/', '-', '%', '!', '^', '$'};
     auto it = ops.find(op);
 
     if (it == ops.end())
@@ -53,7 +53,7 @@ bool checkOperator(const char& op) {
 }
 
 ErrorCode isValidCharacter(const std::string& input) {
-    auto valid = std::any_of(input.begin(), input.end(), [](const auto& c){
+    auto valid = std::any_of(input.begin(), input.end(), [](const auto& c) {
         return ((c > '9' || c < '0') && c != '.' && c != ',' && c != ' ' && !checkOperator(c));
     });
 
@@ -94,7 +94,7 @@ ErrorCode isValidExpression(const std::string& input) {
     if (op == '!' && value2 != std::numeric_limits<double>::min())
         return ErrorCode::BadFormat;
 
-    if(op == '!' && value2 == std::numeric_limits<double>::min())
+    if (op == '!' && value2 == std::numeric_limits<double>::min())
         return ErrorCode::OK;
 
     if (isRead) {
@@ -131,13 +131,12 @@ ErrorCode process(std::string input, double* out) {
         return valid;
 
     valid = isValidExpression(input);
-    if(valid != ErrorCode::OK)
+    if (valid != ErrorCode::OK)
         return valid;
 
     valid = isMathDomain(input);
-    if(valid != ErrorCode::OK)
+    if (valid != ErrorCode::OK)
         return valid;
-
 
     std::istringstream iss{input};
     double x{std::numeric_limits<double>::min()};
