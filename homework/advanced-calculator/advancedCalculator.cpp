@@ -59,7 +59,7 @@ ErrorCode isValidCharacter(const std::string& input) {
 
     if (valid)
         return ErrorCode::BadCharacter;
-    return ErrorCode::Ok;
+    return ErrorCode::OK;
 }
 
 ErrorCode isMathDomain(const std::string& input) {
@@ -77,7 +77,7 @@ ErrorCode isMathDomain(const std::string& input) {
     if (op == '$' && value1 < 0)
         return ErrorCode::SqrtOfNegativeNumber;
 
-    return ErrorCode::Ok;
+    return ErrorCode::OK;
 }
 
 ErrorCode isValidExpression(const std::string& input) {
@@ -95,13 +95,13 @@ ErrorCode isValidExpression(const std::string& input) {
         return ErrorCode::BadFormat;
 
     if(op == '!' && value2 == std::numeric_limits<double>::min())
-        return ErrorCode::Ok;
+        return ErrorCode::OK;
 
     if (isRead) {
         if ((iss.eof() || std::isspace(iss.peek())) &&
             (checkOperator(op)) &&
             iss.rdbuf()->in_avail() == 0) {
-            return ErrorCode::Ok;
+            return ErrorCode::OK;
         }
         else
             return ErrorCode::BadFormat;
@@ -110,7 +110,7 @@ ErrorCode isValidExpression(const std::string& input) {
     return ErrorCode::BadFormat;
 }
 
-double returnValue(double x, char op, double y){
+double returnValue(double x, char op, double y) {
     std::unordered_map<char, std::function<double(double, double)>> operations{
             {'+', add},
             {'-', sub},
@@ -129,15 +129,15 @@ ErrorCode process(std::string input, double* out) {
         return ErrorCode::BadFormat;
 
     auto valid = isValidCharacter(input);
-    if (valid != ErrorCode::Ok)
+    if (valid != ErrorCode::OK)
         return valid;
 
     valid = isValidExpression(input);
-    if(valid != ErrorCode::Ok)
+    if(valid != ErrorCode::OK)
         return valid;
 
     valid = isMathDomain(input);
-    if(valid != ErrorCode::Ok)
+    if(valid != ErrorCode::OK)
         return valid;
 
 
@@ -149,5 +149,5 @@ ErrorCode process(std::string input, double* out) {
 
     *out = returnValue(x, op, y);
 
-    return ErrorCode::Ok;
+    return ErrorCode::OK;
 }
