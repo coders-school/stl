@@ -54,7 +54,7 @@ bool checkOperator(const char& op) {
 
 ErrorCode isValidCharacter(const std::string& input) {
     auto valid = std::any_of(input.begin(), input.end(), [](const auto& c){
-       return ((c > '9' || c < '0') && c != '.' && c != ',' && c != ' ' && !checkOperator(c));
+        return ((c > '9' || c < '0') && c != '.' && c != ',' && c != ' ' && !checkOperator(c));
     });
 
     if (valid)
@@ -98,13 +98,11 @@ ErrorCode isValidExpression(const std::string& input) {
         return ErrorCode::OK;
 
     if (isRead) {
-        if ((iss.eof() || std::isspace(iss.peek())) &&
-            (checkOperator(op)) &&
-            iss.rdbuf()->in_avail() == 0) {
+        if ((iss.eof() || std::isspace(iss.peek())) && (checkOperator(op)) && iss.rdbuf()->in_avail() == 0) {
             return ErrorCode::OK;
         }
-        else
-            return ErrorCode::BadFormat;
+    else
+        return ErrorCode::BadFormat;
     }
 
     return ErrorCode::BadFormat;
@@ -112,14 +110,14 @@ ErrorCode isValidExpression(const std::string& input) {
 
 double returnValue(double x, char op, double y) {
     std::unordered_map<char, std::function<double(double, double)>> operations{
-            {'+', add},
-            {'-', sub},
-            {'*', mul},
-            {'/', my_div},
-            {'%', my_mod},
-            {'!', fac},
-            {'^', my_pow},
-            {'$', nth_root},
+        {'+', add},
+        {'-', sub},
+        {'*', mul},
+        {'/', my_div},
+        {'%', my_mod},
+        {'!', fac},
+        {'^', my_pow},
+        {'$', nth_root},
     };
     return operations.at(op)(x, y);
 }
