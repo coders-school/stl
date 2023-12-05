@@ -44,7 +44,7 @@ double nth_root(double x, double y) {
 }
 
 bool checkOperator(const char& op) {
-    std::unordered_set<char> ops{'+', '*' , '/', '-', '%', '!', '^', '$'};
+    std::unordered_set<char> ops{'+', '*', '/', '-', '%', '!', '^', '$'};
     auto it = ops.find(op);
 
     if (it == ops.end())
@@ -100,9 +100,8 @@ ErrorCode isValidExpression(const std::string& input) {
     if (isRead) {
         if ((iss.eof() || std::isspace(iss.peek())) && (checkOperator(op)) && iss.rdbuf()->in_avail() == 0) {
             return ErrorCode::OK;
-        }
-    else
-        return ErrorCode::BadFormat;
+        } else
+            return ErrorCode::BadFormat;
     }
 
     return ErrorCode::BadFormat;
