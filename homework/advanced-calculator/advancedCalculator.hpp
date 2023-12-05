@@ -3,7 +3,7 @@
 
 #include <string>
 
-enum ErrorCode{
+enum ErrorCode {
     OK,
     BadCharacter,
     BadFormat,
