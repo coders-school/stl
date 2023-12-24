@@ -1,9 +1,10 @@
 #include <array>
 #include <forward_list>
-
 #include "compression.hpp"
 
-std::array<std::array<uint8_t, width>, height> generateNinja() {
+// TODO: include
+
+std::array<std::array<uint8_t, 32>, 32> generateNinja() {
     return {
         std::array<uint8_t, 32>{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
         {0, 0, 0, 0, 0, 0, 0, 0, 11, 29, 52, 56, 56, 56, 56, 56, 56, 56, 56, 56, 56, 51, 29, 10, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -42,8 +43,10 @@ std::array<std::array<uint8_t, width>, height> generateNinja() {
 
 int main() {
     auto ninja = generateNinja();
+    printMap(ninja);
     auto compressed = compressGrayscale(ninja);
     auto decompressed = decompressGrayscale(compressed);
-    printMap(ninja);
+    printMap(decompressed);
+
     return 0;
 }

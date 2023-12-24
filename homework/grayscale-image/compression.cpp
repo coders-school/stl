@@ -1,5 +1,3 @@
-#pragma once
-
 #include "compression.hpp"
 
 std::vector<std::pair<uint8_t, uint8_t>>
@@ -43,9 +41,9 @@ std::array<std::array<uint8_t, width>, height>
     }
 
 void printMap(std::array<std::array<uint8_t, width>, height>& pixelPrint) {
-    for (auto i = 0; i != height; ++i) {
-        for (auto j = 0; j != width; ++j) {
-            std::cout << pixelPrint[i][j];
+    for (auto el : pixelPrint) {
+        for (auto el2 : el) {
+            std::cout << el2;
         }
     }
 }
