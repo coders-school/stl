@@ -6,7 +6,7 @@
 #include <vector>
 
 std::map<int, std::string>
-    removeDuplicateAndTranformToMap(std::list<std::string> l, std::deque<int> d) {
+removeDuplicateAndTranformToMap(std::list<std::string> l, std::deque<int> d) {
     std::sort(d.begin(), d.end());
     l.sort();
     d.erase(std::unique(d.begin(), d.end()), d.end());
