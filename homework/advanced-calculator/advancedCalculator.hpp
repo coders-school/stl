@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <string>
 
 enum class ErrorCode {
@@ -12,3 +13,5 @@ enum class ErrorCode {
 };
 
 ErrorCode process(std::string input, double* out);
+
+std::ostream& operator<<(std::ostream& out, const ErrorCode& error);
