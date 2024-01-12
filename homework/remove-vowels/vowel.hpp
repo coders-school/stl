@@ -1,8 +1,8 @@
 #ifndef VOWEL_HPP
 #define VOWEL_HPP
 
-#include <vector>
 #include <string>
+#include <vector>
 
 void removeVowels(std::vector<std::string>& vec);
 
