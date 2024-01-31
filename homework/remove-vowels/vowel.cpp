@@ -1,7 +1,6 @@
+#include "vowel.hpp"
 #include <algorithm>
 #include <iostream>
-#include "vowel.hpp"
-
 
 void printWords(const std::vector<std::string>& v) {
     std::cout << "---------------------------------" << std::endl;
