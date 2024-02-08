@@ -3,6 +3,7 @@
 #include <array>
 #include <utility>
 #include <vector>
+#include <cstdint>
 
 constexpr int width = 32;
 constexpr int height = 32;
