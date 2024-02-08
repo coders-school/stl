@@ -4,6 +4,7 @@
 #include <utility>
 #include <vector>
 #include <cstdint>
+#include <stdio.h>
 
 constexpr int width = 32;
 constexpr int height = 32;
