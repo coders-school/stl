@@ -4,12 +4,11 @@
 #include <cctype>
 
 bool is_palindrome(std::string word) {
-
-    auto newEnd = std::remove_if(word.begin(), word.end(), [](auto c){ 
-        if(std::isalnum(c)){
+    auto newEnd = std::remove_if(word.begin(), word.end(), [](auto c) {
+        if (std::isalnum(c)) {
             return false;
         }
-        return true; 
+        return true;
     });
 
     std::transform(word.begin(), newEnd,
