@@ -1,6 +1,6 @@
 #include <algorithm>
-#include <string>
 #include <iostream>
+#include <string>
 
 #include "gtest/gtest.h"
 #include "palindrom.hpp"
