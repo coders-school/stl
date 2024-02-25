@@ -1,4 +1,9 @@
+#include <algorithm>
+#include <string>
+#include <iostream>
+
 #include "gtest/gtest.h"
+#include "palindrom.hpp"
 
 // TODO: Includes
 
