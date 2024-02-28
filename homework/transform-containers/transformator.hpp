@@ -5,5 +5,4 @@
 #include <map>
 #include <string>
 
-
 std::map<int, std::string> removeDuplicateAndTranformToMap(std::list<std::string>& l, std::deque<int>& d);
