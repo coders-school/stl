@@ -3,7 +3,7 @@
     std::map<int, std::string> removeDuplicateAndTranformToMap(std::list<std::string>& list, std::deque<int>& deque) {
     std::map<int, std::string> mergeContiners;
     list.sort();
-    list.unique();  
+    list.unique();
     std::sort(deque.begin(), deque.end());
     deque.erase(std::unique(deque.begin(), deque.end()), deque.end());
     std::transform(deque.begin(), deque.end(), list.begin(), std::inserter(mergeContiners, mergeContiners.end()),
