@@ -1,9 +1,9 @@
 #include <algorithm>
-#include <map>
-#include <list>
 #include <deque>
-#include <string>
 #include <iostream>
+#include <list>
+#include <map>
+#include <string>
 
 #include "gtest/gtest.h"
 #include "mergeConteiners.hpp"

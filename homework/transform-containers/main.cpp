@@ -2,8 +2,7 @@
 
 #include "mergeConteiners.hpp"
 
-int main()
-{
+int main() {
     std::cout << "hello";
     return 0;
 }
