@@ -9,6 +9,18 @@ TEST(arithmeticAverageTest, ShouldCalculateArithmeticAverage) {
     std::vector<int> first{-5, 4, 2, -5, 2, 4, 6, 7};
     std::vector<int> second{3, 5, -2, 6, 7, -3, 6, 9};
     EXPECT_NEAR(ArithmeticAverage(first, second), 2.875, epsilon);
+
+    first = {7, 4, 3, 13};
+    second = {17, 6, 2, -2, 18, 5};
+    EXPECT_NEAR(ArithmeticAverage(first, second), 7.3, epsilon);
+
+    first = {7, 4, 3, 13, 20, 11, 12, 0, 0, -1};
+    second = {17, 6, 2, -2, 18, 5};
+    EXPECT_NEAR(ArithmeticAverage(first, second), 7.187, epsilon);
+
+    first = {0};
+    second = {0};
+    EXPECT_NEAR(ArithmeticAverage(first, second), 0, epsilon);
     // Write more test case
 }
 
