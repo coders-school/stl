@@ -23,9 +23,8 @@ bool isBadFormat(const std::string& input) {
     return false;
 }
 
-bool isInteger(double value) {
-    double absolute = abs(value);
-    return absolute == floor(absolute);
+bool isInteger(double value, double tolerance = 1e-6) {
+    return std::abs(value - std::round(value)) < tolerance;
 }
 
 ErrorCode process(std::string input, double* out) {
@@ -55,8 +54,6 @@ ErrorCode process(std::string input, double* out) {
     } else if (op == '$' && (lhs < 0)) {
         return ErrorCode::SqrtOfNegativeNumber;
     }
-
-    std::cout << lhs << " op: " << op << std::endl;
 
     std::map<char, std::function<double()>> operations;
 
