@@ -1,12 +1,11 @@
+#include <algorithm>
 #include <deque>
 #include <forward_list>
-#include <string>
 #include <iostream>
+#include <string>
 #include <vector>
-#include <algorithm>
 
-std::deque<std::string> lengthSort(const std::forward_list<std::string>& words){
-
+std::deque<std::string> lengthSort(const std::forward_list<std::string>& words) {
     std::cout << "Hello from lengthSort" << std::endl;
     std::deque<std::string> sorted;
     int i = 0;
@@ -14,7 +13,7 @@ std::deque<std::string> lengthSort(const std::forward_list<std::string>& words){
     for (const auto& element : words) {
         sorted.push_back(element);
     }
-    
+
     std::sort(sorted.begin(), sorted.end());
     return sorted;
 }
