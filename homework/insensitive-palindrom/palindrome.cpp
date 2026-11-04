@@ -10,9 +10,9 @@ bool isItLetter(char c)
 
 bool is_palindrome(std::string& input)
 {
-	std::for_each(begin(input), end(input), [](char& c) {c =  std::tolower(c);});
+	std::for_each(begin(input), end(input), [](char& c) {c = std::tolower(c);});
 	std::remove_if(begin(input), end(input), [](char& c) {if (!isItLetter(c)) return true;});
-	
+
 
 	for (int i = 0, j = input.size() - 1; i++, j--; i < j)
 	{
