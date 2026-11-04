@@ -14,7 +14,6 @@ bool is_palindrome(std::string input) {
     for (int i = 0, j = input.size() - 1; i++, j--; i < j) {
         if (input[i] != input[j])
             return false;
-        return true;
     }
     return true;
 }
