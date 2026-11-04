@@ -1,4 +1,4 @@
-#include <algorithm>
+#include "palindrome.h"
 
 bool isItLetter(char c)
 {
