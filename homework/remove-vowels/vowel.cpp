@@ -1,6 +1,6 @@
 #include "vowel.hpp"
-#include <vector>
 #include <string>
+#include <vector>
 
 void removeVowels(std::vector<std::string>& words) {
     for (auto& word : words) {
@@ -14,4 +14,3 @@ void removeVowels(std::vector<std::string>& words) {
         word = result;
     }
 }
-
